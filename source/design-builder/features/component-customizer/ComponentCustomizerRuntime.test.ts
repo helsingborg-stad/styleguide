@@ -894,6 +894,150 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
+	it('shows adaptive button settings for default, primary, and secondary variants', () => {
+		document.body.innerHTML = `
+			<button class="c-button c-button__filled" data-component="button"></button>
+			<button class="c-button c-button__filled--primary" data-component="button"></button>
+			<button class="c-button c-button__basic--secondary" data-component="button"></button>
+		`;
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		const runtime = new ComponentCustomizerRuntime(
+			{
+				button: {
+					name: 'Button',
+					tokens: ['color--alpha', 'color--primary', 'color--secondary'],
+					componentSettings: [
+						{
+							id: 'colors',
+							label: 'Colors',
+							settings: [
+								{
+									token: 'color--primary',
+									label: 'Button Color',
+									visibleWhen: {
+										hasAnyClass: ['c-button__filled--primary', 'c-button__basic--primary', 'c-button__outlined--primary'],
+									},
+								},
+								{
+									token: 'color--secondary',
+									label: 'Button Color',
+									visibleWhen: {
+										hasAnyClass: ['c-button__filled--secondary', 'c-button__basic--secondary', 'c-button__outlined--secondary'],
+									},
+								},
+								{
+									token: 'color--alpha',
+									label: 'Button Color',
+									visibleWhen: {
+										doesNotHaveClass: [
+											'c-button__filled--primary',
+											'c-button__basic--primary',
+											'c-button__outlined--primary',
+											'c-button__filled--secondary',
+											'c-button__basic--secondary',
+											'c-button__outlined--secondary',
+										],
+									},
+								},
+							],
+						},
+					],
+				},
+			},
+			tokenLibrary,
+			mount,
+		);
+		const runtimeInternals = runtime as unknown as {
+			buildCategoriesForComponent(componentName: string): TokenData['categories'];
+		};
+
+		const settingVariables = runtimeInternals
+			.buildCategoriesForComponent('button')
+			.flatMap((category) => category.settings)
+			.map((setting) => setting.variable);
+
+		expect(settingVariables).toEqual(expect.arrayContaining(['--c-button--color--alpha', '--c-button--color--primary', '--c-button--color--secondary']));
+
+		mount.remove();
+	});
+
+	it('filters button settings to the picked button variant', () => {
+		document.body.innerHTML = `
+			<button class="c-button c-button__filled" data-component="button"></button>
+			<button class="c-button c-button__outlined--primary" data-component="button"></button>
+		`;
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		const runtime = new ComponentCustomizerRuntime(
+			{
+				button: {
+					name: 'Button',
+					tokens: ['color--alpha', 'color--primary', 'color--secondary'],
+					componentSettings: [
+						{
+							id: 'colors',
+							label: 'Colors',
+							settings: [
+								{
+									token: 'color--primary',
+									label: 'Button Color',
+									visibleWhen: {
+										hasAnyClass: ['c-button__filled--primary', 'c-button__basic--primary', 'c-button__outlined--primary'],
+									},
+								},
+								{
+									token: 'color--secondary',
+									label: 'Button Color',
+									visibleWhen: {
+										hasAnyClass: ['c-button__filled--secondary', 'c-button__basic--secondary', 'c-button__outlined--secondary'],
+									},
+								},
+								{
+									token: 'color--alpha',
+									label: 'Button Color',
+									visibleWhen: {
+										doesNotHaveClass: [
+											'c-button__filled--primary',
+											'c-button__basic--primary',
+											'c-button__outlined--primary',
+											'c-button__filled--secondary',
+											'c-button__basic--secondary',
+											'c-button__outlined--secondary',
+										],
+									},
+								},
+							],
+						},
+					],
+				},
+			},
+			tokenLibrary,
+			mount,
+		);
+		const runtimeInternals = runtime as unknown as {
+			buildCategoriesForComponent(componentName: string): TokenData['categories'];
+		};
+		const buttons = document.querySelectorAll<HTMLElement>('[data-component="button"]');
+		const togglePickButton = mount.querySelector<HTMLButtonElement>('[data-action="toggle-target-selection"]');
+
+		togglePickButton?.click();
+		buttons[1]?.click();
+
+		const settingVariables = runtimeInternals
+			.buildCategoriesForComponent('button')
+			.flatMap((category) => category.settings)
+			.map((setting) => setting.variable);
+
+		expect(settingVariables).toContain('--c-button--color--primary');
+		expect(settingVariables).not.toContain('--c-button--color--alpha');
+		expect(settingVariables).not.toContain('--c-button--color--secondary');
+
+		mount.remove();
+	});
+
 	it('falls back to token-based controls when componentSettings are not provided', () => {
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);

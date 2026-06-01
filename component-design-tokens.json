@@ -292,21 +292,45 @@
         "settings": [
           {
             "token": "color--primary",
-            "label": "Primary Variant",
-            "description": "Selects the token family used for primary button variants.",
-            "includeStateColors": true
+            "label": "Button Color",
+            "description": "Controls the background, text, border, hover, and active colors for primary buttons.",
+            "includeStateColors": true,
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-button__filled--primary",
+                "c-button__basic--primary",
+                "c-button__outlined--primary"
+              ]
+            }
           },
           {
             "token": "color--secondary",
-            "label": "Secondary Variant",
-            "description": "Selects the token family used for secondary button variants.",
-            "includeStateColors": true
+            "label": "Button Color",
+            "description": "Controls the background, text, border, hover, and active colors for secondary buttons.",
+            "includeStateColors": true,
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-button__filled--secondary",
+                "c-button__basic--secondary",
+                "c-button__outlined--secondary"
+              ]
+            }
           },
           {
             "token": "color--surface",
-            "label": "Default Variant",
-            "description": "Selects the token family used for default button variants.",
-            "includeStateColors": true
+            "label": "Button Color",
+            "description": "Controls the background, text, border, hover, and active colors for default buttons.",
+            "includeStateColors": true,
+            "visibleWhen": {
+              "doesNotHaveClass": [
+                "c-button__filled--primary",
+                "c-button__basic--primary",
+                "c-button__outlined--primary",
+                "c-button__filled--secondary",
+                "c-button__basic--secondary",
+                "c-button__outlined--secondary"
+              ]
+            }
           }
         ]
       }
