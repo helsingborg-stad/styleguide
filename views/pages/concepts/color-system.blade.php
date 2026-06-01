@@ -36,35 +36,6 @@
             letter-spacing: 0.06em;
         }
 
-        .color-system-stat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1rem;
-        }
-
-        .color-system-stat-card {
-            border: 1px solid var(--color--surface-border);
-            border-radius: calc(var(--border-radius, 1) * 0.5rem);
-            background: var(--color--surface);
-            padding: 1rem;
-        }
-
-        .color-system-stat-value {
-            display: block;
-            font-size: 1.75rem;
-            font-weight: 700;
-            line-height: 1;
-            color: var(--color--surface-contrast);
-            margin-bottom: 0.35rem;
-        }
-
-        .color-system-stat-label {
-            display: block;
-            font-size: 0.82rem;
-            color: var(--color--surface-contrast-muted);
-            line-height: 1.4;
-        }
-
         .color-system-section-heading {
             margin-bottom: 0.5rem;
         }
@@ -92,26 +63,69 @@
             margin-top: 0.45rem;
         }
 
-        .color-system-anatomy-row {
-            display: flex;
-            align-items: center;
-            gap: 0.65rem;
-            flex-wrap: wrap;
-            margin-top: 0.85rem;
+        .color-system-color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 0.9rem;
+            margin-top: 1.5rem;
         }
 
-        .color-system-anatomy-swatch {
-            width: 2.5rem;
-            height: 2.5rem;
-            border-radius: calc(var(--border-radius, 1) * 0.35rem);
+        .color-system-color-tile {
+            appearance: none;
             border: 1px solid var(--color--surface-border);
-            flex: none;
+            border-radius: calc(var(--border-radius, 1) * 0.5rem);
+            background: var(--color--surface);
+            color: var(--color--surface-contrast);
+            cursor: pointer;
+            display: grid;
+            grid-template-rows: 96px auto;
+            min-width: 0;
+            overflow: hidden;
+            padding: 0;
+            text-align: left;
+            text-decoration: none;
+            transition:
+                border-color 0.15s ease,
+                box-shadow 0.15s ease,
+                transform 0.15s ease;
         }
 
-        .color-system-anatomy-label {
+        .color-system-color-tile:hover,
+        .color-system-color-tile:focus-visible {
+            border-color: var(--color--primary);
+            box-shadow: 0 0 0 2px color-mix(in srgb, var(--color--primary) 20%, transparent);
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        .color-system-color-tile__swatch {
+            min-height: 96px;
+            border-bottom: 1px solid var(--color--surface-border);
+        }
+
+        .color-system-color-tile__body {
+            display: grid;
+            gap: 0.2rem;
+            min-width: 0;
+            padding: 0.8rem;
+        }
+
+        .color-system-color-tile__name,
+        .color-system-color-tile__token {
+            display: block;
+            overflow-wrap: anywhere;
+        }
+
+        .color-system-color-tile__name {
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .color-system-color-tile__token {
+            color: var(--color--surface-contrast-muted);
             font-family: var(--font-family-code, monospace);
-            font-size: 0.74rem;
-            color: var(--color--surface-contrast);
+            font-size: 0.72rem;
+            line-height: 1.4;
         }
 
         .color-system-family-overview {
@@ -200,53 +214,26 @@
             color: var(--color--surface-contrast-muted);
         }
 
-        .color-system-accordion {
+        .color-system-section-list {
+            display: grid;
+            gap: 1rem;
             margin-top: 1rem;
         }
 
-        .color-system-palette-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 0.9rem;
-        }
-
-        .color-system-palette-card {
+        .color-system-section-card {
             border: 1px solid var(--color--surface-border);
             border-radius: calc(var(--border-radius, 1) * 0.5rem);
             background: var(--color--surface);
-            overflow: hidden;
+            padding: 1rem;
         }
 
-        .color-system-palette-card[hidden],
-        .color-system-palette-section[hidden] {
-            display: none;
-        }
-
-        .color-system-palette-card__swatch {
-            min-height: 120px;
-            padding: 0.9rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            gap: 0.25rem;
-            border-bottom: 1px solid var(--color--surface-border);
-        }
-
-        .color-system-palette-card__list {
-            padding: 0.8rem 0.9rem 0.9rem;
-            font-size: 0.72rem;
-            line-height: 1.55;
-            color: var(--color--surface-contrast-muted);
-        }
-
-        .color-system-palette-card__token {
-            display: block;
-            font-family: var(--font-family-code, monospace);
-            font-size: 0.82rem;
-            font-weight: 700;
+        .color-system-section-card__heading {
+            margin: 0 0 0.75rem;
+            color: var(--color--surface-contrast);
+            font-size: 1rem;
             line-height: 1.35;
-            word-break: break-all;
         }
+
     </style>
 
     @php
@@ -358,17 +345,28 @@
             ],
         ];
 
-        $editableBaseCount = array_reduce($colorGroups, function ($carry, $group) {
-            return $carry + count($group['families']);
-        }, 0) + 10;
+        $colorFamilies = [];
+        foreach ($colorGroups as $group) {
+            foreach ($group['families'] as $family) {
+                $colorFamilies[] = [
+                    'group' => $group,
+                    'family' => $family,
+                    'tabIndex' => count($colorFamilies) + 1,
+                ];
+            }
+        }
 
-        $autoCompanionCount = array_reduce($colorGroups, function ($carry, $group) {
-            return $carry + array_reduce($group['families'], function ($familyCarry, $family) {
-                return $familyCarry + count(array_filter($family['companions'], function ($companion) {
-                    return ($companion['editable'] ?? false) === false;
-                }));
-            }, 0);
-        }, 0) + 30;
+        $renderColorTile = static function (array $entry): string {
+            $base = $entry['family']['base'];
+
+            return '<a href="#color-system-details-tabs" class="color-system-color-tile" data-simulate-click="#color-system-details-tabs .c-tabs__button:nth-of-type(' . e((string) $entry['tabIndex']) . ')">'
+                . '<span class="color-system-color-tile__swatch" style="background: var(' . e($base['var']) . ');"></span>'
+                . '<span class="color-system-color-tile__body">'
+                . '<span class="color-system-color-tile__name">' . e($base['label']) . '</span>'
+                . '<span class="color-system-color-tile__token">' . e($base['var']) . '</span>'
+                . '</span>'
+                . '</a>';
+        };
 
         $renderCompanion = static function (array $companion): string {
             $default = !empty($companion['default']) ? ' · ' . e($companion['default']) : '';
@@ -404,232 +402,64 @@
                 . '</div>';
         };
 
-        $anatomyItems = [
-            [
-                'heading' => 'Border companion',
-                'content' => '<p>A stronger mix used for outlines, dividers, and hover states where the color shift must remain visible against the base.</p>'
-                    . '<div class="color-system-anatomy-row">'
-                    . '<span class="color-system-anatomy-swatch" style="background: var(--color--primary-contrast);"></span><span class="color-system-anatomy-label">contrast</span>'
-                    . '<span class="color-system-anatomy-swatch" style="background: var(--color--primary);"></span><span class="color-system-anatomy-label">base</span>'
-                    . '<span class="color-system-anatomy-swatch" style="background: var(--color--primary-border);"></span><span class="color-system-anatomy-label">border</span>'
-                    . '</div>'
-                    . '<code class="color-system-formula">color-mix(in srgb, contrast var(--color--border-mix-amount), base)</code>',
-            ],
-            [
-                'heading' => 'Alt companion',
-                'content' => '<p>A lighter-touch mix used for subtle fills such as selected rows, inset areas, and quiet active states.</p>'
-                    . '<div class="color-system-anatomy-row">'
-                    . '<span class="color-system-anatomy-swatch" style="background: var(--color--primary-contrast);"></span><span class="color-system-anatomy-label">contrast</span>'
-                    . '<span class="color-system-anatomy-swatch" style="background: var(--color--primary);"></span><span class="color-system-anatomy-label">base</span>'
-                    . '<span class="color-system-anatomy-swatch" style="background: var(--color--primary-alt);"></span><span class="color-system-anatomy-label">alt</span>'
-                    . '</div>'
-                    . '<code class="color-system-formula">color-mix(in srgb, contrast var(--color--alt-mix-amount), base)</code>',
-            ],
-            [
-                'heading' => 'Contrast-muted companion',
-                'content' => '<p>A fixed readability pattern used by layout families so secondary text keeps a consistent relationship to the surface.</p>'
-                    . '<div class="color-system-anatomy-row">'
-                    . '<span class="color-system-anatomy-swatch" style="background: var(--color--surface-contrast);"></span><span class="color-system-anatomy-label">contrast</span>'
-                    . '<span class="color-system-anatomy-swatch" style="background: var(--color--surface);"></span><span class="color-system-anatomy-label">surface</span>'
-                    . '<span class="color-system-anatomy-swatch" style="background: var(--color--surface-contrast-muted);"></span><span class="color-system-anatomy-label">contrast-muted</span>'
-                    . '</div>'
-                    . '<code class="color-system-formula">color-mix(in srgb, contrast 67.5%, base)</code>',
-            ],
-        ];
+        $renderFamilyDetails = static function (array $entry) use ($renderFamilyContent): string {
+            $base = $entry['family']['base'];
+            $companions = $entry['family']['companions'];
+            $derivedCount = count(array_filter($companions, static function (array $companion): bool {
+                return ($companion['editable'] ?? false) === false;
+            }));
+            $derivedDescription = $derivedCount === 0
+                ? 'No companion tokens in this family are generated.'
+                : e((string) $derivedCount) . ' companion token' . ($derivedCount === 1 ? ' is' : 's are') . ' generated from the base color and its contrast color.';
 
-        $guidanceItems = [
-            [
-                'heading' => 'Mix amount tokens',
-                'content' => '<ul class="color-system-intro-list">'
-                    . '<li><strong>--color--border-mix-amount</strong> controls how clearly hover, outlines, and border companions stand apart from the base family.</li>'
-                    . '<li><strong>--color--alt-mix-amount</strong> controls how subtle or visible the softer companion fills feel across the whole system.</li>'
-                    . '<li>Because these are global controls, changing one amount rebalances every generated companion of that type at once.</li>'
-                    . '</ul>',
-            ],
-            [
-                'heading' => 'Changing colors',
-                'content' => '<ul class="color-system-intro-list">'
-                    . '<li>Change a base token when you want a new family identity. The generated companions will follow automatically.</li>'
-                    . '<li>Change a contrast token when readability on top of the base surface needs adjustment.</li>'
-                    . '<li>Use palette slots when you need extra accent families without touching the primary brand colors.</li>'
-                    . '</ul>',
-            ],
-        ];
+            return '<div class="color-system-section-list">'
+                . '<section class="color-system-section-card">'
+                . '<span class="color-system-kicker">' . e($entry['group']['title']) . '</span>'
+                . '<h3 class="color-system-section-card__heading">' . e($base['label']) . ' details</h3>'
+                . '<p class="color-system-family-usage">' . e($entry['group']['description']) . '</p>'
+                . '</section>'
+                . '<section class="color-system-section-card">'
+                . $renderFamilyContent($entry['family'])
+                . '</section>'
+                . '<section class="color-system-section-card">'
+                . '<h3 class="color-system-section-card__heading">Derivation rules</h3>'
+                . '<ul class="color-system-intro-list">'
+                . '<li>Editable base and contrast values are set directly in the design token system.</li>'
+                . '<li>' . $derivedDescription . '</li>'
+                . '<li><strong>--color--border-mix-amount</strong> controls border and hover companion strength.</li>'
+                . '<li><strong>--color--alt-mix-amount</strong> controls subtle fill companion strength.</li>'
+                . '</ul>'
+                . '</section>'
+                . '</div>';
+        };
+
+        $detailTabs = array_map(static function (array $entry) use ($renderFamilyDetails): array {
+            return [
+                'title' => $entry['family']['base']['label'],
+                'content' => $renderFamilyDetails($entry),
+            ];
+        }, $colorFamilies);
     @endphp
 
     @paper(['padding' => 4, 'classList' => ['u-margin__bottom--5'], 'attributeList' => ['id' => 'overview']])
-        <span class="color-system-kicker">How to use this page</span>
+        <span class="color-system-kicker">Color overview</span>
         @typography(['element' => 'h2', 'variant' => 'h3', 'classList' => ['color-system-section-heading']])
-            Start with the family, then expand only what you need.
+            Names and colors first
         @endtypography
 
-        <ul class="color-system-intro-list">
-            <li>Use the overview numbers to understand system size at a glance.</li>
-            <li>Open the anatomy section only when you need to understand how companion tones are derived.</li>
-            <li>Open a family accordion when you need the exact token names, swatches, defaults, and formulas.</li>
-        </ul>
-    @endpaper
-
-    @paper(['padding' => 4, 'classList' => ['u-margin__bottom--5']])
-        <span class="color-system-kicker">At a glance</span>
-        @typography(['element' => 'h2', 'variant' => 'h3', 'classList' => ['color-system-section-heading']])
-            Read the system without opening every token group
+        @typography(['element' => 'p', 'variant' => 'body'])
+            Select a color to open its details below. The grid stays intentionally simple: label, token, and swatch.
         @endtypography
 
-        <div class="color-system-stat-grid">
-            <div class="color-system-stat-card">
-                <span class="color-system-stat-value">{{ $editableBaseCount }}</span>
-                <span class="color-system-stat-label">Editable base families across brand, layout, utility, state, and palette.</span>
-            </div>
-            <div class="color-system-stat-card">
-                <span class="color-system-stat-value">{{ $autoCompanionCount }}</span>
-                <span class="color-system-stat-label">Generated companions that stay in sync when the base or mix amounts change.</span>
-            </div>
-            <div class="color-system-stat-card">
-                <span class="color-system-stat-value">2</span>
-                <span class="color-system-stat-label">Global mix controls that tune the strength of border and alt companions system-wide.</span>
-            </div>
-            <div class="color-system-stat-card">
-                <span class="color-system-stat-value">10</span>
-                <span class="color-system-stat-label">Optional palette slots reserved for project, campaign, or seasonal accents.</span>
-            </div>
+        <div class="color-system-color-grid">
+            {!! implode('', array_map($renderColorTile, $colorFamilies)) !!}
         </div>
     @endpaper
 
-    @notice([
-        'type' => 'info',
-        'message' => [
-            'text' => 'Use the base token when you need to choose a family, use the contrast token when content sits on top of it, and let the generated companions handle borders, hover fills, and subtle surface states.',
-        ],
-        'classList' => ['u-margin__bottom--5'],
-    ])
-    @endnotice
-
-    @paper(['padding' => 4, 'classList' => ['u-margin__bottom--5'], 'attributeList' => ['id' => 'token-anatomy']])
-        <span class="color-system-kicker">Token anatomy</span>
-        @typography(['element' => 'h2', 'variant' => 'h3', 'classList' => ['color-system-section-heading']])
-            The derivation rules are available when you need them
-        @endtypography
-
-        @accordion([
-            'spacedSections' => true,
-            'list' => $anatomyItems,
-            'classList' => ['color-system-accordion'],
+    @paper(['padding' => 0, 'attributeList' => ['id' => 'color-system-details-tabs']])
+        @tabs([
+            'tabs' => $detailTabs,
         ])
-        @endaccordion
-    @endpaper
-
-    @foreach($colorGroups as $group)
-        @paper(['padding' => 4, 'classList' => ['u-margin__bottom--5'], 'attributeList' => ['id' => $group['id']]])
-            <span class="color-system-kicker">{{ $group['summary'] }}</span>
-            @typography(['element' => 'h2', 'variant' => 'h3', 'classList' => ['color-system-section-heading']])
-                {{ $group['title'] }}
-            @endtypography
-
-            @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--3']])
-                {{ $group['description'] }}
-            @endtypography
-
-            @php
-                $accordionItems = array_map(static function (array $family) use ($renderFamilyContent): array {
-                    $base = $family['base'];
-                    return [
-                        'heading' => $base['label'] . ' · ' . $base['var'],
-                        'content' => $renderFamilyContent($family),
-                    ];
-                }, $group['families']);
-            @endphp
-
-            @accordion([
-                'spacedSections' => true,
-                'list' => $accordionItems,
-                'classList' => ['color-system-accordion'],
-            ])
-            @endaccordion
-        @endpaper
-    @endforeach
-
-    @paper(['padding' => 4, 'classList' => ['u-margin__bottom--5', 'color-system-palette-section'], 'attributeList' => ['id' => 'brand-palette']])
-        <span class="color-system-kicker">Optional accent slots</span>
-        @typography(['element' => 'h2', 'variant' => 'h3', 'classList' => ['color-system-section-heading']])
-            Brand Palette
-        @endtypography
-
-        @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--3']])
-            The ten palette slots are intentionally empty by default. Fill them when a project needs campaign, department, or seasonal accent families without redefining the core brand colors.
-        @endtypography
-
-        <div class="color-system-palette-grid u-margin__bottom--3">
-            @for($i = 1; $i <= 10; $i++)
-                <article class="color-system-palette-card" data-palette-card="{{ $i }}">
-                    <div class="color-system-palette-card__swatch" data-palette-swatch="{{ $i }}" style="background: var(--color--palette-{{ $i }}); color: var(--color--palette-{{ $i }}-contrast, var(--color--surface-contrast));">
-                        <span class="color-system-palette-card__token">--color--palette-{{ $i }}</span>
-                        <span class="color-system-base-swatch__meta">Palette {{ $i }} · transparent by default</span>
-                    </div>
-                    <div class="color-system-palette-card__list">
-                        Contrast: <code>--color--palette-{{ $i }}-contrast</code><br>
-                        Border: <code>--color--palette-{{ $i }}-border</code><br>
-                        Alt: <code>--color--palette-{{ $i }}-alt</code>
-                    </div>
-                </article>
-            @endfor
-        </div>
-
-        @notice([
-            'type' => 'info',
-            'message' => [
-                'text' => 'Palette slots stay invisible until you assign them. Once filled, any component that supports a palette family can consume the slot with the same companion-token rules as the built-in brand families.',
-            ],
-        ])
-        @endnotice
-    @endpaper
-
-    <script>
-        (function() {
-            var paletteSection = document.querySelector('.color-system-palette-section');
-
-            if (!paletteSection) {
-                return;
-            }
-
-            var paletteCards = Array.from(paletteSection.querySelectorAll('[data-palette-card]'));
-            var visibleCards = 0;
-
-            paletteCards.forEach(function(card) {
-                var swatch = card.querySelector('[data-palette-swatch]');
-
-                if (!swatch) {
-                    return;
-                }
-
-                var backgroundColor = window.getComputedStyle(swatch).backgroundColor;
-                var isTransparent = backgroundColor === 'rgba(0, 0, 0, 0)' || backgroundColor === 'transparent';
-
-                if (isTransparent) {
-                    card.hidden = true;
-                    return;
-                }
-
-                visibleCards += 1;
-            });
-
-            if (visibleCards === 0) {
-                paletteSection.hidden = true;
-            }
-        })();
-    </script>
-
-    @paper(['padding' => 4])
-        <span class="color-system-kicker">Editing rules</span>
-        @typography(['element' => 'h2', 'variant' => 'h3', 'classList' => ['color-system-section-heading']])
-            Guidance stays available without taking over the page
-        @endtypography
-
-        @accordion([
-            'spacedSections' => true,
-            'list' => $guidanceItems,
-            'classList' => ['color-system-accordion'],
-        ])
-        @endaccordion
+        @endtabs
     @endpaper
 @stop
