@@ -69,6 +69,7 @@ export class ComponentCustomizerRuntime {
 	private toggleTargetSelectionButton: HTMLButtonElement | null = null;
 	private toggleTargetSelectionLabel: HTMLElement | null = null;
 	private activeTargetElement: HTMLElement | null = null;
+	private activeTargetWasPicked = false;
 	private cleanupCallbacks: Array<() => void> = [];
 	private modeSwitch?: DesignBuilderModeSwitch;
 	private presetBarHost: HTMLElement | null = null;
@@ -209,7 +210,7 @@ export class ComponentCustomizerRuntime {
 					this.activeComponent = componentName;
 					this.activeScopeKey = this.getScopeKeyForElement(element);
 					this.refreshScopeSelect();
-					this.setActiveTarget(componentName, this.activeScopeKey, element);
+					this.setActiveTarget(componentName, this.activeScopeKey, element, true);
 					if (this.componentSelect) {
 						this.componentSelect.value = componentName;
 					}
@@ -394,7 +395,7 @@ export class ComponentCustomizerRuntime {
 		`;
 	}
 
-	private setActiveTarget(componentName: string, scopeKey: string, preferredElement?: HTMLElement): void {
+	private setActiveTarget(componentName: string, scopeKey: string, preferredElement?: HTMLElement, wasPicked = false): void {
 		if (this.activeTargetElement) {
 			this.activeTargetElement.classList.remove('db-component-target-active');
 		}
@@ -407,6 +408,7 @@ export class ComponentCustomizerRuntime {
 		this.activeScopeKey = scopeKey;
 		if (!target) {
 			this.activeTargetElement = null;
+			this.activeTargetWasPicked = false;
 			if (this.scopeSelect) {
 				this.scopeSelect.value = this.activeScopeKey;
 			}
@@ -415,6 +417,7 @@ export class ComponentCustomizerRuntime {
 
 		target.classList.add('db-component-target-active');
 		this.activeTargetElement = target;
+		this.activeTargetWasPicked = wasPicked && target === preferredMatch;
 
 		if (this.scopeSelect) {
 			this.scopeSelect.value = this.activeScopeKey;
@@ -529,6 +532,7 @@ export class ComponentCustomizerRuntime {
 		if (this.activeTargetElement && (!this.activeComponent || normalizeComponentName(this.activeTargetElement.dataset.component || '') !== this.activeComponent)) {
 			this.activeTargetElement.classList.remove('db-component-target-active');
 			this.activeTargetElement = null;
+			this.activeTargetWasPicked = false;
 		}
 
 		if (this.activeComponent) {
@@ -536,9 +540,11 @@ export class ComponentCustomizerRuntime {
 			if (!availableScopeKeys.includes(this.activeScopeKey)) {
 				this.activeScopeKey = GENERAL_SCOPE_KEY;
 			}
-			this.setActiveTarget(this.activeComponent, this.activeScopeKey);
+			const preferredElement = this.activeTargetWasPicked ? (this.activeTargetElement ?? undefined) : undefined;
+			this.setActiveTarget(this.activeComponent, this.activeScopeKey, preferredElement, this.activeTargetWasPicked);
 		} else {
 			this.activeScopeKey = GENERAL_SCOPE_KEY;
+			this.activeTargetWasPicked = false;
 		}
 	}
 
@@ -1204,13 +1210,8 @@ export class ComponentCustomizerRuntime {
 	private getComponentSettingVisibilityTargets(componentName: string): HTMLElement[] {
 		const activeElement = this.activeTargetElement && normalizeComponentName(this.activeTargetElement.dataset.component || '') === componentName ? this.activeTargetElement : null;
 		const contextElements = this.getElementsForContext(componentName, this.activeScopeKey);
-		const openElements = contextElements.filter((element) => element.classList.contains('is-open'));
 
-		if (openElements.length > 0) {
-			return openElements;
-		}
-
-		return activeElement ? [activeElement] : contextElements;
+		return this.activeTargetWasPicked && activeElement ? [activeElement] : contextElements;
 	}
 
 	private matchesVisibilityCondition(targetElement: HTMLElement, condition: ComponentSettingVisibilityCondition | undefined): boolean {
@@ -1594,6 +1595,7 @@ export class ComponentCustomizerRuntime {
 
 	private readonly handleComponentSelectChange = (event: Event): void => {
 		this.activeComponent = (event.currentTarget as HTMLSelectElement).value || null;
+		this.activeTargetWasPicked = false;
 		if (this.activeComponent) {
 			this.refreshScopeSelect();
 			this.setActiveTarget(this.activeComponent, this.activeScopeKey);
@@ -1603,6 +1605,7 @@ export class ComponentCustomizerRuntime {
 
 	private readonly handleScopeSelectChange = (event: Event): void => {
 		this.activeScopeKey = (event.currentTarget as HTMLSelectElement).value || GENERAL_SCOPE_KEY;
+		this.activeTargetWasPicked = false;
 		if (this.activeComponent) {
 			this.setActiveTarget(this.activeComponent, this.activeScopeKey);
 		}

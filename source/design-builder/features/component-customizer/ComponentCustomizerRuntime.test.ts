@@ -635,14 +635,14 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 			{
 				drawer: {
 					name: 'Drawer',
-					tokens: ['color--surface', 'color--primary', 'color--secondary', 'color--alpha'],
+					tokens: ['color--alpha', 'color--primary', 'color--secondary'],
 					componentSettings: [
 						{
 							id: 'colors',
 							label: 'Colors',
 							settings: [
 								{
-									token: 'color--surface',
+									token: 'color--alpha',
 									label: 'Main Panel Color',
 									visibleWhen: {
 										doesNotHaveClass: ['c-drawer--duotone'],
@@ -691,10 +691,10 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
-	it('keeps duotone drawer settings visible when another drawer appears first in the same context', () => {
+	it('shows all configurable drawer settings when multiple drawer variants share a context', () => {
 		document.body.innerHTML = `
 			<nav class="c-drawer c-drawer--right js-drawer" data-component="drawer"></nav>
-			<nav class="c-drawer c-drawer--right js-drawer c-drawer--duotone c-drawer--primary c-drawer--duotone-secondary is-open" data-component="drawer"></nav>
+			<nav class="c-drawer c-drawer--right js-drawer c-drawer--duotone is-open" data-component="drawer"></nav>
 		`;
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);
@@ -703,14 +703,14 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 			{
 				drawer: {
 					name: 'Drawer',
-					tokens: ['color--surface', 'color--primary', 'color--secondary', 'color--alpha'],
+					tokens: ['color--alpha', 'color--primary', 'color--secondary'],
 					componentSettings: [
 						{
 							id: 'colors',
 							label: 'Colors',
 							settings: [
 								{
-									token: 'color--surface',
+									token: 'color--alpha',
 									label: 'Main Panel Color',
 									visibleWhen: {
 										doesNotHaveClass: ['c-drawer--duotone'],
@@ -742,14 +742,79 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 			buildCategoriesForComponent(componentName: string): TokenData['categories'];
 		};
 
-		const settingLabels = runtimeInternals
+		const settingVariables = runtimeInternals
 			.buildCategoriesForComponent('drawer')
 			.flatMap((category) => category.settings)
-			.map((setting) => setting.label);
+			.map((setting) => setting.variable);
 
-		expect(settingLabels).toEqual(expect.arrayContaining(['Main Panel Color', 'Secondary Navigation Color']));
-		expect(settingLabels.filter((label) => label === 'Main Panel Color')).toHaveLength(1);
-		expect(settingLabels.filter((label) => label === 'Secondary Navigation Color')).toHaveLength(1);
+		expect(settingVariables).toEqual(expect.arrayContaining(['--c-drawer--color--alpha', '--c-drawer--color--primary', '--c-drawer--color--secondary']));
+
+		mount.remove();
+	});
+
+	it('filters drawer settings to the picked drawer instance', () => {
+		document.body.innerHTML = `
+			<nav class="c-drawer c-drawer--right js-drawer" data-component="drawer"></nav>
+			<nav class="c-drawer c-drawer--right js-drawer c-drawer--duotone" data-component="drawer"></nav>
+		`;
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		const runtime = new ComponentCustomizerRuntime(
+			{
+				drawer: {
+					name: 'Drawer',
+					tokens: ['color--alpha', 'color--primary', 'color--secondary'],
+					componentSettings: [
+						{
+							id: 'colors',
+							label: 'Colors',
+							settings: [
+								{
+									token: 'color--alpha',
+									label: 'Main Panel Color',
+									visibleWhen: {
+										doesNotHaveClass: ['c-drawer--duotone'],
+									},
+								},
+								{
+									token: 'color--primary',
+									label: 'Main Panel Color',
+									visibleWhen: {
+										hasClass: ['c-drawer--duotone'],
+									},
+								},
+								{
+									token: 'color--secondary',
+									label: 'Secondary Navigation Color',
+									visibleWhen: {
+										hasClass: ['c-drawer--duotone'],
+									},
+								},
+							],
+						},
+					],
+				},
+			},
+			tokenLibrary,
+			mount,
+		);
+		const runtimeInternals = runtime as unknown as {
+			buildCategoriesForComponent(componentName: string): TokenData['categories'];
+		};
+		const drawers = document.querySelectorAll<HTMLElement>('[data-component="drawer"]');
+		const togglePickButton = mount.querySelector<HTMLButtonElement>('[data-action="toggle-target-selection"]');
+
+		togglePickButton?.click();
+		drawers[1]?.click();
+
+		const settingVariables = runtimeInternals
+			.buildCategoriesForComponent('drawer')
+			.flatMap((category) => category.settings)
+			.map((setting) => setting.variable);
+
+		expect(settingVariables).toEqual(expect.arrayContaining(['--c-drawer--color--primary', '--c-drawer--color--secondary']));
+		expect(settingVariables).not.toContain('--c-drawer--color--alpha');
 
 		mount.remove();
 	});
