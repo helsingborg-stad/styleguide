@@ -1,8 +1,44 @@
 import type { TokenSetting } from '../../shared/control-elements/controls/types';
-import type { ComponentSettingCategory, ComponentSettingDefinition, ComponentTokenData, ComponentTokenReferenceSetting } from '../../shared/types/designBuilderDataTypes';
+import type { ComponentSettingCategory, ComponentSettingDefinition, ComponentSettingVisibilityCondition, ComponentTokenData, ComponentTokenReferenceSetting } from '../../shared/types/designBuilderDataTypes';
 
 function isRecord(value: unknown): value is Record<string, unknown> {
 	return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+}
+
+function normalizeStringArray(input: unknown): string[] {
+	if (!Array.isArray(input)) {
+		return [];
+	}
+
+	return input
+		.filter((value): value is string => typeof value === 'string')
+		.map((value) => value.trim())
+		.filter(Boolean);
+}
+
+function normalizeVisibleWhen(input: unknown): ComponentSettingVisibilityCondition | undefined {
+	if (!isRecord(input)) {
+		return undefined;
+	}
+
+	const visibleWhen: ComponentSettingVisibilityCondition = {};
+	const hasClass = normalizeStringArray(input.hasClass);
+	const hasAnyClass = normalizeStringArray(input.hasAnyClass);
+	const doesNotHaveClass = normalizeStringArray(input.doesNotHaveClass);
+
+	if (hasClass.length > 0) {
+		visibleWhen.hasClass = hasClass;
+	}
+
+	if (hasAnyClass.length > 0) {
+		visibleWhen.hasAnyClass = hasAnyClass;
+	}
+
+	if (doesNotHaveClass.length > 0) {
+		visibleWhen.doesNotHaveClass = doesNotHaveClass;
+	}
+
+	return Object.keys(visibleWhen).length > 0 ? visibleWhen : undefined;
 }
 
 function normalizeComponentVariableSetting(setting: unknown): TokenSetting | null {
@@ -28,6 +64,11 @@ function normalizeComponentVariableSetting(setting: unknown): TokenSetting | nul
 
 	if (typeof setting.description === 'string' && setting.description.trim() !== '') {
 		normalized.description = setting.description.trim();
+	}
+
+	const visibleWhen = normalizeVisibleWhen(setting.visibleWhen);
+	if (visibleWhen) {
+		normalized.visibleWhen = visibleWhen;
 	}
 
 	if (typeof setting.unit === 'string') {
@@ -100,6 +141,11 @@ function normalizeComponentTokenReferenceSetting(setting: unknown): ComponentTok
 
 	if (typeof setting.includeStateColors === 'boolean') {
 		normalized.includeStateColors = setting.includeStateColors;
+	}
+
+	const visibleWhen = normalizeVisibleWhen(setting.visibleWhen);
+	if (visibleWhen) {
+		normalized.visibleWhen = visibleWhen;
 	}
 
 	return normalized;

@@ -11,22 +11,31 @@
 			"description": "Component-local color choices for drawer panels and navigation areas.",
 			"settings": [
 				{
-					"label": "Panel Color",
+					"label": "Main Panel Color",
 					"description": "Controls the default drawer background, text contrast, field colors, and surface borders.",
 					"token": "color--surface",
-					"includeStateColors": false
+					"includeStateColors": false,
+					"visibleWhen": {
+						"doesNotHaveClass": ["c-drawer--duotone"]
+					}
 				},
 				{
-					"label": "Primary Panel Color",
-					"description": "Controls drawer sections that use the primary color variant, including primary and duotone drawer backgrounds.",
+					"label": "Main Panel Color",
+					"description": "Controls the main drawer background when the drawer is duotone.",
 					"token": "color--primary",
-					"includeStateColors": false
+					"includeStateColors": false,
+					"visibleWhen": {
+						"hasClass": ["c-drawer--duotone"]
+					}
 				},
 				{
-					"label": "Secondary Panel Color",
-					"description": "Controls drawer sections that use the secondary color variant, including secondary and duotone drawer backgrounds.",
+					"label": "Secondary Navigation Color",
+					"description": "Controls the secondary navigation area when the drawer is duotone.",
 					"token": "color--secondary",
-					"includeStateColors": false
+					"includeStateColors": false,
+					"visibleWhen": {
+						"hasClass": ["c-drawer--duotone"]
+					}
 				},
 				{
 					"label": "Overlay Color",

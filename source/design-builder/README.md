@@ -651,6 +651,15 @@ Supported control types are:
 Variables must be declared without the component prefix.
 The component customizer localizes them automatically before applying them to the DOM.
 
+Settings can be conditionally shown for selected component instances with `visibleWhen`.
+This is useful when a setting only affects a modifier variant.
+
+Supported class predicates are:
+
+- `hasClass`: all listed classes must be present
+- `hasAnyClass`: at least one listed class must be present
+- `doesNotHaveClass`: none of the listed classes may be present
+
 Example:
 
 - Declared in component metadata: --font-size-multiplier
@@ -674,6 +683,13 @@ Brand example:
           "max": 4,
           "step": 0.05,
           "unit": ""
+        },
+        {
+          "token": "color--primary",
+          "label": "Primary Variant Color",
+          "visibleWhen": {
+            "hasAnyClass": ["c-brand--primary", "c-brand--featured"]
+          }
         }
       ]
     }

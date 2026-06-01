@@ -12,7 +12,7 @@ import { getComponentOverrideTargets } from '../../shared/state/componentOverrid
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import { getNamedScopeKeysForElement, getResolvedScopeKeyForElement } from '../../shared/state/designBuilderScope';
 import { registerControlInfoTooltips } from '../../shared/tooltips/registerControlInfoTooltips';
-import type { ComponentSettingDefinition, ComponentTokenData, ComponentTokenReferenceSetting, ScopedComponentOverrides, TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
+import type { ComponentSettingDefinition, ComponentSettingVisibilityCondition, ComponentTokenData, ComponentTokenReferenceSetting, ScopedComponentOverrides, TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
 import type { DesignBuilderModeSwitch, DesignBuilderRootElement } from '../../web-component/designBuilderRootContracts';
 import { translations } from '../translations';
 import { normalizeComponentName } from './componentTokenDefinitions';
@@ -1201,6 +1201,46 @@ export class ComponentCustomizerRuntime {
 		return tokens;
 	}
 
+	private getComponentSettingVisibilityTargets(componentName: string): HTMLElement[] {
+		const activeElement = this.activeTargetElement && normalizeComponentName(this.activeTargetElement.dataset.component || '') === componentName ? this.activeTargetElement : null;
+		const contextElements = this.getElementsForContext(componentName, this.activeScopeKey);
+		const openElements = contextElements.filter((element) => element.classList.contains('is-open'));
+
+		if (openElements.length > 0) {
+			return openElements;
+		}
+
+		return activeElement ? [activeElement] : contextElements;
+	}
+
+	private matchesVisibilityCondition(targetElement: HTMLElement, condition: ComponentSettingVisibilityCondition | undefined): boolean {
+		if (!condition) {
+			return true;
+		}
+
+		if (condition.hasClass?.some((className) => !targetElement.classList.contains(className))) {
+			return false;
+		}
+
+		if (condition.hasAnyClass && condition.hasAnyClass.length > 0 && !condition.hasAnyClass.some((className) => targetElement.classList.contains(className))) {
+			return false;
+		}
+
+		if (condition.doesNotHaveClass?.some((className) => targetElement.classList.contains(className))) {
+			return false;
+		}
+
+		return true;
+	}
+
+	private isComponentSettingVisible(setting: ComponentSettingDefinition, targetElements: HTMLElement[]): boolean {
+		if (!setting.visibleWhen || targetElements.length === 0) {
+			return true;
+		}
+
+		return targetElements.some((targetElement) => this.matchesVisibilityCondition(targetElement, setting.visibleWhen));
+	}
+
 	private getRedundantCompanionColorTokens(tokenNames: Iterable<string>): Set<string> {
 		const normalized = new Set<string>([...tokenNames].map((tokenName) => this.normalizeColorTokenName(tokenName)));
 		const redundant = new Set<string>();
@@ -1310,8 +1350,12 @@ export class ComponentCustomizerRuntime {
 		const categories: TokenCategory[] = [];
 		const exposedTokenNames = this.collectExposedComponentTokens(componentSettings.flatMap((category) => category.settings));
 		const hiddenTokenNames = this.getRedundantCompanionColorTokens(exposedTokenNames);
+		const targetElements = this.getComponentSettingVisibilityTargets(componentName);
 		for (const category of componentSettings) {
-			const matchedSettings = category.settings.map((setting) => this.resolveComponentSetting(componentName, availableTokenNames, hiddenTokenNames, setting)).filter((setting): setting is TokenCategory['settings'][number] => setting !== null);
+			const matchedSettings = category.settings
+				.filter((setting) => this.isComponentSettingVisible(setting, targetElements))
+				.map((setting) => this.resolveComponentSetting(componentName, availableTokenNames, hiddenTokenNames, setting))
+				.filter((setting): setting is TokenCategory['settings'][number] => setting !== null);
 
 			this.appendCategory(categories, {
 				id: category.id,

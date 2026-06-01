@@ -21,6 +21,9 @@ describe('parseComponentTokenData', () => {
 								token: 'color--primary',
 								label: 'Brand Color',
 								includeStateColors: false,
+								visibleWhen: {
+									hasAnyClass: ['c-brand--featured', ' c-brand--hero '],
+								},
 							},
 							{
 								variable: '--font-size-multiplier',
@@ -59,6 +62,9 @@ describe('parseComponentTokenData', () => {
 						token: 'color--primary',
 						label: 'Brand Color',
 						includeStateColors: false,
+						visibleWhen: {
+							hasAnyClass: ['c-brand--featured', 'c-brand--hero'],
+						},
 					},
 					{
 						variable: '--font-size-multiplier',

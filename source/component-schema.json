@@ -159,6 +159,9 @@
 					"items": {
 						"$ref": "./design-tokens-schema.json#/$defs/option"
 					}
+				},
+				"visibleWhen": {
+					"$ref": "#/$defs/componentSettingVisibilityCondition"
 				}
 			},
 			"required": ["variable", "label", "type", "default"],
@@ -178,9 +181,36 @@
 				},
 				"includeStateColors": {
 					"type": "boolean"
+				},
+				"visibleWhen": {
+					"$ref": "#/$defs/componentSettingVisibilityCondition"
 				}
 			},
 			"required": ["token", "label"],
+			"additionalProperties": false
+		},
+		"componentSettingVisibilityCondition": {
+			"type": "object",
+			"properties": {
+				"hasClass": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"hasAnyClass": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"doesNotHaveClass": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			},
 			"additionalProperties": false
 		}
 	}

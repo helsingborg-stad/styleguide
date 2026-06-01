@@ -14,11 +14,18 @@ export interface TokenData {
 	categories: TokenCategory[];
 }
 
+export interface ComponentSettingVisibilityCondition {
+	hasClass?: string[];
+	hasAnyClass?: string[];
+	doesNotHaveClass?: string[];
+}
+
 export interface ComponentTokenReferenceSetting {
 	token: string;
 	label: string;
 	description?: string;
 	includeStateColors?: boolean;
+	visibleWhen?: ComponentSettingVisibilityCondition;
 }
 
 export type ComponentSettingDefinition = TokenSetting | ComponentTokenReferenceSetting;

@@ -21,6 +21,11 @@ export interface TokenSetting {
 	contrast?: string | string[];
 	notes?: string;
 	linkedDefaults?: Record<string, string>;
+	visibleWhen?: {
+		hasClass?: string[];
+		hasAnyClass?: string[];
+		doesNotHaveClass?: string[];
+	};
 }
 
 export interface ControlChangeOptions {

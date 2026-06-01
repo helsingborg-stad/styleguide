@@ -626,6 +626,134 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
+	it('filters component settings by active target modifier classes', () => {
+		document.body.innerHTML = '<nav class="c-drawer c-drawer--duotone c-drawer--primary c-drawer--duotone-secondary" data-component="drawer"></nav>';
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		const runtime = new ComponentCustomizerRuntime(
+			{
+				drawer: {
+					name: 'Drawer',
+					tokens: ['color--surface', 'color--primary', 'color--secondary', 'color--alpha'],
+					componentSettings: [
+						{
+							id: 'colors',
+							label: 'Colors',
+							settings: [
+								{
+									token: 'color--surface',
+									label: 'Main Panel Color',
+									visibleWhen: {
+										doesNotHaveClass: ['c-drawer--duotone'],
+									},
+								},
+								{
+									token: 'color--primary',
+									label: 'Main Panel Color',
+									visibleWhen: {
+										hasClass: ['c-drawer--duotone'],
+									},
+								},
+								{
+									token: 'color--secondary',
+									label: 'Secondary Navigation Color',
+									visibleWhen: {
+										hasClass: ['c-drawer--duotone'],
+									},
+								},
+								{
+									token: 'color--alpha',
+									label: 'Overlay Color',
+								},
+							],
+						},
+					],
+				},
+			},
+			tokenLibrary,
+			mount,
+		);
+		const runtimeInternals = runtime as unknown as {
+			buildCategoriesForComponent(componentName: string): TokenData['categories'];
+		};
+
+		const settingLabels = runtimeInternals
+			.buildCategoriesForComponent('drawer')
+			.flatMap((category) => category.settings)
+			.map((setting) => setting.label);
+
+		expect(settingLabels).not.toContain('Panel Color');
+		expect(settingLabels.filter((label) => label === 'Main Panel Color')).toHaveLength(1);
+		expect(settingLabels.filter((label) => label === 'Secondary Navigation Color')).toHaveLength(1);
+		expect(settingLabels).toEqual(expect.arrayContaining(['Main Panel Color', 'Secondary Navigation Color', 'Overlay Color']));
+
+		mount.remove();
+	});
+
+	it('keeps duotone drawer settings visible when another drawer appears first in the same context', () => {
+		document.body.innerHTML = `
+			<nav class="c-drawer c-drawer--right js-drawer" data-component="drawer"></nav>
+			<nav class="c-drawer c-drawer--right js-drawer c-drawer--duotone c-drawer--primary c-drawer--duotone-secondary is-open" data-component="drawer"></nav>
+		`;
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		const runtime = new ComponentCustomizerRuntime(
+			{
+				drawer: {
+					name: 'Drawer',
+					tokens: ['color--surface', 'color--primary', 'color--secondary', 'color--alpha'],
+					componentSettings: [
+						{
+							id: 'colors',
+							label: 'Colors',
+							settings: [
+								{
+									token: 'color--surface',
+									label: 'Main Panel Color',
+									visibleWhen: {
+										doesNotHaveClass: ['c-drawer--duotone'],
+									},
+								},
+								{
+									token: 'color--primary',
+									label: 'Main Panel Color',
+									visibleWhen: {
+										hasClass: ['c-drawer--duotone'],
+									},
+								},
+								{
+									token: 'color--secondary',
+									label: 'Secondary Navigation Color',
+									visibleWhen: {
+										hasClass: ['c-drawer--duotone'],
+									},
+								},
+							],
+						},
+					],
+				},
+			},
+			tokenLibrary,
+			mount,
+		);
+		const runtimeInternals = runtime as unknown as {
+			buildCategoriesForComponent(componentName: string): TokenData['categories'];
+		};
+
+		const settingLabels = runtimeInternals
+			.buildCategoriesForComponent('drawer')
+			.flatMap((category) => category.settings)
+			.map((setting) => setting.label);
+
+		expect(settingLabels).toEqual(expect.arrayContaining(['Main Panel Color', 'Secondary Navigation Color']));
+		expect(settingLabels.filter((label) => label === 'Main Panel Color')).toHaveLength(1);
+		expect(settingLabels.filter((label) => label === 'Secondary Navigation Color')).toHaveLength(1);
+
+		mount.remove();
+	});
+
 	it('falls back to token-based controls when componentSettings are not provided', () => {
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);
