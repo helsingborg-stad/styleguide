@@ -752,6 +752,81 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
+	it('filters drawer settings to instances in the selected scope', () => {
+		document.body.innerHTML = `
+			<div data-scope="plain">
+				<nav class="c-drawer c-drawer--right js-drawer" data-component="drawer"></nav>
+			</div>
+			<div data-scope="duotone">
+				<nav class="c-drawer c-drawer--right js-drawer c-drawer--duotone" data-component="drawer"></nav>
+			</div>
+		`;
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		new ComponentCustomizerRuntime(
+			{
+				drawer: {
+					name: 'Drawer',
+					tokens: ['color--alpha', 'color--primary', 'color--secondary'],
+					componentSettings: [
+						{
+							id: 'colors',
+							label: 'Colors',
+							settings: [
+								{
+									token: 'color--alpha',
+									label: 'Main Panel Color',
+									visibleWhen: {
+										doesNotHaveClass: ['c-drawer--duotone'],
+									},
+								},
+								{
+									token: 'color--primary',
+									label: 'Main Panel Color',
+									visibleWhen: {
+										hasClass: ['c-drawer--duotone'],
+									},
+								},
+								{
+									token: 'color--secondary',
+									label: 'Secondary Navigation Color',
+									visibleWhen: {
+										hasClass: ['c-drawer--duotone'],
+									},
+								},
+							],
+						},
+					],
+				},
+			},
+			tokenLibrary,
+			mount,
+		);
+		const scopeSelect = mount.querySelector<HTMLSelectElement>('[data-action="select-scope"]');
+		const visibleVariables = () => Array.from(mount.querySelectorAll<HTMLElement>('[data-tip-variable]')).map((element) => element.dataset.tipVariable);
+
+		expect(visibleVariables()).toEqual(expect.arrayContaining(['--c-drawer--color--alpha', '--c-drawer--color--secondary']));
+
+		if (scopeSelect) {
+			scopeSelect.value = 'scope:plain';
+			scopeSelect.dispatchEvent(new Event('change'));
+		}
+
+		expect(visibleVariables()).toContain('--c-drawer--color--alpha');
+		expect(visibleVariables()).not.toContain('--c-drawer--color--secondary');
+
+		if (scopeSelect) {
+			scopeSelect.value = 'scope:duotone';
+			scopeSelect.dispatchEvent(new Event('change'));
+		}
+
+		expect(visibleVariables()).toContain('--c-drawer--color--secondary');
+		expect(visibleVariables()).not.toContain('--c-drawer--color--alpha');
+
+		mount.remove();
+	});
+
 	it('filters drawer settings to the picked drawer instance', () => {
 		document.body.innerHTML = `
 			<nav class="c-drawer c-drawer--right js-drawer" data-component="drawer"></nav>
