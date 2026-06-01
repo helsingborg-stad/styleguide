@@ -48,7 +48,7 @@ $_: "c-header";
     }
 
     .c-link:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
-        --c-link--color--background-contrast: var(--c-header--color);
+        --inherit-color-contrast: var(--c-header--color);
     }
 
     .c-button:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
