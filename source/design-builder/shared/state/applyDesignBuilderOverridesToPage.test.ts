@@ -1,5 +1,5 @@
-import { applyComponentOverridesToPage, applyTokenOverridesToRootDocument, clearComponentOverridesFromPage, clearTokenOverridesFromRootDocument } from './applyDesignBuilderOverridesToPage';
 import { GENERAL_SCOPE_KEY } from '../constants/designBuilderRuntimeConstants';
+import { applyComponentOverridesToPage, applyTokenOverridesToRootDocument, clearComponentOverridesFromPage, clearTokenOverridesFromRootDocument } from './applyDesignBuilderOverridesToPage';
 
 describe('applyDesignBuilderOverridesToPage', () => {
 	beforeEach(() => {
@@ -43,6 +43,31 @@ describe('applyDesignBuilderOverridesToPage', () => {
 
 		clearComponentOverridesFromPage(overrides);
 		expect(target?.style.getPropertyValue('--c-button--color-bg')).toBe('');
+	});
+
+	it('applies and clears drawer component overrides on the adjacent overlay', () => {
+		document.body.innerHTML = `
+			<nav data-component="drawer"></nav>
+			<div class="drawer-overlay"></div>
+		`;
+
+		const drawer = document.querySelector<HTMLElement>('[data-component="drawer"]');
+		const overlay = document.querySelector<HTMLElement>('.drawer-overlay');
+		const overrides = {
+			[GENERAL_SCOPE_KEY]: {
+				drawer: {
+					'--c-drawer--color--alpha': 'rgba(0, 0, 0, 0.75)',
+				},
+			},
+		};
+
+		applyComponentOverridesToPage(overrides);
+		expect(drawer?.style.getPropertyValue('--c-drawer--color--alpha')).toBe('rgba(0, 0, 0, 0.75)');
+		expect(overlay?.style.getPropertyValue('--c-drawer--color--alpha')).toBe('rgba(0, 0, 0, 0.75)');
+
+		clearComponentOverridesFromPage(overrides);
+		expect(drawer?.style.getPropertyValue('--c-drawer--color--alpha')).toBe('');
+		expect(overlay?.style.getPropertyValue('--c-drawer--color--alpha')).toBe('');
 	});
 
 	it('treats semicolon-separated scope lists as individual named scopes', () => {

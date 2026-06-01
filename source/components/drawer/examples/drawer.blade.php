@@ -1,6 +1,6 @@
 @drawer([
     'label' => 'Close',
-    'classList' => ['c-drawer--duotone', 'c-drawer--duotone-primary'],
+    'classList' => ['c-drawer--duotone', 'c-drawer--primary', 'c-drawer--duotone-secondary'],
     'attributeList' => [
         'data-move-to' => 'body',
     ],

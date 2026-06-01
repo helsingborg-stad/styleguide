@@ -70,6 +70,7 @@ $_: "c-drawer";
 .c-drawer.c-drawer--duotone.c-drawer--duotone-secondary,
 .c-drawer.c-drawer--duotone.c-drawer--duotone-secondary .site-nav-mobile__secondary>.c-nav__item {
     --drawer-duotone-background: #{tokens.getRawValue($_, "color--secondary")};
+    --drawer-duotone-color: #{tokens.getRawValue($_, "color--secondary-contrast")};
 }
 
 // Actual css
@@ -121,17 +122,18 @@ $_: "c-drawer";
 // Drawer
 
 .c-drawer {
+    --#{$_}--width-multiplier: 1;
     position: fixed;
     left: 0;
     top: 0;
     height: 100%;
-    max-width: tokens.getCalculatedValue($_, "base", 64);
+    max-width: calc(var(--#{$_}--width-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 64)});
     width: 90%;
     z-index: 10;
     transform: translate(-100%);
     transition: visibility 0s linear var(--#{$_}--drawer-transition-ms),
-        var(--#{$_}--drawer-transition-ms) ease-in transform,
-        var(--#{$_}--drawer-transition-ms) ease-in opacity;
+    var(--#{$_}--drawer-transition-ms) ease-in transform,
+    var(--#{$_}--drawer-transition-ms) ease-in opacity;
     visibility: hidden;
     opacity: 0;
     display: flex;
@@ -199,8 +201,8 @@ $_: "c-drawer";
 
 .c-drawer.is-open {
     transition: visibility 0s linear 0s,
-        var(--#{$_}--drawer-transition-ms) ease-out transform,
-        var(--#{$_}--drawer-transition-ms) ease-out opacity;
+    var(--#{$_}--drawer-transition-ms) ease-out transform,
+    var(--#{$_}--drawer-transition-ms) ease-out opacity;
     visibility: visible;
     transform: translate(0%);
     opacity: 1;
@@ -208,13 +210,11 @@ $_: "c-drawer";
 }
 
 $_overlay: "drawer-overlay";
-@include tokens.create($_overlay, ("color--alpha"
-));
 
 // Overlay
 .#{$_overlay} {
     --#{$_overlay}--drawer-transition-ms: 300ms;
-    background-color: tokens.getRawValue($_overlay, "color--alpha");
+    background-color: tokens.getRawValue($_, "color--alpha");
     position: fixed;
     top: 0;
     left: 0;
@@ -222,7 +222,7 @@ $_overlay: "drawer-overlay";
     height: 100%;
     z-index: 9;
     transition: visibility 0s linear var(--#{$_overlay}--drawer-transition-ms),
-        var(--#{$_overlay}--drawer-transition-ms) ease-in opacity;
+    var(--#{$_overlay}--drawer-transition-ms) ease-in opacity;
     visibility: hidden;
     opacity: 0;
     backdrop-filter: blur(1px);
@@ -233,6 +233,6 @@ $_overlay: "drawer-overlay";
 .c-drawer.is-open+.drawer-overlay {
     opacity: 1;
     transition: visibility 0s linear 0s,
-        var(--#{$_}--drawer-transition-ms) ease-out opacity;
+    var(--#{$_}--drawer-transition-ms) ease-out opacity;
     visibility: visible;
 }

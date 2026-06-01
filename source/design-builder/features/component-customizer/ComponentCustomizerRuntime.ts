@@ -1,5 +1,6 @@
 import { html, nothing, render as renderTemplate, type TemplateResult } from 'lit-html';
 import { GENERAL_SCOPE_KEY, GLOBAL_SCOPE_KEY, NON_CUSTOMIZABLE_COMPONENTS } from '../../shared/constants/designBuilderRuntimeConstants';
+import type { ControlChangeOptions } from '../../shared/control-elements/controls/types';
 import { createDesignBuilderCategory, createDesignBuilderControl, createReadOnlyDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
 import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
 import { createDetailsMenuDismissController, type DetailsMenuDismissController } from '../../shared/menus/createDetailsMenuDismissController';
@@ -7,10 +8,10 @@ import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/create
 import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPresetManager';
 import { type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset, designBuilderPresetMatchesState } from '../../shared/presets/designBuilderPresetDefinitions';
 import { applyTokenOverridesToRootDocument, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
+import { getComponentOverrideTargets } from '../../shared/state/componentOverrideTargets';
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import { getNamedScopeKeysForElement, getResolvedScopeKeyForElement } from '../../shared/state/designBuilderScope';
 import { registerControlInfoTooltips } from '../../shared/tooltips/registerControlInfoTooltips';
-import type { ControlChangeOptions } from '../../shared/control-elements/controls/types';
 import type { ComponentSettingDefinition, ComponentTokenData, ComponentTokenReferenceSetting, ScopedComponentOverrides, TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
 import type { DesignBuilderModeSwitch, DesignBuilderRootElement } from '../../web-component/designBuilderRootContracts';
 import { translations } from '../translations';
@@ -994,7 +995,7 @@ export class ComponentCustomizerRuntime {
 			return false;
 		}
 
-		if (setting.type !== 'color' && setting.type !== 'rgba') {
+		if (setting.type !== 'color') {
 			return false;
 		}
 
@@ -1395,7 +1396,9 @@ export class ComponentCustomizerRuntime {
 		}
 
 		for (const element of elements) {
-			element.style.setProperty(variable, value);
+			for (const target of getComponentOverrideTargets(element, componentName)) {
+				target.style.setProperty(variable, value);
+			}
 		}
 	}
 
@@ -1406,7 +1409,9 @@ export class ComponentCustomizerRuntime {
 		}
 
 		for (const element of elements) {
-			element.style.removeProperty(variable);
+			for (const target of getComponentOverrideTargets(element, componentName)) {
+				target.style.removeProperty(variable);
+			}
 		}
 	}
 

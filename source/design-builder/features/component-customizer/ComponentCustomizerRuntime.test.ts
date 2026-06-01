@@ -698,6 +698,61 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
+	it('applies drawer overlay color overrides to the adjacent overlay element', () => {
+		document.body.innerHTML = `
+			<nav data-component="drawer"></nav>
+			<div class="drawer-overlay"></div>
+		`;
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		const runtime = new ComponentCustomizerRuntime(
+			{
+				drawer: {
+					name: 'Drawer',
+					tokens: ['color--alpha'],
+					componentSettings: [
+						{
+							id: 'colors',
+							label: 'Colors',
+							settings: [
+								{
+									token: 'color--alpha',
+									label: 'Overlay Color',
+								},
+							],
+						},
+					],
+				},
+			},
+			tokenLibrary,
+			mount,
+		);
+		const runtimeInternals = runtime as unknown as {
+			buildCategoriesForComponent(componentName: string): TokenData['categories'];
+			handleChange(componentName: string, scopeKey: string, variable: string, value: string, defaultValue: string): void;
+		};
+		const overlaySetting = runtimeInternals
+			.buildCategoriesForComponent('drawer')
+			.flatMap((category) => category.settings)
+			.find((setting) => setting.variable === '--c-drawer--color--alpha');
+
+		expect(overlaySetting).toMatchObject({
+			label: 'Overlay Color',
+			type: 'rgba',
+			default: 'rgba(0, 0, 0, 0.4)',
+		});
+
+		runtimeInternals.handleChange('drawer', GENERAL_SCOPE_KEY, '--c-drawer--color--alpha', 'rgba(0, 0, 0, 0.75)', 'var(--color--alpha)');
+
+		const drawer = document.querySelector<HTMLElement>('[data-component="drawer"]');
+		const overlay = document.querySelector<HTMLElement>('.drawer-overlay');
+		expect(drawer?.style.getPropertyValue('--c-drawer--color--alpha')).toBe('rgba(0, 0, 0, 0.75)');
+		expect(overlay?.style.getPropertyValue('--c-drawer--color--alpha')).toBe('rgba(0, 0, 0, 0.75)');
+
+		mount.remove();
+	});
+
 	it('keeps explicit token-color selections when they match the nominal default', () => {
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);

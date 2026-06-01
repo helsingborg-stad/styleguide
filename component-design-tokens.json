@@ -614,12 +614,86 @@
       "color--primary",
       "color--primary-contrast",
       "color--secondary",
+      "color--secondary-contrast",
       "color--surface",
       "shadow-color",
       "shadow-amount",
       "color--surface-contrast",
       "color--surface-border",
       "color--alpha"
+    ],
+    "componentSettings": [
+      {
+        "id": "colors",
+        "label": "Colors",
+        "description": "Component-local color choices for drawer panels and navigation areas.",
+        "settings": [
+          {
+            "label": "Panel Color",
+            "description": "Controls the default drawer background, text contrast, field colors, and surface borders.",
+            "token": "color--surface",
+            "includeStateColors": false
+          },
+          {
+            "label": "Primary Panel Color",
+            "description": "Controls drawer sections that use the primary color variant, including primary and duotone drawer backgrounds.",
+            "token": "color--primary",
+            "includeStateColors": false
+          },
+          {
+            "label": "Secondary Panel Color",
+            "description": "Controls drawer sections that use the secondary color variant, including secondary and duotone drawer backgrounds.",
+            "token": "color--secondary",
+            "includeStateColors": false
+          },
+          {
+            "label": "Overlay Color",
+            "description": "Controls the dimmed backdrop shown behind an open drawer, including its opacity.",
+            "token": "color--alpha",
+            "includeStateColors": false
+          }
+        ]
+      },
+      {
+        "id": "layout",
+        "label": "Layout",
+        "description": "Component-local sizing and spacing for the drawer panel and its navigation items.",
+        "settings": [
+          {
+            "label": "Spacing and Padding",
+            "description": "Controls drawer header, footer, and navigation item padding.",
+            "token": "space"
+          },
+          {
+            "variable": "--width-multiplier",
+            "label": "Width Multiplier",
+            "description": "Multiplies the default drawer width without changing the global base unit.",
+            "type": "range",
+            "default": "1",
+            "min": 0.75,
+            "max": 1.5,
+            "step": 0.125,
+            "unit": ""
+          }
+        ]
+      },
+      {
+        "id": "elevation",
+        "label": "Elevation",
+        "description": "Component-local shadow controls for the open drawer state.",
+        "settings": [
+          {
+            "label": "Shadow Color",
+            "description": "Controls the color used by the drawer shadow.",
+            "token": "shadow-color"
+          },
+          {
+            "label": "Shadow Intensity",
+            "description": "Controls how strong the drawer shadow appears when open.",
+            "token": "shadow-amount"
+          }
+        ]
+      }
     ],
     "description": "The Drawer component provides a reusable pattern for drawer in the interface.",
     "tags": [
