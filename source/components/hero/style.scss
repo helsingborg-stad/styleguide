@@ -325,6 +325,7 @@ $_: "c-hero";
             text-shadow: none;
             border-radius: var(--#{$_}--content-border-radius);
             corner-shape: tokens.getRawValue($_, "corner-shape");
+            width: 100%;
 
             .#{$_}__group {
                 flex: 0 0 100%;
