@@ -41,6 +41,8 @@ $_modal: "c-modal--gallery";
     --#{$_}--border-default: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--border-radius: var(--inherit-border-radius, calc(#{tokens.getCalculatedValue("", "border-radius", 1)} * var(--#{$_}--border-radius-multiplier, 1)));
 
+    container-type: inline-size;
+    container-name: c-image;
     line-height: 0;
     position: relative;
 
@@ -66,6 +68,10 @@ $_modal: "c-modal--gallery";
 
     .#{$_}__image-wrapper {
         border-radius: var(--#{$_}--border-radius);
+
+        @container c-image (min-width: 100vw) {
+            border-radius: 0;
+        }
     }
 
     .#{$_}__image {
@@ -75,6 +81,10 @@ $_modal: "c-modal--gallery";
         width: inherit;
         height: inherit;
         object-fit: cover;
+
+        @container c-image (min-width: 100vw) {
+            border-radius: 0;
+        }
     }
 
     /* Modifiers */
