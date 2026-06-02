@@ -40,7 +40,11 @@ $_: "c-typography";
     --#{$_}--font-size-title-default: #{tokens.getDefaultRawValue($_, "font-size-500")};
     --#{$_}--font-size-headline-default: #{tokens.getDefaultRawValue($_, "font-size-600")};
     --#{$_}--font-size-marketing-default: #{tokens.getDefaultRawValue($_, "font-size-800")};
+
     --#{$_}--font-size-lead-default: #{tokens.getDefaultRawValue($_, "font-size-200")};
+    --#{$_}--font-size-lead-default: #{tokens.getDefaultRawValue($_, "font-size-200")};
+    --#{$_}--font-weight-lead-default: #{tokens.getDefaultRawValue($_, "font-weight-medium")};
+
     --#{$_}--h1-font-size-default: #{tokens.getDefaultRawValue($_, "font-size-700")};
     --#{$_}--h1-font-weight: #{tokens.getDefaultRawValue($_, "font-weight-heading")};
     --#{$_}--h1-line-height: #{tokens.getDefaultRawValue($_, "line-height-heading")};
@@ -195,8 +199,10 @@ h6,
     font-size: tokens.getDerivedAliasValue($_, "font-size-meta", "font-size");
 }
 
+.lead,
 .#{$_}__variant--lead {
     font-size: tokens.getDerivedAliasValue($_, "font-size-lead", "font-size");
+    font-weight: tokens.getDerivedAliasValue($_, "font-weight-lead", "font-weight");
 }
 
 .#{$_}__variant--marketing {
