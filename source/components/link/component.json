@@ -4,16 +4,22 @@
 	"name": "Link",
 	"slug": "link",
 	"description": "The Link component outputs a link to a URL.",
-	"tokens": ["color--background-contrast"],
+	"tokens": ["color--primary", "color--background-contrast"],
 	"componentSettings": [
 		{
 			"id": "settings",
 			"label": "Settings",
 			"settings": [
 				{
-					"token": "color--background-contrast",
-					"label": "Color",
-					"description": "The contrast of the selected palette will be used."
+					"variable": "--state-link-color-mix-amount",
+					"label": "Link Color Mix Amount",
+					"description": "Adjusts the mix amount of the link color in hover, active, and visited states.",
+					"type": "range",
+					"default": 50,
+					"min": 0,
+					"max": 100,
+					"step": 1,
+					"unit": "%"
 				}
 			]
 		}
