@@ -4,12 +4,9 @@ $_: "c-link";
 
 @include tokens.create($_, getComponentTokens($_));
 
-@include tokens.create($_,
-    ("color--background-contrast",
-    ));
-
 a,
 .#{$_} {
+    --state-link-color-mix: color-mix(in srgb, #{tokens.getRawValue($_, "color--background-contrast")} var(--#{$_}--state-link-color-mix-amount, 50%), #{tokens.getRawValue($_, "color--primary")});
     color: tokens.getRawValue($_, $token: "color--background-contrast", $inheritVariable: "color-contrast");
     text-decoration-style: solid;
     transition: 100ms color;
@@ -30,12 +27,12 @@ a,
 
     &:active,
     &:hover {
-        color: color-mix(in srgb, #{tokens.getRawValue($_, "color--background-contrast")} 65%, gray);
+        color: var(--state-link-color-mix);
     }
 
     &:visited,
     &:visited:hover,
     &:visited:active {
-        color: color-mix(in srgb, #{tokens.getRawValue($_, "color--background-contrast")} 65%, gray);
+        color: var(--state-link-color-mix);
     }
 }
