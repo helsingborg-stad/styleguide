@@ -60,6 +60,13 @@ $_: "c-collection";
         .#{$_}__item__before {
             display: flex;
 
+            .c-image,
+            .c-image__image-wrapper,
+            img {
+                max-width: tokens.getCalculatedValue($_, "base", 15);
+                min-width: tokens.getCalculatedValue($_, "base", 15);
+            }
+
             img {
                 aspect-ratio: 1/1;
                 border-radius: tokens.getRawValue($_, "border-radius");
@@ -68,8 +75,6 @@ $_: "c-collection";
                 width: 100%;
                 object-fit: cover;
                 margin: 0;
-                max-width: tokens.getCalculatedValue($_, "base", 15);
-                min-width: tokens.getCalculatedValue($_, "base", 15);
             }
 
             .c-image {
