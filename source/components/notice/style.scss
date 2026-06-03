@@ -87,6 +87,10 @@ $_: "c-notice";
         text-decoration: underline;
     }
 
+    .c-button.c-button__basic:not(.c-button__basic--primary):not(.c-button__basic--secondary) {
+        --inherit-color-contrast: currentColor;
+    }
+
     &--success {
         background-color: tokens.getRawValue($_, "color--success");
         color: tokens.getRawValue($_, "color--success-contrast");
@@ -98,10 +102,6 @@ $_: "c-notice";
         a:visited {
             color: tokens.getRawValue($_, "color--success-contrast");
             text-decoration: underline;
-        }
-
-        .c-button {
-            color: tokens.getRawValue($_, "color--success-contrast");
         }
     }
 
@@ -117,10 +117,6 @@ $_: "c-notice";
             color: tokens.getRawValue($_, "color--danger-contrast");
             text-decoration: underline;
         }
-
-        .c-button {
-            color: tokens.getRawValue($_, "color--danger-contrast");
-        }
     }
 
     &--info {
@@ -135,10 +131,6 @@ $_: "c-notice";
             color: tokens.getRawValue($_, "color--info-contrast");
             text-decoration: underline;
         }
-
-        .c-button {
-            color: tokens.getRawValue($_, "color--info-contrast");
-        }
     }
 
     &--warning {
@@ -152,10 +144,6 @@ $_: "c-notice";
         a:visited {
             color: tokens.getRawValue($_, "color--warning-contrast");
             text-decoration: underline;
-        }
-
-        .c-button {
-            color: tokens.getRawValue($_, "color--warning-contrast");
         }
     }
 
