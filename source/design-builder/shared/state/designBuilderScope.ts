@@ -15,8 +15,18 @@ export function parseScopeAttributeValue(value?: string | null): string[] {
 }
 
 export function getNamedScopeKeysForElement(element: HTMLElement): string[] {
-	const scope = element.closest<HTMLElement>('[data-scope]')?.dataset.scope;
-	return parseScopeAttributeValue(scope).map((scopeName) => `scope:${scopeName}`);
+	const scopeNames = new Set<string>();
+	let currentElement: HTMLElement | null = element;
+
+	while (currentElement) {
+		for (const scopeName of parseScopeAttributeValue(currentElement.dataset.scope)) {
+			scopeNames.add(scopeName);
+		}
+
+		currentElement = currentElement.parentElement;
+	}
+
+	return Array.from(scopeNames).map((scopeName) => `scope:${scopeName}`);
 }
 
 export function getResolvedScopeKeyForElement(element: HTMLElement, fallbackScopeKey: string): string {

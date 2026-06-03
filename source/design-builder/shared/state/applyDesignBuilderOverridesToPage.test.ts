@@ -93,6 +93,31 @@ describe('applyDesignBuilderOverridesToPage', () => {
 		expect(target?.style.getPropertyValue('--c-button--color-bg')).toBe('');
 	});
 
+	it('applies overrides from outer ancestor scopes when a closer scope exists', () => {
+		document.body.innerHTML = `
+			<div data-scope="s-post-type-page">
+				<div data-scope="s-drawer">
+					<div data-component="button"></div>
+				</div>
+			</div>
+		`;
+
+		const target = document.querySelector<HTMLElement>('[data-component="button"]');
+		const overrides = {
+			'scope:s-post-type-page': {
+				button: {
+					'--c-button--color-bg': '#abcdef',
+				},
+			},
+		};
+
+		applyComponentOverridesToPage(overrides);
+		expect(target?.style.getPropertyValue('--c-button--color-bg')).toBe('#abcdef');
+
+		clearComponentOverridesFromPage(overrides);
+		expect(target?.style.getPropertyValue('--c-button--color-bg')).toBe('');
+	});
+
 	it('keeps general overrides from overwriting elements with any matching local scope override', () => {
 		document.body.innerHTML = `
 			<div data-scope="scope-1; scope-2;">
