@@ -45,6 +45,14 @@ $_: "c-notice";
     .#{$_}__message {
         grid-area: message;
         margin: 0;
+
+        a,
+        a:hover,
+        a:active,
+        a:visited {
+            color: inherit;
+            text-decoration: underline;
+        }
     }
 
     .#{$_}__actions {
