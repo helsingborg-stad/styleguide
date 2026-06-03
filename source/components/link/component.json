@@ -11,8 +11,19 @@
 			"label": "Settings",
 			"settings": [
 				{
-					"variable": "--state-link-color-mix-amount",
+					"variable": "--color-mix-amount",
 					"label": "Link Color Mix Amount",
+					"description": "Adjusts the mix amount of the link color in hover, active, and visited states.",
+					"type": "range",
+					"default": 90,
+					"min": 0,
+					"max": 100,
+					"step": 1,
+					"unit": "%"
+				},
+				{
+					"variable": "--state-color-mix-amount",
+					"label": "Link Color Mix Amount [State]",
 					"description": "Adjusts the mix amount of the link color in hover, active, and visited states.",
 					"type": "range",
 					"default": 50,
