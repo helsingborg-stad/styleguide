@@ -8,7 +8,7 @@ a,
 .#{$_} {
     --#{$_}-mixable-color: #{tokens.getRawValue($_, "color--background-contrast")};
     --#{$_}-mixable-color-saturated: #{tokens.getRawValue($_, "color--primary")};
-    --#{$_}-link-color-mix: color-mix(in srgb, var(--#{$_}-mixable-color) var(--#{$_}--color-mix-amount, 50%), var(--#{$_}-mixable-color-saturated));
+    --#{$_}-link-color-mix: color-mix(in srgb, var(--#{$_}-mixable-color) var(--#{$_}--color-mix-amount, 90%), var(--#{$_}-mixable-color-saturated));
     --#{$_}-state-link-color-mix: color-mix(in srgb, var(--#{$_}-mixable-color) var(--#{$_}--state-color-mix-amount, 50%), var(--#{$_}-mixable-color-saturated));
 }
 
