@@ -6,10 +6,17 @@ $_: "c-link";
 
 a,
 .#{$_} {
-    --state-link-color-mix: color-mix(in srgb, #{tokens.getRawValue($_, "color--background-contrast")} var(--#{$_}--state-link-color-mix-amount, 50%), #{tokens.getRawValue($_, "color--primary")});
-    color: tokens.getRawValue($_, $token: "color--background-contrast", $inheritVariable: "color-contrast");
+    --#{$_}-mixable-color: #{tokens.getRawValue($_, "color--background-contrast")};
+    --#{$_}-mixable-color-saturated: #{tokens.getRawValue($_, "color--primary")};
+    --#{$_}-link-color-mix: color-mix(in srgb, var(--#{$_}-mixable-color) var(--#{$_}--color-mix-amount, 50%), var(--#{$_}-mixable-color-saturated));
+    --#{$_}-state-link-color-mix: color-mix(in srgb, var(--#{$_}-mixable-color) var(--#{$_}--state-color-mix-amount, 50%), var(--#{$_}-mixable-color-saturated));
+}
+
+a:not([class^="c-"]):not([class*=" c-"]),
+.#{$_} {
     text-decoration-style: solid;
     transition: 100ms color;
+    color: var(--#{$_}-link-color-mix);
 
     i {
         text-decoration: none;
@@ -27,12 +34,12 @@ a,
 
     &:active,
     &:hover {
-        color: var(--state-link-color-mix);
+        color: var(--#{$_}-state-link-color-mix);
     }
 
     &:visited,
     &:visited:hover,
     &:visited:active {
-        color: var(--state-link-color-mix);
+        color: var(--#{$_}-state-link-color-mix);
     }
 }
