@@ -547,6 +547,29 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
+	it('includes all ancestor data-scope values as scope options', () => {
+		document.body.innerHTML = `
+			<div data-scope="s-post-type-page">
+				<div data-scope="s-drawer">
+					<div data-component="button">
+						<a href="/test">Button</a>
+					</div>
+				</div>
+			</div>
+		`;
+
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount);
+
+		const scopeOptions = Array.from(mount.querySelectorAll<HTMLOptionElement>('#db-scope-select option')).map((option) => option.value);
+
+		expect(scopeOptions).toEqual([GENERAL_SCOPE_KEY, 'scope:s-drawer', 'scope:s-post-type-page']);
+
+		mount.remove();
+	});
+
 	it('keeps component overrides when loading a token-only provided preset', () => {
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);

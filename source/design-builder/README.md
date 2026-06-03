@@ -353,8 +353,8 @@ Scoped behavior is enabled via:
 - data-scope="your-scope-name"
 - data-scope="scope-one; scope-two;"
 
-Scope resolution is nearest ancestor based:
-- For a clicked/updated target, closest ancestor [data-scope] is used.
+Scope resolution is ancestor based:
+- For a clicked/updated target, all ancestor [data-scope] values are used.
 - If no scope ancestor exists, runtime uses global scope.
 
 Internal global scope key:
