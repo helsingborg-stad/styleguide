@@ -19,7 +19,7 @@ $_: "c-table";
     --#{$_}--inset-multiplier: max(var(--inherit-inset-multiplier, 1), var(--#{$_}--inset-scale));
     --#{$_}--inset-padding-x: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--inset-multiplier));
     --#{$_}--inset-padding-y: calc(var(--#{$_}--inset-padding-x) * 0.75);
-    --#{$_}--inset-padding-y-content: #{tokens.getCalculatedValue($_, "space", 1.5)};
+    --#{$_}--inset-padding-y-content: calc(#{tokens.getCalculatedValue($_, "space", 1)} + calc(var(--#{$_}--inset-multiplier) * #{tokens.getCalculatedValue($_, "space", 0.5)}));
     --#{$_}--content-gap: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--inset-multiplier));
     position: relative;
     container-type: inline-size;
