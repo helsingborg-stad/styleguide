@@ -1,15 +1,23 @@
 @use "../../sass/mixin/tokens";
 
+@property --inherit-inset-multiplier {
+    syntax: "*";
+    inherits: false;
+}
+
 $_: "c-collection";
 
 @include tokens.create($_, getComponentTokens($_));
 
 // Reset
 .#{$_} {
-    --#{$_}--padding-x-compact: #{tokens.getCalculatedValue($_, "space", 2)};
-    --#{$_}--padding-y-compact: #{tokens.getCalculatedValue($_, "space", 1)};
-    --#{$_}--padding-x: #{tokens.getCalculatedValue($_, "space", 2)};
-    --#{$_}--padding-y: #{tokens.getCalculatedValue($_, "space", 2)};
+    --#{$_}--inset-multiplier: var(--inherit-inset-multiplier, 1);
+    --#{$_}--padding-x-compact: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--inset-multiplier));
+    --#{$_}--padding-y-compact: calc(#{tokens.getCalculatedValue($_, "space", 1)} * var(--#{$_}--inset-multiplier));
+    --#{$_}--padding-x: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--inset-multiplier));
+    --#{$_}--padding-y: calc(var(--#{$_}--padding-x) * 0.5);
+    --#{$_}--padding-x-icon-gap: calc(var(--#{$_}--padding-x) * 0.75);
+    --#{$_}--padding-x-icon-gap-compact: calc(var(--#{$_}--padding-x-compact) * 0.75);
     --#{$_}--padding-x-inset: calc(var(--#{$_}--padding-x) * 3.5);
     padding: 0;
     margin: 0;
@@ -99,10 +107,12 @@ $_: "c-collection";
         &.#{$_}__item--icon-last {
             .#{$_}__icon {
                 order: 5;
+                padding-left: var(--#{$_}--padding-x-icon-gap);
             }
 
             .#{$_}__content {
                 padding-left: var(--#{$_}--padding-x);
+                padding-right: 0;
             }
         }
     }
@@ -170,6 +180,7 @@ $_: "c-collection";
     // Icon
     .#{$_}__icon {
         padding: var(--#{$_}--padding-y) var(--#{$_}--padding-x);
+        padding-right: var(--#{$_}--padding-x-icon-gap);
         display: flex;
     }
 
@@ -220,30 +231,6 @@ $_: "c-collection";
         border-bottom: none;
         border-left: none;
         display: none;
-    }
-}
-
-.#{$_}.#{$_}--compact {
-
-    &.#{$_}--bordered {
-        padding-top: tokens.getCalculatedValue($_, "space", 0.5);
-        padding-bottom: tokens.getCalculatedValue($_, "space", 0.5);
-    }
-
-    .#{$_}__content,
-    .#{$_}__icon,
-    .#{$_}__item>.#{$_}__secondary {
-        padding: var(--#{$_}--padding-y-compact) var(--#{$_}--padding-x-compact);
-    }
-
-    .#{$_}__icon+.#{$_}__content {
-        padding-left: 0;
-    }
-
-    .#{$_}__icon {
-        --c-icon-size: #{tokens.getCalculatedValue($_, "space", 2)};
-        padding-right: tokens.getCalculatedValue($_, "space", 0.5);
-        align-self: center;
     }
 }
 

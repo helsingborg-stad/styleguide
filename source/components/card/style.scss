@@ -70,7 +70,9 @@ $_: "c-card";
         --inherit-border: none;
     }
 
-    [data-component="accordion"] {
+    /* Pass inset multipliet to child components for consistent spacing scaling */
+    [data-component="accordion"],
+    [data-component="collection"] {
         --inherit-inset-multiplier: var(--#{$_}--inset-multiplier);
     }
 
