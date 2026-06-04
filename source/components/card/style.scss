@@ -74,6 +74,10 @@ $_: "c-card";
         --inherit-inset-multiplier: var(--#{$_}--inset-multiplier);
     }
 
+    [data-component="collection"] {
+        --inherit-inset-multiplier: var(--#{$_}--inset-multiplier);
+    }
+
     .#{$_}__paint-container {
         --#{$_}--inset-multiplier: 1;
         --#{$_}--inset-padding-x: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--inset-multiplier));
