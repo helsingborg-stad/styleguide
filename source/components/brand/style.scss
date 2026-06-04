@@ -13,6 +13,8 @@ $_: "c-brand";
     --#{$_}--font-size: calc(var(--#{$_}--font-size-multiplier, 1) * #{tokens.getRawValue($_, "font-size-400")});
     --#{$_}--font-family: #{tokens.getRawValue($_, "font-family-heading")};
 
+    display: flex;
+
     .c-brand__logotype {
         height: var(--#{$_}--height);
     }
