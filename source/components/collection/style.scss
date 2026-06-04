@@ -1,15 +1,21 @@
 @use "../../sass/mixin/tokens";
 
+@property --inherit-inset-multiplier {
+    syntax: "*";
+    inherits: false;
+}
+
 $_: "c-collection";
 
 @include tokens.create($_, getComponentTokens($_));
 
 // Reset
 .#{$_} {
-    --#{$_}--padding-x-compact: #{tokens.getCalculatedValue($_, "space", 2)};
-    --#{$_}--padding-y-compact: #{tokens.getCalculatedValue($_, "space", 1)};
-    --#{$_}--padding-x: #{tokens.getCalculatedValue($_, "space", 2)};
-    --#{$_}--padding-y: #{tokens.getCalculatedValue($_, "space", 2)};
+    --#{$_}--inset-multiplier: var(--inherit-inset-multiplier, 1);
+    --#{$_}--padding-x-compact: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--inset-multiplier));
+    --#{$_}--padding-y-compact: calc(#{tokens.getCalculatedValue($_, "space", 1)} * var(--#{$_}--inset-multiplier));
+    --#{$_}--padding-x: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--inset-multiplier));
+    --#{$_}--padding-y: calc(#{tokens.getCalculatedValue($_, "space", 2)} * calc(var(--#{$_}--inset-multiplier) * 0.75));
     --#{$_}--padding-x-inset: calc(var(--#{$_}--padding-x) * 3.5);
     padding: 0;
     margin: 0;
