@@ -1,6 +1,11 @@
 @use "../../sass/mixin/mq";
 @use "../../sass/mixin/tokens";
 
+@property --inherit-inset-multiplier {
+    syntax: "*";
+    inherits: false;
+}
+
 /* Component name */
 $_: "c-table";
 
@@ -10,7 +15,14 @@ $_: "c-table";
 /* Component */
 .#{$_} {
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--inset-scale: 1;
+    --#{$_}--inset-multiplier: max(var(--inherit-inset-multiplier, 1), var(--#{$_}--inset-scale));
+    --#{$_}--inset-padding-x: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--inset-multiplier));
+    --#{$_}--inset-padding-y: calc(var(--#{$_}--inset-padding-x) * 0.75);
+    --#{$_}--inset-padding-y-content: #{tokens.getCalculatedValue($_, "space", 1.5)};
+    --#{$_}--content-gap: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--inset-multiplier));
     position: relative;
+    container-type: inline-size;
 
     .#{$_}__column-content {
         width: 100%;
@@ -18,7 +30,7 @@ $_: "c-table";
     }
 
     .#{$_}__header {
-        padding: tokens.getCalculatedValue($_, "space", 1.5);
+        padding: var(--#{$_}--inset-padding-y) var(--#{$_}--inset-padding-x);
         border-bottom: var(--#{$_}--border);
 
     }
@@ -40,10 +52,10 @@ $_: "c-table";
 
     .#{$_}__footer {
         width: 100%;
-        padding: tokens.getCalculatedValue($_, "space", 1.5);
+        padding: var(--#{$_}--inset-padding-y) var(--#{$_}--inset-padding-x);
         border-top: var(--#{$_}--border);
         display: grid;
-        gap: tokens.getCalculatedValue($_, "space", 2);
+        gap: var(--#{$_}--content-gap);
     }
 
     .#{$_}__caption {
@@ -60,7 +72,7 @@ $_: "c-table";
 
     .#{$_}__fullscreen {
         position: absolute;
-        right: tokens.getCalculatedValue($_, "space", 2);
+        right: var(--#{$_}--inset-padding-x);
         cursor: pointer;
     }
 
@@ -89,8 +101,8 @@ $_: "c-table";
 
         .#{$_}__heading {
             display: inline-block;
-            padding-right: tokens.getCalculatedValue($_, "space", 2);
-            max-width: calc(100% - #{tokens.getCalculatedValue($_, "space", 2)});
+            padding-right: var(--#{$_}--inset-padding-x);
+            max-width: calc(100% - var(--#{$_}--inset-padding-x));
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
@@ -228,6 +240,14 @@ $_: "c-table";
             position: inherit;
         }
     }
+
+    @container (min-width: 350px) {
+        --#{$_}--inset-scale: 1.5;
+    }
+
+    @container (min-width: 500px) {
+        --#{$_}--inset-scale: 2;
+    }
 }
 
 /**
@@ -240,7 +260,14 @@ table:not(.#{$_} *) {
     vertical-align: top;
 }
 
-.#{$_}__column,
+.#{$_}__column {
+    padding: var(--#{$_}--inset-padding-y-content) var(--#{$_}--inset-padding-x);
+    font-size: tokens.getCalculatedValue($_, "space", 2);
+    text-align: left;
+    line-height: tokens.getCalculatedValue($_, "space", 3);
+    vertical-align: top;
+}
+
 table:not(.#{$_} *) td,
 table:not(.#{$_} *) th {
     padding: tokens.getCalculatedValue($_, "space", 1.5) tokens.getCalculatedValue($_, "space", 2);
