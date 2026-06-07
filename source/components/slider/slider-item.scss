@@ -184,6 +184,7 @@ $_: "c-slider";
         z-index: 4;
         color: tokens.getRawValue($_, "color--overlay-contrast");
         background-color: tokens.getRawValue($_, "color--overlay");
+        gap: 0;
     }
 
     .#{$_}__item__heading {
