@@ -1,6 +1,9 @@
+@use "../../sass/mixin/inset-multiplier" as insetMultiplier;
 @use "../../sass/mixin/tokens";
 
 /* Inheritance properties */
+@include insetMultiplier.property();
+
 @property --inherit-color-contrast {
     syntax: "*";
     inherits: true;
@@ -71,15 +74,11 @@ $_: "c-card";
     }
 
     [data-component="accordion"] {
-        --inherit-inset-multiplier: var(--#{$_}--inset-multiplier);
+        @include insetMultiplier.publish(var(--#{$_}--inset-multiplier));
     }
 
     .#{$_}__paint-container {
-        --#{$_}--inset-multiplier: 1;
-        --#{$_}--inset-padding-x: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--inset-multiplier));
-        --#{$_}--inset-padding-y: calc(#{tokens.getCalculatedValue($_, "space", 2)} * calc(var(--#{$_}--inset-multiplier) * 0.75));
-        --#{$_}--content-gap: calc(#{tokens.getCalculatedValue($_, "space", 0.5)} * var(--#{$_}--inset-multiplier));
-        --#{$_}--stack-gap: calc(#{tokens.getCalculatedValue($_, "space")} * var(--#{$_}--inset-multiplier));
+        @include insetMultiplier.consume($_, insetMultiplier.contextual-multiplier(1), $includeContentGap: true, $includeStackGap: true);
         contain: paint;
         border-radius: inherit;
         display: inherit;
@@ -317,16 +316,7 @@ $_: "c-card";
     }
 
     .#{$_}__paint-container {
-
-        @container (min-width: 350px) {
-            --inherit-inset-multiplier: 1.5;
-            --#{$_}--inset-multiplier: 1.5;
-        }
-
-        @container (min-width: 500px) {
-            --inherit-inset-multiplier: 2;
-            --#{$_}--inset-multiplier: 2;
-        }
+        @include insetMultiplier.responsive-resolve($_, $includeContentGap: true, $includeStackGap: true);
 
         @container (min-width: 500px) {
             display: flex;
