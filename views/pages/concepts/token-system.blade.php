@@ -317,170 +317,64 @@
     @divider(['size' => 'full', 'classList' => ['u-margin__top--6', 'u-margin__bottom--6']])
     @enddivider
 
-    <style>
-        .token-system-lead {
-            max-width: 70ch;
-            color: var(--color--surface-contrast-muted);
-        }
+    @notice([
+        'type' => 'info',
+        'message' => [
+            'text' => 'This page focuses on the foundational non-color token surface. Color families and derived companion tones are documented separately on the Color system concept page.',
+        ],
+        'classList' => ['u-margin__bottom--4'],
+    ])
+    @endnotice
 
-        .token-system-grid {
-            display: grid;
-            gap: 1rem;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        }
+    @paper(['padding' => 4, 'classList' => ['u-margin__bottom--5']])
+        @typography(['element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__bottom--2']])
+            Why the token system exists
+        @endtypography
 
-        .token-system-card {
-            border: 1px solid var(--color--surface-border);
-            border-radius: calc(var(--border-radius, 1) * 0.5rem);
-            padding: 1rem;
-            background: var(--color--surface);
-        }
-
-        .token-system-card__path,
-        .token-system-token,
-        .token-system-flag {
-            font-family: var(--font-family-code, monospace);
-        }
-
-        .token-system-card__path {
-            display: block;
-            margin-top: 0.5rem;
-            font-size: 0.76rem;
-            color: var(--color--surface-contrast-muted);
-            overflow-wrap: anywhere;
-        }
-
-        .token-system-meta {
-            display: grid;
-            gap: 0.75rem;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        }
-
-        .token-system-meta__item {
-            border-left: 3px solid var(--color--primary);
-            padding-left: 0.85rem;
-        }
-
-        .token-system-section {
-            margin-top: 2rem;
-        }
-
-        .token-system-section + .token-system-section {
-            margin-top: 2.5rem;
-        }
-
-        .token-system-table-wrap {
-            overflow-x: auto;
-            border: 1px solid var(--color--surface-border);
-            border-radius: calc(var(--border-radius, 1) * 0.5rem);
-            background: var(--color--surface);
-        }
-
-        .token-system-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .token-system-table th,
-        .token-system-table td {
-            padding: 0.85rem 1rem;
-            text-align: left;
-            vertical-align: top;
-            border-bottom: 1px solid var(--color--surface-border);
-        }
-
-        .token-system-table th {
-            background: var(--color--surface-alt);
-            font-size: 0.74rem;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            color: var(--color--surface-contrast-muted);
-        }
-
-        .token-system-table tbody tr:last-child td {
-            border-bottom: 0;
-        }
-
-        .token-system-token {
-            display: inline-block;
-            font-size: 0.78rem;
-            line-height: 1.45;
-            word-break: break-all;
-        }
-
-        .token-system-flag {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 3.2rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 999px;
-            background: var(--color--surface-alt);
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: var(--color--surface-contrast);
-        }
-    </style>
-
-    <div class="token-system-meta u-margin__bottom--6">
-        <div class="token-system-meta__item">
-            @typography(['element' => 'h2', 'variant' => 'h4', 'classList' => ['u-margin__bottom--1']])
-                What tokens solve
-            @endtypography
-            @typography(['element' => 'p', 'variant' => 'body'])
-                Tokens replace one-off visual values with named system inputs, which keeps the design language consistent and makes runtime customization predictable.
-            @endtypography
-        </div>
-        <div class="token-system-meta__item">
-            @typography(['element' => 'h2', 'variant' => 'h4', 'classList' => ['u-margin__bottom--1']])
-                Where color fits
-            @endtypography
-            @typography(['element' => 'p', 'variant' => 'body'])
-                This page focuses on the foundational non-color token surface. Color families and their derived companion tones are documented separately on <a href="/concepts/color-system">Color system</a>.
-            @endtypography
-        </div>
-        <div class="token-system-meta__item">
-            @typography(['element' => 'h2', 'variant' => 'h4', 'classList' => ['u-margin__bottom--1']])
-                Runtime contract
-            @endtypography
-            @typography(['element' => 'p', 'variant' => 'body'])
-                Components only receive tokens they explicitly declare. Theme authors can override the global layer, while instance-level overrides should target component aliases rather than editing component Sass.
-            @endtypography
-        </div>
-    </div>
+        @listing([
+            'list' => [
+                ['label' => 'Tokens replace one-off visual values with named system inputs, which keeps the design language consistent.'],
+                ['label' => 'Global tokens define the shared runtime surface, while components only consume the tokens they explicitly declare.'],
+                ['label' => 'Theme authors override the global layer, and local implementations should override component aliases rather than editing component Sass.'],
+            ],
+            'elementType' => 'ul',
+        ])
+        @endlisting
+    @endpaper
 
     @typography(['element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__bottom--2']])
         How the token system works
     @endtypography
 
-    @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['token-system-lead', 'u-margin__bottom--4']])
+    @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--4']])
         The implementation is intentionally explicit. Global tokens are defined once, compiled into CSS variables, mapped into component scope, and then consumed through helper functions. That keeps the customization surface stable and makes inheritance rules easier to reason about.
     @endtypography
 
-    <div class="token-system-grid u-margin__bottom--6">
+    <div class="o-grid o-grid--large u-margin__bottom--5">
         @foreach ($architectureSteps as $step)
-            <section class="token-system-card">
-                @typography(['element' => 'h3', 'variant' => 'h4', 'classList' => ['u-margin__bottom--1']])
-                    {{ $step['title'] }}
-                @endtypography
-                @typography(['element' => 'p', 'variant' => 'body'])
-                    {{ $step['description'] }}
-                @endtypography
-                <span class="token-system-card__path">{{ $step['path'] }}</span>
-            </section>
+            <div class="o-grid-12 o-grid-4@md">
+                @box([
+                    'heading' => $step['title'],
+                    'content' => $step['description'] . '<br><br><code>' . e($step['path']) . '</code>',
+                    'icon' => 'schema',
+                ])
+                @endbox
+            </div>
         @endforeach
     </div>
 
-    @typography(['element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__bottom--2']])
+    @paper(['padding' => 4, 'classList' => ['u-margin__bottom--5']])
+        @typography(['element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__bottom--2']])
         Base token reference
-    @endtypography
+        @endtypography
 
-    @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['token-system-lead']])
+        @typography(['element' => 'p', 'variant' => 'body'])
         These are the foundational system tokens that the component layer builds on. Direct tokens are the intended customization inputs. Derived tokens are published for consumption, but their upstream inputs are the place to make supported changes.
-    @endtypography
+        @endtypography
+    @endpaper
 
     @foreach ($tokenSections as $section)
-        <section class="token-system-section">
+        <section class="u-margin__bottom--5">
             @typography(['element' => 'h3', 'variant' => 'h3', 'classList' => ['u-margin__bottom--1']])
                 {{ $section['title'] }}
             @endtypography
@@ -489,32 +383,27 @@
                 {{ $section['summary'] }}
             @endtypography
 
-            <div class="token-system-table-wrap">
-                <table class="token-system-table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Token</th>
-                            <th scope="col">Purpose</th>
-                            <th scope="col">How it works</th>
-                            <th scope="col">Editable</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($section['tokens'] as $token)
-                            <tr>
-                                <td>
-                                    <span class="token-system-token">{{ $token['token'] }}</span>
-                                </td>
-                                <td>{{ $token['purpose'] }}</td>
-                                <td>{{ $token['behavior'] }}</td>
-                                <td>
-                                    <span class="token-system-flag">{{ $token['editable'] }}</span>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+            @php
+                $tokenRows = array_map(static function (array $token): array {
+                    return [
+                        'columns' => [
+                            $token['token'],
+                            $token['purpose'],
+                            $token['behavior'],
+                            $token['editable'],
+                        ],
+                    ];
+                }, $section['tokens']);
+            @endphp
+
+            @paper(['padding' => 0])
+                @table([
+                    'headings' => ['Token', 'Purpose', 'How it works', 'Editable'],
+                    'list' => $tokenRows,
+                    'includePaper' => false,
+                ])
+                @endtable
+            @endpaper
         </section>
     @endforeach
 @stop
