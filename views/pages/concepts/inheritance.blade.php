@@ -100,20 +100,20 @@ SCSS,
             ],
             [
                 'title' => 'Accordion content scales nested titles',
-                'description' => 'The accordion content area can publish `--inherit-font-size-multiplier` so dense content panels tone down nested headings and title variants. Typography still clamps at the base text size, so the multiplier cannot shrink titles below the body-size floor.',
+                'description' => 'The accordion content area can publish compressed typography variables on the built-in type scale, so dense content panels keep nested headings between the body-size floor and the accordion label scale without using a separate multiplier or cap.',
                 'previewView' => 'pages.partials.concepts.inheritance.accordion-typography-preview',
                 'bladeCode' => <<<'BLADE'
 @accordion([])
     @accordion__item([
         'heading' => 'No correction',
     ])
-        <div style="--inherit-font-size-multiplier: 1;">
+        <div style="--c-typography--h1-font-size: var(--c-typography--h1-font-size-default); --c-typography--h2-font-size: var(--c-typography--h2-font-size-default); --c-typography--h3-font-size: var(--c-typography--h3-font-size-default); --c-typography--h4-font-size: var(--c-typography--h4-font-size-default); --c-typography--h5-font-size: var(--c-typography--h5-font-size-default); --c-typography--h6-font-size: var(--c-typography--h6-font-size-default);">
             @typography(['element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__bottom--1']])
                 Uncorrected content title
             @endtypography
 
             @typography(['element' => 'p', 'variant' => 'body'])
-                This panel forces a multiplier of `1`, so nested titles keep their original scale.
+                This panel resets the accordion typography variables, so nested titles keep their original scale.
             @endtypography
         </div>
     @endaccordion__item
@@ -121,13 +121,13 @@ SCSS,
     @accordion__item([
         'heading' => 'Corrected',
     ])
-        <div style="--inherit-font-size-multiplier: 0.6;">
+        <div>
             @typography(['element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__bottom--1']])
                 Corrected content title
             @endtypography
 
             @typography(['element' => 'p', 'variant' => 'body'])
-                This panel forces the corrected multiplier, which reduces nested titles while still respecting the base-size floor.
+                This panel uses the accordion defaults, which reduce nested titles on the built-in type scale without any extra cap variable.
             @endtypography
         </div>
     @endaccordion__item
@@ -135,7 +135,12 @@ SCSS,
 BLADE,
                 'implementationCode' => <<<'SCSS'
 .c-accordion__content {
-    --inherit-font-size-multiplier: 0.6;
+    --c-typography--h1-font-size: calc(var(--font-size-base) * pow(var(--font-size-scale-ratio), 0.8333333333));
+    --c-typography--h2-font-size: calc(var(--font-size-base) * pow(var(--font-size-scale-ratio), 0.6666666667));
+    --c-typography--h3-font-size: calc(var(--font-size-base) * pow(var(--font-size-scale-ratio), 0.5));
+    --c-typography--h4-font-size: calc(var(--font-size-base) * pow(var(--font-size-scale-ratio), 0.3333333333));
+    --c-typography--h5-font-size: calc(var(--font-size-base) * pow(var(--font-size-scale-ratio), 0.1666666667));
+    --c-typography--h6-font-size: var(--font-size-base);
 }
 SCSS,
                 'implementationLanguage' => 'scss',

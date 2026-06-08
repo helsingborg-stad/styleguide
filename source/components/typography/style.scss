@@ -26,11 +26,6 @@
     inherits: true;
 }
 
-@property --inherit-font-size-multiplier {
-    syntax: "*";
-    inherits: true;
-}
-
 /* Component name */
 $_: "c-typography";
 
@@ -38,10 +33,10 @@ $_: "c-typography";
 @include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
 @function getInheritedTitleFontSize($variable) {
-    $baseFontSize: var(--font-size-base, var(--base-font-size, 1rem));
+    $minimumFontSize: var(--font-size-base, var(--base-font-size, 1rem));
     $resolvedFontSize: tokens.getDerivedAliasValue($_, $variable, "font-size");
 
-    @return max(#{$baseFontSize}, calc(#{$resolvedFontSize} * var(--inherit-font-size-multiplier, 1)));
+    @return max(#{$minimumFontSize}, #{$resolvedFontSize});
 }
 
 :root {
