@@ -11,6 +11,8 @@ $_: "c-modal";
 .#{$_} {
     --#{$_}--padding: #{tokens.getCalculatedValue($_, "space", 4)};
     --#{$_}--vertical-padding-multiplier: .75;
+    --#{$_}--inset-x: var(--#{$_}--padding);
+    --#{$_}--inset-y: calc(var(--#{$_}--inset-x) * var(--#{$_}--vertical-padding-multiplier, 1));
     background-color: tokens.getRawValue($_, "color--surface");
     color: tokens.getRawValue($_, "color--surface-contrast");
     border: tokens.getCalculatedValue($_, "border", 1);
@@ -24,42 +26,52 @@ $_: "c-modal";
     cursor: default;
     transition: opacity 0.2s ease, transform 0.2s ease;
     overflow: hidden;
-    padding: calc(var(--c-modal-padding, var(--#{$_}--padding)) * var(--c-modal--vertical-padding-multiplier, 1)) var(--c-modal-padding, var(--#{$_}--padding));
+    padding: var(--#{$_}--inset-y) var(--#{$_}--inset-x);
 
     &[open] {
         display: grid;
         grid-template-rows: auto minmax(0, 1fr);
-        gap: calc(var(--c-modal-padding, var(--#{$_}--padding)) * var(--c-modal--vertical-padding-multiplier, 1));
+        gap: var(--#{$_}--inset-y);
     }
 
     &:not(.#{$_}--gallery):not(.#{$_}--is-panel) {
         --c-modal-max-width: 50rem;
-        --c-modal-max-height: 90vh;
+        --c-modal-max-height: 80vh;
         width: min(92vw, var(--c-modal-max-width));
         max-width: var(--c-modal-max-width);
         max-height: var(--c-modal-max-height);
     }
 
     .#{$_}__heading {
-        --inherit-font-size: #{tokens.getRawValue($_, "font-size-400")};
+        --inherit-font-size: #{tokens.getRawValue($_, "font-size-200")};
         --inherit-margin-bottom: 0;
         --inherit-margin-top: 0;
+        align-self: center;
     }
 
-    .#{$_}__close {
-        margin-bottom: auto;
+    .c-modal__heading+.#{$_}__close {
+        height: 100%;
+
+        &:hover:before {
+            display: none;
+        }
     }
 
     &.#{$_}--transparent {
         background-color: transparent;
         filter: none;
 
-        .c-button.#{$_}__close {
+        .#{$_}__header {
+            background-color: transparent;
+        }
+
+        [data-component="button"].#{$_}__close {
             color: tokens.getRawValue($_, "color--alpha-contrast");
         }
     }
 
     &.search-modal {
+
         #modal-search-form {
             margin-top: tokens.getCalculatedValue($_, "base", 1);
             margin-bottom: tokens.getCalculatedValue($_, "base", 1);
@@ -88,14 +100,17 @@ $_: "c-modal";
 
     &.#{$_}--size-sm:not(.#{$_}--gallery):not(.#{$_}--is-panel) {
         --c-modal-max-width: 32.5em;
+        --c-modal-max-height: 70vh;
     }
 
     &.#{$_}--size-md:not(.#{$_}--gallery):not(.#{$_}--is-panel) {
         --c-modal-max-width: 56em;
+        --c-modal-max-height: 85vh;
     }
 
     &.#{$_}--size-lg:not(.#{$_}--gallery):not(.#{$_}--is-panel) {
         --c-modal-max-width: 78em;
+        --c-modal-max-height: 100vh;
     }
 
     &--is-panel {
@@ -113,12 +128,35 @@ $_: "c-modal";
         }
     }
 
-    &__header {
+    &:not(.#{$_}--gallery) .#{$_}__header {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: flex-start;
         gap: tokens.getCalculatedValue($_, "space", 1);
+        background-color: #{tokens.getRawValue($_, "color--surface-alt")};
+        margin: calc(-1 * var(--#{$_}--inset-y)) calc(-1 * var(--#{$_}--inset-x)) 0;
+        padding: var(--#{$_}--inset-y) var(--#{$_}--inset-x);
+        position: relative;
+
+        &:after {
+            content: "";
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            height: tokens.getCalculatedValue($_, "border-width", 1);
+            background-color: tokens.getRawValue($_, "color--surface-border");
+        }
+    }
+
+    &.#{$_}--transparent:not(.#{$_}--gallery) .#{$_}__header {
+        background-color: transparent;
+        border: none;
+
+        &:after {
+            content: unset;
+        }
     }
 
     &__content {
@@ -127,19 +165,20 @@ $_: "c-modal";
     }
 
     &__footer {
-        padding-top: calc(var(--c-modal-padding, var(--#{$_}--padding)) * var(--c-modal--vertical-padding-multiplier, 1));
+        background-color: #{tokens.getRawValue($_, "color--surface-alt")};
+        margin: 0 calc(-1 * var(--#{$_}--inset-x)) calc(-1 * var(--#{$_}--inset-y));
+        padding: var(--#{$_}--inset-y) var(--#{$_}--inset-x);
         flex-shrink: 0;
         position: relative;
 
-        &::before {
+        &:before {
             content: "";
-            display: block;
             background-color: tokens.getRawValue($_, "color--surface-border");
             height: tokens.getCalculatedValue($_, "border-width", 1);
-            width: calc(100% + 2 * var(--#{$_}--padding) * 2);
-            margin: 0 calc(-1 * var(--#{$_}--padding) * 2);
             position: absolute;
+            right: 0;
             top: 0;
+            left: 0;
         }
     }
 
@@ -154,6 +193,7 @@ $_: "c-modal";
 }
 
 @keyframes modalSlideUp {
+
     from {
         opacity: 0;
         transform: translateY(50vh);

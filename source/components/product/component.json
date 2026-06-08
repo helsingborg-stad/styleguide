@@ -1,0 +1,13 @@
+{
+	"$schema": "../../component-schema.json",
+	"apiVersion": 1,
+	"name": "Product",
+	"slug": "product",
+	"tokens": ["space", "base", "font-size-100", "font-size-600", "color--primary", "color--secondary"],
+	"description": "The Product component provides a reusable pattern for products in the interface.",
+	"tags": ["product", "component"],
+	"similarComponents": ["card"],
+	"requires": [],
+	"requiredBy": [],
+	"icon": "package_2"
+}

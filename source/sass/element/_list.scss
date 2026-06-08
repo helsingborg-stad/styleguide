@@ -14,12 +14,13 @@ ul, ol {
         padding-left: calc(#{var_default.$base}/2);
     }
 
-    li + li {
+    li+li {
         margin-top: var_default.$base;
     }
 }
 
 ul {
+
     li::marker {
         color: var_colors.$color-primary;
     }
@@ -35,7 +36,7 @@ ol.unlist {
         padding-left: 0;
     }
 
-    li + li {
+    li+li {
         margin: 0;
     }
 }
@@ -47,5 +48,3 @@ ul.unlist li::marker {
 pre li::marker {
     background: transparent;
 }
-
-

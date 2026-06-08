@@ -21,7 +21,7 @@ $_: "o-tooltip";
     max-width: min(calc(100vw - calc(tokens.getRawValue($_, "base") * 3)), calc(tokens.getRawValue($_, "base") * 38));
     padding: tokens.getRawValue($_, "base") calc(tokens.getRawValue($_, "base") * 1.5);
     background-color: var(--#{$_}--color--alpha-solid);
-    z-index: 9999;
+    z-index: 11;
     border: tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--alpha-border");
     border-radius: tokens.getCalculatedValue($_, "border-radius");
     corner-shape: tokens.getRawValue($_, "corner-shape");
@@ -36,8 +36,8 @@ $_: "o-tooltip";
     transform: translateY(calc(tokens.getRawValue($_, "base") * 0.5)) scale(0.98);
     transition: opacity 0.2s ease, transform 0.2s ease;
 
-    &::before,
-    &::after {
+    &:before,
+    &:after {
         content: "";
         position: absolute;
         left: var(--o-tooltip-arrow-left, 50%);
@@ -47,12 +47,12 @@ $_: "o-tooltip";
         clip-path: polygon(50% 100%, 0 0, 100% 0);
     }
 
-    &::before {
+    &:before {
         top: 100%;
         border-top: calc(var(--#{$_}--arrow-size) + tokens.getCalculatedValue($_, "border-width", 1)) solid tokens.getRawValue($_, "color--alpha-border");
     }
 
-    &::after {
+    &:after {
         top: calc(100% - tokens.getCalculatedValue($_, "border-width", 1));
         border-top: var(--#{$_}--arrow-size) solid var(--#{$_}--color--alpha-solid);
         backdrop-filter: blur(tokens.getRawValue($_, "base"));

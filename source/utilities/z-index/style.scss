@@ -2,16 +2,16 @@
 
     .u-level-#{$i},
     .u-level--#{$i} {
-        z-index: ($i*1000);
+        z-index: $i;
     }
 }
 
 .u-level-top,
 .u-level--top {
-    z-index: 9999;
+    z-index: 11;
 }
 
 .u-level-bottom,
 .u-level--bottom {
-    z-index: 1;
+    z-index: 0;
 }

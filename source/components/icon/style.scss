@@ -64,40 +64,40 @@ $sizes: xs, sm, md, lg, xl, xxl;
     @each $size in $sizes {
         &.#{$_}--size-#{$size} {
             $icon-size: var(--c-icon-size, var(--#{$_}--size-#{$size}));
- font-size: $icon-size;
+            font-size: $icon-size;
 
-                    &::after {
-                    height: $icon-size;
-                    width: $icon-size;
-                    display: inline-block;
-                }
+            &:after {
+                height: $icon-size;
+                width: $icon-size;
+                display: inline-block;
+            }
 
-                svg {
-                    height: $icon-size;
-                }
+            svg {
+                height: $icon-size;
             }
         }
-
-        /* Nested elements */
-
-        .#{$_}__label {
-            font-size: 1rem;
-            font-style: normal;
-            color: inherit;
-        }
-
-        &.#{$_}--fluid-label .#{$_}__label {
-            font-size: 1rem;
-        }
-
     }
 
-    @media print {
+    /* Nested elements */
 
-        .#{$_} {
-            display: none;
-        }
-
+    .#{$_}__label {
+        font-size: 1rem;
+        font-style: normal;
+        color: inherit;
     }
 
-    @include meta.load-css("../../sass/icon/material-symbols");
+    &.#{$_}--fluid-label .#{$_}__label {
+        font-size: 1rem;
+    }
+
+}
+
+@media print {
+
+    .#{$_} {
+        display: none;
+    }
+
+}
+
+@include meta.load-css("../../sass/icon/material-symbols");

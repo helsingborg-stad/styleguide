@@ -28,7 +28,9 @@ $_: "c-fileinput";
     }
 
     /* Is dragging */
+
     &.is-dragging:not(.is-full) {
+
         .js-file-input-drop {
             outline: 3px dashed tokens.getRawValue($_, "color--surface-border");
             border-radius: tokens.getCalculatedValue($_, "border-radius");
@@ -45,13 +47,15 @@ $_: "c-fileinput";
     }
 
     &.is-dragging.is-full {
+
         .js-file-input-drop {
             display: none;
         }
 
         /* Disable drop area visually */
         .#{$_}__area {
-            &::after {
+
+            &:after {
                 position: absolute;
                 inset: 0;
                 content: "\1F6AB";
@@ -63,20 +67,22 @@ $_: "c-fileinput";
                 line-height: 1;
                 filter: grayscale(100%) brightness(0) contrast(100%);
                 opacity: 0.2;
-                z-index: 2000;
+                z-index: 2;
             }
-            &::before {
+
+            &:before {
                 content: "";
                 position: absolute;
                 inset: 0;
                 background: color-mix(in srgb, tokens.getRawValue($_, "color--surface-alt"), transparent 80%);
-                z-index: 1000;
+                z-index: 1;
                 backdrop-filter: blur(4px);
             }
         }
     }
 
     &:not(.is-dragging) {
+
         .js-file-input-drop {
             display: none;
         }
@@ -165,10 +171,11 @@ $_: "c-fileinput";
                 white-space: nowrap;
                 font-size: tokens.getRawValue($_, "font-size-90");
 
-                &::before {
+                &:before {
                     content: "(";
                 }
-                &::after {
+
+                &:after {
                     content: ")";
                 }
             }
@@ -176,6 +183,7 @@ $_: "c-fileinput";
     }
 
     /* Is empty */
+
     &.is-empty {
         .#{$_}__file-list {
             display: none;
@@ -221,10 +229,11 @@ $_: "c-fileinput";
         transition: all 0.2s ease-in-out;
         white-space: nowrap;
 
-        &::before {
+        &:before {
             content: attr(data-counter-current);
         }
-        &::after {
+
+        &:after {
             content: attr(data-counter-max);
         }
 
@@ -242,6 +251,7 @@ $_: "c-fileinput";
     }
 
     /* Invalid */
+
     &.is-invalid {
         .#{$_}__area {
             border-color: tokens.getRawValue($_, "color--danger-border");
@@ -273,7 +283,7 @@ $_: "c-fileinput";
             .#{$_}__attachment-icon {
                 display: block;
 
-                &::after {
+                &:after {
                     position: absolute;
                     top: 50%;
                     left: 50%;
@@ -327,7 +337,7 @@ $_: "c-fileinput";
             background-color: tokens.getRawValue($_, "color--surface");
             border: var(--#{$_}--border);
 
-            & > * {
+            &>* {
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
@@ -349,10 +359,12 @@ $_: "c-fileinput";
 
 /* Animation */
 @keyframes puff-out-center {
+
     0% {
         filter: var(--#{$_}--shadow) blur(0px);
         opacity: 1;
     }
+
     100% {
         filter: var(--#{$_}--shadow) blur(4px);
         opacity: 0;

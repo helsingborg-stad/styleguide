@@ -25,7 +25,7 @@ $_: "c-header";
     &.#{$_}--sticky {
         position: sticky;
         top: 0;
-        z-index: 1;
+        z-index: 9;
     }
 
     &.#{$_}--primary {
@@ -43,10 +43,12 @@ $_: "c-header";
     .c-nav:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
         --c-nav--item-color: var(--c-header--color);
         --c-nav--color--primary-contrast: var(--c-header--color);
+        --inherit-background-color: var(--c-header--background-color);
+        --inherit-color: var(--c-header--color);
     }
 
     .c-link:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
-        --c-link--color--background-contrast: var(--c-header--color);
+        --inherit-color-contrast: var(--c-header--color);
     }
 
     .c-button:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
@@ -80,6 +82,7 @@ $_: "c-header";
     }
 
     &.#{$_}--casual {
+
         #main-menu {
             display: flex;
             flex-grow: 1;
@@ -104,6 +107,7 @@ $_: "c-header";
     }
 
     &.#{$_}--business {
+
         .c-nav--business-left {
             justify-content: flex-start;
 
@@ -122,12 +126,14 @@ $_: "c-header";
     }
 
     // Logo
+
     &__logotype {
         height: var(--#{$_}--logotype-height);
     }
 }
 
 @keyframes blink {
+
     0% {}
 
     25% {

@@ -2,11 +2,13 @@
 @use "../../sass/mixin/button";
 @use "../../sass/mixin/tokens";
 
+@include insetMultiplier.property();
+
 /* Component name */
 $_: "c-accordion";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_));
+@include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
 .#{$_} {
     --#{$_}--heading-columns: repeat(var(--#{$_}--heading-count, auto-fill), 1fr);

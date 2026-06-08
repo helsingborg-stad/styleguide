@@ -136,6 +136,44 @@ describe('resolveDesignBuilderRootConfiguration', () => {
 		]);
 	});
 
+	it('normalizes an empty token preset as a default appearance option', () => {
+		const root = createRoot();
+		root.setAttribute('token-data', JSON.stringify({ name: 'Tokens' }));
+		root.setAttribute(
+			'presets',
+			JSON.stringify([
+				{
+					id: 'default',
+					label: 'Default appearance',
+					token: {},
+				},
+			]),
+		);
+
+		const configuration = resolveDesignBuilderRootConfiguration({
+			hostElement: root,
+			preferredMode: null,
+			propertyTokenData: undefined,
+			propertyTokenLibraryData: undefined,
+			propertyComponentData: undefined,
+		});
+
+		expect(configuration.presets).toEqual([
+			{
+				id: 'default',
+				label: 'Default appearance',
+				state: {
+					token: {},
+					component: {},
+				},
+				targets: {
+					token: true,
+					component: false,
+				},
+			},
+		]);
+	});
+
 	it('allows the save button to be disabled from the root attribute', () => {
 		const root = createRoot();
 		root.setAttribute('token-data', JSON.stringify({ name: 'Tokens' }));

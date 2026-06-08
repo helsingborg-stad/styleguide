@@ -31,6 +31,42 @@
 		"font-size-100",
 		"font-size-200"
 	],
+	"componentSettings": [
+		{
+			"id": "colors",
+			"label": "Colors",
+			"description": "Variant color selection for button surfaces.",
+			"settings": [
+				{
+					"token": "color--primary",
+					"label": "Button Color (Primary)",
+					"description": "Controls the background, text, border, hover, and active colors for primary buttons.",
+					"includeStateColors": true,
+					"visibleWhen": {
+						"hasAnyClass": ["c-button__filled--primary", "c-button__basic--primary", "c-button__outlined--primary"]
+					}
+				},
+				{
+					"token": "color--secondary",
+					"label": "Button Color (Secondary)",
+					"description": "Controls the background, text, border, hover, and active colors for secondary buttons.",
+					"includeStateColors": true,
+					"visibleWhen": {
+						"hasAnyClass": ["c-button__filled--secondary", "c-button__basic--secondary", "c-button__outlined--secondary"]
+					}
+				},
+				{
+					"token": "color--surface",
+					"label": "Button Color (Default)",
+					"description": "Controls the background, text, border, hover, and active colors for default buttons.",
+					"includeStateColors": true,
+					"visibleWhen": {
+						"doesNotHaveClass": ["c-button__filled--primary", "c-button__basic--primary", "c-button__outlined--primary", "c-button__filled--secondary", "c-button__basic--secondary", "c-button__outlined--secondary"]
+					}
+				}
+			]
+		}
+	],
 	"description": "The Button component provides a reusable pattern for button in the interface.",
 	"tags": ["button", "component"],
 	"similarComponents": ["option", "box", "testimonials"],

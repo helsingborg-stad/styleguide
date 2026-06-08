@@ -18,6 +18,14 @@ describe('parseComponentTokenData', () => {
 								description: 'Adjusts the spacing between logo and text.',
 							},
 							{
+								token: 'color--primary',
+								label: 'Brand Color',
+								includeStateColors: false,
+								visibleWhen: {
+									hasAnyClass: ['c-brand--featured', ' c-brand--hero '],
+								},
+							},
+							{
 								variable: '--font-size-multiplier',
 								label: 'Font Size Multiplier',
 								type: 'range',
@@ -49,6 +57,14 @@ describe('parseComponentTokenData', () => {
 						token: 'space',
 						label: 'Space',
 						description: 'Adjusts the spacing between logo and text.',
+					},
+					{
+						token: 'color--primary',
+						label: 'Brand Color',
+						includeStateColors: false,
+						visibleWhen: {
+							hasAnyClass: ['c-brand--featured', 'c-brand--hero'],
+						},
 					},
 					{
 						variable: '--font-size-multiplier',

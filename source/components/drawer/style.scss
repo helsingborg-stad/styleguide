@@ -5,6 +5,7 @@ $_: "c-drawer";
 @include tokens.create($_, getComponentTokens($_));
 
 /* Colors */
+
 .c-drawer {
     --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 5)};
     --#{$_}--drawer-transition-ms: 300ms;
@@ -17,6 +18,10 @@ $_: "c-drawer";
     .site-nav-mobile__primary>.c-nav__item,
     .c-drawer__header {
         --drawer-background: #{tokens.getRawValue($_, "color--surface")};
+    }
+
+    .c-nav {
+        --inherit-color: var(--color--surface-contrast);
     }
 }
 
@@ -33,6 +38,7 @@ $_: "c-drawer";
 }
 
 // Duotone drawer colors needing to target the main list items for better flexibility
+
 .c-drawer.c-drawer--duotone {
 
     &,
@@ -64,9 +70,11 @@ $_: "c-drawer";
 .c-drawer.c-drawer--duotone.c-drawer--duotone-secondary,
 .c-drawer.c-drawer--duotone.c-drawer--duotone-secondary .site-nav-mobile__secondary>.c-nav__item {
     --drawer-duotone-background: #{tokens.getRawValue($_, "color--secondary")};
+    --drawer-duotone-color: #{tokens.getRawValue($_, "color--secondary-contrast")};
 }
 
 // Actual css
+
 .c-drawer {
     background-color: var(--drawer-background);
 
@@ -112,14 +120,16 @@ $_: "c-drawer";
 /* Colors END */
 
 // Drawer
+
 .c-drawer {
+    --#{$_}--width-multiplier: 1;
     position: fixed;
     left: 0;
     top: 0;
     height: 100%;
-    max-width: tokens.getCalculatedValue($_, "base", 64);
+    max-width: calc(var(--#{$_}--width-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 64)});
     width: 90%;
-    z-index: 9000;
+    z-index: 10;
     transform: translate(-100%);
     transition: visibility 0s linear var(--#{$_}--drawer-transition-ms),
     var(--#{$_}--drawer-transition-ms) ease-in transform,
@@ -140,7 +150,7 @@ $_: "c-drawer";
 }
 
 .c-drawer__header {
-    padding: tokens.getCalculatedValue($_, "base", 1) tokens.getCalculatedValue($_, "base", 2);
+    padding: tokens.getCalculatedValue($_, "space", 1) tokens.getCalculatedValue($_, "space", 2);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -149,10 +159,21 @@ $_: "c-drawer";
 .c-drawer__footer {
     border-top: 1px solid rgba(255, 255, 255, .3);
     align-self: flex-end;
-    padding: tokens.getCalculatedValue($_, "base", 4) tokens.getCalculatedValue($_, "base", 4) tokens.getCalculatedValue($_, "base", 12) tokens.getCalculatedValue($_, "base", 4);
+    padding: tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 12) tokens.getCalculatedValue($_, "space", 4);
+}
+
+.c-drawer {
+
+    .c-nav.c-nav--drawer.c-nav--vertical {
+        --inherit-padding: #{tokens.getCalculatedValue($_, "space", 1)} #{tokens.getCalculatedValue($_, "space", 2)};
+        --inherit-button-padding: #{tokens.getCalculatedValue($_, "space", 1.5)} #{tokens.getCalculatedValue($_, "space", 2)};
+        --inherit-padding-compressed: #{tokens.getCalculatedValue($_, "space", 0.75)} #{tokens.getCalculatedValue($_, "space", 1.5)};
+        --inherit-button-padding-compressed: #{tokens.getCalculatedValue($_, "space", 1.25)} #{tokens.getCalculatedValue($_, "space", 1.5)};
+    }
 }
 
 // Drawer Modifiers
+
 .c-drawer.c-drawer--right {
     transform: translate(100%);
     right: 0;
@@ -163,19 +184,21 @@ $_: "c-drawer";
 
     .c-drawer__header,
     .site-nav-mobile__primary {
+
         * {
             color: tokens.getRawValue($_, "color--surface-contrast");
         }
 
         .hamburger.hamburger--drawer.is-active .hamburger-inner,
-        .hamburger.hamburger--drawer.is-active .hamburger-inner::before,
-        .hamburger.hamburger--drawer.is-active .hamburger-inner::after {
+        .hamburger.hamburger--drawer.is-active .hamburger-inner:before,
+        .hamburger.hamburger--drawer.is-active .hamburger-inner:after {
             background-color: tokens.getRawValue($_, "color--surface-contrast");
         }
     }
 }
 
 // Drawer States
+
 .c-drawer.is-open {
     transition: visibility 0s linear 0s,
     var(--#{$_}--drawer-transition-ms) ease-out transform,
@@ -187,19 +210,17 @@ $_: "c-drawer";
 }
 
 $_overlay: "drawer-overlay";
-@include tokens.create($_overlay, ("color--alpha"
-    ));
 
 // Overlay
 .#{$_overlay} {
     --#{$_overlay}--drawer-transition-ms: 300ms;
-    background-color: tokens.getRawValue($_overlay, "color--alpha");
+    background-color: tokens.getRawValue($_, "color--alpha");
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 8999;
+    z-index: 9;
     transition: visibility 0s linear var(--#{$_overlay}--drawer-transition-ms),
     var(--#{$_overlay}--drawer-transition-ms) ease-in opacity;
     visibility: hidden;
@@ -208,6 +229,7 @@ $_overlay: "drawer-overlay";
 }
 
 // Overlay states
+
 .c-drawer.is-open+.drawer-overlay {
     opacity: 1;
     transition: visibility 0s linear 0s,

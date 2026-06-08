@@ -6,6 +6,7 @@
     $customizeComponentData = json_decode($customizeAssets['data'] ?? 'null', true);
     $customizeTokenLibrary = json_decode($customizeAssets['tokenLibrary'] ?? 'null', true);
     $themePresetDefinitions = [
+        ['id' => 'default', 'label' => 'Default appearance', 'token' => []],
         ['id' => 'dark', 'label' => 'Dark Ember', 'path' => 'source/themes/dark.json'],
         ['id' => 'nordic-dawn', 'label' => 'Nordic Dawn', 'path' => 'source/themes/nordic-dawn.json'],
         ['id' => 'forest-mist', 'label' => 'Forest Mist', 'path' => 'source/themes/forest-mist.json'],
@@ -16,7 +17,7 @@
     ];
     $designBuilderPresets = [];
     foreach ($themePresetDefinitions as $themePresetDefinition) {
-        $tokenOverrides = json_decode(file_get_contents(BASEPATH . $themePresetDefinition['path']), true);
+        $tokenOverrides = $themePresetDefinition['token'] ?? json_decode(file_get_contents(BASEPATH . $themePresetDefinition['path']), true);
         if (!is_array($tokenOverrides)) {
             continue;
         }

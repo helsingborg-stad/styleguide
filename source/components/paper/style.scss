@@ -1,19 +1,30 @@
+@use "../../sass/mixin/inset-multiplier" as insetMultiplier;
 @use "../../sass/mixin/tokens";
+
+@include insetMultiplier.property();
 
 /* Component name */
 $_: "c-paper";
 
+$insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data-component=\"table\"]";
+
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_));
+@include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
 /* Component */
 .#{$_} {
-    --#{$_}--border-color: #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--surface-color: #{tokens.getRawValue($_, "color--surface")};
+    --#{$_}--surface-contrast-color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}--surface-alt-color: #{tokens.getRawValue($_, "color--surface-alt")};
+    --#{$_}--surface-border-color: #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--surface-contrast-muted-color: #{tokens.getRawValue($_, "color--surface-contrast-muted")};
+    --#{$_}--border-color: var(--#{$_}--surface-border-color);
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid var(--#{$_}--border-color);
     --#{$_}--padding: 0;
-    --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface")};
-    --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}--background-color: var(--#{$_}--surface-color);
+    --#{$_}--color: var(--#{$_}--surface-contrast-color);
     contain: layout;
+    container-type: inline-size;
     background-color: var(--#{$_}--background-color);
     color: var(--#{$_}--color);
     border: var(--#{$_}--border);
@@ -26,13 +37,26 @@ $_: "c-paper";
         --inherit-margin-top: 0;
     }
 
+    #{$insetTargets} {
+        @include insetMultiplier.publish(insetMultiplier.contextual-multiplier(1));
+    }
+
+    @include insetMultiplier.responsive-publish($selector: $insetTargets);
+
     /* switch to surface color tokens for nested components */
+
     .c-card,
     .c-comment,
+    .c-table,
+    table:not(.c-table *),
     .c-button__filled--default,
     .c-chat {
-        --inherit-color-background: var(--color--background);
-        --inherit-color-contrast: var(--color--background-contrast);
+        --inherit-color-background: var(--#{$_}--background-color);
+        --inherit-color-contrast: var(--#{$_}--color);
+        --inherit-color-background-hover: var(--#{$_}--surface-alt-color);
+        --inherit-color-background-active: var(--#{$_}--surface-alt-color);
+        --inherit-color-border: var(--#{$_}--border-color);
+        --inherit-color-contrast-muted: var(--#{$_}--surface-contrast-muted-color);
     }
 
     @for $i from 0 through 8 {

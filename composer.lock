@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d7ec49eef6864a5e622d94e7a4008364",
+    "content-hash": "7be11582c167ee8198517f1c18192bae",
     "packages": [
         {
             "name": "brick/math",
@@ -337,16 +337,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.19.6",
+            "version": "5.21.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "e52a60e7ccef4f409d5c5dede45ec9478e47ecd4"
+                "reference": "e5e37adcf39c1945bf6fb6c2a406e099132bc833"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/e52a60e7ccef4f409d5c5dede45ec9478e47ecd4",
-                "reference": "e52a60e7ccef4f409d5c5dede45ec9478e47ecd4",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/e5e37adcf39c1945bf6fb6c2a406e099132bc833",
+                "reference": "e5e37adcf39c1945bf6fb6c2a406e099132bc833",
                 "shasum": ""
             },
             "require": {
@@ -378,9 +378,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.19.6"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.21.9"
             },
-            "time": "2026-05-13T08:42:13+00:00"
+            "time": "2026-05-26T14:35:51+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -1514,16 +1514,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.37.0",
+            "version": "v1.38.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "6a21eb99c6973357967f6ce3708cd55a6bec6315"
+                "reference": "14c5439eec4ccff081ac14eca2dc57feb2a66d92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/6a21eb99c6973357967f6ce3708cd55a6bec6315",
-                "reference": "6a21eb99c6973357967f6ce3708cd55a6bec6315",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/14c5439eec4ccff081ac14eca2dc57feb2a66d92",
+                "reference": "14c5439eec4ccff081ac14eca2dc57feb2a66d92",
                 "shasum": ""
             },
             "require": {
@@ -1575,7 +1575,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.37.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.38.1"
             },
             "funding": [
                 {
@@ -1595,7 +1595,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-10T17:25:58+00:00"
+            "time": "2026-05-26T12:51:13+00:00"
         },
         {
             "name": "symfony/polyfill-php80",

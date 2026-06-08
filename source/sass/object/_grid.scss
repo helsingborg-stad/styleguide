@@ -20,6 +20,7 @@ $o-grid-gutters: (
 ) !default;
 
 @mixin generateGrid($columns, $breakpoints, $gutters, $includePrint: true) {
+
     .o-grid,
     .grid {
         display: flex;
@@ -38,6 +39,7 @@ $o-grid-gutters: (
 
     .o-grid,
     .grid {
+
         > * {
             @extend %column !optional;
         }
@@ -46,23 +48,25 @@ $o-grid-gutters: (
     //Gutter styles
     @each $breakpoint, $gutter in $gutters {
         @include mq.mq($breakpoint) {
-            .o-grid + .o-grid,
-            .grid + .grid,
-            .o-grid + .grid,
-            .grid + .o-grid {
+
+            .o-grid+.o-grid,
+            .grid+.grid,
+            .o-grid+.grid,
+            .grid+.o-grid {
                 margin-top: calc(#{$gutter} * var(--outer-space));
             }
 
-            .o-grid.o-grid--form + .o-grid.o-grid--form,
-            .grid.grid--form + .grid.grid--form,
-            .o-grid.o-grid--form + .grid.grid--form,
-            .grid.grid--form + .o-grid.o-grid--form {
+            .o-grid.o-grid--form+.o-grid.o-grid--form,
+            .grid.grid--form+.grid.grid--form,
+            .o-grid.o-grid--form+.grid.grid--form,
+            .grid.grid--form+.o-grid.o-grid--form {
                 margin-top: calc(#{$gutter} * 0.5 * var(--outer-space));
             }
         }
     }
 
     //Nowrap
+
     .o-grid.o-grid--nowrap,
     .grid.grid--nowrap {
         flex-wrap: nowrap;
@@ -78,20 +82,23 @@ $o-grid-gutters: (
     }
 
     //Reversed row
+
     .o-grid.o-grid--row-reverse,
     .grid.grid--row-reverse {
         flex-direction: row-reverse;
     }
 
     //Reversed col
+
     .o-grid.o-grid--col-reverse,
     .grid.grid--col-reverse {
         flex-direction: column-reverse;
     }
 
     // Equal height elements modifier
-    .o-grid.o-grid--equal-elements > *,
-    .grid.grid--equal-elements > * {
+
+    .o-grid.o-grid--equal-elements>*,
+    .grid.grid--equal-elements>* {
         display: flex;
         flex-direction: column;
         flex: 1 1 auto;
@@ -102,17 +109,17 @@ $o-grid-gutters: (
         }
     }
 
-    .o-grid + .o-grid,
-    .grid + .grid,
-    .o-grid + .grid,
-    .grid + .o-grid {
+    .o-grid+.o-grid,
+    .grid+.grid,
+    .o-grid+.grid,
+    .grid+.o-grid {
         margin-top: calc(#{var_default.$base} * #{$o-grid-gap} * 0.5 * var(--outer-space));
     }
 
-    .o-grid.o-grid--form + .o-grid.o-grid--form,
-    .grid.grid--form + .grid.grid--form,
-    .o-grid.o-grid--form + .grid.grid--form,
-    .grid.grid--form + .o-grid.o-grid--form {
+    .o-grid.o-grid--form+.o-grid.o-grid--form,
+    .grid.grid--form+.grid.grid--form,
+    .o-grid.o-grid--form+.grid.grid--form,
+    .grid.grid--form+.o-grid.o-grid--form {
         margin-top: calc(#{var_default.$base} * #{$o-grid-gap} * 0.25 * var(--outer-space));
     }
 
@@ -150,6 +157,7 @@ $o-grid-gutters: (
     //Gutter styles
     @each $breakpoint, $gutter in $gutters {
         @include mq.mq($breakpoint) {
+
             .o-grid,
             .grid {
                 --grid-gap: calc(#{$gutter} * var(--outer-space));
@@ -165,12 +173,14 @@ $o-grid-gutters: (
             }
 
             // Form column margins modifier
+
             .o-grid.o-grid--form,
             .o-grid.o-grid--half-gutter {
                 --grid-gap: calc(#{$gutter} / 2 * var(--outer-space));
             }
 
             //Utility
+
             .u-flex--gridgap {
                 gap: var(--grid-gap) !important;
             }

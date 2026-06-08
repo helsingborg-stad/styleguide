@@ -3,17 +3,7 @@
 	"apiVersion": 1,
 	"name": "Nav",
 	"slug": "nav",
-	"tokens": [
-		"base",
-		"border-radius",
-		"color--surface",
-		"color--primary",
-		"shadow-color",
-		"shadow-amount",
-		"color--primary-contrast",
-		"color--surface-border",
-		"color--surface-contrast"
-	],
+	"tokens": ["base", "border-radius", "color--surface", "color--primary", "shadow-color", "shadow-amount", "color--primary-contrast", "color--surface-border", "color--surface-contrast", "font-size-300"],
 	"description": "The Nav component provides a reusable pattern for nav in the interface.",
 	"tags": ["nav", "component"],
 	"similarComponents": ["avatar", "fab"],

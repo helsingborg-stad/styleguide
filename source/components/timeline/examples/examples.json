@@ -6,5 +6,9 @@
 	"sequential": {
 		"heading": "Sequential timeline",
 		"description": "Collapses the date column for step-by-step process presentations."
+	},
+	"image": {
+		"heading": "Image timeline",
+		"description": "Displays milestones with accompanying images for visual storytelling."
 	}
 }

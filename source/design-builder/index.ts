@@ -7,6 +7,7 @@ import './shared/control-elements/controls/SelectControl';
 import './shared/control-elements/controls/ColorControl';
 import './shared/control-elements/controls/RgbaControl';
 import './shared/control-elements/controls/FontControl';
+import './shared/control-elements/controls/SwatchSelectControl';
 
 import { initializeStyleguideDesignBuilder } from './hosts/styleguide/initializeStyleguideDesignBuilder';
 

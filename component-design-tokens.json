@@ -286,6 +286,57 @@
       "font-size-100",
       "font-size-200"
     ],
+    "componentSettings": [
+      {
+        "id": "colors",
+        "label": "Colors",
+        "description": "Variant color selection for button surfaces.",
+        "settings": [
+          {
+            "token": "color--primary",
+            "label": "Button Color (Primary)",
+            "description": "Controls the background, text, border, hover, and active colors for primary buttons.",
+            "includeStateColors": true,
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-button__filled--primary",
+                "c-button__basic--primary",
+                "c-button__outlined--primary"
+              ]
+            }
+          },
+          {
+            "token": "color--secondary",
+            "label": "Button Color (Secondary)",
+            "description": "Controls the background, text, border, hover, and active colors for secondary buttons.",
+            "includeStateColors": true,
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-button__filled--secondary",
+                "c-button__basic--secondary",
+                "c-button__outlined--secondary"
+              ]
+            }
+          },
+          {
+            "token": "color--surface",
+            "label": "Button Color (Default)",
+            "description": "Controls the background, text, border, hover, and active colors for default buttons.",
+            "includeStateColors": true,
+            "visibleWhen": {
+              "doesNotHaveClass": [
+                "c-button__filled--primary",
+                "c-button__basic--primary",
+                "c-button__outlined--primary",
+                "c-button__filled--secondary",
+                "c-button__basic--secondary",
+                "c-button__outlined--secondary"
+              ]
+            }
+          }
+        ]
+      }
+    ],
     "description": "The Button component provides a reusable pattern for button in the interface.",
     "tags": [
       "button",
@@ -317,11 +368,48 @@
       "color--surface-alt",
       "color--secondary",
       "color--surface-contrast",
+      "color--surface-contrast-muted",
       "corner-shape",
       "base",
       "color--primary-contrast",
       "font-size-200",
       "font-size-100"
+    ],
+    "componentSettings": [
+      {
+        "id": "settings",
+        "label": "Settings",
+        "description": "Component-local adjustments for card appearance and spacing.",
+        "settings": [
+          {
+            "label": "Color",
+            "description": "Controls the card surface, text contrast, border, and alternate layout colors.",
+            "token": "color--surface",
+            "includeStateColors": false
+          },
+          {
+            "label": "Accent Color",
+            "description": "Controls highlighted card details, including accent borders and accented header backgrounds.",
+            "token": "color--primary",
+            "includeStateColors": false
+          },
+          {
+            "label": "Image Background Color",
+            "description": "Controls the background shown behind transparent images and SVG illustrations.",
+            "token": "color--secondary"
+          },
+          {
+            "label": "Spacing & Padding",
+            "description": "Controls padding inside the card and spacing between card elements.",
+            "token": "space"
+          },
+          {
+            "label": "Border & Divider Width",
+            "description": "Controls the width of card borders and internal dividers.",
+            "token": "border-width"
+          }
+        ]
+      }
     ],
     "description": "The Card component provides a reusable pattern for card in the interface.",
     "tags": [
@@ -524,7 +612,8 @@
       "border-width",
       "border-radius",
       "space",
-      "corner-shape"
+      "corner-shape",
+      "font-size-300"
     ],
     "description": "The Divider component provides a reusable pattern for divider in the interface.",
     "tags": [
@@ -546,16 +635,106 @@
     "name": "Drawer",
     "slug": "drawer",
     "tokens": [
+      "space",
       "base",
       "color--primary",
       "color--primary-contrast",
       "color--secondary",
+      "color--secondary-contrast",
       "color--surface",
       "shadow-color",
       "shadow-amount",
       "color--surface-contrast",
       "color--surface-border",
       "color--alpha"
+    ],
+    "componentSettings": [
+      {
+        "id": "colors",
+        "label": "Colors",
+        "description": "Component-local color choices for drawer panels and navigation areas.",
+        "settings": [
+          {
+            "label": "Main Panel Color",
+            "description": "Controls the default drawer background, text contrast, field colors, and surface borders.",
+            "token": "color--surface",
+            "includeStateColors": false,
+            "visibleWhen": {
+              "doesNotHaveClass": [
+                "c-drawer--duotone"
+              ]
+            }
+          },
+          {
+            "label": "Main Panel Color",
+            "description": "Controls the main drawer background when the drawer is duotone.",
+            "token": "color--primary",
+            "includeStateColors": false,
+            "visibleWhen": {
+              "hasClass": [
+                "c-drawer--duotone"
+              ]
+            }
+          },
+          {
+            "label": "Secondary Navigation Color",
+            "description": "Controls the secondary navigation area when the drawer is duotone.",
+            "token": "color--secondary",
+            "includeStateColors": false,
+            "visibleWhen": {
+              "hasClass": [
+                "c-drawer--duotone"
+              ]
+            }
+          },
+          {
+            "label": "Overlay Color",
+            "description": "Controls the dimmed backdrop shown behind an open drawer, including its opacity.",
+            "token": "color--alpha",
+            "includeStateColors": false
+          }
+        ]
+      },
+      {
+        "id": "layout",
+        "label": "Layout",
+        "description": "Component-local sizing and spacing for the drawer panel and its navigation items.",
+        "settings": [
+          {
+            "label": "Spacing and Padding",
+            "description": "Controls drawer header, footer, and navigation item padding.",
+            "token": "space"
+          },
+          {
+            "variable": "--width-multiplier",
+            "label": "Width Multiplier",
+            "description": "Multiplies the default drawer width without changing the global base unit.",
+            "type": "range",
+            "default": "1",
+            "min": 0.75,
+            "max": 1.5,
+            "step": 0.125,
+            "unit": ""
+          }
+        ]
+      },
+      {
+        "id": "elevation",
+        "label": "Elevation",
+        "description": "Component-local shadow controls for the open drawer state.",
+        "settings": [
+          {
+            "label": "Shadow Color",
+            "description": "Controls the color used by the drawer shadow.",
+            "token": "shadow-color"
+          },
+          {
+            "label": "Shadow Intensity",
+            "description": "Controls how strong the drawer shadow appears when open.",
+            "token": "shadow-amount"
+          }
+        ]
+      }
     ],
     "description": "The Drawer component provides a reusable pattern for drawer in the interface.",
     "tags": [
@@ -832,11 +1011,9 @@
       "color--surface",
       "color--surface-contrast",
       "color--primary",
-      "color--primary-alt",
       "color--primary-contrast",
       "color--primary-border",
       "color--secondary",
-      "color--secondary-alt",
       "color--secondary-contrast",
       "color--secondary-border",
       "base"
@@ -1088,6 +1265,52 @@
     "requiredBy": [],
     "icon": "css"
   },
+  "link": {
+    "$schema": "../../component-schema.json",
+    "apiVersion": 1,
+    "name": "Link",
+    "slug": "link",
+    "description": "The Link component outputs a link to a URL.",
+    "tokens": [
+      "color--primary",
+      "color--background-contrast"
+    ],
+    "componentSettings": [
+      {
+        "id": "settings",
+        "label": "Settings",
+        "settings": [
+          {
+            "variable": "--color-mix-amount",
+            "label": "Link Color Mix Amount",
+            "description": "Adjusts the mix amount of the link color in hover, active, and visited states.",
+            "type": "range",
+            "default": 90,
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%"
+          },
+          {
+            "variable": "--state-color-mix-amount",
+            "label": "Link Color Mix Amount [State]",
+            "description": "Adjusts the mix amount of the link color in hover, active, and visited states.",
+            "type": "range",
+            "default": 50,
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%"
+          }
+        ]
+      }
+    ],
+    "tags": [],
+    "similarComponents": [],
+    "requires": [],
+    "requiredBy": [],
+    "icon": "link_2"
+  },
   "listing": {
     "$schema": "../../component-schema.json",
     "apiVersion": 1,
@@ -1236,6 +1459,7 @@
       "border-width",
       "border-radius",
       "color--surface",
+      "color--surface-alt",
       "color--alpha",
       "color--surface-contrast",
       "corner-shape",
@@ -1243,7 +1467,7 @@
       "shadow-amount",
       "color--alpha-contrast",
       "color--surface-border",
-      "font-size-400"
+      "font-size-200"
     ],
     "description": "The Modal component provides a reusable pattern for modal in the interface.",
     "tags": [
@@ -1273,7 +1497,8 @@
       "shadow-amount",
       "color--primary-contrast",
       "color--surface-border",
-      "color--surface-contrast"
+      "color--surface-contrast",
+      "font-size-300"
     ],
     "description": "The Nav component provides a reusable pattern for nav in the interface.",
     "tags": [
@@ -1342,6 +1567,39 @@
       "color--success-contrast",
       "color--success-border",
       "font-size-300"
+    ],
+    "componentSettings": [
+      {
+        "id": "colors",
+        "label": "Colors",
+        "description": "Selects the token families used by each notice state.",
+        "settings": [
+          {
+            "token": "color--info",
+            "label": "Info State",
+            "description": "Selects the token family used for informational notices.",
+            "includeStateColors": true
+          },
+          {
+            "token": "color--danger",
+            "label": "Danger State",
+            "description": "Selects the token family used for danger notices.",
+            "includeStateColors": true
+          },
+          {
+            "token": "color--warning",
+            "label": "Warning State",
+            "description": "Selects the token family used for warning notices.",
+            "includeStateColors": true
+          },
+          {
+            "token": "color--success",
+            "label": "Success State",
+            "description": "Selects the token family used for success notices.",
+            "includeStateColors": true
+          }
+        ]
+      }
     ],
     "description": "The Notice component provides a reusable pattern for notice in the interface.",
     "tags": [
@@ -1420,10 +1678,12 @@
       "space",
       "border-width",
       "color--surface",
+      "color--surface-alt",
       "color--surface-border",
       "shadow-color",
       "shadow-amount",
       "color--surface-contrast",
+      "color--surface-contrast-muted",
       "corner-shape"
     ],
     "description": "The Paper component provides a reusable pattern for paper in the interface.",
@@ -1457,6 +1717,31 @@
     "requires": [],
     "requiredBy": [],
     "icon": "contact_mail"
+  },
+  "product": {
+    "$schema": "../../component-schema.json",
+    "apiVersion": 1,
+    "name": "Product",
+    "slug": "product",
+    "tokens": [
+      "space",
+      "base",
+      "font-size-100",
+      "font-size-600",
+      "color--primary",
+      "color--secondary"
+    ],
+    "description": "The Product component provides a reusable pattern for products in the interface.",
+    "tags": [
+      "product",
+      "component"
+    ],
+    "similarComponents": [
+      "card"
+    ],
+    "requires": [],
+    "requiredBy": [],
+    "icon": "package_2"
   },
   "progressbar": {
     "$schema": "../../component-schema.json",
@@ -1525,8 +1810,7 @@
       "font-size-400",
       "font-size-500",
       "font-size-600",
-      "font-size-700",
-      "font-size-800",
+      "corner-shape",
       "color--alpha",
       "color--surface-contrast",
       "color--alpha-contrast"
@@ -1820,9 +2104,7 @@
       "line-height-base",
       "line-height-heading",
       "letter-spacing-base",
-      "base-font-size",
       "space",
-      "font-size-scale-ratio",
       "font-size-90",
       "font-size-200",
       "font-size-300",

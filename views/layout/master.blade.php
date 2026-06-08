@@ -269,6 +269,7 @@
     @php
         $currentPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
         $themePresetDefinitions = [
+            ['id' => 'default', 'label' => 'Default appearance', 'token' => []],
             ['id' => 'dark', 'label' => 'Dark Ember', 'path' => 'source/themes/dark.json'],
             ['id' => 'nordic-dawn', 'label' => 'Nordic Dawn', 'path' => 'source/themes/nordic-dawn.json'],
             ['id' => 'forest-mist', 'label' => 'Forest Mist', 'path' => 'source/themes/forest-mist.json'],
@@ -279,7 +280,7 @@
         ];
         $designBuilderPresets = [];
         foreach ($themePresetDefinitions as $themePresetDefinition) {
-            $tokenOverrides = json_decode(file_get_contents(BASEPATH . $themePresetDefinition['path']), true);
+            $tokenOverrides = $themePresetDefinition['token'] ?? json_decode(file_get_contents(BASEPATH . $themePresetDefinition['path']), true);
             if (!is_array($tokenOverrides)) {
                 continue;
             }

@@ -3,49 +3,49 @@
 $c: "c-segment";
 
 .#{$c}.#{$c}--full-width {
-  flex-direction: column;
-  gap: tokens.getCalculatedValue($c, "space", 8);
-  padding: tokens.getCalculatedValue($c, "space", 8) 0;
+    flex-direction: column;
+    gap: tokens.getCalculatedValue($c, "space", 8);
+    padding: tokens.getCalculatedValue($c, "space", 8) 0;
 
-  .#{$c}__image {
-    position: absolute;
-    inset: 0;
-  }
+    > .#{$c}__image {
+        position: absolute;
+        inset: 0;
+    }
 
-  &.#{$c}--gap-xs {
-    gap: tokens.getCalculatedValue($c, "space", 2);
-  }
+    &.#{$c}--gap-xs {
+        gap: tokens.getCalculatedValue($c, "space", 2);
+    }
 
-  &.#{$c}--gap-sm {
-    gap: tokens.getCalculatedValue($c, "space", 4);
-  }
+    &.#{$c}--gap-sm {
+        gap: tokens.getCalculatedValue($c, "space", 4);
+    }
 
-  &.#{$c}--gap-md {
-    gap: tokens.getCalculatedValue($c, "space", 6);
-  }
+    &.#{$c}--gap-md {
+        gap: tokens.getCalculatedValue($c, "space", 6);
+    }
 }
 
 .#{$c}.#{$c}--full-width.#{$c}--alignment {
-  &-left .#{$c}__content {
-    text-align: left;
-  }
+    &-left .#{$c}__content {
+        text-align: left;
+    }
 
-  &-center .#{$c}__content {
-    text-align: center;
-  }
+    &-center .#{$c}__content {
+        text-align: center;
+    }
 
-  &-right .#{$c}__content {
-    text-align: right;
-  }
+    &-right .#{$c}__content {
+        text-align: right;
+    }
 }
 
 .#{$c}.#{$c}--full-width .o-container.o-container--content {
-  max-width: none;
-  width: 100%;
+    max-width: none;
+    width: 100%;
 
-  .#{$c}__padder {
-    max-width: 75ch;
-    margin-left: auto;
-    margin-right: auto;
-  }
+    .#{$c}__padder {
+        max-width: 75ch;
+        margin-left: auto;
+        margin-right: auto;
+    }
 }

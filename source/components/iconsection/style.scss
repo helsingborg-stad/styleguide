@@ -5,93 +5,94 @@ $_: "c-iconsection";
 @include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
-  --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 2)};
-  display: flex;
-  flex-direction: column;
+    --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 2)};
+    display: flex;
+    flex-direction: column;
 
-  &.#{$_}--gap-0 {
-    filter: var(--#{$_}--shadow);
-    background-color: tokens.getRawValue($_, "color--surface");
-    border-radius: tokens.getCalculatedValue($_, "border-radius");
-    corner-shape: tokens.getRawValue($_, "corner-shape");
-    contain: paint;
+    &.#{$_}--gap-0 {
+        filter: var(--#{$_}--shadow);
+        background-color: tokens.getRawValue($_, "color--surface");
+        border-radius: tokens.getCalculatedValue($_, "border-radius");
+        corner-shape: tokens.getRawValue($_, "corner-shape");
+        contain: paint;
 
-    &>*:nth-child(n+2) {
-      border-top: none;
+        &>*:nth-child(n+2) {
+            border-top: none;
+        }
+
+        &>* {
+            filter: unset;
+            background-color: unset;
+            padding: 0;
+        }
+
+        &>:not(:first-child):not(:last-child) {
+            border-radius: 0;
+        }
+
+        &>:first-child:not(:last-child) {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        &>:last-child:not(:first-child) {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
     }
 
-    &>* {
-      filter: unset;
-      background-color: unset;
-      padding: 0;
+    @for $i from 0 through 12 {
+        &.#{$_}--gap-#{$i} {
+            gap: tokens.getCalculatedValue($_, "base", $i * 0.5);
+        }
     }
-
-    &>:not(:first-child):not(:last-child) {
-      border-radius: 0;
-    }
-
-    &>:first-child:not(:last-child) {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-    }
-
-    &>:last-child:not(:first-child) {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-    }
-  }
-
-  @for $i from 0 through 12 {
-    &.#{$_}--gap-#{$i} {
-      gap: tokens.getCalculatedValue($_, "base", $i * 0.5);
-    }
-  }
 }
 
 // Item
 .#{$_}__item {
-  display: grid;
-  grid-template-columns: [icon] auto [content] 1fr;
-  border: tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--surface-border");
+    display: grid;
+    grid-template-columns: [icon] auto [content] 1fr;
+    border: tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--surface-border");
 
-  overflow: hidden;
-  filter: var(--#{$_}--shadow);
-  background-color: tokens.getRawValue($_, "color--surface");
-  border-radius: tokens.getCalculatedValue($_, "border-radius");
-  corner-shape: tokens.getRawValue($_, "corner-shape");
+    overflow: hidden;
+    filter: var(--#{$_}--shadow);
+    background-color: tokens.getRawValue($_, "color--surface");
+    border-radius: tokens.getCalculatedValue($_, "border-radius");
+    corner-shape: tokens.getRawValue($_, "corner-shape");
 
-  &__content {
+    &__content {
 
-    .c-typography__variant--h1,
-    .c-typography__variant--h2,
-    .c-typography__variant--h3,
-    .c-typography__variant--h4,
-    .c-typography__variant--h5,
-    .c-typography__variant--h6 {
-      &:first-child {
-        --inherit-font-size: #{tokens.getRawValue($_, "font-size-300")};
-        --inherit-margin-top: 0;
-      }
+        .c-typography__variant--h1,
+        .c-typography__variant--h2,
+        .c-typography__variant--h3,
+        .c-typography__variant--h4,
+        .c-typography__variant--h5,
+        .c-typography__variant--h6 {
+
+            &:first-child {
+                --inherit-font-size: #{tokens.getRawValue($_, "font-size-300")};
+                --inherit-margin-top: 0;
+            }
+        }
     }
-  }
 
-  &__icon,
-  &__content {
-    padding: tokens.getCalculatedValue($_, "base", 2);
-  }
-
-  &__icon {
-    grid-column: icon;
-    background-color: tokens.getRawValue($_, "color--surface-alt");
-    border-right: tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--surface-border");
-    color: tokens.getRawValue($_, "color--surface-contrast");
-
-    &>* {
-      opacity: .5;
+    &__icon,
+    &__content {
+        padding: tokens.getCalculatedValue($_, "base", 2);
     }
-  }
 
-  &__content {
-    grid-column: content;
-  }
+    &__icon {
+        grid-column: icon;
+        background-color: tokens.getRawValue($_, "color--surface-alt");
+        border-right: tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--surface-border");
+        color: tokens.getRawValue($_, "color--surface-contrast");
+
+        &>* {
+            opacity: .5;
+        }
+    }
+
+    &__content {
+        grid-column: content;
+    }
 }

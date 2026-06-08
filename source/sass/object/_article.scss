@@ -4,10 +4,10 @@ $_: "c-article";
 
 @include tokens.create($_, ("space"));
 
-$article-content-headings: 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-    '.h1', '.h2', '.h3', '.h4', '.h5', '.h6' !default;
+$article-content-headings: "h1", "h2", "h3", "h4", "h5", "h6",
+    ".h1", ".h2", ".h3", ".h4", ".h5", ".h6" !default;
 
-$article-content-elements: 'p', 'ul', 'ol', 'blockquote', 'img', 'table', '> div' !default;
+$article-content-elements: "p", "ul", "ol", "blockquote", "img", "table", "> div" !default;
 
 .c-article {
     #{$article-content-elements} {

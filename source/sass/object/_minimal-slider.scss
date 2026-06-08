@@ -1,8 +1,8 @@
 @use "../mixin/tokens";
 
 @property --inherit-color-background {
-  syntax: "*";
-  inherits: false;
+    syntax: "*";
+    inherits: true;
 }
 
 $_: "o-minimal-slider";
@@ -10,41 +10,41 @@ $_: "o-minimal-slider";
 @include tokens.create($_, ("base", "space", "outer-space", "color--surface"));
 
 .#{$_} {
-  --#{$_}--slides-visible: 1;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-areas:
-    "toolbar"
-    "viewport";
-  gap: #{tokens.getCalculatedValue($_, "space", 4)};
-
-  &__toolbar {
-    grid-area: toolbar;
-    display: flex;
-    flex-wrap: wrap;
-    gap: calc(#{tokens.getCalculatedValue($_, "space", 4)} * 0.5);
-    align-items: end;
-  }
-
-  &__field {
+    --#{$_}--slides-visible: 1;
     display: grid;
-    gap: 4px;
-    min-width: 10rem;
-  }
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+        "toolbar"
+        "viewport";
+    gap: #{tokens.getCalculatedValue($_, "space", 4)};
 
-  &__select {
-    min-height: 2.5rem;
-  }
+    &__toolbar {
+        grid-area: toolbar;
+        display: flex;
+        flex-wrap: wrap;
+        gap: calc(#{tokens.getCalculatedValue($_, "space", 4)} * 0.5);
+        align-items: end;
+    }
 
-  &__viewport {
-    grid-area: viewport;
-    position: relative;
-    overflow: hidden;
-    margin: 0 calc(#{tokens.getCalculatedValue($_, "base", 4)} * -1);
-    padding: 0 #{tokens.getCalculatedValue($_, "base", 4)};
+    &__field {
+        display: grid;
+        gap: 4px;
+        min-width: 10rem;
+    }
 
-    /* Gradient fade on both sides to indicate scrollability */
-    /*
+    &__select {
+        min-height: 2.5rem;
+    }
+
+    &__viewport {
+        grid-area: viewport;
+        position: relative;
+        overflow: hidden;
+        margin: 0 calc(#{tokens.getCalculatedValue($_, "base", 4)} * -1);
+        padding: 0 #{tokens.getCalculatedValue($_, "base", 4)};
+
+        /* Gradient fade on both sides to indicate scrollability */
+        /*
     &::before,
     &::after {
       content: "";
@@ -65,113 +65,114 @@ $_: "o-minimal-slider";
       right: 0;
       background: linear-gradient(to left, var(--inherit-color-background, #{tokens.getRawValue($_, "color--surface")}), transparent);
     }*/
-  }
-
-  &__track {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: calc((100% - (var(--slides-visible, #{var(--#{$_}--slides-visible)}) - 1) * #{tokens.getRawValue($_, "space")} * var(--base) * 4) / var(--slides-visible, #{var(--#{$_}--slides-visible)}));
-    gap: #{tokens.getCalculatedValue($_, "space", 4)};
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: 0;
-    scroll-behavior: smooth;
-    padding: #{tokens.getCalculatedValue($_, "outer-space", 4)} 0;
-    margin: 0;
-    list-style: none;
-    touch-action: pan-x;
-    overscroll-behavior-x: none;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-
-  &__slide {
-    scroll-snap-align: start;
-    scroll-snap-stop: normal;
-    will-change: opacity;
-    transform: translateZ(0);
-    backface-visibility: hidden;
-    opacity: var(--slide-progress, 1);
-    transition: opacity 100ms linear;
-    padding: 0;
-    margin: 0;
-  }
-
-  &__slide+&__slide {
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-  }
-
-  &__controls {
-    display: flex;
-    justify-content: space-between;
-    grid-area: viewport;
-    position: relative;
-    z-index: 4;
-    pointer-events: none;
-    min-height: 100%;
-    margin: 0 calc(#{tokens.getCalculatedValue($_, "base", 4)} * -1);
-  }
-
-  &__button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    pointer-events: auto;
-    margin: 0;
-
-    &:first-of-type {
-      left: #{tokens.getCalculatedValue($_, "base", 1)};
-    }
-
-    &:last-of-type {
-      right: #{tokens.getCalculatedValue($_, "base", 1)};
-    }
-  }
-}
-
-
-@media (max-width: 900px) {
-  .#{$_} {
-    gap: #{tokens.getCalculatedValue($_, "space", 2)};
-
-    &__toolbar {
-      gap: calc(#{tokens.getCalculatedValue($_, "space", 2)} * 0.5);
     }
 
     &__track {
-      grid-auto-columns: calc((100% - (var(--slides-visible, #{var(--#{$_}--slides-visible)}) - 1) * #{tokens.getRawValue($_, "space")} * var(--base) * 2) / var(--slides-visible, #{var(--#{$_}--slides-visible)}));
-      gap: #{tokens.getCalculatedValue($_, "space", 2)};
-    }
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: calc((100% - (var(--slides-visible, #{var(--#{$_}--slides-visible)}) - 1) * #{tokens.getRawValue($_, "space")} * var(--base) * 4) / var(--slides-visible, #{var(--#{$_}--slides-visible)}));
+        gap: #{tokens.getCalculatedValue($_, "space", 4)};
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-padding-inline: 0;
+        scroll-behavior: smooth;
+        padding: #{tokens.getCalculatedValue($_, "outer-space", 4)} 0;
+        margin: 0;
+        list-style: none;
+        touch-action: pan-x;
+        overscroll-behavior-x: none;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
 
-    &__button {
-      &:first-of-type {
-        left: 0;
-      }
-
-      &:last-of-type {
-        right: 0;
-      }
-    }
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .#{$_} {
-    &__track {
-      scroll-behavior: auto;
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 
     &__slide {
-      transition: none;
-      opacity: 1;
+        scroll-snap-align: start;
+        scroll-snap-stop: normal;
+        will-change: opacity;
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        opacity: var(--slide-progress, 1);
+        transition: opacity 100ms linear;
+        padding: 0;
+        margin: 0;
     }
-  }
+
+    &__slide+&__slide {
+        margin-top: 0;
+        margin-right: 0;
+        margin-bottom: 0;
+        margin-left: 0;
+    }
+
+    &__controls {
+        display: flex;
+        justify-content: space-between;
+        grid-area: viewport;
+        position: relative;
+        z-index: 4;
+        pointer-events: none;
+        min-height: 100%;
+        margin: 0 calc(#{tokens.getCalculatedValue($_, "base", 4)} * -1);
+    }
+
+    &__button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: auto;
+        margin: 0;
+
+        &:first-of-type {
+            left: #{tokens.getCalculatedValue($_, "base", 1)};
+        }
+
+        &:last-of-type {
+            right: #{tokens.getCalculatedValue($_, "base", 1)};
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    .#{$_} {
+        gap: #{tokens.getCalculatedValue($_, "space", 2)};
+
+        &__toolbar {
+            gap: calc(#{tokens.getCalculatedValue($_, "space", 2)} * 0.5);
+        }
+
+        &__track {
+            grid-auto-columns: calc((100% - (var(--slides-visible, #{var(--#{$_}--slides-visible)}) - 1) * #{tokens.getRawValue($_, "space")} * var(--base) * 2) / var(--slides-visible, #{var(--#{$_}--slides-visible)}));
+            gap: #{tokens.getCalculatedValue($_, "space", 2)};
+        }
+
+        &__button {
+
+            &:first-of-type {
+                left: 0;
+            }
+
+            &:last-of-type {
+                right: 0;
+            }
+        }
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .#{$_} {
+
+        &__track {
+            scroll-behavior: auto;
+        }
+
+        &__slide {
+            transition: none;
+            opacity: 1;
+        }
+    }
 }

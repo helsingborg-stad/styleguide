@@ -1,21 +1,24 @@
+@use "../../sass/mixin/inset-multiplier" as insetMultiplier;
 @use "../../sass/mixin/tokens";
 
 /* Inheritance properties */
+@include insetMultiplier.property();
+
 @property --inherit-color-contrast {
     syntax: "*";
-    inherits: false;
+    inherits: true;
 }
 
 @property --inherit-color-background {
     syntax: "*";
-    inherits: false;
+    inherits: true;
 }
 
 /* Component name */
 $_: "c-card";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_));
+@include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
 /* Component */
 .#{$_} {
@@ -25,6 +28,11 @@ $_: "c-card";
     --#{$_}--image-bg-svg: #{tokens.getRawValue($_, "color--secondary")};
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--content-alignment: start;
+    --#{$_}--surface-color: #{tokens.getRawValue($_, "color--surface")};
+    --#{$_}--surface-contrast-color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}--surface-alt-color: #{tokens.getRawValue($_, "color--surface-alt")};
+    --#{$_}--surface-border-color: #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--surface-contrast-muted-color: #{tokens.getRawValue($_, "color--surface-contrast-muted")};
     contain: layout;
     container-type: inline-size;
     filter: var(--#{$_}--shadow);
@@ -32,24 +40,32 @@ $_: "c-card";
     display: flex;
     flex-direction: column;
     position: relative;
-    background-color: var(--inherit-color-background, tokens.getRawValue($_, "color--surface"));
-    color: var(--inherit-color-contrast, tokens.getRawValue($_, "color--surface-contrast"));
+    background-color: var(--#{$_}--surface-color);
+    color: var(--#{$_}--surface-contrast-color);
     border-radius: tokens.getCalculatedValue($_, "border-radius");
     corner-shape: tokens.getRawValue($_, "corner-shape");
     transition: all 200ms ease-in;
     border: var(--#{$_}--border);
 
     /* switch to surface color tokens for nested components */
-    .c-paper,
-    .c-comment,
-    .c-button__filled--default {
-        --inherit-color-background: var(--color--background);
-        --inherit-color-contrast: var(--color--background-contrast);
+
+    [data-component="paper"],
+    [data-component="comment"],
+    [data-component="accordion"],
+    [data-component="table"],
+    table:not(.c-table *),
+    [data-component="button"].c-button__filled--default {
+        --inherit-color-background: var(--#{$_}--surface-color);
+        --inherit-color-contrast: var(--#{$_}--surface-contrast-color);
+        --inherit-color-background-hover: var(--#{$_}--surface-alt-color);
+        --inherit-color-background-active: var(--#{$_}--surface-alt-color);
+        --inherit-color-border: var(--#{$_}--surface-border-color);
+        --inherit-color-contrast-muted: var(--#{$_}--surface-contrast-muted-color);
     }
 
-    .#{$_}__image {
-        --inherit-color-background: #{tokens.getRawValue($_, "color--surface-alt")};
-        --inherit-color-contrast: #{tokens.getRawValue($_, "color--surface-contrast-muted")};
+    [data-component="image"] {
+        --inherit-color-background: var(--#{$_}--surface-alt-color);
+        --inherit-color-contrast: var(--#{$_}--surface-contrast-muted-color);
         --c-image--border-radius: 0;
     }
 
@@ -57,7 +73,12 @@ $_: "c-card";
         --inherit-border: none;
     }
 
+    [data-component="accordion"] {
+        @include insetMultiplier.publish(var(--#{$_}--inset-multiplier));
+    }
+
     .#{$_}__paint-container {
+        @include insetMultiplier.consume($_, insetMultiplier.contextual-multiplier(1), $includeContentGap: true, $includeStackGap: true);
         contain: paint;
         border-radius: inherit;
         display: inherit;
@@ -97,26 +118,20 @@ $_: "c-card";
     .#{$_}__content-after {
         overflow-wrap: break-word;
         hyphens: auto;
-        padding: tokens.getCalculatedValue($_, "space", 2);
-    }
-
-    .#{$_}__content:not(:first-child) {
-        margin-top: tokens.getCalculatedValue($_, "space");
+        padding: var(--#{$_}--inset-padding-y) var(--#{$_}--inset-padding-x);
     }
 
     .#{$_}__footer {
         overflow-wrap: break-word;
         hyphens: auto;
-        padding: tokens.getCalculatedValue($_, "space", 2);
+        padding: var(--#{$_}--inset-padding-y) var(--#{$_}--inset-padding-x);
         margin-top: auto;
         border-top: var(--#{$_}--border);
     }
 
     .#{$_}__body {
         display: grid;
-        padding-top: tokens.getCalculatedValue($_, "space", 3);
-        padding-bottom: tokens.getCalculatedValue($_, "space", 3);
-        gap: tokens.getCalculatedValue($_, "space", 0.5);
+        gap: var(--#{$_}--content-gap);
         align-content: var(--#{$_}--content-alignment);
 
         .#{$_}__content> :first-child {
@@ -126,6 +141,11 @@ $_: "c-card";
         > :first-child {
             margin-top: 0;
         }
+    }
+
+    &__eyebrow {
+        text-transform: uppercase;
+        --inherit-letter-spacing: .1em;
     }
 
     &__title {
@@ -142,16 +162,16 @@ $_: "c-card";
 
     &__date {
         display: flex;
-        gap: tokens.getCalculatedValue($_, "space", 0.5);
+        gap: var(--#{$_}--content-gap);
         align-items: center;
-        margin-top: tokens.getCalculatedValue($_, "space", 0.5);
+        margin-top: var(--#{$_}--content-gap);
     }
 
     &__dropdown {
         position: absolute;
         top: 0;
         right: 0;
-        color: tokens.getRawValue($_, "color-surface-contrast");
+        color: tokens.getRawValue($_, "color--surface-contrast");
     }
 
     &__dropdown .c-button:hover,
@@ -200,7 +220,7 @@ $_: "c-card";
     &__header .c-icon {
         vertical-align: top;
 
-        &~ :is(h1, h2, h3, h4, h5, h6) {
+        &~:is(h1, h2, h3, h4, h5, h6) {
             display: inline;
         }
     }
@@ -229,11 +249,12 @@ $_: "c-card";
 
         .#{$_}__header {
             border-bottom: calc(#{tokens.getRawValue($_, "base")} / 2) solid tokens.getRawValue($_, "color--primary");
-            background: tokens.getRawValue($_, "color-surface-contrast");
+            background: tokens.getRawValue($_, "color--primary");
+            color: tokens.getRawValue($_, "color--primary-contrast");
         }
 
-        .c-typography {
-            color: tokens.getRawValue($_, "color-surface-contrast");
+        .#{$_}__header .c-typography {
+            color: tokens.getRawValue($_, "color--primary-contrast");
         }
     }
 
@@ -295,18 +316,12 @@ $_: "c-card";
     }
 
     .#{$_}__paint-container {
+        @include insetMultiplier.responsive-resolve($_, $includeContentGap: true, $includeStackGap: true);
+
         @container (min-width: 500px) {
             display: flex;
             flex-wrap: wrap;
             flex-direction: row;
-
-            .#{$_}__header {
-                padding: tokens.getCalculatedValue($_, "space", 4);
-            }
-
-            .#{$_}__body {
-                padding: tokens.getCalculatedValue($_, "space", 4);
-            }
 
             .#{$_}__footer {
                 flex: 1;
@@ -324,6 +339,7 @@ $_: "c-card";
                 flex-basis: calc(100% - 30%);
             }
         }
+
     }
 }
 

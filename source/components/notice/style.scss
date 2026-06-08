@@ -45,6 +45,14 @@ $_: "c-notice";
     .#{$_}__message {
         grid-area: message;
         margin: 0;
+
+        a,
+        a:hover,
+        a:active,
+        a:visited {
+            color: inherit;
+            text-decoration: underline;
+        }
     }
 
     .#{$_}__actions {
@@ -58,7 +66,6 @@ $_: "c-notice";
         >*+* {
             padding-left: tokens.getCalculatedValue($_, "space", 0.75);
             border-left: 1px solid;
-            border-left-color: inherit;
             opacity: 1;
             border-left-color: color-mix(in srgb, currentColor 30%, transparent);
         }
@@ -80,6 +87,10 @@ $_: "c-notice";
         text-decoration: underline;
     }
 
+    .c-button.c-button__basic:not(.c-button__basic--primary):not(.c-button__basic--secondary) {
+        --inherit-color-contrast: currentColor;
+    }
+
     &--success {
         background-color: tokens.getRawValue($_, "color--success");
         color: tokens.getRawValue($_, "color--success-contrast");
@@ -91,10 +102,6 @@ $_: "c-notice";
         a:visited {
             color: tokens.getRawValue($_, "color--success-contrast");
             text-decoration: underline;
-        }
-
-        .c-button {
-            color: tokens.getRawValue($_, "color--success-contrast");
         }
     }
 
@@ -110,10 +117,6 @@ $_: "c-notice";
             color: tokens.getRawValue($_, "color--danger-contrast");
             text-decoration: underline;
         }
-
-        .c-button {
-            color: tokens.getRawValue($_, "color--danger-contrast");
-        }
     }
 
     &--info {
@@ -128,10 +131,6 @@ $_: "c-notice";
             color: tokens.getRawValue($_, "color--info-contrast");
             text-decoration: underline;
         }
-
-        .c-button {
-            color: tokens.getRawValue($_, "color--info-contrast");
-        }
     }
 
     &--warning {
@@ -145,10 +144,6 @@ $_: "c-notice";
         a:visited {
             color: tokens.getRawValue($_, "color--warning-contrast");
             text-decoration: underline;
-        }
-
-        .c-button {
-            color: tokens.getRawValue($_, "color--warning-contrast");
         }
     }
 

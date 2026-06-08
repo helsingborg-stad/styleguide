@@ -5,7 +5,7 @@
 /* Inheritance properties */
 @property --inherit-color-background {
     syntax: "*";
-    inherits: false;
+    inherits: true;
 }
 
 /* Component name */
@@ -19,7 +19,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 /* Component */
 .#{$_} {
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
-    --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface-alt")};
+    --#{$_}--background-color-default: #{tokens.getRawValue($_, "color--surface-alt")};
     --#{$_}--contrast-color: #{tokens.getRawValue($_, "color--surface-contrast")};
     --#{$_}--height-sm: #{tokens.getCalculatedValue($_, "base", 4.5)};
     --#{$_}--height: #{tokens.getCalculatedValue($_, "base", 6)};
@@ -85,7 +85,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         font-size: 0.95rem;
         line-height: calc(var(--base) * 2);
         border: var(--#{$_}--border);
-        background: var(--inherit-color-background, var(--#{$_}--background-color));
+        background: var(--#{$_}--background-color, var(--inherit-color-background, var(--#{$_}--background-color-default)));
         color: var(--#{$_}--contrast-color);
         border-radius: tokens.getCalculatedValue($_, "border-radius");
         corner-shape: tokens.getRawValue($_, "corner-shape");
@@ -142,7 +142,8 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
         &.#{$_}__inner--datalist,
         &:has(input[list]) {
-            &::before {
+
+            &:before {
                 content: "";
                 position: absolute;
                 top: 0;
@@ -151,14 +152,14 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
                 width: calc(tokens.getCalculatedValue($_, "base", 5));
                 border-left: tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--surface-border");
                 background-image: linear-gradient(to bottom,
-                    color-mix(in srgb, tokens.getRawValue($_, "color--surface-border") 14%, var(--#{$_}--background-color)),
-                    color-mix(in srgb, tokens.getRawValue($_, "color--surface-border") 8%, var(--#{$_}--background-color)));
+                    color-mix(in srgb, tokens.getRawValue($_, "color--surface-border") 14%, var(--#{$_}--background-color, var(--#{$_}--background-color-default))),
+                    color-mix(in srgb, tokens.getRawValue($_, "color--surface-border") 8%, var(--#{$_}--background-color, var(--#{$_}--background-color-default))));
                 border-top-right-radius: tokens.getCalculatedValue($_, "border-radius");
                 border-bottom-right-radius: tokens.getCalculatedValue($_, "border-radius");
                 pointer-events: none;
             }
 
-            &::after {
+            &:after {
                 content: "";
                 position: absolute;
                 top: 50%;
@@ -223,6 +224,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         &--url,
         &--time,
         &--date {
+
             input:focus {
                 box-shadow: none;
             }
@@ -234,7 +236,6 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
             border: unset;
         }
     }
-
 
     textarea {
         min-height: var(--#{$_}--height);
@@ -446,8 +447,8 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         top: calc(100% + #{tokens.getCalculatedValue($_, "space", 0.5)});
         left: 0;
         right: 0;
-        z-index: 4500;
-        background-color: var(--inherit-color-background, var(--#{$_}--background-color));
+        z-index: 4;
+        background-color: var(--#{$_}--background-color, var(--inherit-color-background, var(--#{$_}--background-color-default)));
         border: var(--#{$_}--border);
         border-radius: tokens.getCalculatedValue($_, "border-radius");
         corner-shape: tokens.getRawValue($_, "corner-shape");
@@ -484,8 +485,10 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 }
 
 /* For the search-field in a megamenu */
+
 .c-megamenu .c-form {
     @include mq.mq("xs") {
+
         .c-group {
             justify-content: center;
         }
@@ -496,6 +499,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
     }
 
     @include mq.mq("sm") {
+
         .c-button {
             padding: 0 calc(var(--base, 8px) * 4);
         }

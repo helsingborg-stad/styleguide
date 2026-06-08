@@ -78,6 +78,7 @@ $_: "c-slider";
     }
 
     //Video Additions
+
     &:not(:hover) &__background--video__play__btn:not(:focus) {
         height: 0px;
         width: 0px;
@@ -110,9 +111,9 @@ $_: "c-slider";
             }
         }
 
-        &--overlay-dark::before,
-        &--overlay-light::before {
-            content: '';
+        &--overlay-dark:before,
+        &--overlay-light:before {
+            content: "";
             position: absolute;
             top: 0;
             left: 0;
@@ -122,7 +123,7 @@ $_: "c-slider";
             corner-shape: tokens.getRawValue($_, "corner-shape");
         }
 
-        &--overlay-dark::before {
+        &--overlay-dark:before {
             background-color: tokens.getRawValue($_, "color--overlay");
         }
 
@@ -142,6 +143,7 @@ $_: "c-slider";
         }
 
         // Flat card
+
         &.c-card--flat {
             filter: none;
         }
@@ -149,7 +151,7 @@ $_: "c-slider";
         &--post {
             width: 100%;
             // For now c-slider__item--post margin is not customizeable
-            // margin-right: $c-slider-gap; 
+            // margin-right: $c-slider-gap;
             margin: 0;
 
             .#{$_}__item__container {
@@ -182,6 +184,7 @@ $_: "c-slider";
         z-index: 4;
         color: tokens.getRawValue($_, "color--overlay-contrast");
         background-color: tokens.getRawValue($_, "color--overlay");
+        gap: 0;
     }
 
     .#{$_}__item__heading {
@@ -223,7 +226,6 @@ $_: "c-slider";
         border-radius: tokens.getCalculatedValue($_, "border-radius");
         corner-shape: tokens.getRawValue($_, "corner-shape");
         margin: auto;
-        width: calc(100% - tokens.getCalculatedValue($_, "base", 10));
         max-width: tokens.getRawValue($_, "item-container-max-width");
         max-height: calc(100% - tokens.getCalculatedValue($_, "base", 10));
         align-self: center;
@@ -246,6 +248,7 @@ $_: "c-slider";
 }
 
 @keyframes hero-slider-slide-in {
+
     0% {
         transform: translateY(tokens.getCalculatedValue($_, "base", 4));
         opacity: 0;

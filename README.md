@@ -125,7 +125,22 @@ This project uses design tokens as the single source of truth for visual values 
   - Exposes a custom Sass function `getComponentTokens($name)` that reads token arrays from `source/components/<component>/component.json`.
 5. **Component-scoped token mapping**: `source/sass/mixin/_tokens.scss`
    - `@include tokens.create(...)` maps global tokens (`--color--surface`) to component-scoped tokens (`--c-card--color--surface`).
-   - Components then consume these values with `tokens.getRawValue(...)` or `tokens.getCalculatedValue(...)`.
+   - Components then consume these values with `tokens.getRawValue(...)`, `tokens.getCalculatedValue(...)`, or `tokens.getDerivedAliasValue(...)` for derived component aliases.
+
+### Token Helper Functions
+
+- `tokens.getRawValue($prefix, $token)`
+  - Reads a raw component token such as color, font family, or border token.
+- `tokens.getRawValue($prefix: $_, $token: "color--surface", $inheritVariable: "color-background")`
+  - Use this when a real token should resolve as explicit component override -> inherit hook -> token default.
+- `tokens.getCalculatedValue($prefix, $token, $multiplier)`
+  - Reads a scale-based numeric token and applies the multiplier against `var(--base)`.
+- `tokens.getCalculatedValue($prefix: $_, $token: "space", $multiplier: 2, $inheritVariable: "space")`
+  - Use this when a scale-based token also needs inherit precedence.
+- `tokens.getDefaultRawValue($prefix, $token)`
+  - Reads the `-default` token variable emitted by `tokens.create(..., $emitDefaultTokenVariables: true)`.
+- `tokens.getDerivedAliasValue($prefix, $variable, $inheritVariable)`
+  - Use this for derived component aliases such as `--c-typography--h2-font-size`, where precedence must be explicit alias override -> inherit hook -> alias default.
 
 ### Intended Usage
 
@@ -195,6 +210,24 @@ $_: "c-example";
 }
 ```
 
+Derived alias example:
+
+```scss
+@use "../mixin/tokens";
+
+$_: "c-typography";
+
+@include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
+
+:root {
+  --#{$_}--font-size-lead-default: #{tokens.getRawValue($_, "font-size-200")};
+}
+
+.#{$_}__variant--lead {
+  font-size: tokens.getDerivedAliasValue($_, "font-size-lead", "font-size");
+}
+```
+
 #### 4) Override tokens in implementation (theme or local instance)
 
 Global theme override:
@@ -244,6 +277,9 @@ card?.style.setProperty('--c-card--color--surface', '#1f2937');
 - **`tokens.getCalculatedValue(...)` assumes scale-based numeric usage**:
   - It returns `calc(var(--c-...--token) * var(--base) * multiplier)` (except special cases like `base` and `shadow`).
   - For raw values or non-scale tokens, use `tokens.getRawValue(...)`.
+- **Use `tokens.getDerivedAliasValue(...)` for derived component aliases**:
+  - This applies when the runtime variable is not itself a token, but a component alias such as `--c-typography--h2-font-size`.
+  - Keep the `-default` alias variable token-only, and apply inherit precedence at the usage site.
 - **No implicit companion generation**:
   - Token behavior is declarative; add companion tokens explicitly in token JSON and component manifests.
 
@@ -422,6 +458,28 @@ The rules below are aligned with the validator tests in `source/validators/Tests
 - **Don't use un-namespaced CSS custom properties** in component SCSS.
 - **Don't reference CSS variables that are not declared in design tokens / generated variable sources**.
 - **Don't edit generated token output directly** (for example `source/sass/setting/_design-tokens.scss`), as it will be overwritten.
+
+#### When A Component Affects Another Component
+
+When a component needs to affect the appearance or functionality of an inner component, only two methods are allowed.
+
+##### 1. Inherit Variables
+
+Some components declare `--inherit-*` variables specifically to pass settings down to another component. These variables always take precedence over the receiving component's default values and should be the first choice when the receiving component explicitly supports them.
+
+Example flow:
+
+- Override: [`source/components/segment/text.scss`](./source/components/segment/text.scss#L9-L15)
+- Declaration: [`source/components/typography/style.scss`](./source/components/typography/style.scss#L3-L18)
+- Implementation: [`source/components/typography/style.scss`](./source/components/typography/style.scss#L81-L115)
+
+##### 2. Direct Component Targeting
+
+Direct targeting may be used for smaller modifications, especially when the affected property is not exposed through an inherit variable. This is only allowed for outer-context adaptation on the outermost element of the inner component.
+
+Example:
+
+- [`source/components/block/style.scss`](./source/components/block/style.scss#L131-L138)
 
 #### Test-Backed Rules (Source of Truth)
 

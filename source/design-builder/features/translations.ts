@@ -20,6 +20,8 @@ export type Translations = {
 	resetSelected: string;
 	savedPresets: string;
 	generalAllScopes: string;
+	addPaletteColor: string;
+	removePaletteColor: string;
 };
 
 declare global {
@@ -52,6 +54,8 @@ export const translations: Translations = {
 	resetSelected: 'Reset selected',
 	savedPresets: 'Saved presets',
 	generalAllScopes: 'General (all scopes)',
+	addPaletteColor: 'Add palette color',
+	removePaletteColor: 'Remove palette color',
 };
 
 document.addEventListener('DOMContentLoaded', () => {

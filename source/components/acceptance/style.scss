@@ -105,11 +105,11 @@ $_: "c-acceptance";
         }
 
         .#{$_}__modal-icon-play {
-            --inherit-color-contrast: tokens.getRawValue($_, "color--alpha-contrast");
-            color: tokens.getRawValue($_, "color--alpha-contrast");
+            --inherit-color-contrast: #{tokens.getRawValue($_, "color--alpha-contrast")};
+            color: #{tokens.getRawValue($_, "color--alpha-contrast")};
             cursor: pointer;
             filter: var(--#{$_}--shadow);
-            font-size: clamp(tokens.getCalculatedValue($_, "base", 8), 10vw, tokens.getCalculatedValue($_, "base", 10));
+            font-size: clamp(#{tokens.getCalculatedValue($_, "base", 8)}, 10vw, #{tokens.getCalculatedValue($_, "base", 10)});
             left: 50%;
             position: absolute;
             top: 50%;
@@ -118,7 +118,7 @@ $_: "c-acceptance";
 
             &:hover {
                 filter: var(--#{$_}--shadow-hover);
-                color: tokens.getRawValue($_, "color--alpha-contrast-alt");
+                color: #{tokens.getRawValue($_, "color--alpha-contrast-alt")};
             }
 
             &:hover:before {
@@ -131,16 +131,18 @@ $_: "c-acceptance";
         .#{$_}__modal-info {
             cursor: pointer;
             position: absolute;
-            top: tokens.getCalculatedValue($_, "base", 1);
-            right: tokens.getCalculatedValue($_, "base", 2);
-            color: tokens.getRawValue($_, "color--alpha-contrast");
-            --inherit-color-contrast: tokens.getRawValue($_, "color--alpha-contrast");
+            top: #{tokens.getCalculatedValue($_, "base", 1)};
+            right: #{tokens.getCalculatedValue($_, "base", 2)};
+            color: #{tokens.getRawValue($_, "color--alpha-contrast")};
+            --inherit-color-contrast: #{tokens.getRawValue($_, "color--alpha-contrast")};
         }
     }
 }
 
 /* Since video module uses padding for ratio */
+
 .c-card__video {
+
     .embed {
         .#{$_}.#{$_}--video {
             position: static;

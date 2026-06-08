@@ -1,6 +1,11 @@
 @use "../../sass/mixin/mq";
 @use "../../sass/mixin/tokens";
 
+@property --inherit-color-background {
+  syntax: "*";
+  inherits: true;
+}
+
 $_: "c-timeline";
 
 @include tokens.create($_, getComponentTokens($_));
@@ -8,7 +13,7 @@ $_: "c-timeline";
 .#{$_} {
   --#{$_}--gap: #{tokens.getCalculatedValue($_, "space", 4)};
   --#{$_}--line-width: max(2px, #{tokens.getCalculatedValue($_, "border-width")});
-  --#{$_}--line-color: #{tokens.getRawValue($_, "color--surface-border")};
+  --#{$_}--line-color-default: #{tokens.getRawValue($_, "color--surface-border")};
   --#{$_}--line-color-active: #{tokens.getRawValue($_, "color--primary")};
   --#{$_}--marker-size: #{tokens.getCalculatedValue($_, "base", 2.5)};
   --#{$_}--marker-border-width: max(4px, #{tokens.getCalculatedValue($_, "border-width")});
@@ -32,7 +37,7 @@ $_: "c-timeline";
   display: grid;
   gap: var(--#{$_}--gap);
 
-  &::after {
+  &:after {
     content: "";
     position: absolute;
     top: 0;
@@ -41,7 +46,7 @@ $_: "c-timeline";
     transform: translateX(-50%);
     width: var(--#{$_}--line-width);
     border-radius: 999px;
-    background-color: var(--#{$_}--line-color);
+    background-color: var(--#{$_}--line-color, var(--#{$_}--line-color-default));
   }
 
   .#{$_}__event {
@@ -85,13 +90,13 @@ $_: "c-timeline";
     align-items: center;
     min-height: var(--#{$_}--marker-size);
 
-    &::before {
+    &:before {
       content: "";
       width: var(--#{$_}--marker-size);
       height: var(--#{$_}--marker-size);
       border-radius: 999px;
       outline: var(--#{$_}--marker-border-width) solid var(--#{$_}--marker-border-color);
-      background-color: var(--inherit-color-background, var(--#{$_}--line-color));
+      background-color: var(--#{$_}--line-color, var(--inherit-color-background, var(--#{$_}--line-color-default)));
       box-sizing: border-box;
       box-shadow: none;
     }
@@ -112,7 +117,11 @@ $_: "c-timeline";
     transform-origin: center right;
     transition: transform 180ms ease, outline-color 180ms ease, box-shadow 180ms ease;
 
-    &::before {
+    >* {
+      background-color: inherit;
+    }
+
+    &:before {
       content: "";
       position: absolute;
       top: var(--#{$_}--card-arrow-top);
@@ -120,13 +129,14 @@ $_: "c-timeline";
       transform: translateY(-50%) rotate(45deg);
       width: var(--#{$_}--card-arrow-size);
       height: var(--#{$_}--card-arrow-size);
-      background-color: var(--inherit-color-background, var(--#{$_}--card-background));
-      border: var(--c-card--border, var(--#{$_}--line-width) solid var(--#{$_}--line-color));
+      background-color: inherit;
+      border: inherit;
       z-index: -1;
+      border-radius: max(2px, #{tokens.getCalculatedValue($_, "border-radius", 0.25)});
     }
 
-    &.c-card--flat::before,
-    &.c-card--flat::after {
+    &.c-card--flat:before,
+    &.c-card--flat:after {
       display: none;
     }
   }
@@ -143,7 +153,7 @@ $_: "c-timeline";
       justify-self: start;
       transform-origin: center left;
 
-      &::before {
+      &:before {
         left: calc(var(--#{$_}--card-arrow-size) * -0.6);
         right: auto;
       }
@@ -153,13 +163,11 @@ $_: "c-timeline";
   .#{$_}__event--active {
     .#{$_}__marker::before {
       background-color: var(--#{$_}--accent);
-      border-color: var(--#{$_}--accent);
     }
 
     >.#{$_}__date,
     .#{$_}__marker>.#{$_}__date {
       background-color: #{tokens.getRawValue($_, "color--surface")};
-      border-color: var(--#{$_}--accent);
     }
 
     .#{$_}__marker>.#{$_}__date {
@@ -167,17 +175,17 @@ $_: "c-timeline";
       border-color: var(--#{$_}--accent);
       color: var(--#{$_}--accent-contrast);
       box-shadow: none;
-    }
 
-    .#{$_}__event__card {
-      outline: var(--#{$_}--line-width) solid var(--#{$_}--card-outline);
-      outline-offset: #{tokens.getCalculatedValue($_, "space", 0.75)};
-      transform: none;
+      &:before {
+        border-left-color: var(--#{$_}--accent);
+        border-bottom-color: var(--#{$_}--accent);
+      }
     }
   }
 
   &.#{$_}--sequential {
-    &::after {
+
+    &:after {
       left: calc(var(--#{$_}--track-width) / 2);
       transform: translateX(-50%);
     }
@@ -190,7 +198,7 @@ $_: "c-timeline";
     .#{$_}__marker {
       grid-column: 1;
       justify-content: center;
-      padding-top: #{tokens.getCalculatedValue($_, "space", 0.5)};
+      padding-top: #{tokens.getCalculatedValue($_, "space", 1.5)};
     }
 
     .#{$_}__event__card {
@@ -200,7 +208,7 @@ $_: "c-timeline";
       transform-origin: center left;
       --#{$_}--card-arrow-top: #{tokens.getCalculatedValue($_, "space", 2.5)};
 
-      &::before {
+      &:before {
         left: calc(var(--#{$_}--card-arrow-size) * -0.6);
         right: auto;
       }
@@ -219,7 +227,7 @@ $_: "c-timeline";
     --#{$_}--card-width: 100%;
     --#{$_}--card-arrow-top: #{tokens.getCalculatedValue($_, "space", 2.5)};
 
-    &::after {
+    &:after {
       left: calc(var(--#{$_}--track-width) / 2);
       transform: translateX(-50%);
     }
@@ -231,18 +239,36 @@ $_: "c-timeline";
     }
 
     .#{$_}__marker {
+      grid-column: 1;
       justify-content: center;
-      align-items: flex-start;
-      padding-top: #{tokens.getCalculatedValue($_, "space", 0.25)};
+      align-items: center;
+      padding-top: 0;
 
       .#{$_}__date {
-        display: inline-flex;
+        display: inline-flex !important;
         position: absolute;
         top: 50%;
-        left: calc(100% + #{tokens.getCalculatedValue($_, "space", 1.25)});
+        left: calc(100% + #{tokens.getCalculatedValue($_, "space", 2)});
         transform: translateY(-50%);
-        white-space: nowrap;
+        visibility: visible !important;
+        width: auto !important;
+        max-width: calc(100vw - var(--#{$_}--track-width) - #{tokens.getCalculatedValue($_, "space", 6)}) !important;
+        line-height: 1.2;
         z-index: 1;
+
+        &:before {
+          content: "";
+          position: absolute;
+          left: calc(var(--#{$_}--card-arrow-size) * -0.75);
+          top: 50%;
+          width: var(--#{$_}--card-arrow-size);
+          height: var(--#{$_}--card-arrow-size);
+          transform: translateY(-50%) rotate(45deg);
+          background-color: inherit;
+          border-left: var(--#{$_}--line-width) solid var(--#{$_}--date-border);
+          border-bottom: var(--#{$_}--line-width) solid var(--#{$_}--date-border);
+          z-index: -1;
+        }
       }
     }
 
@@ -255,14 +281,27 @@ $_: "c-timeline";
       grid-column: 2;
       justify-self: start;
       width: 100%;
-      margin-top: #{tokens.getCalculatedValue($_, "space", 4)};
+      margin-top: calc(var(--#{$_}--marker-size) + #{tokens.getCalculatedValue($_, "space", 3)});
       transform-origin: center left;
 
-      &::before {
-        left: calc(var(--#{$_}--card-arrow-size) * -0.6);
-        right: auto;
-        top: var(--#{$_}--card-arrow-top);
-        transform: translateY(-50%) rotate(45deg);
+      &:before {
+        display: none;
+      }
+    }
+
+    &.#{$_}--sequential {
+
+      .#{$_}__event__card,
+      .#{$_}__event:nth-child(even) .#{$_}__event__card {
+        margin-top: 0;
+
+        &:before {
+          display: block;
+          left: calc(var(--#{$_}--card-arrow-size) * -0.6);
+          right: auto;
+          top: var(--#{$_}--card-arrow-top);
+          transform: translateY(-50%) rotate(45deg);
+        }
       }
     }
   }

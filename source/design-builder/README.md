@@ -353,8 +353,8 @@ Scoped behavior is enabled via:
 - data-scope="your-scope-name"
 - data-scope="scope-one; scope-two;"
 
-Scope resolution is nearest ancestor based:
-- For a clicked/updated target, closest ancestor [data-scope] is used.
+Scope resolution is ancestor based:
+- For a clicked/updated target, all ancestor [data-scope] values are used.
 - If no scope ancestor exists, runtime uses global scope.
 
 Internal global scope key:
@@ -651,6 +651,15 @@ Supported control types are:
 Variables must be declared without the component prefix.
 The component customizer localizes them automatically before applying them to the DOM.
 
+Settings can be conditionally shown for selected component instances with `visibleWhen`.
+This is useful when a setting only affects a modifier variant.
+
+Supported class predicates are:
+
+- `hasClass`: all listed classes must be present
+- `hasAnyClass`: at least one listed class must be present
+- `doesNotHaveClass`: none of the listed classes may be present
+
 Example:
 
 - Declared in component metadata: --font-size-multiplier
@@ -674,6 +683,13 @@ Brand example:
           "max": 4,
           "step": 0.05,
           "unit": ""
+        },
+        {
+          "token": "color--primary",
+          "label": "Primary Variant Color",
+          "visibleWhen": {
+            "hasAnyClass": ["c-brand--primary", "c-brand--featured"]
+          }
         }
       ]
     }
@@ -694,7 +710,9 @@ SCSS usage:
 Implementation notes:
 
 - Keep global tokens in the tokens array when the component still depends on shared token values.
-- Use componentSettings only for local override controls that do not belong in source/data/design-tokens.json.
+- When componentSettings is defined, it replaces the automatically generated token controls for that component.
+- Add token-backed componentSettings entries for every global token that should remain editable in the component customizer.
+- Use componentSettings for local override controls that do not belong in source/data/design-tokens.json.
 - If a setting should be editable in the GUI, the component CSS must consume the localized CSS variable.
 - The generated component-design-tokens.json payload includes both tokens and componentSettings.
 

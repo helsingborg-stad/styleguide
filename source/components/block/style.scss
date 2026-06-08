@@ -72,7 +72,7 @@ $_: "c-block";
         position: absolute;
         right: tokens.getCalculatedValue($_, "base", 1);
         top: tokens.getCalculatedValue($_, "base", 1);
-        z-index: 3000;
+        z-index: 3;
     }
 
     .#{$_}__heading,
@@ -149,7 +149,7 @@ a.#{$_} {
         transition: opacity 200ms;
         background: var(--#{$_}--color-hover-overlay);
         opacity: 0;
-        z-index: 1000;
+        z-index: 1;
     }
 
     &:hover {

@@ -27,7 +27,7 @@ $_: "c-select";
 
     .#{$_}__action-overlay {
         cursor: pointer;
-        z-index: 4000;
+        z-index: 3;
         white-space: nowrap;
         text-overflow: ellipsis;
         max-width: 100%;
@@ -63,24 +63,28 @@ $_: "c-select";
 
     &.is-ios,
     &.is-android {
+
         select {
             display: block;
             height: 100%;
             position: absolute;
             width: 100%;
-            z-index: 5000;
+            z-index: 4;
         }
     }
 
     .#{$_}__clear-button {
-        --_clear-icon-size: calc(#{var(--#{$_}--font-size-btn-md)} * 1.325);
+        --_clear-icon-size: calc(#{var(--#{$_}--font-size-btn-md)
+    }
+
+    * 1.325);
         --_clear-icon-offset: calc(var(--_clear-icon-size) * 0.063);
         position: absolute;
         right: 2em;
         top: 0;
         left: auto;
         padding: tokens.getCalculatedValue($_, "base", 2);
-        z-index: 6000;
+        z-index: 5;
         height: 100%;
         color: tokens.getRawValue($_, "color--primary");
         --inherit-color-contrast: #{tokens.getRawValue($_, "color--primary")};
@@ -112,7 +116,7 @@ $_: "c-select";
         top: 0;
         left: auto;
         padding: tokens.getCalculatedValue($_, "base", 2);
-        z-index: 2000;
+        z-index: 1;
         transition: none;
         height: 100%;
         color: tokens.getRawValue($_, "color--primary");
@@ -134,6 +138,7 @@ $_: "c-select";
     }
 
     &.#{$_}--rounded {
+
         select {
             border-radius: tokens.getCalculatedValue($_, "base", 3);
             border: none;
@@ -145,6 +150,7 @@ $_: "c-select";
         }
 
         &.#{$_}--rounded-border {
+
             select {
                 border: var(--c-field--border-width) solid var(--c-field--border-color);
             }
@@ -174,7 +180,10 @@ $_: "c-select";
         }
 
         .#{$_}__clear-button {
-            --_clear-icon-size: calc(#{var(--#{$_}--font-size-btn-sm)} * 1.325);
+            --_clear-icon-size: calc(#{var(--#{$_}--font-size-btn-sm)
+        }
+
+        * 1.325);
         }
 
         .#{$_}__dropdown .#{$_}__option {
@@ -192,7 +201,10 @@ $_: "c-select";
         }
 
         .#{$_}__clear-button {
-            --_clear-icon-size: calc(#{var(--#{$_}--font-size-btn-md)} * 1.325);
+            --_clear-icon-size: calc(#{var(--#{$_}--font-size-btn-md)
+        }
+
+        * 1.325);
         }
 
         .#{$_}__dropdown .#{$_}__option {
@@ -210,7 +222,10 @@ $_: "c-select";
         }
 
         .#{$_}__clear-button {
-            --_clear-icon-size: calc(#{var(--#{$_}--font-size-btn-lg)} * 1.325);
+            --_clear-icon-size: calc(#{var(--#{$_}--font-size-btn-lg)
+        }
+
+        * 1.325);
         }
 
         .#{$_}__dropdown .#{$_}__option {
@@ -254,6 +269,7 @@ $_: "c-select";
     }
 
     /* States */
+
     &.is-invalid {
         .#{$_} {
 
@@ -287,7 +303,7 @@ $_: "c-select";
     &.is-open {
 
         .#{$_}__dropdown {
-            z-index: 8000;
+            z-index: 6;
             display: block;
             border-top: none;
             border-top-left-radius: 0;
@@ -314,7 +330,7 @@ $_: "c-select";
         width: 100%;
         max-height: tokens.getCalculatedValue($_, "base", 30);
         overflow-y: auto;
-        z-index: 3000;
+        z-index: 2;
         padding: tokens.getCalculatedValue($_, "base", 1) 0;
         border: var(--border-width-input, 1px) solid tokens.getRawValue($_, "color--surface-border");
     }
@@ -376,6 +392,7 @@ $_: "c-select";
 }
 
 @keyframes c-select-dropdown-expand {
+
     0% {
         transform-origin: top;
         opacity: 0;
@@ -389,6 +406,7 @@ $_: "c-select";
 }
 
 @keyframes c-select-option-puff {
+
     0% {
         filter: blur(4px);
         opacity: 0;
@@ -401,6 +419,7 @@ $_: "c-select";
 }
 
 @keyframes c-select-expand-rotate {
+
     0% {
         transform: rotate(180deg);
     }
@@ -411,6 +430,7 @@ $_: "c-select";
 }
 
 @keyframes c-select-expand-rotate-inverted {
+
     0% {
         transform: rotate(-180deg);
     }

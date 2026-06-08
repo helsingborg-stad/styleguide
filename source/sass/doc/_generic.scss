@@ -1,7 +1,7 @@
 @use "../setting/var_colors" as colors;
-@use "../setting/var_fonts" as fonts;
 @use "../setting/var_default" as defaults;
 @use "../setting/var_properties" as properties;
+@use "../mixin/tokens";
 
 .l-docs--header {
     place-self: start;
@@ -43,8 +43,8 @@
         border-bottom: 1px solid #e5e5e5;
 
         td {
-            font-weight: fonts.$font-weight-bold;
-            font-family: fonts.$font-family-bold;
+            font-weight: tokens.getRawValue("", "font-weight-bold");
+            font-family: tokens.getRawValue("", "font-family-bold");
             color: colors.$color-black;
         }
     }
@@ -65,8 +65,8 @@
         }
 
         &:nth-of-type(3) {
-            font-weight: fonts.$font-weight-bold;
-            font-family: fonts.$font-family-bold;
+            font-weight: tokens.getRawValue("", "font-weight-bold");
+            font-family: tokens.getRawValue("", "font-family-bold");
         }
     }
 }

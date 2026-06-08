@@ -1,6 +1,7 @@
 import { normalizeComponentName } from '../../features/component-customizer/componentTokenDefinitions';
 import { GENERAL_SCOPE_KEY, NON_CUSTOMIZABLE_COMPONENTS } from '../constants/designBuilderRuntimeConstants';
 import type { ScopedComponentOverrides } from '../types/designBuilderDataTypes';
+import { getComponentOverrideTargets } from './componentOverrideTargets';
 import { getNamedScopeKeysForElement } from './designBuilderScope';
 
 function getElementsByComponent(): Map<string, HTMLElement[]> {
@@ -75,7 +76,9 @@ export function applyComponentOverridesToPage(overrides: ScopedComponentOverride
 				}
 
 				for (const element of elements) {
-					element.style.setProperty(variable, value);
+					for (const target of getComponentOverrideTargets(element, componentName)) {
+						target.style.setProperty(variable, value);
+					}
 				}
 			}
 		}
@@ -94,7 +97,9 @@ export function clearComponentOverridesFromPage(overrides: ScopedComponentOverri
 				}
 
 				for (const element of elements) {
-					element.style.removeProperty(variable);
+					for (const target of getComponentOverrideTargets(element, componentName)) {
+						target.style.removeProperty(variable);
+					}
 				}
 			}
 		}

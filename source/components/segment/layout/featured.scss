@@ -4,65 +4,66 @@ $c: "c-segment";
 $_breakpoint-md: 896px;
 
 .#{$c}.#{$c}--featured {
-  flex-direction: row;
+    container-name: segment segment-featured;
+    flex-direction: row;
 
-  .#{$c}__padder {
-    max-width: tokens.getCalculatedValue($c, "base", 60);
-    margin: auto;
-    padding-top: tokens.getCalculatedValue($c, "base", 4);
-    padding-bottom: tokens.getCalculatedValue($c, "base", 4);
-  }
-
-  .#{$c}__image {
-    height: auto;
-    aspect-ratio: 16/9;
-    background-size: 0;
-  }
-
-  .#{$c}__image .c-image__image {
-    object-fit: contain;
-  }
-
-  .#{$c}__slot {
-    margin-top: tokens.getCalculatedValue($c, "base", 4);
-
-    @container segment (min-width: #{$_breakpoint-md}) {
-      margin-top: tokens.getCalculatedValue($c, "base", 6);
+    .#{$c}__padder {
+        max-width: tokens.getCalculatedValue($c, "base", 60);
+        margin: auto;
+        padding-top: tokens.getCalculatedValue($c, "base", 4);
+        padding-bottom: tokens.getCalculatedValue($c, "base", 4);
     }
-  }
 
-  &.#{$c}--reverse {
-    flex-direction: row-reverse;
-  }
-
-  @container segment (min-width: #{$_breakpoint-md}) {
     .#{$c}__image {
-      padding: 0 tokens.getCalculatedValue($c, "space", 3);
-      margin: tokens.getCalculatedValue($c, "space", 7) 0;
-      max-width: 70%;
+        height: auto;
+        aspect-ratio: 16/9;
+        background-size: 0;
     }
 
-    .#{$c}__content {
-      margin: tokens.getCalculatedValue($c, "space", 3) 0;
-      max-width: 30%;
+    .#{$c}__image .c-image__image {
+        object-fit: contain;
     }
-  }
+
+    .#{$c}__slot {
+        margin-top: tokens.getCalculatedValue($c, "base", 4);
+
+        @container segment-featured (min-width: #{$_breakpoint-md}) {
+            margin-top: tokens.getCalculatedValue($c, "base", 6);
+        }
+    }
+
+    &.#{$c}--reverse {
+        flex-direction: row-reverse;
+    }
+
+    @container segment-featured (min-width: #{$_breakpoint-md}) {
+        .#{$c}__image {
+            padding: 0 tokens.getCalculatedValue($c, "space", 3);
+            margin: tokens.getCalculatedValue($c, "space", 7) 0;
+            max-width: 70%;
+        }
+
+        .#{$c}__content {
+            margin: tokens.getCalculatedValue($c, "space", 3) 0;
+            max-width: 30%;
+        }
+    }
 }
 
 .#{$c}.#{$c}--featured.#{$c}--alignment {
 
-  &-top .#{$c}__content,
-  &-top .#{$c}__slot {
-    align-self: start;
-  }
+    &-top .#{$c}__content,
+    &-top .#{$c}__slot {
+        align-self: start;
+    }
 
-  &-center .#{$c}__content,
-  &-center .#{$c}__slot {
-    align-self: center;
-  }
+    &-center .#{$c}__content,
+    &-center .#{$c}__slot {
+        align-self: center;
+    }
 
-  &-bottom .#{$c}__content,
-  &-bottom .#{$c}__slot {
-    align-self: end;
-  }
+    &-bottom .#{$c}__content,
+    &-bottom .#{$c}__slot {
+        align-self: end;
+    }
 }

@@ -25,7 +25,7 @@ $_observe-breakpoint-md: 768px;
     .#{$c}__slot {
         order: 3;
         justify-content: center;
-        z-index: 2000;
+        z-index: 2;
 
         >.o-grid {
             justify-content: center;
@@ -47,6 +47,7 @@ $_observe-breakpoint-md: 768px;
     }
 
     .#{$c}__title {
+
         a {
             text-decoration: none;
             color: tokens.getRawValue($c, "color--surface-contrast");
@@ -129,6 +130,7 @@ $_observe-breakpoint-md: 768px;
 }
 
 .#{$c}.#{$c}--height {
+
     &-full-screen {
         min-height: 100vh;
 
@@ -152,7 +154,8 @@ $_observe-breakpoint-md: 768px;
 }
 
 .#{$c}.#{$c}--highlight {
-    &::after {
+
+    &:after {
         content: "";
         position: absolute;
         top: 0;
@@ -165,13 +168,14 @@ $_observe-breakpoint-md: 768px;
             z-index: 2;
         }
 
-        &::after {
+        &:after {
             left: 0;
         }
     }
 
     @container segment (min-width: #{$_breakpoint-md}) {
-        &::after {
+
+        &:after {
             left: 50%;
         }
 

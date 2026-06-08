@@ -103,7 +103,7 @@ $_: "c-hero";
         }
     }
 
-    &::before {
+    &:before {
         float: left;
         content: "";
         width: 1px;
@@ -115,7 +115,7 @@ $_: "c-hero";
     &.#{$_}--small {
         min-height: tokens.getCalculatedValue($_, "base", 40);
 
-        &::before {
+        &:before {
             padding-top: 20%;
         }
     }
@@ -123,7 +123,7 @@ $_: "c-hero";
     &.#{$_}--normal {
         min-height: tokens.getCalculatedValue($_, "base", 50);
 
-        &::before {
+        &:before {
             padding-top: 30%;
         }
     }
@@ -132,7 +132,7 @@ $_: "c-hero";
         max-height: 70vh;
         min-height: tokens.getCalculatedValue($_, "base", 60);
 
-        &::before {
+        &:before {
             padding-top: 56.25%;
         }
     }
@@ -325,6 +325,7 @@ $_: "c-hero";
             text-shadow: none;
             border-radius: var(--#{$_}--content-border-radius);
             corner-shape: tokens.getRawValue($_, "corner-shape");
+            width: 100%;
 
             .#{$_}__group {
                 flex: 0 0 100%;
@@ -464,6 +465,7 @@ $_: "c-hero";
 }
 
 @keyframes hero-slide-in {
+
     0% {
         transform: translateY(tokens.getCalculatedValue($_, "base", 4));
         opacity: 0;

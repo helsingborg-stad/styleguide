@@ -1,16 +1,18 @@
 import { html, nothing, render as renderTemplate, type TemplateResult } from 'lit-html';
 import { GENERAL_SCOPE_KEY, GLOBAL_SCOPE_KEY, NON_CUSTOMIZABLE_COMPONENTS } from '../../shared/constants/designBuilderRuntimeConstants';
-import { createDesignBuilderCategory, createDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
+import type { ControlChangeOptions } from '../../shared/control-elements/controls/types';
+import { createDesignBuilderCategory, createDesignBuilderControl, createReadOnlyDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
 import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
 import { createDetailsMenuDismissController, type DetailsMenuDismissController } from '../../shared/menus/createDetailsMenuDismissController';
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
 import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPresetManager';
 import { type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset, designBuilderPresetMatchesState } from '../../shared/presets/designBuilderPresetDefinitions';
 import { applyTokenOverridesToRootDocument, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
+import { getComponentOverrideTargets } from '../../shared/state/componentOverrideTargets';
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import { getNamedScopeKeysForElement, getResolvedScopeKeyForElement } from '../../shared/state/designBuilderScope';
 import { registerControlInfoTooltips } from '../../shared/tooltips/registerControlInfoTooltips';
-import type { ComponentSettingDefinition, ComponentTokenData, ComponentTokenReferenceSetting, ScopedComponentOverrides, TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
+import type { ComponentSettingDefinition, ComponentSettingVisibilityCondition, ComponentTokenData, ComponentTokenReferenceSetting, ScopedComponentOverrides, TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
 import type { DesignBuilderModeSwitch, DesignBuilderRootElement } from '../../web-component/designBuilderRootContracts';
 import { translations } from '../translations';
 import { normalizeComponentName } from './componentTokenDefinitions';
@@ -30,6 +32,26 @@ interface RuntimePresetOption {
 	targets: DesignBuilderPresetTargets;
 }
 
+type ColorTokenVariant = 'base' | 'contrast' | 'contrast-muted' | 'border' | 'alt';
+
+type TokenLibrarySettingMatch = {
+	category: TokenCategory;
+	setting: TokenCategory['settings'][number];
+};
+
+type ColorTokenSourceFamily = {
+	family: string;
+	label: string;
+	categoryId: string;
+	variants: Partial<Record<ColorTokenVariant, string>>;
+};
+
+const LOCAL_COLOR_SOURCE_CATEGORY_IDS = new Set(['colors-brand-palette', 'colors-brand', 'colors-layout', 'colors-ui', 'colors-state']);
+const STATE_COLOR_SOURCE_CATEGORY_ID = 'colors-state';
+const BRAND_PALETTE_CATEGORY_ID = 'colors-brand-palette';
+const EXCLUDED_SWATCH_COLOR_FAMILIES = new Set(['alpha', 'focus']);
+const LAST_EDITED_COMPONENT_STORAGE_KEY = 'design-builder-last-edited-component';
+
 export class ComponentCustomizerRuntime {
 	private componentData: ComponentTokenData;
 	private tokenLibrary: TokenData;
@@ -48,12 +70,14 @@ export class ComponentCustomizerRuntime {
 	private toggleTargetSelectionButton: HTMLButtonElement | null = null;
 	private toggleTargetSelectionLabel: HTMLElement | null = null;
 	private activeTargetElement: HTMLElement | null = null;
+	private activeTargetWasPicked = false;
 	private cleanupCallbacks: Array<() => void> = [];
 	private modeSwitch?: DesignBuilderModeSwitch;
 	private presetBarHost: HTMLElement | null = null;
 	private menuDismissController: DetailsMenuDismissController | null = null;
 	private isTargetSelectionEnabled = false;
 	private showSaveButton: boolean;
+	private showLockedFields = false;
 
 	constructor(componentData: ComponentTokenData, tokenLibrary: TokenData, mountElement: HTMLElement | ShadowRoot, options: ComponentCustomizerRuntimeOptions = {}) {
 		this.componentData = componentData;
@@ -64,6 +88,7 @@ export class ComponentCustomizerRuntime {
 		this.presetManager = new DesignBuilderPresetManager();
 		this.modeSwitch = options.modeSwitch;
 		this.showSaveButton = options.showSaveButton ?? true;
+		this.showLockedFields = this.hostElement?.showLockedFields ?? false;
 
 		this.collectComponentElements();
 		this.collectEditableComponents();
@@ -142,15 +167,42 @@ export class ComponentCustomizerRuntime {
 			}
 		}
 
+		const lastEditedComponent = this.getLastEditedComponent();
+		if (lastEditedComponent && this.editableComponents.has(lastEditedComponent) && this.elementsByComponent.has(lastEditedComponent)) {
+			this.activeComponent = lastEditedComponent;
+		}
+
 		if (this.activeComponent && !this.editableComponents.has(this.activeComponent)) {
 			const firstEditable = this.editableComponents.values().next().value;
 			this.activeComponent = typeof firstEditable === 'string' ? firstEditable : null;
 		}
 	}
 
+	private getLastEditedComponent(): string | null {
+		try {
+			return normalizeComponentName(localStorage.getItem(LAST_EDITED_COMPONENT_STORAGE_KEY) || '');
+		} catch {
+			return null;
+		}
+	}
+
+	private rememberLastEditedComponent(componentName: string | null): void {
+		if (!componentName || !this.editableComponents.has(componentName)) {
+			return;
+		}
+
+		try {
+			localStorage.setItem(LAST_EDITED_COMPONENT_STORAGE_KEY, componentName);
+		} catch {
+			// Ignore storage failures; component selection should still work.
+		}
+	}
+
 	private enableTargetSelection(): void {
+		const visibleComponents = new Set(this.getSortedComponentNames());
+
 		for (const [componentName, elements] of this.elementsByComponent.entries()) {
-			const isEditable = this.editableComponents.has(componentName);
+			const isEditable = visibleComponents.has(componentName);
 			for (const element of elements) {
 				if (!isEditable) continue;
 
@@ -172,7 +224,7 @@ export class ComponentCustomizerRuntime {
 		}
 
 		for (const [componentName, elements] of this.elementsByComponent.entries()) {
-			if (!this.editableComponents.has(componentName)) continue;
+			if (!visibleComponents.has(componentName)) continue;
 
 			for (const element of elements) {
 				const handleElementClick = (event: MouseEvent) => {
@@ -182,9 +234,10 @@ export class ComponentCustomizerRuntime {
 					if (!this.root) return;
 
 					this.activeComponent = componentName;
+					this.rememberLastEditedComponent(componentName);
 					this.activeScopeKey = this.getScopeKeyForElement(element);
 					this.refreshScopeSelect();
-					this.setActiveTarget(componentName, this.activeScopeKey, element);
+					this.setActiveTarget(componentName, this.activeScopeKey, element, true);
 					if (this.componentSelect) {
 						this.componentSelect.value = componentName;
 					}
@@ -369,7 +422,7 @@ export class ComponentCustomizerRuntime {
 		`;
 	}
 
-	private setActiveTarget(componentName: string, scopeKey: string, preferredElement?: HTMLElement): void {
+	private setActiveTarget(componentName: string, scopeKey: string, preferredElement?: HTMLElement, wasPicked = false): void {
 		if (this.activeTargetElement) {
 			this.activeTargetElement.classList.remove('db-component-target-active');
 		}
@@ -382,6 +435,7 @@ export class ComponentCustomizerRuntime {
 		this.activeScopeKey = scopeKey;
 		if (!target) {
 			this.activeTargetElement = null;
+			this.activeTargetWasPicked = false;
 			if (this.scopeSelect) {
 				this.scopeSelect.value = this.activeScopeKey;
 			}
@@ -390,6 +444,7 @@ export class ComponentCustomizerRuntime {
 
 		target.classList.add('db-component-target-active');
 		this.activeTargetElement = target;
+		this.activeTargetWasPicked = wasPicked && target === preferredMatch;
 
 		if (this.scopeSelect) {
 			this.scopeSelect.value = this.activeScopeKey;
@@ -476,7 +531,48 @@ export class ComponentCustomizerRuntime {
 	}
 
 	private getSortedComponentNames(): string[] {
-		return Array.from(this.editableComponents).sort((a, b) => a.localeCompare(b));
+		return Array.from(this.editableComponents)
+			.filter((componentName) => this.getVisibleCategoriesForComponent(componentName).length > 0)
+			.sort((a, b) => a.localeCompare(b));
+	}
+
+	private getVisibleCategoriesForComponent(componentName: string): TokenCategory[] {
+		const categories = this.buildCategoriesForComponent(componentName);
+		if (this.showLockedFields) {
+			return categories;
+		}
+
+		return categories
+			.map((category) => ({
+				...category,
+				settings: category.settings.filter((setting) => !setting.locked),
+			}))
+			.filter((category) => category.settings.length > 0);
+	}
+
+	private syncVisibleComponentState(): void {
+		const visibleComponentNames = this.getSortedComponentNames();
+		if (!this.activeComponent || !visibleComponentNames.includes(this.activeComponent)) {
+			this.activeComponent = visibleComponentNames[0] ?? null;
+		}
+
+		if (this.activeTargetElement && (!this.activeComponent || normalizeComponentName(this.activeTargetElement.dataset.component || '') !== this.activeComponent)) {
+			this.activeTargetElement.classList.remove('db-component-target-active');
+			this.activeTargetElement = null;
+			this.activeTargetWasPicked = false;
+		}
+
+		if (this.activeComponent) {
+			const availableScopeKeys = this.getAvailableScopeKeys(this.activeComponent);
+			if (!availableScopeKeys.includes(this.activeScopeKey)) {
+				this.activeScopeKey = GENERAL_SCOPE_KEY;
+			}
+			const preferredElement = this.activeTargetWasPicked ? (this.activeTargetElement ?? undefined) : undefined;
+			this.setActiveTarget(this.activeComponent, this.activeScopeKey, preferredElement, this.activeTargetWasPicked);
+		} else {
+			this.activeScopeKey = GENERAL_SCOPE_KEY;
+			this.activeTargetWasPicked = false;
+		}
 	}
 
 	private getComponentLabel(componentName: string): string {
@@ -761,12 +857,14 @@ export class ComponentCustomizerRuntime {
 	private renderControls(): void {
 		if (!this.controlsContainer) return;
 
+		this.syncVisibleComponentState();
+
 		if (!this.activeComponent) {
 			renderTemplate(html`No component selected.`, this.controlsContainer);
 			return;
 		}
 
-		const categories = this.buildCategoriesForComponent(this.activeComponent);
+		const categories = this.getVisibleCategoriesForComponent(this.activeComponent);
 		if (categories.length === 0) {
 			renderTemplate(html`No token customization options were found for this component.`, this.controlsContainer);
 			return;
@@ -803,8 +901,12 @@ export class ComponentCustomizerRuntime {
 
 	private renderControl(setting: TokenCategory['settings'][number]): HTMLElement {
 		const currentValue = this.overrides[this.activeScopeKey]?.[this.activeComponent as string]?.[setting.variable] || setting.default;
-		return createDesignBuilderControl(setting, currentValue, (variable, value) => {
-			this.handleChange(this.activeComponent as string, this.activeScopeKey, variable, value, setting.default);
+		if (setting.locked) {
+			return createReadOnlyDesignBuilderControl(setting, currentValue);
+		}
+
+		return createDesignBuilderControl(setting, currentValue, (variable, value, extraValues, options) => {
+			this.handleChange(this.activeComponent as string, this.activeScopeKey, variable, value, setting.default, setting.linkedDefaults, extraValues, options);
 		});
 	}
 
@@ -846,27 +948,368 @@ export class ComponentCustomizerRuntime {
 		return 'token' in setting;
 	}
 
-	private findTokenLibrarySetting(tokenName: string): TokenCategory['settings'][number] | null {
+	private findTokenLibraryEntry(tokenName: string): TokenLibrarySettingMatch | null {
 		const variable = `--${tokenName}`;
 		for (const category of this.tokenLibrary.categories) {
 			const matchedSetting = category.settings.find((setting) => setting.variable === variable);
 			if (matchedSetting) {
-				return matchedSetting;
+				return {
+					category,
+					setting: matchedSetting,
+				};
 			}
 		}
 
 		return null;
 	}
 
-	private resolveComponentSetting(componentName: string, availableTokenNames: Set<string>, setting: ComponentSettingDefinition): TokenCategory['settings'][number] | null {
+	private normalizeColorTokenName(tokenName: string): string {
+		return tokenName.trim().replace(/^--/, '');
+	}
+
+	private describeColorToken(tokenName: string): { family: string; variant: ColorTokenVariant } | null {
+		const normalized = this.normalizeColorTokenName(tokenName);
+		if (!normalized.startsWith('color--')) {
+			return null;
+		}
+
+		const rawName = normalized.slice('color--'.length);
+		if (rawName.endsWith('-contrast-muted')) {
+			return {
+				family: rawName.slice(0, -'-contrast-muted'.length),
+				variant: 'contrast-muted',
+			};
+		}
+
+		if (rawName.endsWith('-contrast')) {
+			return {
+				family: rawName.slice(0, -'-contrast'.length),
+				variant: 'contrast',
+			};
+		}
+
+		if (rawName.endsWith('-border')) {
+			return {
+				family: rawName.slice(0, -'-border'.length),
+				variant: 'border',
+			};
+		}
+
+		if (rawName.endsWith('-alt')) {
+			return {
+				family: rawName.slice(0, -'-alt'.length),
+				variant: 'alt',
+			};
+		}
+
+		return {
+			family: rawName,
+			variant: 'base',
+		};
+	}
+
+	private composeColorTokenName(family: string, variant: ColorTokenVariant): string {
+		switch (variant) {
+			case 'base':
+				return `color--${family}`;
+			case 'contrast':
+				return `color--${family}-contrast`;
+			case 'contrast-muted':
+				return `color--${family}-contrast-muted`;
+			case 'border':
+				return `color--${family}-border`;
+			case 'alt':
+				return `color--${family}-alt`;
+		}
+	}
+
+	private isSelectableLocalColorSetting(categoryId: string, setting: TokenCategory['settings'][number]): boolean {
+		if (!LOCAL_COLOR_SOURCE_CATEGORY_IDS.has(categoryId)) {
+			return false;
+		}
+
+		if (setting.type !== 'color') {
+			return false;
+		}
+
+		return this.describeColorToken(setting.variable) !== null;
+	}
+
+	private normalizeContrastTokenNames(contrast: string | string[] | undefined): string[] {
+		if (typeof contrast === 'string') {
+			const token = this.normalizeColorTokenName(contrast);
+			return token ? [token] : [];
+		}
+
+		if (!Array.isArray(contrast)) {
+			return [];
+		}
+
+		return contrast.map((token) => this.normalizeColorTokenName(token)).filter(Boolean);
+	}
+
+	private resolveSourceTokenForVariant(sourceFamily: ColorTokenSourceFamily, variant: ColorTokenVariant): string | null {
+		const { variants } = sourceFamily;
+		switch (variant) {
+			case 'base':
+				return variants.base ?? null;
+			case 'contrast':
+				return variants.contrast ?? variants['contrast-muted'] ?? variants.base ?? null;
+			case 'contrast-muted':
+				return variants['contrast-muted'] ?? variants.contrast ?? variants.base ?? null;
+			case 'border':
+				return variants.border ?? variants.base ?? null;
+			case 'alt':
+				return variants.alt ?? variants.base ?? null;
+		}
+	}
+
+	private isPaletteFamilyConfigured(sourceFamily: ColorTokenSourceFamily): boolean {
+		if (sourceFamily.categoryId !== BRAND_PALETTE_CATEGORY_ID) {
+			return true;
+		}
+
+		const tokenOverrides = this.hostElement?.overrideState.token ?? {};
+		return Object.values(sourceFamily.variants).some((tokenName) => Boolean(tokenName && tokenOverrides[`--${tokenName}`]));
+	}
+
+	private isSelectableSwatchFamily(sourceFamily: ColorTokenSourceFamily): boolean {
+		return !EXCLUDED_SWATCH_COLOR_FAMILIES.has(sourceFamily.family) && this.isPaletteFamilyConfigured(sourceFamily);
+	}
+
+	private buildSelectableColorFamilies(includeStateColors: boolean): ColorTokenSourceFamily[] {
+		const families = new Map<string, ColorTokenSourceFamily>();
+
+		for (const category of this.tokenLibrary.categories) {
+			if (!LOCAL_COLOR_SOURCE_CATEGORY_IDS.has(category.id)) {
+				continue;
+			}
+
+			if (!includeStateColors && category.id === STATE_COLOR_SOURCE_CATEGORY_ID) {
+				continue;
+			}
+
+			for (const setting of category.settings) {
+				if (!this.isSelectableLocalColorSetting(category.id, setting)) {
+					continue;
+				}
+
+				const descriptor = this.describeColorToken(setting.variable);
+				if (!descriptor) {
+					continue;
+				}
+
+				const existing = families.get(descriptor.family) ?? {
+					family: descriptor.family,
+					label: setting.label,
+					categoryId: category.id,
+					variants: {},
+				};
+
+				existing.variants[descriptor.variant] = this.normalizeColorTokenName(setting.variable);
+				if (descriptor.variant === 'base') {
+					existing.label = setting.label;
+				}
+
+				families.set(descriptor.family, existing);
+			}
+		}
+
+		return [...families.values()].filter((family) => Boolean(family.variants.base) && this.isSelectableSwatchFamily(family));
+	}
+
+	private buildColorLinkedDefaults(componentName: string, targetContrastTokens: string[]): Record<string, string> {
+		return Object.fromEntries(targetContrastTokens.map((tokenName) => [this.toLocalizedComponentVariable(componentName, tokenName), `var(--${tokenName})`]));
+	}
+
+	private collectLinkedTargetColorTokens(tokenNames: Iterable<string>, tokenName: string, contrast: string | string[] | undefined): string[] {
+		const descriptor = this.describeColorToken(tokenName);
+		if (!descriptor || descriptor.variant !== 'base') {
+			return [];
+		}
+
+		const linkedTokens = new Set<string>(this.normalizeContrastTokenNames(contrast));
+		for (const candidateTokenName of tokenNames) {
+			const normalizedCandidateTokenName = this.normalizeColorTokenName(candidateTokenName);
+			const candidateDescriptor = this.describeColorToken(normalizedCandidateTokenName);
+			if (!candidateDescriptor || candidateDescriptor.family !== descriptor.family || candidateDescriptor.variant === 'base') {
+				continue;
+			}
+
+			linkedTokens.add(this.composeColorTokenName(candidateDescriptor.family, candidateDescriptor.variant));
+		}
+
+		const variantOrder: Record<ColorTokenVariant, number> = {
+			base: 0,
+			contrast: 1,
+			'contrast-muted': 2,
+			border: 3,
+			alt: 4,
+		};
+
+		return [...linkedTokens].sort((left, right) => {
+			const leftDescriptor = this.describeColorToken(left);
+			const rightDescriptor = this.describeColorToken(right);
+			if (!leftDescriptor || !rightDescriptor) {
+				return left.localeCompare(right);
+			}
+
+			return variantOrder[leftDescriptor.variant] - variantOrder[rightDescriptor.variant];
+		});
+	}
+
+	private buildColorExtraValues(componentName: string, targetContrastTokens: string[], sourceFamily: ColorTokenSourceFamily): Record<string, string> | undefined {
+		if (targetContrastTokens.length === 0) {
+			return undefined;
+		}
+
+		const extraValues: Record<string, string> = {};
+		for (const targetContrastToken of targetContrastTokens) {
+			const descriptor = this.describeColorToken(targetContrastToken);
+			if (!descriptor) {
+				continue;
+			}
+
+			const sourceToken = this.resolveSourceTokenForVariant(sourceFamily, descriptor.variant);
+			extraValues[this.toLocalizedComponentVariable(componentName, targetContrastToken)] = sourceToken ? `var(--${sourceToken})` : '';
+		}
+
+		return Object.keys(extraValues).length > 0 ? extraValues : undefined;
+	}
+
+	private createLocalizedColorSelectionSetting(componentName: string, availableTokenNames: Iterable<string>, tokenName: string, setting: TokenCategory['settings'][number], label: string, description: string | undefined, includeStateColors: boolean): TokenCategory['settings'][number] | null {
+		const descriptor = this.describeColorToken(tokenName);
+		if (!descriptor) {
+			return null;
+		}
+
+		const targetContrastTokens = this.collectLinkedTargetColorTokens(availableTokenNames, tokenName, setting.contrast);
+		const options = this.buildSelectableColorFamilies(includeStateColors)
+			.map((sourceFamily) => {
+				const sourceToken = this.resolveSourceTokenForVariant(sourceFamily, descriptor.variant);
+				if (!sourceToken) {
+					return null;
+				}
+
+				const baseToken = sourceFamily.variants.base;
+				if (!baseToken) {
+					return null;
+				}
+
+				return {
+					value: `var(--${sourceToken})`,
+					label: sourceFamily.label,
+					swatch: `var(--${baseToken})`,
+					contrastSwatch: sourceFamily.variants.contrast ? `var(--${sourceFamily.variants.contrast})` : undefined,
+					extraValues: this.buildColorExtraValues(componentName, targetContrastTokens, sourceFamily),
+				};
+			})
+			.filter((option): option is NonNullable<typeof option> => option !== null);
+
+		if (options.length === 0) {
+			return null;
+		}
+
+		return {
+			...setting,
+			variable: this.toLocalizedComponentVariable(componentName, tokenName),
+			label,
+			description,
+			type: 'token-color',
+			default: `var(--${tokenName})`,
+			locked: setting.locked,
+			options,
+			linkedDefaults: this.buildColorLinkedDefaults(componentName, targetContrastTokens),
+		};
+	}
+
+	private collectExposedComponentTokens(settings: ComponentSettingDefinition[]): Set<string> {
+		const tokens = new Set<string>();
+		for (const setting of settings) {
+			if (this.isTokenReferenceSetting(setting)) {
+				tokens.add(setting.token);
+			}
+		}
+
+		return tokens;
+	}
+
+	private getComponentSettingVisibilityTargets(componentName: string): HTMLElement[] {
+		const activeElement = this.activeTargetElement && normalizeComponentName(this.activeTargetElement.dataset.component || '') === componentName ? this.activeTargetElement : null;
+		const contextElements = this.getElementsForContext(componentName, this.activeScopeKey);
+
+		return this.activeTargetWasPicked && activeElement ? [activeElement] : contextElements;
+	}
+
+	private matchesVisibilityCondition(targetElement: HTMLElement, condition: ComponentSettingVisibilityCondition | undefined): boolean {
+		if (!condition) {
+			return true;
+		}
+
+		if (condition.hasClass?.some((className) => !targetElement.classList.contains(className))) {
+			return false;
+		}
+
+		if (condition.hasAnyClass && condition.hasAnyClass.length > 0 && !condition.hasAnyClass.some((className) => targetElement.classList.contains(className))) {
+			return false;
+		}
+
+		if (condition.doesNotHaveClass?.some((className) => targetElement.classList.contains(className))) {
+			return false;
+		}
+
+		return true;
+	}
+
+	private isComponentSettingVisible(setting: ComponentSettingDefinition, targetElements: HTMLElement[]): boolean {
+		if (!setting.visibleWhen || targetElements.length === 0) {
+			return true;
+		}
+
+		return targetElements.some((targetElement) => this.matchesVisibilityCondition(targetElement, setting.visibleWhen));
+	}
+
+	private getRedundantCompanionColorTokens(tokenNames: Iterable<string>): Set<string> {
+		const normalized = new Set<string>([...tokenNames].map((tokenName) => this.normalizeColorTokenName(tokenName)));
+		const redundant = new Set<string>();
+
+		for (const tokenName of normalized) {
+			const descriptor = this.describeColorToken(tokenName);
+			if (!descriptor || descriptor.variant !== 'base') {
+				continue;
+			}
+
+			const contrastToken = this.composeColorTokenName(descriptor.family, 'contrast');
+			const mutedContrastToken = this.composeColorTokenName(descriptor.family, 'contrast-muted');
+			if (normalized.has(contrastToken)) {
+				redundant.add(contrastToken);
+			}
+			if (normalized.has(mutedContrastToken)) {
+				redundant.add(mutedContrastToken);
+			}
+		}
+
+		return redundant;
+	}
+
+	private resolveComponentSetting(componentName: string, availableTokenNames: Set<string>, hiddenTokenNames: Set<string>, setting: ComponentSettingDefinition): TokenCategory['settings'][number] | null {
 		if (this.isTokenReferenceSetting(setting)) {
 			if (!availableTokenNames.has(setting.token)) {
 				return null;
 			}
 
-			const tokenSetting = this.findTokenLibrarySetting(setting.token);
-			if (!tokenSetting) {
+			if (hiddenTokenNames.has(setting.token)) {
 				return null;
+			}
+
+			const tokenEntry = this.findTokenLibraryEntry(setting.token);
+			if (!tokenEntry) {
+				return null;
+			}
+
+			const tokenSetting = tokenEntry.setting;
+			if (this.isSelectableLocalColorSetting(tokenEntry.category.id, tokenSetting)) {
+				return this.createLocalizedColorSelectionSetting(componentName, availableTokenNames, setting.token, tokenSetting, setting.label, setting.description ?? tokenSetting.description, setting.includeStateColors === true);
 			}
 
 			return {
@@ -874,30 +1317,41 @@ export class ComponentCustomizerRuntime {
 				variable: this.toLocalizedComponentVariable(componentName, setting.token),
 				label: setting.label,
 				description: setting.description ?? tokenSetting.description,
-				// Component-local token references should stay editable even when globally locked.
-				locked: false,
+				locked: tokenSetting.locked,
 			};
+		}
+
+		const localizedVariable = this.toLocalizedComponentVariable(componentName, setting.variable);
+		const tokenEntry = this.findTokenLibraryEntry(setting.variable.replace(/^--/, ''));
+		if (tokenEntry && this.isSelectableLocalColorSetting(tokenEntry.category.id, tokenEntry.setting)) {
+			return this.createLocalizedColorSelectionSetting(componentName, availableTokenNames, setting.variable.replace(/^--/, ''), tokenEntry.setting, setting.label, setting.description, false);
 		}
 
 		return {
 			...setting,
-			variable: this.toLocalizedComponentVariable(componentName, setting.variable),
+			variable: localizedVariable,
 		};
 	}
 
-	private buildLegacyTokenCategories(componentName: string, availableTokenNames: Set<string>): TokenCategory[] {
+	private buildLegacyTokenCategories(componentName: string, availableTokenNames: Set<string>, includeStateColors = false): TokenCategory[] {
 		const categories: TokenCategory[] = [];
+		const hiddenTokenNames = this.getRedundantCompanionColorTokens(availableTokenNames);
 
 		for (const category of this.tokenLibrary.categories) {
 			const matchedSettings = category.settings
-				.filter((setting) => availableTokenNames.has(setting.variable.replace(/^--/, '')))
+				.filter((setting) => availableTokenNames.has(setting.variable.replace(/^--/, '')) && !hiddenTokenNames.has(setting.variable.replace(/^--/, '')))
 				.map((setting) => {
 					const tokenName = setting.variable.replace(/^--/, '');
+					if (this.isSelectableLocalColorSetting(category.id, setting)) {
+						return this.createLocalizedColorSelectionSetting(componentName, availableTokenNames, tokenName, setting, setting.label, setting.description, includeStateColors);
+					}
+
 					return {
 						...setting,
 						variable: this.toLocalizedComponentVariable(componentName, tokenName),
 					};
-				});
+				})
+				.filter((setting): setting is NonNullable<typeof setting> => setting !== null);
 
 			this.appendCategory(categories, {
 				id: category.id,
@@ -922,8 +1376,14 @@ export class ComponentCustomizerRuntime {
 		}
 
 		const categories: TokenCategory[] = [];
+		const exposedTokenNames = this.collectExposedComponentTokens(componentSettings.flatMap((category) => category.settings));
+		const hiddenTokenNames = this.getRedundantCompanionColorTokens(exposedTokenNames);
+		const targetElements = this.getComponentSettingVisibilityTargets(componentName);
 		for (const category of componentSettings) {
-			const matchedSettings = category.settings.map((setting) => this.resolveComponentSetting(componentName, availableTokenNames, setting)).filter((setting): setting is TokenCategory['settings'][number] => setting !== null);
+			const matchedSettings = category.settings
+				.filter((setting) => this.isComponentSettingVisible(setting, targetElements))
+				.map((setting) => this.resolveComponentSetting(componentName, availableTokenNames, hiddenTokenNames, setting))
+				.filter((setting): setting is TokenCategory['settings'][number] => setting !== null);
 
 			this.appendCategory(categories, {
 				id: category.id,
@@ -937,7 +1397,7 @@ export class ComponentCustomizerRuntime {
 		return categories;
 	}
 
-	private handleChange(componentName: string, scopeKey: string, variable: string, value: string, defaultValue: string): void {
+	private handleChange(componentName: string, scopeKey: string, variable: string, value: string, defaultValue: string, linkedDefaults: Record<string, string> = {}, extraValues: Record<string, string> = {}, options: ControlChangeOptions = {}): void {
 		if (!this.overrides[scopeKey]) {
 			this.overrides[scopeKey] = {};
 		}
@@ -946,12 +1406,26 @@ export class ComponentCustomizerRuntime {
 			this.overrides[scopeKey][componentName] = {};
 		}
 
-		if (!value || value === defaultValue) {
-			delete this.overrides[scopeKey][componentName][variable];
-			this.removeVariable(componentName, scopeKey, variable);
-		} else {
-			this.overrides[scopeKey][componentName][variable] = value;
-			this.applyVariable(componentName, scopeKey, variable, value);
+		const nextValues = {
+			[variable]: value,
+			...extraValues,
+		};
+		const defaultValues = {
+			[variable]: defaultValue,
+			...linkedDefaults,
+		};
+
+		for (const [currentVariable, currentDefaultValue] of Object.entries(defaultValues)) {
+			const nextValue = nextValues[currentVariable] ?? '';
+			const shouldRemoveOverride = !nextValue || (!options.preserveMatchingDefault && nextValue === currentDefaultValue);
+			if (shouldRemoveOverride) {
+				delete this.overrides[scopeKey][componentName][currentVariable];
+				this.removeVariable(componentName, scopeKey, currentVariable);
+				continue;
+			}
+
+			this.overrides[scopeKey][componentName][currentVariable] = nextValue;
+			this.applyVariable(componentName, scopeKey, currentVariable, nextValue);
 		}
 
 		if (Object.keys(this.overrides[scopeKey][componentName]).length === 0) {
@@ -971,6 +1445,7 @@ export class ComponentCustomizerRuntime {
 			variable,
 			value,
 			defaultValue,
+			relatedVariables: Object.keys(linkedDefaults),
 		});
 	}
 
@@ -993,7 +1468,9 @@ export class ComponentCustomizerRuntime {
 		}
 
 		for (const element of elements) {
-			element.style.setProperty(variable, value);
+			for (const target of getComponentOverrideTargets(element, componentName)) {
+				target.style.setProperty(variable, value);
+			}
 		}
 	}
 
@@ -1004,7 +1481,9 @@ export class ComponentCustomizerRuntime {
 		}
 
 		for (const element of elements) {
-			element.style.removeProperty(variable);
+			for (const target of getComponentOverrideTargets(element, componentName)) {
+				target.style.removeProperty(variable);
+			}
 		}
 	}
 
@@ -1143,6 +1622,8 @@ export class ComponentCustomizerRuntime {
 
 	private readonly handleComponentSelectChange = (event: Event): void => {
 		this.activeComponent = (event.currentTarget as HTMLSelectElement).value || null;
+		this.rememberLastEditedComponent(this.activeComponent);
+		this.activeTargetWasPicked = false;
 		if (this.activeComponent) {
 			this.refreshScopeSelect();
 			this.setActiveTarget(this.activeComponent, this.activeScopeKey);
@@ -1152,6 +1633,7 @@ export class ComponentCustomizerRuntime {
 
 	private readonly handleScopeSelectChange = (event: Event): void => {
 		this.activeScopeKey = (event.currentTarget as HTMLSelectElement).value || GENERAL_SCOPE_KEY;
+		this.activeTargetWasPicked = false;
 		if (this.activeComponent) {
 			this.setActiveTarget(this.activeComponent, this.activeScopeKey);
 		}

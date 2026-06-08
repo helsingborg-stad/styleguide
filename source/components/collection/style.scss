@@ -74,9 +74,11 @@ $_: "c-collection";
 
             .c-image {
                 margin: 0;
+                container-type: unset;
             }
 
             .c-image.c-image--is-placeholder {
+
                 img {
                     max-width: unset;
                     min-width: unset;
@@ -164,7 +166,6 @@ $_: "c-collection";
     .#{$_}__content .#{$_}__secondary {
         float: right;
     }
-
 
     // Icon
     .#{$_}__icon {
