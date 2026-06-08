@@ -83,6 +83,7 @@ $_: "c-accordion";
     }
 
     .#{$_}__content {
+        --inherit-font-size-multiplier: 0.5;
         padding: var(--#{$_}--inset-padding-y) var(--#{$_}--inset-padding-x);
 
         &[aria-hidden="true"] {
