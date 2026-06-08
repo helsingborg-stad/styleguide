@@ -1,0 +1,7 @@
+@use "../../sass/mixin/tokens";
+
+$_: "c-button";
+
+.#{$_}.#{$_}--pill {
+    border-radius: tokens.getCalculatedValue($_, "base", 6);
+}

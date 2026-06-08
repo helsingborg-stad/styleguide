@@ -1,0 +1,32 @@
+@use "../../sass/mixin/tokens";
+
+$_: "c-button";
+
+.#{$_}.#{$_}__basic {
+    --#{$_}-contrast: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}-hover: color-mix(in srgb, var(--#{$_}-contrast) 18%, transparent);
+    --#{$_}-active: color-mix(in srgb, var(--#{$_}-contrast) 24%, transparent);
+
+    background-color: transparent;
+    border: none;
+
+    &:hover {
+        background-color: var(--#{$_}-hover);
+    }
+
+    &:active {
+        background-color: var(--#{$_}-active);
+    }
+
+    .#{$_}__label {
+        color: var(--#{$_}-contrast);
+    }
+
+    &[class*="--secondary"] {
+        --#{$_}-contrast: #{tokens.getRawValue($_, "color--secondary")};
+    }
+
+    &[class*="--primary"] {
+        --#{$_}-contrast: #{tokens.getRawValue($_, "color--primary")};
+    }
+}

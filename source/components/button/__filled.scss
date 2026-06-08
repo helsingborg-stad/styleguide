@@ -1,0 +1,41 @@
+@use "../../sass/mixin/tokens";
+
+$_: "c-button";
+
+.#{$_}.#{$_}__filled {
+    --#{$_}-background: #{tokens.getRawValue($_, "color--surface-alt")};
+    --#{$_}-border: #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}-contrast: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}-hover: #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}-active: color-mix(in srgb, var(--#{$_}-hover) 80%, transparent);
+
+    background-color: var(--#{$_}-background);
+    border: tokens.getCalculatedValue($_, "border-width", 1) solid var(--#{$_}-border);
+    filter: tokens.getCalculatedValue($_, "shadow", 1);
+
+    &:hover {
+        background-color: var(--#{$_}-hover);
+    }
+
+    &:active {
+        background-color: var(--#{$_}-active);
+    }
+
+    .#{$_}__label {
+        color: var(--#{$_}-contrast);
+    }
+
+    &[class*="--secondary"] {
+        --#{$_}-background: #{tokens.getRawValue($_, "color--secondary")};
+        --#{$_}-border: #{tokens.getRawValue($_, "color--secondary-border")};
+        --#{$_}-contrast: #{tokens.getRawValue($_, "color--secondary-contrast")};
+        --#{$_}-hover: #{tokens.getRawValue($_, "color--secondary-border")};
+    }
+
+    &[class*="--primary"] {
+        --#{$_}-background: #{tokens.getRawValue($_, "color--primary")};
+        --#{$_}-border: #{tokens.getRawValue($_, "color--primary-border")};
+        --#{$_}-contrast: #{tokens.getRawValue($_, "color--primary-contrast")};
+        --#{$_}-hover: #{tokens.getRawValue($_, "color--primary-border")};
+    }
+}
