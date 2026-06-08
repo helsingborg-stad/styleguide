@@ -444,11 +444,11 @@
     @paper(['padding' => 4, 'classList' => ['u-margin__bottom--5'], 'attributeList' => ['id' => 'overview']])
         <span class="color-system-kicker">Color overview</span>
         @typography(['element' => 'h2', 'variant' => 'h3', 'classList' => ['color-system-section-heading']])
-            Names and colors first
+            Color token families
         @endtypography
 
         @typography(['element' => 'p', 'variant' => 'body'])
-            Select a color to open its details below. The grid stays intentionally simple: label, token, and swatch.
+            Select a color to open its details, a description of companion tokens and how they are derived.
         @endtypography
 
         <div class="color-system-color-grid">

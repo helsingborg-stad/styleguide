@@ -14,6 +14,7 @@
             ['label' => 'Inheritance', 'href' => '/concepts/inheritance'],
             ['label' => 'Inset multiplier', 'href' => '/concepts/inset-multiplier'],
             ['label' => 'Local customization', 'href' => '/concepts/local-customization'],
+            ['label' => 'Token system', 'href' => '/concepts/token-system'],
             ['label' => 'Color system', 'href' => '/concepts/color-system'],
             ['label' => 'Design builder', 'href' => '/design-builder'],
         ],
@@ -59,6 +60,15 @@
                 'content' => 'All design token colors as live swatches, with derivation formulas, mix amounts, and usage guidance for every token in the system.',
                 'link' => '/concepts/color-system',
                 'icon' => 'palette',
+            ])
+            @endbox
+        </div>
+        <div class="o-grid-12 o-grid-4@md">
+            @box([
+                'heading' => 'Token system',
+                'content' => 'How global tokens become component-safe runtime inputs, plus a reference for the foundational base tokens and what each one is for.',
+                'link' => '/concepts/token-system',
+                'icon' => 'schema',
             ])
             @endbox
         </div>

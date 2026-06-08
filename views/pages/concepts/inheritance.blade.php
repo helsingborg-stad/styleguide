@@ -99,6 +99,48 @@ SCSS,
                 'implementationLanguage' => 'scss',
             ],
             [
+                'title' => 'Accordion content scales nested titles',
+                'description' => 'The accordion content area can publish `--inherit-font-size-multiplier` so dense content panels tone down nested headings and title variants. Typography still clamps at the base text size, so the multiplier cannot shrink titles below the body-size floor.',
+                'previewView' => 'pages.partials.concepts.inheritance.accordion-typography-preview',
+                'bladeCode' => <<<'BLADE'
+@accordion([])
+    @accordion__item([
+        'heading' => 'No correction',
+    ])
+        <div style="--inherit-font-size-multiplier: 1;">
+            @typography(['element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__bottom--1']])
+                Uncorrected content title
+            @endtypography
+
+            @typography(['element' => 'p', 'variant' => 'body'])
+                This panel forces a multiplier of `1`, so nested titles keep their original scale.
+            @endtypography
+        </div>
+    @endaccordion__item
+
+    @accordion__item([
+        'heading' => 'Corrected',
+    ])
+        <div style="--inherit-font-size-multiplier: 0.6;">
+            @typography(['element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__bottom--1']])
+                Corrected content title
+            @endtypography
+
+            @typography(['element' => 'p', 'variant' => 'body'])
+                This panel forces the corrected multiplier, which reduces nested titles while still respecting the base-size floor.
+            @endtypography
+        </div>
+    @endaccordion__item
+@endaccordion
+BLADE,
+                'implementationCode' => <<<'SCSS'
+.c-accordion__content {
+    --inherit-font-size-multiplier: 0.6;
+}
+SCSS,
+                'implementationLanguage' => 'scss',
+            ],
+            [
                 'title' => 'Field explicit-var-first chain',
                 'description' => 'Field background color is resolved with an explicit CSS variable chain. In this example the inherited case uses the secondary color, while the second field keeps the same inherited context but overrides the component background with a different value.',
                 'previewView' => 'pages.partials.concepts.inheritance.field-preview',
