@@ -335,7 +335,7 @@
         ]
       }
     ],
-    "description": "The Button component provides a reusable pattern for button in the interface.",
+    "description": "The Button component is used to trigger actions, submit forms, or navigate users through primary, secondary, and default button variants.",
     "tags": [
       "button",
       "component"

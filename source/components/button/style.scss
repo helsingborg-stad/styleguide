@@ -8,7 +8,7 @@
 $_: "c-button";
 
 /* Design tokens */
-@include tokens.create($prefix: $_, $tokens: getComponentTokens($_));
+@include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
 .#{$_} {
     border-radius: tokens.getCalculatedValue($_, "border-radius");

@@ -3,10 +3,10 @@
 $_: "c-button";
 
 .#{$_}.#{$_}__filled {
-    --#{$_}-background: #{tokens.getRawValue($_, "color--surface-alt")};
-    --#{$_}-border: #{tokens.getRawValue($_, "color--surface-border")};
-    --#{$_}-contrast: #{tokens.getRawValue($_, "color--surface-contrast")};
-    --#{$_}-hover: #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}-background: #{tokens.getRawValue($_, "color--surface-alt", "color-background")};
+    --#{$_}-border: #{tokens.getRawValue($_, "color--surface-border", "color-border")};
+    --#{$_}-contrast: #{tokens.getRawValue($_, "color--surface-contrast", "color-contrast")};
+    --#{$_}-hover: color-mix(in srgb, var(--#{$_}-contrast) var(--color--border-mix-amount), var(--#{$_}-background));
     --#{$_}-active: color-mix(in srgb, var(--#{$_}-hover) 80%, transparent);
 
     background-color: var(--#{$_}-background);

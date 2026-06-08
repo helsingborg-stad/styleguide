@@ -3,7 +3,7 @@
 $_: "c-button";
 
 .#{$_}.#{$_}__basic {
-    --#{$_}-contrast: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}-contrast: #{tokens.getRawValue($_, "color--surface-contrast", "color-contrast")};
     --#{$_}-hover: color-mix(in srgb, var(--#{$_}-contrast) 18%, transparent);
     --#{$_}-active: color-mix(in srgb, var(--#{$_}-contrast) 24%, transparent);
 
