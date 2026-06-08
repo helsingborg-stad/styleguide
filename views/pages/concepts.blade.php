@@ -12,6 +12,7 @@
         'secondaryCta' => ['label' => 'Browse components', 'href' => '/components'],
         'shortcuts' => [
             ['label' => 'Inheritance', 'href' => '/concepts/inheritance'],
+            ['label' => 'Inset multiplier', 'href' => '/concepts/inset-multiplier'],
             ['label' => 'Local customization', 'href' => '/concepts/local-customization'],
             ['label' => 'Color system', 'href' => '/concepts/color-system'],
             ['label' => 'Design builder', 'href' => '/design-builder'],
@@ -40,6 +41,15 @@
                 'content' => 'See how a section can force reasonable inherited button contrast while still allowing a single button instance to opt out locally.',
                 'link' => '/concepts/local-customization',
                 'icon' => 'tune',
+            ])
+            @endbox
+        </div>
+        <div class="o-grid-12 o-grid-4@md">
+            @box([
+                'heading' => 'Inset multiplier',
+                'content' => 'See how inset spacing is published, inherited, and combined with container-aware scaling across cards, accordions, and tables.',
+                'link' => '/concepts/inset-multiplier',
+                'icon' => 'open_with',
             ])
             @endbox
         </div>

@@ -122,10 +122,6 @@ $_: "c-card";
         padding: var(--#{$_}--inset-padding-y) var(--#{$_}--inset-padding-x);
     }
 
-    .#{$_}__content:not(:first-child) {
-        margin-top: var(--#{$_}--stack-gap);
-    }
-
     .#{$_}__footer {
         overflow-wrap: break-word;
         hyphens: auto;

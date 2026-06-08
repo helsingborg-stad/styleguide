@@ -282,7 +282,7 @@ $_: "c-nav";
             }
         }
 
-        .c-nav__link {
+        .c-nav__item:not(.c-nav__item--tiles) .c-nav__link {
             gap: calc(#{tokens.getRawValue($_, "base")} * 3);
         }
 
