@@ -1,10 +1,8 @@
+@use "../../sass/mixin/inset-multiplier" as insetMultiplier;
 @use "../../sass/mixin/button";
 @use "../../sass/mixin/tokens";
 
-@property --inherit-inset-multiplier {
-    syntax: "*";
-    inherits: false;
-}
+@include insetMultiplier.property();
 
 /* Component name */
 $_: "c-accordion";
@@ -14,13 +12,12 @@ $_: "c-accordion";
 
 /* Component */
 .#{$_} {
-    --#{$_}--inset-multiplier: var(--inherit-inset-multiplier, 1);
-    --#{$_}--inset-padding-x: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--inset-multiplier));
-    --#{$_}--inset-padding-y: calc(#{tokens.getCalculatedValue($_, "space", 2)} * calc(var(--#{$_}--inset-multiplier) * 0.75));
+    @include insetMultiplier.consume($_);
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
     border-radius: inherit;
     corner-shape: inherit;
     contain: paint;
+    container-type: inline-size;
 
     .#{$_}__button {
         @include button.button-unstyled;
@@ -59,6 +56,8 @@ $_: "c-accordion";
         border-color: tokens.getRawValue($_, "color--surface-border");
         contain: paint;
     }
+
+    @include insetMultiplier.responsive-resolve($_, $selector: ".#{$_}__section");
 
     .#{$_}__section+.#{$_}__section {
         border-top: var(--#{$_}--border);
