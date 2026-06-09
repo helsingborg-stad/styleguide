@@ -1,6 +1,14 @@
 {
-    "paper": {
-        "heading": "Paper",
-        "text": ""
-    }
+	"paper": {
+		"heading": "Default paper",
+		"text": ""
+	},
+	"padded": {
+		"heading": "Padded paper (padding set to 2)",
+		"text": "The paper component has a padding parameter that can be set to one of the spacing values. In this example the padding is set to 2."
+	},
+	"padded2": {
+		"heading": "Padded paper (padding set to 4)",
+		"text": "The paper component has a padding parameter that can be set to one of the spacing values. In this example the padding is set to 4. "
+	}
 }

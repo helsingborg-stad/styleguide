@@ -21,8 +21,6 @@ $insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data
     --#{$_}--border-color: var(--#{$_}--surface-border-color);
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid var(--#{$_}--border-color);
     --#{$_}--inset-scale: 1;
-    --#{$_}--inset-multiplier: #{insetMultiplier.contextual-multiplier(var(--#{$_}--inset-scale))};
-    --#{$_}--padding: 0;
     --#{$_}--background-color: var(--#{$_}--surface-color);
     --#{$_}--color: var(--#{$_}--surface-contrast-color);
 
@@ -33,18 +31,22 @@ $insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data
     border: var(--#{$_}--border);
     border-radius: tokens.getCalculatedValue($_, "border-radius");
     corner-shape: tokens.getRawValue($_, "corner-shape");
-    padding: var(--#{$_}--padding);
     filter: tokens.getCalculatedValue($_, "shadow", 1);
 
-    > :first-child {
+    > .#{$_}__content {
+        @include insetMultiplier.consume($_, insetMultiplier.contextual-multiplier(var(--#{$_}--inset-scale)));
+        padding: 0;
+    }
+
+    > .#{$_}__content > :first-child {
         --inherit-margin-top: 0;
     }
 
-    > :last-child {
+    > .#{$_}__content > :last-child {
         --inherit-margin-bottom: 0;
     }
 
-    @include insetMultiplier.responsive-resolve($_);
+    @include insetMultiplier.responsive-resolve($_, $selector: '> .#{$_}__content');
 
     #{$insetTargets} {
         @include insetMultiplier.publish(insetMultiplier.contextual-multiplier(1));
@@ -78,13 +80,17 @@ $insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data
 
     @for $i from 0 through 8 {
         &--padding-#{$i} {
-            padding: calc(#{tokens.getCalculatedValue($_, "space", $i)} * var(--#{$_}--inset-multiplier));
+            > .#{$_}__content {
+                padding: calc(#{tokens.getCalculatedValue($_, "space", $i)} * var(--#{$_}--inset-multiplier));
+            }
         }
     }
 
 
     &--divider {
-        border-top: var(--#{$_}--border);
-        padding-top: calc(#{tokens.getCalculatedValue($_, "space", 3)} * var(--#{$_}--inset-multiplier));
+        > .#{$_}__content {
+            border-top: var(--#{$_}--border);
+            padding-top: calc(#{tokens.getCalculatedValue($_, "space", 3)} * var(--#{$_}--inset-multiplier));
+        }
     }
 }
