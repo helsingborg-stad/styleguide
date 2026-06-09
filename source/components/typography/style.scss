@@ -200,18 +200,26 @@ h6,
 
 .#{$_}__variant--headline {
     @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-headline", "font-size"), "headline-font-size-multiplier", true);
+    font-weight: tokens.getRawValue($_, "font-weight-heading");
+    line-height: tokens.getRawValue($_, "line-height-heading");
+    font-family: tokens.getRawValue($_, "font-family-heading");
+    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
 
 .#{$_}__variant--title {
     font-family: tokens.getRawValue($_, "font-family-heading");
     @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-title", "font-size"), "title-font-size-multiplier", true);
-    font-weight: tokens.getRawValue($_, "font-weight-medium");
+    font-weight: tokens.getRawValue($_, "font-weight-heading");
     letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
     line-height: tokens.getRawValue($_, "line-height-heading");
 }
 
 .#{$_}__variant--subtitle {
     @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-subtitle", "font-size"), "subtitle-font-size-multiplier", true);
+    font-weight: tokens.getRawValue($_, "font-weight-heading");
+    line-height: tokens.getRawValue($_, "line-height-heading");
+    font-family: tokens.getRawValue($_, "font-family-heading");
+    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
 
 .#{$_}__variant--bold {
@@ -222,9 +230,12 @@ h6,
     line-height: tokens.getDefaultRawValue($_, "line-height-base");
 }
 
-.#{$_}__variant--caption,
-.#{$_}__variant--byline {
+.#{$_}__variant--caption {
     @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-caption", "font-size"), "caption-font-size-multiplier");
+}
+
+.#{$_}__variant--byline {
+    @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-caption", "font-size"), "byline-font-size-multiplier");
 }
 
 .#{$_}__variant--meta {
@@ -238,13 +249,15 @@ h6,
 }
 
 .#{$_}__variant--marketing {
-    font-family: tokens.getDefaultRawValue($_, "font-family-base");
+    font-family: tokens.getRawValue($_, "font-family-heading");
     @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-marketing", "font-size"), "marketing-font-size-multiplier", true);
-    font-weight: tokens.getDefaultRawValue($_, "font-weight-bold");
-    line-height: 124%;
+    font-weight: tokens.getRawValue($_, "font-weight-heading");
+    line-height: tokens.getRawValue($_, "line-height-heading");
+    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
 
 .#{$_}__variant--email {
+    @include applyScaledFontSize(tokens.getRawValue($prefix: $_, $token: "font-size-base", $inheritVariable: "font-size"), "email-font-size-multiplier");
     word-break: break-all;
     hyphens: auto;
 }

@@ -35,19 +35,7 @@
 					"label": "Body Font Family",
 					"description": "Controls the base typeface used by body, paragraph, lead, small text, and non-heading variants that inherit the base family.",
 					"visibleWhen": {
-						"hasAnyClass": [
-							"c-typography__variant--body",
-							"c-typography__variant--p",
-							"c-typography__variant--lead",
-							"c-typography__variant--caption",
-							"c-typography__variant--byline",
-							"c-typography__variant--meta",
-							"c-typography__variant--headline",
-							"c-typography__variant--subtitle",
-							"c-typography__variant--bold",
-							"c-typography__variant--marketing",
-							"c-typography__variant--email"
-						]
+						"hasAnyClass": ["c-typography__variant--body", "c-typography__variant--p", "c-typography__variant--lead", "c-typography__variant--caption", "c-typography__variant--byline", "c-typography__variant--meta", "c-typography__variant--bold", "c-typography__variant--email"]
 					}
 				},
 				{
@@ -55,7 +43,18 @@
 					"label": "Heading Font Family",
 					"description": "Controls the typeface used by variants that explicitly switch to the heading family.",
 					"visibleWhen": {
-						"hasAnyClass": ["c-typography__variant--h1", "c-typography__variant--h2", "c-typography__variant--h3", "c-typography__variant--h4", "c-typography__variant--h5", "c-typography__variant--h6", "c-typography__variant--title"]
+						"hasAnyClass": [
+							"c-typography__variant--h1",
+							"c-typography__variant--h2",
+							"c-typography__variant--h3",
+							"c-typography__variant--h4",
+							"c-typography__variant--h5",
+							"c-typography__variant--h6",
+							"c-typography__variant--headline",
+							"c-typography__variant--title",
+							"c-typography__variant--subtitle",
+							"c-typography__variant--marketing"
+						]
 					}
 				},
 				{
@@ -63,7 +62,7 @@
 					"label": "Body Font Weight",
 					"description": "Controls the default font weight for variants that keep the base weight.",
 					"visibleWhen": {
-						"hasAnyClass": ["c-typography__variant--body", "c-typography__variant--p", "c-typography__variant--caption", "c-typography__variant--byline", "c-typography__variant--meta", "c-typography__variant--headline", "c-typography__variant--subtitle", "c-typography__variant--email"]
+						"hasAnyClass": ["c-typography__variant--body", "c-typography__variant--p", "c-typography__variant--caption", "c-typography__variant--byline", "c-typography__variant--meta", "c-typography__variant--email"]
 					}
 				},
 				{
@@ -71,7 +70,7 @@
 					"label": "Medium Font Weight",
 					"description": "Controls the shared medium emphasis used by title and lead variants.",
 					"visibleWhen": {
-						"hasAnyClass": ["c-typography__variant--title", "c-typography__variant--lead"]
+						"hasAnyClass": ["c-typography__variant--lead"]
 					}
 				},
 				{
@@ -79,7 +78,7 @@
 					"label": "Bold Font Weight",
 					"description": "Controls the heavier emphasis used by bold and marketing variants.",
 					"visibleWhen": {
-						"hasAnyClass": ["c-typography__variant--bold", "c-typography__variant--marketing"]
+						"hasAnyClass": ["c-typography__variant--bold"]
 					}
 				},
 				{
@@ -87,7 +86,18 @@
 					"label": "Heading Font Weight",
 					"description": "Controls the default weight used by heading level variants h1 through h6.",
 					"visibleWhen": {
-						"hasAnyClass": ["c-typography__variant--h1", "c-typography__variant--h2", "c-typography__variant--h3", "c-typography__variant--h4", "c-typography__variant--h5", "c-typography__variant--h6"]
+						"hasAnyClass": [
+							"c-typography__variant--h1",
+							"c-typography__variant--h2",
+							"c-typography__variant--h3",
+							"c-typography__variant--h4",
+							"c-typography__variant--h5",
+							"c-typography__variant--h6",
+							"c-typography__variant--headline",
+							"c-typography__variant--title",
+							"c-typography__variant--subtitle",
+							"c-typography__variant--marketing"
+						]
 					}
 				},
 				{
@@ -95,7 +105,7 @@
 					"label": "Body Line Height",
 					"description": "Controls the reading line height for variants that keep the base line height.",
 					"visibleWhen": {
-						"hasAnyClass": ["c-typography__variant--body", "c-typography__variant--p", "c-typography__variant--caption", "c-typography__variant--byline", "c-typography__variant--meta", "c-typography__variant--headline", "c-typography__variant--subtitle", "c-typography__variant--bold", "c-typography__variant--email"]
+						"hasAnyClass": ["c-typography__variant--body", "c-typography__variant--p", "c-typography__variant--caption", "c-typography__variant--byline", "c-typography__variant--meta", "c-typography__variant--bold", "c-typography__variant--email"]
 					}
 				},
 				{
@@ -103,7 +113,18 @@
 					"label": "Heading Line Height",
 					"description": "Controls the shared line height for heading-style variants.",
 					"visibleWhen": {
-						"hasAnyClass": ["c-typography__variant--h1", "c-typography__variant--h2", "c-typography__variant--h3", "c-typography__variant--h4", "c-typography__variant--h5", "c-typography__variant--h6", "c-typography__variant--title"]
+						"hasAnyClass": [
+							"c-typography__variant--h1",
+							"c-typography__variant--h2",
+							"c-typography__variant--h3",
+							"c-typography__variant--h4",
+							"c-typography__variant--h5",
+							"c-typography__variant--h6",
+							"c-typography__variant--headline",
+							"c-typography__variant--title",
+							"c-typography__variant--subtitle",
+							"c-typography__variant--marketing"
+						]
 					}
 				},
 				{
@@ -111,7 +132,7 @@
 					"label": "Body Letter Spacing",
 					"description": "Controls the default tracking for variants that inherit the base letter spacing.",
 					"visibleWhen": {
-						"hasAnyClass": ["c-typography__variant--body", "c-typography__variant--p", "c-typography__variant--caption", "c-typography__variant--byline", "c-typography__variant--meta", "c-typography__variant--headline", "c-typography__variant--subtitle", "c-typography__variant--bold", "c-typography__variant--email"]
+						"hasAnyClass": ["c-typography__variant--body", "c-typography__variant--p", "c-typography__variant--caption", "c-typography__variant--byline", "c-typography__variant--meta", "c-typography__variant--bold", "c-typography__variant--email"]
 					}
 				},
 				{
@@ -119,7 +140,18 @@
 					"label": "Heading Letter Spacing",
 					"description": "Controls the tracking for heading-style variants that use the heading spacing scale.",
 					"visibleWhen": {
-						"hasAnyClass": ["c-typography__variant--h1", "c-typography__variant--h2", "c-typography__variant--h3", "c-typography__variant--h4", "c-typography__variant--h5", "c-typography__variant--h6", "c-typography__variant--title"]
+						"hasAnyClass": [
+							"c-typography__variant--h1",
+							"c-typography__variant--h2",
+							"c-typography__variant--h3",
+							"c-typography__variant--h4",
+							"c-typography__variant--h5",
+							"c-typography__variant--h6",
+							"c-typography__variant--headline",
+							"c-typography__variant--title",
+							"c-typography__variant--subtitle",
+							"c-typography__variant--marketing"
+						]
 					}
 				},
 				{
@@ -127,7 +159,18 @@
 					"label": "Heading Spacing",
 					"description": "Controls the vertical spacing inserted between adjacent heading-style variants.",
 					"visibleWhen": {
-						"hasAnyClass": ["c-typography__variant--h1", "c-typography__variant--h2", "c-typography__variant--h3", "c-typography__variant--h4", "c-typography__variant--h5", "c-typography__variant--h6", "c-typography__variant--subtitle"]
+						"hasAnyClass": [
+							"c-typography__variant--h1",
+							"c-typography__variant--h2",
+							"c-typography__variant--h3",
+							"c-typography__variant--h4",
+							"c-typography__variant--h5",
+							"c-typography__variant--h6",
+							"c-typography__variant--headline",
+							"c-typography__variant--title",
+							"c-typography__variant--subtitle",
+							"c-typography__variant--marketing"
+						]
 					}
 				}
 			]
@@ -253,7 +296,7 @@
 				{
 					"variable": "--caption-font-size-multiplier",
 					"label": "Caption Size Multiplier",
-					"description": "Scales caption and byline text locally without changing the shared small-text token.",
+					"description": "Scales caption text locally without changing the shared small-text token.",
 					"type": "range",
 					"default": "1",
 					"min": 0.5,
@@ -261,7 +304,21 @@
 					"step": 0.05,
 					"unit": "",
 					"visibleWhen": {
-						"hasAnyClass": ["c-typography__variant--caption", "c-typography__variant--byline"]
+						"hasClass": ["c-typography__variant--caption"]
+					}
+				},
+				{
+					"variable": "--byline-font-size-multiplier",
+					"label": "Byline Size Multiplier",
+					"description": "Scales byline text locally without changing the shared small-text token.",
+					"type": "range",
+					"default": "1",
+					"min": 0.5,
+					"max": 3,
+					"step": 0.05,
+					"unit": "",
+					"visibleWhen": {
+						"hasClass": ["c-typography__variant--byline"]
 					}
 				},
 				{
@@ -276,6 +333,20 @@
 					"unit": "",
 					"visibleWhen": {
 						"hasClass": ["c-typography__variant--meta"]
+					}
+				},
+				{
+					"variable": "--email-font-size-multiplier",
+					"label": "Email Size Multiplier",
+					"description": "Scales email text locally without changing the shared body size.",
+					"type": "range",
+					"default": "1",
+					"min": 0.5,
+					"max": 3,
+					"step": 0.05,
+					"unit": "",
+					"visibleWhen": {
+						"hasClass": ["c-typography__variant--email"]
 					}
 				},
 				{
