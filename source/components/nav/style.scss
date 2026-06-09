@@ -128,9 +128,13 @@ $_: "c-nav";
     }
 
     .c-nav__item:not(.is-open)>.c-nav,
-    .c-nav__item:not(.is-open)>.c-nav__child-container,
-    .c-nav__item:not(.is-open) .c-nav__toggle:before {
+    .c-nav__item:not(.is-open)>.c-nav__child-container {
         display: none;
+    }
+
+    [data-component="button"].#{$_}__toggle {
+        --inherit-active: transparent;
+        --inherit-hover: transparent;
     }
 
     .c-nav__item.is-open>.c-nav__item-wrapper .c-icon--expand-more {
