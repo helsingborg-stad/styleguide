@@ -104,7 +104,9 @@ $_: "c-accordion";
             --c-typography--#{$variable}: #{getCompressedTitleFontSize($step)};
         }
 
+        background-color: #{tokens.getRawValue($_, "color--surface-alt")};
         padding: var(--#{$_}--inset-padding-y) var(--#{$_}--inset-padding-x);
+        border-top: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
 
         &[aria-hidden="true"] {
             display: none;
