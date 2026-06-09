@@ -19,9 +19,6 @@ $_: "c-button";
     font-family: tokens.getRawValue($_, "font-family-base");
     font-size: tokens.getRawValue($_, "font-size-100");
     font-weight: tokens.getRawValue($_, "font-weight-medium");
-    height: tokens.getCalculatedValue($_, "base", 6);
-    min-width: tokens.getCalculatedValue($_, "base", 9);
-    padding: 0 tokens.getCalculatedValue($_, "space", 4);
     position: relative;
     text-decoration: none;
     transition: transform 100ms ease-in-out;
@@ -33,6 +30,8 @@ $_: "c-button";
     }
 
     &__full-width {
+        display: inline-flex;
+        justify-content: center;
         width: 100%;
 
         .#{$_}__label {
@@ -45,10 +44,18 @@ $_: "c-button";
         align-items: center;
         display: inline-flex;
         gap: tokens.getCalculatedValue($_, "space", 1);
+
+        >*:empty {
+            display: none;
+        }
     }
 
     .#{$_}__label-icon {
-        line-height: 1;
+        align-items: center;
+        aspect-ratio: 1 / 1;
+        display: inline-flex;
+        justify-content: center;
+        //line-height: 1;
     }
 
     .#{$_}__label-icon:not(.#{$_}__label-icon--reverse) {
@@ -58,23 +65,6 @@ $_: "c-button";
     &.#{$_}--icon-only {
         justify-content: center;
         min-width: initial;
-        padding: 0;
-        width: tokens.getCalculatedValue($_, "base", 6);
-
-        .#{$_}__label {
-            gap: unset;
-        }
-
-        .#{$_}__label-icon {
-            display: flex;
-        }
-    }
-
-    &.#{$_}--icon-only {
-        justify-content: center;
-        min-width: initial;
-        padding: 0;
-        width: tokens.getCalculatedValue($_, "base", 6);
 
         .#{$_}__label {
             gap: unset;
@@ -85,55 +75,6 @@ $_: "c-button";
         }
     }
 }
-
-.#{$_}--sm {
-    height: tokens.getCalculatedValue($_, "base", 4.5);
-    min-width: tokens.getCalculatedValue($_, "base", 6.75);
-    padding: 0 tokens.getCalculatedValue($_, "space", 2);
-    font-size: tokens.getRawValue($_, "font-size-90");
-    letter-spacing: 0.1rem;
-
-    &.#{$_}--icon-only {
-        min-width: initial;
-        width: tokens.getCalculatedValue($_, "base", 4.5);
-    }
-}
-
-.#{$_}--lg {
-    height: tokens.getCalculatedValue($_, "base", 8);
-    min-width: tokens.getCalculatedValue($_, "base", 12);
-    padding: 0 tokens.getCalculatedValue($_, "space", 3);
-    font-size: tokens.getRawValue($_, "font-size-200");
-
-    &.#{$_}--icon-only {
-        min-width: initial;
-        width: tokens.getCalculatedValue($_, "base", 8);
-    }
-}
-
-
-
-// $button-sizes: (
-//     "lg": ("height": 8,
-//         "min-width": 12,
-//         "padding-x": 5,
-//         "offset": -1.5,
-//         "loader": 4,
-//         "font-size": var(--#{$_}--font-size-lg)),
-//     "md": ("height": 6,
-//         "min-width": 9,
-//         "padding-x": 4,
-//         "offset": -1,
-//         "loader": null,
-//         "font-size": var(--#{$_}--font-size-md)),
-//     "sm": ("height": 4.5,
-//         "min-width": 6.75,
-//         "padding-x": 2,
-//         "offset": -0.5,
-//         "loader": 2,
-//         "font-size": var(--#{$_}--font-size-sm),
-//         "letter-spacing": 0.1rem)
-// );
 
 .#{$_}+.#{$_} {
     margin-left: tokens.getCalculatedValue($_, "outer-space", 1);

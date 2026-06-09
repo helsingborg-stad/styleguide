@@ -82,8 +82,7 @@ $_: "c-nav";
         justify-content: space-between;
         position: relative;
 
-        .c-nav__link,
-        .c-nav__toggle {
+        .c-nav__link {
             min-height: inherit;
         }
     }
@@ -122,10 +121,6 @@ $_: "c-nav";
                 color: tokens.getRawValue($_, "color--primary");
             }
         }
-    }
-
-    .c-nav__toggle {
-        margin-bottom: auto;
     }
 
     .c-icon--expand-more {

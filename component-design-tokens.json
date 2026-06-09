@@ -292,7 +292,7 @@
         "settings": [
           {
             "token": "color--primary",
-            "label": "Button Color",
+            "label": "Button Color (Primary)",
             "description": "Controls the background, text, border, hover, and active colors for primary buttons.",
             "includeStateColors": true,
             "visibleWhen": {
@@ -305,7 +305,7 @@
           },
           {
             "token": "color--secondary",
-            "label": "Button Color",
+            "label": "Button Color (Secondary)",
             "description": "Controls the background, text, border, hover, and active colors for secondary buttons.",
             "includeStateColors": true,
             "visibleWhen": {
@@ -318,7 +318,7 @@
           },
           {
             "token": "color--surface",
-            "label": "Button Color",
+            "label": "Button Color (Default)",
             "description": "Controls the background, text, border, hover, and active colors for default buttons.",
             "includeStateColors": true,
             "visibleWhen": {
