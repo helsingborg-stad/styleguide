@@ -1,5 +1,5 @@
 <div style="display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); align-items: start;">
-    <div style="border: 2px dashed currentColor; padding: 1rem; resize: horizontal; overflow: auto; min-width: 16rem; width: 100%; max-width: 100%;">
+    <div style="border: 2px dashed currentColor; padding: 1rem; min-width: 16rem;">
         @typography([
             'variant' => 'meta',
             'element' => 'p'
@@ -19,14 +19,14 @@
                 ],
                 [
                     'heading' => 'Section heading',
-                    'content' => 'Resize the wrapper to verify that both implementations keep the same padding rhythm.'
+                    'content' => 'Resize the preview to verify that both implementations keep the same padding rhythm.'
                 ]
             ]
         ])
         @endaccordion
     </div>
 
-    <div style="border: 2px dashed currentColor; padding: 1rem; resize: horizontal; overflow: auto; min-width: 16rem; width: 100%; max-width: 100%;">
+    <div style="border: 2px dashed currentColor; padding: 1rem; min-width: 16rem;">
         @typography([
             'variant' => 'meta',
             'element' => 'p'
@@ -51,7 +51,7 @@
                     ],
                     [
                         'heading' => 'Section heading',
-                        'content' => 'Resize this wrapper and compare it with the standalone example beside it.'
+                        'content' => 'Resize the preview and compare it with the standalone example beside it.'
                     ]
                 ]
             ])

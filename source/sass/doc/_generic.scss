@@ -33,6 +33,17 @@
     right: 0;
 }
 
+.markup-preview {
+    border: 2px dashed var(--c-paper--border-color, var(--color--surface-border));
+    box-sizing: border-box;
+    display: block;
+    inline-size: min(100%, 100vw);
+    max-inline-size: 100vw;
+    min-inline-size: min(100%, 16rem);
+    overflow: auto;
+    resize: horizontal;
+}
+
 .d-params {
 
     table {

@@ -20,53 +20,60 @@ $insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data
     --#{$_}--surface-contrast-muted-color: #{tokens.getRawValue($_, "color--surface-contrast-muted")};
     --#{$_}--border-color: var(--#{$_}--surface-border-color);
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid var(--#{$_}--border-color);
-    --#{$_}--padding: 0;
-    --#{$_}--background-color: var(--#{$_}--surface-color);
-    --#{$_}--color: var(--#{$_}--surface-contrast-color);
-    contain: layout;
-    container-type: inline-size;
-    background-color: var(--#{$_}--background-color);
-    color: var(--#{$_}--color);
-    border: var(--#{$_}--border);
-    border-radius: tokens.getCalculatedValue($_, "border-radius");
-    corner-shape: tokens.getRawValue($_, "corner-shape");
-    padding: var(--#{$_}--padding);
-    filter: tokens.getCalculatedValue($_, "shadow", 1);
+    --#{$_}--inset-scale: 1;
+    --#{$_}--inset-multiplier: #{insetMultiplier.contextual-multiplier(var(--#{$_}--inset-scale))
+}
 
-    > :first-child {
-        --inherit-margin-top: 0;
+;
+--#{$_}--padding: 0;
+--#{$_}--background-color: var(--#{$_}--surface-color);
+--#{$_}--color: var(--#{$_}--surface-contrast-color);
+contain: layout;
+container-type: inline-size;
+background-color: var(--#{$_}--background-color);
+color: var(--#{$_}--color);
+border: var(--#{$_}--border);
+border-radius: tokens.getCalculatedValue($_, "border-radius");
+corner-shape: tokens.getRawValue($_, "corner-shape");
+padding: var(--#{$_}--padding);
+filter: tokens.getCalculatedValue($_, "shadow", 1);
+
+> :first-child {
+    --inherit-margin-top: 0;
+}
+
+@include insetMultiplier.responsive-resolve($_);
+
+#{$insetTargets} {
+    @include insetMultiplier.publish(insetMultiplier.contextual-multiplier(1));
+}
+
+@include insetMultiplier.responsive-publish($selector: $insetTargets);
+
+/* switch to surface color tokens for nested components */
+
+.c-card,
+.c-comment,
+.c-table,
+table:not(.c-table *),
+.c-button__filled--default,
+.c-chat {
+    --inherit-color-background: var(--#{$_}--background-color);
+    --inherit-color-contrast: var(--#{$_}--color);
+    --inherit-color-background-hover: var(--#{$_}--surface-alt-color);
+    --inherit-color-background-active: var(--#{$_}--surface-alt-color);
+    --inherit-color-border: var(--#{$_}--border-color);
+    --inherit-color-contrast-muted: var(--#{$_}--surface-contrast-muted-color);
+}
+
+@for $i from 0 through 8 {
+    &--padding-#{$i} {
+        padding: calc(#{tokens.getCalculatedValue($_, "space")} * var(--#{$_}--inset-multiplier) * #{$i});
     }
+}
 
-    #{$insetTargets} {
-        @include insetMultiplier.publish(insetMultiplier.contextual-multiplier(1));
-    }
-
-    @include insetMultiplier.responsive-publish($selector: $insetTargets);
-
-    /* switch to surface color tokens for nested components */
-
-    .c-card,
-    .c-comment,
-    .c-table,
-    table:not(.c-table *),
-    .c-button__filled--default,
-    .c-chat {
-        --inherit-color-background: var(--#{$_}--background-color);
-        --inherit-color-contrast: var(--#{$_}--color);
-        --inherit-color-background-hover: var(--#{$_}--surface-alt-color);
-        --inherit-color-background-active: var(--#{$_}--surface-alt-color);
-        --inherit-color-border: var(--#{$_}--border-color);
-        --inherit-color-contrast-muted: var(--#{$_}--surface-contrast-muted-color);
-    }
-
-    @for $i from 0 through 8 {
-        &--padding-#{$i} {
-            padding: calc(#{tokens.getCalculatedValue($_, "space")} * #{$i});
-        }
-    }
-
-    &--divider {
-        border-top: var(--#{$_}--border);
-        padding-top: tokens.getCalculatedValue($_, "space", 3);
-    }
+&--divider {
+    border-top: var(--#{$_}--border);
+    padding-top: calc(#{tokens.getCalculatedValue($_, "space", 3)} * var(--#{$_}--inset-multiplier));
+}
 }

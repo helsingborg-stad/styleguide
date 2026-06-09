@@ -25,7 +25,7 @@
                       return $__env->make($viewPath, $viewData)->render();
                   };
 
-                  $exampleTabContent   = $__env->make($example['component'], get_defined_vars())->render();
+                  $exampleTabContent   = '<div class="markup-preview">' . $__env->make($example['component'], get_defined_vars())->render() . '</div>';
                   $htmlCodeTemplate    = $renderView('layout.partials.doc.tab-code', ['language' => 'html']);
                   $htmlCodeTabContent  = str_replace('__CODE_PLACEHOLDER__', $htmlSourceCode, $htmlCodeTemplate);
                   $bladeCodeTemplate   = $renderView('layout.partials.doc.tab-code', ['language' => 'php']);
