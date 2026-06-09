@@ -17,11 +17,13 @@ $_: "c-button";
     cursor: pointer;
     display: inline-flex;
     font-family: tokens.getRawValue($_, "font-family-base");
-    font-size: tokens.getRawValue($_, "font-size-100");
+    font-size: var(--#{$_}-font-size);
     font-weight: tokens.getRawValue($_, "font-weight-medium");
     position: relative;
     text-decoration: none;
-    transition: transform 100ms ease-in-out;
+    transition-duration: 100ms;
+    transition-property: background-color, border-color, color;
+    transition-timing-function: ease-in-out;
     user-select: none;
 
     &[disabled] {
@@ -55,7 +57,12 @@ $_: "c-button";
         aspect-ratio: 1 / 1;
         display: inline-flex;
         justify-content: center;
-        //line-height: 1;
+        margin-right: var(--#{$_}-icon-offset);
+    }
+
+    .#{$_}__label-icon--reverse {
+        margin-left: var(--#{$_}-icon-offset);
+        margin-right: unset;
     }
 
     .#{$_}__label-icon:not(.#{$_}__label-icon--reverse) {
@@ -72,6 +79,7 @@ $_: "c-button";
 
         .#{$_}__label-icon {
             display: flex;
+            margin: unset;
         }
     }
 }

@@ -6,11 +6,15 @@ $_: "c-button";
     --#{$_}-contrast: #{tokens.getRawValue($_, "color--surface-contrast", "color-contrast")};
     --#{$_}-hover: color-mix(in srgb, var(--#{$_}-contrast) 18%, transparent);
     --#{$_}-active: color-mix(in srgb, var(--#{$_}-contrast) 24%, transparent);
+    --#{$_}-icon-offset: -0.2em;
+    --#{$_}-padding: #{tokens.getCalculatedValue($_, "space", 2)};
+    --#{$_}-height: #{tokens.getCalculatedValue($_, "base", 5)};
+    --#{$_}-font-size: tokens.getRawValue($_, "font-size-100");
 
     background-color: transparent;
     border: none;
-    height: tokens.getCalculatedValue($_, "base", 5);
-    padding: 0 tokens.getCalculatedValue($_, "space", 2);
+    height: var(--#{$_}-height);
+    padding: 0 var(--#{$_}-padding);
 
     &:hover {
         background-color: var(--#{$_}-hover);
@@ -19,11 +23,6 @@ $_: "c-button";
     &:active,
     &[aria-pressed="true"] {
         background-color: var(--#{$_}-active);
-    }
-
-    &.#{$_}--sm {
-        height: tokens.getCalculatedValue($_, "base", 4);
-        padding: 0 tokens.getCalculatedValue($_, "space", 1);
     }
 
     .#{$_}__label {
@@ -40,28 +39,18 @@ $_: "c-button";
 
     &.#{$_}--icon-only {
         padding: 0;
-        width: tokens.getCalculatedValue($_, "base", 5);
+        width: var(--#{$_}-height);
     }
 
     &.#{$_}--sm {
-        height: tokens.getCalculatedValue($_, "base", 4.5);
-        padding: 0 tokens.getCalculatedValue($_, "space", 2);
-        font-size: tokens.getRawValue($_, "font-size-90");
-
-        &.#{$_}--icon-only {
-            padding: 0;
-            width: tokens.getCalculatedValue($_, "base", 4.5);
-        }
+        --#{$_}-height: #{tokens.getCalculatedValue($_, "base", 4.5)};
+        --#{$_}-padding: #{tokens.getCalculatedValue($_, "space", 2)};
+        --#{$_}-font-size: tokens.getRawValue($_, "font-size-90");
     }
 
     &.#{$_}--lg {
-        height: tokens.getCalculatedValue($_, "base", 8);
-        padding: 0 tokens.getCalculatedValue($_, "space", 3);
-        font-size: tokens.getRawValue($_, "font-size-200");
-
-        &.#{$_}--icon-only {
-            padding: 0;
-            width: tokens.getCalculatedValue($_, "base", 8);
-        }
+        --#{$_}-height: #{tokens.getCalculatedValue($_, "base", 6.5)};
+        --#{$_}-padding: #{tokens.getCalculatedValue($_, "space", 3)};
+        --#{$_}-font-size: tokens.getRawValue($_, "font-size-200");
     }
 }

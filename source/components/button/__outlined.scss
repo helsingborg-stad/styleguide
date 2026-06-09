@@ -6,6 +6,8 @@ $_: "c-button";
     --#{$_}-contrast: #{tokens.getRawValue($_, "color--surface-contrast", "color-contrast")};
     --#{$_}-hover: color-mix(in srgb, var(--#{$_}-contrast) 18%, transparent);
     --#{$_}-active: color-mix(in srgb, var(--#{$_}-contrast) 24%, transparent);
+    --#{$_}-icon-offset: -0.5em;
+    --#{$_}-font-size: #{tokens.getRawValue($_, "font-size-100")};
 
     background-color: transparent;
     border-width: clamp(2px, tokens.getCalculatedValue($_, "border-width", 1), tokens.getCalculatedValue($_, "base", 0.5));
@@ -21,7 +23,8 @@ $_: "c-button";
         background-color: var(--#{$_}-hover);
     }
 
-    &:active {
+    &:active,
+    &[aria-pressed="true"] {
         background-color: var(--#{$_}-active);
     }
 
@@ -45,7 +48,7 @@ $_: "c-button";
         height: tokens.getCalculatedValue($_, "base", 4.5);
         min-width: tokens.getCalculatedValue($_, "base", 6.75);
         padding: 0 tokens.getCalculatedValue($_, "space", 2);
-        font-size: tokens.getRawValue($_, "font-size-90");
+        --#{$_}-font-size: #{tokens.getRawValue($_, "font-size-90")};
         letter-spacing: 0.1rem;
 
         &.#{$_}--icon-only {
@@ -60,7 +63,7 @@ $_: "c-button";
         height: tokens.getCalculatedValue($_, "base", 8);
         min-width: tokens.getCalculatedValue($_, "base", 12);
         padding: 0 tokens.getCalculatedValue($_, "space", 5);
-        font-size: tokens.getRawValue($_, "font-size-200");
+        --#{$_}-font-size: #{tokens.getRawValue($_, "font-size-200")};
 
         &.#{$_}--icon-only {
             height: tokens.getCalculatedValue($_, "base", 8);
