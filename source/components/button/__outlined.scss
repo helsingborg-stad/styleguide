@@ -1,0 +1,75 @@
+@use "../../sass/mixin/tokens";
+
+$_: "c-button";
+
+.#{$_}.#{$_}__outlined {
+    --#{$_}-contrast: #{tokens.getRawValue($_, "color--surface-contrast", "color-contrast")};
+    --#{$_}-hover: color-mix(in srgb, var(--#{$_}-contrast) 18%, transparent);
+    --#{$_}-active: color-mix(in srgb, var(--#{$_}-contrast) 24%, transparent);
+    --#{$_}-icon-offset: -0.5em;
+    --#{$_}-font-size: #{tokens.getRawValue($_, "font-size-100")};
+
+    background-color: transparent;
+    border-width: clamp(2px, tokens.getCalculatedValue($_, "border-width", 1), tokens.getCalculatedValue($_, "base", 0.5));
+    border-color: currentColor;
+    border-style: solid;
+    color: var(--#{$_}-contrast);
+
+    height: tokens.getCalculatedValue($_, "base", 6);
+    min-width: tokens.getCalculatedValue($_, "base", 9);
+    padding: 0 tokens.getCalculatedValue($_, "space", 4);
+
+    &:hover {
+        background-color: var(--#{$_}-hover);
+    }
+
+    &:active,
+    &[aria-pressed="true"] {
+        background-color: var(--#{$_}-active);
+    }
+
+    &[class*="--secondary"] {
+        --#{$_}-border: #{tokens.getRawValue($_, "color--secondary")};
+        --#{$_}-contrast: #{tokens.getRawValue($_, "color--secondary")};
+    }
+
+    &[class*="--primary"] {
+        --#{$_}-border: #{tokens.getRawValue($_, "color--primary")};
+        --#{$_}-contrast: #{tokens.getRawValue($_, "color--primary")};
+    }
+
+    &.#{$_}--icon-only {
+        min-width: initial;
+        padding: 0;
+        width: tokens.getCalculatedValue($_, "base", 6);
+    }
+
+    &.#{$_}--sm {
+        height: tokens.getCalculatedValue($_, "base", 4.5);
+        min-width: tokens.getCalculatedValue($_, "base", 6.75);
+        padding: 0 tokens.getCalculatedValue($_, "space", 2);
+        --#{$_}-font-size: #{tokens.getRawValue($_, "font-size-90")};
+        letter-spacing: 0.1rem;
+
+        &.#{$_}--icon-only {
+            height: tokens.getCalculatedValue($_, "base", 4.5);
+            min-width: initial;
+            padding: 0;
+            width: tokens.getCalculatedValue($_, "base", 4.5);
+        }
+    }
+
+    &.#{$_}--lg {
+        height: tokens.getCalculatedValue($_, "base", 8);
+        min-width: tokens.getCalculatedValue($_, "base", 12);
+        padding: 0 tokens.getCalculatedValue($_, "space", 5);
+        --#{$_}-font-size: #{tokens.getRawValue($_, "font-size-200")};
+
+        &.#{$_}--icon-only {
+            height: tokens.getCalculatedValue($_, "base", 8);
+            min-width: initial;
+            padding: 0;
+            width: tokens.getCalculatedValue($_, "base", 8);
+        }
+    }
+}

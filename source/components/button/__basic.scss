@@ -1,0 +1,56 @@
+@use "../../sass/mixin/tokens";
+
+$_: "c-button";
+
+.#{$_}.#{$_}__basic {
+    --#{$_}-contrast: #{tokens.getRawValue($_, "color--surface-contrast", "color-contrast")};
+    --#{$_}-hover: var(--inherit-hover, color-mix(in srgb, var(--#{$_}-contrast) 18%, transparent));
+    --#{$_}-active: var(--inherit-active, color-mix(in srgb, var(--#{$_}-contrast) 24%, transparent));
+    --#{$_}-icon-offset: -0.2em;
+    --#{$_}-padding: #{tokens.getCalculatedValue($_, "space", 2)};
+    --#{$_}-height: #{tokens.getCalculatedValue($_, "base", 5)};
+    --#{$_}-font-size: tokens.getRawValue($_, "font-size-100");
+
+    background-color: transparent;
+    border: none;
+    height: var(--#{$_}-height);
+    padding: 0 var(--#{$_}-padding);
+
+    &:hover {
+        background-color: var(--#{$_}-hover);
+    }
+
+    &:active,
+    &[aria-pressed="true"] {
+        background-color: var(--#{$_}-active);
+    }
+
+    .#{$_}__label {
+        color: var(--#{$_}-contrast);
+    }
+
+    &[class*="--secondary"] {
+        --#{$_}-contrast: #{tokens.getRawValue($_, "color--secondary")};
+    }
+
+    &[class*="--primary"] {
+        --#{$_}-contrast: #{tokens.getRawValue($_, "color--primary")};
+    }
+
+    &.#{$_}--icon-only {
+        padding: 0;
+        width: var(--#{$_}-height);
+    }
+
+    &.#{$_}--sm {
+        --#{$_}-height: #{tokens.getCalculatedValue($_, "base", 4.5)};
+        --#{$_}-padding: #{tokens.getCalculatedValue($_, "space", 2)};
+        --#{$_}-font-size: tokens.getRawValue($_, "font-size-90");
+    }
+
+    &.#{$_}--lg {
+        --#{$_}-height: #{tokens.getCalculatedValue($_, "base", 6.5)};
+        --#{$_}-padding: #{tokens.getCalculatedValue($_, "space", 3)};
+        --#{$_}-font-size: tokens.getRawValue($_, "font-size-200");
+    }
+}
