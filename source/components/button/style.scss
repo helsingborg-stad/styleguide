@@ -1,26 +1,8 @@
-@use "sass:map";
 @use "../../sass/mixin/tokens";
-
-/* Inheritance properties */
-@property --inherit-color-contrast {
-    syntax: "*";
-    inherits: true;
-}
-
-@property --inherit-color-background {
-    syntax: "*";
-    inherits: true;
-}
-
-@property --inherit-color-background-hover {
-    syntax: "*";
-    inherits: true;
-}
-
-@property --inherit-color-background-active {
-    syntax: "*";
-    inherits: true;
-}
+@use "./__basic";
+@use "./__filled";
+@use "./__outlined";
+@use "./__pill";
 
 /* Component name */
 $_: "c-button";
@@ -28,475 +10,81 @@ $_: "c-button";
 /* Design tokens */
 @include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
-$button-inherit-background: #{tokens.getRawValue($_, "color--surface", "color-background")};
-
-/**
- * Variant color schemes
- * Sets --_color, --_contrast, --_hover, --_active per variant,
- * consumed by __filled, __outlined, and __basic.
- */
-$button-variants: (
-    "primary": ("bg": tokens.getRawValue($_, "color--primary", "color-background"),
-        "fg": tokens.getRawValue($_, "color--primary-contrast", "color-contrast"),
-        "border": var(--#{$_}--color--primary-border, #{tokens.getDefaultRawValue($_, "color--primary-border")}),
-        "hover": tokens.getRawValue($_, "color--primary-border", "color-background-hover"),
-        "active": tokens.getRawValue($_, "color--primary-alt", "color-background-active"),
-        "underline": tokens.getRawValue($_, "color--primary", "color-contrast"),
-        "stroke": var(--#{$_}--color--primary, #{tokens.getDefaultRawValue($_, "color--primary")})),
-    "secondary": ("bg": tokens.getRawValue($_, "color--secondary", "color-background"),
-        "fg": tokens.getRawValue($_, "color--secondary-contrast", "color-contrast"),
-        "border": var(--#{$_}--color--secondary-border, #{tokens.getDefaultRawValue($_, "color--secondary-border")}),
-        "hover": tokens.getRawValue($_, "color--secondary-border", "color-background-hover"),
-        "active": tokens.getRawValue($_, "color--secondary-alt", "color-background-active"),
-        "underline": tokens.getRawValue($_, "color--secondary", "color-contrast"),
-        "stroke": var(--#{$_}--color--secondary, #{tokens.getDefaultRawValue($_, "color--secondary")})),
-    "default": ("bg": tokens.getRawValue($_, "color--surface-alt", "color-background"),
-        "fg": tokens.getRawValue($_, "color--surface-contrast", "color-contrast"),
-        "border": var(--#{$_}--color--surface-border, #{tokens.getDefaultRawValue($_, "color--surface-border")}),
-        "hover": tokens.getRawValue($_, "color--surface-border", "color-background-hover"),
-        "active": tokens.getRawValue($_, "color--surface-alt", "color-background-active"),
-        "underline": tokens.getRawValue($_, "color--surface-contrast-muted", "color-contrast"),
-        "stroke": var(--#{$_}--color--surface-contrast, #{tokens.getDefaultRawValue($_, "color--surface-contrast")}))
-);
-
 .#{$_} {
-    &.#{$_}__filled {
-        --_color: #{map.get($button-variants, "default", "bg")};
-        --_contrast: #{map.get($button-variants, "default", "fg")};
-        --_border: #{map.get($button-variants, "default", "border")};
-        --_hover: #{map.get($button-variants, "default", "hover")};
-        --_active: #{map.get($button-variants, "default", "active")};
-    }
-
-    &.#{$_}__basic {
-        --_text: #{map.get($button-variants, "default", "underline")};
-
-        &:before {
-            background-color: var(--_text);
-        }
-    }
-
-    &.#{$_}__outlined {
-        --_contrast: #{tokens.getRawValue($_, "color--surface-contrast", "color-background")};
-        --_color: #{tokens.getRawValue($_, "color--surface-contrast", "color-background")};
-    }
-
-    @each $name, $variant in $button-variants {
-
-        // If default variant, styles are already set on __filled, __basic, and __outlined above, so skip to avoid redundant CSS rules.
-        @if $name !="default" {
-
-            &.#{$_}__filled--#{$name},
-            &.#{$_}__basic--#{$name},
-            &.#{$_}__outlined--#{$name} {
-                --_color: #{map.get($variant, "bg")};
-                --_contrast: #{map.get($variant, "fg")};
-                --_border: #{map.get($variant, "border")};
-                --_hover: #{map.get($variant, "hover")};
-                --_active: #{map.get($variant, "active")};
-            }
-
-            &.#{$_}__basic--#{$name} {
-                --_text: #{map.get($variant, "underline")};
-            }
-
-            &.#{$_}__basic--#{$name}:before {
-                background-color: var(--_text);
-            }
-
-            &.#{$_}__outlined--#{$name} {
-                --_contrast: #{map.get($variant, "bg")};
-                --_color: #{map.get($variant, "bg")};
-            }
-        }
-    }
-}
-
-@keyframes c-button-rotation {
-
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-/**
- * Size definitions
- * --_h:      height multiplier
- * --_w:      min-width multiplier
- * --_p:      horizontal padding multiplier
- * --_offset: icon negative margin / loader offset
- * --_loader: loader size multiplier (md uses the base default)
- */
-$button-sizes: (
-    "lg": ("height": 8,
-        "min-width": 12,
-        "padding-x": 5,
-        "offset": -1.5,
-        "loader": 4,
-        "font-size": var(--#{$_}--font-size-lg)),
-    "md": ("height": 6,
-        "min-width": 9,
-        "padding-x": 4,
-        "offset": -1,
-        "loader": null,
-        "font-size": var(--#{$_}--font-size-md)),
-    "sm": ("height": 4.5,
-        "min-width": 6.75,
-        "padding-x": 2,
-        "offset": -0.5,
-        "loader": 2,
-        "font-size": var(--#{$_}--font-size-sm),
-        "letter-spacing": 0.1rem)
-);
-
-/* Component base */
-.#{$_} {
-    --#{$_}--base-value: var(--#{$_}--base, #{tokens.getDefaultRawValue($_, "base")});
-    --#{$_}--space-value: var(--#{$_}--space, #{tokens.getDefaultRawValue($_, "space")});
-    --#{$_}--outer-space-value: var(--#{$_}--outer-space, #{tokens.getDefaultRawValue($_, "outer-space")});
-    --#{$_}--border-width-value: var(--#{$_}--border-width, #{tokens.getDefaultRawValue($_, "border-width")});
-    --#{$_}--border-radius-value: var(--#{$_}--border-radius, #{tokens.getDefaultRawValue($_, "border-radius")});
-    --#{$_}--shadow-amount-value: var(--#{$_}--shadow-amount, #{tokens.getDefaultRawValue($_, "shadow-amount")});
-    --#{$_}--shadow-color-value: var(--#{$_}--shadow-color, #{tokens.getDefaultRawValue($_, "shadow-color")});
-    --#{$_}--font-weight: var(--#{$_}--font-weight-medium, #{tokens.getDefaultRawValue($_, "font-weight-medium")});
-    --#{$_}--font-family: var(--#{$_}--font-family-base, #{tokens.getDefaultRawValue($_, "font-family-base")});
-    --#{$_}--font-size-lg: var(--#{$_}--font-size-200, #{tokens.getDefaultRawValue($_, "font-size-200")});
-    --#{$_}--font-size-md: var(--#{$_}--font-size-100, #{tokens.getDefaultRawValue($_, "font-size-100")});
-    --#{$_}--font-size-sm: var(--#{$_}--font-size-90, #{tokens.getDefaultRawValue($_, "font-size-90")});
-    --#{$_}--color-default: var(--#{$_}--color--surface, #{tokens.getDefaultRawValue($_, "color--surface")});
-    --#{$_}--color-default-contrast: var(--#{$_}--color--surface-contrast, #{tokens.getDefaultRawValue($_, "color--surface-contrast")});
-    --#{$_}--shadow: drop-shadow(0 calc((var(--base) * 0.5) * var(--#{$_}--shadow-amount-value)) calc(var(--#{$_}--shadow-amount-value) * var(--base)) var(--#{$_}--shadow-color-value));
+    border-radius: tokens.getCalculatedValue($_, "border-radius");
     contain: layout;
-    display: inline-flex;
-    vertical-align: middle;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
+    corner-shape: tokens.getRawValue($_, "corner-shape");
     cursor: pointer;
-    font-weight: var(--#{$_}--font-weight);
-    font-family: var(--#{$_}--font-family);
-    background-color: transparent;
-    border: none;
-    user-select: none;
+    display: inline-flex;
+    font-family: tokens.getRawValue($_, "font-family-base");
+    font-size: var(--#{$_}-font-size);
+    font-weight: tokens.getRawValue($_, "font-weight-medium");
+    justify-content: center;
     position: relative;
-    max-width: 100%;
-    transition:
-        background-color 100ms ease-in-out,
-        border-color 100ms ease-in-out,
-        color 100ms ease-in-out;
+    text-decoration: none;
+    transition-duration: 100ms;
+    transition-property: background-color, border-color, color;
+    transition-timing-function: ease-in-out;
+    user-select: none;
 
-    /* Loading spinner (hidden by default) */
-    .#{$_}__loader {
-        display: none;
-        width: calc(var(--#{$_}--base-value) * 3);
-        height: calc(var(--#{$_}--base-value) * 3);
-        border: 3px solid;
-        border-bottom-color: transparent;
-        border-radius: 50%;
-        box-sizing: border-box;
-        margin-bottom: 2px;
-    }
-
-    /* Working state: hides icon, shows spinner */
-
-    &.is-working {
-        .#{$_}__label-icon {
-            display: none;
-        }
-
-        .#{$_}__loader {
-            display: inline-block;
-            animation: c-button-rotation 1s linear infinite;
-        }
-    }
-
-    /* Disabled state */
-
-    &:disabled {
+    &[disabled] {
         cursor: not-allowed;
-
-        &:not(.#{$_}--no-disabled-color) {
-            opacity: 0.8;
-        }
+        opacity: 0.7;
     }
-
-    /* Full width */
 
     &__full-width {
-        width: 100%;
-        display: flex;
+        display: inline-flex;
         justify-content: center;
-        align-items: center;
+        width: 100%;
 
         .#{$_}__label {
-            justify-content: center;
-            width: 100%;
-        }
-
-        .#{$_}__label-icon {
-            flex: none;
-
-            .c-icon {
-                margin-left: 0;
-                margin-right: 0;
-            }
+            margin-left: auto;
+            margin-right: auto;
         }
     }
 
-    /* Label: lays out icon + text horizontally */
     .#{$_}__label {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        position: relative;
-        z-index: 1;
-        transition:
-            opacity 100ms,
-            color 100ms;
-        text-decoration: none;
-        gap: var(--#{$_}--base-value);
-        width: 100%;
-        max-width: 100%;
-        height: 100%;
+        align-items: center;
+        display: inline-flex;
+        gap: tokens.getCalculatedValue($_, "space", 1);
 
-        * {
-            align-self: center;
-            color: var(--_text, var(--_contrast));
+        >*:empty {
+            display: none;
+        }
+    }
+
+    .#{$_}__label-icon {
+        align-items: center;
+        aspect-ratio: 1 / 1;
+        display: inline-flex;
+        justify-content: center;
+        margin-right: var(--#{$_}-icon-offset);
+    }
+
+    .#{$_}__label-icon--reverse {
+        margin-left: var(--#{$_}-icon-offset);
+        margin-right: unset;
+    }
+
+    .#{$_}__label-icon:not(.#{$_}__label-icon--reverse) {
+        order: 1;
+    }
+
+    &.#{$_}--icon-only {
+        justify-content: center;
+        min-width: initial;
+
+        .#{$_}__label {
+            gap: unset;
         }
 
-        /* Icon: default order is after text */
         .#{$_}__label-icon {
             display: flex;
-            order: 2;
-            margin-left: 0;
-            margin-right: calc(var(--#{$_}--base-value) * var(--_offset, 0));
-
-            &--reverse {
-                order: 0;
-                margin-left: calc(var(--#{$_}--base-value) * var(--_offset, 0));
-                margin-right: 0;
-            }
-        }
-
-        /* Text stays centered between leading/trailing icon placements */
-        .#{$_}__label-text {
-            order: 1;
-            display: inline-block;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    }
-
-    /* Sizes */
-    @each $name, $size in $button-sizes {
-        &.#{$_}--#{$name} {
-            --_h: #{map.get($size, "height")};
-            --_w: #{map.get($size, "min-width")};
-            --_p: #{map.get($size, "padding-x")};
-            --_offset: #{map.get($size, "offset")};
-            --_fs: #{map.get($size, "font-size")};
-
-            &.#{$_}__basic {
-                --_offset: 0;
-            }
-
-            @if map.get($size, "loader") !=null {
-                --_loader: #{map.get($size, "loader")};
-            }
-
-            @if map.get($size, "letter-spacing") !=null {
-                letter-spacing: #{map.get($size, "letter-spacing")};
-            }
-
-            height: calc(var(--#{$_}--base-value) * var(--_h));
-            min-width: calc(var(--#{$_}--base-value) * var(--_w));
-            padding: 0 calc(var(--#{$_}--base-value) * var(--_p));
-            font-size: var(--_fs);
-            border-radius: calc(var(--#{$_}--border-radius-value) * var(--base));
-            corner-shape: var(--#{$_}--corner-shape, #{tokens.getDefaultRawValue($_, "corner-shape")});
-
-            /* Loader sizing (sm/lg override the default size) */
-            .#{$_}__loader {
-                @if map.get($size, "loader") !=null {
-                    width: calc(var(--#{$_}--base-value) * var(--_loader));
-                    height: calc(var(--#{$_}--base-value) * var(--_loader));
-                    border-width: calc(var(--_loader) * 1px);
-                }
-            }
-
-            /* Icon-only: square button, no padding */
-            &.#{$_}--icon-only {
-                width: calc(var(--#{$_}--base-value) * var(--_h));
-                min-width: initial;
-                padding-left: 0;
-                padding-right: 0;
-                justify-content: center;
-
-                .#{$_}__label span.#{$_}__label-icon {
-                    margin-right: 0;
-                    margin-left: 0;
-                }
-
-                .c-icon:after {
-                    vertical-align: baseline;
-                }
-            }
-        }
-    }
-
-    /* Pill shape */
-    &.#{$_}--pill {
-        border-radius: calc(var(--#{$_}--base-value) * 4);
-        corner-shape: unset;
-    }
-}
-
-/* Basic: text only, no background or border */
-.#{$_}__basic {
-    --_offset: 0;
-
-    border: none;
-    box-shadow: none;
-    transition: transform 100ms ease-in-out;
-
-    &.#{$_}--lg,
-    &.#{$_}--md,
-    &.#{$_}--sm {
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    &:not(:disabled):before {
-        content: "";
-        position: absolute;
-        left: 50%;
-        bottom: calc(var(--#{$_}--space-value) * var(--base));
-        width: 0%;
-        height: 3px;
-        transform: translateX(-50%);
-        border-radius: 6px;
-        transition: all 200ms ease-in-out;
-    }
-
-    &:not(:disabled):hover:before {
-        width: calc(100% - (var(--#{$_}--base-value) * 2));
-    }
-}
-
-/* Filled: solid colored background */
-.#{$_}__filled {
-    will-change: filter;
-    filter: var(--#{$_}--shadow);
-    transition: filter 200ms ease-in-out;
-    background-color: var(--_color);
-    border: calc(var(--#{$_}--border-width-value) * var(--base)) solid var(--_border);
-    color: var(--_contrast);
-
-    &:hover {
-        background-color: var(--_hover);
-        color: var(--_contrast);
-    }
-
-    &:active {
-        background-color: var(--_active);
-        color: var(--_contrast);
-
-        .#{$_}__label {
-            opacity: 0.8;
-        }
-    }
-}
-
-/* Outlined: border only, no background fill */
-.#{$_}__outlined {
-    border: clamp(2px, calc(var(--#{$_}--border-width-value) * var(--base)), calc(var(--base) / 2)) solid var(--_color);
-    color: color-mix(in srgb, var(--#{$_}--color-default-contrast) 50%, var(--_color));
-
-    &:hover {
-        background-color: color-mix(in srgb, var(--_color) 15%, #{$button-inherit-background});
-    }
-
-    &:active {
-        background-color: color-mix(in srgb, var(--_color) 30%, #{$button-inherit-background});
-    }
-}
-
-/* Toggle: pressed / unpressed visual state */
-.#{$_}__toggle {
-    transition:
-        color 100ms ease-in-out,
-        background 100ms ease-in-out,
-        outline 100ms ease-in-out,
-        outline-offset 100ms ease-in-out;
-
-    &.#{$_}__filled {
-        outline-offset: 4px;
-        outline: 0 solid rgba(0, 0, 0, 0.5);
-
-        &[aria-pressed="true"] {
-            outline-width: 4px;
-            outline-color: var(--_color);
-            background-color: var(--_active);
-        }
-    }
-
-    &.#{$_}__basic {
-
-        &:before {
-            content: "";
-            position: absolute;
-            left: 50%;
-            bottom: calc(var(--#{$_}--space-value) * var(--base));
-            width: 0%;
-            height: 3px;
-            background-color: var(--_text);
-            transform: translateX(-50%);
-            border-radius: 6px;
-            transition: all 200ms ease-in-out;
-        }
-
-        &[aria-pressed="true"] {
-
-            &:before {
-                width: 80%;
-                border-color: var(--_color);
-            }
-
-            &:after {
-                display: none;
-            }
-        }
-    }
-
-    &.#{$_}__outlined {
-        outline-offset: 4px;
-        outline: 0 solid rgba(0, 0, 0, 0.5);
-
-        &[aria-pressed="true"] {
-            outline-width: 4px;
-            outline-color: var(--_color);
+            margin: unset;
         }
     }
 }
 
 .#{$_}+.#{$_} {
-    margin-left: calc(var(--#{$_}--outer-space-value) * var(--base));
-}
-
-a.#{$_}:active,
-a.#{$_}:hover,
-a.#{$_}:focus,
-a.#{$_}:visited {
-    text-decoration: none;
-}
-
-@media print {
-    .#{$_} {
-        display: none;
-    }
+    margin-left: tokens.getCalculatedValue($_, "outer-space", 1);
 }

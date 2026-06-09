@@ -9,7 +9,7 @@
                 @accordion__item([
                     'heading' => 'No correction',
                 ])
-                    <div style="--inherit-font-size-multiplier: 1;">
+                    <div style="--c-typography--h1-font-size: var(--c-typography--h1-font-size-default); --c-typography--h2-font-size: var(--c-typography--h2-font-size-default); --c-typography--h3-font-size: var(--c-typography--h3-font-size-default); --c-typography--h4-font-size: var(--c-typography--h4-font-size-default); --c-typography--h5-font-size: var(--c-typography--h5-font-size-default); --c-typography--h6-font-size: var(--c-typography--h6-font-size-default);">
                         @foreach(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] as $heading)
                             @typography(['element' => $heading, 'variant' => $heading, 'classList' => ['u-margin__bottom--1']])
                                 This is a {{ $heading }} title inside accordion content
@@ -17,7 +17,7 @@
                         @endforeach
 
                         @typography(['element' => 'p', 'variant' => 'body'])
-                            This panel forces `--inherit-font-size-multiplier: 1`, so nested titles keep their uncorrected size.
+                            This panel resets the accordion typography variables to their default title sizes, so nested headings keep their uncorrected scale.
                         @endtypography
                     </div>
                 @endaccordion__item
@@ -35,7 +35,7 @@
                 @accordion__item([
                     'heading' => 'Corrected',
                 ])
-                    <div style="--inherit-font-size-multiplier: 0.5;">
+                    <div>
                         @foreach(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] as $heading)
                             @typography(['element' => $heading, 'variant' => $heading, 'classList' => ['u-margin__bottom--1']])
                                 This is a {{ $heading }} title inside accordion content
@@ -43,7 +43,7 @@
                         @endforeach
 
                         @typography(['element' => 'p', 'variant' => 'body'])
-                            This panel forces `--inherit-font-size-multiplier: 0.5`, which applies the corrected accordion sizing while still respecting the base text-size floor.
+                            This panel uses the accordion defaults, which publish a compressed heading scale on the built-in type scale.
                         @endtypography
                     </div>
                 @endaccordion__item

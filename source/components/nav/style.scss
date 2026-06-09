@@ -82,8 +82,7 @@ $_: "c-nav";
         justify-content: space-between;
         position: relative;
 
-        .c-nav__link,
-        .c-nav__toggle {
+        .c-nav__link {
             min-height: inherit;
         }
     }
@@ -124,18 +123,18 @@ $_: "c-nav";
         }
     }
 
-    .c-nav__toggle {
-        margin-bottom: auto;
-    }
-
     .c-icon--expand-more {
         transition: transform 200ms;
     }
 
     .c-nav__item:not(.is-open)>.c-nav,
-    .c-nav__item:not(.is-open)>.c-nav__child-container,
-    .c-nav__item:not(.is-open) .c-nav__toggle:before {
+    .c-nav__item:not(.is-open)>.c-nav__child-container {
         display: none;
+    }
+
+    [data-component="button"].#{$_}__toggle {
+        --inherit-active: transparent;
+        --inherit-hover: transparent;
     }
 
     .c-nav__item.is-open>.c-nav__item-wrapper .c-icon--expand-more {

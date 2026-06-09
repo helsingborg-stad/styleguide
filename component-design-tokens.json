@@ -266,7 +266,6 @@
       "outer-space",
       "color--primary",
       "color--secondary",
-      "color--surface",
       "font-weight-medium",
       "font-family-base",
       "color--surface-contrast",
@@ -274,14 +273,11 @@
       "shadow-amount",
       "color--primary-contrast",
       "color--primary-border",
-      "color--primary-alt",
       "color--secondary-contrast",
       "color--secondary-border",
-      "color--secondary-alt",
       "color--surface-border",
       "color--surface-alt",
       "corner-shape",
-      "color--surface-contrast-muted",
       "font-size-90",
       "font-size-100",
       "font-size-200"
@@ -337,7 +333,7 @@
         ]
       }
     ],
-    "description": "The Button component provides a reusable pattern for button in the interface.",
+    "description": "The Button component is used to trigger actions, submit forms, or navigate users through primary, secondary, and default button variants.",
     "tags": [
       "button",
       "component"

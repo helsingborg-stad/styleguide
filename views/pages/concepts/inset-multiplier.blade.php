@@ -58,18 +58,16 @@ SCSS,
                 'description' => 'Use a local scale when the component should respond to its own available width. The table keeps inherited spacing when it exists, but can still increase its inset at larger container sizes.',
                 'previewView' => 'pages.partials.concepts.inset-multiplier.table-preview',
                 'bladeCode' => <<<'BLADE'
-<div style="width: 18rem; max-width: 100%; resize: horizontal; overflow: auto; border: 1px dashed var(--color--surface-border); padding: 1rem;">
-    @table([
-        'title' => 'Inset-aware table',
-        'headings' => ['Service', 'Owner', 'Status', 'Updated'],
-        'list' => [
-            ['columns' => ['Cards', 'UX team', 'Stable', 'Today']],
-            ['columns' => ['Tables', 'Platform', 'Pilot', 'Yesterday']],
-            ['columns' => ['Forms', 'Core', 'Stable', 'Today']],
-        ],
-    ])
-    @endtable
-</div>
+@table([
+    'title' => 'Inset-aware table',
+    'headings' => ['Service', 'Owner', 'Status', 'Updated'],
+    'list' => [
+        ['columns' => ['Cards', 'UX team', 'Stable', 'Today']],
+        ['columns' => ['Tables', 'Platform', 'Pilot', 'Yesterday']],
+        ['columns' => ['Forms', 'Core', 'Stable', 'Today']],
+    ],
+])
+@endtable
 BLADE,
                 'implementationCode' => <<<'SCSS'
 .c-table {
@@ -96,22 +94,20 @@ SCSS,
                 'description' => 'Use the public inherit variable when a parent component should keep nested components aligned with its own container-aware spacing. The card publishes its resolved multiplier so the nested accordion follows the same inset rhythm.',
                 'previewView' => 'pages.partials.concepts.inset-multiplier.card-preview',
                 'bladeCode' => <<<'BLADE'
-<div style="width: 70%; resize: horizontal; overflow: auto; border: 2px solid currentColor; padding: 1rem;">
-    @card([
-        'heading' => 'Inset-aware card',
-        'content' => 'Resize the container to let the card grow its own inset multiplier and pass that spacing on to the nested accordion.',
-    ])
-        @accordion([
-            'list' => [
-                [
-                    'heading' => 'Nested child inherits card inset',
-                    'content' => 'The child keeps the same spacing rhythm as the card body.',
-                ],
+@card([
+    'heading' => 'Inset-aware card',
+    'content' => 'Resize the preview to let the card grow its own inset multiplier and pass that spacing on to the nested accordion.',
+])
+    @accordion([
+        'list' => [
+            [
+                'heading' => 'Nested child inherits card inset',
+                'content' => 'The child keeps the same spacing rhythm as the card body.',
             ],
-        ])
-        @endaccordion
-    @endcard
-</div>
+        ],
+    ])
+    @endaccordion
+@endcard
 BLADE,
                 'implementationCode' => <<<'SCSS'
 .c-card [data-component="accordion"] {

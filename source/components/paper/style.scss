@@ -20,9 +20,10 @@ $insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data
     --#{$_}--surface-contrast-muted-color: #{tokens.getRawValue($_, "color--surface-contrast-muted")};
     --#{$_}--border-color: var(--#{$_}--surface-border-color);
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid var(--#{$_}--border-color);
-    --#{$_}--padding: 0;
+    --#{$_}--inset-scale: 1;
     --#{$_}--background-color: var(--#{$_}--surface-color);
     --#{$_}--color: var(--#{$_}--surface-contrast-color);
+
     contain: layout;
     container-type: inline-size;
     background-color: var(--#{$_}--background-color);
@@ -30,12 +31,22 @@ $insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data
     border: var(--#{$_}--border);
     border-radius: tokens.getCalculatedValue($_, "border-radius");
     corner-shape: tokens.getRawValue($_, "corner-shape");
-    padding: var(--#{$_}--padding);
     filter: tokens.getCalculatedValue($_, "shadow", 1);
 
-    > :first-child {
+    > .#{$_}__content {
+        @include insetMultiplier.consume($_, insetMultiplier.contextual-multiplier(var(--#{$_}--inset-scale)));
+        padding: 0;
+    }
+
+    > .#{$_}__content > :first-child {
         --inherit-margin-top: 0;
     }
+
+    > .#{$_}__content > :last-child {
+        --inherit-margin-bottom: 0;
+    }
+
+    @include insetMultiplier.responsive-resolve($_, $selector: '> .#{$_}__content');
 
     #{$insetTargets} {
         @include insetMultiplier.publish(insetMultiplier.contextual-multiplier(1));
@@ -44,13 +55,11 @@ $insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data
     @include insetMultiplier.responsive-publish($selector: $insetTargets);
 
     /* switch to surface color tokens for nested components */
-
-    .c-card,
-    .c-comment,
-    .c-table,
-    table:not(.c-table *),
-    .c-button__filled--default,
-    .c-chat {
+    [data-component="card"],
+    [data-component="comment"],
+    [data-component="table"],
+    table:not([data-component="table"] *),
+    [data-component="chat"] {
         --inherit-color-background: var(--#{$_}--background-color);
         --inherit-color-contrast: var(--#{$_}--color);
         --inherit-color-background-hover: var(--#{$_}--surface-alt-color);
@@ -59,14 +68,29 @@ $insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data
         --inherit-color-contrast-muted: var(--#{$_}--surface-contrast-muted-color);
     }
 
-    @for $i from 0 through 8 {
-        &--padding-#{$i} {
-            padding: calc(#{tokens.getCalculatedValue($_, "space")} * #{$i});
+    [data-component="button"] {
+        --inherit-color-contrast: var(--#{$_}--color);
+
+        &.c-button__filled {
+            --inherit-color-contrast: var(--#{$_}--background-color);
+            --inherit-color-background: var(--#{$_}--color);
+            --inherit-color-border: var(--#{$_}--border-color);
         }
     }
 
+    @for $i from 0 through 8 {
+        &--padding-#{$i} {
+            > .#{$_}__content {
+                padding: calc(#{tokens.getCalculatedValue($_, "space", $i)} * var(--#{$_}--inset-multiplier));
+            }
+        }
+    }
+
+
     &--divider {
-        border-top: var(--#{$_}--border);
-        padding-top: tokens.getCalculatedValue($_, "space", 3);
+        > .#{$_}__content {
+            border-top: var(--#{$_}--border);
+            padding-top: calc(#{tokens.getCalculatedValue($_, "space", 3)} * var(--#{$_}--inset-multiplier));
+        }
     }
 }
