@@ -1,0 +1,67 @@
+@use "../../sass/mixin/tokens";
+
+$_: "c-button";
+
+.#{$_}.#{$_}__basic {
+    --#{$_}-contrast: #{tokens.getRawValue($_, "color--surface-contrast", "color-contrast")};
+    --#{$_}-hover: color-mix(in srgb, var(--#{$_}-contrast) 18%, transparent);
+    --#{$_}-active: color-mix(in srgb, var(--#{$_}-contrast) 24%, transparent);
+
+    background-color: transparent;
+    border: none;
+    height: tokens.getCalculatedValue($_, "base", 5);
+    padding: 0 tokens.getCalculatedValue($_, "space", 2);
+
+    &:hover {
+        background-color: var(--#{$_}-hover);
+    }
+
+    &:active,
+    &[aria-pressed="true"] {
+        background-color: var(--#{$_}-active);
+    }
+
+    &.#{$_}--sm {
+        height: tokens.getCalculatedValue($_, "base", 4);
+        padding: 0 tokens.getCalculatedValue($_, "space", 1);
+    }
+
+    .#{$_}__label {
+        color: var(--#{$_}-contrast);
+    }
+
+    &[class*="--secondary"] {
+        --#{$_}-contrast: #{tokens.getRawValue($_, "color--secondary")};
+    }
+
+    &[class*="--primary"] {
+        --#{$_}-contrast: #{tokens.getRawValue($_, "color--primary")};
+    }
+
+    &.#{$_}--icon-only {
+        padding: 0;
+        width: tokens.getCalculatedValue($_, "base", 5);
+    }
+
+    &.#{$_}--sm {
+        height: tokens.getCalculatedValue($_, "base", 4.5);
+        padding: 0 tokens.getCalculatedValue($_, "space", 2);
+        font-size: tokens.getRawValue($_, "font-size-90");
+
+        &.#{$_}--icon-only {
+            padding: 0;
+            width: tokens.getCalculatedValue($_, "base", 4.5);
+        }
+    }
+
+    &.#{$_}--lg {
+        height: tokens.getCalculatedValue($_, "base", 8);
+        padding: 0 tokens.getCalculatedValue($_, "space", 3);
+        font-size: tokens.getRawValue($_, "font-size-200");
+
+        &.#{$_}--icon-only {
+            padding: 0;
+            width: tokens.getCalculatedValue($_, "base", 8);
+        }
+    }
+}
