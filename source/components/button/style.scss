@@ -19,6 +19,7 @@ $_: "c-button";
     font-family: tokens.getRawValue($_, "font-family-base");
     font-size: var(--#{$_}-font-size);
     font-weight: tokens.getRawValue($_, "font-weight-medium");
+    justify-content: center;
     position: relative;
     text-decoration: none;
     transition-duration: 100ms;
