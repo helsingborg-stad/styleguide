@@ -1,5 +1,4 @@
 @accordion([
-    'classList' => ['c-accordion'],
     'list' => [
         [
             'heading' => ["Heading"],

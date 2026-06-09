@@ -2,7 +2,7 @@
 @use "../../sass/mixin/button";
 @use "../../sass/mixin/tokens";
 
-@include insetMultiplier.property();
+// @include insetMultiplier.property();
 
 /* Component name */
 $_: "c-accordion";
@@ -13,12 +13,16 @@ $_: "c-accordion";
 .#{$_} {
     --#{$_}--heading-columns: repeat(var(--#{$_}--heading-count, auto-fill), 1fr);
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface")};
+    --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
     container-name: accordion;
     container-type: inline-size;
     contain: paint;
     border-radius: #{tokens.getCalculatedValue($_, "border-radius", 1)};
     corner-shape: inherit;
     display: grid;
+    color: var(--#{$_}--color);
+    background-color: var(--#{$_}--background-color);
 
     .#{$_}__heading {
         display: grid;
@@ -57,6 +61,11 @@ $_: "c-accordion";
 
     &.#{$_}--spaced {
         gap: calc(tokens.getRawValue($_, "base") *  4);
+        background-color: unset;
+
+        > * {
+            background-color: var(--#{$_}--background-color);
+        }
 
         &.#{$_}--bordered {
             border: unset;
@@ -64,6 +73,7 @@ $_: "c-accordion";
 
             > * {
                 border: var(--#{$_}--border);
+                background-color: var(--#{$_}--background-color);
                 border-radius: #{tokens.getCalculatedValue($_, "border-radius", 1)};
             }
         }
