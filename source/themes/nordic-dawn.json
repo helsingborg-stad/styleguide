@@ -17,6 +17,7 @@
 	"--line-height-base": "1.64",
 	"--line-height-heading": "1.3",
 	"--letter-spacing-base": "0.004em",
+	"--letter-spacing-heading": "0.004em",
 	"--font-size-80": "calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), -2))",
 	"--font-size-90": "calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), -1))",
 	"--font-size-100": "var(--base-font-size)",

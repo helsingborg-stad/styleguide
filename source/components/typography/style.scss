@@ -145,6 +145,7 @@ h1,
     font-weight: tokens.getRawValue($_, "font-weight-heading");
     line-height: tokens.getRawValue($_, "line-height-heading");
     font-family: tokens.getRawValue($_, "font-family-heading");
+    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
 
 h2,
@@ -154,6 +155,7 @@ h2,
     font-weight: tokens.getRawValue($_, "font-weight-heading");
     line-height: tokens.getRawValue($_, "line-height-heading");
     font-family: tokens.getRawValue($_, "font-family-heading");
+    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
 
 h3,
@@ -163,6 +165,7 @@ h3,
     font-weight: tokens.getRawValue($_, "font-weight-heading");
     line-height: tokens.getRawValue($_, "line-height-heading");
     font-family: tokens.getRawValue($_, "font-family-heading");
+    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
 
 h4,
@@ -172,6 +175,7 @@ h4,
     font-weight: tokens.getRawValue($_, "font-weight-heading");
     line-height: tokens.getRawValue($_, "line-height-heading");
     font-family: tokens.getRawValue($_, "font-family-heading");
+    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
 
 h5,
@@ -181,6 +185,7 @@ h5,
     font-weight: tokens.getRawValue($_, "font-weight-heading");
     line-height: tokens.getRawValue($_, "line-height-heading");
     font-family: tokens.getRawValue($_, "font-family-heading");
+    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
 
 h6,
@@ -190,6 +195,7 @@ h6,
     font-weight: tokens.getRawValue($_, "font-weight-heading");
     line-height: tokens.getRawValue($_, "line-height-heading");
     font-family: tokens.getRawValue($_, "font-family-heading");
+    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
 
 .#{$_}__variant--headline {
@@ -200,7 +206,7 @@ h6,
     font-family: tokens.getRawValue($_, "font-family-heading");
     @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-title", "font-size"), "title-font-size-multiplier", true);
     font-weight: tokens.getRawValue($_, "font-weight-medium");
-    letter-spacing: tokens.getRawValue($prefix: $_, $token: "letter-spacing-base", $inheritVariable: "letter-spacing");
+    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
     line-height: tokens.getRawValue($_, "line-height-heading");
 }
 

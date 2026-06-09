@@ -13,6 +13,7 @@
 		"line-height-base",
 		"line-height-heading",
 		"letter-spacing-base",
+		"letter-spacing-heading",
 		"space",
 		"font-size-90",
 		"font-size-200",
@@ -107,8 +108,19 @@
 				},
 				{
 					"token": "letter-spacing-base",
-					"label": "Letter Spacing",
-					"description": "Controls the default tracking for variants that inherit the base letter spacing."
+					"label": "Body Letter Spacing",
+					"description": "Controls the default tracking for variants that inherit the base letter spacing.",
+					"visibleWhen": {
+						"hasAnyClass": ["c-typography__variant--body", "c-typography__variant--p", "c-typography__variant--caption", "c-typography__variant--byline", "c-typography__variant--meta", "c-typography__variant--headline", "c-typography__variant--subtitle", "c-typography__variant--bold", "c-typography__variant--email"]
+					}
+				},
+				{
+					"token": "letter-spacing-heading",
+					"label": "Heading Letter Spacing",
+					"description": "Controls the tracking for heading-style variants that use the heading spacing scale.",
+					"visibleWhen": {
+						"hasAnyClass": ["c-typography__variant--h1", "c-typography__variant--h2", "c-typography__variant--h3", "c-typography__variant--h4", "c-typography__variant--h5", "c-typography__variant--h6", "c-typography__variant--title"]
+					}
 				},
 				{
 					"token": "space",
