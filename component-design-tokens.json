@@ -2108,6 +2108,502 @@
       "font-size-700",
       "font-size-800"
     ],
+    "componentSettings": [
+      {
+        "id": "type-foundations",
+        "label": "Type Foundations",
+        "description": "Shared typography controls for families, weights, rhythm, and spacing.",
+        "settings": [
+          {
+            "token": "font-family-base",
+            "label": "Body Font Family",
+            "description": "Controls the base typeface used by body, paragraph, lead, small text, and non-heading variants that inherit the base family.",
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-typography__variant--body",
+                "c-typography__variant--p",
+                "c-typography__variant--lead",
+                "c-typography__variant--caption",
+                "c-typography__variant--byline",
+                "c-typography__variant--meta",
+                "c-typography__variant--headline",
+                "c-typography__variant--subtitle",
+                "c-typography__variant--bold",
+                "c-typography__variant--marketing",
+                "c-typography__variant--email"
+              ]
+            }
+          },
+          {
+            "token": "font-family-heading",
+            "label": "Heading Font Family",
+            "description": "Controls the typeface used by variants that explicitly switch to the heading family.",
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-typography__variant--h1",
+                "c-typography__variant--h2",
+                "c-typography__variant--h3",
+                "c-typography__variant--h4",
+                "c-typography__variant--h5",
+                "c-typography__variant--h6",
+                "c-typography__variant--title"
+              ]
+            }
+          },
+          {
+            "token": "font-weight-normal",
+            "label": "Body Font Weight",
+            "description": "Controls the default font weight for variants that keep the base weight.",
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-typography__variant--body",
+                "c-typography__variant--p",
+                "c-typography__variant--caption",
+                "c-typography__variant--byline",
+                "c-typography__variant--meta",
+                "c-typography__variant--headline",
+                "c-typography__variant--subtitle",
+                "c-typography__variant--email"
+              ]
+            }
+          },
+          {
+            "token": "font-weight-medium",
+            "label": "Medium Font Weight",
+            "description": "Controls the shared medium emphasis used by title and lead variants.",
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-typography__variant--title",
+                "c-typography__variant--lead"
+              ]
+            }
+          },
+          {
+            "token": "font-weight-bold",
+            "label": "Bold Font Weight",
+            "description": "Controls the heavier emphasis used by bold and marketing variants.",
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-typography__variant--bold",
+                "c-typography__variant--marketing"
+              ]
+            }
+          },
+          {
+            "token": "font-weight-heading",
+            "label": "Heading Font Weight",
+            "description": "Controls the default weight used by heading level variants h1 through h6.",
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-typography__variant--h1",
+                "c-typography__variant--h2",
+                "c-typography__variant--h3",
+                "c-typography__variant--h4",
+                "c-typography__variant--h5",
+                "c-typography__variant--h6"
+              ]
+            }
+          },
+          {
+            "token": "line-height-base",
+            "label": "Body Line Height",
+            "description": "Controls the reading line height for variants that keep the base line height.",
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-typography__variant--body",
+                "c-typography__variant--p",
+                "c-typography__variant--caption",
+                "c-typography__variant--byline",
+                "c-typography__variant--meta",
+                "c-typography__variant--headline",
+                "c-typography__variant--subtitle",
+                "c-typography__variant--bold",
+                "c-typography__variant--email"
+              ]
+            }
+          },
+          {
+            "token": "line-height-heading",
+            "label": "Heading Line Height",
+            "description": "Controls the shared line height for heading-style variants.",
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-typography__variant--h1",
+                "c-typography__variant--h2",
+                "c-typography__variant--h3",
+                "c-typography__variant--h4",
+                "c-typography__variant--h5",
+                "c-typography__variant--h6",
+                "c-typography__variant--title"
+              ]
+            }
+          },
+          {
+            "token": "letter-spacing-base",
+            "label": "Letter Spacing",
+            "description": "Controls the default tracking for variants that inherit the base letter spacing."
+          },
+          {
+            "token": "space",
+            "label": "Heading Spacing",
+            "description": "Controls the vertical spacing inserted between adjacent heading-style variants.",
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-typography__variant--h1",
+                "c-typography__variant--h2",
+                "c-typography__variant--h3",
+                "c-typography__variant--h4",
+                "c-typography__variant--h5",
+                "c-typography__variant--h6",
+                "c-typography__variant--subtitle"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "type-scale",
+        "label": "Type Scale",
+        "description": "Shared token-based font sizes used by typography variants.",
+        "settings": [
+          {
+            "token": "font-size-90",
+            "label": "Small Text Size",
+            "description": "Controls caption, byline, and meta text sizes.",
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-typography__variant--caption",
+                "c-typography__variant--byline",
+                "c-typography__variant--meta"
+              ]
+            }
+          },
+          {
+            "token": "font-size-200",
+            "label": "Lead and Small Heading Size",
+            "description": "Controls the shared size used by lead text and the smaller heading level h6.",
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-typography__variant--lead",
+                "c-typography__variant--h6"
+              ]
+            }
+          },
+          {
+            "token": "font-size-300",
+            "label": "H5 Size",
+            "description": "Controls the default size used by h5 headings.",
+            "visibleWhen": {
+              "hasClass": [
+                "c-typography__variant--h5"
+              ]
+            }
+          },
+          {
+            "token": "font-size-400",
+            "label": "Subtitle and H4 Size",
+            "description": "Controls the shared size used by subtitle and h4 variants.",
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-typography__variant--subtitle",
+                "c-typography__variant--h4"
+              ]
+            }
+          },
+          {
+            "token": "font-size-500",
+            "label": "Title and H3 Size",
+            "description": "Controls the shared size used by title and h3 variants.",
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-typography__variant--title",
+                "c-typography__variant--h3"
+              ]
+            }
+          },
+          {
+            "token": "font-size-600",
+            "label": "Headline and H2 Size",
+            "description": "Controls the shared size used by headline and h2 variants.",
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-typography__variant--headline",
+                "c-typography__variant--h2"
+              ]
+            }
+          },
+          {
+            "token": "font-size-700",
+            "label": "H1 Size",
+            "description": "Controls the default size used by h1 headings.",
+            "visibleWhen": {
+              "hasClass": [
+                "c-typography__variant--h1"
+              ]
+            }
+          },
+          {
+            "token": "font-size-800",
+            "label": "Marketing Size",
+            "description": "Controls the default size used by the marketing variant.",
+            "visibleWhen": {
+              "hasClass": [
+                "c-typography__variant--marketing"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "modifier-overrides",
+        "label": "Modifier Overrides",
+        "description": "Local multiplier controls that let specific typography modifiers scale independently in a single placement.",
+        "settings": [
+          {
+            "variable": "--body-font-size-multiplier",
+            "label": "Body Size Multiplier",
+            "description": "Scales regular body and paragraph text locally without changing the shared type scale.",
+            "type": "range",
+            "default": "1",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.05,
+            "unit": "",
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-typography__variant--body",
+                "c-typography__variant--p"
+              ]
+            }
+          },
+          {
+            "variable": "--bold-font-size-multiplier",
+            "label": "Bold Size Multiplier",
+            "description": "Scales the bold variant locally without changing other text styles.",
+            "type": "range",
+            "default": "1",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.05,
+            "unit": "",
+            "visibleWhen": {
+              "hasClass": [
+                "c-typography__variant--bold"
+              ]
+            }
+          },
+          {
+            "variable": "--lead-font-size-multiplier",
+            "label": "Lead Size Multiplier",
+            "description": "Scales lead text locally without changing the shared lead token.",
+            "type": "range",
+            "default": "1",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.05,
+            "unit": "",
+            "visibleWhen": {
+              "hasClass": [
+                "c-typography__variant--lead"
+              ]
+            }
+          },
+          {
+            "variable": "--caption-font-size-multiplier",
+            "label": "Caption Size Multiplier",
+            "description": "Scales caption and byline text locally without changing the shared small-text token.",
+            "type": "range",
+            "default": "1",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.05,
+            "unit": "",
+            "visibleWhen": {
+              "hasAnyClass": [
+                "c-typography__variant--caption",
+                "c-typography__variant--byline"
+              ]
+            }
+          },
+          {
+            "variable": "--meta-font-size-multiplier",
+            "label": "Meta Size Multiplier",
+            "description": "Scales meta text locally without changing the shared small-text token.",
+            "type": "range",
+            "default": "1",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.05,
+            "unit": "",
+            "visibleWhen": {
+              "hasClass": [
+                "c-typography__variant--meta"
+              ]
+            }
+          },
+          {
+            "variable": "--h1-font-size-multiplier",
+            "label": "H1 Size Multiplier",
+            "description": "Scales h1 locally for one placement without changing the global h1 scale.",
+            "type": "range",
+            "default": "1",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.05,
+            "unit": "",
+            "visibleWhen": {
+              "hasClass": [
+                "c-typography__variant--h1"
+              ]
+            }
+          },
+          {
+            "variable": "--h2-font-size-multiplier",
+            "label": "H2 Size Multiplier",
+            "description": "Scales h2 locally for one placement without changing the global h2 scale.",
+            "type": "range",
+            "default": "1",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.05,
+            "unit": "",
+            "visibleWhen": {
+              "hasClass": [
+                "c-typography__variant--h2"
+              ]
+            }
+          },
+          {
+            "variable": "--h3-font-size-multiplier",
+            "label": "H3 Size Multiplier",
+            "description": "Scales h3 locally for one placement without changing the global h3 scale.",
+            "type": "range",
+            "default": "1",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.05,
+            "unit": "",
+            "visibleWhen": {
+              "hasClass": [
+                "c-typography__variant--h3"
+              ]
+            }
+          },
+          {
+            "variable": "--h4-font-size-multiplier",
+            "label": "H4 Size Multiplier",
+            "description": "Scales h4 locally for one placement without changing the global h4 scale.",
+            "type": "range",
+            "default": "1",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.05,
+            "unit": "",
+            "visibleWhen": {
+              "hasClass": [
+                "c-typography__variant--h4"
+              ]
+            }
+          },
+          {
+            "variable": "--h5-font-size-multiplier",
+            "label": "H5 Size Multiplier",
+            "description": "Scales h5 locally for one placement without changing the global h5 scale.",
+            "type": "range",
+            "default": "1",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.05,
+            "unit": "",
+            "visibleWhen": {
+              "hasClass": [
+                "c-typography__variant--h5"
+              ]
+            }
+          },
+          {
+            "variable": "--h6-font-size-multiplier",
+            "label": "H6 Size Multiplier",
+            "description": "Scales h6 locally for one placement without changing the global h6 scale.",
+            "type": "range",
+            "default": "1",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.05,
+            "unit": "",
+            "visibleWhen": {
+              "hasClass": [
+                "c-typography__variant--h6"
+              ]
+            }
+          },
+          {
+            "variable": "--headline-font-size-multiplier",
+            "label": "Headline Size Multiplier",
+            "description": "Scales the headline variant locally without changing the shared display scale.",
+            "type": "range",
+            "default": "1",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.05,
+            "unit": "",
+            "visibleWhen": {
+              "hasClass": [
+                "c-typography__variant--headline"
+              ]
+            }
+          },
+          {
+            "variable": "--title-font-size-multiplier",
+            "label": "Title Size Multiplier",
+            "description": "Scales the title variant locally without changing the shared display scale.",
+            "type": "range",
+            "default": "1",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.05,
+            "unit": "",
+            "visibleWhen": {
+              "hasClass": [
+                "c-typography__variant--title"
+              ]
+            }
+          },
+          {
+            "variable": "--subtitle-font-size-multiplier",
+            "label": "Subtitle Size Multiplier",
+            "description": "Scales the subtitle variant locally without changing the shared display scale.",
+            "type": "range",
+            "default": "1",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.05,
+            "unit": "",
+            "visibleWhen": {
+              "hasClass": [
+                "c-typography__variant--subtitle"
+              ]
+            }
+          },
+          {
+            "variable": "--marketing-font-size-multiplier",
+            "label": "Marketing Size Multiplier",
+            "description": "Scales the marketing variant locally without changing the shared display scale.",
+            "type": "range",
+            "default": "1",
+            "min": 0.5,
+            "max": 3,
+            "step": 0.05,
+            "unit": "",
+            "visibleWhen": {
+              "hasClass": [
+                "c-typography__variant--marketing"
+              ]
+            }
+          }
+        ]
+      }
+    ],
     "description": "The Typography component provides a reusable pattern for typography in the interface.",
     "tags": [
       "typography",
