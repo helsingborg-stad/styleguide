@@ -14,5 +14,9 @@
 	"spaced": {
 		"heading": "A accordion with spaced items",
 		"text": "This accordion style adds spacing between the items.."
+	},
+	"content": {
+		"heading": "Content",
+		"text": "A accordion with a large body of text to show how the accordion handles larger content."
 	}
 }
