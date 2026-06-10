@@ -54,5 +54,9 @@
     "stretch": {
         "heading": "Stretched Segment",
         "text": "Demonstrates the stretch parameter which bleeds the segment to full viewport width, breaking out of its surrounding container."
+    },
+    "tall-content": {
+        "heading": "Split Section With Tall Content",
+        "text": "Demonstrates a split segment where the content column becomes taller than the image, causing the image to stretch to full height."
     }
 }

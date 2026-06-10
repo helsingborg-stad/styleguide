@@ -6,7 +6,7 @@ $_breakpoint-md: 896px;
 .#{$c}.#{$c}--split {
     container-name: segment segment-split;
     flex-direction: row;
-    align-items: center;
+    align-items: stretch;
 
     .#{$c}__padder {
         max-width: tokens.getCalculatedValue($c, "base", 60);
