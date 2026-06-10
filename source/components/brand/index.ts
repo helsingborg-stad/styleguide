@@ -21,7 +21,7 @@ class BrandViewBoxManager {
 		const totalWidth = !figureWidth ? Math.ceil(textWidth) : Math.ceil(figureWidth + textWidth + gap);
 
 		// Update the viewBox of the SVG
-		this.svg.setAttribute('viewBox', `0 0 ${totalWidth} 100`);
+		this.svg.setAttribute('viewBox', `0 0 ${totalWidth} 96`);
 	}
 }
 
