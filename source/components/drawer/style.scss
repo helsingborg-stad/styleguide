@@ -9,6 +9,13 @@ $_: "c-drawer";
 .c-drawer {
     --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 5)};
     --#{$_}--drawer-transition-ms: 300ms;
+    --#{$_}--padding-multiplier: 2;
+    --#{$_}--padding-x: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--padding-multiplier));
+    --#{$_}--padding-y: calc(#{tokens.getCalculatedValue($_, "space", 1)} + calc(var(--#{$_}--padding-multiplier) * #{tokens.getCalculatedValue($_, "space", 0.5)}));
+    --#{$_}--padding-x-compressed: calc(#{tokens.getCalculatedValue($_, "space", 1.5)} * var(--#{$_}--padding-multiplier));
+    --#{$_}--padding-y-compressed: calc(#{tokens.getCalculatedValue($_, "space", 0.5)} + calc(var(--#{$_}--padding-multiplier) * #{tokens.getCalculatedValue($_, "space", 0.5)}));
+    --#{$_}--button-padding-y: calc(#{tokens.getCalculatedValue($_, "space", 2)} + calc(var(--#{$_}--padding-multiplier) * #{tokens.getCalculatedValue($_, "space", 0.5)}));
+    --#{$_}--button-padding-y-compressed: calc(#{tokens.getCalculatedValue($_, "space", 1.5)} + calc(var(--#{$_}--padding-multiplier) * #{tokens.getCalculatedValue($_, "space", 0.5)}));
     --drawer-background: #{tokens.getRawValue($_, "color--surface")};
     --drawer-color: #{tokens.getRawValue($_, "color--surface-contrast")};
     --drawer-border-color: #{tokens.getRawValue($_, "color--surface-border")};
@@ -156,7 +163,7 @@ $_: "c-drawer";
 }
 
 .c-drawer__header {
-    padding: tokens.getCalculatedValue($_, "space", 1) tokens.getCalculatedValue($_, "space", 2);
+    padding: var(--#{$_}--padding-y) var(--#{$_}--padding-x);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -165,16 +172,27 @@ $_: "c-drawer";
 .c-drawer__footer {
     border-top: 1px solid rgba(255, 255, 255, .3);
     align-self: flex-end;
-    padding: tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 12) tokens.getCalculatedValue($_, "space", 4);
+    padding: calc(#{tokens.getCalculatedValue($_, "space", 4)} * var(--#{$_}--padding-multiplier)) calc(#{tokens.getCalculatedValue($_, "space", 4)} * var(--#{$_}--padding-multiplier)) calc(#{tokens.getCalculatedValue($_, "space", 12)} * var(--#{$_}--padding-multiplier)) calc(#{tokens.getCalculatedValue($_, "space", 4)} * var(--#{$_}--padding-multiplier));
 }
 
 .c-drawer {
 
-    [data-component="nav"].c-nav--drawer.c-nav--vertical {
-        --inherit-padding: #{tokens.getCalculatedValue($_, "space", 1)} #{tokens.getCalculatedValue($_, "space", 2)};
-        --inherit-button-padding: #{tokens.getCalculatedValue($_, "space", 1.5)} #{tokens.getCalculatedValue($_, "space", 2)};
-        --inherit-padding-compressed: #{tokens.getCalculatedValue($_, "space", 0.75)} #{tokens.getCalculatedValue($_, "space", 1.5)};
-        --inherit-button-padding-compressed: #{tokens.getCalculatedValue($_, "space", 1.25)} #{tokens.getCalculatedValue($_, "space", 1.5)};
+    [data-component="nav"].c-nav--vertical {
+        --inherit-padding: var(--#{$_}--padding-y) var(--#{$_}--padding-x);
+        --inherit-button-padding: var(--#{$_}--button-padding-y) var(--#{$_}--padding-x);
+        --inherit-padding-compressed: var(--#{$_}--padding-y-compressed) var(--#{$_}--padding-x-compressed);
+        --inherit-button-padding-compressed: var(--#{$_}--button-padding-y-compressed) var(--#{$_}--padding-x-compressed);
+
+        .c-nav__item.has-toggle>.c-nav__item-wrapper>.c-nav__toggle {
+            margin-right: var(--#{$_}--padding-x);
+        }
+
+        &.c-nav--compressed {
+
+            .c-nav__item.has-toggle>.c-nav__item-wrapper>.c-nav__toggle {
+                margin-right: var(--#{$_}--padding-x-compressed);
+            }
+        }
     }
 }
 
