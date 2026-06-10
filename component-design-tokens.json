@@ -1980,6 +1980,8 @@
       "color--surface",
       "corner-shape",
       "color--surface-contrast",
+      "color--surface-border",
+      "border-width",
       "shadow-color",
       "shadow-amount"
     ],
