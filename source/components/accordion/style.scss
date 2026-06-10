@@ -1,8 +1,9 @@
 @use "sass:meta";
 @use "../../sass/mixin/button";
 @use "../../sass/mixin/tokens";
+@use "../../sass/mixin/inset-multiplier" as insetMultiplier;
 
-// @include insetMultiplier.property();
+@include insetMultiplier.property();
 
 @function getCompressedTitleFontSize($step) {
     @return calc(var(--font-size-base, var(--base-font-size, 1rem)) * pow(var(--font-size-scale-ratio), #{$step}));
@@ -29,10 +30,14 @@ $_: "c-accordion";
 @include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
 .#{$_} {
+    @include insetMultiplier.consume($_);
     --#{$_}--heading-columns: repeat(var(--#{$_}--heading-count, auto-fill), 1fr);
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface")};
     --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}--padding-x: var(--#{$_}--inset-padding-x, #{calc(tokens.getRawValue($_, "base") *  2)});
+    --#{$_}--padding-y: var(--#{$_}--inset-padding-y, #{calc(tokens.getRawValue($_, "base") *  2)});
+
     container-name: accordion;
     container-type: inline-size;
     contain: paint;
@@ -46,8 +51,8 @@ $_: "c-accordion";
         display: grid;
         gap: calc(tokens.getRawValue($_, "base") *  2);
         grid-template-columns: var(--#{$_}--heading-columns);
-        padding: calc(tokens.getRawValue($_, "base") *  1) calc(tokens.getRawValue($_, "base") *  2);
-        padding-right: calc(tokens.getRawValue($_, "base") *  6);
+        padding: calc(var(--#{$_}--padding-y) * 0.5) var(--#{$_}--padding-x);
+        padding-right: calc(var(--#{$_}--padding-x) * 2);
         background-color: tokens.getRawValue($_, "color--surface-alt");
     }
     .#{$_}__heading-item {

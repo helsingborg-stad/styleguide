@@ -4,19 +4,18 @@
 $_: "c-accordion__item";
 $token: "c-accordion";
 
-
 details.#{$_} {
     --#{$_}--heading-columns: repeat(var(--#{$_}--heading-count, auto-fill), 1fr);
     position: relative;
     display: grid;
-    padding: calc(tokens.getRawValue($token, "base") *  2);
+    padding: var(--#{$token}--padding-y) var(--#{$token}--padding-x);
     contain: paint;
 
     summary {
         position: relative;
-        padding: calc(tokens.getRawValue($token, "base") *  2);
+        padding: var(--#{$token}--padding-y) var(--#{$token}--padding-x);
         padding-right: calc(tokens.getRawValue($token, "base") *  6);
-        margin: calc(tokens.getRawValue($token, "base") *  -2);
+        margin: calc(var(--#{$token}--padding-y) *  -1) calc(var(--#{$token}--padding-x) *  -1);
         list-style: none;
         cursor: pointer;
         display: grid;
@@ -26,8 +25,8 @@ details.#{$_} {
 
     .#{$_}__icon {
         position: absolute;
-        right: calc(tokens.getRawValue($token, "base") *  2);
-        top: calc(tokens.getRawValue($token, "base") *  2);
+        right: calc(var(--#{$token}--padding-x));
+        top: calc(var(--#{$token}--padding-y));
         transition: transform 0.2s ease;
     }
 
