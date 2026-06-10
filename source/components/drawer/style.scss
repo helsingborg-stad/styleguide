@@ -20,24 +20,18 @@ $_: "c-drawer";
     --c-field--color--surface-contrast: var(--color--background-contrast);
 
     [data-component="nav"] {
-        --inherit-background-color: var(--drawer-background);
-        --inherit-color: var(--color--surface-contrast);
-        --c-nav--item-background-color: var(--drawer-background);
-        --c-nav--item-background-color-hover: var(--drawer-button-hover);
-        --c-nav--item-color: var(--drawer-color);
-        --c-nav--item-color-hover: var(--drawer-color);
-        --c-nav--item-border-color: var(--drawer-border-color);
-        --c-nav--background-expanded: color-mix(in srgb, var(--drawer-color) 8%, var(--drawer-background));
+        --inherit-color-background: var(--drawer-background);
+        --inherit-color-contrast: var(--drawer-color);
+        --inherit-color-background-hover: var(--drawer-button-hover);
+        --inherit-color-background-active: color-mix(in srgb, var(--drawer-color) 8%, var(--drawer-background));
+        --inherit-color-border: var(--drawer-border-color);
     }
 
     .c-drawer__header,
     [data-component="nav"] {
-
-        .c-button.c-button__basic {
-            --c-button-contrast: var(--drawer-color);
-            --inherit-hover: var(--drawer-button-hover);
-            --inherit-active: var(--drawer-button-active);
-        }
+        --inherit-color-contrast: var(--drawer-color);
+        --inherit-hover: var(--drawer-button-hover);
+        --inherit-active: var(--drawer-button-active);
     }
 }
 
@@ -115,22 +109,13 @@ $_: "c-drawer";
     background-color: var(--drawer-duotone-background);
 
     [data-component="nav"].site-nav-mobile__secondary {
-        --c-nav--item-background-color: var(--drawer-duotone-background);
-        --c-nav--item-background-color-hover: color-mix(in srgb, var(--drawer-duotone-color) 18%, transparent);
-        --c-nav--item-color: var(--drawer-duotone-color);
-        --c-nav--item-color-hover: var(--drawer-duotone-color);
-        --c-nav--item-border-color: color-mix(in srgb, var(--drawer-duotone-color) 20%, transparent);
-        --c-nav--background-expanded: color-mix(in srgb, var(--drawer-duotone-color) 8%, var(--drawer-duotone-background));
-
-        .c-link {
-            --c-link--color--background-contrast: var(--drawer-duotone-color);
-        }
-
-        .c-button.c-button__basic {
-            --c-button-contrast: var(--drawer-duotone-color);
-            --inherit-hover: color-mix(in srgb, var(--drawer-duotone-color) 18%, transparent);
-            --inherit-active: color-mix(in srgb, var(--drawer-duotone-color) 24%, transparent);
-        }
+        --inherit-color-background: var(--drawer-duotone-background);
+        --inherit-color-contrast: var(--drawer-duotone-color);
+        --inherit-color-background-hover: color-mix(in srgb, var(--drawer-duotone-color) 18%, transparent);
+        --inherit-color-background-active: color-mix(in srgb, var(--drawer-duotone-color) 24%, transparent);
+        --inherit-color-border: color-mix(in srgb, var(--drawer-duotone-color) 20%, transparent);
+        --inherit-hover: color-mix(in srgb, var(--drawer-duotone-color) 18%, transparent);
+        --inherit-active: color-mix(in srgb, var(--drawer-duotone-color) 24%, transparent);
     }
 
     .c-drawer__header {

@@ -6,9 +6,34 @@
     inherits: false;
 }
 
+@property --inherit-color-background {
+    syntax: "*";
+    inherits: true;
+}
+
 @property --inherit-color {
     syntax: "*";
     inherits: false;
+}
+
+@property --inherit-color-contrast {
+    syntax: "*";
+    inherits: true;
+}
+
+@property --inherit-color-background-hover {
+    syntax: "*";
+    inherits: true;
+}
+
+@property --inherit-color-background-active {
+    syntax: "*";
+    inherits: true;
+}
+
+@property --inherit-color-border {
+    syntax: "*";
+    inherits: true;
 }
 
 @property --inherit-padding {
@@ -35,17 +60,19 @@
 $_: "c-nav";
 
 /* Design tokens */
-@include tokens.create($_, getComponentTokens($_));
+@include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
 .c-nav {
+    --#{$_}--background-expanded-default: rgba(0, 0, 0, .05);
+    --#{$_}--item-background-color-hover-default: transparent;
     --#{$_}--font-size: var(--base-font-size);
-    --#{$_}--background-expanded: rgba(0, 0, 0, .05);
+    --#{$_}--background-expanded: #{tokens.getDerivedAliasValue($_, "background-expanded", "color-background-active")};
     --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 1)};
-    --#{$_}--item-background-color: var(--inherit-background-color, #{tokens.getRawValue($_, "color--surface")});
-    --#{$_}--item-color: var(--inherit-color, #{tokens.getRawValue($_, "color--surface-contrast")});
-    --#{$_}--item-background-color-hover: transparent;
-    --#{$_}--item-color-hover: var(--inherit-color, #{tokens.getRawValue($_, "color--surface-contrast")});
-    --#{$_}--item-border-color: #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--item-background-color: #{tokens.getRawValue($_, "color--surface", "color-background")};
+    --#{$_}--item-color: #{tokens.getRawValue($_, "color--surface-contrast", "color-contrast")};
+    --#{$_}--item-background-color-hover: #{tokens.getDerivedAliasValue($_, "item-background-color-hover", "color-background-hover")};
+    --#{$_}--item-color-hover: #{tokens.getRawValue($_, "color--surface-contrast", "color-contrast")};
+    --#{$_}--item-border-color: #{tokens.getRawValue($_, "color--surface-border", "color-border")};
     --#{$_}--vertical-link-padding: var(--inherit-padding, calc(#{tokens.getRawValue($_, "base")} * 1) calc(#{tokens.getRawValue($_, "base")} * 2));
     --#{$_}--vertical-link-padding-compressed: var(--inherit-padding-compressed, calc(#{tokens.getRawValue($_, "base")} * 0.75) 0);
     --#{$_}--vertical-button-padding: var(--inherit-button-padding, calc(#{tokens.getRawValue($_, "base")} * 1.5) calc(#{tokens.getRawValue($_, "base")} * 2));

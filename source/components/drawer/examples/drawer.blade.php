@@ -53,7 +53,7 @@
 
     @slot('menu')
         @nav([
-            'items' => \MunicipioStyleGuide\Navigation::getMockedTopLevel(),
+            'items' => \MunicipioStyleGuide\Navigation::getMockedMultilevel(),
             'classList' => [
                 'u-position--relative', 
                 'c-nav--drawer',           
@@ -61,6 +61,7 @@
                 'site-nav-mobile__primary'],
             'childItemsUrl' => '/', 
             'direction' => 'vertical',
+            'includeToggle' => true,
         ])
         @endnav 
         @nav([
