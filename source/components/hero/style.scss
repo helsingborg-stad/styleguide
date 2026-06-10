@@ -199,7 +199,10 @@ $_: "c-hero";
         }
     }
 
-    &.#{$_}--overlay .#{$_}__content {
+    &.#{$_}--overlay .#{$_}__content .#{$_}__title,
+    &.#{$_}--overlay .#{$_}__content .#{$_}__byline,
+    &.#{$_}--overlay .#{$_}__content .#{$_}__meta,
+    &.#{$_}--overlay .#{$_}__content .#{$_}__body {
         text-shadow: 0 0 0.8rem rgba(0, 0, 0, 0.4);
     }
 
