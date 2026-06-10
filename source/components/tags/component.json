@@ -3,7 +3,7 @@
 	"apiVersion": 1,
 	"name": "Tags",
 	"slug": "tags",
-	"tokens": ["base", "color--surface", "corner-shape", "color--surface-contrast", "shadow-color", "shadow-amount"],
+	"tokens": ["base", "color--surface", "corner-shape", "color--surface-contrast", "color--surface-border", "border-width", "shadow-color", "shadow-amount"],
 	"description": "The Tags component provides a reusable pattern for tags in the interface.",
 	"tags": ["tags", "component"],
 	"similarComponents": ["tabs", "toast", "datebadge"],
