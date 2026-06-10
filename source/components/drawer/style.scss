@@ -9,56 +9,69 @@ $_: "c-drawer";
 .c-drawer {
     --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 5)};
     --#{$_}--drawer-transition-ms: 300ms;
+    --drawer-background: #{tokens.getRawValue($_, "color--surface")};
+    --drawer-color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --drawer-border-color: #{tokens.getRawValue($_, "color--surface-border")};
+    --drawer-button-hover: color-mix(in srgb, var(--drawer-color) 18%, transparent);
+    --drawer-button-active: color-mix(in srgb, var(--drawer-color) 24%, transparent);
 
     /* switch to surface color tokens for nested components */
     --c-field--background-color: var(--color--background);
     --c-field--color--surface-contrast: var(--color--background-contrast);
 
-    &,
-    .site-nav-mobile__primary>.c-nav__item,
-    .c-drawer__header {
-        --drawer-background: #{tokens.getRawValue($_, "color--surface")};
-    }
-
-    .c-nav {
+    [data-component="nav"] {
+        --inherit-background-color: var(--drawer-background);
         --inherit-color: var(--color--surface-contrast);
+        --c-nav--item-background-color: var(--drawer-background);
+        --c-nav--item-background-color-hover: var(--drawer-button-hover);
+        --c-nav--item-color: var(--drawer-color);
+        --c-nav--item-color-hover: var(--drawer-color);
+        --c-nav--item-border-color: var(--drawer-border-color);
+        --c-nav--background-expanded: color-mix(in srgb, var(--drawer-color) 8%, var(--drawer-background));
+    }
+
+    .c-drawer__header,
+    [data-component="nav"] {
+
+        .c-button.c-button__basic {
+            --c-button-contrast: var(--drawer-color);
+            --inherit-hover: var(--drawer-button-hover);
+            --inherit-active: var(--drawer-button-active);
+        }
     }
 }
 
-.c-drawer.c-drawer--primary,
-.c-drawer.c-drawer--primary .site-nav-mobile__primary>.c-nav__item,
-.c-drawer.c-drawer--primary .c-drawer__header {
+.c-drawer.c-drawer--primary {
     --drawer-background: #{tokens.getRawValue($_, "color--primary")};
+    --drawer-color: #{tokens.getRawValue($_, "color--primary-contrast")};
+    --drawer-border-color: color-mix(in srgb, var(--drawer-color) 20%, transparent);
 }
 
-.c-drawer.c-drawer--secondary,
-.c-drawer.c-drawer--secondary .site-nav-mobile__primary>.c-nav__item,
-.c-drawer.c-drawer--secondary .c-drawer__header {
+.c-drawer.c-drawer--secondary {
     --drawer-background: #{tokens.getRawValue($_, "color--secondary")};
+    --drawer-color: #{tokens.getRawValue($_, "color--secondary-contrast")};
+    --drawer-border-color: color-mix(in srgb, var(--drawer-color) 20%, transparent);
 }
 
 // Duotone drawer colors needing to target the main list items for better flexibility
 
 .c-drawer.c-drawer--duotone {
-
-    &,
-    .site-nav-mobile__primary>.c-nav__item,
-    .c-drawer__header {
-        --drawer-background: #{tokens.getRawValue($_, "color--surface")};
-        --drawer-duotone-background: #{tokens.getRawValue($_, "color--surface")};
-    }
+    --drawer-background: #{tokens.getRawValue($_, "color--surface")};
+    --drawer-color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --drawer-border-color: #{tokens.getRawValue($_, "color--surface-border")};
+    --drawer-duotone-background: #{tokens.getRawValue($_, "color--surface")};
 }
 
-.c-drawer.c-drawer--duotone.c-drawer--primary,
-.c-drawer.c-drawer--duotone.c-drawer--primary .site-nav-mobile__primary>.c-nav__item,
-.c-drawer.c-drawer--duotone.c-drawer--primary .c-drawer__header {
+.c-drawer.c-drawer--duotone.c-drawer--primary {
     --drawer-background: #{tokens.getRawValue($_, "color--primary")};
+    --drawer-color: #{tokens.getRawValue($_, "color--primary-contrast")};
+    --drawer-border-color: color-mix(in srgb, var(--drawer-color) 20%, transparent);
 }
 
-.c-drawer.c-drawer--duotone.c-drawer--secondary,
-.c-drawer.c-drawer--duotone.c-drawer--secondary .site-nav-mobile__primary>.c-nav__item,
-.c-drawer.c-drawer--duotone.c-drawer--secondary .c-drawer__header {
+.c-drawer.c-drawer--duotone.c-drawer--secondary {
     --drawer-background: #{tokens.getRawValue($_, "color--secondary")};
+    --drawer-color: #{tokens.getRawValue($_, "color--secondary-contrast")};
+    --drawer-border-color: color-mix(in srgb, var(--drawer-color) 20%, transparent);
 }
 
 .c-drawer.c-drawer--duotone.c-drawer--duotone-primary,
@@ -101,14 +114,22 @@ $_: "c-drawer";
 .c-drawer.c-drawer--duotone {
     background-color: var(--drawer-duotone-background);
 
-    .c-nav.site-nav-mobile__secondary {
+    [data-component="nav"].site-nav-mobile__secondary {
         --c-nav--item-background-color: var(--drawer-duotone-background);
-        --c-nav--item-background-color-hover: var(--drawer-duotone-color);
+        --c-nav--item-background-color-hover: color-mix(in srgb, var(--drawer-duotone-color) 18%, transparent);
         --c-nav--item-color: var(--drawer-duotone-color);
-        --c-nav--item-color-hover: var(--drawer-duotone-background);
+        --c-nav--item-color-hover: var(--drawer-duotone-color);
+        --c-nav--item-border-color: color-mix(in srgb, var(--drawer-duotone-color) 20%, transparent);
+        --c-nav--background-expanded: color-mix(in srgb, var(--drawer-duotone-color) 8%, var(--drawer-duotone-background));
 
         .c-link {
             --c-link--color--background-contrast: var(--drawer-duotone-color);
+        }
+
+        .c-button.c-button__basic {
+            --c-button-contrast: var(--drawer-duotone-color);
+            --inherit-hover: color-mix(in srgb, var(--drawer-duotone-color) 18%, transparent);
+            --inherit-active: color-mix(in srgb, var(--drawer-duotone-color) 24%, transparent);
         }
     }
 
@@ -164,7 +185,7 @@ $_: "c-drawer";
 
 .c-drawer {
 
-    .c-nav.c-nav--drawer.c-nav--vertical {
+    [data-component="nav"].c-nav--drawer.c-nav--vertical {
         --inherit-padding: #{tokens.getCalculatedValue($_, "space", 1)} #{tokens.getCalculatedValue($_, "space", 2)};
         --inherit-button-padding: #{tokens.getCalculatedValue($_, "space", 1.5)} #{tokens.getCalculatedValue($_, "space", 2)};
         --inherit-padding-compressed: #{tokens.getCalculatedValue($_, "space", 0.75)} #{tokens.getCalculatedValue($_, "space", 1.5)};
@@ -186,13 +207,13 @@ $_: "c-drawer";
     .site-nav-mobile__primary {
 
         * {
-            color: tokens.getRawValue($_, "color--surface-contrast");
+            color: var(--drawer-color);
         }
 
         .hamburger.hamburger--drawer.is-active .hamburger-inner,
         .hamburger.hamburger--drawer.is-active .hamburger-inner:before,
         .hamburger.hamburger--drawer.is-active .hamburger-inner:after {
-            background-color: tokens.getRawValue($_, "color--surface-contrast");
+            background-color: var(--drawer-color);
         }
     }
 }
