@@ -6,6 +6,11 @@ $_: "c-listing";
 
 .#{$_} {
 
+    .#{$_}__item {
+        display: flex;
+        gap: calc(tokens.getRawValue($_, "base") *  0.5);
+    }
+
     @for $i from 1 through 10 {
         &.#{$_}--padding-#{$i} .#{$_}__sub {
             padding-left: tokens.getCalculatedValue($_, "space", $i);
