@@ -17,10 +17,9 @@ $_: "c-accordion";
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface")};
     --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
-    --#{$_}--padding-x: var(--#{$_}--inset-padding-x, #{calc(tokens.getRawValue($_, "base") *  2)});
-    --#{$_}--padding-y: var(--#{$_}--inset-padding-y, #{calc(tokens.getRawValue($_, "base") *  2)});
+    --#{$_}--padding-x: #{calc(tokens.getRawValue($_, "base") *  2)};
+    --#{$_}--padding-y: #{calc(tokens.getRawValue($_, "base") *  2)};
 
-    container-name: accordion;
     container-type: inline-size;
     contain: paint;
     border-radius: #{tokens.getCalculatedValue($_, "border-radius", 1)};
@@ -29,12 +28,15 @@ $_: "c-accordion";
     color: var(--#{$_}--color);
     background-color: var(--#{$_}--background-color);
 
+     @include insetMultiplier.responsive-resolve($_, $selector: ".#{$_}__heading");
+     @include insetMultiplier.responsive-resolve($_, $selector: ".#{$_}__item");
+
     .#{$_}__heading {
         display: grid;
         gap: calc(tokens.getRawValue($_, "base") *  2);
         grid-template-columns: var(--#{$_}--heading-columns);
-        padding: calc(var(--#{$_}--padding-y) * 0.5) var(--#{$_}--padding-x);
-        padding-right: calc(var(--#{$_}--padding-x) * 2);
+        padding: calc(var(--#{$_}--inset-padding-y, var(--#{$_}--padding-y)) * 0.5) var(--#{$_}--inset-padding-x, var(--#{$_}--padding-x));
+        padding-right: calc(var(--#{$_}--inset-padding-x, var(--#{$_}--padding-x)) * 2);
         background-color: tokens.getRawValue($_, "color--surface-alt");
     }
     .#{$_}__heading-item {

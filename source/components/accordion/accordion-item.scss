@@ -26,25 +26,30 @@ details.#{$_} {
     --#{$_}--heading-columns: repeat(var(--#{$_}--heading-count, auto-fill), 1fr);
     position: relative;
     display: grid;
-    padding: var(--#{$token}--padding-y) var(--#{$token}--padding-x);
+    padding: var(--#{$token}--inset-padding-y, var(--#{$token}--padding-y)) var(--#{$token}--inset-padding-x, var(--#{$token}--padding-x));
     contain: paint;
 
     summary {
         position: relative;
-        padding: var(--#{$token}--padding-y) var(--#{$token}--padding-x);
-        padding-right: calc(var(--#{$token}--padding-x) * 2);
-        margin: calc(var(--#{$token}--padding-y) *  -1) calc(var(--#{$token}--padding-x) *  -1);
+        padding: var(--#{$token}--inset-padding-y, var(--#{$token}--padding-y)) var(--#{$token}--inset-padding-x, var(--#{$token}--padding-x));
+        padding-right: calc(var(--#{$token}--inset-padding-x, var(--#{$token}--padding-x)) + tokens.getRawValue($token, "base") *  4);
+        margin: calc(var(--#{$token}--inset-padding-y, var(--#{$token}--padding-y)) *  -1) calc(var(--#{$token}--inset-padding-x, var(--#{$token}--padding-x)) *  -1);
         list-style: none;
         cursor: pointer;
         display: grid;
         gap: calc(tokens.getRawValue($token, "base") *  2);
         grid-template-columns: var(--#{$_}--heading-columns);
+
+        .c-accordion__item__heading-item {
+            --inherit-font-size: #{tokens.getRawValue($_, "font-size-200")};
+        }
     }
 
     .#{$_}__icon {
         position: absolute;
-        right: calc(var(--#{$token}--padding-x));
-        top: calc(var(--#{$token}--padding-y));
+        right: calc(var(--#{$token}--inset-padding-x, var(--#{$token}--padding-x)));
+        top: 50%;
+        transform: translateY(-50%);
         transition: transform 0.2s ease;
     }
 
@@ -53,7 +58,7 @@ details.#{$_} {
             --c-typography--#{$variable}: #{getCompressedTitleFontSize($step)};
         }
 
-        margin-top: calc(tokens.getRawValue($token, "base") *  4);
+        margin-top: calc(var(--#{$token}--inset-padding-y, var(--#{$token}--padding-y)) *  2);
     }
 
     &::details-content {
@@ -64,7 +69,7 @@ details.#{$_} {
     
     /* States */
     &[open] .#{$_}__icon {
-        transform: rotate(180deg);
+        transform: translateY(-50%) rotate(180deg);
     }
 
     &[open]::details-content {
