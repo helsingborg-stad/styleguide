@@ -17,6 +17,14 @@ $_: "c-listing";
         }
     }
 
+    .#{$_}__link {
+        text-decoration: none;
+
+        .#{$_}__label {
+            text-decoration: underline;
+        }
+    }
+
     .#{$_}__item,
     .#{$_}__link {
         display: flex;
