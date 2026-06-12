@@ -1311,7 +1311,8 @@
     "name": "Listing",
     "slug": "listing",
     "tokens": [
-      "space"
+      "space",
+      "base"
     ],
     "description": "The Listing component provides a reusable pattern for listing in the interface.",
     "tags": [
@@ -1980,6 +1981,8 @@
       "color--surface",
       "corner-shape",
       "color--surface-contrast",
+      "color--surface-border",
+      "border-width",
       "shadow-color",
       "shadow-amount"
     ],
