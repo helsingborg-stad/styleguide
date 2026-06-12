@@ -5,15 +5,21 @@ $_: "c-listing";
 @include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
+    @for $i from 0 to 11 {
+        &.#{$_}--padding-#{$i} {
+            .#{$_}__item {
+                padding-bottom: calc(tokens.getCalculatedValue($_, "base", $i) / 2);
+            }
 
-    .#{$_}__item {
-        display: flex;
-        gap: calc(tokens.getRawValue($_, "base") *  0.5);
+            .#{$_}__item:last-child {
+                padding-bottom: 0;
+            }
+        }
     }
 
-    @for $i from 1 through 10 {
-        &.#{$_}--padding-#{$i} .#{$_}__sub {
-            padding-left: tokens.getCalculatedValue($_, "space", $i);
-        }
+    .#{$_}__item,
+    .#{$_}__link {
+        display: flex;
+        gap: tokens.getCalculatedValue($_, "base", 0.5);
     }
 }
