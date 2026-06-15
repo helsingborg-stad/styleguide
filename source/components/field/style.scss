@@ -31,6 +31,8 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
     --#{$_}--height-lg-computed: calc(var(--#{$_}--height-lg) - #{tokens.getCalculatedValue($_, "border-width", 2)});
 
     flex: 1;
+    border-radius: tokens.getCalculatedValue($_, "border-radius");
+    corner-shape: tokens.getRawValue($_, "corner-shape");
 
     .#{$_}__label,
     .#{$_}__helper {
@@ -72,6 +74,11 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         outline: 0;
         margin: 0;
         color: var(--#{$_}--contrast-color);
+
+        &::placeholder {
+            color: color-mix(in srgb, var(--#{$_}--contrast-color) 70%, transparent);
+            opacity: 1;
+        }
     }
 
     .#{$_}__inner {
@@ -87,8 +94,8 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         border: var(--#{$_}--border);
         background: var(--#{$_}--background-color, var(--inherit-color-background, var(--#{$_}--background-color-default)));
         color: var(--#{$_}--contrast-color);
-        border-radius: tokens.getCalculatedValue($_, "border-radius");
-        corner-shape: tokens.getRawValue($_, "corner-shape");
+        border-radius: inherit;
+        corner-shape: inherit;
 
         &:focus-within {
             @include focus.focus-remove-default();
