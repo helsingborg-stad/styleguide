@@ -6,6 +6,7 @@ use HelsingborgStad\BladeService\BladeServiceInterface;
 use MunicipioStyleGuide\Asset;
 use MunicipioStyleGuide\Contracts\ControllerInterface;
 use MunicipioStyleGuide\Customize\CustomizeAssets;
+use MunicipioStyleGuide\Helper\Documentation;
 use MunicipioStyleGuide\Navigation;
 use MunicipioStyleGuide\Search\Search;
 use MunicipioStyleGuide\View;
@@ -233,6 +234,7 @@ class PageController extends BaseController implements ControllerInterface
         $data['componentIcon'] = $componentIcon;
         $data['description'] = $description;
         $data['similarComponentItems'] = $similarComponentItems;
+        $data['subcomponents'] = Documentation::getSubcomponents($slug, BASEPATH);
         $data['pageNow'] = 'components/' . $slug;
     }
 

@@ -42,6 +42,9 @@
     {{-- Component: API --}}
     @include('pages.partials.component.api')
 
+    {{-- Component: Subcomponents --}}
+    @include('pages.partials.component.subcomponents')
+
     {{-- Component: CSS Api --}}
     @include('pages.partials.component.css')
 

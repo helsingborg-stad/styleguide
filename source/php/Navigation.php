@@ -7,6 +7,7 @@ use MunicipioStyleGuide\Contracts\NavigationDataParserInterface;
 use MunicipioStyleGuide\Contracts\SidebarSectionInterface;
 use MunicipioStyleGuide\Data\JsonDataLoader;
 use MunicipioStyleGuide\Data\NavigationDataParser;
+use MunicipioStyleGuide\Helper\Documentation;
 use MunicipioStyleGuide\Http\Request;
 use MunicipioStyleGuide\Sidebar\Sections\ComponentsSection;
 use MunicipioStyleGuide\Sidebar\Sections\ConceptsSection;
@@ -143,7 +144,7 @@ class Navigation
             $items[$slug] = [
                 'label' => $this->appendStateToLabel($label, $state),
                 'href' => '//' . $this->getPageDomain() . $hrefPath,
-                'children' => false,
+                'children' => $this->buildComponentSubcomponentMenuItems($slug, $hrefPath),
                 'async' => false,
                 'active' => $this->isActiveItem($slug, true),
             ];
@@ -152,6 +153,54 @@ class Navigation
         uasort($items, fn(array $left, array $right): int => strcmp((string) $left['label'], (string) $right['label']));
 
         return $items;
+    }
+
+    /**
+     * @param string $slug
+     * @param string $hrefPath
+     *
+     * @return array<string, mixed>|false
+     */
+    private function buildComponentSubcomponentMenuItems(string $slug, string $hrefPath): array|false
+    {
+        $projectRoot = $this->resolveProjectRoot();
+        $subcomponents = Documentation::getSubcomponents($slug, $projectRoot);
+
+        if (empty($subcomponents)) {
+            return false;
+        }
+
+        $items = [];
+        foreach ($subcomponents as $subcomponent) {
+            $subcomponentSlug = (string) ($subcomponent['slug'] ?? '');
+            $anchor = (string) ($subcomponent['anchor'] ?? '');
+
+            if ($subcomponentSlug === '' || $anchor === '') {
+                continue;
+            }
+
+            $items[$subcomponentSlug] = [
+                'label' => $subcomponentSlug,
+                'href' => '//' . $this->getPageDomain() . $hrefPath . '#' . $anchor,
+                'children' => false,
+                'async' => false,
+                'active' => false,
+            ];
+        }
+
+        return empty($items) ? false : $items;
+    }
+
+    /**
+     * @return string
+     */
+    private function resolveProjectRoot(): string
+    {
+        if ($this->componentsPath !== '') {
+            return dirname(rtrim($this->componentsPath, '/'), 2);
+        }
+
+        return defined('BASEPATH') ? rtrim((string) BASEPATH, '/') : getcwd();
     }
 
     /**

@@ -2,13 +2,13 @@
 
 namespace MunicipioStyleGuide\Tests;
 
+use HelsingborgStad\BladeService\BladeServiceInterface;
 use MunicipioStyleGuide\Controllers\PageController;
 use MunicipioStyleGuide\Http\Request;
 use MunicipioStyleGuide\Http\Response;
 use MunicipioStyleGuide\Navigation;
 use MunicipioStyleGuide\Search\Search;
 use MunicipioStyleGuide\View;
-use HelsingborgStad\BladeService\BladeServiceInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -55,18 +55,14 @@ class PageControllerTest extends TestCase
         $bladeService = $this->createMock(BladeServiceInterface::class);
 
         $navigation = $this->createMock(Navigation::class);
-        $navigation->expects($this->once())
-            ->method('buildItems')
-            ->with('pages/', [], false)
-            ->willReturn([]);
-        $navigation->expects($this->once())
-            ->method('buildSidebarNavigation')
-            ->willReturn([]);
+        $navigation->expects($this->once())->method('buildItems')->with('pages/', [], false)->willReturn([]);
+        $navigation->expects($this->once())->method('buildSidebarNavigation')->willReturn([]);
 
         $search = $this->createMock(Search::class);
 
         $view = $this->createMock(View::class);
-        $view->expects($this->once())
+        $view
+            ->expects($this->once())
             ->method('show')
             ->with(
                 'components',
@@ -82,12 +78,7 @@ class PageControllerTest extends TestCase
                     $firstItem = $data['componentOverviewItems'][0];
                     $secondItem = $data['componentOverviewItems'][1];
 
-                    return ($firstItem['name'] ?? '') === 'Alpha'
-                        && ($firstItem['href'] ?? '') === '/components/alpha'
-                        && ($firstItem['icon'] ?? '') === 'account_circle'
-                        && ($secondItem['name'] ?? '') === 'Zeta'
-                        && ($secondItem['href'] ?? '') === '/components/zeta'
-                        && ($secondItem['icon'] ?? '') === 'widgets';
+                    return ($firstItem['name'] ?? '') === 'Alpha' && ($firstItem['href'] ?? '') === '/components/alpha' && ($firstItem['icon'] ?? '') === 'account_circle' && ($secondItem['name'] ?? '') === 'Zeta' && ($secondItem['href'] ?? '') === '/components/zeta' && ($secondItem['icon'] ?? '') === 'widgets';
                 }),
                 $bladeService,
             );
@@ -169,18 +160,14 @@ class PageControllerTest extends TestCase
         $bladeService = $this->createMock(BladeServiceInterface::class);
 
         $navigation = $this->createMock(Navigation::class);
-        $navigation->expects($this->once())
-            ->method('buildItems')
-            ->with('pages/', [], false)
-            ->willReturn([]);
-        $navigation->expects($this->once())
-            ->method('buildSidebarNavigation')
-            ->willReturn([]);
+        $navigation->expects($this->once())->method('buildItems')->with('pages/', [], false)->willReturn([]);
+        $navigation->expects($this->once())->method('buildSidebarNavigation')->willReturn([]);
 
         $search = $this->createMock(Search::class);
 
         $view = $this->createMock(View::class);
-        $view->expects($this->once())
+        $view
+            ->expects($this->once())
             ->method('show')
             ->with(
                 'utilities',
@@ -196,14 +183,7 @@ class PageControllerTest extends TestCase
                     $firstItem = $data['utilitiesOverviewItems'][0];
                     $secondItem = $data['utilitiesOverviewItems'][1];
 
-                    return ($firstItem['name'] ?? '') === 'Display'
-                        && ($firstItem['href'] ?? '') === '/utilities/display'
-                        && ($firstItem['description'] ?? '') === 'Sets display state.'
-                        && ($firstItem['icon'] ?? '') === 'view_compact'
-                        && ($secondItem['name'] ?? '') === 'Spacing'
-                        && ($secondItem['href'] ?? '') === '/utilities/spacing'
-                        && ($secondItem['description'] ?? '') === 'Selects padding or margin'
-                        && ($secondItem['icon'] ?? '') === 'space_bar';
+                    return ($firstItem['name'] ?? '') === 'Display' && ($firstItem['href'] ?? '') === '/utilities/display' && ($firstItem['description'] ?? '') === 'Sets display state.' && ($firstItem['icon'] ?? '') === 'view_compact' && ($secondItem['name'] ?? '') === 'Spacing' && ($secondItem['href'] ?? '') === '/utilities/spacing' && ($secondItem['description'] ?? '') === 'Selects padding or margin' && ($secondItem['icon'] ?? '') === 'space_bar';
                 }),
                 $bladeService,
             );
@@ -273,31 +253,21 @@ class PageControllerTest extends TestCase
         $bladeService = $this->createMock(BladeServiceInterface::class);
 
         $navigation = $this->createMock(Navigation::class);
-        $navigation->expects($this->once())
-            ->method('buildItems')
-            ->with('pages/', [], false)
-            ->willReturn([]);
-        $navigation->expects($this->once())
-            ->method('buildSidebarNavigation')
-            ->willReturn([]);
+        $navigation->expects($this->once())->method('buildItems')->with('pages/', [], false)->willReturn([]);
+        $navigation->expects($this->once())->method('buildSidebarNavigation')->willReturn([]);
 
         $search = $this->createMock(Search::class);
 
         $view = $this->createMock(View::class);
-        $view->expects($this->once())
+        $view
+            ->expects($this->once())
             ->method('show')
             ->with(
                 'utility',
                 $this->callback(function (array $data): bool {
                     $legacyExample = $data['utilityExamplesByEntry']['alpha'][0] ?? '';
 
-                    return ($data['slug'] ?? '') === 'utility-alpha'
-                        && ($data['headline'] ?? '') === 'Utility Alpha'
-                        && ($data['componentIcon'] ?? '') === 'space_bar'
-                        && ($data['description'] ?? '') === 'Alpha summary'
-                        && ($data['utilityEntryKeys'][0] ?? '') === 'alpha'
-                        && $legacyExample === 'source.utilities.utility-alpha.examples.alpha-demo'
-                        && ($data['pageNow'] ?? '') === 'utilities/utility-alpha';
+                    return ($data['slug'] ?? '') === 'utility-alpha' && ($data['headline'] ?? '') === 'Utility Alpha' && ($data['componentIcon'] ?? '') === 'space_bar' && ($data['description'] ?? '') === 'Alpha summary' && ($data['utilityEntryKeys'][0] ?? '') === 'alpha' && $legacyExample === 'source.utilities.utility-alpha.examples.alpha-demo' && ($data['pageNow'] ?? '') === 'utilities/utility-alpha';
                 }),
                 $bladeService,
             );
@@ -359,27 +329,19 @@ class PageControllerTest extends TestCase
         $bladeService = $this->createMock(BladeServiceInterface::class);
 
         $navigation = $this->createMock(Navigation::class);
-        $navigation->expects($this->once())
-            ->method('buildItems')
-            ->with('pages/', [], false)
-            ->willReturn([]);
-        $navigation->expects($this->once())
-            ->method('buildSidebarNavigation')
-            ->willReturn([]);
+        $navigation->expects($this->once())->method('buildItems')->with('pages/', [], false)->willReturn([]);
+        $navigation->expects($this->once())->method('buildSidebarNavigation')->willReturn([]);
 
         $search = $this->createMock(Search::class);
 
         $view = $this->createMock(View::class);
-        $view->expects($this->once())
+        $view
+            ->expects($this->once())
             ->method('show')
             ->with(
                 'utility',
                 $this->callback(function (array $data): bool {
-                    return ($data['slug'] ?? '') === 'border-radius'
-                        && ($data['headline'] ?? '') === 'Border Radius'
-                        && ($data['componentIcon'] ?? '') === 'rounded_corner'
-                        && ($data['utilityEntryKeys'][0] ?? '') === 'radius'
-                        && ($data['pageNow'] ?? '') === 'utilities/radius';
+                    return ($data['slug'] ?? '') === 'border-radius' && ($data['headline'] ?? '') === 'Border Radius' && ($data['componentIcon'] ?? '') === 'rounded_corner' && ($data['utilityEntryKeys'][0] ?? '') === 'radius' && ($data['pageNow'] ?? '') === 'utilities/radius';
                 }),
                 $bladeService,
             );
@@ -439,18 +401,14 @@ class PageControllerTest extends TestCase
         $bladeService = $this->createMock(BladeServiceInterface::class);
 
         $navigation = $this->createMock(Navigation::class);
-        $navigation->expects($this->once())
-            ->method('buildItems')
-            ->with('pages/', [], false)
-            ->willReturn([]);
-        $navigation->expects($this->once())
-            ->method('buildSidebarNavigation')
-            ->willReturn([]);
+        $navigation->expects($this->once())->method('buildItems')->with('pages/', [], false)->willReturn([]);
+        $navigation->expects($this->once())->method('buildSidebarNavigation')->willReturn([]);
 
         $search = $this->createMock(Search::class);
 
         $view = $this->createMock(View::class);
-        $view->expects($this->once())
+        $view
+            ->expects($this->once())
             ->method('show')
             ->with(
                 'utility',
@@ -527,18 +485,14 @@ class PageControllerTest extends TestCase
         $bladeService = $this->createMock(BladeServiceInterface::class);
 
         $navigation = $this->createMock(Navigation::class);
-        $navigation->expects($this->once())
-            ->method('buildItems')
-            ->with('pages/', [], false)
-            ->willReturn([]);
-        $navigation->expects($this->once())
-            ->method('buildSidebarNavigation')
-            ->willReturn([]);
+        $navigation->expects($this->once())->method('buildItems')->with('pages/', [], false)->willReturn([]);
+        $navigation->expects($this->once())->method('buildSidebarNavigation')->willReturn([]);
 
         $search = $this->createMock(Search::class);
 
         $view = $this->createMock(View::class);
-        $view->expects($this->once())
+        $view
+            ->expects($this->once())
             ->method('show')
             ->with(
                 'utility',
@@ -553,9 +507,7 @@ class PageControllerTest extends TestCase
                         return false;
                     }
 
-                    return ($example['view'] ?? '') === 'source.utilities.utility-alpha.examples.alpha-demo'
-                        && in_array('/source/utilities/utility-alpha/examples/alpha-demo.css', $cssUrls, true)
-                        && in_array('/assets/examples/alpha-override.css', $cssUrls, true);
+                    return ($example['view'] ?? '') === 'source.utilities.utility-alpha.examples.alpha-demo' && in_array('/source/utilities/utility-alpha/examples/alpha-demo.css', $cssUrls, true) && in_array('/assets/examples/alpha-override.css', $cssUrls, true);
                 }),
                 $bladeService,
             );
@@ -635,18 +587,14 @@ class PageControllerTest extends TestCase
         $bladeService = $this->createMock(BladeServiceInterface::class);
 
         $navigation = $this->createMock(Navigation::class);
-        $navigation->expects($this->once())
-            ->method('buildItems')
-            ->with('pages/', [], false)
-            ->willReturn([]);
-        $navigation->expects($this->once())
-            ->method('buildSidebarNavigation')
-            ->willReturn([]);
+        $navigation->expects($this->once())->method('buildItems')->with('pages/', [], false)->willReturn([]);
+        $navigation->expects($this->once())->method('buildSidebarNavigation')->willReturn([]);
 
         $search = $this->createMock(Search::class);
 
         $view = $this->createMock(View::class);
-        $view->expects($this->once())
+        $view
+            ->expects($this->once())
             ->method('show')
             ->with(
                 'utility',
@@ -663,13 +611,7 @@ class PageControllerTest extends TestCase
                         return false;
                     }
 
-                    return ($alphaExample['view'] ?? '') === 'source.utilities.utility-alpha.examples.alpha-demo'
-                        && ($alphaExample['title'] ?? '') === 'Accessibility'
-                        && ($alphaExample['description'] ?? '') === 'Primary utility section'
-                        && ($betaExample['view'] ?? '') === 'source.utilities.utility-alpha.examples.beta-demo'
-                        && ($betaExample['title'] ?? '') === 'Screen Readers'
-                        && ($betaExample['description'] ?? '') === 'Secondary utility section'
-                        && in_array('/source/utilities/utility-alpha/examples/beta-demo.css', $betaCssUrls, true);
+                    return ($alphaExample['view'] ?? '') === 'source.utilities.utility-alpha.examples.alpha-demo' && ($alphaExample['title'] ?? '') === 'Accessibility' && ($alphaExample['description'] ?? '') === 'Primary utility section' && ($betaExample['view'] ?? '') === 'source.utilities.utility-alpha.examples.beta-demo' && ($betaExample['title'] ?? '') === 'Screen Readers' && ($betaExample['description'] ?? '') === 'Secondary utility section' && in_array('/source/utilities/utility-alpha/examples/beta-demo.css', $betaCssUrls, true);
                 }),
                 $bladeService,
             );

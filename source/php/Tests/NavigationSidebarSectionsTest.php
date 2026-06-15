@@ -34,6 +34,7 @@ class NavigationSidebarSectionsTest extends TestCase
         mkdir($this->tempProjectRoot . '/source/elements/blockquote', 0777, true);
         mkdir($this->tempProjectRoot . '/source/utilities/alpha-utility', 0777, true);
         mkdir($this->tempProjectRoot . '/source/utilities/beta-utility', 0777, true);
+        mkdir($this->tempProjectRoot . '/vendor/helsingborg-stad/component-library/source/php/Component/Alpha__item', 0777, true);
         mkdir($this->tempProjectRoot . '/views/pages/components/atoms', 0777, true);
         mkdir($this->tempProjectRoot . '/views/pages/components/molecules', 0777, true);
         mkdir($this->tempProjectRoot . '/views/pages/components/organisms', 0777, true);
@@ -67,6 +68,22 @@ class NavigationSidebarSectionsTest extends TestCase
             json_encode([
                 'name' => 'Beta Component',
                 'slug' => 'beta',
+            ]),
+        );
+
+        file_put_contents(
+            $this->tempProjectRoot . '/vendor/helsingborg-stad/component-library/source/php/Component/Alpha__item/alpha__item.json',
+            json_encode([
+                'slug' => 'alpha__item',
+                'default' => [
+                    'slot' => '',
+                ],
+                'description' => [
+                    'slot' => 'Alpha child item.',
+                ],
+                'types' => [
+                    'slot' => 'string',
+                ],
             ]),
         );
 
@@ -132,6 +149,7 @@ class NavigationSidebarSectionsTest extends TestCase
 
         @unlink($this->tempProjectRoot . '/source/components/alpha/component.json');
         @unlink($this->tempProjectRoot . '/source/components/beta/component.json');
+        @unlink($this->tempProjectRoot . '/vendor/helsingborg-stad/component-library/source/php/Component/Alpha__item/alpha__item.json');
         @unlink($this->tempProjectRoot . '/source/elements/blockquote/element.json');
         @unlink($this->tempProjectRoot . '/source/utilities/alpha-utility/utility.json');
         @unlink($this->tempProjectRoot . '/source/utilities/beta-utility/utility.json');
@@ -144,6 +162,14 @@ class NavigationSidebarSectionsTest extends TestCase
         @rmdir($this->tempProjectRoot . '/source/elements');
         @rmdir($this->tempProjectRoot . '/source/utilities');
         @rmdir($this->tempProjectRoot . '/source');
+
+        @rmdir($this->tempProjectRoot . '/vendor/helsingborg-stad/component-library/source/php/Component/Alpha__item');
+        @rmdir($this->tempProjectRoot . '/vendor/helsingborg-stad/component-library/source/php/Component');
+        @rmdir($this->tempProjectRoot . '/vendor/helsingborg-stad/component-library/source/php');
+        @rmdir($this->tempProjectRoot . '/vendor/helsingborg-stad/component-library/source');
+        @rmdir($this->tempProjectRoot . '/vendor/helsingborg-stad/component-library');
+        @rmdir($this->tempProjectRoot . '/vendor/helsingborg-stad');
+        @rmdir($this->tempProjectRoot . '/vendor');
 
         @unlink($this->tempProjectRoot . '/views/pages/components/molecules/alpha.blade.php');
         @unlink($this->tempProjectRoot . '/views/pages/components/organisms/beta.blade.php');
@@ -197,6 +223,9 @@ class NavigationSidebarSectionsTest extends TestCase
         $this->assertSame('Beta Component', $result['components']['children']['beta']['label']);
         $this->assertSame('//localhost/components/alpha', $result['components']['children']['alpha']['href']);
         $this->assertSame('//localhost/components/beta', $result['components']['children']['beta']['href']);
+        $this->assertSame('//localhost/components/alpha#subcomponent-alpha-item', $result['components']['children']['alpha']['children']['alpha__item']['href']);
+        $this->assertSame('alpha__item', $result['components']['children']['alpha']['children']['alpha__item']['label']);
+        $this->assertFalse($result['components']['children']['beta']['children']);
         $this->assertSame('Blockquote', $result['elements']['children']['blockquote']['label']);
         $this->assertSame('//localhost/elements/blockquote', $result['elements']['children']['blockquote']['href']);
         $this->assertSame('Alpha Utility (Deprecated)', $result['utilities']['children']['alpha-utility']['label']);
