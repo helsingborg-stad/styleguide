@@ -29,6 +29,11 @@
 		"heading": "Button with icon only",
 		"text": "This is a button with only an icon. This is the only button that will be rendered as a square."
 	},
+	"alignVisually": {
+		"grid": "",
+		"heading": "Visual alignment modifier",
+		"text": "Use the c-button--align-visually modifier on basic icon-only buttons when the hover area should extend outside the layout without shifting the icon alignment. The bordered wrapper below makes the negative inline spacing visible."
+	},
 	"size": {
 		"grid": "",
 		"heading": "Size",
