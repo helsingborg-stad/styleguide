@@ -7,21 +7,25 @@
             'c-card--highlight'
         ]
     ])
-        <div class="c-card__header">
-            <!-- typography.blade.php -->
-            <h2 id="" class="c-typography c-typography__variant--h2" data-uid="5f7c265caf00d">
+        @card__header()
+            @typography([
+                'variant' => 'h2'
+            ])
               Heading
-            </h2><!-- typography.blade.php -->
-            <h4 id="" class="c-typography c-typography__variant--h4" data-uid="5f7c265caf43a">
+            @endtypography
+            @typography([
+                'variant' => 'h4'
+            ])
               SubHeading
-            </h4><!-- typography.blade.php -->
-          </div>
-            <div class="c-card__body">
-              <!-- typography.blade.php -->
-              <p id="" class="c-typography c-typography__variant--p" data-uid="5f7c265caf970">
-                Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.
-              </p>
-            </div>
+            @endtypography
+        @endcard__header
+        @card__body()
+            @typography([
+                'variant' => 'p'
+            ])
+              Atoms are the fundemental building blocks. They are rarely used just by them self but mostly used to build more advanced components.
+            @endtypography
+        @endcard__body
     @endcard
   </div>
 </div>

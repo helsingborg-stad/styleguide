@@ -8,28 +8,28 @@
         ['type' => 'filled', 'color' => 'primary', 'text' => 'Lets go!']
     ],
 ])
-    <div class="c-card__header">
+    @card__header()
         <h3 class="c-card__heading">Heading</h3>
-    </div>
-
-
-    @accordion([
-        'list' => [
-            [
-                'heading' => 'Accordion heading',
-                'content' => 'Accordion content should keep the same inset rhythm as the rest of the card when the container grows.'
-            ],
-            [
-                'heading' => 'Accordion heading',
-                'content' => 'Accordion content should keep the same inset rhythm as the rest of the card when the container grows.'
-            ],
-            [
-                'heading' => 'Accordion heading',
-                'content' => 'Accordion content should keep the same inset rhythm as the rest of the card when the container grows.'
+    @endcard__header
+    @card__body(['classList' => ['u-padding--0']])
+        @accordion([
+            'list' => [
+                [
+                    'heading' => 'Accordion heading',
+                    'content' => 'Accordion content should keep the same inset rhythm as the rest of the card when the container grows.'
+                ],
+                [
+                    'heading' => 'Accordion heading',
+                    'content' => 'Accordion content should keep the same inset rhythm as the rest of the card when the container grows.'
+                ],
+                [
+                    'heading' => 'Accordion heading',
+                    'content' => 'Accordion content should keep the same inset rhythm as the rest of the card when the container grows.'
+                ]
             ]
-        ]
-    ])
-    @endaccordion
+        ])
+        @endaccordion
+    @endcard__body
 @endcard
 <br/>
 @card([
