@@ -34,13 +34,7 @@ $_: "c-drawer";
         --inherit-color-background-hover: var(--drawer-button-hover);
         --inherit-color-background-active: color-mix(in srgb, var(--drawer-color) 8%, var(--drawer-background));
         --inherit-color-border: var(--drawer-border-color);
-    }
-
-    .c-drawer__header,
-    [data-component="nav"] {
-        --inherit-color-contrast: var(--drawer-color);
-        --inherit-hover: var(--drawer-button-hover);
-        --inherit-active: var(--drawer-button-active);
+        --inherit-filter: none;
     }
 
     .c-drawer__header {

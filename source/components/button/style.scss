@@ -9,6 +9,11 @@
     inherits: true;
 }
 
+@property --inherit-filter {
+    syntax: "*";
+    inherits: true;
+}
+
 /* Component name */
 $_: "c-button";
 
