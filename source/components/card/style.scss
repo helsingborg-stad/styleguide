@@ -143,6 +143,10 @@ $_: "c-card";
         }
     }
 
+    .#{$_}__content {
+        margin-top: 0;
+    }
+
     &__eyebrow {
         text-transform: uppercase;
         --inherit-letter-spacing: .1em;
