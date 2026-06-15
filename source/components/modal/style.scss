@@ -65,8 +65,8 @@ $_: "c-modal";
             background-color: transparent;
         }
 
-        [data-component="button"].#{$_}__close {
-            color: tokens.getRawValue($_, "color--alpha-contrast");
+        [data-component="button"] {
+            --inherit-color-contrast: #{tokens.getRawValue($_, "color--alpha-contrast")};
         }
     }
 
