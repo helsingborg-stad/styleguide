@@ -26,7 +26,8 @@ $_: "c-drawer";
     --c-field--background-color: var(--color--background);
     --c-field--color--surface-contrast: var(--color--background-contrast);
 
-    [data-component="nav"] {
+    [data-component="nav"],
+    [data-component="field"] {
         --inherit-color-background: var(--drawer-background);
         --inherit-color-contrast: var(--drawer-color);
         --inherit-color-background-hover: var(--drawer-button-hover);
@@ -39,6 +40,10 @@ $_: "c-drawer";
         --inherit-color-contrast: var(--drawer-color);
         --inherit-hover: var(--drawer-button-hover);
         --inherit-active: var(--drawer-button-active);
+    }
+
+    .c-drawer__header {
+        gap: calc(#{tokens.getCalculatedValue($_, "space", 1)} * var(--#{$_}--padding-multiplier));
     }
 }
 
