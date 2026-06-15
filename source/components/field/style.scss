@@ -8,6 +8,21 @@
     inherits: true;
 }
 
+@property --inherit-color-contrast {
+    syntax: "*";
+    inherits: true;
+}
+
+@property --inherit-color-background-hover {
+    syntax: "*";
+    inherits: true;
+}
+
+@property --inherit-color-border {
+    syntax: "*";
+    inherits: true;
+}
+
 /* Component name */
 $_: "c-field";
 
@@ -18,9 +33,13 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
 /* Component */
 .#{$_} {
-    --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--border-color: var(--inherit-color-border, #{tokens.getRawValue($_, "color--surface-border")});
+    --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid var(--#{$_}--border-color);
     --#{$_}--background-color-default: #{tokens.getRawValue($_, "color--surface-alt")};
-    --#{$_}--contrast-color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}--background-color: var(--inherit-color-background, var(--#{$_}--background-color-default));
+    --#{$_}--background-color-hover: var(--inherit-color-background-hover, #{tokens.getRawValue($_, "color--surface-alt")});
+    --#{$_}--contrast-color: var(--inherit-color-contrast, #{tokens.getRawValue($_, "color--surface-contrast")});
+    --#{$_}--accent-color: var(--inherit-color-contrast, #{tokens.getRawValue($_, "color--primary")});
     --#{$_}--height-sm: #{tokens.getCalculatedValue($_, "base", 4.5)};
     --#{$_}--height: #{tokens.getCalculatedValue($_, "base", 6)};
     --#{$_}--height-lg: #{tokens.getCalculatedValue($_, "base", 8)};
@@ -92,7 +111,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         font-size: 0.95rem;
         line-height: calc(var(--base) * 2);
         border: var(--#{$_}--border);
-        background: var(--#{$_}--background-color, var(--inherit-color-background, var(--#{$_}--background-color-default)));
+        background: var(--#{$_}--background-color);
         color: var(--#{$_}--contrast-color);
         border-radius: inherit;
         corner-shape: inherit;
@@ -157,10 +176,10 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
                 right: 0;
                 height: 100%;
                 width: calc(tokens.getCalculatedValue($_, "base", 5));
-                border-left: tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--surface-border");
+                border-left: tokens.getCalculatedValue($_, "border-width", 1) solid var(--#{$_}--border-color);
                 background-image: linear-gradient(to bottom,
-                    color-mix(in srgb, tokens.getRawValue($_, "color--surface-border") 14%, var(--#{$_}--background-color, var(--#{$_}--background-color-default))),
-                    color-mix(in srgb, tokens.getRawValue($_, "color--surface-border") 8%, var(--#{$_}--background-color, var(--#{$_}--background-color-default))));
+                    color-mix(in srgb, var(--#{$_}--border-color) 14%, var(--#{$_}--background-color)),
+                    color-mix(in srgb, var(--#{$_}--border-color) 8%, var(--#{$_}--background-color)));
                 border-top-right-radius: tokens.getCalculatedValue($_, "border-radius");
                 border-bottom-right-radius: tokens.getCalculatedValue($_, "border-radius");
                 pointer-events: none;
@@ -173,8 +192,8 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
                 right: calc(tokens.getCalculatedValue($_, "base", 2));
                 width: 0.55em;
                 height: 0.55em;
-                border-right: 2px solid tokens.getRawValue($_, "color--primary");
-                border-bottom: 2px solid tokens.getRawValue($_, "color--primary");
+                border-right: 2px solid var(--#{$_}--accent-color);
+                border-bottom: 2px solid var(--#{$_}--accent-color);
                 transform: translateY(-65%) rotate(45deg);
                 opacity: 1;
                 pointer-events: none;
@@ -455,7 +474,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         left: 0;
         right: 0;
         z-index: 4;
-        background-color: var(--#{$_}--background-color, var(--inherit-color-background, var(--#{$_}--background-color-default)));
+        background-color: var(--#{$_}--background-color);
         border: var(--#{$_}--border);
         border-radius: tokens.getCalculatedValue($_, "border-radius");
         corner-shape: tokens.getRawValue($_, "corner-shape");
@@ -471,7 +490,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
     }
 
     .#{$_}__search-results-item {
-        border-bottom: tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--surface-border");
+        border-bottom: tokens.getCalculatedValue($_, "border-width", 1) solid var(--#{$_}--border-color);
 
         &:last-child {
             border-bottom: 0;
@@ -486,7 +505,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
         &:hover,
         &:focus-visible {
-            background-color: tokens.getRawValue($_, "background-color-alt");
+            background-color: var(--#{$_}--background-color-hover);
         }
     }
 }
