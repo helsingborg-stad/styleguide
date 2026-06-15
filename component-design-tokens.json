@@ -1317,7 +1317,8 @@
     "name": "Listing",
     "slug": "listing",
     "tokens": [
-      "space"
+      "space",
+      "base"
     ],
     "description": "The Listing component provides a reusable pattern for listing in the interface.",
     "tags": [
