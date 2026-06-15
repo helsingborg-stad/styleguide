@@ -194,9 +194,24 @@ $_: "c-drawer";
 
     .c-drawer__header,
     .site-nav-mobile__primary {
+        color: var(--drawer-color);
 
-        * {
+        .c-nav__link,
+        .c-nav__text,
+        .c-nav__icon,
+        .c-nav__toggle,
+        .c-nav__toggle * ,
+        .c-nav__button.c-button__basic .c-button__label,
+        .c-nav__button.c-button__basic .c-button__label *,
+        .c-nav__button.c-button__outlined .c-button__label,
+        .c-nav__button.c-button__outlined .c-button__label * {
             color: var(--drawer-color);
+        }
+
+        .c-nav__button.c-button__filled,
+        .c-nav__button.c-button__filled .c-button__label,
+        .c-nav__button.c-button__filled .c-button__label * {
+            color: var(--c-button-contrast);
         }
 
         .hamburger.hamburger--drawer.is-active .hamburger-inner,
