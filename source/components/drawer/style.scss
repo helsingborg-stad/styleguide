@@ -27,7 +27,8 @@ $_: "c-drawer";
     --c-field--color--surface-contrast: var(--color--background-contrast);
 
     [data-component="nav"],
-    [data-component="field"] {
+    [data-component="field"],
+    [data-component="button"] {
         --inherit-color-background: var(--drawer-background);
         --inherit-color-contrast: var(--drawer-color);
         --inherit-color-background-hover: var(--drawer-button-hover);
