@@ -4,6 +4,16 @@
 @use "./__outlined";
 @use "./__pill";
 
+@property --inherit-color-contrast {
+    syntax: "*";
+    inherits: true;
+}
+
+@property --inherit-filter {
+    syntax: "*";
+    inherits: true;
+}
+
 /* Component name */
 $_: "c-button";
 

@@ -13,7 +13,7 @@ $_: "c-button";
 
     background-color: var(--#{$_}-background);
     border: tokens.getCalculatedValue($_, "border-width", 1) solid var(--#{$_}-border);
-    filter: tokens.getCalculatedValue($_, "shadow", 1);
+    filter: var(--inherit-filter, #{tokens.getCalculatedValue($_, "shadow", 1)});
 
     height: tokens.getCalculatedValue($_, "base", 6);
     min-width: tokens.getCalculatedValue($_, "base", 9);

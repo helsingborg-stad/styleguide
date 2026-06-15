@@ -9,56 +9,70 @@ $_: "c-drawer";
 .c-drawer {
     --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 5)};
     --#{$_}--drawer-transition-ms: 300ms;
+    --#{$_}--padding-multiplier: 2;
+    --#{$_}--padding-x: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--padding-multiplier));
+    --#{$_}--padding-y: calc(#{tokens.getCalculatedValue($_, "space", 1)} + calc(var(--#{$_}--padding-multiplier) * #{tokens.getCalculatedValue($_, "space", 0.5)}));
+    --#{$_}--padding-x-compressed: calc(#{tokens.getCalculatedValue($_, "space", 1.5)} * var(--#{$_}--padding-multiplier));
+    --#{$_}--padding-y-compressed: calc(#{tokens.getCalculatedValue($_, "space", 0.5)} + calc(var(--#{$_}--padding-multiplier) * #{tokens.getCalculatedValue($_, "space", 0.5)}));
+    --#{$_}--button-padding-y: calc(#{tokens.getCalculatedValue($_, "space", 2)} + calc(var(--#{$_}--padding-multiplier) * #{tokens.getCalculatedValue($_, "space", 0.5)}));
+    --#{$_}--button-padding-y-compressed: calc(#{tokens.getCalculatedValue($_, "space", 1.5)} + calc(var(--#{$_}--padding-multiplier) * #{tokens.getCalculatedValue($_, "space", 0.5)}));
+    --drawer-background: #{tokens.getRawValue($_, "color--surface")};
+    --drawer-color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --drawer-border-color: #{tokens.getRawValue($_, "color--surface-border")};
+    --drawer-button-hover: color-mix(in srgb, var(--drawer-color) 18%, transparent);
+    --drawer-button-active: color-mix(in srgb, var(--drawer-color) 24%, transparent);
 
     /* switch to surface color tokens for nested components */
     --c-field--background-color: var(--color--background);
     --c-field--color--surface-contrast: var(--color--background-contrast);
 
-    &,
-    .site-nav-mobile__primary>.c-nav__item,
+    [data-component="nav"],
+    [data-component="field"],
+    [data-component="button"] {
+        --inherit-color-background: var(--drawer-background);
+        --inherit-color-contrast: var(--drawer-color);
+        --inherit-color-background-hover: var(--drawer-button-hover);
+        --inherit-color-background-active: color-mix(in srgb, var(--drawer-color) 8%, var(--drawer-background));
+        --inherit-color-border: var(--drawer-border-color);
+        --inherit-filter: none;
+    }
+
     .c-drawer__header {
-        --drawer-background: #{tokens.getRawValue($_, "color--surface")};
-    }
-
-    .c-nav {
-        --inherit-color: var(--color--surface-contrast);
+        gap: calc(#{tokens.getCalculatedValue($_, "space", 1)} * var(--#{$_}--padding-multiplier));
     }
 }
 
-.c-drawer.c-drawer--primary,
-.c-drawer.c-drawer--primary .site-nav-mobile__primary>.c-nav__item,
-.c-drawer.c-drawer--primary .c-drawer__header {
+.c-drawer.c-drawer--primary {
     --drawer-background: #{tokens.getRawValue($_, "color--primary")};
+    --drawer-color: #{tokens.getRawValue($_, "color--primary-contrast")};
+    --drawer-border-color: color-mix(in srgb, var(--drawer-color) 20%, transparent);
 }
 
-.c-drawer.c-drawer--secondary,
-.c-drawer.c-drawer--secondary .site-nav-mobile__primary>.c-nav__item,
-.c-drawer.c-drawer--secondary .c-drawer__header {
+.c-drawer.c-drawer--secondary {
     --drawer-background: #{tokens.getRawValue($_, "color--secondary")};
+    --drawer-color: #{tokens.getRawValue($_, "color--secondary-contrast")};
+    --drawer-border-color: color-mix(in srgb, var(--drawer-color) 20%, transparent);
 }
 
 // Duotone drawer colors needing to target the main list items for better flexibility
 
 .c-drawer.c-drawer--duotone {
-
-    &,
-    .site-nav-mobile__primary>.c-nav__item,
-    .c-drawer__header {
-        --drawer-background: #{tokens.getRawValue($_, "color--surface")};
-        --drawer-duotone-background: #{tokens.getRawValue($_, "color--surface")};
-    }
+    --drawer-background: #{tokens.getRawValue($_, "color--surface")};
+    --drawer-color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --drawer-border-color: #{tokens.getRawValue($_, "color--surface-border")};
+    --drawer-duotone-background: #{tokens.getRawValue($_, "color--surface")};
 }
 
-.c-drawer.c-drawer--duotone.c-drawer--primary,
-.c-drawer.c-drawer--duotone.c-drawer--primary .site-nav-mobile__primary>.c-nav__item,
-.c-drawer.c-drawer--duotone.c-drawer--primary .c-drawer__header {
+.c-drawer.c-drawer--duotone.c-drawer--primary {
     --drawer-background: #{tokens.getRawValue($_, "color--primary")};
+    --drawer-color: #{tokens.getRawValue($_, "color--primary-contrast")};
+    --drawer-border-color: color-mix(in srgb, var(--drawer-color) 20%, transparent);
 }
 
-.c-drawer.c-drawer--duotone.c-drawer--secondary,
-.c-drawer.c-drawer--duotone.c-drawer--secondary .site-nav-mobile__primary>.c-nav__item,
-.c-drawer.c-drawer--duotone.c-drawer--secondary .c-drawer__header {
+.c-drawer.c-drawer--duotone.c-drawer--secondary {
     --drawer-background: #{tokens.getRawValue($_, "color--secondary")};
+    --drawer-color: #{tokens.getRawValue($_, "color--secondary-contrast")};
+    --drawer-border-color: color-mix(in srgb, var(--drawer-color) 20%, transparent);
 }
 
 .c-drawer.c-drawer--duotone.c-drawer--duotone-primary,
@@ -82,34 +96,19 @@ $_: "c-drawer";
     .site-nav-mobile__primary>.c-nav__item {
         background-color: var(--drawer-background);
     }
-
-    .c-field {
-        --c-field--color--surface: var(--drawer-background);
-        --c-field--background-color: var(--drawer-background);
-        --c-field--color--surface-contrast: #{tokens.getRawValue($_, "color--surface-contrast")};
-        --c-field--color--primary: #{tokens.getRawValue($_, "color--surface-contrast")};
-        --c-field--color--surface-border: #{tokens.getRawValue($_, "color--surface-border")};
-
-        input::placeholder,
-        textarea::placeholder {
-            color: color-mix(in srgb, #{tokens.getRawValue($_, "color--surface-contrast")} 70%, transparent);
-            opacity: 1;
-        }
-    }
 }
 
 .c-drawer.c-drawer--duotone {
     background-color: var(--drawer-duotone-background);
 
-    .c-nav.site-nav-mobile__secondary {
-        --c-nav--item-background-color: var(--drawer-duotone-background);
-        --c-nav--item-background-color-hover: var(--drawer-duotone-color);
-        --c-nav--item-color: var(--drawer-duotone-color);
-        --c-nav--item-color-hover: var(--drawer-duotone-background);
-
-        .c-link {
-            --c-link--color--background-contrast: var(--drawer-duotone-color);
-        }
+    [data-component="nav"].site-nav-mobile__secondary {
+        --inherit-color-background: var(--drawer-duotone-background);
+        --inherit-color-contrast: var(--drawer-duotone-color);
+        --inherit-color-background-hover: color-mix(in srgb, var(--drawer-duotone-color) 18%, transparent);
+        --inherit-color-background-active: color-mix(in srgb, var(--drawer-duotone-color) 24%, transparent);
+        --inherit-color-border: color-mix(in srgb, var(--drawer-duotone-color) 20%, transparent);
+        --inherit-hover: color-mix(in srgb, var(--drawer-duotone-color) 18%, transparent);
+        --inherit-active: color-mix(in srgb, var(--drawer-duotone-color) 24%, transparent);
     }
 
     .c-drawer__header {
@@ -150,7 +149,7 @@ $_: "c-drawer";
 }
 
 .c-drawer__header {
-    padding: tokens.getCalculatedValue($_, "space", 1) tokens.getCalculatedValue($_, "space", 2);
+    padding: var(--#{$_}--padding-y) var(--#{$_}--padding-x);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -159,16 +158,27 @@ $_: "c-drawer";
 .c-drawer__footer {
     border-top: 1px solid rgba(255, 255, 255, .3);
     align-self: flex-end;
-    padding: tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 4) tokens.getCalculatedValue($_, "space", 12) tokens.getCalculatedValue($_, "space", 4);
+    padding: calc(#{tokens.getCalculatedValue($_, "space", 4)} * var(--#{$_}--padding-multiplier)) calc(#{tokens.getCalculatedValue($_, "space", 4)} * var(--#{$_}--padding-multiplier)) calc(#{tokens.getCalculatedValue($_, "space", 12)} * var(--#{$_}--padding-multiplier)) calc(#{tokens.getCalculatedValue($_, "space", 4)} * var(--#{$_}--padding-multiplier));
 }
 
 .c-drawer {
 
-    .c-nav.c-nav--drawer.c-nav--vertical {
-        --inherit-padding: #{tokens.getCalculatedValue($_, "space", 1)} #{tokens.getCalculatedValue($_, "space", 2)};
-        --inherit-button-padding: #{tokens.getCalculatedValue($_, "space", 1.5)} #{tokens.getCalculatedValue($_, "space", 2)};
-        --inherit-padding-compressed: #{tokens.getCalculatedValue($_, "space", 0.75)} #{tokens.getCalculatedValue($_, "space", 1.5)};
-        --inherit-button-padding-compressed: #{tokens.getCalculatedValue($_, "space", 1.25)} #{tokens.getCalculatedValue($_, "space", 1.5)};
+    [data-component="nav"].c-nav--vertical {
+        --inherit-padding: var(--#{$_}--padding-y) var(--#{$_}--padding-x);
+        --inherit-button-padding: var(--#{$_}--button-padding-y) var(--#{$_}--padding-x);
+        --inherit-padding-compressed: var(--#{$_}--padding-y-compressed) var(--#{$_}--padding-x-compressed);
+        --inherit-button-padding-compressed: var(--#{$_}--button-padding-y-compressed) var(--#{$_}--padding-x-compressed);
+
+        .c-nav__item.has-toggle>.c-nav__item-wrapper>.c-nav__toggle {
+            margin-right: var(--#{$_}--padding-x);
+        }
+
+        &.c-nav--compressed {
+
+            .c-nav__item.has-toggle>.c-nav__item-wrapper>.c-nav__toggle {
+                margin-right: var(--#{$_}--padding-x-compressed);
+            }
+        }
     }
 }
 
@@ -184,15 +194,30 @@ $_: "c-drawer";
 
     .c-drawer__header,
     .site-nav-mobile__primary {
+        color: var(--drawer-color);
 
-        * {
-            color: tokens.getRawValue($_, "color--surface-contrast");
+        .c-nav__link,
+        .c-nav__text,
+        .c-nav__icon,
+        .c-nav__toggle,
+        .c-nav__toggle * ,
+        .c-nav__button.c-button__basic .c-button__label,
+        .c-nav__button.c-button__basic .c-button__label *,
+        .c-nav__button.c-button__outlined .c-button__label,
+        .c-nav__button.c-button__outlined .c-button__label * {
+            color: var(--drawer-color);
+        }
+
+        .c-nav__button.c-button__filled,
+        .c-nav__button.c-button__filled .c-button__label,
+        .c-nav__button.c-button__filled .c-button__label * {
+            color: var(--c-button-contrast);
         }
 
         .hamburger.hamburger--drawer.is-active .hamburger-inner,
         .hamburger.hamburger--drawer.is-active .hamburger-inner:before,
         .hamburger.hamburger--drawer.is-active .hamburger-inner:after {
-            background-color: tokens.getRawValue($_, "color--surface-contrast");
+            background-color: var(--drawer-color);
         }
     }
 }

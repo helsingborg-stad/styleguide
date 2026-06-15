@@ -42,6 +42,12 @@ $_: "c-button";
         width: var(--#{$_}-height);
     }
 
+    &.#{$_}--align-visually {
+        margin-left: calc(var(--#{$_}-padding) * -1);
+        margin-right: calc(var(--#{$_}-padding) * -1);
+        padding: 0 var(--#{$_}-padding);
+    }
+
     &.#{$_}--sm {
         --#{$_}-height: #{tokens.getCalculatedValue($_, "base", 4.5)};
         --#{$_}-padding: #{tokens.getCalculatedValue($_, "space", 2)};

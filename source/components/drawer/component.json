@@ -51,9 +51,15 @@
 			"description": "Component-local sizing and spacing for the drawer panel and its navigation items.",
 			"settings": [
 				{
-					"label": "Spacing and Padding",
-					"description": "Controls drawer header, footer, and navigation item padding.",
-					"token": "space"
+					"variable": "--padding-multiplier",
+					"label": "Padding Multiplier",
+					"description": "Scales drawer padding locally while keeping vertical nav padding slightly tighter on the y-axis.",
+					"type": "range",
+					"default": "2",
+					"min": 0.5,
+					"max": 3,
+					"step": 0.125,
+					"unit": ""
 				},
 				{
 					"variable": "--width-multiplier",
