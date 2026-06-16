@@ -106,8 +106,11 @@ class ComponentPageSubcomponentsTest extends TestCase
                         && ($data['componentIcon'] ?? '') === 'credit_card'
                         && ($data['description'] ?? '') === 'Card description'
                         && ($data['pageNow'] ?? '') === 'components/card'
+                        && ($subcomponents[0]['displayName'] ?? '') === 'Card Body'
+                        && ($subcomponents[0]['directive'] ?? '') === '@card__body()'
                         && ($subcomponents[0]['slug'] ?? '') === 'card__body'
                         && ($subcomponents[0]['anchor'] ?? '') === 'subcomponent-card-body'
+                        && is_string($subcomponents[0]['usageExample'] ?? null)
                         && ($subcomponents[1]['slug'] ?? '') === 'card__header';
                 }),
                 $bladeService,

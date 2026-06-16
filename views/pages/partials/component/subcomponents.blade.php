@@ -25,7 +25,11 @@
                     'id' => $subcomponent['anchor'] ?? '',
                 ],
             ])
-                {{ $subcomponent['name'] ?? '' }}
+                {{ $subcomponent['displayName'] ?? ($subcomponent['name'] ?? '') }}
+            @endtypography
+
+            @typography(['variant' => 'meta', 'element' => 'p', 'classList' => ['u-margin__bottom--2']])
+                Blade directive: <code>{{ $subcomponent['directive'] ?? ('@' . ($subcomponent['slug'] ?? '') . '()') }}</code>
             @endtypography
 
             @if(!empty($subcomponent['purpose']))
@@ -34,16 +38,23 @@
                 @endtypography
             @endif
 
-            @if(!empty($subcomponent['parameters']))
-                @table([
-                    'headings' => ['Parameter', 'Default', 'Type', 'Purpose'],
-                    'includePaper' => false,
-                    'list'     => array_map(static fn(array $row): array => [
-                        'columns' => [$row['parameter'], $row['default'], $row['type'], $row['description']],
-                    ], $subcomponent['parameters']),
-                ])
-                @endtable
-            @endif
+            @php
+                $renderView = static function (string $viewPath, array $viewData = []) use ($__env): string {
+                    return $__env->make($viewPath, $viewData)->render();
+                };
+
+                $paramsTabContent = $renderView('pages.partials.component.subcomponent-parameters', ['subcomponent' => $subcomponent]);
+                $bladeCodeTemplate = $renderView('layout.partials.doc.tab-code', ['language' => 'php']);
+                $usageTabContent = str_replace('__CODE_PLACEHOLDER__', e((string) ($subcomponent['usageExample'] ?? '')), $bladeCodeTemplate);
+            @endphp
+
+            @paper(['padding' => 0])
+                @tabs(['tabs' => [
+                    ['title' => 'Parameters', 'content' => $paramsTabContent],
+                    ['title' => 'Usage example', 'content' => $usageTabContent],
+                ]])
+                @endtabs
+            @endpaper
         </section>
     @endforeach
 @endif

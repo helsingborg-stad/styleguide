@@ -224,7 +224,7 @@ class NavigationSidebarSectionsTest extends TestCase
         $this->assertSame('//localhost/components/alpha', $result['components']['children']['alpha']['href']);
         $this->assertSame('//localhost/components/beta', $result['components']['children']['beta']['href']);
         $this->assertSame('//localhost/components/alpha#subcomponent-alpha-item', $result['components']['children']['alpha']['children']['alpha__item']['href']);
-        $this->assertSame('alpha__item', $result['components']['children']['alpha']['children']['alpha__item']['label']);
+        $this->assertSame('Alpha Item', $result['components']['children']['alpha']['children']['alpha__item']['label']);
         $this->assertFalse($result['components']['children']['beta']['children']);
         $this->assertSame('Blockquote', $result['elements']['children']['blockquote']['label']);
         $this->assertSame('//localhost/elements/blockquote', $result['elements']['children']['blockquote']['href']);

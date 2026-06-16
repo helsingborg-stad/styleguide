@@ -173,6 +173,8 @@ class ComponentLibraryTest extends TestCase
         $subcomponents = Documentation::getSubcomponents('card', $this->tempBasePath);
 
         $this->assertCount(2, $subcomponents);
+        $this->assertSame('Card Body', $subcomponents[0]['displayName']);
+        $this->assertSame('@card__body()', $subcomponents[0]['directive']);
         $this->assertSame('subcomponent-card-body', $subcomponents[0]['anchor']);
         $this->assertSame('card__body', $subcomponents[0]['slug']);
         $this->assertSame('Content placed in the card body area.', $subcomponents[0]['purpose']);
@@ -181,6 +183,8 @@ class ComponentLibraryTest extends TestCase
         $this->assertSame('classList', $subcomponents[0]['parameters'][1]['parameter']);
         $this->assertSame('attributeList', $subcomponents[0]['parameters'][2]['parameter']);
         $this->assertSame('Additional CSS classes added to the wrapping element.', $subcomponents[0]['parameters'][1]['description']);
+        $this->assertStringContainsString('@card__body()', $subcomponents[0]['usageExample']);
+        $this->assertStringContainsString('Slot content', $subcomponents[0]['usageExample']);
         $this->assertSame('card__header', $subcomponents[1]['slug']);
     }
 
@@ -198,11 +202,14 @@ class ComponentLibraryTest extends TestCase
 
         $this->assertCount(1, $subcomponents);
         $this->assertSame('toast__item', $subcomponents[0]['slug']);
+        $this->assertSame('Toast Item', $subcomponents[0]['displayName']);
         $this->assertSame('type', $subcomponents[0]['parameters'][0]['parameter']);
         $this->assertSame('info', $subcomponents[0]['parameters'][0]['default']);
         $this->assertSame('message', $subcomponents[0]['parameters'][1]['parameter']);
         $this->assertSame('action', $subcomponents[0]['parameters'][5]['parameter']);
         $this->assertSame('classList', $subcomponents[0]['parameters'][6]['parameter']);
         $this->assertSame('attributeList', $subcomponents[0]['parameters'][7]['parameter']);
+        $this->assertStringContainsString("'type' => 'info'", $subcomponents[0]['usageExample']);
+        $this->assertStringContainsString("'message' => [", $subcomponents[0]['usageExample']);
     }
 }

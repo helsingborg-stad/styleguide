@@ -73,12 +73,17 @@ class Documentation
                 continue;
             }
 
+            $effectiveConfig = self::resolveEffectiveComponentConfig($config, $projectRoot);
+
             $subcomponents[] = [
                 'slug' => $slug,
                 'name' => $slug,
+                'displayName' => self::buildReadableSubcomponentName($slug),
+                'directive' => '@' . $slug . '()',
                 'anchor' => self::buildSubcomponentAnchor($slug),
-                'purpose' => self::resolveSubcomponentPurpose($config, $parentSlug),
-                'parameters' => self::appendCommonBladeParameters(self::buildParameterRows($config)),
+                'purpose' => self::resolveSubcomponentPurpose($config, $parentSlug, $projectRoot),
+                'parameters' => self::appendCommonBladeParameters(self::buildParameterRows($config, $projectRoot)),
+                'usageExample' => self::buildUsageExample($slug, $effectiveConfig),
             ];
         }
 
@@ -237,20 +242,12 @@ class Documentation
      *
      * @return array<int, array<string, string>>
      */
-    private static function buildParameterRows(array $config): array
+    private static function buildParameterRows(array $config, ?string $projectRoot = null): array
     {
-        $settings = is_array($config['default'] ?? null) ? $config['default'] : [];
-        $descriptions = is_array($config['description'] ?? null) ? $config['description'] : [];
-        $types = is_array($config['types'] ?? null) ? $config['types'] : [];
-
-        if ($settings === [] && $descriptions === [] && $types === []) {
-            $proxyConfig = self::resolveProxyComponentConfig($config);
-            if ($proxyConfig !== null) {
-                $settings = is_array($proxyConfig['default'] ?? null) ? $proxyConfig['default'] : [];
-                $descriptions = is_array($proxyConfig['description'] ?? null) ? $proxyConfig['description'] : [];
-                $types = is_array($proxyConfig['types'] ?? null) ? $proxyConfig['types'] : [];
-            }
-        }
+        $effectiveConfig = self::resolveEffectiveComponentConfig($config, $projectRoot);
+        $settings = is_array($effectiveConfig['default'] ?? null) ? $effectiveConfig['default'] : [];
+        $descriptions = is_array($effectiveConfig['description'] ?? null) ? $effectiveConfig['description'] : [];
+        $types = is_array($effectiveConfig['types'] ?? null) ? $effectiveConfig['types'] : [];
 
         $rows = [];
         foreach ($settings as $parameter => $defaultValue) {
@@ -297,9 +294,9 @@ class Documentation
      *
      * @return string
      */
-    private static function resolveSubcomponentPurpose(array $config, string $parentSlug): string
+    private static function resolveSubcomponentPurpose(array $config, string $parentSlug, ?string $projectRoot = null): string
     {
-        $proxyConfig = self::resolveProxyComponentConfig($config);
+        $proxyConfig = self::resolveProxyComponentConfig($config, $projectRoot);
         if ($proxyConfig !== null) {
             if (isset($proxyConfig['description']) && is_array($proxyConfig['description'])) {
                 foreach ($proxyConfig['description'] as $description) {
@@ -384,13 +381,35 @@ class Documentation
     }
 
     /**
+     * Resolve the effective config for a component, including passthrough wrappers.
+     *
+     * @param array<string, mixed> $config
+     * @param string|null $projectRoot
+     *
+     * @return array<string, mixed>
+     */
+    private static function resolveEffectiveComponentConfig(array $config, ?string $projectRoot = null): array
+    {
+        $settings = is_array($config['default'] ?? null) ? $config['default'] : [];
+        $descriptions = is_array($config['description'] ?? null) ? $config['description'] : [];
+        $types = is_array($config['types'] ?? null) ? $config['types'] : [];
+
+        if ($settings !== [] || $descriptions !== [] || $types !== []) {
+            return $config;
+        }
+
+        return self::resolveProxyComponentConfig($config, $projectRoot) ?? $config;
+    }
+
+    /**
      * Resolve passthrough component config for wrapper components that proxy to another component.
      *
      * @param array<string, mixed> $config
+     * @param string|null $projectRoot
      *
      * @return array<string, mixed>|null
      */
-    private static function resolveProxyComponentConfig(array $config): ?array
+    private static function resolveProxyComponentConfig(array $config, ?string $projectRoot = null): ?array
     {
         $view = $config['view'] ?? null;
         $slug = $config['slug'] ?? null;
@@ -399,7 +418,7 @@ class Documentation
             return null;
         }
 
-        $viewPath = self::resolveComponentViewPath($slug, $view);
+        $viewPath = self::resolveComponentViewPath($slug, $view, $projectRoot);
         if ($viewPath === null || !is_file($viewPath)) {
             return null;
         }
@@ -415,7 +434,7 @@ class Documentation
 
         $proxiedSlug = strtolower((string) $matches[1]);
 
-        return self::readComponentConfig($proxiedSlug);
+        return self::readComponentConfig($proxiedSlug, $projectRoot);
     }
 
     /**
@@ -426,9 +445,9 @@ class Documentation
      *
      * @return string|null
      */
-    private static function resolveComponentViewPath(string $slug, string $view): ?string
+    private static function resolveComponentViewPath(string $slug, string $view, ?string $projectRoot = null): ?string
     {
-        $componentsPath = self::getVendorComponentsPath();
+        $componentsPath = self::getVendorComponentsPath($projectRoot);
         if (!is_dir($componentsPath)) {
             return null;
         }
@@ -444,6 +463,103 @@ class Documentation
         }
 
         return null;
+    }
+
+    /**
+     * Build a readable name from a subcomponent slug.
+     *
+     * @param string $slug
+     *
+     * @return string
+     */
+    private static function buildReadableSubcomponentName(string $slug): string
+    {
+        $label = str_replace(['__', '_'], ' ', $slug);
+
+        return ucwords($label);
+    }
+
+    /**
+     * Build a generated Blade usage example for a subcomponent.
+     *
+     * @param string $slug
+     * @param array<string, mixed> $config
+     *
+     * @return string
+     */
+    private static function buildUsageExample(string $slug, array $config): string
+    {
+        $defaults = is_array($config['default'] ?? null) ? $config['default'] : [];
+        $hasSlot = array_key_exists('slot', $defaults);
+        unset($defaults['slot']);
+
+        $lines = [];
+
+        if ($defaults === []) {
+            $lines[] = '@' . $slug . '()';
+        } else {
+            $lines[] = '@' . $slug . '([';
+            foreach ($defaults as $parameter => $defaultValue) {
+                $formattedValue = self::formatPhpValue($defaultValue, 1);
+
+                if (is_array($defaultValue)) {
+                    $lines[] = '    ' . var_export($parameter, true) . ' => ' . $formattedValue . ',';
+                    continue;
+                }
+
+                $lines[] = '    ' . var_export($parameter, true) . ' => ' . $formattedValue . ',';
+            }
+            $lines[] = '])';
+        }
+
+        if ($hasSlot) {
+            $lines[] = '    Slot content';
+        }
+
+        $lines[] = '@end' . $slug;
+
+        return implode("\n", $lines);
+    }
+
+    /**
+     * Format a PHP value as short-array syntax for generated Blade examples.
+     *
+     * @param mixed $value
+     * @param int $indentLevel
+     *
+     * @return string
+     */
+    private static function formatPhpValue(mixed $value, int $indentLevel = 0): string
+    {
+        if (is_array($value)) {
+            if ($value === []) {
+                return '[]';
+            }
+
+            $indent = str_repeat('    ', $indentLevel);
+            $childIndent = str_repeat('    ', $indentLevel + 1);
+            $lines = ['['];
+
+            foreach ($value as $key => $item) {
+                $formattedKey = is_int($key) ? '' : var_export($key, true) . ' => ';
+                $formattedValue = self::formatPhpValue($item, $indentLevel + 1);
+                $lines[] = $childIndent . $formattedKey . $formattedValue . ',';
+            }
+
+            $lines[] = $indent . ']';
+
+            return implode("\n", $lines);
+        }
+
+        if (is_bool($value)) {
+            return $value ? 'true' : 'false';
+        }
+
+        if ($value === null) {
+            return 'null';
+        }
+
+        return var_export($value, true);
     }
 
     /**

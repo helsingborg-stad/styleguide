@@ -180,7 +180,7 @@ class Navigation
             }
 
             $items[$subcomponentSlug] = [
-                'label' => $subcomponentSlug,
+                'label' => (string) ($subcomponent['displayName'] ?? $subcomponentSlug),
                 'href' => '//' . $this->getPageDomain() . $hrefPath . '#' . $anchor,
                 'children' => false,
                 'async' => false,
