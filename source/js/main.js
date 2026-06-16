@@ -39,7 +39,6 @@ import './stretch.ts';
 import './anchorMenu.js';
 import './dropdown.ts';
 import './dynamicSidebar.js';
-import './expand-section.js';
 import './fields.js';
 import './filter.js';
 import './iframeAcceptance.js';

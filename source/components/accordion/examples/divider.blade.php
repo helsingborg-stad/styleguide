@@ -1,4 +1,6 @@
 @accordion([
+    'classList' => ['c-accordion'],
+    'divider' => true,
     'list' => [
         [
             'heading' => ["Heading"],

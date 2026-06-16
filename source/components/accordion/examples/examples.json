@@ -1,22 +1,18 @@
 {
-	"accordion": {
-		"heading": "Accordion",
-		"text": "The accordion can be used to display larger lists of content on one page. This is wrapped in a paper component, to get a better look and feel."
-	},
-	"insetcompare": {
-		"heading": "Inset rhythm comparison",
-		"text": "Compares a standalone accordion with the same accordion nested in a card, so the spacing rhythm can be checked side by side at larger container sizes."
-	},
-	"slot": {
-		"heading": "Using a slot",
-		"text": "The accordion will see if you're using the slot. In this example we're using the sub component accordion item to fill the accordion with items"
-	},
-	"spaced": {
-		"heading": "A accordion with spaced items",
-		"text": "This accordion style adds spacing between the items.."
-	},
-	"content": {
-		"heading": "Content",
-		"text": "A accordion with a large body of text to show how the accordion handles larger content."
-	}
+    "accordion":{
+        "heading": "Accordion",
+        "text": "The accordion can be used to display larger lists of content on one page. This is wrapped in a paper component, to get a better look and feel."
+    },
+    "column-headings": {
+        "heading": "Using column headings"
+    },
+    "divider": {
+        "heading": "Using dividers between items"
+    },
+    "spacing": {
+        "heading": "Using spacing between items"
+    },
+    "no-border": {
+        "heading": "Using no border between items"
+    }
 }

@@ -3,7 +3,6 @@ import AnchorMenu from './anchorMenu';
 import ButtonToggleContent from './ButtonToggleContent';
 import ClassToggleInitializer from './classToggle/classToggleInitializer';
 import DynamicSidebar from './dynamicSidebar';
-import expandSection from './expand-section';
 import { initializeForms } from './fields';
 import Filter from './filter';
 import KeepInViewPort from './keepInViewPort';
@@ -74,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	initializeGoogleTranslate();
 	initializeModal();
 	initializeIframeAcceptance();
-	expandSection();
 	setupCopy();
 	setScrollbarCSS();
 	AnchorMenu();

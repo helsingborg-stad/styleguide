@@ -1,0 +1,83 @@
+@use "../../sass/mixin/tokens";
+
+@function getCompressedTitleFontSize($step) {
+    @return calc(var(--font-size-base, var(--base-font-size, 1rem)) * pow(var(--font-size-scale-ratio), #{$step}));
+}
+
+$compressedTypographySteps: (
+    "h1-font-size": 0.8333333333,
+    "h2-font-size": 0.6666666667,
+    "h3-font-size": 0.5,
+    "h4-font-size": 0.3333333333,
+    "h5-font-size": 0.1666666667,
+    "h6-font-size": 0,
+    "font-size-headline": 0.6666666667,
+    "font-size-title": 0.5,
+    "font-size-subtitle": 0.3333333333,
+    "font-size-lead": 0,
+    "font-size-marketing": 1,
+);
+
+/* Component name */
+$_: "c-accordion__item";
+$token: "c-accordion";
+
+details.#{$_} {
+    --#{$_}--heading-columns: repeat(var(--#{$_}--heading-count, auto-fill), 1fr);
+    position: relative;
+    display: grid;
+    padding: var(--#{$token}--inset-padding-y, var(--#{$token}--padding-y)) var(--#{$token}--inset-padding-x, var(--#{$token}--padding-x));
+    contain: paint;
+
+    summary {
+        position: relative;
+        padding: var(--#{$token}--inset-padding-y, var(--#{$token}--padding-y)) var(--#{$token}--inset-padding-x, var(--#{$token}--padding-x));
+        padding-right: calc(var(--#{$token}--inset-padding-x, var(--#{$token}--padding-x)) + tokens.getRawValue($token, "base") *  4);
+        margin: calc(var(--#{$token}--inset-padding-y, var(--#{$token}--padding-y)) *  -1) calc(var(--#{$token}--inset-padding-x, var(--#{$token}--padding-x)) *  -1);
+        list-style: none;
+        cursor: pointer;
+        display: grid;
+        gap: calc(tokens.getRawValue($token, "base") *  2);
+        grid-template-columns: var(--#{$_}--heading-columns);
+
+        .c-accordion__item__heading-item {
+            --inherit-font-size: #{tokens.getRawValue($_, "font-size-200")};
+        }
+    }
+
+    .#{$_}__icon {
+        position: absolute;
+        right: calc(var(--#{$token}--inset-padding-x, var(--#{$token}--padding-x)));
+        top: 50%;
+        transform: translateY(-50%);
+        transition: transform 0.2s ease;
+    }
+
+    .#{$_}__content {
+        @each $variable, $step in $compressedTypographySteps {
+            --c-typography--#{$variable}: #{getCompressedTitleFontSize($step)};
+        }
+
+        margin-top: calc(var(--#{$token}--inset-padding-y, var(--#{$token}--padding-y)) *  2);
+    }
+
+    &::details-content {
+        transition: height 0.3s ease, content-visibility 0.3s ease allow-discrete;
+        height: 0;
+        overflow: clip;
+    }
+    
+    /* States */
+    &[open] .#{$_}__icon {
+        transform: translateY(-50%) rotate(180deg);
+    }
+
+    &[open]::details-content {
+        height: auto;
+    }
+
+    &[open] summary,
+    &:hover summary {
+        background-color: tokens.getRawValue($token, "color--surface-alt");
+    }
+}
