@@ -60,7 +60,9 @@ details.#{$_} {
             --c-typography--#{$variable}: #{getCompressedTitleFontSize($step)};
         }
 
+        opacity: 0;
         margin-top: calc(var(--#{$token}--inset-padding-y, var(--#{$token}--padding-y)) * 2);
+        transition: opacity 200ms ease 300ms;
     }
 
     &::details-content {
@@ -76,6 +78,10 @@ details.#{$_} {
 
     &[open]::details-content {
         height: auto;
+    }
+
+    &[open] .#{$_}__content {
+        opacity: 1;
     }
 
     &[open] summary,
