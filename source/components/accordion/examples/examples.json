@@ -1,18 +1,21 @@
 {
-    "accordion":{
-        "heading": "Accordion",
-        "text": "The accordion can be used to display larger lists of content on one page. This is wrapped in a paper component, to get a better look and feel."
-    },
-    "column-headings": {
-        "heading": "Using column headings"
-    },
-    "divider": {
-        "heading": "Using dividers between items"
-    },
-    "spacing": {
-        "heading": "Using spacing between items"
-    },
-    "no-border": {
-        "heading": "Using no border between items"
-    }
+	"accordion": {
+		"heading": "Accordion",
+		"text": "The accordion can be used to display larger lists of content on one page. This is wrapped in a paper component, to get a better look and feel."
+	},
+	"column-headings": {
+		"heading": "Using column headings"
+	},
+	"divider": {
+		"heading": "Using dividers between items"
+	},
+	"spacing": {
+		"heading": "Using spacing between items"
+	},
+	"no-border": {
+		"heading": "Using no border between items"
+	},
+	"content": {
+		"heading": "Using a larger body of content within the accordion"
+	}
 }
