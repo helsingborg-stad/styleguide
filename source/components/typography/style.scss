@@ -130,7 +130,7 @@ h5,
     &+.#{$_}__variant--h6,
     &+.subtitle,
     &+.#{$_}__variant--subtitle {
-        margin-top: tokens.getCalculatedValue($_, "space");
+        margin-top: var(--inherit-margin-top, #{tokens.getCalculatedValue($_, "space")});
     }
 
     &:first-child {
