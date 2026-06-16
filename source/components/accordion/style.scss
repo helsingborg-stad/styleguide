@@ -14,7 +14,8 @@ $_: "c-accordion";
 .#{$_} {
     @include insetMultiplier.consume($_);
     --#{$_}--heading-columns: repeat(var(--#{$_}--heading-count, auto-fill), 1fr);
-    --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--border-width-value: var(--inherit-border-width, #{tokens.getRawValue($_, "border-width")});
+    --#{$_}--border: calc(var(--#{$_}--border-width-value) * var(--base)) solid #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface")};
     --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
     --#{$_}--padding-x: #{calc(tokens.getRawValue($_, "base") *  2)};
@@ -28,17 +29,18 @@ $_: "c-accordion";
     color: var(--#{$_}--color);
     background-color: var(--#{$_}--background-color);
 
-     @include insetMultiplier.responsive-resolve($_, $selector: ".#{$_}__heading");
-     @include insetMultiplier.responsive-resolve($_, $selector: ".#{$_}__item");
+    @include insetMultiplier.responsive-resolve($_, $selector: ".#{$_}__heading");
+    @include insetMultiplier.responsive-resolve($_, $selector: ".#{$_}__item");
 
     .#{$_}__heading {
         display: grid;
-        gap: calc(tokens.getRawValue($_, "base") *  2);
+        gap: calc(tokens.getRawValue($_, "base") * 2);
         grid-template-columns: var(--#{$_}--heading-columns);
         padding: calc(var(--#{$_}--inset-padding-y, var(--#{$_}--padding-y)) * 0.5) var(--#{$_}--inset-padding-x, var(--#{$_}--padding-x));
         padding-right: calc(var(--#{$_}--inset-padding-x, var(--#{$_}--padding-x)) * 2);
         background-color: tokens.getRawValue($_, "color--surface-alt");
     }
+
     .#{$_}__heading-item {
         font-size: #{tokens.getRawValue($_, "font-size-90")};
     }
@@ -51,26 +53,27 @@ $_: "c-accordion";
             border-top: var(--#{$_}--border);
         }
 
-        &:not(.#{$_}--spaced) > details:first-child {
+        &:not(.#{$_}--spaced)>details:first-child {
             border-top: none;
         }
 
-        > * {
+        >* {
             border-radius: 0;
         }
     }
 
     &.#{$_}--divided details {
+
         &:not(:first-child) {
             border-top: var(--#{$_}--border);
         }
     }
 
     &.#{$_}--spaced {
-        gap: calc(tokens.getRawValue($_, "base") *  4);
+        gap: calc(tokens.getRawValue($_, "base") * 4);
         background-color: unset;
 
-        > * {
+        >* {
             background-color: var(--#{$_}--background-color);
         }
 
@@ -78,7 +81,7 @@ $_: "c-accordion";
             border: unset;
             border-radius: unset;
 
-            > * {
+            >* {
                 border: var(--#{$_}--border);
                 background-color: var(--#{$_}--background-color);
                 border-radius: #{tokens.getCalculatedValue($_, "border-radius", 1)};

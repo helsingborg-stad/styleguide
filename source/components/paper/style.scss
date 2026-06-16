@@ -6,7 +6,7 @@
 /* Component name */
 $_: "c-paper";
 
-$insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data-component=\"table\"]";
+$insetTargets: "[data-component=\"card\"], .c-accordion, [data-component=\"table\"]";
 
 /* Design tokens */
 @include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
@@ -33,20 +33,20 @@ $insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data
     corner-shape: tokens.getRawValue($_, "corner-shape");
     filter: tokens.getCalculatedValue($_, "shadow", 1);
 
-    > .#{$_}__content {
+    >.#{$_}__content {
         @include insetMultiplier.consume($_, insetMultiplier.contextual-multiplier(var(--#{$_}--inset-scale)));
         padding: 0;
     }
 
-    > .#{$_}__content > :first-child {
+    >.#{$_}__content> :first-child {
         --inherit-margin-top: 0;
     }
 
-    > .#{$_}__content > :last-child {
+    >.#{$_}__content> :last-child {
         --inherit-margin-bottom: 0;
     }
 
-    @include insetMultiplier.responsive-resolve($_, $selector: '> .#{$_}__content');
+    @include insetMultiplier.responsive-resolve($_, $selector: "> .#{$_}__content");
 
     #{$insetTargets} {
         @include insetMultiplier.publish(insetMultiplier.contextual-multiplier(1));
@@ -55,6 +55,7 @@ $insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data
     @include insetMultiplier.responsive-publish($selector: $insetTargets);
 
     /* switch to surface color tokens for nested components */
+
     [data-component="card"],
     [data-component="comment"],
     [data-component="table"],
@@ -80,15 +81,18 @@ $insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data
 
     @for $i from 0 through 8 {
         &--padding-#{$i} {
-            > .#{$_}__content {
+            >.#{$_}__content {
                 padding: calc(#{tokens.getCalculatedValue($_, "space", $i)} * var(--#{$_}--inset-multiplier));
             }
         }
     }
 
+    &--padding-0 .c-accordion {
+        --inherit-border-width: 0;
+    }
 
     &--divider {
-        > .#{$_}__content {
+        >.#{$_}__content {
             border-top: var(--#{$_}--border);
             padding-top: calc(#{tokens.getCalculatedValue($_, "space", 3)} * var(--#{$_}--inset-multiplier));
         }
