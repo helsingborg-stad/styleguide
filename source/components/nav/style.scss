@@ -63,13 +63,15 @@ $_: "c-nav";
 @include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
 .c-nav {
-    --#{$_}--background-expanded-default: rgba(0, 0, 0, .05);
+    --#{$_}--background-expanded-transparency-default: 5%;
+    --#{$_}--background-expanded-transparency: var(--#{$_}--background-expanded-transparency-default);
     --#{$_}--item-background-color-hover-default: transparent;
     --#{$_}--font-size: var(--base-font-size);
-    --#{$_}--background-expanded: #{tokens.getDerivedAliasValue($_, "background-expanded", "color-background-active")};
     --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 1)};
     --#{$_}--item-background-color: #{tokens.getRawValue($_, "color--surface", "color-background")};
     --#{$_}--item-color: #{tokens.getRawValue($_, "color--surface-contrast", "color-contrast")};
+    --#{$_}--background-expanded-default: color-mix(in srgb, var(--#{$_}--item-color) var(--#{$_}--background-expanded-transparency), transparent);
+    --#{$_}--background-expanded-color: var(--#{$_}--background-expanded, var(--#{$_}--background-expanded-default));
     --#{$_}--item-background-color-hover: #{tokens.getDerivedAliasValue($_, "item-background-color-hover", "color-background-hover")};
     --#{$_}--item-color-hover: #{tokens.getRawValue($_, "color--surface-contrast", "color-contrast")};
     --#{$_}--item-border-color: #{tokens.getRawValue($_, "color--surface-border", "color-border")};
@@ -241,7 +243,7 @@ $_: "c-nav";
         flex-direction: column;
 
         .c-nav.c-nav--vertical {
-            background-color: rgba(0, 0, 0, .1);
+            background-color: var(--#{$_}--background-expanded-color);
         }
 
         .c-nav__link {
@@ -501,7 +503,7 @@ $_: "c-nav";
     font-size: var(--#{$_}--font-size);
 
     .c-nav.c-nav--vertical {
-        background-color: var(--#{$_}--background-expanded);
+        background-color: var(--#{$_}--background-expanded-color);
     }
 
     .c-nav__item {
