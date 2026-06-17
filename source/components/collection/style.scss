@@ -1,16 +1,23 @@
+@use "../../sass/mixin/inset-multiplier" as insetMultiplier;
 @use "../../sass/mixin/tokens";
 
 $_: "c-collection";
 
+@include insetMultiplier.property();
 @include tokens.create($_, getComponentTokens($_));
 
 // Reset
 .#{$_} {
+    @include insetMultiplier.consume($_);
+
     --#{$_}--padding-x-compact: #{tokens.getCalculatedValue($_, "space", 2)};
     --#{$_}--padding-y-compact: #{tokens.getCalculatedValue($_, "space", 1)};
     --#{$_}--padding-x: #{tokens.getCalculatedValue($_, "space", 2)};
     --#{$_}--padding-y: #{tokens.getCalculatedValue($_, "space", 2)};
-    --#{$_}--padding-x-inset: calc(var(--#{$_}--padding-x) * 3.5);
+    --#{$_}--padding-y-inset-multiplier: 0.35;
+    --#{$_}--icon-gap-multiplier: 0.5;
+    --#{$_}--padding-x-inset: calc(var(--#{$_}--inset-padding-x) * 3.5);
+    container-type: inline-size;
     padding: 0;
     margin: 0;
 
@@ -26,6 +33,10 @@ $_: "c-collection";
 .#{$_} {
     border-radius: tokens.getCalculatedValue($_, "border-radius");
     corner-shape: tokens.getRawValue($_, "corner-shape");
+
+    @include insetMultiplier.responsive-resolve($_);
+
+    --#{$_}--inset-padding-y: calc(var(--#{$_}--padding-y) + ((var(--#{$_}--inset-padding-x) - var(--#{$_}--padding-x)) * var(--#{$_}--padding-y-inset-multiplier)));
 
     &.#{$_}--bordered {
         border: tokens.getCalculatedValue($_, "border-width", 2) solid tokens.getRawValue($_, "color--background-border");
@@ -133,7 +144,7 @@ $_: "c-collection";
     // Content
     .#{$_}__content {
         flex: 1 1 auto;
-        padding: var(--#{$_}--padding-y) var(--#{$_}--padding-x);
+        padding: var(--#{$_}--inset-padding-y, var(--#{$_}--padding-y)) var(--#{$_}--inset-padding-x, var(--#{$_}--padding-x));
 
         &>*:first-child {
             margin-top: 0;
@@ -159,7 +170,7 @@ $_: "c-collection";
 
     // Secondary
     .#{$_}__item>.#{$_}__secondary {
-        padding: var(--#{$_}--padding-y) var(--#{$_}--padding-x);
+        padding: var(--#{$_}--inset-padding-y, var(--#{$_}--padding-y)) var(--#{$_}--inset-padding-x, var(--#{$_}--padding-x));
         display: flex;
     }
 
@@ -169,7 +180,7 @@ $_: "c-collection";
 
     // Icon
     .#{$_}__icon {
-        padding: var(--#{$_}--padding-y) var(--#{$_}--padding-x);
+        padding: var(--#{$_}--inset-padding-y, var(--#{$_}--padding-y)) calc(var(--#{$_}--inset-padding-x, var(--#{$_}--padding-x)) * var(--#{$_}--icon-gap-multiplier)) var(--#{$_}--inset-padding-y, var(--#{$_}--padding-y)) var(--#{$_}--inset-padding-x, var(--#{$_}--padding-x));
         display: flex;
     }
 

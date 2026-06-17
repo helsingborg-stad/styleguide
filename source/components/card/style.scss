@@ -53,6 +53,7 @@ $_: "c-card";
     [data-component="paper"],
     [data-component="comment"],
     [data-component="accordion"],
+    [data-component="collection"],
     [data-component="table"],
     table:not(.c-table *),
     [data-component="button"].c-button__filled--default {
@@ -74,8 +75,12 @@ $_: "c-card";
         --inherit-border: none;
     }
 
-    [data-component="accordion"] {
+    [data-component="accordion"],
+    [data-component="collection"] {
         @include insetMultiplier.publish(var(--#{$_}--inset-multiplier));
+    }
+
+    [data-component="accordion"] {
         @include inherit.publish("shadow", none);
         @include inherit.publish("outline-width", 0);
     }
