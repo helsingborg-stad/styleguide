@@ -1,6 +1,6 @@
 @accordion([
     'classList' => ['c-accordion'],
-    'heading' => ['1', '2'],
+    'heading' => ['First column with content', 'Second column with content'],
     'list' => [
         [
             'heading' => ["Heading 1", "Heading 2"],

@@ -45,6 +45,8 @@ $_: "c-accordion";
         padding: calc(var(--#{$_}--inset-padding-y, var(--#{$_}--padding-y)) * 0.5) var(--#{$_}--inset-padding-x, var(--#{$_}--padding-x));
         padding-right: calc(var(--#{$_}--inset-padding-x, var(--#{$_}--padding-x)) * 2);
         background-color: tokens.getRawValue($_, "color--surface-alt");
+        color: tokens.getRawValue($_, "color--surface-contrast-muted");
+        text-transform: uppercase;
     }
 
     .#{$_}__heading-item {
