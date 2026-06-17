@@ -165,6 +165,7 @@ class Documentation
                 'blade' => ['id' => uniqid('', true), 'code' => $content],
                 'html' => ['id' => uniqid('', true), 'code' => $html],
                 'description' => $normalizedDescription,
+                'includePaper' => ($description['includePaper'] ?? true) !== false,
             ];
         }
 

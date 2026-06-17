@@ -16,29 +16,38 @@
               </article>
           @endif
 
-          @paper(['padding' => 0, 'classList' => ['u-margin__bottom--4']])
-              @php
-                  $htmlSourceCode = e(\MunicipioStyleGuide\Helper\ParseString::tidyHtml($example['html']['code']));
-                  $bladeSourceCode = e($example['blade']['code']);
+          @php
+              $htmlSourceCode = e(\MunicipioStyleGuide\Helper\ParseString::tidyHtml($example['html']['code']));
+              $bladeSourceCode = e($example['blade']['code']);
+              $includePaper = ($example['includePaper'] ?? true) !== false;
 
-                  $renderView = static function (string $viewPath, array $viewData = []) use ($__env): string {
-                      return $__env->make($viewPath, $viewData)->render();
-                  };
+              $renderView = static function (string $viewPath, array $viewData = []) use ($__env): string {
+                  return $__env->make($viewPath, $viewData)->render();
+              };
 
-                  $exampleTabContent   = '<div class="markup-preview">' . $__env->make($example['component'], get_defined_vars())->render() . '</div>';
-                  $htmlCodeTemplate    = $renderView('layout.partials.doc.tab-code', ['language' => 'html']);
-                  $htmlCodeTabContent  = str_replace('__CODE_PLACEHOLDER__', $htmlSourceCode, $htmlCodeTemplate);
-                  $bladeCodeTemplate   = $renderView('layout.partials.doc.tab-code', ['language' => 'php']);
-                  $bladeCodeTabContent = str_replace('__CODE_PLACEHOLDER__', $bladeSourceCode, $bladeCodeTemplate);
-              @endphp
-
-              @tabs(['tabs' => [
+              $exampleTabContent   = '<div class="markup-preview">' . $__env->make($example['component'], get_defined_vars())->render() . '</div>';
+              $htmlCodeTemplate    = $renderView('layout.partials.doc.tab-code', ['language' => 'html']);
+              $htmlCodeTabContent  = str_replace('__CODE_PLACEHOLDER__', $htmlSourceCode, $htmlCodeTemplate);
+              $bladeCodeTemplate   = $renderView('layout.partials.doc.tab-code', ['language' => 'php']);
+              $bladeCodeTabContent = str_replace('__CODE_PLACEHOLDER__', $bladeSourceCode, $bladeCodeTemplate);
+              $tabs = [
                   ['title' => 'Example', 'content' => $exampleTabContent],
                   ['title' => 'HTML',    'content' => $htmlCodeTabContent],
                   ['title' => 'Blade',   'content' => $bladeCodeTabContent],
-              ]])
-              @endtabs
-          @endpaper
+              ];
+          @endphp
+
+          @if($includePaper)
+              @paper(['padding' => 0, 'classList' => ['u-margin__bottom--4']])
+                  @tabs(['tabs' => $tabs])
+                  @endtabs
+              @endpaper
+          @else
+              <div class="u-margin__bottom--4">
+                  @tabs(['tabs' => $tabs])
+                  @endtabs
+              </div>
+          @endif
       @endforeach
   @else
       @notice([

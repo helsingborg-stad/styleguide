@@ -2,6 +2,8 @@
 
 namespace MunicipioStyleGuide\Tests;
 
+use HelsingborgStad\BladeService\BladeServiceInterface;
+use Illuminate\Contracts\View\View as BladeView;
 use MunicipioStyleGuide\Helper\Documentation;
 use PHPUnit\Framework\TestCase;
 
@@ -211,5 +213,60 @@ class ComponentLibraryTest extends TestCase
         $this->assertSame('attributeList', $subcomponents[0]['parameters'][7]['parameter']);
         $this->assertStringContainsString("'type' => 'info'", $subcomponents[0]['usageExample']);
         $this->assertStringContainsString("'message' => [", $subcomponents[0]['usageExample']);
+    }
+
+    /**
+     * @return void
+     *
+     * @runInSeparateProcess
+     */
+    public function testGetUsageExamplesMapsPaperWrapperMetadata(): void
+    {
+        mkdir($this->tempBasePath . 'source/components/accordion/examples', 0777, true);
+
+        file_put_contents(
+            $this->tempBasePath . 'source/components/accordion/examples/examples.json',
+            json_encode([
+                'standalone' => [
+                    'heading' => 'Standalone accordion',
+                    'includePaper' => false,
+                ],
+                'wrapped' => [
+                    'heading' => 'Wrapped accordion',
+                ],
+            ]),
+        );
+
+        file_put_contents(
+            $this->tempBasePath . 'source/components/accordion/examples/standalone.blade.php',
+            "@accordion([])\n@endaccordion\n",
+        );
+
+        file_put_contents(
+            $this->tempBasePath . 'source/components/accordion/examples/wrapped.blade.php',
+            "@paper([])\n@endpaper\n",
+        );
+
+        define('BASEPATH', $this->tempBasePath);
+
+        $renderedView = $this->createMock(BladeView::class);
+        $renderedView->method('render')->willReturn('<div>Rendered example</div>');
+
+        $blade = $this->createMock(BladeServiceInterface::class);
+        $blade->method('makeView')->willReturn($renderedView);
+
+        $examples = Documentation::getUsageExamples('accordion', $blade);
+
+        $this->assertCount(2, $examples);
+        $this->assertFalse($examples[0]['includePaper']);
+        $this->assertTrue($examples[1]['includePaper']);
+
+        @unlink($this->tempBasePath . 'source/components/accordion/examples/examples.json');
+        @unlink($this->tempBasePath . 'source/components/accordion/examples/standalone.blade.php');
+        @unlink($this->tempBasePath . 'source/components/accordion/examples/wrapped.blade.php');
+        @rmdir($this->tempBasePath . 'source/components/accordion/examples');
+        @rmdir($this->tempBasePath . 'source/components/accordion');
+        @rmdir($this->tempBasePath . 'source/components');
+        @rmdir($this->tempBasePath . 'source');
     }
 }
