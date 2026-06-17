@@ -14,5 +14,9 @@
     "modifiersCollection": {
         "heading": "Collection with modifiers ",
         "text": "Thie is a collections with all modifiers."
+    },
+    "cardCollection": {
+        "heading": "Collection in card",
+        "text": "Shows a bordered collection wrapped in a panel card."
     }
 } 
