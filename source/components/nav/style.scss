@@ -506,6 +506,15 @@ $_: "c-nav";
         background-color: var(--#{$_}--background-expanded-color);
     }
 
+    &:not(.c-nav--bordered) {
+
+        .c-nav.c-nav--child.c-nav--depth-2 {
+            border-radius: tokens.getCalculatedValue($_, "border-radius");
+            corner-shape: tokens.getRawValue($_, "corner-shape");
+            overflow: hidden;
+        }
+    }
+
     .c-nav__item {
 
         .c-nav__text,
