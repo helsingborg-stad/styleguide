@@ -16,6 +16,12 @@
 		"heading": "Using no border between items"
 	},
 	"content": {
-		"heading": "Using a larger body of content within the accordion"
+		"heading": "Larger content in the accordion item"
+	},
+	"card": {
+		"heading": "Accordion wrapped with a card component"
+	},
+	"paper": {
+		"heading": "Accordion wrapped with a paper component"
 	}
 }
