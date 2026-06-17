@@ -45,6 +45,12 @@
     padding: 16px;
 }
 
+.d-example-tabs--paperless {
+    border: tokens.getCalculatedValue("", "border-width", 1) solid tokens.getRawValue("", "color--surface-border");
+    border-radius: tokens.getCalculatedValue("", "border-radius");
+    overflow: hidden;
+}
+
 .d-params {
 
     table {

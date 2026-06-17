@@ -43,7 +43,7 @@
                   @endtabs
               @endpaper
           @else
-              <div class="u-margin__bottom--4">
+              <div class="d-example-tabs--paperless u-margin__bottom--4">
                   @tabs(['tabs' => $tabs])
                   @endtabs
               </div>
