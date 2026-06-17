@@ -41,17 +41,7 @@
     inherits: false;
 }
 
-@property --inherit-padding-compressed {
-    syntax: "*";
-    inherits: false;
-}
-
 @property --inherit-button-padding {
-    syntax: "*";
-    inherits: false;
-}
-
-@property --inherit-button-padding-compressed {
     syntax: "*";
     inherits: false;
 }
@@ -76,9 +66,7 @@ $_: "c-nav";
     --#{$_}--item-color-hover: #{tokens.getRawValue($_, "color--surface-contrast", "color-contrast")};
     --#{$_}--item-border-color: #{tokens.getRawValue($_, "color--surface-border", "color-border")};
     --#{$_}--vertical-link-padding: var(--inherit-padding, calc(#{tokens.getRawValue($_, "base")} * 1) calc(#{tokens.getRawValue($_, "base")} * 2));
-    --#{$_}--vertical-link-padding-compressed: var(--inherit-padding-compressed, calc(#{tokens.getRawValue($_, "base")} * 0.75) 0);
     --#{$_}--vertical-button-padding: var(--inherit-button-padding, calc(#{tokens.getRawValue($_, "base")} * 1.5) calc(#{tokens.getRawValue($_, "base")} * 2));
-    --#{$_}--vertical-button-padding-compressed: var(--inherit-button-padding-compressed, calc(#{tokens.getRawValue($_, "base")} * 1.25) calc(#{tokens.getRawValue($_, "base")} * 1.5));
     display: flex;
     width: 100%;
 
@@ -185,10 +173,6 @@ $_: "c-nav";
 
         &.c-nav--depth-1 {
             gap: calc(#{tokens.getRawValue($_, "base")} * 2);
-
-            &.c-nav--compressed {
-                gap: calc(#{tokens.getRawValue($_, "base")} * 1);
-            }
         }
 
         .c-nav__item--depth-1>.c-nav__item-wrapper {
@@ -255,17 +239,6 @@ $_: "c-nav";
 
             [data-component="button"] {
                 width: 100%;
-            }
-        }
-
-        &.c-nav--compressed {
-
-            .c-nav__link {
-                padding: var(--#{$_}--vertical-link-padding-compressed);
-            }
-
-            .c-nav__item.c-nav__item--button .c-nav__item-wrapper {
-                padding: var(--#{$_}--vertical-button-padding-compressed);
             }
         }
 

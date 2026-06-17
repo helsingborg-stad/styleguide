@@ -12,10 +12,7 @@ $_: "c-drawer";
     --#{$_}--padding-multiplier: 2;
     --#{$_}--padding-x: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--padding-multiplier));
     --#{$_}--padding-y: calc(#{tokens.getCalculatedValue($_, "space", 1)} + calc(var(--#{$_}--padding-multiplier) * #{tokens.getCalculatedValue($_, "space", 0.5)}));
-    --#{$_}--padding-x-compressed: calc(#{tokens.getCalculatedValue($_, "space", 1.5)} * var(--#{$_}--padding-multiplier));
-    --#{$_}--padding-y-compressed: calc(#{tokens.getCalculatedValue($_, "space", 0.5)} + calc(var(--#{$_}--padding-multiplier) * #{tokens.getCalculatedValue($_, "space", 0.5)}));
     --#{$_}--button-padding-y: calc(#{tokens.getCalculatedValue($_, "space", 2)} + calc(var(--#{$_}--padding-multiplier) * #{tokens.getCalculatedValue($_, "space", 0.5)}));
-    --#{$_}--button-padding-y-compressed: calc(#{tokens.getCalculatedValue($_, "space", 1.5)} + calc(var(--#{$_}--padding-multiplier) * #{tokens.getCalculatedValue($_, "space", 0.5)}));
     --drawer-background: #{tokens.getRawValue($_, "color--surface")};
     --drawer-color: #{tokens.getRawValue($_, "color--surface-contrast")};
     --drawer-border-color: #{tokens.getRawValue($_, "color--surface-border")};
@@ -131,8 +128,8 @@ $_: "c-drawer";
     z-index: 10;
     transform: translate(-100%);
     transition: visibility 0s linear var(--#{$_}--drawer-transition-ms),
-    var(--#{$_}--drawer-transition-ms) ease-in transform,
-    var(--#{$_}--drawer-transition-ms) ease-in opacity;
+        var(--#{$_}--drawer-transition-ms) ease-in transform,
+        var(--#{$_}--drawer-transition-ms) ease-in opacity;
     visibility: hidden;
     opacity: 0;
     display: flex;
@@ -166,18 +163,9 @@ $_: "c-drawer";
     [data-component="nav"].c-nav--vertical {
         --inherit-padding: var(--#{$_}--padding-y) var(--#{$_}--padding-x);
         --inherit-button-padding: var(--#{$_}--button-padding-y) var(--#{$_}--padding-x);
-        --inherit-padding-compressed: var(--#{$_}--padding-y-compressed) var(--#{$_}--padding-x-compressed);
-        --inherit-button-padding-compressed: var(--#{$_}--button-padding-y-compressed) var(--#{$_}--padding-x-compressed);
 
         .c-nav__item.has-toggle>.c-nav__item-wrapper>.c-nav__toggle {
             margin-right: var(--#{$_}--padding-x);
-        }
-
-        &.c-nav--compressed {
-
-            .c-nav__item.has-toggle>.c-nav__item-wrapper>.c-nav__toggle {
-                margin-right: var(--#{$_}--padding-x-compressed);
-            }
         }
     }
 }
@@ -200,7 +188,7 @@ $_: "c-drawer";
         .c-nav__text,
         .c-nav__icon,
         .c-nav__toggle,
-        .c-nav__toggle * ,
+        .c-nav__toggle *,
         .c-nav__button.c-button__basic .c-button__label,
         .c-nav__button.c-button__basic .c-button__label *,
         .c-nav__button.c-button__outlined .c-button__label,
@@ -226,8 +214,8 @@ $_: "c-drawer";
 
 .c-drawer.is-open {
     transition: visibility 0s linear 0s,
-    var(--#{$_}--drawer-transition-ms) ease-out transform,
-    var(--#{$_}--drawer-transition-ms) ease-out opacity;
+        var(--#{$_}--drawer-transition-ms) ease-out transform,
+        var(--#{$_}--drawer-transition-ms) ease-out opacity;
     visibility: visible;
     transform: translate(0%);
     opacity: 1;
@@ -247,7 +235,7 @@ $_overlay: "drawer-overlay";
     height: 100%;
     z-index: 9;
     transition: visibility 0s linear var(--#{$_overlay}--drawer-transition-ms),
-    var(--#{$_overlay}--drawer-transition-ms) ease-in opacity;
+        var(--#{$_overlay}--drawer-transition-ms) ease-in opacity;
     visibility: hidden;
     opacity: 0;
     backdrop-filter: blur(1px);
@@ -258,6 +246,6 @@ $_overlay: "drawer-overlay";
 .c-drawer.is-open+.drawer-overlay {
     opacity: 1;
     transition: visibility 0s linear 0s,
-    var(--#{$_}--drawer-transition-ms) ease-out opacity;
+        var(--#{$_}--drawer-transition-ms) ease-out opacity;
     visibility: visible;
 }

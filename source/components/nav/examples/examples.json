@@ -19,10 +19,6 @@
         "heading": "Horizontal navigation (with dropdown)",
         "text": ""
     },
-    "compressed": {
-        "heading": "Compressed vertical navigation",
-        "text": "Vertical navigation with reduced spacing between items using the compressed parameter."
-    },
     "horizontal-extended-dropdown": {
         "heading": "Horizontal navigation (extended dropdown)",
         "text": "Horizontal navigation with the extended mega-menu dropdown enabled via isExtendedDropdown, presenting child items in a full-width panel."
