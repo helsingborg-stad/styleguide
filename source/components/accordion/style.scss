@@ -1,9 +1,11 @@
 @use "sass:meta";
 @use "../../sass/mixin/button";
+@use "../../sass/mixin/inherit";
 @use "../../sass/mixin/tokens";
 @use "../../sass/mixin/inset-multiplier" as insetMultiplier;
 
 @include insetMultiplier.property();
+@include inherit.property("shadow");
 
 /* Component name */
 $_: "c-accordion";
@@ -13,8 +15,9 @@ $_: "c-accordion";
 
 .#{$_} {
     @include insetMultiplier.consume($_);
+    @include inherit.consume($_, "shadow", tokens.getCalculatedValue($_, "shadow", 1));
     --#{$_}--heading-columns: repeat(var(--#{$_}--heading-count, auto-fill), 1fr);
-    --#{$_}--border-width-value: var(--inherit-border-width, #{tokens.getRawValue($_, "border-width")});
+    @include inherit.consume($_, "border-width", tokens.getRawValue($_, "border-width"), "border-width-value");
     --#{$_}--border: calc(var(--#{$_}--border-width-value) * var(--base)) solid #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface")};
     --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
@@ -28,6 +31,7 @@ $_: "c-accordion";
     display: grid;
     color: var(--#{$_}--color);
     background-color: var(--#{$_}--background-color);
+    filter: var(--#{$_}--shadow);
 
     @include insetMultiplier.responsive-resolve($_, $selector: ".#{$_}__heading");
     @include insetMultiplier.responsive-resolve($_, $selector: ".#{$_}__item");
@@ -72,9 +76,11 @@ $_: "c-accordion";
     &.#{$_}--spaced {
         gap: calc(tokens.getRawValue($_, "base") * 4);
         background-color: unset;
+        filter: none;
 
         >* {
             background-color: var(--#{$_}--background-color);
+            filter: var(--#{$_}--shadow);
         }
 
         &.#{$_}--bordered {

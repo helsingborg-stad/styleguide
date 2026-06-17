@@ -1,4 +1,5 @@
 @use "../../sass/mixin/inset-multiplier" as insetMultiplier;
+@use "../../sass/mixin/inherit";
 @use "../../sass/mixin/tokens";
 
 /* Inheritance properties */
@@ -75,6 +76,7 @@ $_: "c-card";
 
     [data-component="accordion"] {
         @include insetMultiplier.publish(var(--#{$_}--inset-multiplier));
+        @include inherit.publish("shadow", none);
     }
 
     .#{$_}__paint-container {

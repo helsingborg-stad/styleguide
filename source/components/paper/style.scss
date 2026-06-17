@@ -1,4 +1,5 @@
 @use "../../sass/mixin/inset-multiplier" as insetMultiplier;
+@use "../../sass/mixin/inherit";
 @use "../../sass/mixin/tokens";
 
 @include insetMultiplier.property();
@@ -6,7 +7,7 @@
 /* Component name */
 $_: "c-paper";
 
-$insetTargets: "[data-component=\"card\"], .c-accordion, [data-component=\"table\"]";
+$insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data-component=\"table\"]";
 
 /* Design tokens */
 @include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
@@ -52,6 +53,10 @@ $insetTargets: "[data-component=\"card\"], .c-accordion, [data-component=\"table
         @include insetMultiplier.publish(insetMultiplier.contextual-multiplier(1));
     }
 
+    [data-component="accordion"] {
+        @include inherit.publish("shadow", none);
+    }
+
     @include insetMultiplier.responsive-publish($selector: $insetTargets);
 
     /* switch to surface color tokens for nested components */
@@ -87,8 +92,8 @@ $insetTargets: "[data-component=\"card\"], .c-accordion, [data-component=\"table
         }
     }
 
-    &--padding-0 .c-accordion {
-        --inherit-border-width: 0;
+    &--padding-0 [data-component="accordion"] {
+        @include inherit.publish("border-width", 0);
     }
 
     &--divider {
