@@ -2,6 +2,7 @@
 @use "../../sass/mixin/tokens";
 
 $_: "c-collection";
+$insetTargets: "> .#{$_}__item, > .#{$_}__divider";
 
 @include insetMultiplier.property();
 @include tokens.create($_, getComponentTokens($_));
@@ -34,9 +35,13 @@ $_: "c-collection";
     border-radius: tokens.getCalculatedValue($_, "border-radius");
     corner-shape: tokens.getRawValue($_, "corner-shape");
 
-    @include insetMultiplier.responsive-resolve($_);
+    @include insetMultiplier.responsive-resolve($_, $selector: $insetTargets);
 
     --#{$_}--inset-padding-y: calc(var(--#{$_}--padding-y) + ((var(--#{$_}--inset-padding-x) - var(--#{$_}--padding-x)) * var(--#{$_}--padding-y-inset-multiplier)));
+
+    #{$insetTargets} {
+        --#{$_}--inset-padding-y: calc(var(--#{$_}--padding-y) + ((var(--#{$_}--inset-padding-x) - var(--#{$_}--padding-x)) * var(--#{$_}--padding-y-inset-multiplier)));
+    }
 
     &.#{$_}--bordered {
         border: tokens.getCalculatedValue($_, "border-width", 2) solid tokens.getRawValue($_, "color--background-border");
