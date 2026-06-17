@@ -77,6 +77,7 @@ $_: "c-card";
     [data-component="accordion"] {
         @include insetMultiplier.publish(var(--#{$_}--inset-multiplier));
         @include inherit.publish("shadow", none);
+        @include inherit.publish("outline-width", 0);
     }
 
     .#{$_}__paint-container {

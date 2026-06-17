@@ -93,7 +93,7 @@ $insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data
     }
 
     &--padding-0 [data-component="accordion"] {
-        @include inherit.publish("border-width", 0);
+        @include inherit.publish("outline-width", 0);
     }
 
     &--divider {

@@ -6,6 +6,7 @@
 
 @include insetMultiplier.property();
 @include inherit.property("shadow");
+@include inherit.property("outline-width");
 
 /* Component name */
 $_: "c-accordion";
@@ -17,8 +18,9 @@ $_: "c-accordion";
     @include insetMultiplier.consume($_);
     @include inherit.consume($_, "shadow", tokens.getCalculatedValue($_, "shadow", 1));
     --#{$_}--heading-columns: repeat(var(--#{$_}--heading-count, auto-fill), 1fr);
-    @include inherit.consume($_, "border-width", tokens.getRawValue($_, "border-width"), "border-width-value");
-    --#{$_}--border: calc(var(--#{$_}--border-width-value) * var(--base)) solid #{tokens.getRawValue($_, "color--surface-border")};
+    @include inherit.consume($_, "outline-width", tokens.getRawValue($_, "border-width"), "outline-width-value");
+    --#{$_}--outline-border: calc(var(--#{$_}--outline-width-value) * var(--base)) solid #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface")};
     --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
     --#{$_}--padding-x: #{calc(tokens.getRawValue($_, "base") *  2)};
@@ -51,7 +53,7 @@ $_: "c-accordion";
 
     /* Modifiers */
     &.#{$_}--bordered {
-        border: var(--#{$_}--border);
+        border: var(--#{$_}--outline-border);
 
         details {
             border-top: var(--#{$_}--border);
@@ -77,6 +79,7 @@ $_: "c-accordion";
         gap: calc(tokens.getRawValue($_, "base") * 4);
         background-color: unset;
         filter: none;
+        contain: layout;
 
         >* {
             background-color: var(--#{$_}--background-color);
@@ -88,7 +91,7 @@ $_: "c-accordion";
             border-radius: unset;
 
             >* {
-                border: var(--#{$_}--border);
+                border: var(--#{$_}--outline-border);
                 background-color: var(--#{$_}--background-color);
                 border-radius: #{tokens.getCalculatedValue($_, "border-radius", 1)};
             }

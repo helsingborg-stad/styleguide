@@ -1,6 +1,5 @@
 <?php
 
-
 namespace MunicipioStyleGuide\Helper;
 
 use HelsingborgStad\BladeService\BladeServiceInterface;
@@ -157,7 +156,7 @@ class Documentation
 
             $normalizedDescription = [
                 'heading' => $description['heading'] ?? '',
-                'description' => $description['description'] ?? ($description['text'] ?? ''),
+                'description' => $description['description'] ?? $description['text'] ?? '',
             ];
 
             $examples[] = [
@@ -172,7 +171,6 @@ class Documentation
         return $examples;
     }
 
-
     /**
      * @param $dir
      * @param $slug
@@ -185,7 +183,6 @@ class Documentation
         return $json;
     }
 
-
     /**
      * @return array
      */
@@ -194,16 +191,11 @@ class Documentation
         $atomic = ['atoms', 'molecules', 'organisms'];
         $results = [];
         foreach ($atomic as $atomicDir) {
-
             $dir = BASEPATH . '/views/pages/components/' . $atomicDir . '/';
             $files = scandir($dir);
             $results[$atomicDir] = [];
             foreach ($files as $key => $value) {
-                if ($value !== "." &&
-                    $value !== ".." &&
-                    $value !== "" &&
-                    $value !== ".dc_store") {
-
+                if ($value !== '.' && $value !== '..' && $value !== '' && $value !== '.dc_store') {
                     array_push($results[$atomicDir], str_replace('.blade.php', '', $value));
                 }
             }
@@ -601,5 +593,4 @@ class Documentation
     {
         return strtolower((string) preg_replace('/[^a-zA-Z0-9]/', '', $value));
     }
-
 }
