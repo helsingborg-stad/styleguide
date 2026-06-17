@@ -2,6 +2,7 @@
  * Represents a drawer toggle button that controls the opening and closing of a drawer.
  */
 class DrawerAccessibility {
+    private static hasGlobalViewOffsetListeners = false;
     closeButton: HTMLElement;
     firstMenuItem: HTMLElement|null;
     lastItem: HTMLElement;
@@ -15,7 +16,36 @@ class DrawerAccessibility {
         this.firstMenuItem  = this.getFirstMenuItem();
         this.lastItem       = this.getLastItem();
 
+        this.setupViewOffsetListeners();
+
         (this.lastItem && this.closeButton) && this.setupAccessibilityListeners();
+    }
+
+    /**
+     * Watches drawer state and size-affecting changes so global view offsets stay current.
+     */
+    private setupViewOffsetListeners() {
+        const observer = new MutationObserver(() => updateDrawerViewOffsets());
+        observer.observe(this.drawer, {
+            attributes: true,
+            attributeFilter: ['class', 'style']
+        });
+
+        DrawerAccessibility.setupGlobalViewOffsetListeners();
+        updateDrawerViewOffsets();
+    }
+
+    /**
+     * Adds viewport listeners once, shared by all drawer instances.
+     */
+    private static setupGlobalViewOffsetListeners() {
+        if (DrawerAccessibility.hasGlobalViewOffsetListeners) {
+            return;
+        }
+
+        window.addEventListener('resize', updateDrawerViewOffsets);
+        window.visualViewport?.addEventListener('resize', updateDrawerViewOffsets);
+        DrawerAccessibility.hasGlobalViewOffsetListeners = true;
     }
 
     /**
@@ -118,6 +148,82 @@ export function initializeDrawerAccessibility() {
             new DrawerAccessibility((button as HTMLElement), (drawer as HTMLElement));
         }
     });
+}
+
+/**
+ * Updates global view offsets based on currently open drawers.
+ */
+export function updateDrawerViewOffsets() {
+    const openDrawers = [...document.querySelectorAll<HTMLElement>('.c-drawer.is-open')];
+    const baseUnit = getBaseUnitInPixels();
+    const leftOffset = getMaxDrawerOffsetInBaseUnits(
+        openDrawers.filter((drawer) => !drawer.classList.contains('c-drawer--right')),
+        baseUnit
+    );
+    const rightOffset = getMaxDrawerOffsetInBaseUnits(
+        openDrawers.filter((drawer) => drawer.classList.contains('c-drawer--right')),
+        baseUnit
+    );
+
+    setViewOffset('left', leftOffset);
+    setViewOffset('right', rightOffset);
+}
+
+/**
+ * Sets a global view offset and easing direction for the side being updated.
+ *
+ * @param side - The viewport side being offset.
+ * @param offset - The offset expressed as a base-unit multiplier.
+ */
+function setViewOffset(side: 'left'|'right', offset: number) {
+    const property = `--view-offset-${side}`;
+    const currentOffset = Number.parseFloat(document.documentElement.style.getPropertyValue(property)) || 0;
+    const easing = offset < currentOffset ? 'ease-in' : 'ease-out';
+
+    document.documentElement.style.setProperty(`--view-offset-${side}-transition-easing`, easing);
+    document.documentElement.style.setProperty(property, offset.toString());
+}
+
+/**
+ * Gets the largest drawer width in base units from a drawer list.
+ *
+ * @param drawers - Drawers to measure.
+ * @param baseUnit - Current base unit size in pixels.
+ * @returns The largest drawer width expressed as a base-unit multiplier.
+ */
+function getMaxDrawerOffsetInBaseUnits(drawers: HTMLElement[], baseUnit: number) {
+    const maxWidth = drawers.reduce((width, drawer) => {
+        const drawerWidth = drawer.getBoundingClientRect().width || drawer.offsetWidth;
+
+        return Math.max(width, drawerWidth);
+    }, 0);
+
+    return Number((maxWidth / baseUnit).toFixed(4));
+}
+
+/**
+ * Resolves the current CSS base unit in pixels.
+ *
+ * @returns The base unit size in pixels.
+ */
+function getBaseUnitInPixels() {
+    const rawBaseValue = getComputedStyle(document.documentElement).getPropertyValue('--base').trim();
+    const parsedBaseValue = Number.parseFloat(rawBaseValue);
+
+    if (rawBaseValue.endsWith('px') && parsedBaseValue > 0) {
+        return parsedBaseValue;
+    }
+
+    const measuringElement = document.createElement('div');
+    measuringElement.style.position = 'absolute';
+    measuringElement.style.visibility = 'hidden';
+    measuringElement.style.width = 'var(--base, 8px)';
+    document.body.appendChild(measuringElement);
+
+    const measuredBaseValue = measuringElement.getBoundingClientRect().width;
+    measuringElement.remove();
+
+    return measuredBaseValue || 8;
 }
 
 export default DrawerAccessibility;

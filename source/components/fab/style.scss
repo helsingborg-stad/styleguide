@@ -8,6 +8,14 @@ $_: "c-fab";
 
 @include tokens.create($_, getComponentTokens($_));
 
+:root {
+    --view-offset-left: 0;
+    --view-offset-right: 0;
+    --view-offset-transition-ms: 300ms;
+    --view-offset-left-transition-easing: ease-out;
+    --view-offset-right-transition-easing: ease-out;
+}
+
 //Values for the loop
 $xAxis: (
     left,
@@ -103,8 +111,11 @@ $yAxis: (
 @each $sideX in $xAxis {
     @each $sideY in $yAxis {
         .#{$_}__#{$sideY}-#{$sideX} {
-            #{$sideX}: #{tokens.getCalculatedValue($_, "space", 2)};
+            #{$sideX}: calc(
+                #{tokens.getCalculatedValue($_, "space", 2)} + (var(--view-offset-#{$sideX}, 0) * var(--base, 8px))
+            );
             #{$sideY}: calc(#{tokens.getCalculatedValue($_, "space", 2)} + var(--#{$_}--stack-offset));
+            transition: #{$sideX} var(--view-offset-transition-ms) var(--view-offset-#{$sideX}-transition-easing);
         }
 
         // Stack adjacent FABs sharing the same corner — button height (~space 6.5) + gap (~space 1) + edge margin (space 2)
