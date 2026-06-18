@@ -140,6 +140,7 @@ test.describe('Drawer – design panel', () => {
 		expect(await getComputedPx(drawerElement, 'max-width')).toBeGreaterThan(initialMaxWidth);
 
 		// Reset the component overrides.
+		page.once('dialog', (dialog) => dialog.accept());
 		await page.locator('[data-action="reset-component"]').click();
 
 		// max-width must return to the initial value.
