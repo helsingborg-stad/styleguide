@@ -29,5 +29,7 @@ export default defineConfig({
 		command: 'php -S 127.0.0.1:8000 -t . router.php',
 		url: 'http://127.0.0.1:8000',
 		reuseExistingServer: !process.env.CI,
+		stdout: 'ignore',
+		stderr: 'ignore',
 	},
 });
