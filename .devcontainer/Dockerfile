@@ -19,6 +19,30 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
     && apt-get install -y gh \
     && rm -rf /var/lib/apt/lists/*
 
+# Install Playwright/Chromium system dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        libnspr4 \
+        libnss3 \
+        libatk1.0-0 \
+        libatk-bridge2.0-0 \
+        libdbus-1-3 \
+        libcups2 \
+        libxcb1 \
+        libxkbcommon0 \
+        libasound2 \
+        libgbm1 \
+        libx11-6 \
+        libxext6 \
+        libcairo2 \
+        libpango-1.0-0 \
+        libxcomposite1 \
+        libxdamage1 \
+        libxfixes3 \
+        libxrandr2 \
+        libatspi2.0-0 \
+    && rm -rf /var/lib/apt/lists/*
+
 # Enable Apache modules
 RUN a2enmod rewrite headers
 

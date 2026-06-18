@@ -38,3 +38,4 @@ franken/Caddyfile
 # source/sass/setting/_design-tokens.scss
 *.cache
 /.tmp
+/test-results

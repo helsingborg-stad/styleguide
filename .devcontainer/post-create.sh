@@ -11,6 +11,7 @@ echo "Install styleguide..."
 composer i
 npm install
 npm run build
+npx playwright install chromium
 
 echo "Post-create setup complete!"
 
