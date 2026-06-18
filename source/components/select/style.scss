@@ -306,6 +306,11 @@ $_: "c-select";
 
     &.is-open {
 
+        .#{$_}__field-container .c-field__inner {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
         .#{$_}__dropdown {
             z-index: 6;
             display: block;
@@ -337,6 +342,9 @@ $_: "c-select";
         z-index: 2;
         padding: tokens.getCalculatedValue($_, "base", 1) 0;
         border: var(--border-width-input, 1px) solid tokens.getRawValue($_, "color--surface-border");
+        border-bottom-left-radius: tokens.getCalculatedValue($_, "border-radius");
+        border-bottom-right-radius: tokens.getCalculatedValue($_, "border-radius");
+        corner-shape: tokens.getRawValue($_, "corner-shape");
     }
 
     .#{$_}__option {
