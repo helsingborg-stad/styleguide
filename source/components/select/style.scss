@@ -42,6 +42,8 @@ $_: "c-select";
         border-left: none;
         border-right: none;
         border-top: none;
+        border-radius: 0;
+        corner-shape: none;
         padding: tokens.getCalculatedValue($_, "base", 1);
         padding-top: 0;
     }
@@ -262,6 +264,8 @@ $_: "c-select";
     .#{$_}__field-container {
         position: relative;
         line-height: 0;
+        border-radius: inherit;
+        corner-shape: inherit;
 
         &:focus-within {
             @include focus.focus();
