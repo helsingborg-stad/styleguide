@@ -21,7 +21,7 @@
     'key20' => 'Tangerine'
 ]; @endphp
 
-<div style="min-height: 100px">
+<div style="min-height: 300px">
     @form([
         'method' => 'GET',
         'action' => '?q=select-single'
@@ -37,7 +37,8 @@
             'size' => 'md'
         ])
         @endselect
-        <br>
+</div>
+<div style="min-height: 300px">
         @select([
             'label' => 'Searchable Single Select',
             'required' => true,

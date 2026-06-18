@@ -1,4 +1,4 @@
-<div style="min-height: 100px">
+<div style="min-height: 300px">
     @form([
         'method' => 'GET',
         'action' => '?q=select-required'

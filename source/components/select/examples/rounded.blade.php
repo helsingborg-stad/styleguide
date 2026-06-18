@@ -1,4 +1,4 @@
-<div style="min-height: 100px">
+<div style="min-height: 300px">
     @select([
         'label' => 'Filter by category',
         'placeholder' => 'All categories',
