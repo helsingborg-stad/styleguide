@@ -37,6 +37,7 @@ $_: "c-button";
     transition-timing-function: ease-in-out;
     user-select: none;
     align-items: center;
+    max-width: 100%;
 
     &[disabled] {
         cursor: not-allowed;
@@ -58,10 +59,18 @@ $_: "c-button";
         align-items: center;
         display: inline-flex;
         gap: tokens.getCalculatedValue($_, "space", 1);
+        min-width: 0;
+        overflow: hidden;
 
         >*:empty {
             display: none;
         }
+    }
+
+    .#{$_}__label-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
     .#{$_}__label-icon {
