@@ -438,6 +438,8 @@ In the tables below, `Can the user manipulate it?` means the supported direct cu
 
 ## Testing
 
+Playwright component customizer panel testing rules and coverage requirements are documented in [playwright.md](./playwright.md).
+
 ### Contribution Rule-Set (Do and Don't)
 
 The rules below are aligned with the validator tests in `source/validators/Tests` and should be followed for all component and style changes.
