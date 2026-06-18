@@ -74,6 +74,13 @@ $insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data
         --inherit-color-contrast-muted: var(--#{$_}--surface-contrast-muted-color);
     }
 
+    [data-component="field"] {
+        --inherit-color-background: var(--#{$_}--surface-alt-color);
+        --inherit-color-background-hover: var(--#{$_}--surface-alt-color);
+        --inherit-color-border: var(--#{$_}--border-color);
+        --inherit-color-contrast: var(--#{$_}--color);
+    }
+
     [data-component="button"] {
         --inherit-color-contrast: var(--#{$_}--color);
 

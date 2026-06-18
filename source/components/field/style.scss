@@ -35,7 +35,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 .#{$_} {
     --#{$_}--border-color: var(--inherit-color-border, #{tokens.getRawValue($_, "color--surface-border")});
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid var(--#{$_}--border-color);
-    --#{$_}--background-color-default: #{tokens.getRawValue($_, "color--surface-alt")};
+    --#{$_}--background-color-default: #{tokens.getRawValue($_, "color--surface")};
     --#{$_}--background-color: var(--inherit-color-background, var(--#{$_}--background-color-default));
     --#{$_}--background-color-hover: var(--inherit-color-background-hover, #{tokens.getRawValue($_, "color--surface-alt")});
     --#{$_}--contrast-color: var(--inherit-color-contrast, #{tokens.getRawValue($_, "color--surface-contrast")});
