@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Locator } from '@playwright/test';
 
 /**
  * Drawer component – Design panel (component customizer) integration tests.
@@ -22,6 +22,36 @@ const LAYOUT_CATEGORY_HEADER = '.db-category-header';
 const PADDING_MULTIPLIER_LABEL = 'Padding Multiplier';
 const WIDTH_MULTIPLIER_LABEL = 'Width Multiplier';
 
+/**
+ * Sets a range input's value and fires a native `input` event from within the
+ * page context so that lit-html's `@input` binding inside `range-control`
+ * triggers the full control-change event chain.
+ */
+async function setRangeValue(rangeLocator: Locator, value: string): Promise<void> {
+	await rangeLocator.evaluate((input: HTMLInputElement, val: string) => {
+		input.value = val;
+		input.dispatchEvent(new Event('input', { bubbles: true }));
+	}, value);
+}
+
+/**
+ * Expands a Design Builder category panel if it is currently collapsed.
+ */
+async function expandCategory(categoryHeader: Locator): Promise<void> {
+	const category = categoryHeader.locator('..');
+	const isCollapsed = await category.evaluate((el) => el.classList.contains('db-category-collapsed'));
+	if (isCollapsed) {
+		await categoryHeader.click();
+	}
+}
+
+/**
+ * Returns the computed numeric pixel value of a CSS property on a DOM element.
+ */
+async function getComputedPx(locator: Locator, property: string): Promise<number> {
+	return locator.evaluate((el, prop) => parseFloat(window.getComputedStyle(el).getPropertyValue(prop)), property);
+}
+
 test.describe('Drawer – design panel', () => {
 	/**
 	 * Navigate to the drawer page and open the design panel before each test.
@@ -38,8 +68,8 @@ test.describe('Drawer – design panel', () => {
 		// Confirm the design panel has rendered.
 		await expect(page.locator(CUSTOMIZER_PANEL)).toBeVisible();
 
-		// Select the drawer component in the component dropdown.
-		await page.locator(COMPONENT_SELECT).selectOption({ label: 'drawer' });
+		// Select the drawer component in the component dropdown (value is the normalized slug).
+		await page.locator(COMPONENT_SELECT).selectOption({ value: 'drawer' });
 	});
 
 	test('opens the design panel when the FAB button is clicked', async ({ page }) => {
@@ -51,81 +81,69 @@ test.describe('Drawer – design panel', () => {
 		await expect(page.locator(LAYOUT_CATEGORY_HEADER).filter({ hasText: 'Layout' })).toBeVisible();
 	});
 
-	test('changing the Padding Multiplier applies the CSS variable to the drawer', async ({ page }) => {
-		// Expand the Layout category if it is collapsed.
+	test('increasing the Padding Multiplier increases the header horizontal padding', async ({ page }) => {
 		const layoutHeader = page.locator(LAYOUT_CATEGORY_HEADER).filter({ hasText: 'Layout' });
-		const layoutCategory = layoutHeader.locator('..');
-		const isCollapsed = await layoutCategory.evaluate((el) => el.classList.contains('db-category-collapsed'));
-		if (isCollapsed) {
-			await layoutHeader.click();
-		}
+		await expandCategory(layoutHeader);
 
-		// Find the Padding Multiplier control row and its range input.
 		const paddingRow = page.locator('db-control-row').filter({ hasText: PADDING_MULTIPLIER_LABEL });
 		const rangeInput = paddingRow.locator('input[type="range"]');
 		await expect(rangeInput).toBeVisible();
 
-		// Set the range to its maximum value (3) using the fill method.
-		const max = await rangeInput.getAttribute('max');
-		await rangeInput.fill(max ?? '3');
-		await rangeInput.dispatchEvent('input');
-		await rangeInput.dispatchEvent('change');
+		// Measure padding-left on the drawer header before any change.
+		const drawerHeader = page.locator(`${DRAWER_TARGET} .c-drawer__header`).first();
+		const initialPaddingLeft = await getComputedPx(drawerHeader, 'padding-left');
 
-		// Verify the CSS custom property is applied inline to the drawer element.
-		const drawerElement = page.locator(DRAWER_TARGET).first();
-		await expect(drawerElement).toHaveCSS('--padding-multiplier', max ?? '3');
+		// Set multiplier to maximum.
+		const max = await rangeInput.getAttribute('max');
+		await setRangeValue(rangeInput, max ?? '3');
+
+		// The header padding-left must have grown.
+		const newPaddingLeft = await getComputedPx(drawerHeader, 'padding-left');
+		expect(newPaddingLeft).toBeGreaterThan(initialPaddingLeft);
 	});
 
-	test('changing the Width Multiplier applies the CSS variable to the drawer', async ({ page }) => {
-		// Expand the Layout category if it is collapsed.
+	test('increasing the Width Multiplier increases the drawer max-width', async ({ page }) => {
 		const layoutHeader = page.locator(LAYOUT_CATEGORY_HEADER).filter({ hasText: 'Layout' });
-		const layoutCategory = layoutHeader.locator('..');
-		const isCollapsed = await layoutCategory.evaluate((el) => el.classList.contains('db-category-collapsed'));
-		if (isCollapsed) {
-			await layoutHeader.click();
-		}
+		await expandCategory(layoutHeader);
 
-		// Find the Width Multiplier control row and its range input.
 		const widthRow = page.locator('db-control-row').filter({ hasText: WIDTH_MULTIPLIER_LABEL });
 		const rangeInput = widthRow.locator('input[type="range"]');
 		await expect(rangeInput).toBeVisible();
 
-		// Set the range to its maximum value (1.5).
-		const max = await rangeInput.getAttribute('max');
-		await rangeInput.fill(max ?? '1.5');
-		await rangeInput.dispatchEvent('input');
-		await rangeInput.dispatchEvent('change');
-
-		// Verify the CSS custom property is applied inline to the drawer element.
+		// Measure the drawer max-width before any change.
 		const drawerElement = page.locator(DRAWER_TARGET).first();
-		await expect(drawerElement).toHaveCSS('--width-multiplier', max ?? '1.5');
+		const initialMaxWidth = await getComputedPx(drawerElement, 'max-width');
+
+		// Set multiplier to maximum.
+		const max = await rangeInput.getAttribute('max');
+		await setRangeValue(rangeInput, max ?? '1.5');
+
+		// The computed max-width must have grown.
+		const newMaxWidth = await getComputedPx(drawerElement, 'max-width');
+		expect(newMaxWidth).toBeGreaterThan(initialMaxWidth);
 	});
 
-	test('resetting the drawer component removes custom CSS variables', async ({ page }) => {
-		// Expand the Layout category if it is collapsed.
+	test('resetting the drawer component restores the original max-width', async ({ page }) => {
 		const layoutHeader = page.locator(LAYOUT_CATEGORY_HEADER).filter({ hasText: 'Layout' });
-		const layoutCategory = layoutHeader.locator('..');
-		const isCollapsed = await layoutCategory.evaluate((el) => el.classList.contains('db-category-collapsed'));
-		if (isCollapsed) {
-			await layoutHeader.click();
-		}
+		await expandCategory(layoutHeader);
 
-		// Set the Width Multiplier to its max value to create an override.
 		const widthRow = page.locator('db-control-row').filter({ hasText: WIDTH_MULTIPLIER_LABEL });
 		const rangeInput = widthRow.locator('input[type="range"]');
-		const max = await rangeInput.getAttribute('max');
-		await rangeInput.fill(max ?? '1.5');
-		await rangeInput.dispatchEvent('input');
-		await rangeInput.dispatchEvent('change');
-
-		// Verify the override was applied before resetting.
 		const drawerElement = page.locator(DRAWER_TARGET).first();
-		await expect(drawerElement).toHaveCSS('--width-multiplier', max ?? '1.5');
 
-		// Click the "Reset Selected" button to clear component overrides.
+		// Capture baseline max-width.
+		const initialMaxWidth = await getComputedPx(drawerElement, 'max-width');
+
+		// Apply maximum width multiplier.
+		const max = await rangeInput.getAttribute('max');
+		await setRangeValue(rangeInput, max ?? '1.5');
+		expect(await getComputedPx(drawerElement, 'max-width')).toBeGreaterThan(initialMaxWidth);
+
+		// Reset the component overrides.
 		await page.locator('[data-action="reset-component"]').click();
 
-		// Verify the CSS custom property is no longer present on the drawer element.
-		await expect(drawerElement).not.toHaveCSS('--width-multiplier', max ?? '1.5');
+		// max-width must return to the initial value.
+		const restoredMaxWidth = await getComputedPx(drawerElement, 'max-width');
+		expect(restoredMaxWidth).toBeCloseTo(initialMaxWidth, 1);
 	});
 });
