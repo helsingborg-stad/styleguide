@@ -55,7 +55,7 @@ class NoSassVariablesTest extends TestCase
                 }
 
                 return true;
-            }
+            },
         ));
 
         if (empty($files)) {

@@ -154,11 +154,16 @@ describe('controls change handling', () => {
 		options[1].click();
 
 		expect(onChange).toHaveBeenCalledTimes(1);
-		expect(onChange).toHaveBeenCalledWith('--c-button--color--primary', 'var(--color--secondary)', {
-			'--c-button--color--primary-contrast': 'var(--color--secondary-contrast)',
-		}, {
-			preserveMatchingDefault: true,
-		});
+		expect(onChange).toHaveBeenCalledWith(
+			'--c-button--color--primary',
+			'var(--color--secondary)',
+			{
+				'--c-button--color--primary-contrast': 'var(--color--secondary-contrast)',
+			},
+			{
+				preserveMatchingDefault: true,
+			},
+		);
 	});
 
 	it('ignores native bubbling events for rgba controls and uses custom event detail value', () => {

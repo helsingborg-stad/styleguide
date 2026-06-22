@@ -2,8 +2,8 @@
 
 namespace MunicipioStyleGuide\Validators\Sass;
 
-use MunicipioStyleGuide\Validators\ValidatorInterface;
 use MunicipioStyleGuide\Validators\ValidationResult;
+use MunicipioStyleGuide\Validators\ValidatorInterface;
 
 class NoSassVariablesValidator implements ValidatorInterface
 {
@@ -35,7 +35,7 @@ class NoSassVariablesValidator implements ValidatorInterface
 
         foreach ($lines as $index => $line) {
             $lineNumber = $index + 1;
-            $stripped   = $this->stripComments($line, $inBlockComment);
+            $stripped = $this->stripComments($line, $inBlockComment);
 
             if (trim($stripped) === '') {
                 continue;
@@ -57,7 +57,7 @@ class NoSassVariablesValidator implements ValidatorInterface
                     $result->addViolation(
                         $lineNumber,
                         "Sass variable found: {$match}",
-                        $line
+                        $line,
                     );
                 }
             }
@@ -116,8 +116,8 @@ class NoSassVariablesValidator implements ValidatorInterface
     private function stripComments(string $line, bool &$inBlockComment): string
     {
         $result = '';
-        $len    = strlen($line);
-        $i      = 0;
+        $len = strlen($line);
+        $i = 0;
 
         while ($i < $len) {
             if ($inBlockComment) {
@@ -132,12 +132,12 @@ class NoSassVariablesValidator implements ValidatorInterface
             }
 
             // Check for line comment
-            if ($i + 1 < $len && $line[$i] === '/' && $line[$i + 1] === '/') {
+            if (($i + 1) < $len && $line[$i] === '/' && $line[$i + 1] === '/') {
                 return $result; // Rest of line is a comment
             }
 
             // Check for block comment start
-            if ($i + 1 < $len && $line[$i] === '/' && $line[$i + 1] === '*') {
+            if (($i + 1) < $len && $line[$i] === '/' && $line[$i + 1] === '*') {
                 $inBlockComment = true;
                 $i += 2;
                 continue;
@@ -145,7 +145,7 @@ class NoSassVariablesValidator implements ValidatorInterface
 
             // Check for string literals (skip $ inside strings)
             if ($line[$i] === '"' || $line[$i] === "'") {
-                $quote  = $line[$i];
+                $quote = $line[$i];
                 $endStr = strpos($line, $quote, $i + 1);
                 if ($endStr !== false) {
                     $i = $endStr + 1;

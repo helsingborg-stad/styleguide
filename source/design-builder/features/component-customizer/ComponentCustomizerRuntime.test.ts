@@ -1011,14 +1011,7 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 									token: 'color--alpha',
 									label: 'Button Color',
 									visibleWhen: {
-										doesNotHaveClass: [
-											'c-button__filled--primary',
-											'c-button__basic--primary',
-											'c-button__outlined--primary',
-											'c-button__filled--secondary',
-											'c-button__basic--secondary',
-											'c-button__outlined--secondary',
-										],
+										doesNotHaveClass: ['c-button__filled--primary', 'c-button__basic--primary', 'c-button__outlined--primary', 'c-button__filled--secondary', 'c-button__basic--secondary', 'c-button__outlined--secondary'],
 									},
 								},
 							],
@@ -1079,14 +1072,7 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 									token: 'color--alpha',
 									label: 'Button Color',
 									visibleWhen: {
-										doesNotHaveClass: [
-											'c-button__filled--primary',
-											'c-button__basic--primary',
-											'c-button__outlined--primary',
-											'c-button__filled--secondary',
-											'c-button__basic--secondary',
-											'c-button__outlined--secondary',
-										],
+										doesNotHaveClass: ['c-button__filled--primary', 'c-button__basic--primary', 'c-button__outlined--primary', 'c-button__filled--secondary', 'c-button__basic--secondary', 'c-button__outlined--secondary'],
 									},
 								},
 							],

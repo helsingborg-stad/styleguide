@@ -36,18 +36,7 @@
 	},
 	"customizations": {
 		"vscode": {
-			"extensions": [
-				"github.vscode-pull-request-github",
-				"GitHub.copilot",
-				"ritwickdey.LiveServer",
-				"eamodio.gitlens",
-				"biomejs.biome",
-				"ms-azuretools.vscode-docker",
-				"xdebug.php-debug",
-				"bmewburn.vscode-intelephense-client",
-				"devsense.composer-php-vscode",
-				"jkillian.custom-local-formatters"
-			],
+			"extensions": ["github.vscode-pull-request-github", "GitHub.copilot", "ritwickdey.LiveServer", "eamodio.gitlens", "biomejs.biome", "ms-azuretools.vscode-docker", "xdebug.php-debug", "bmewburn.vscode-intelephense-client", "devsense.composer-php-vscode", "jkillian.custom-local-formatters"],
 			"settings": {
 				"intelephense.environment.phpVersion": "8.3.0"
 			}

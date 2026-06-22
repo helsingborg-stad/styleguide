@@ -1,6 +1,7 @@
 /** @jest-environment node */
 
-import { readFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
+import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { jsBuiltOutputConsoleIgnoreList, type JsConsoleIgnoreRule } from './jsBuiltOutputConsoleIgnoreList';
 
@@ -17,9 +18,32 @@ interface ConsoleIssue {
 
 const projectRoot = path.resolve(__dirname, '..', '..');
 const manifestPath = path.join(projectRoot, 'assets', 'dist', 'manifest.json');
+const distPath = path.join(projectRoot, 'assets', 'dist');
+const distJsPath = path.join(distPath, 'js');
 const consolePattern = /console\.(log|info|debug|warn|error)\s*\(/;
 
+async function getFallbackNonCacheBustedBundles(): Promise<string[]> {
+	if (!existsSync(distJsPath)) {
+		return [];
+	}
+
+	const entries = await readdir(distJsPath, { withFileTypes: true });
+	const bundles: string[] = [];
+
+	for (const entry of entries) {
+		if (entry.isFile() && entry.name.endsWith('.js') && !entry.name.endsWith('.js.map')) {
+			bundles.push(path.join(distJsPath, entry.name));
+		}
+	}
+
+	return bundles;
+}
+
 async function getBuiltJsBundles(): Promise<string[]> {
+	if (!existsSync(manifestPath)) {
+		return getFallbackNonCacheBustedBundles();
+	}
+
 	const manifestRaw = await readFile(manifestPath, 'utf8');
 	const manifest = JSON.parse(manifestRaw) as ValidatorManifest;
 

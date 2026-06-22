@@ -29,7 +29,7 @@ class UnusedTokensTest extends TestCase
     private static function componentHasScssFiles(string $componentDir): bool
     {
         $iterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($componentDir, \RecursiveDirectoryIterator::SKIP_DOTS)
+            new \RecursiveDirectoryIterator($componentDir, \RecursiveDirectoryIterator::SKIP_DOTS),
         );
 
         foreach ($iterator as $file) {
@@ -46,7 +46,7 @@ class UnusedTokensTest extends TestCase
         $contents = [];
 
         $iterator = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator($componentDir, \RecursiveDirectoryIterator::SKIP_DOTS)
+            new \RecursiveDirectoryIterator($componentDir, \RecursiveDirectoryIterator::SKIP_DOTS),
         );
 
         foreach ($iterator as $file) {
@@ -102,8 +102,7 @@ class UnusedTokensTest extends TestCase
         $positionalPattern = '/tokens\.\w+\s*\([^,]+,\s*[\'\"]' . $escapedToken . '[\'\"]/m';
         $namedPattern = '/tokens\.\w+\s*\([^)]*\$token\s*:\s*[\'\"]' . $escapedToken . '[\'\"]/m';
 
-        return preg_match($positionalPattern, $scssContents) === 1
-            || preg_match($namedPattern, $scssContents) === 1;
+        return preg_match($positionalPattern, $scssContents) === 1 || preg_match($namedPattern, $scssContents) === 1;
     }
 
     private static function extractTokensFromTokenFile(string $tokenFile): array
