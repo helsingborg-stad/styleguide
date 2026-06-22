@@ -1441,25 +1441,16 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 			expect.objectContaining({
 				'--c-button--color--primary-contrast': 'var(--color--secondary-contrast)',
 				'--c-button--color--primary-border': 'var(--color--secondary-border)',
-				'--c-button--color--primary-alt': 'var(--color--secondary-alt)',
 			}),
 		);
 
-		expect(backgroundDefaultOption?.extraValues).toEqual(
-			expect.objectContaining({
-				'--c-button--color--surface-contrast': 'var(--color--background-contrast)',
-				'--c-button--color--surface-contrast-muted': 'var(--color--background-contrast-muted)',
-				'--c-button--color--surface-border': 'var(--color--background-border)',
-				'--c-button--color--surface-alt': 'var(--color--background-alt)',
-			}),
-		);
+		expect(backgroundDefaultOption?.extraValues).toBeUndefined();
 
 		const palettePrimaryOption = primarySetting?.options?.find((option) => option.label === 'Palette 1');
 		expect(palettePrimaryOption?.extraValues).toEqual(
 			expect.objectContaining({
 				'--c-button--color--primary-contrast': 'var(--color--palette-1-contrast)',
 				'--c-button--color--primary-border': 'var(--color--palette-1-border)',
-				'--c-button--color--primary-alt': 'var(--color--palette-1-alt)',
 			}),
 		);
 

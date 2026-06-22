@@ -36,7 +36,7 @@ describe('controls change handling', () => {
 		}).not.toThrow();
 
 		expect(onChange).toHaveBeenCalledTimes(1);
-		expect(onChange).toHaveBeenCalledWith('--font-size-body', '18px');
+		expect(onChange).toHaveBeenCalledWith('--font-size-body', '18px', undefined, undefined);
 	});
 
 	it('ignores native bubbling change event for range controls', () => {
@@ -64,7 +64,7 @@ describe('controls change handling', () => {
 		}).not.toThrow();
 
 		expect(onChange).toHaveBeenCalledTimes(1);
-		expect(onChange).toHaveBeenCalledWith('--space-medium', '12');
+		expect(onChange).toHaveBeenCalledWith('--space-medium', '12', undefined, undefined);
 	});
 
 	it('emits range control values with unit suffix when defined', () => {
@@ -93,7 +93,7 @@ describe('controls change handling', () => {
 		}).not.toThrow();
 
 		expect(onChange).toHaveBeenCalledTimes(1);
-		expect(onChange).toHaveBeenCalledWith('--color--border-mix-amount', '12%');
+		expect(onChange).toHaveBeenCalledWith('--color--border-mix-amount', '12%', undefined, undefined);
 	});
 
 	it('ignores native bubbling events for color controls and uses custom event detail value', () => {
@@ -117,7 +117,7 @@ describe('controls change handling', () => {
 		}).not.toThrow();
 
 		expect(onChange).toHaveBeenCalledTimes(1);
-		expect(onChange).toHaveBeenCalledWith('--color-primary', '#00ff00');
+		expect(onChange).toHaveBeenCalledWith('--color-primary', '#00ff00', undefined, undefined);
 	});
 
 	it('emits linked token values for token-color controls', () => {
@@ -183,7 +183,7 @@ describe('controls change handling', () => {
 		}).not.toThrow();
 
 		expect(onChange).toHaveBeenCalledTimes(1);
-		expect(onChange).toHaveBeenCalledWith('--overlay', 'rgba(0, 0, 0, 0.7)');
+		expect(onChange).toHaveBeenCalledWith('--overlay', 'rgba(0, 0, 0, 0.7)', undefined, undefined);
 	});
 
 	it('ignores native bubbling events for font controls and uses custom event detail value', () => {
@@ -207,7 +207,7 @@ describe('controls change handling', () => {
 		}).not.toThrow();
 
 		expect(onChange).toHaveBeenCalledTimes(1);
-		expect(onChange).toHaveBeenCalledWith('--font-family-body', 'Georgia, serif');
+		expect(onChange).toHaveBeenCalledWith('--font-family-body', 'Georgia, serif', undefined, undefined);
 	});
 
 	it('renders read-only control row with locked and readonly host attributes', () => {
