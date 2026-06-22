@@ -7,6 +7,7 @@ $variants = ['headline', 'title', 'subtitle'];
     @typography([
         "element" => 'div',
         "variant" => $variant,
+        "useHeadingsContext" => false,
     ])
         Variant: {{ $variant }}
     @endtypography

@@ -7,6 +7,7 @@ $variants = ['marketing', 'email'];
     @typography([
         "element" => 'div',
         "variant" => $variant,
+        "useHeadingsContext" => false,
     ])
         Variant: {{ $variant }}
     @endtypography

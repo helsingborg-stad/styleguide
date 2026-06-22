@@ -2,6 +2,7 @@
     [
         "variant" => "h1",
         "element" => "h5",
+        "useHeadingsContext" => false,
     ]
 )
     Hello world!
@@ -10,7 +11,8 @@
 @typography(
     [
         "variant" => "caption",
-        "element" => "h5"
+        "element" => "h5",
+        "useHeadingsContext" => false,
     ]
 )
     Caption
@@ -19,7 +21,8 @@
 @typography(
     [
         "variant" => "meta",
-        "element" => "h5"
+        "element" => "h5",
+        "useHeadingsContext" => false,
     ]
 )
     Meta
