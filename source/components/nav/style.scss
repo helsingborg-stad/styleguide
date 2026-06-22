@@ -60,7 +60,7 @@ $_: "c-nav";
     --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 1)};
     --#{$_}--item-background-color: #{tokens.getRawValue($_, "color--surface", "color-background")};
     --#{$_}--item-color: #{tokens.getRawValue($_, "color--surface-contrast", "color-contrast")};
-    --#{$_}--background-expanded-default: color-mix(in srgb, var(--#{$_}--item-color) var(--#{$_}--background-expanded-transparency), transparent);
+    --#{$_}--background-expanded-default: color-mix(in srgb, var(--#{$_}--item-color) var(--#{$_}--background-expanded-transparency, 5%), transparent);
     --#{$_}--background-expanded-color: var(--#{$_}--background-expanded, var(--#{$_}--background-expanded-default));
     --#{$_}--item-background-color-hover: #{tokens.getDerivedAliasValue($_, "item-background-color-hover", "color-background-hover")};
     --#{$_}--item-color-hover: #{tokens.getRawValue($_, "color--surface-contrast", "color-contrast")};
