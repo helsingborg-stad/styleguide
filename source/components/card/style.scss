@@ -78,6 +78,10 @@ $_: "c-card";
         --c-image--border-radius: 0;
     }
 
+    [data-component="acceptance"] {
+        --inherit-border-radius: 0;
+    }
+
     .c-image__placeholder {
         --inherit-border: none;
     }
