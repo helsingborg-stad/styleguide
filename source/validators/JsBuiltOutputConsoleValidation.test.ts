@@ -27,6 +27,8 @@ const manifestPath = path.join(projectRoot, 'assets', 'dist', 'manifest.json');
 const distPath = path.join(projectRoot, 'assets', 'dist');
 const distJsPath = path.join(distPath, 'js');
 const consolePattern = /console\.(log|info|debug|warn|error)\s*\(/;
+const jsConsoleValidationEnabled = process.env.RUN_JS_BUILT_OUTPUT_CONSOLE_VALIDATION === 'true';
+const jsConsoleValidationIt = jsConsoleValidationEnabled ? it : it.skip;
 
 function isJsBundlePath(assetPath: string): boolean {
 	return assetPath.endsWith('.js') && !assetPath.endsWith('.js.map');
@@ -130,7 +132,7 @@ function formatFailureMessage(issues: ConsoleIssue[]): string {
 }
 
 describe('JsBuiltOutputConsoleValidation', () => {
-	it('does not ship unexpected console statements in built JS bundles', async () => {
+	jsConsoleValidationIt('does not ship unexpected console statements in built JS bundles', async () => {
 		const bundles = await getBuiltJsBundles();
 
 		expect(bundles.length).toBeGreaterThan(0);

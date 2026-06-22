@@ -7,7 +7,7 @@
 		"test": "jest --coverage --maxWorkers=$(node -e \"console.log(Math.max(1, Math.floor(require('os').cpus().length / 2)))\")",
 		"test:css-validator": "RUN_W3C_CSS_VALIDATION=true jest --runInBand source/validators/CssBuiltOutputValidation.test.ts",
 		"test:css-validator:warnings": "RUN_W3C_CSS_VALIDATION=true RUN_W3C_CSS_VALIDATION_WARNINGS=true jest --runInBand source/validators/CssBuiltOutputValidation.test.ts",
-		"test:js-console-validator": "jest --runInBand source/validators/JsBuiltOutputConsoleValidation.test.ts",
+		"test:js-console-validator": "RUN_JS_BUILT_OUTPUT_CONSOLE_VALIDATION=true jest --runInBand source/validators/JsBuiltOutputConsoleValidation.test.ts",
 		"test:watch": "jest --watchAll",
 		"test:e2e": "playwright test",
 		"test:e2e:ui": "playwright test --ui",
