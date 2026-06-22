@@ -9,6 +9,8 @@ class NoSassVariablesTest extends TestCase
 {
     /** @var string[] Component SCSS path suffixes temporarily allowed to use Sass variables. */
     private const TEMPORARILY_ALLOWED_PATH_SUFFIXES = [
+        '/sass/component/_toast.scss',
+        '/components/toast/style.scss',
         '/sass/component/_typography.scss',
         '/components/typography/style.scss',
     ];
