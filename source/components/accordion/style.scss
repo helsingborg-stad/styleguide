@@ -29,7 +29,7 @@ $_: "c-accordion";
     container-type: inline-size;
     contain: paint;
     border-radius: #{tokens.getCalculatedValue($_, "border-radius", 1)};
-    corner-shape: inherit;
+    corner-shape: #{tokens.getCalculatedValue($_, "corner-shape", 1)};
     display: grid;
     color: var(--#{$_}--color);
     background-color: var(--#{$_}--background-color);
@@ -78,7 +78,7 @@ $_: "c-accordion";
     }
 
     &.#{$_}--spaced {
-        gap: calc(tokens.getRawValue($_, "base") * 4);
+        gap: calc(tokens.getRawValue($_, "space") * 4);
         background-color: unset;
         filter: none;
         contain: layout;

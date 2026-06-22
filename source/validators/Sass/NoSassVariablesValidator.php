@@ -44,8 +44,12 @@ class NoSassVariablesValidator implements ValidatorInterface
             // Match Sass variable patterns:
             // - $variable-name (bare variable)
             // - namespace.$variable-name (@use namespace reference)
-            if (preg_match_all('/(?:[\w-]+\.)?\$[a-zA-Z_][\w-]*/', $stripped, $matches)) {
-                foreach ($matches[0] as $match) {
+            if (preg_match_all('/(?:[\w-]+\.)?\$[a-zA-Z_][\w-]*/', $stripped, $matches, PREG_OFFSET_CAPTURE)) {
+                foreach ($matches[0] as [$match, $offset]) {
+                    if ($this->isSassKeywordArgumentLabel($stripped, $offset, strlen($match))) {
+                        continue;
+                    }
+
                     if ($this->isAllowed($match)) {
                         continue;
                     }
@@ -60,6 +64,32 @@ class NoSassVariablesValidator implements ValidatorInterface
         }
 
         return $result;
+    }
+
+    /**
+     * Detects Sass keyword argument labels in function/mixin calls, e.g.:
+     * tokens.getRawValue($prefix: $_, $token: "foo")
+     *
+     * These should not be treated as variable usage by this validator.
+     */
+    private function isSassKeywordArgumentLabel(string $line, int $offset, int $length): bool
+    {
+        $before = substr($line, 0, $offset);
+        $after = substr($line, $offset + $length);
+
+        $trimmedBefore = rtrim($before);
+        $trimmedAfter = ltrim($after);
+
+        if ($trimmedAfter === '' || $trimmedAfter[0] !== ':') {
+            return false;
+        }
+
+        if ($trimmedBefore === '') {
+            return false;
+        }
+
+        $lastChar = substr($trimmedBefore, -1);
+        return $lastChar === '(' || $lastChar === ',';
     }
 
     private function isAllowed(string $variable): bool
