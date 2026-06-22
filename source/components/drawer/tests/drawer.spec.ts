@@ -1,4 +1,4 @@
-import { expect, test, type Locator, type Page } from '@playwright/test';
+import { expect, type Locator, type Page, test } from '@playwright/test';
 
 /**
  * Drawer component – Design panel (component customizer) integration tests.
@@ -30,16 +30,7 @@ const OVERLAY_COLOR_LABEL = 'Overlay Color';
 const SHADOW_COLOR_LABEL = 'Shadow Color';
 const SHADOW_INTENSITY_LABEL = 'Shadow Intensity';
 
-const EXPECTED_VISIBLE_CONTROLS = [
-	MAIN_PANEL_COLOR_LABEL,
-	MAIN_PANEL_COLOR_LABEL,
-	SECONDARY_NAVIGATION_COLOR_LABEL,
-	OVERLAY_COLOR_LABEL,
-	PADDING_MULTIPLIER_LABEL,
-	WIDTH_MULTIPLIER_LABEL,
-	SHADOW_COLOR_LABEL,
-	SHADOW_INTENSITY_LABEL,
-];
+const EXPECTED_VISIBLE_CONTROLS = [MAIN_PANEL_COLOR_LABEL, MAIN_PANEL_COLOR_LABEL, SECONDARY_NAVIGATION_COLOR_LABEL, OVERLAY_COLOR_LABEL, PADDING_MULTIPLIER_LABEL, WIDTH_MULTIPLIER_LABEL, SHADOW_COLOR_LABEL, SHADOW_INTENSITY_LABEL];
 
 /**
  * Sets a range input's value and fires a native `input` event from within the
@@ -76,6 +67,105 @@ async function getComputedPx(locator: Locator, property: string): Promise<number
  */
 async function getComputedCss(locator: Locator, property: string): Promise<string> {
 	return locator.evaluate((el, prop) => window.getComputedStyle(el).getPropertyValue(prop).trim(), property);
+}
+
+/**
+ * Computes contrast ratio (WCAG) for an element's text color against the nearest
+ * non-transparent background in its ancestor chain.
+ */
+async function getContrastRatio(locator: Locator): Promise<number> {
+	return locator.evaluate((element) => {
+		type Rgba = { r: number; g: number; b: number; a: number };
+
+		const normalizeColor = (value: string): string => {
+			const probe = document.createElement('span');
+			probe.style.color = value;
+			document.body.appendChild(probe);
+			const normalized = window.getComputedStyle(probe).color;
+			probe.remove();
+			return normalized;
+		};
+
+		const parseColor = (value: string): Rgba | null => {
+			const candidate = value.trim().toLowerCase();
+			if (candidate === 'transparent') {
+				return { r: 0, g: 0, b: 0, a: 0 };
+			}
+
+			const normalized = normalizeColor(candidate).trim().toLowerCase();
+			if (!normalized) {
+				return null;
+			}
+
+			const rgbaMatch = normalized.match(/^rgba?\(([^)]+)\)$/);
+			if (rgbaMatch) {
+				const parts = rgbaMatch[1].split(',').map((part) => part.trim());
+				if (parts.length < 3) {
+					return null;
+				}
+
+				const r = Number.parseFloat(parts[0]);
+				const g = Number.parseFloat(parts[1]);
+				const b = Number.parseFloat(parts[2]);
+				const a = parts.length >= 4 ? Number.parseFloat(parts[3]) : 1;
+
+				if ([r, g, b, a].some((part) => Number.isNaN(part))) {
+					return null;
+				}
+
+				return { r, g, b, a };
+			}
+
+			return null;
+		};
+
+		const toLinear = (channel: number): number => {
+			const srgb = channel / 255;
+			return srgb <= 0.03928 ? srgb / 12.92 : ((srgb + 0.055) / 1.055) ** 2.4;
+		};
+
+		const luminance = ({ r, g, b }: Rgba): number => {
+			return 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
+		};
+
+		const contrastRatio = (foreground: Rgba, background: Rgba): number => {
+			const l1 = luminance(foreground);
+			const l2 = luminance(background);
+			const lighter = Math.max(l1, l2);
+			const darker = Math.min(l1, l2);
+			return (lighter + 0.05) / (darker + 0.05);
+		};
+
+		const getNearestOpaqueBackground = (node: Element): Rgba => {
+			let current: Element | null = node;
+			while (current) {
+				const bg = parseColor(window.getComputedStyle(current).backgroundColor);
+				if (bg && bg.a > 0) {
+					return bg;
+				}
+				current = current.parentElement;
+			}
+
+			return { r: 255, g: 255, b: 255, a: 1 };
+		};
+
+		const getEffectiveTextColor = (node: Element): Rgba => {
+			let current: Element | null = node;
+			while (current) {
+				const color = parseColor(window.getComputedStyle(current).color);
+				if (color && color.a > 0) {
+					return color;
+				}
+				current = current.parentElement;
+			}
+
+			return { r: 0, g: 0, b: 0, a: 1 };
+		};
+
+		const textColor = getEffectiveTextColor(element);
+		const background = getNearestOpaqueBackground(element);
+		return contrastRatio(textColor, background);
+	});
 }
 
 /**
@@ -182,13 +272,7 @@ test.describe('Drawer – design panel', () => {
 	test('drawer panel exposes the full expected control inventory', async ({ page }) => {
 		await expandAllCategories(page);
 
-		const labels = await page
-			.locator('db-control-row .db-control-row-label-text')
-			.evaluateAll((nodes) =>
-				nodes
-					.map((node) => node.textContent?.trim() ?? '')
-					.filter(Boolean),
-			);
+		const labels = await page.locator('db-control-row .db-control-row-label-text').evaluateAll((nodes) => nodes.map((node) => node.textContent?.trim() ?? '').filter(Boolean));
 
 		expect(labels.length).toBe(EXPECTED_VISIBLE_CONTROLS.length);
 		expect(labels.sort()).toEqual([...EXPECTED_VISIBLE_CONTROLS].sort());
@@ -339,5 +423,30 @@ test.describe('Drawer – design panel', () => {
 		// max-width must return to the initial value.
 		const restoredMaxWidth = await getComputedPx(drawerElement, 'max-width');
 		expect(restoredMaxWidth).toBeCloseTo(initialMaxWidth, 1);
+	});
+
+	test('sufficient contrast is achived on sub elements (button, search, nav)', async ({ page }) => {
+		await openDrawer(page);
+
+		// 4.5 = WCAG AA standard for normal text
+		// 6.0 = ACAG AAA UI standard for graphical objects and user interface components
+		const minimumContrast = 6.0;
+
+		const drawerElement = page.locator(DRAWER_TARGET).first();
+		const searchField = drawerElement.locator('input[type="search"]').first();
+		const drawerButton = drawerElement.locator('.c-nav__toggle').first();
+		const navLink = drawerElement.locator('.site-nav-mobile__primary .c-nav__link').first();
+
+		await expect(searchField).toBeVisible();
+		await expect(drawerButton).toBeVisible();
+		await expect(navLink).toBeVisible();
+
+		const searchContrast = await getContrastRatio(searchField);
+		const buttonContrast = await getContrastRatio(drawerButton);
+		const navContrast = await getContrastRatio(navLink);
+
+		expect(searchContrast).toBeGreaterThanOrEqual(minimumContrast);
+		expect(buttonContrast).toBeGreaterThanOrEqual(minimumContrast);
+		expect(navContrast).toBeGreaterThanOrEqual(minimumContrast);
 	});
 });
