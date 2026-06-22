@@ -2,16 +2,17 @@
 
 $_: "c-acceptance";
 
-@include tokens.create($_, getComponentTokens($_));
+@include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
 .#{$_} {
     --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 1)};
     --#{$_}--shadow-hover: #{tokens.getCalculatedValue($_, "shadow", 1.5)};
     --#{$_}--map-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAtOTYwIDk2MCA5NjAiIHdpZHRoPSIyNHB4IiBmaWxsPSIjZThlYWVkIj48cGF0aCBkPSJtNjAwLTEyMC0yNDAtODQtMTg2IDcycS0yMCA4LTM3LTQuNVQxMjAtMTcwdi01NjBxMC0xMyA3LjUtMjN0MjAuNS0xNWwyMTItNzIgMjQwIDg0IDE4Ni03MnEyMC04IDM3IDQuNXQxNyAzMy41djU2MHEwIDEzLTcuNSAyM1Q4MTItMTkybC0yMTIgNzJabS00MC05OHYtNDY4bC0xNjAtNTZ2NDY4bDE2MCA1NlptODAgMCAxMjAtNDB2LTQ3NGwtMTIwIDQ2djQ2OFptLTQ0MC0xMCAxMjAtNDZ2LTQ2OGwtMTIwIDQwdjQ3NFptNDQwLTQ1OHY0NjgtNDY4Wm0tMzIwLTU2djQ2OC00NjhaIi8+PC9zdmc+");
+    --#{$_}--border-radius-value: #{tokens.getRawValue($_, "border-radius", "border-radius")};
 
     background-color: tokens.getRawValue($_, "color--surface");
     background-position: center;
-    border-radius: tokens.getCalculatedValue($_, "border-radius");
+    border-radius: calc(var(--#{$_}--border-radius-value) * var(--base));
     contain: layout;
     corner-shape: tokens.getRawValue($_, "corner-shape");
 
