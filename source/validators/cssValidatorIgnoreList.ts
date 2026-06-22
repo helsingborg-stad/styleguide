@@ -121,4 +121,9 @@ export const cssValidatorIgnoreList: CssValidatorIgnoreRule[] = [
 		messageIncludes: 'One operand must be a number',
 		type: 'error',
 	},
+	{
+		messageIncludes: '"allow-discrete" is not a "transition" value',
+		contextIncludes: 'details.c-accordion__item::details-content',
+		type: 'error',
+	},
 ];

@@ -8,9 +8,9 @@ $_: "c-group";
 
 .#{$_} {
     --#{$_}--grid-gap: #{tokens.getCalculatedValue($_, "base", 4)};
-    --#{$_}--fluid-2col: calc(100% - #{tokens.getRawValue("grid-gap", 1)} / 2);
-    --#{$_}--fluid-3col: calc(100% - #{tokens.getRawValue("grid-gap", 2)} / 3);
-    --#{$_}--fluid-4col: calc(100% - #{tokens.getRawValue("grid-gap", 3)} / 4);
+    --#{$_}--fluid-2col: calc(100% - #{tokens.getRawValue("", "grid-gap--1")} / 2);
+    --#{$_}--fluid-3col: calc(100% - #{tokens.getRawValue("", "grid-gap--2")} / 3);
+    --#{$_}--fluid-4col: calc(100% - #{tokens.getRawValue("", "grid-gap--3")} / 4);
     display: inline-flex;
     contain: layout;
     border-radius: tokens.getCalculatedValue($_, "border-radius");
@@ -139,9 +139,9 @@ $_: "c-group";
 
 /* Fluid grid using flex */
 .#{$_}.#{$_}--fluid-grid:not(.#{$_}--display-grid) {
-    --c-group-fluid-2col: calc(100% - #{tokens.getRawValue("grid-gap", 1)} / 2);
-    --c-group-fluid-3col: calc(100% - #{tokens.getRawValue("grid-gap", 2)} / 3);
-    --c-group-fluid-4col: calc(100% - #{tokens.getRawValue("grid-gap", 3)} / 4);
+    --c-group-fluid-2col: calc(100% - #{tokens.getRawValue("", "grid-gap--1")} / 2);
+    --c-group-fluid-3col: calc(100% - #{tokens.getRawValue("", "grid-gap--2")} / 3);
+    --c-group-fluid-4col: calc(100% - #{tokens.getRawValue("", "grid-gap--3")} / 4);
 
     flex-wrap: wrap;
     flex-direction: row;
