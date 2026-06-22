@@ -7,6 +7,14 @@
 		"dockerfile": "Dockerfile",
 		"context": ".."
 	},
+	"containerEnv": {
+		"XDEBUG_MODE": "off",
+		"XDEBUG_START_WITH_REQUEST": "no"
+	},
+	"remoteEnv": {
+		"XDEBUG_MODE": "off",
+		"XDEBUG_START_WITH_REQUEST": "no"
+	},
 	// Configure tool-specific properties.
 	// "customizations": {},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
