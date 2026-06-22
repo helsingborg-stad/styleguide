@@ -45,6 +45,7 @@
 				"font-size-600",
 				"font-size-700",
 				"font-size-800",
+				"font-size-900",
 				"font-weight-normal",
 				"font-weight-medium",
 				"font-weight-bold",
@@ -177,6 +178,10 @@
 					"enum": ["range", "select", "color", "rgba", "font"]
 				},
 				"default": {},
+				"fontSizeScaleStep": {
+					"description": "Generates the default value from --base-font-size and --font-size-scale-ratio using this scale step.",
+					"type": "number"
+				},
 				"unit": {
 					"type": "string"
 				},
@@ -203,7 +208,8 @@
 					"oneOf": [{ "type": "string" }, { "type": "array", "items": { "type": "string" } }]
 				}
 			},
-			"required": ["variable", "label", "type", "default"],
+			"required": ["variable", "label", "type"],
+			"oneOf": [{ "required": ["default"] }, { "required": ["fontSizeScaleStep"] }],
 			"additionalProperties": false
 		},
 		"option": {

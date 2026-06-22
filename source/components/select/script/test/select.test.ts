@@ -1,8 +1,8 @@
-import { findByRole, getByRole, getByText } from '@testing-library/dom';
+import { getByText } from '@testing-library/dom';
 import UserEvent from '@testing-library/user-event';
 import { renderComponent } from '../../../../js/helpers/ComponentRenderer';
 import { SelectComponentObserver } from '../../index';
-import { Select, SelectElementSelector } from '../select';
+import { SelectElementSelector } from '../select';
 
 interface ISelectData {
 	label: string;
@@ -65,7 +65,7 @@ describe('Select', () => {
 
 	it('does not trigger click on overlay when clicking select element on ios device', async () => {
 		const options = { 'test-1': 'Test 1', 'test-2': 'Test 2' };
-		const component = await renderSelectComponent({ options });
+		await renderSelectComponent({ options });
 		const element = document.querySelector('[data-js-select-element]') as HTMLElement;
 		(document.querySelector('.c-select') as HTMLElement).classList.add('is-ios'); // Simulate iOS device
 		const actionOverlay = document.querySelector(`[${SelectElementSelector.actionOverlayElementAttribute}]`) as HTMLDivElement;
@@ -79,7 +79,7 @@ describe('Select', () => {
 
 	it('does not trigger click on overlay when clicking select element on android device', async () => {
 		const options = { 'test-1': 'Test 1', 'test-2': 'Test 2' };
-		const component = await renderSelectComponent({ options });
+		await renderSelectComponent({ options });
 		const element = document.querySelector('[data-js-select-element]') as HTMLElement;
 		(document.querySelector('.c-select') as HTMLElement).classList.add('is-android'); // Simulate Android device
 		const actionOverlay = document.querySelector(`[${SelectElementSelector.actionOverlayElementAttribute}]`) as HTMLDivElement;

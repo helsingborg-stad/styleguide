@@ -11,6 +11,7 @@ import { applyTokenOverridesToRootDocument, clearTokenOverridesFromRootDocument 
 import { getComponentOverrideTargets } from '../../shared/state/componentOverrideTargets';
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import { getNamedScopeKeysForElement, getResolvedScopeKeyForElement } from '../../shared/state/designBuilderScope';
+import { withResolvedTokenSettingDefaults } from '../../shared/tokens/resolveTokenSettingDefault';
 import { registerControlInfoTooltips } from '../../shared/tooltips/registerControlInfoTooltips';
 import type { ComponentSettingDefinition, ComponentSettingVisibilityCondition, ComponentTokenData, ComponentTokenReferenceSetting, ScopedComponentOverrides, TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
 import type { DesignBuilderModeSwitch, DesignBuilderRootElement } from '../../web-component/designBuilderRootContracts';
@@ -81,7 +82,7 @@ export class ComponentCustomizerRuntime {
 
 	constructor(componentData: ComponentTokenData, tokenLibrary: TokenData, mountElement: HTMLElement | ShadowRoot, options: ComponentCustomizerRuntimeOptions = {}) {
 		this.componentData = componentData;
-		this.tokenLibrary = tokenLibrary;
+		this.tokenLibrary = withResolvedTokenSettingDefaults(tokenLibrary);
 		this.mountElement = mountElement;
 		this.hostElement = options.hostElement ?? null;
 		this.overrides = normalizeDesignBuilderOverrideState(this.hostElement?.overrideState).component;

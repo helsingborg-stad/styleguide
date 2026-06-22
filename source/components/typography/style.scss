@@ -1,3 +1,4 @@
+@use "sass:map";
 @use "../../sass/mixin/tokens";
 
 /* Declared properties */
@@ -29,59 +30,70 @@
 /* Component name */
 $_: "c-typography";
 
+$fontSizeDefaultAliases: (
+    "font-size-caption": "font-size-90",
+    "font-size-meta": "font-size-90",
+    "font-size-subtitle": "font-size-400",
+    "font-size-title": "font-size-500",
+    "font-size-headline": "font-size-600",
+    "font-size-marketing": "font-size-800",
+    "font-size-lead": "font-size-200"
+);
+
+$headingFontSizeDefinitions: (
+    h1: (fontSizeAlias: "h1-font-size", defaultToken: "font-size-900", multiplierVariable: "h1-font-size-multiplier"),
+    h2: (fontSizeAlias: "h2-font-size", defaultToken: "font-size-800", multiplierVariable: "h2-font-size-multiplier"),
+    h3: (fontSizeAlias: "h3-font-size", defaultToken: "font-size-600", multiplierVariable: "h3-font-size-multiplier"),
+    h4: (fontSizeAlias: "h4-font-size", defaultToken: "font-size-400", multiplierVariable: "h4-font-size-multiplier"),
+    h5: (fontSizeAlias: "h5-font-size", defaultToken: "font-size-300", multiplierVariable: "h5-font-size-multiplier"),
+    h6: (fontSizeAlias: "h6-font-size", defaultToken: "font-size-200", multiplierVariable: "h6-font-size-multiplier")
+);
+
+$headingLikeVariantFontSizeDefinitions: (
+    headline: (fontSizeAlias: "font-size-headline", multiplierVariable: "headline-font-size-multiplier"),
+    title: (fontSizeAlias: "font-size-title", multiplierVariable: "title-font-size-multiplier"),
+    subtitle: (fontSizeAlias: "font-size-subtitle", multiplierVariable: "subtitle-font-size-multiplier"),
+    marketing: (fontSizeAlias: "font-size-marketing", multiplierVariable: "marketing-font-size-multiplier")
+);
+
+$smallTextVariantFontSizeDefinitions: (
+    caption: (fontSizeAlias: "font-size-caption", multiplierVariable: "caption-font-size-multiplier"),
+    byline: (fontSizeAlias: "font-size-caption", multiplierVariable: "byline-font-size-multiplier"),
+    meta: (fontSizeAlias: "font-size-meta", multiplierVariable: "meta-font-size-multiplier")
+);
+
 /* Design tokens */
 @include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
-@mixin applyScaledFontSize($resolvedFontSize, $multiplierVariable, $enforceMinimum: false) {
+@mixin applyScaledFontSize($resolvedFontSize, $multiplierVariable) {
     --#{$_}--resolved-font-size: #{$resolvedFontSize};
     --#{$_}--scaled-font-size: calc(var(--#{$_}--resolved-font-size) * var(--#{$_}--#{$multiplierVariable}, 1));
+    font-size: var(--#{$_}--scaled-font-size);
+}
 
-    @if $enforceMinimum {
-        font-size: max(var(--font-size-base, var(--base-font-size, 1rem)), var(--#{$_}--scaled-font-size));
-    }
-
-    @else {
-        font-size: var(--#{$_}--scaled-font-size);
-    }
+@mixin applyHeadingFontSizeAndTextStyle($fontSizeAlias, $multiplierVariable) {
+    @include applyScaledFontSize(tokens.getDerivedAliasValue($_, $fontSizeAlias, "font-size"), $multiplierVariable);
+    font-weight: tokens.getRawValue($_, "font-weight-heading");
+    line-height: tokens.getRawValue($_, "line-height-heading");
+    font-family: tokens.getRawValue($_, "font-family-heading");
+    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
 
 :root {
-    // Must be global to be used in any context
-    --#{$_}--font-size-caption-default: #{tokens.getDefaultRawValue($_, "font-size-90")};
-    --#{$_}--font-size-meta-default: #{tokens.getDefaultRawValue($_, "font-size-90")};
-    --#{$_}--font-size-subtitle-default: #{tokens.getDefaultRawValue($_, "font-size-400")};
-    --#{$_}--font-size-title-default: #{tokens.getDefaultRawValue($_, "font-size-500")};
-    --#{$_}--font-size-headline-default: #{tokens.getDefaultRawValue($_, "font-size-600")};
-    --#{$_}--font-size-marketing-default: #{tokens.getDefaultRawValue($_, "font-size-800")};
 
-    --#{$_}--font-size-lead-default: #{tokens.getDefaultRawValue($_, "font-size-200")};
-    --#{$_}--font-size-lead-default: #{tokens.getDefaultRawValue($_, "font-size-200")};
+    // Must be global to be used in any context
+    @each $fontSizeAlias, $defaultToken in $fontSizeDefaultAliases {
+        --#{$_}--#{$fontSizeAlias}-default: #{tokens.getDefaultRawValue($_, $defaultToken)};
+    }
+
     --#{$_}--font-weight-lead-default: #{tokens.getDefaultRawValue($_, "font-weight-medium")};
 
-    --#{$_}--h1-font-size-default: #{tokens.getDefaultRawValue($_, "font-size-700")};
-    --#{$_}--h1-font-weight: #{tokens.getDefaultRawValue($_, "font-weight-heading")};
-    --#{$_}--h1-line-height: #{tokens.getDefaultRawValue($_, "line-height-heading")};
-    --#{$_}--h1-font-family: #{tokens.getRawValue($_, "font-family-heading")};
-    --#{$_}--h2-font-size-default: #{tokens.getDefaultRawValue($_, "font-size-600")};
-    --#{$_}--h2-font-weight: #{tokens.getDefaultRawValue($_, "font-weight-heading")};
-    --#{$_}--h2-line-height: #{tokens.getDefaultRawValue($_, "line-height-heading")};
-    --#{$_}--h2-font-family: #{tokens.getRawValue($_, "font-family-heading")};
-    --#{$_}--h3-font-size-default: #{tokens.getDefaultRawValue($_, "font-size-500")};
-    --#{$_}--h3-font-weight: #{tokens.getDefaultRawValue($_, "font-weight-heading")};
-    --#{$_}--h3-line-height: #{tokens.getDefaultRawValue($_, "line-height-heading")};
-    --#{$_}--h3-font-family: #{tokens.getRawValue($_, "font-family-heading")};
-    --#{$_}--h4-font-size-default: #{tokens.getDefaultRawValue($_, "font-size-400")};
-    --#{$_}--h4-font-weight: #{tokens.getDefaultRawValue($_, "font-weight-heading")};
-    --#{$_}--h4-line-height: #{tokens.getDefaultRawValue($_, "line-height-heading")};
-    --#{$_}--h4-font-family: #{tokens.getRawValue($_, "font-family-heading")};
-    --#{$_}--h5-font-size-default: #{tokens.getDefaultRawValue($_, "font-size-300")};
-    --#{$_}--h5-font-weight: #{tokens.getDefaultRawValue($_, "font-weight-heading")};
-    --#{$_}--h5-line-height: #{tokens.getDefaultRawValue($_, "line-height-heading")};
-    --#{$_}--h5-font-family: #{tokens.getRawValue($_, "font-family-heading")};
-    --#{$_}--h6-font-size-default: #{tokens.getDefaultRawValue($_, "font-size-200")};
-    --#{$_}--h6-font-weight: #{tokens.getDefaultRawValue($_, "font-weight-heading")};
-    --#{$_}--h6-line-height: #{tokens.getDefaultRawValue($_, "line-height-heading")};
-    --#{$_}--h6-font-family: #{tokens.getRawValue($_, "font-family-heading")};
+    @each $headingLevel, $headingDefinition in $headingFontSizeDefinitions {
+        --#{$_}--#{$headingLevel}-font-size-default: #{tokens.getDefaultRawValue($_, map.get($headingDefinition, defaultToken))};
+        --#{$_}--#{$headingLevel}-font-weight: #{tokens.getDefaultRawValue($_, "font-weight-heading")};
+        --#{$_}--#{$headingLevel}-line-height: #{tokens.getDefaultRawValue($_, "line-height-heading")};
+        --#{$_}--#{$headingLevel}-font-family: #{tokens.getRawValue($_, "font-family-heading")};
+    }
 }
 
 .#{$_} {
@@ -138,88 +150,19 @@ h5,
     }
 }
 
-h1,
-.h1,
-.#{$_}__variant--h1 {
-    @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "h1-font-size", "font-size"), "h1-font-size-multiplier", true);
-    font-weight: tokens.getRawValue($_, "font-weight-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
-    font-family: tokens.getRawValue($_, "font-family-heading");
-    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
+@each $headingLevel, $headingDefinition in $headingFontSizeDefinitions {
+
+    #{$headingLevel},
+    .#{$headingLevel},
+    .#{$_}__variant--#{$headingLevel} {
+        @include applyHeadingFontSizeAndTextStyle(map.get($headingDefinition, fontSizeAlias), map.get($headingDefinition, multiplierVariable));
+    }
 }
 
-h2,
-.h2,
-.#{$_}__variant--h2 {
-    @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "h2-font-size", "font-size"), "h2-font-size-multiplier", true);
-    font-weight: tokens.getRawValue($_, "font-weight-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
-    font-family: tokens.getRawValue($_, "font-family-heading");
-    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
-}
-
-h3,
-.h3,
-.#{$_}__variant--h3 {
-    @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "h3-font-size", "font-size"), "h3-font-size-multiplier", true);
-    font-weight: tokens.getRawValue($_, "font-weight-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
-    font-family: tokens.getRawValue($_, "font-family-heading");
-    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
-}
-
-h4,
-.h4,
-.#{$_}__variant--h4 {
-    @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "h4-font-size", "font-size"), "h4-font-size-multiplier", true);
-    font-weight: tokens.getRawValue($_, "font-weight-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
-    font-family: tokens.getRawValue($_, "font-family-heading");
-    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
-}
-
-h5,
-.h5,
-.#{$_}__variant--h5 {
-    @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "h5-font-size", "font-size"), "h5-font-size-multiplier", true);
-    font-weight: tokens.getRawValue($_, "font-weight-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
-    font-family: tokens.getRawValue($_, "font-family-heading");
-    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
-}
-
-h6,
-.h6,
-.#{$_}__variant--h6 {
-    @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "h6-font-size", "font-size"), "h6-font-size-multiplier", true);
-    font-weight: tokens.getRawValue($_, "font-weight-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
-    font-family: tokens.getRawValue($_, "font-family-heading");
-    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
-}
-
-.#{$_}__variant--headline {
-    @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-headline", "font-size"), "headline-font-size-multiplier", true);
-    font-weight: tokens.getRawValue($_, "font-weight-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
-    font-family: tokens.getRawValue($_, "font-family-heading");
-    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
-}
-
-.#{$_}__variant--title {
-    font-family: tokens.getRawValue($_, "font-family-heading");
-    @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-title", "font-size"), "title-font-size-multiplier", true);
-    font-weight: tokens.getRawValue($_, "font-weight-heading");
-    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
-}
-
-.#{$_}__variant--subtitle {
-    @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-subtitle", "font-size"), "subtitle-font-size-multiplier", true);
-    font-weight: tokens.getRawValue($_, "font-weight-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
-    font-family: tokens.getRawValue($_, "font-family-heading");
-    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
+@each $variantName, $variantDefinition in $headingLikeVariantFontSizeDefinitions {
+    .#{$_}__variant--#{$variantName} {
+        @include applyHeadingFontSizeAndTextStyle(map.get($variantDefinition, fontSizeAlias), map.get($variantDefinition, multiplierVariable));
+    }
 }
 
 .#{$_}__variant--bold {
@@ -230,30 +173,16 @@ h6,
     line-height: tokens.getDefaultRawValue($_, "line-height-base");
 }
 
-.#{$_}__variant--caption {
-    @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-caption", "font-size"), "caption-font-size-multiplier");
-}
-
-.#{$_}__variant--byline {
-    @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-caption", "font-size"), "byline-font-size-multiplier");
-}
-
-.#{$_}__variant--meta {
-    @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-meta", "font-size"), "meta-font-size-multiplier");
+@each $variantName, $variantDefinition in $smallTextVariantFontSizeDefinitions {
+    .#{$_}__variant--#{$variantName} {
+        @include applyScaledFontSize(tokens.getDerivedAliasValue($_, map.get($variantDefinition, fontSizeAlias), "font-size"), map.get($variantDefinition, multiplierVariable));
+    }
 }
 
 .lead,
 .#{$_}__variant--lead {
-    @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-lead", "font-size"), "lead-font-size-multiplier", true);
+    @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-lead", "font-size"), "lead-font-size-multiplier");
     font-weight: tokens.getDerivedAliasValue($_, "font-weight-lead", "font-weight");
-}
-
-.#{$_}__variant--marketing {
-    font-family: tokens.getRawValue($_, "font-family-heading");
-    @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-marketing", "font-size"), "marketing-font-size-multiplier", true);
-    font-weight: tokens.getRawValue($_, "font-weight-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
-    letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
 
 .#{$_}__variant--email {

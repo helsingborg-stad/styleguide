@@ -7,6 +7,7 @@ import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPr
 import { type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset, designBuilderPresetMatchesState } from '../../shared/presets/designBuilderPresetDefinitions';
 import { applyComponentOverridesToPage, clearComponentOverridesFromPage, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
+import { withResolvedTokenSettingDefaults } from '../../shared/tokens/resolveTokenSettingDefault';
 import { registerControlInfoTooltips } from '../../shared/tooltips/registerControlInfoTooltips';
 import type { TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
 import type { DesignBuilderModeSwitch, DesignBuilderRootElement } from '../../web-component/designBuilderRootContracts';
@@ -49,7 +50,7 @@ export class FullPageEditorRuntime {
 	constructor(container: HTMLElement, tokens: TokenData, hostElement: DesignBuilderRootElement, modeSwitch?: DesignBuilderModeSwitch, showSaveButton = true) {
 		this.container = container;
 		this.hostElement = hostElement;
-		this.tokens = tokens;
+		this.tokens = withResolvedTokenSettingDefaults(tokens);
 		this.presetManager = new DesignBuilderPresetManager();
 		this.overrides = { ...hostElement.overrideState.token };
 		this.showLockedFields = hostElement.showLockedFields;

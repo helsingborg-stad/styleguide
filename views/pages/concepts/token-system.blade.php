@@ -132,7 +132,7 @@
                     [
                         'token' => '--font-size-scale-ratio',
                         'purpose' => 'Ratio used to generate the full font-size scale.',
-                        'behavior' => 'Direct select token consumed by the derived font-size tokens.',
+                        'behavior' => 'Direct stepped range token consumed by the derived font-size tokens.',
                         'editable' => 'Yes',
                     ],
                     [

@@ -328,7 +328,7 @@ In the tables below, `Can the user manipulate it?` means the supported direct cu
 | `--font-family-base` | Default body font family. | Direct font token. Default `"Roboto", sans-serif`. | Yes. |
 | `--font-family-heading` | Heading font family. | Defaults to `var(--font-family-base)`, so it inherits the body font unless explicitly changed. | Yes. |
 | `--font-family-code` | Monospace/code font family. | Direct token with a fixed default stack. Marked locked. | No, not through the intended token UI flow. |
-| `--font-size-scale-ratio` | Ratio used to generate the full font-size scale. | Direct select token. Default `1.250`. | Yes. |
+| `--font-size-scale-ratio` | Ratio used to generate the full font-size scale. | Direct stepped range token from `1.067` to `1.333`. Default `1.250`. | Yes. |
 | `--font-weight-normal` | Default text weight. | Direct select token. Default `400`. | Yes. |
 | `--font-weight-medium` | Medium emphasis font weight. | Direct select token. Default `500`. | Yes. |
 | `--font-weight-bold` | Strong emphasis font weight. | Direct select token. Default `700`. | Yes. |
