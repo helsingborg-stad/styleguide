@@ -6,8 +6,14 @@ import path from 'node:path';
 import { jsBuiltOutputConsoleIgnoreList, type JsConsoleIgnoreRule } from './jsBuiltOutputConsoleIgnoreList';
 
 interface ValidatorManifest {
-	[entryName: string]: string;
+	[entryName: string]: ValidatorManifestEntry;
 }
+
+interface ViteManifestEntry {
+	file?: string;
+}
+
+type ValidatorManifestEntry = string | ViteManifestEntry;
 
 interface ConsoleIssue {
 	bundle: string;
@@ -22,17 +28,40 @@ const distPath = path.join(projectRoot, 'assets', 'dist');
 const distJsPath = path.join(distPath, 'js');
 const consolePattern = /console\.(log|info|debug|warn|error)\s*\(/;
 
-async function getFallbackNonCacheBustedBundles(): Promise<string[]> {
-	if (!existsSync(distJsPath)) {
+function isJsBundlePath(assetPath: string): boolean {
+	return assetPath.endsWith('.js') && !assetPath.endsWith('.js.map');
+}
+
+function resolveDistAssetPath(assetPath: string): string {
+	return path.join(distPath, assetPath.replace(/^\/+/, ''));
+}
+
+function getManifestEntryAssetPath(entry: ValidatorManifestEntry): string | null {
+	if (typeof entry === 'string') {
+		return entry;
+	}
+
+	return entry.file ?? null;
+}
+
+async function getFallbackBuiltJsBundles(directoryPath = distJsPath): Promise<string[]> {
+	if (!existsSync(directoryPath)) {
 		return [];
 	}
 
-	const entries = await readdir(distJsPath, { withFileTypes: true });
+	const entries = await readdir(directoryPath, { withFileTypes: true });
 	const bundles: string[] = [];
 
 	for (const entry of entries) {
-		if (entry.isFile() && entry.name.endsWith('.js') && !entry.name.endsWith('.js.map')) {
-			bundles.push(path.join(distJsPath, entry.name));
+		const entryPath = path.join(directoryPath, entry.name);
+
+		if (entry.isDirectory()) {
+			bundles.push(...(await getFallbackBuiltJsBundles(entryPath)));
+			continue;
+		}
+
+		if (entry.isFile() && isJsBundlePath(entry.name)) {
+			bundles.push(entryPath);
 		}
 	}
 
@@ -41,15 +70,17 @@ async function getFallbackNonCacheBustedBundles(): Promise<string[]> {
 
 async function getBuiltJsBundles(): Promise<string[]> {
 	if (!existsSync(manifestPath)) {
-		return getFallbackNonCacheBustedBundles();
+		return getFallbackBuiltJsBundles();
 	}
 
 	const manifestRaw = await readFile(manifestPath, 'utf8');
 	const manifest = JSON.parse(manifestRaw) as ValidatorManifest;
+	const manifestBundles = Object.values(manifest)
+		.map(getManifestEntryAssetPath)
+		.filter((assetPath): assetPath is string => assetPath !== null && isJsBundlePath(assetPath))
+		.map(resolveDistAssetPath);
 
-	return Object.entries(manifest)
-		.filter(([entryName, assetPath]) => entryName.startsWith('js/') && assetPath.endsWith('.js'))
-		.map(([, assetPath]) => path.join(projectRoot, 'assets', 'dist', assetPath));
+	return manifestBundles.length > 0 ? manifestBundles : getFallbackBuiltJsBundles();
 }
 
 async function findConsoleIssues(bundlePath: string): Promise<ConsoleIssue[]> {
