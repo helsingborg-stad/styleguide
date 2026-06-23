@@ -28,6 +28,7 @@ $_: "c-button";
         background-color: var(--#{$_}-active);
     }
 
+    &,
     .#{$_}__label {
         color: var(--#{$_}-contrast);
     }
