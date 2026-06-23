@@ -36,6 +36,7 @@ $_: "c-button";
     transition-property: background-color, border-color, color;
     transition-timing-function: ease-in-out;
     user-select: none;
+    align-items: center;
 
     &[disabled] {
         cursor: not-allowed;
