@@ -12,6 +12,7 @@ export interface TokenSetting {
 	description?: string;
 	type: 'color' | 'rgba' | 'range' | 'select' | 'font' | 'token-color';
 	default: string;
+	fontSizeScaleStep?: number;
 	unit?: string;
 	min?: number;
 	max?: number;

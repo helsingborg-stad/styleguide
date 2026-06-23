@@ -187,7 +187,7 @@ class ComponentCssParameters
                         $rows,
                         $rowIndexesByVariable,
                         self::toLocalizedVariable($componentPrefix, ltrim($variable, '-')),
-                        isset($setting['default']) ? (string) $setting['default'] : '',
+                        self::resolveSettingDefaultValue($setting),
                         $setting,
                     );
                     continue;
@@ -266,6 +266,31 @@ class ComponentCssParameters
             'availableValues' => self::formatAvailableValues(is_array($setting) ? $setting['options'] ?? null : null),
             'description' => self::formatDescription($setting ?? []),
         ];
+    }
+
+    /**
+     * Resolve the concrete default value for token settings that derive from metadata.
+     *
+     * @param array<string, mixed> $setting Token setting data.
+     *
+     * @return string
+     */
+    private static function resolveSettingDefaultValue(array $setting): string
+    {
+        if (isset($setting['default'])) {
+            return (string) $setting['default'];
+        }
+
+        $fontSizeScaleStep = $setting['fontSizeScaleStep'] ?? null;
+        if (!is_int($fontSizeScaleStep) && !is_float($fontSizeScaleStep)) {
+            return '';
+        }
+
+        if ((float) $fontSizeScaleStep === 0.0) {
+            return 'var(--base-font-size)';
+        }
+
+        return 'calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), ' . $fontSizeScaleStep . '))';
     }
 
     /**

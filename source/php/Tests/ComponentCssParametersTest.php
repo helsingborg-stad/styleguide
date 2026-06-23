@@ -25,7 +25,7 @@ class ComponentCssParametersTest extends TestCase
                 [
                     'name' => 'Alpha',
                     'slug' => 'alpha',
-                    'tokens' => ['base', 'shadow-color', 'shadow-color-opacity', 'shadow-amount', 'color--primary'],
+                    'tokens' => ['base', 'font-size-200', 'shadow-color', 'shadow-color-opacity', 'shadow-amount', 'color--primary'],
                     'componentSettings' => [
                         [
                             'id' => 'settings',
@@ -45,6 +45,14 @@ class ComponentCssParametersTest extends TestCase
                                     'min' => 0.1,
                                     'max' => 4,
                                     'step' => 0.1,
+                                ],
+                                [
+                                    'variable' => '--derived-font-size',
+                                    'label' => 'Derived Font Size',
+                                    'description' => 'Derives a local font size from the shared type scale.',
+                                    'type' => 'range',
+                                    'fontSizeScaleStep' => 1,
+                                    'locked' => true,
                                 ],
                                 [
                                     'token' => 'color--primary-contrast',
@@ -103,6 +111,20 @@ class ComponentCssParametersTest extends TestCase
                             ],
                         ],
                         [
+                            'id' => 'font-sizes',
+                            'label' => 'Font Sizes',
+                            'settings' => [
+                                [
+                                    'variable' => '--font-size-200',
+                                    'label' => 'Font Size 200',
+                                    'description' => 'One step above base in the type scale.',
+                                    'type' => 'range',
+                                    'fontSizeScaleStep' => 1,
+                                    'locked' => true,
+                                ],
+                            ],
+                        ],
+                        [
                             'id' => 'color',
                             'label' => 'Colors',
                             'settings' => [
@@ -146,22 +168,29 @@ class ComponentCssParametersTest extends TestCase
     {
         $rows = ComponentCssParameters::getForComponent('alpha', $this->tempBasePath);
 
-        $this->assertCount(6, $rows);
+        $this->assertCount(8, $rows);
 
         $this->assertSame('--c-alpha--base', $rows[0]['key']);
         $this->assertSame('var(--base)', $rows[0]['defaultValue']);
         $this->assertSame('Main unit.', $rows[0]['description']);
 
-        $this->assertSame('--c-alpha--shadow-color', $rows[1]['key']);
-        $this->assertSame('--c-alpha--shadow-color-opacity', $rows[2]['key']);
-        $this->assertSame('--c-alpha--shadow-amount', $rows[3]['key']);
-        $this->assertSame('--c-alpha--color--primary', $rows[4]['key']);
-        $this->assertSame('Overrides the component accent color.', $rows[4]['description']);
-        $this->assertSame('--c-alpha--font-size-multiplier', $rows[5]['key']);
-        $this->assertSame('1', $rows[5]['defaultValue']);
-        $this->assertSame('Scales component font sizes locally.', $rows[5]['description']);
+        $this->assertSame('--c-alpha--font-size-200', $rows[1]['key']);
+        $this->assertSame('var(--font-size-200)', $rows[1]['defaultValue']);
+        $this->assertSame('One step above base in the type scale.', $rows[1]['description']);
 
-        $this->assertSame('#0055ff, #0f766e', $rows[4]['availableValues']);
+        $this->assertSame('--c-alpha--shadow-color', $rows[2]['key']);
+        $this->assertSame('--c-alpha--shadow-color-opacity', $rows[3]['key']);
+        $this->assertSame('--c-alpha--shadow-amount', $rows[4]['key']);
+        $this->assertSame('--c-alpha--color--primary', $rows[5]['key']);
+        $this->assertSame('Overrides the component accent color.', $rows[5]['description']);
+        $this->assertSame('--c-alpha--font-size-multiplier', $rows[6]['key']);
+        $this->assertSame('1', $rows[6]['defaultValue']);
+        $this->assertSame('Scales component font sizes locally.', $rows[6]['description']);
+        $this->assertSame('--c-alpha--derived-font-size', $rows[7]['key']);
+        $this->assertSame('calc(var(--base-font-size) * pow(var(--font-size-scale-ratio), 1))', $rows[7]['defaultValue']);
+        $this->assertSame('Derives a local font size from the shared type scale.', $rows[7]['description']);
+
+        $this->assertSame('#0055ff, #0f766e', $rows[5]['availableValues']);
     }
 
     public function testGetForComponentReturnsEmptyArrayWhenFilesAreMissing(): void

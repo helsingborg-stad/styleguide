@@ -1,4 +1,4 @@
-import { getByTestId, getByText, screen } from '@testing-library/dom';
+import { getByText } from '@testing-library/dom';
 import userEvent from '@testing-library/user-event';
 import { type IComponentData, renderComponent } from '../../../js/helpers/ComponentRenderer';
 import Gallery from '../../gallery/gallery';
@@ -148,7 +148,6 @@ describe('modal', () => {
 		await renderModalComponent({ heading: 'Modal heading' });
 		const modalElement = document.querySelector('.c-modal') as HTMLDialogElement;
 		modalElement.open = true;
-		const p = getByText(document.body, 'test');
 		modalElement.getBoundingClientRect = jest.fn(
 			() =>
 				({

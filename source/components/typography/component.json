@@ -21,8 +21,8 @@
 		"font-size-400",
 		"font-size-500",
 		"font-size-600",
-		"font-size-700",
-		"font-size-800"
+		"font-size-800",
+		"font-size-900"
 	],
 	"componentSettings": [
 		{
@@ -214,34 +214,34 @@
 				},
 				{
 					"token": "font-size-500",
-					"label": "Title and H3 Size",
-					"description": "Controls the shared size used by title and h3 variants.",
+					"label": "Title Size",
+					"description": "Controls the default size used by title text between h3 and h4.",
 					"visibleWhen": {
-						"hasAnyClass": ["c-typography__variant--title", "c-typography__variant--h3"]
+						"hasClass": ["c-typography__variant--title"]
 					}
 				},
 				{
 					"token": "font-size-600",
-					"label": "Headline and H2 Size",
-					"description": "Controls the shared size used by headline and h2 variants.",
+					"label": "Headline and H3 Size",
+					"description": "Controls the shared size used by headline and h3 variants.",
 					"visibleWhen": {
-						"hasAnyClass": ["c-typography__variant--headline", "c-typography__variant--h2"]
-					}
-				},
-				{
-					"token": "font-size-700",
-					"label": "H1 Size",
-					"description": "Controls the default size used by h1 headings.",
-					"visibleWhen": {
-						"hasClass": ["c-typography__variant--h1"]
+						"hasAnyClass": ["c-typography__variant--headline", "c-typography__variant--h3"]
 					}
 				},
 				{
 					"token": "font-size-800",
-					"label": "Marketing Size",
-					"description": "Controls the default size used by the marketing variant.",
+					"label": "Marketing and H2 Size",
+					"description": "Controls the shared size used by marketing and h2 variants.",
 					"visibleWhen": {
-						"hasClass": ["c-typography__variant--marketing"]
+						"hasAnyClass": ["c-typography__variant--marketing", "c-typography__variant--h2"]
+					}
+				},
+				{
+					"token": "font-size-900",
+					"label": "H1 Size",
+					"description": "Controls the default size used by h1 headings.",
+					"visibleWhen": {
+						"hasClass": ["c-typography__variant--h1"]
 					}
 				}
 			]
