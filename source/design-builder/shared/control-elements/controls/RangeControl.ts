@@ -25,12 +25,32 @@ class RangeControl extends HTMLElement {
 		this.render();
 	}
 
+	private getClampedValue(value: string, min: string, max: string): string {
+		if (value === '') {
+			return value;
+		}
+
+		const numericValue = Number.parseFloat(value);
+		const numericMin = Number.parseFloat(min);
+		const numericMax = Number.parseFloat(max);
+
+		if (Number.isNaN(numericValue)) {
+			return value;
+		}
+
+		const lowerBound = Number.isNaN(numericMin) ? numericValue : numericMin;
+		const upperBound = Number.isNaN(numericMax) ? numericValue : numericMax;
+		const clampedValue = Math.min(Math.max(numericValue, lowerBound), upperBound);
+
+		return String(clampedValue);
+	}
+
 	render() {
 		const isDisabled = this.hasAttribute('locked');
 		const min = this.getAttribute('min') || '0';
 		const max = this.getAttribute('max') || '100';
 		const step = this.getAttribute('step') || '1';
-		const value = this.getAttribute('value') || '';
+		const value = this.getClampedValue(this.getAttribute('value') || '', min, max);
 		const unit = this.getAttribute('unit') || '';
 
 		const markup = () =>
@@ -43,7 +63,8 @@ class RangeControl extends HTMLElement {
 	}
 
 	_onInput(e: Event) {
-		const value = (e.target as HTMLInputElement).value;
+		const input = e.target as HTMLInputElement;
+		const value = this.getClampedValue(input.value, input.min, input.max);
 
 		this.dispatchEvent(
 			new CustomEvent('change', {

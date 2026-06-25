@@ -196,6 +196,28 @@
 			"description": "Component-local background image controls.",
 			"settings": [
 				{
+					"variable": "--background-opacity",
+					"label": "Background Opacity",
+					"description": "Controls the opacity of the footer background layer without changing content opacity.",
+					"type": "range",
+					"default": "1",
+					"min": 0,
+					"max": 1,
+					"step": 0.05,
+					"unit": ""
+				},
+				{
+					"variable": "--background-rotation",
+					"label": "Background Rotation",
+					"description": "Rotates the footer background layer without rotating footer content.",
+					"type": "range",
+					"default": "0",
+					"min": -7,
+					"max": 7,
+					"step": 0.5,
+					"unit": "deg"
+				},
+				{
 					"variable": "--background-position",
 					"label": "Background Position",
 					"description": "Controls the CSS background-position value.",
@@ -226,10 +248,6 @@
 							"value": "center bottom",
 							"label": "Center Bottom"
 						},
-						{
-							"value": "left bottom",
-							"label": "Left Bottom"
-						}
 						{
 							"value": "left bottom",
 							"label": "Left Bottom"
