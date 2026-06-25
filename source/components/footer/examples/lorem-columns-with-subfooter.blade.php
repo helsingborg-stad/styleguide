@@ -1,6 +1,11 @@
+<style>
+    #site-footer-abc {
+        --c-footer--background-image: url('/assets/img/squares-in-squares.svg');
+    }
+</style>
 @footer([
     'slotOnly' => true,
-    'id' => 'site-footer',
+    'id' => 'site-footer-abc',
     'classList' => ['site-footer', 's-footer'],
     'logotype' => '',
     'subfooter' => [
