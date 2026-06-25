@@ -1056,6 +1056,17 @@
             "unit": ""
           },
           {
+            "variable": "--subfooter-background-opacity",
+            "label": "Subfooter Background Opacity",
+            "description": "Controls how much of the subfooter background color is mixed into the rendered background.",
+            "type": "range",
+            "default": "100",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "%"
+          },
+          {
             "variable": "--background-rotation",
             "label": "Background Rotation",
             "description": "Rotates the footer background layer without rotating footer content.",

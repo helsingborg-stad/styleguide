@@ -18,6 +18,8 @@ $_: "c-footer";
     --#{$_}--color-muted: #{tokens.getRawValue($_, "color--surface-contrast-muted")};
     --#{$_}--border-color: var(--c-footer-header-border-color, #{tokens.getRawValue($_, "color--surface-border")});
     --#{$_}--subfooter-background-color: var(--c-footer-subfooter-color-background, #{tokens.getRawValue($_, "color--surface-alt")});
+    --#{$_}--subfooter-background-opacity: 100%;
+    --#{$_}--subfooter-background: color-mix(in srgb, var(--#{$_}--subfooter-background-color) var(--#{$_}--subfooter-background-opacity), transparent);
     --#{$_}--subfooter-color: var(--c-footer-subfooter-color-text, #{tokens.getRawValue($_, "color--surface-contrast")});
     --#{$_}--subfooter-separator-color: var(--c-footer-subfooter-color-separator, #{tokens.getRawValue($_, "color--surface-border")});
     --#{$_}--background-image: none;
@@ -63,6 +65,7 @@ $_: "c-footer";
     isolation: isolate;
     overflow: hidden;
     color: var(--#{$_}--color);
+    background-color: var(--#{$_}--background-color);
 
     &::before {
         content: "";
@@ -310,7 +313,7 @@ $_: "c-footer";
 
     &__subfooter {
         color: var(--#{$_}--subfooter-color);
-        background: var(--#{$_}--subfooter-background-color);
+        background: var(--#{$_}--subfooter-background);
         padding: tokens.getCalculatedValue($_, "space", 3) 0;
         font-size: tokens.getRawValue($_, "font-size-90");
 
