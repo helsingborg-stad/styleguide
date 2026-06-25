@@ -204,6 +204,81 @@
 							"label": "Right"
 						}
 					]
+				},
+				{
+					"variable": "--subfooter-alignment",
+					"label": "Subfooter Justify Content",
+					"description": "How to distribute the subfooter logo and links group inside the wrapper.",
+					"type": "select",
+					"default": "center",
+					"options": [
+						{
+							"value": "flex-start",
+							"label": "Left"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "flex-end",
+							"label": "Right"
+						},
+						{
+							"value": "space-between",
+							"label": "Space Between"
+						},
+						{
+							"value": "space-around",
+							"label": "Space Around"
+						},
+						{
+							"value": "space-evenly",
+							"label": "Space Evenly"
+						}
+					]
+				},
+				{
+					"variable": "--subfooter-flex-direction",
+					"label": "Subfooter Direction",
+					"description": "Controls whether the subfooter wrapper displays the logo before or after the links.",
+					"type": "select",
+					"default": "row",
+					"options": [
+						{
+							"value": "row",
+							"label": "Default"
+						},
+						{
+							"value": "row-reverse",
+							"label": "Reversed"
+						}
+					]
+				},
+				{
+					"variable": "--subfooter-align-items",
+					"label": "Subfooter Align Items",
+					"description": "How to align subfooter items across the selected direction.",
+					"type": "select",
+					"default": "center",
+					"options": [
+						{
+							"value": "flex-start",
+							"label": "Start"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "flex-end",
+							"label": "End"
+						},
+						{
+							"value": "stretch",
+							"label": "Stretch"
+						}
+					]
 				}
 			]
 		},
