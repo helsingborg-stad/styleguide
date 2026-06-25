@@ -22,6 +22,8 @@ $_: "c-footer";
     --#{$_}--subfooter-background: color-mix(in srgb, var(--#{$_}--subfooter-background-color) var(--#{$_}--subfooter-background-opacity), transparent);
     --#{$_}--subfooter-color: var(--c-footer-subfooter-color-text, #{tokens.getRawValue($_, "color--surface-contrast")});
     --#{$_}--subfooter-separator-color: var(--c-footer-subfooter-color-separator, #{tokens.getRawValue($_, "color--surface-border")});
+    --#{$_}--subfooter-border-width: 0;
+    --#{$_}--subfooter-border-width-token: #{tokens.getCalculatedValue($_, "border-width")};
     --#{$_}--background-image: none;
     --#{$_}--background-position: center;
     --#{$_}--background-repeat: no-repeat;
@@ -34,9 +36,10 @@ $_: "c-footer";
     --#{$_}--background-rotation: 0deg;
     --#{$_}--main-padding-y: calc(#{tokens.getCalculatedValue($_, "outer-space", 3)} * var(--#{$_}--inset-multiplier));
     --#{$_}--main-padding-x: var(--#{$_}--inset-padding-x);
+    --#{$_}--gap: calc(#{tokens.getCalculatedValue($_, "space", 3)} * var(--#{$_}--gap-multiplier, 1));
     --#{$_}--body-padding-y: #{tokens.getCalculatedValue($_, "space", 5)};
     --#{$_}--body-padding-x: 0;
-    --#{$_}--column-gap: #{tokens.getCalculatedValue($_, "space", 2)};
+    --#{$_}--column-gap: var(--#{$_}--gap);
     --#{$_}--columns-count: 3;
     --#{$_}--text-align: left;
     --#{$_}--prefooter-text-align: left;
@@ -66,6 +69,12 @@ $_: "c-footer";
     overflow: hidden;
     color: var(--#{$_}--color);
     background-color: var(--#{$_}--background-color);
+    display: grid;
+    grid-template-areas:
+        "main"
+        "subfooter";
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
 
     &::before {
         content: "";
@@ -190,10 +199,23 @@ $_: "c-footer";
     }
 
     &__main-wrapper {
+        display: grid;
+        grid-area: main;
+        grid-template-areas:
+            "header"
+            "prefooter"
+            "content"
+            "areas"
+            "body"
+            "postfooter";
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--#{$_}--gap);
         padding: var(--#{$_}--main-padding-y) var(--#{$_}--main-padding-x);
     }
 
-    &__main-wrapper>.o-container>.o-grid {
+    &__main-wrapper>.o-container>.o-grid,
+    &__content-wrapper>.o-container>.o-grid,
+    &__areas-wrapper>.o-container>.o-grid {
         display: grid;
         grid-template-columns: repeat(var(--#{$_}--columns-count), minmax(0, 1fr));
         gap: var(--#{$_}--column-gap);
@@ -206,18 +228,22 @@ $_: "c-footer";
     }
 
     &__body {
+        grid-area: body;
         width: 100%;
         max-width: var(--container-width);
         margin-left: auto;
         margin-right: auto;
         padding: var(--#{$_}--body-padding-y) var(--#{$_}--body-padding-x);
-        display: flex;
-        flex-wrap: nowrap;
+        display: grid;
+        grid-template-areas: "home nav";
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: var(--#{$_}--gap);
+        align-items: start;
         text-align: var(--#{$_}--text-align);
     }
 
     &__header-wrapper {
-        margin-bottom: tokens.getCalculatedValue($_, "space", 3);
+        grid-area: header;
 
         .o-grid-12 {
             display: flex;
@@ -226,13 +252,17 @@ $_: "c-footer";
     }
 
     &__home-link {
-        margin-right: tokens.getCalculatedValue($_, "outer-space", 2);
+        grid-area: home;
         line-height: 0;
 
         img,
         svg {
             height: 100%;
         }
+    }
+
+    &__nav {
+        grid-area: nav;
     }
 
     &__links {
@@ -263,15 +293,40 @@ $_: "c-footer";
     }
 
     &__widget-area {
-        gap: var(--#{$_}--column-gap);
+        gap: calc(var(--#{$_}--column-gap) * var(--#{$_}--widget-area-gap-multiplier, 0.25));
         text-align: var(--#{$_}--text-align);
+        max-width: var(--#{$_}--widget-area-max-width, #{tokens.getCalculatedValue($_, "space", 70)});
+        margin-left: auto;
+        margin-right: auto;
+
+        ul {
+            display: grid;
+            gap: tokens.getCalculatedValue($_, "space", 0.5);
+            justify-content: var(--#{$_}--text-align);
+            list-style: none;
+            padding-left: 0;
+        }
 
         .footer-title {
             margin-bottom: tokens.getCalculatedValue($_, "space", 2);
         }
 
         li {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: tokens.getCalculatedValue($_, "space");
+            align-items: baseline;
             padding-left: 0;
+            text-align: left;
+
+            &::before {
+                content: "";
+                width: tokens.getCalculatedValue($_, "base", 0.75);
+                height: tokens.getCalculatedValue($_, "base", 0.75);
+                border-radius: 50%;
+                background: var(--#{$_}--color);
+                transform: translateY(-0.1em);
+            }
         }
 
         h2 {
@@ -284,7 +339,20 @@ $_: "c-footer";
     }
 
     &__prefooter-wrapper {
+        grid-area: prefooter;
         text-align: var(--#{$_}--prefooter-text-align);
+    }
+
+    &__content-wrapper {
+        grid-area: content;
+    }
+
+    &__areas-wrapper {
+        grid-area: areas;
+    }
+
+    &__postfooter-wrapper {
+        grid-area: postfooter;
     }
 
     &__prefooter-wrapper,
@@ -312,8 +380,11 @@ $_: "c-footer";
     }
 
     &__subfooter {
+        display: grid;
+        grid-area: subfooter;
         color: var(--#{$_}--subfooter-color);
         background: var(--#{$_}--subfooter-background);
+        border-top: var(--#{$_}--subfooter-border-width) solid var(--#{$_}--subfooter-separator-color);
         padding: tokens.getCalculatedValue($_, "space", 3) 0;
         font-size: tokens.getRawValue($_, "font-size-90");
 
@@ -325,20 +396,28 @@ $_: "c-footer";
         }
 
         &__wrapper {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-areas: "list";
+            grid-template-columns: minmax(0, 1fr);
+            gap: var(--#{$_}--gap);
             justify-content: var(--#{$_}--subfooter-alignment);
             align-items: var(--#{$_}--subfooter-alignment);
-            flex-direction: var(--#{$_}--subfooter-flex-direction);
             overflow: hidden;
+
+            &--has-logotype {
+                grid-template-areas: "logotype list";
+                grid-template-columns: auto minmax(0, 1fr);
+            }
         }
 
         &__list {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-area: list;
+            grid-auto-flow: column;
+            grid-auto-columns: max-content;
+            gap: 0;
             justify-content: var(--#{$_}--subfooter-alignment);
             align-items: var(--#{$_}--subfooter-alignment);
-            flex-direction: var(--#{$_}--subfooter-flex-direction);
             margin: var(--#{$_}--subfooter-list-margin-block) var(--#{$_}--subfooter-list-margin-inline);
             margin-left: var(--#{$_}--subfooter-list-margin-left);
             margin-right: var(--#{$_}--subfooter-list-margin-right);
@@ -384,8 +463,7 @@ $_: "c-footer";
         }
 
         &__logotype-wrapper {
-            margin-right: 0;
-            margin-bottom: tokens.getCalculatedValue($_, "space", 3);
+            grid-area: logotype;
         }
 
         &--align-flex-start {
@@ -409,23 +487,34 @@ $_: "c-footer";
         }
 
         &--horizontal {
-            --#{$_}--subfooter-flex-direction: row;
             --#{$_}--subfooter-alignment: center;
-            --#{$_}--subfooter-logotype-wrapper-margin-right: #{tokens.getCalculatedValue($_, "space", 7)};
-            --#{$_}--subfooter-logotype-wrapper-margin-bottom: 0;
+
+            .#{$_}__subfooter__wrapper--has-logotype {
+                grid-template-areas: "logotype list";
+                grid-template-columns: auto minmax(0, 1fr);
+            }
+
+            .#{$_}__subfooter__list {
+                grid-auto-flow: column;
+                grid-auto-columns: max-content;
+            }
         }
 
         &--vertical {
-            --#{$_}--subfooter-flex-direction: column;
             --#{$_}--subfooter-separator-display-between: none;
             --#{$_}--subfooter-separator-display-before-last: none;
-            --#{$_}--subfooter-logotype-wrapper-margin-right: 0;
-            --#{$_}--subfooter-logotype-wrapper-margin-bottom: #{tokens.getCalculatedValue($_, "space", 3)};
-        }
 
-        &__logotype-wrapper {
-            margin-right: var(--#{$_}--subfooter-logotype-wrapper-margin-right, 0);
-            margin-bottom: var(--#{$_}--subfooter-logotype-wrapper-margin-bottom, #{tokens.getCalculatedValue($_, "space", 3)});
+            .#{$_}__subfooter__wrapper {
+                grid-template-areas:
+                    "logotype"
+                    "list";
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .#{$_}__subfooter__list {
+                grid-auto-flow: row;
+                grid-auto-columns: initial;
+            }
         }
     }
 }
@@ -436,23 +525,41 @@ $_: "c-footer";
         --#{$_}--body-padding-y: #{tokens.getCalculatedValue($_, "space", 5)};
         --#{$_}--body-padding-x: #{tokens.getCalculatedValue($_, "space", 4)};
         --#{$_}--text-align: center;
-        --#{$_}--subfooter-flex-direction: column;
         --#{$_}--subfooter-alignment: center;
         --#{$_}--subfooter-separator-display-between: none;
         --#{$_}--subfooter-separator-display-before-last: none;
 
-        &__main-wrapper>.o-container>.o-grid {
+        &__main-wrapper>.o-container>.o-grid,
+        &__content-wrapper>.o-container>.o-grid,
+        &__areas-wrapper>.o-container>.o-grid {
             grid-template-columns: 1fr;
         }
 
         &__body {
-            display: block;
+            grid-template-areas:
+                "home"
+                "nav";
+            grid-template-columns: minmax(0, 1fr);
         }
 
         &__home-link {
-            display: block;
-            margin-bottom: tokens.getCalculatedValue($_, "space", 5);
-            margin-right: 0;
+            justify-self: center;
+        }
+
+        &__subfooter__wrapper {
+            grid-template-areas: "list";
+            grid-template-columns: minmax(0, 1fr);
+
+            &--has-logotype {
+                grid-template-areas:
+                    "logotype"
+                    "list";
+            }
+        }
+
+        &__subfooter__list {
+            grid-auto-flow: row;
+            grid-auto-columns: initial;
         }
 
         &__logotype,
