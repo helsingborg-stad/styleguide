@@ -254,31 +254,6 @@
 							"label": "Reversed"
 						}
 					]
-				},
-				{
-					"variable": "--subfooter-align-items",
-					"label": "Subfooter Align Items",
-					"description": "How to align subfooter items across the selected direction.",
-					"type": "select",
-					"default": "center",
-					"options": [
-						{
-							"value": "flex-start",
-							"label": "Start"
-						},
-						{
-							"value": "center",
-							"label": "Center"
-						},
-						{
-							"value": "flex-end",
-							"label": "End"
-						},
-						{
-							"value": "stretch",
-							"label": "Stretch"
-						}
-					]
 				}
 			]
 		},

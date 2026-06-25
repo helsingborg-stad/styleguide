@@ -47,7 +47,7 @@ $_: "c-footer";
     --#{$_}--logotype-height: calc(var(--c-footer-height-logotype, var(--#{$_}--logotype-height-multiplier, 6)) * #{tokens.getRawValue($_, "base")});
     --#{$_}--subfooter-logotype-height: calc(var(--c-footer-subfooter-height-logotype, var(--#{$_}--subfooter-logotype-height-multiplier, 6)) * #{tokens.getRawValue($_, "base")});
     --#{$_}--subfooter-justify-content-value: var(--#{$_}--subfooter-alignment, var(--c-footer-subfooter-alignment, center));
-    --#{$_}--subfooter-align-items-value: var(--#{$_}--subfooter-align-items, center);
+    --#{$_}--subfooter-align-items-value: center;
     --#{$_}--subfooter-flex-direction-value: var(--#{$_}--subfooter-flex-direction, var(--c-footer-subfooter-flex-direction, row));
     --#{$_}--subfooter-list-margin-block: #{tokens.getCalculatedValue($_, "space", -1)};
     --#{$_}--subfooter-list-margin-inline: #{tokens.getCalculatedValue($_, "space", -5)};
@@ -388,6 +388,12 @@ $_: "c-footer";
         border-top: var(--#{$_}--subfooter-border-width) solid var(--#{$_}--subfooter-separator-color);
         padding: tokens.getCalculatedValue($_, "space", 3) 0;
         font-size: tokens.getRawValue($_, "font-size-90");
+
+        .o-container {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
 
         a,
         a:hover,
