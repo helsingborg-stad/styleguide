@@ -16,12 +16,12 @@ $_: "c-footer";
     --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface")};
     --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
     --#{$_}--color-muted: #{tokens.getRawValue($_, "color--surface-contrast-muted")};
-    --#{$_}--border-color: var(--c-footer-header-border-color, #{tokens.getRawValue($_, "color--surface-border")});
-    --#{$_}--subfooter-background-color: var(--c-footer-subfooter-color-background, #{tokens.getRawValue($_, "color--surface-alt")});
+    --#{$_}--border-color: #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--subfooter-background-color: #{tokens.getRawValue($_, "color--surface-alt")};
     --#{$_}--subfooter-background-opacity: 100%;
     --#{$_}--subfooter-background: color-mix(in srgb, var(--#{$_}--subfooter-background-color) var(--#{$_}--subfooter-background-opacity), transparent);
-    --#{$_}--subfooter-color: var(--c-footer-subfooter-color-text, #{tokens.getRawValue($_, "color--surface-contrast")});
-    --#{$_}--subfooter-separator-color: var(--c-footer-subfooter-color-separator, #{tokens.getRawValue($_, "color--surface-border")});
+    --#{$_}--subfooter-color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}--subfooter-separator-color: #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--list-marker-color: color-mix(in srgb, var(--#{$_}--color) 30%, var(--#{$_}--border-color));
     --#{$_}--subfooter-separator-dot-color: color-mix(in srgb, var(--#{$_}--subfooter-color) 30%, var(--#{$_}--subfooter-separator-color));
     --#{$_}--subfooter-border-width: 0;
@@ -30,40 +30,20 @@ $_: "c-footer";
     --#{$_}--background-position: center;
     --#{$_}--background-repeat: no-repeat;
     --#{$_}--background-size: cover;
-    --#{$_}--background-attachment: scroll;
-    --#{$_}--background-origin: padding-box;
-    --#{$_}--background-clip: border-box;
     --#{$_}--background-blend-mode: normal;
     --#{$_}--background-opacity: 1;
     --#{$_}--background-rotation: 0deg;
     --#{$_}--main-padding-y: calc(#{tokens.getCalculatedValue($_, "outer-space", 3)} * var(--#{$_}--inset-multiplier));
     --#{$_}--main-padding-x: var(--#{$_}--inset-padding-x);
     --#{$_}--gap: calc(#{tokens.getCalculatedValue($_, "space", 3)} * var(--#{$_}--gap-multiplier, 1));
-    --#{$_}--body-padding-y: #{tokens.getCalculatedValue($_, "space", 5)};
-    --#{$_}--body-padding-x: 0;
-    --#{$_}--column-gap: var(--#{$_}--gap);
     --#{$_}--columns-count: 3;
     --#{$_}--text-align: left;
     --#{$_}--prefooter-text-align: left;
     --#{$_}--logotype-justify-content: flex-start;
-    --#{$_}--logotype-height: calc(var(--c-footer-height-logotype, var(--#{$_}--logotype-height-multiplier, 6)) * #{tokens.getRawValue($_, "base")});
-    --#{$_}--subfooter-logotype-height: calc(var(--c-footer-subfooter-height-logotype, var(--#{$_}--subfooter-logotype-height-multiplier, 6)) * #{tokens.getRawValue($_, "base")});
-    --#{$_}--subfooter-justify-content-value: var(--#{$_}--subfooter-alignment, var(--c-footer-subfooter-alignment, center));
-    --#{$_}--subfooter-align-items-value: center;
-    --#{$_}--subfooter-flex-direction-value: var(--#{$_}--subfooter-flex-direction, var(--c-footer-subfooter-flex-direction, row));
-    --#{$_}--subfooter-list-margin-block: #{tokens.getCalculatedValue($_, "space", -1)};
-    --#{$_}--subfooter-list-margin-inline: #{tokens.getCalculatedValue($_, "space", -5)};
-    --#{$_}--subfooter-list-margin-left: 0;
-    --#{$_}--subfooter-list-margin-right: var(--#{$_}--subfooter-list-margin-inline);
-    --#{$_}--subfooter-item-padding-block: #{tokens.getCalculatedValue($_, "space")};
-    --#{$_}--subfooter-item-padding-inline: #{tokens.getCalculatedValue($_, "space", 5)};
-    --#{$_}--subfooter-item-padding-left: 0;
-    --#{$_}--subfooter-item-padding-right: var(--#{$_}--subfooter-item-padding-inline);
-    --#{$_}--subfooter-separator-size: #{tokens.getCalculatedValue($_, "base", 0.75)};
-    --#{$_}--subfooter-separator-left: #{tokens.getCalculatedValue($_, "base", -2.875)};
-    --#{$_}--subfooter-separator-right: auto;
-    --#{$_}--subfooter-separator-display: none;
-    --#{$_}--subfooter-separator-display-between: block;
+    --#{$_}--logotype-height: calc(var(--#{$_}--logotype-height-multiplier, 6) * #{tokens.getRawValue($_, "base")});
+    --#{$_}--subfooter-logotype-height: calc(var(--#{$_}--subfooter-logotype-height-multiplier, 6) * #{tokens.getRawValue($_, "base")});
+    --#{$_}--subfooter-justify-content-value: var(--#{$_}--subfooter-alignment, center);
+    --#{$_}--subfooter-flex-direction-value: var(--#{$_}--subfooter-flex-direction, row);
     --inherit-color-background: var(--#{$_}--background-color);
     --inherit-color-contrast: var(--#{$_}--color);
     position: relative;
@@ -91,9 +71,6 @@ $_: "c-footer";
         background-position: var(--#{$_}--background-position);
         background-repeat: var(--#{$_}--background-repeat);
         background-size: var(--#{$_}--background-size);
-        background-attachment: var(--#{$_}--background-attachment);
-        background-origin: var(--#{$_}--background-origin);
-        background-clip: var(--#{$_}--background-clip);
         background-blend-mode: var(--#{$_}--background-blend-mode);
     }
 
@@ -220,7 +197,7 @@ $_: "c-footer";
     &__areas-wrapper>.o-container>.o-grid {
         display: grid;
         grid-template-columns: repeat(var(--#{$_}--columns-count), minmax(0, 1fr));
-        gap: var(--#{$_}--column-gap);
+        gap: var(--#{$_}--gap);
 
         >[class*="o-grid-"] {
             flex: initial;
@@ -235,7 +212,7 @@ $_: "c-footer";
         max-width: var(--container-width);
         margin-left: auto;
         margin-right: auto;
-        padding: var(--#{$_}--body-padding-y) var(--#{$_}--body-padding-x);
+        padding: #{tokens.getCalculatedValue($_, "space", 5)} 0;
         display: grid;
         grid-template-areas: "home nav";
         grid-template-columns: auto minmax(0, 1fr);
@@ -295,9 +272,9 @@ $_: "c-footer";
     }
 
     &__widget-area {
-        gap: calc(var(--#{$_}--column-gap) * var(--#{$_}--widget-area-gap-multiplier, 0.25));
+        gap: calc(var(--#{$_}--gap) * 0.25);
         text-align: var(--#{$_}--text-align);
-        max-width: var(--#{$_}--widget-area-max-width, #{tokens.getCalculatedValue($_, "space", 70)});
+        max-width: #{tokens.getCalculatedValue($_, "space", 70)};
         margin-left: auto;
         margin-right: auto;
 
@@ -368,17 +345,16 @@ $_: "c-footer";
         }
     }
 
-    &--header-border {
-        --#{$_}--header-border-style: solid;
-    }
-
     &__header-wrapper {
-        border-bottom: tokens.getCalculatedValue($_, "border-width") var(--#{$_}--header-border-style, none) var(--#{$_}--border-color);
-        padding-bottom: var(--#{$_}--header-border-padding-bottom, 0);
+        border-bottom: none;
+        padding-bottom: 0;
     }
 
     &--header-border {
-        --#{$_}--header-border-padding-bottom: #{tokens.getCalculatedValue($_, "space", 3)};
+        .#{$_}__header-wrapper {
+            border-bottom: tokens.getCalculatedValue($_, "border-width") solid var(--#{$_}--border-color);
+            padding-bottom: tokens.getCalculatedValue($_, "space", 3);
+        }
     }
 
     &__subfooter {
@@ -410,7 +386,7 @@ $_: "c-footer";
             flex-wrap: wrap;
             gap: var(--#{$_}--gap);
             justify-content: var(--#{$_}--subfooter-justify-content-value);
-            align-items: var(--#{$_}--subfooter-align-items-value);
+            align-items: center;
             overflow: hidden;
         }
 
@@ -420,10 +396,8 @@ $_: "c-footer";
             flex-wrap: wrap;
             gap: 0;
             justify-content: center;
-            align-items: var(--#{$_}--subfooter-align-items-value);
-            margin: var(--#{$_}--subfooter-list-margin-block) var(--#{$_}--subfooter-list-margin-inline);
-            margin-left: var(--#{$_}--subfooter-list-margin-left);
-            margin-right: var(--#{$_}--subfooter-list-margin-right);
+            align-items: center;
+            margin: #{tokens.getCalculatedValue($_, "space", -1)} #{tokens.getCalculatedValue($_, "space", -5)};
             padding: 0;
             list-style: none;
             overflow: hidden;
@@ -432,27 +406,25 @@ $_: "c-footer";
             li {
                 position: relative;
                 margin: 0;
-                padding: var(--#{$_}--subfooter-item-padding-block) var(--#{$_}--subfooter-item-padding-inline);
-                padding-left: var(--#{$_}--subfooter-item-padding-left);
-                padding-right: var(--#{$_}--subfooter-item-padding-right);
+                padding: #{tokens.getCalculatedValue($_, "space")} #{tokens.getCalculatedValue($_, "space", 5)} #{tokens.getCalculatedValue($_, "space")} 0;
                 line-height: 1;
 
                 &:before {
                     content: "";
                     border-radius: 50%;
                     background: var(--#{$_}--subfooter-separator-dot-color);
-                    display: var(--#{$_}--subfooter-separator-display);
+                    display: none;
                     position: absolute;
-                    width: var(--#{$_}--subfooter-separator-size);
-                    height: var(--#{$_}--subfooter-separator-size);
-                    left: var(--#{$_}--subfooter-separator-left);
-                    right: var(--#{$_}--subfooter-separator-right);
+                    width: #{tokens.getCalculatedValue($_, "base", 0.75)};
+                    height: #{tokens.getCalculatedValue($_, "base", 0.75)};
+                    left: #{tokens.getCalculatedValue($_, "base", -2.875)};
+                    right: auto;
                     top: 50%;
                     transform: translateY(-50%);
                 }
 
                 &:not(:first-child):before {
-                    display: var(--#{$_}--subfooter-separator-display-between);
+                    display: block;
                 }
             }
         }
@@ -475,8 +447,6 @@ $_: "c-footer";
 
         &--align-flex-end {
             --#{$_}--subfooter-justify-content-value: var(--#{$_}--subfooter-alignment, flex-end);
-            --#{$_}--subfooter-list-margin-left: var(--#{$_}--subfooter-list-margin-inline);
-            --#{$_}--subfooter-list-margin-right: 0;
         }
 
         &--horizontal {
@@ -484,8 +454,11 @@ $_: "c-footer";
         }
 
         &--vertical {
-            --#{$_}--subfooter-separator-display-between: none;
-            --#{$_}--subfooter-flex-direction-value: var(--#{$_}--subfooter-flex-direction, column);
+            --#{$_}--subfooter-flex-direction-value: column;
+
+            .#{$_}__subfooter__list li:not(:first-child):before {
+                display: none;
+            }
         }
     }
 }
@@ -493,10 +466,7 @@ $_: "c-footer";
 @include mq.mq("xs", "md") {
 
     .#{$_} {
-        --#{$_}--body-padding-y: #{tokens.getCalculatedValue($_, "space", 5)};
-        --#{$_}--body-padding-x: #{tokens.getCalculatedValue($_, "space", 4)};
         --#{$_}--text-align: center;
-        --#{$_}--subfooter-separator-display-between: none;
 
         &__main-wrapper>.o-container>.o-grid,
         &__content-wrapper>.o-container>.o-grid,
@@ -509,10 +479,15 @@ $_: "c-footer";
                 "home"
                 "nav";
             grid-template-columns: minmax(0, 1fr);
+            padding: #{tokens.getCalculatedValue($_, "space", 5)} #{tokens.getCalculatedValue($_, "space", 4)};
         }
 
         &__home-link {
             justify-self: center;
+        }
+
+        &__subfooter__list li:not(:first-child):before {
+            display: none;
         }
 
         &__logotype,
