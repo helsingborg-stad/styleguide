@@ -3,13 +3,63 @@
 	"apiVersion": 1,
 	"name": "Footer",
 	"slug": "footer",
-	"tokens": ["space", "border-width", "color--surface", "color--surface-contrast"],
+	"tokens": [
+		"base",
+		"space",
+		"outer-space",
+		"border-width",
+		"color--surface",
+		"color--surface-contrast",
+		"color--surface-border",
+		"color--surface-alt",
+		"color--surface-contrast-muted",
+		"color--primary",
+		"color--primary-contrast",
+		"color--primary-border",
+		"color--primary-alt",
+		"color--secondary",
+		"color--secondary-contrast",
+		"color--secondary-border",
+		"color--secondary-alt",
+		"color--background",
+		"color--background-contrast",
+		"color--background-border",
+		"color--background-alt",
+		"color--background-contrast-muted",
+		"font-size-90",
+		"font-size-200",
+		"font-size-300"
+	],
 	"componentSettings": [
+		{
+			"id": "colors",
+			"label": "Colors",
+			"description": "Component-local footer color scheme.",
+			"settings": [
+				{
+					"label": "Color Scheme",
+					"description": "Controls the footer background, text contrast, border color, and alternate subfooter background.",
+					"token": "color--surface",
+					"includeStateColors": false
+				}
+			]
+		},
 		{
 			"id": "branding",
 			"label": "Branding",
 			"description": "Component-local branding adjustments.",
 			"settings": [
+				{
+					"variable": "--logotype-height-multiplier",
+					"label": "Logotype Height Multiplier",
+					"description": "Scales the main footer logotype height locally without changing the global base size.",
+					"type": "range",
+					"default": "6",
+					"min": 2,
+					"max": 12,
+					"step": 0.25,
+					"unit": ""
+				},
 				{
 					"variable": "--home-link-height-multiplier",
 					"label": "Home Link Height Multiplier",
@@ -20,6 +70,285 @@
 					"max": 3,
 					"step": 0.05,
 					"unit": ""
+				},
+				{
+					"variable": "--subfooter-logotype-height-multiplier",
+					"label": "Subfooter Logotype Height Multiplier",
+					"description": "Scales the subfooter logotype height locally without changing the global base size.",
+					"type": "range",
+					"default": "6",
+					"min": 2,
+					"max": 12,
+					"step": 0.25,
+					"unit": ""
+				}
+			]
+		},
+		{
+			"id": "layout",
+			"label": "Layout",
+			"description": "Component-local footer spacing, columns, and alignment.",
+			"settings": [
+				{
+					"variable": "--inset-multiplier",
+					"label": "Outer Padding Inset Multiplier",
+					"description": "Scales footer outer padding from the inherited inset rhythm.",
+					"type": "range",
+					"default": "1",
+					"min": 0,
+					"max": 4,
+					"step": 0.125,
+					"unit": ""
+				},
+				{
+					"variable": "--columns-count",
+					"label": "Number of Columns",
+					"description": "How many columns to display in the footer.",
+					"type": "select",
+					"default": "3",
+					"options": [
+						{
+							"value": "1",
+							"label": "1"
+						},
+						{
+							"value": "2",
+							"label": "2"
+						},
+						{
+							"value": "3",
+							"label": "3"
+						},
+						{
+							"value": "4",
+							"label": "4"
+						}
+					]
+				},
+				{
+					"variable": "--logotype-justify-content",
+					"label": "Logotype Alignment",
+					"description": "How to align the footer logotype.",
+					"type": "select",
+					"default": "flex-start",
+					"options": [
+						{
+							"value": "flex-start",
+							"label": "Left"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "flex-end",
+							"label": "Right"
+						}
+					]
+				},
+				{
+					"variable": "--text-align",
+					"label": "Text Alignment",
+					"description": "How to align text in the footer columns.",
+					"type": "select",
+					"default": "left",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						}
+					]
+				},
+				{
+					"variable": "--prefooter-text-align",
+					"label": "Prefooter Text Alignment",
+					"description": "How to align text in the prefooter.",
+					"type": "select",
+					"default": "left",
+					"options": [
+						{
+							"value": "left",
+							"label": "Left"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "right",
+							"label": "Right"
+						}
+					]
+				}
+			]
+		},
+		{
+			"id": "background",
+			"label": "Background Image",
+			"description": "Component-local background image controls.",
+			"settings": [
+				{
+					"variable": "--background-position",
+					"label": "Background Position",
+					"description": "Controls the CSS background-position value.",
+					"type": "select",
+					"default": "center",
+					"options": [
+						{
+							"value": "left top",
+							"label": "Left Top"
+						},
+						{
+							"value": "center",
+							"label": "Center"
+						},
+						{
+							"value": "right bottom",
+							"label": "Right Bottom"
+						}
+					]
+				},
+				{
+					"variable": "--background-repeat",
+					"label": "Background Repeat",
+					"description": "Controls the CSS background-repeat value.",
+					"type": "select",
+					"default": "no-repeat",
+					"options": [
+						{
+							"value": "no-repeat",
+							"label": "No Repeat"
+						},
+						{
+							"value": "repeat",
+							"label": "Repeat"
+						},
+						{
+							"value": "repeat-x",
+							"label": "Repeat X"
+						},
+						{
+							"value": "repeat-y",
+							"label": "Repeat Y"
+						}
+					]
+				},
+				{
+					"variable": "--background-size",
+					"label": "Background Size",
+					"description": "Controls the CSS background-size value.",
+					"type": "select",
+					"default": "cover",
+					"options": [
+						{
+							"value": "cover",
+							"label": "Cover"
+						},
+						{
+							"value": "contain",
+							"label": "Contain"
+						},
+						{
+							"value": "auto",
+							"label": "Auto"
+						}
+					]
+				},
+				{
+					"variable": "--background-attachment",
+					"label": "Background Attachment",
+					"description": "Controls the CSS background-attachment value.",
+					"type": "select",
+					"default": "scroll",
+					"options": [
+						{
+							"value": "scroll",
+							"label": "Scroll"
+						},
+						{
+							"value": "fixed",
+							"label": "Fixed"
+						},
+						{
+							"value": "local",
+							"label": "Local"
+						}
+					]
+				},
+				{
+					"variable": "--background-origin",
+					"label": "Background Origin",
+					"description": "Controls the CSS background-origin value.",
+					"type": "select",
+					"default": "padding-box",
+					"options": [
+						{
+							"value": "border-box",
+							"label": "Border Box"
+						},
+						{
+							"value": "padding-box",
+							"label": "Padding Box"
+						},
+						{
+							"value": "content-box",
+							"label": "Content Box"
+						}
+					]
+				},
+				{
+					"variable": "--background-clip",
+					"label": "Background Clip",
+					"description": "Controls the CSS background-clip value.",
+					"type": "select",
+					"default": "border-box",
+					"options": [
+						{
+							"value": "border-box",
+							"label": "Border Box"
+						},
+						{
+							"value": "padding-box",
+							"label": "Padding Box"
+						},
+						{
+							"value": "content-box",
+							"label": "Content Box"
+						}
+					]
+				},
+				{
+					"variable": "--background-blend-mode",
+					"label": "Background Blend Mode",
+					"description": "Controls the CSS background-blend-mode value.",
+					"type": "select",
+					"default": "normal",
+					"options": [
+						{
+							"value": "normal",
+							"label": "Normal"
+						},
+						{
+							"value": "multiply",
+							"label": "Multiply"
+						},
+						{
+							"value": "screen",
+							"label": "Screen"
+						},
+						{
+							"value": "overlay",
+							"label": "Overlay"
+						}
+					]
 				}
 			]
 		}

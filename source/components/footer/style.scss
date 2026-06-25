@@ -1,3 +1,4 @@
+@use "../../sass/mixin/inset-multiplier" as insetMultiplier;
 @use "../../sass/mixin/mq";
 @use "../../sass/mixin/tokens";
 
@@ -5,31 +6,182 @@
 $_: "c-footer";
 
 /* Design tokens */
+@include insetMultiplier.property();
 @include tokens.create($_, getComponentTokens($_));
 
 /* Component */
 .#{$_} {
-    --#{$_}--logotype-height: calc(var(--c-footer-height-logotype, 6) * var(--base));
-    --#{$_}--home-link-height: calc(var(--#{$_}--home-link-height-multiplier, 1) * 60px);
-    --#{$_}--header-border-color: var(--c-footer-header-border-color, rgba(0, 0, 0, 0.55));
-    --#{$_}--subfooter-logotype-height: calc(var(--c-footer-subfooter-height-logotype, 6) * var(--base));
-    --#{$_}--subfooter-color-background: var(--c-footer-subfooter-color-background, var(--color--white-100, #fff));
-    --#{$_}--subfooter-color-text: var(--c-footer-subfooter-color-text, var(--color--black-100, #000));
+    @include insetMultiplier.consume($_, var(--#{$_}--inset-multiplier, var(--inherit-inset-multiplier, 1)));
+
+    --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface")};
+    --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}--color-muted: #{tokens.getRawValue($_, "color--surface-contrast-muted")};
+    --#{$_}--border-color: var(--c-footer-header-border-color, #{tokens.getRawValue($_, "color--surface-border")});
+    --#{$_}--subfooter-background-color: var(--c-footer-subfooter-color-background, #{tokens.getRawValue($_, "color--surface-alt")});
+    --#{$_}--subfooter-color: var(--c-footer-subfooter-color-text, #{tokens.getRawValue($_, "color--surface-contrast")});
+    --#{$_}--subfooter-separator-color: var(--c-footer-subfooter-color-separator, #{tokens.getRawValue($_, "color--surface-border")});
+    --#{$_}--background-image: none;
+    --#{$_}--background-position: center;
+    --#{$_}--background-repeat: no-repeat;
+    --#{$_}--background-size: cover;
+    --#{$_}--background-attachment: scroll;
+    --#{$_}--background-origin: padding-box;
+    --#{$_}--background-clip: border-box;
+    --#{$_}--background-blend-mode: normal;
+    --#{$_}--main-padding-y: #{tokens.getCalculatedValue($_, "outer-space", 3)};
+    --#{$_}--main-padding-x: var(--#{$_}--inset-padding-x);
+    --#{$_}--body-padding-y: #{tokens.getCalculatedValue($_, "space", 5)};
+    --#{$_}--body-padding-x: 0;
+    --#{$_}--column-gap: #{tokens.getCalculatedValue($_, "space", 2)};
+    --#{$_}--columns-count: 3;
+    --#{$_}--text-align: left;
+    --#{$_}--prefooter-text-align: left;
+    --#{$_}--logotype-justify-content: flex-start;
+    --#{$_}--logotype-height: calc(var(--c-footer-height-logotype, var(--#{$_}--logotype-height-multiplier, 6)) * #{tokens.getRawValue($_, "base")});
+    --#{$_}--home-link-height: calc(var(--#{$_}--home-link-height-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 7.5)});
+    --#{$_}--subfooter-logotype-height: calc(var(--c-footer-subfooter-height-logotype, var(--#{$_}--subfooter-logotype-height-multiplier, 6)) * #{tokens.getRawValue($_, "base")});
     --#{$_}--subfooter-alignment: var(--c-footer-subfooter-alignment, center);
     --#{$_}--subfooter-flex-direction: var(--c-footer-subfooter-flex-direction, row);
-    --#{$_}--subfooter-color-separator: var(--c-footer-subfooter-color-separator, #a3a3a3);
-    background-color: tokens.getRawValue($_, "color--surface");
-    color: tokens.getRawValue($_, "color--surface-contrast");
+    --#{$_}--subfooter-list-margin-block: #{tokens.getCalculatedValue($_, "space", -1)};
+    --#{$_}--subfooter-list-margin-inline: #{tokens.getCalculatedValue($_, "space", -5)};
+    --#{$_}--subfooter-list-margin-left: 0;
+    --#{$_}--subfooter-list-margin-right: var(--#{$_}--subfooter-list-margin-inline);
+    --#{$_}--subfooter-item-padding-block: #{tokens.getCalculatedValue($_, "space")};
+    --#{$_}--subfooter-item-padding-inline: #{tokens.getCalculatedValue($_, "space", 5)};
+    --#{$_}--subfooter-item-padding-left: 0;
+    --#{$_}--subfooter-item-padding-right: var(--#{$_}--subfooter-item-padding-inline);
+    --#{$_}--subfooter-separator-size: #{tokens.getCalculatedValue($_, "base", 0.75)};
+    --#{$_}--subfooter-separator-left: #{tokens.getCalculatedValue($_, "base", -2.875)};
+    --#{$_}--subfooter-separator-right: auto;
+    --#{$_}--subfooter-separator-display: none;
+    --#{$_}--subfooter-separator-display-between: block;
+    --#{$_}--subfooter-separator-display-before-last: none;
+    --inherit-color-background: var(--#{$_}--background-color);
+    --inherit-color-contrast: var(--#{$_}--color);
+    position: relative;
+    background-color: var(--#{$_}--background-color);
+    background-image: var(--#{$_}--background-image);
+    background-position: var(--#{$_}--background-position);
+    background-repeat: var(--#{$_}--background-repeat);
+    background-size: var(--#{$_}--background-size);
+    background-attachment: var(--#{$_}--background-attachment);
+    background-origin: var(--#{$_}--background-origin);
+    background-clip: var(--#{$_}--background-clip);
+    background-blend-mode: var(--#{$_}--background-blend-mode);
+    color: var(--#{$_}--color);
 
     a,
     a:hover,
     a:visited,
     a:active {
-        color: tokens.getRawValue($_, "color--surface-contrast");
+        color: var(--#{$_}--color);
+    }
+
+    &--primary {
+        --#{$_}--background-color: #{tokens.getRawValue($_, "color--primary")};
+        --#{$_}--color: #{tokens.getRawValue($_, "color--primary-contrast")};
+        --#{$_}--color-muted: #{tokens.getRawValue($_, "color--primary-contrast")};
+        --#{$_}--border-color: #{tokens.getRawValue($_, "color--primary-border")};
+        --#{$_}--subfooter-background-color: #{tokens.getRawValue($_, "color--primary-alt")};
+        --#{$_}--subfooter-color: #{tokens.getRawValue($_, "color--primary-contrast")};
+        --#{$_}--subfooter-separator-color: #{tokens.getRawValue($_, "color--primary-border")};
+    }
+
+    &--secondary {
+        --#{$_}--background-color: #{tokens.getRawValue($_, "color--secondary")};
+        --#{$_}--color: #{tokens.getRawValue($_, "color--secondary-contrast")};
+        --#{$_}--color-muted: #{tokens.getRawValue($_, "color--secondary-contrast")};
+        --#{$_}--border-color: #{tokens.getRawValue($_, "color--secondary-border")};
+        --#{$_}--subfooter-background-color: #{tokens.getRawValue($_, "color--secondary-alt")};
+        --#{$_}--subfooter-color: #{tokens.getRawValue($_, "color--secondary-contrast")};
+        --#{$_}--subfooter-separator-color: #{tokens.getRawValue($_, "color--secondary-border")};
+    }
+
+    &--background {
+        --#{$_}--background-color: #{tokens.getRawValue($_, "color--background")};
+        --#{$_}--color: #{tokens.getRawValue($_, "color--background-contrast")};
+        --#{$_}--color-muted: #{tokens.getRawValue($_, "color--background-contrast-muted")};
+        --#{$_}--border-color: #{tokens.getRawValue($_, "color--background-border")};
+        --#{$_}--subfooter-background-color: #{tokens.getRawValue($_, "color--background-alt")};
+        --#{$_}--subfooter-color: #{tokens.getRawValue($_, "color--background-contrast")};
+        --#{$_}--subfooter-separator-color: #{tokens.getRawValue($_, "color--background-border")};
+    }
+
+    &--logotype-align__left,
+    &--logotype-left {
+        --#{$_}--logotype-justify-content: flex-start;
+    }
+
+    &--logotype-align__center,
+    &--logotype-center {
+        --#{$_}--logotype-justify-content: center;
+    }
+
+    &--logotype-align__right,
+    &--logotype-right {
+        --#{$_}--logotype-justify-content: flex-end;
+    }
+
+    &--text-align__left,
+    &--text-left {
+        --#{$_}--text-align: left;
+    }
+
+    &--text-align__center,
+    &--text-center {
+        --#{$_}--text-align: center;
+    }
+
+    &--text-align__right,
+    &--text-right {
+        --#{$_}--text-align: right;
+    }
+
+    &--prefooter-text-align__left,
+    &--prefooter-text-left {
+        --#{$_}--prefooter-text-align: left;
+    }
+
+    &--prefooter-text-align__center,
+    &--prefooter-text-center {
+        --#{$_}--prefooter-text-align: center;
+    }
+
+    &--prefooter-text-align__right,
+    &--prefooter-text-right {
+        --#{$_}--prefooter-text-align: right;
+    }
+
+    &--columns-1 {
+        --#{$_}--columns-count: 1;
+    }
+
+    &--columns-2 {
+        --#{$_}--columns-count: 2;
+    }
+
+    &--columns-3 {
+        --#{$_}--columns-count: 3;
+    }
+
+    &--columns-4 {
+        --#{$_}--columns-count: 4;
     }
 
     &__main-wrapper {
-        padding: tokens.getCalculatedValue($_, "space", 3) 0;
+        padding: var(--#{$_}--main-padding-y) var(--#{$_}--main-padding-x);
+    }
+
+    &__main-wrapper > .o-container > .o-grid {
+        display: grid;
+        grid-template-columns: repeat(var(--#{$_}--columns-count), minmax(0, 1fr));
+        gap: var(--#{$_}--column-gap);
+
+        > [class*="o-grid-"] {
+            flex: initial;
+            max-width: none;
+            width: auto;
+        }
     }
 
     &__body {
@@ -37,13 +189,23 @@ $_: "c-footer";
         max-width: var(--container-width);
         margin-left: auto;
         margin-right: auto;
-        padding: tokens.getCalculatedValue($_, "space", 5) 0;
+        padding: var(--#{$_}--body-padding-y) var(--#{$_}--body-padding-x);
         display: flex;
         flex-wrap: nowrap;
+        text-align: var(--#{$_}--text-align);
+    }
+
+    &__header-wrapper {
+        margin-bottom: tokens.getCalculatedValue($_, "space", 3);
+
+        .o-grid-12 {
+            display: flex;
+            justify-content: var(--#{$_}--logotype-justify-content);
+        }
     }
 
     &__home-link {
-        margin-right: 5%;
+        margin-right: tokens.getCalculatedValue($_, "outer-space", 2);
         line-height: 0;
         height: var(--#{$_}--home-link-height);
 
@@ -56,27 +218,22 @@ $_: "c-footer";
     &__links {
         margin-bottom: tokens.getCalculatedValue($_, "space", 3);
 
-        & h4 {
+        h4 {
             font-weight: var(--h4-font-weight);
-            font-size: 18px;
+            font-size: tokens.getRawValue($_, "font-size-200");
         }
 
-        & a {
-            color: #707070;
+        a,
+        div {
+            color: var(--#{$_}--color-muted);
             text-decoration: none;
             display: inline-block;
         }
     }
 
-    &__links div {
-        color: #707070;
-        text-decoration: none;
-        display: inline-block;
-    }
-
     &__link-divider {
         display: inline-block;
-        background-color: #565656;
+        background-color: var(--#{$_}--border-color);
         border-radius: 50%;
         height: tokens.getCalculatedValue($_, "space", 0.5);
         width: tokens.getCalculatedValue($_, "space", 0.5);
@@ -86,7 +243,8 @@ $_: "c-footer";
     }
 
     &__widget-area {
-        gap: tokens.getCalculatedValue($_, "space", 2);
+        gap: var(--#{$_}--column-gap);
+        text-align: var(--#{$_}--text-align);
 
         .footer-title {
             margin-bottom: tokens.getCalculatedValue($_, "space", 2);
@@ -97,30 +255,16 @@ $_: "c-footer";
         }
 
         h2 {
-            --inherit-font-size: var(--font-size-300);
+            --inherit-font-size: #{tokens.getRawValue($_, "font-size-300")};
         }
     }
-
-    // Logo
 
     &__logotype {
         height: var(--#{$_}--logotype-height);
-
-        @include mq.mq("xs") {
-            height: clamp(#{tokens.getCalculatedValue($_, "space", 3)}, calc(#{var(--#{$_}--logotype-height)} * 0.75), #{var(--#{$_}--logotype-height)});
-        }
-
-        @include mq.mq("md") {
-            height: clamp(#{tokens.getCalculatedValue($_, "space", 3)}, calc(#{var(--#{$_}--logotype-height)} * 0.75), #{var(--#{$_}--logotype-height)});
-        }
-
-        @include mq.mq("lg") {
-            height: var(--#{$_}--logotype-height);
-        }
     }
 
-    &__header-wrapper {
-        margin-bottom: tokens.getCalculatedValue($_, "space", 3);
+    &__prefooter-wrapper {
+        text-align: var(--#{$_}--prefooter-text-align);
     }
 
     &__prefooter-wrapper,
@@ -135,23 +279,29 @@ $_: "c-footer";
     }
 
     &--header-border {
-        .#{$_}__header-wrapper {
-            border-bottom: tokens.getCalculatedValue($_, "border-width") solid var(--#{$_}--header-border-color);
-            padding-bottom: tokens.getCalculatedValue($_, "space", 3);
-        }
+        --#{$_}--header-border-style: solid;
+    }
+
+    &__header-wrapper {
+        border-bottom: tokens.getCalculatedValue($_, "border-width") var(--#{$_}--header-border-style, none) var(--#{$_}--border-color);
+        padding-bottom: var(--#{$_}--header-border-padding-bottom, 0);
+    }
+
+    &--header-border {
+        --#{$_}--header-border-padding-bottom: #{tokens.getCalculatedValue($_, "space", 3)};
     }
 
     &__subfooter {
-        color: var(--#{$_}--subfooter-color-text);
-        background: var(--#{$_}--subfooter-color-background);
+        color: var(--#{$_}--subfooter-color);
+        background: var(--#{$_}--subfooter-background-color);
         padding: tokens.getCalculatedValue($_, "space", 3) 0;
-        font-size: .9rem;
+        font-size: tokens.getRawValue($_, "font-size-90");
 
         a,
         a:hover,
         a:visited,
         a:active {
-            color: var(--#{$_}--subfooter-color-text);
+            color: var(--#{$_}--subfooter-color);
         }
 
         &__wrapper {
@@ -160,6 +310,7 @@ $_: "c-footer";
             justify-content: var(--#{$_}--subfooter-alignment);
             align-items: var(--#{$_}--subfooter-alignment);
             flex-direction: var(--#{$_}--subfooter-flex-direction);
+            overflow: hidden;
         }
 
         &__list {
@@ -168,8 +319,9 @@ $_: "c-footer";
             justify-content: var(--#{$_}--subfooter-alignment);
             align-items: var(--#{$_}--subfooter-alignment);
             flex-direction: var(--#{$_}--subfooter-flex-direction);
-            margin: tokens.getCalculatedValue($_, "space", -1) tokens.getCalculatedValue($_, "space", -5);
-            margin-left: 0;
+            margin: var(--#{$_}--subfooter-list-margin-block) var(--#{$_}--subfooter-list-margin-inline);
+            margin-left: var(--#{$_}--subfooter-list-margin-left);
+            margin-right: var(--#{$_}--subfooter-list-margin-right);
             padding: 0;
             list-style: none;
             overflow: hidden;
@@ -178,105 +330,118 @@ $_: "c-footer";
             li {
                 position: relative;
                 margin: 0;
-                padding: tokens.getCalculatedValue($_, "space") tokens.getCalculatedValue($_, "space", 5);
-                padding-left: 0;
+                padding: var(--#{$_}--subfooter-item-padding-block) var(--#{$_}--subfooter-item-padding-inline);
+                padding-left: var(--#{$_}--subfooter-item-padding-left);
+                padding-right: var(--#{$_}--subfooter-item-padding-right);
                 line-height: 1;
 
                 &:before {
                     content: "";
                     border-radius: 50%;
-                    background: var(--#{$_}--subfooter-color-separator);
-                    display: none;
+                    background: var(--#{$_}--subfooter-separator-color);
+                    display: var(--#{$_}--subfooter-separator-display);
                     position: absolute;
-                    width: 6px;
-                    height: 6px;
-                    left: -23px;
+                    width: var(--#{$_}--subfooter-separator-size);
+                    height: var(--#{$_}--subfooter-separator-size);
+                    left: var(--#{$_}--subfooter-separator-left);
+                    right: var(--#{$_}--subfooter-separator-right);
                     top: 50%;
                     transform: translateY(-50%);
                 }
 
                 &:not(:first-child):before {
-                    display: block;
+                    display: var(--#{$_}--subfooter-separator-display-between);
+                }
+
+                &:not(:last-child):before {
+                    display: var(--#{$_}--subfooter-separator-display-before-last);
                 }
             }
         }
-
-        // Logo
 
         &__logotype {
             height: var(--#{$_}--subfooter-logotype-height);
         }
 
-        // Fix for separator dots showing on new lines
+        &__logotype-wrapper {
+            margin-right: 0;
+            margin-bottom: tokens.getCalculatedValue($_, "space", 3);
+        }
+
+        &--align-flex-start {
+            --#{$_}--subfooter-alignment: flex-start;
+        }
+
+        &--align-center {
+            --#{$_}--subfooter-alignment: center;
+        }
 
         &--align-flex-end {
-            .#{$_}__subfooter__list {
-                margin: tokens.getCalculatedValue($_, "space", -1) tokens.getCalculatedValue($_, "space", -5);
-                margin-right: 0;
-
-                li {
-                    padding: tokens.getCalculatedValue($_, "space") tokens.getCalculatedValue($_, "space", 5);
-                    padding-right: 0;
-
-                    &:before {
-                        display: none;
-                    }
-
-                    &:not(:last-child):before {
-                        display: block;
-                        left: auto;
-                        right: -23px;
-                    }
-                }
-            }
+            --#{$_}--subfooter-alignment: flex-end;
+            --#{$_}--subfooter-list-margin-left: var(--#{$_}--subfooter-list-margin-inline);
+            --#{$_}--subfooter-list-margin-right: 0;
+            --#{$_}--subfooter-item-padding-left: var(--#{$_}--subfooter-item-padding-inline);
+            --#{$_}--subfooter-item-padding-right: 0;
+            --#{$_}--subfooter-separator-left: auto;
+            --#{$_}--subfooter-separator-right: #{tokens.getCalculatedValue($_, "base", -2.875)};
+            --#{$_}--subfooter-separator-display-between: none;
+            --#{$_}--subfooter-separator-display-before-last: block;
         }
 
         &--horizontal {
-            .#{$_}__subfooter__wrapper {
-                align-items: center;
-            }
-
-            .#{$_}__subfooter__logotype-wrapper {
-                margin-right: tokens.getCalculatedValue($_, "space", 7);
-                margin-bottom: 0;
-            }
+            --#{$_}--subfooter-flex-direction: row;
+            --#{$_}--subfooter-alignment: center;
+            --#{$_}--subfooter-logotype-wrapper-margin-right: #{tokens.getCalculatedValue($_, "space", 7)};
+            --#{$_}--subfooter-logotype-wrapper-margin-bottom: 0;
         }
 
         &--vertical {
-            .#{$_}__subfooter__list {
-
-                li:not(:first-child):before,
-                li:not(:last-child):before {
-                    display: none;
-                }
-            }
-
-            .#{$_}__subfooter__logotype-wrapper {
-                margin-bottom: tokens.getCalculatedValue($_, "space", 3);
-                margin-right: 0;
-            }
+            --#{$_}--subfooter-flex-direction: column;
+            --#{$_}--subfooter-separator-display-between: none;
+            --#{$_}--subfooter-separator-display-before-last: none;
+            --#{$_}--subfooter-logotype-wrapper-margin-right: 0;
+            --#{$_}--subfooter-logotype-wrapper-margin-bottom: #{tokens.getCalculatedValue($_, "space", 3)};
         }
-    }
 
-    //Todo: whole subfooter list implementation can/should be refactored and simplified
-    .#{$_}__subfooter__wrapper {
-        overflow: hidden; //Quick fix until refactor
+        &__logotype-wrapper {
+            margin-right: var(--#{$_}--subfooter-logotype-wrapper-margin-right, 0);
+            margin-bottom: var(--#{$_}--subfooter-logotype-wrapper-margin-bottom, #{tokens.getCalculatedValue($_, "space", 3)});
+        }
     }
 }
 
 @include mq.mq("xs", "md") {
 
     .#{$_} {
+        --#{$_}--body-padding-y: #{tokens.getCalculatedValue($_, "space", 5)};
+        --#{$_}--body-padding-x: #{tokens.getCalculatedValue($_, "space", 4)};
+        --#{$_}--text-align: center;
+        --#{$_}--subfooter-flex-direction: column;
+        --#{$_}--subfooter-alignment: center;
+        --#{$_}--subfooter-separator-display-between: none;
+        --#{$_}--subfooter-separator-display-before-last: none;
+
+        &__main-wrapper > .o-container > .o-grid {
+            grid-template-columns: 1fr;
+        }
 
         &__body {
-            padding: tokens.getCalculatedValue($_, "space", 5) tokens.getCalculatedValue($_, "space", 4);
             display: block;
-            text-align: center;
         }
 
         &__home-link {
             display: block;
             margin-bottom: tokens.getCalculatedValue($_, "space", 5);
+            margin-right: 0;
+        }
+
+        &__logotype,
+        &__subfooter__logotype {
+            height: clamp(#{tokens.getCalculatedValue($_, "space", 3)}, calc(var(--#{$_}--logotype-height) * 0.75), var(--#{$_}--logotype-height));
+        }
+
+        &__subfooter__logotype {
+            height: clamp(#{tokens.getCalculatedValue($_, "space", 3)}, calc(var(--#{$_}--subfooter-logotype-height) * 0.75), var(--#{$_}--subfooter-logotype-height));
         }
 
         &__link-divider {
@@ -286,35 +451,6 @@ $_: "c-footer";
         &__links a {
             display: block;
             margin-bottom: tokens.getCalculatedValue($_, "space", 2);
-        }
-
-        &__subfooter {
-
-            &__list,
-            &__wrapper {
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-
-                >li:not(:first-child):before {
-                    display: none;
-                }
-            }
-
-            &--align-flex-end .#{$_}__subfooter__list li:not(:last-child):before {
-                display: none;
-            }
-
-            &__logotype {
-                height: clamp(#{tokens.getCalculatedValue($_, "space", 3)}, calc(#{var(--#{$_}--subfooter-logotype-height)} * 0.75), #{var(--#{$_}--subfooter-logotype-height)});
-            }
-
-            &--horizontal {
-                .#{$_}__subfooter__logotype-wrapper {
-                    margin-bottom: tokens.getCalculatedValue($_, "space", 3);
-                    margin-right: 0;
-                }
-            }
         }
     }
 }
