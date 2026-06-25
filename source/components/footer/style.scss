@@ -40,7 +40,6 @@ $_: "c-footer";
     --#{$_}--prefooter-text-align: left;
     --#{$_}--logotype-justify-content: flex-start;
     --#{$_}--logotype-height: calc(var(--c-footer-height-logotype, var(--#{$_}--logotype-height-multiplier, 6)) * #{tokens.getRawValue($_, "base")});
-    --#{$_}--home-link-height: calc(var(--#{$_}--home-link-height-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 7.5)});
     --#{$_}--subfooter-logotype-height: calc(var(--c-footer-subfooter-height-logotype, var(--#{$_}--subfooter-logotype-height-multiplier, 6)) * #{tokens.getRawValue($_, "base")});
     --#{$_}--subfooter-alignment: var(--c-footer-subfooter-alignment, center);
     --#{$_}--subfooter-flex-direction: var(--c-footer-subfooter-flex-direction, row);
@@ -226,7 +225,6 @@ $_: "c-footer";
     &__home-link {
         margin-right: tokens.getCalculatedValue($_, "outer-space", 2);
         line-height: 0;
-        height: var(--#{$_}--home-link-height);
 
         img,
         svg {
