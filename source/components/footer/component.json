@@ -207,12 +207,32 @@
 							"label": "Left Top"
 						},
 						{
+							"value": "center top",
+							"label": "Center Top"
+						},
+						{
+							"value": "right top",
+							"label": "Right Top"
+						},
+						{
 							"value": "center",
 							"label": "Center"
 						},
 						{
 							"value": "right bottom",
 							"label": "Right Bottom"
+						},
+						{
+							"value": "center bottom",
+							"label": "Center Bottom"
+						},
+						{
+							"value": "left bottom",
+							"label": "Left Bottom"
+						}
+						{
+							"value": "left bottom",
+							"label": "Left Bottom"
 						}
 					]
 				},
@@ -335,14 +355,6 @@
 						{
 							"value": "normal",
 							"label": "Normal"
-						},
-						{
-							"value": "multiply",
-							"label": "Multiply"
-						},
-						{
-							"value": "screen",
-							"label": "Screen"
 						},
 						{
 							"value": "overlay",

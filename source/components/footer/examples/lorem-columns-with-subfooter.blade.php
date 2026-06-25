@@ -7,7 +7,8 @@
     'slotOnly' => true,
     'id' => 'site-footer-abc',
     'classList' => ['site-footer', 's-footer'],
-    'logotype' => '',
+    'logotype' => '/assets/img/logotype-grey-full.svg',
+    'prefooter' => 'This prefooter text appears above the footer columns and uses the footer prefooter alignment token.',
     'subfooter' => [
         'flexDirection' => 'row',
         'alignment' => 'center',
