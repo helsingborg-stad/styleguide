@@ -1072,8 +1072,8 @@
             "description": "Rotates the footer background layer without rotating footer content.",
             "type": "range",
             "default": "0",
-            "min": -9,
-            "max": 9,
+            "min": -7,
+            "max": 7,
             "step": 0.5,
             "unit": "deg"
           },
@@ -1157,69 +1157,6 @@
               {
                 "value": "auto",
                 "label": "Auto"
-              }
-            ]
-          },
-          {
-            "variable": "--background-attachment",
-            "label": "Background Attachment",
-            "description": "Controls the CSS background-attachment value.",
-            "type": "select",
-            "default": "scroll",
-            "options": [
-              {
-                "value": "scroll",
-                "label": "Scroll"
-              },
-              {
-                "value": "fixed",
-                "label": "Fixed"
-              },
-              {
-                "value": "local",
-                "label": "Local"
-              }
-            ]
-          },
-          {
-            "variable": "--background-origin",
-            "label": "Background Origin",
-            "description": "Controls the CSS background-origin value.",
-            "type": "select",
-            "default": "padding-box",
-            "options": [
-              {
-                "value": "border-box",
-                "label": "Border Box"
-              },
-              {
-                "value": "padding-box",
-                "label": "Padding Box"
-              },
-              {
-                "value": "content-box",
-                "label": "Content Box"
-              }
-            ]
-          },
-          {
-            "variable": "--background-clip",
-            "label": "Background Clip",
-            "description": "Controls the CSS background-clip value.",
-            "type": "select",
-            "default": "border-box",
-            "options": [
-              {
-                "value": "border-box",
-                "label": "Border Box"
-              },
-              {
-                "value": "padding-box",
-                "label": "Padding Box"
-              },
-              {
-                "value": "content-box",
-                "label": "Content Box"
               }
             ]
           },
