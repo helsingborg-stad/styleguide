@@ -22,6 +22,8 @@ $_: "c-footer";
     --#{$_}--subfooter-background: color-mix(in srgb, var(--#{$_}--subfooter-background-color) var(--#{$_}--subfooter-background-opacity), transparent);
     --#{$_}--subfooter-color: var(--c-footer-subfooter-color-text, #{tokens.getRawValue($_, "color--surface-contrast")});
     --#{$_}--subfooter-separator-color: var(--c-footer-subfooter-color-separator, #{tokens.getRawValue($_, "color--surface-border")});
+    --#{$_}--list-marker-color: color-mix(in srgb, var(--#{$_}--color) 30%, var(--#{$_}--border-color));
+    --#{$_}--subfooter-separator-dot-color: color-mix(in srgb, var(--#{$_}--subfooter-color) 30%, var(--#{$_}--subfooter-separator-color));
     --#{$_}--subfooter-border-width: 0;
     --#{$_}--subfooter-border-width-token: #{tokens.getCalculatedValue($_, "border-width")};
     --#{$_}--background-image: none;
@@ -324,7 +326,7 @@ $_: "c-footer";
                 width: tokens.getCalculatedValue($_, "base", 0.75);
                 height: tokens.getCalculatedValue($_, "base", 0.75);
                 border-radius: 50%;
-                background: var(--#{$_}--color);
+                background: var(--#{$_}--list-marker-color);
                 transform: translateY(-0.1em);
             }
         }
@@ -438,7 +440,7 @@ $_: "c-footer";
                 &:before {
                     content: "";
                     border-radius: 50%;
-                    background: var(--#{$_}--subfooter-separator-color);
+                    background: var(--#{$_}--subfooter-separator-dot-color);
                     display: var(--#{$_}--subfooter-separator-display);
                     position: absolute;
                     width: var(--#{$_}--subfooter-separator-size);
