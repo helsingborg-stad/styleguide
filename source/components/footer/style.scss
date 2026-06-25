@@ -11,7 +11,7 @@ $_: "c-footer";
 
 /* Component */
 .#{$_} {
-    @include insetMultiplier.consume($_, var(--#{$_}--inset-multiplier, var(--inherit-inset-multiplier, 1)));
+    @include insetMultiplier.consume($_, var(--#{$_}--outer-padding-inset-multiplier, var(--inherit-inset-multiplier, 1)));
 
     --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface")};
     --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
@@ -30,7 +30,7 @@ $_: "c-footer";
     --#{$_}--background-blend-mode: normal;
     --#{$_}--background-opacity: 1;
     --#{$_}--background-rotation: 0deg;
-    --#{$_}--main-padding-y: #{tokens.getCalculatedValue($_, "outer-space", 3)};
+    --#{$_}--main-padding-y: calc(#{tokens.getCalculatedValue($_, "outer-space", 3)} * var(--#{$_}--inset-multiplier));
     --#{$_}--main-padding-x: var(--#{$_}--inset-padding-x);
     --#{$_}--body-padding-y: #{tokens.getCalculatedValue($_, "space", 5)};
     --#{$_}--body-padding-x: 0;
