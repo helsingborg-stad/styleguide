@@ -1741,6 +1741,32 @@
       "color--surface-contrast",
       "color--primary"
     ],
+    "componentSettings": [
+      {
+        "id": "appearance",
+        "label": "Appearance",
+        "description": "Visual rendering options for logotype masking.",
+        "settings": [
+          {
+            "variable": "--mask-enabled",
+            "label": "Masking",
+            "description": "Enables or disables logotype masking.",
+            "type": "select",
+            "default": "1",
+            "options": [
+              {
+                "value": "0",
+                "label": "Off"
+              },
+              {
+                "value": "1",
+                "label": "On"
+              }
+            ]
+          }
+        ]
+      }
+    ],
     "description": "The Logotype component provides a reusable pattern for logotype in the interface.",
     "tags": [
       "logotype",
