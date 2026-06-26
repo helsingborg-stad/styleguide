@@ -34,7 +34,7 @@
 		{
 			"id": "colors",
 			"label": "Colors",
-			"description": "Component-local footer color scheme.",
+			"description": "Footer color scheme.",
 			"settings": [
 				{
 					"label": "Color Scheme",
@@ -47,7 +47,7 @@
 		{
 			"id": "branding",
 			"label": "Branding",
-			"description": "Component-local branding adjustments.",
+			"description": "Branding adjustments.",
 			"settings": [
 				{
 					"variable": "--logotype-height-multiplier",
@@ -76,12 +76,12 @@
 		{
 			"id": "layout",
 			"label": "Layout",
-			"description": "Component-local footer spacing, columns, and alignment.",
+			"description": "Footer spacing, columns, and alignment.",
 			"settings": [
 				{
 					"variable": "--outer-padding-inset-multiplier",
-					"label": "Outer Padding Inset Multiplier",
-					"description": "Scales footer outer padding from the inherited inset rhythm without overriding the internal resolved inset variable.",
+					"label": "Padding Multiplier",
+					"description": "Scales footer outer padding.",
 					"type": "range",
 					"default": "1",
 					"min": 0,
@@ -92,7 +92,7 @@
 				{
 					"variable": "--gap-multiplier",
 					"label": "Gap Multiplier",
-					"description": "Scales footer grid gaps from the component space token independently of outer padding.",
+					"description": "Scales footer gaps.",
 					"type": "range",
 					"default": "1",
 					"min": 1,
@@ -186,7 +186,7 @@
 				},
 				{
 					"variable": "--prefooter-text-align",
-					"label": "Prefooter Text Alignment",
+					"label": "Text Alignment [Prefooter/Below Logotype]",
 					"description": "How to align text in the prefooter.",
 					"type": "select",
 					"default": "left",
@@ -207,8 +207,8 @@
 				},
 				{
 					"variable": "--subfooter-alignment",
-					"label": "Subfooter Justify Content",
-					"description": "How to distribute the subfooter logo and links group inside the wrapper.",
+					"label": "Subfooter Alignment",
+					"description": "How to distribute the subfooter logo and links group.",
 					"type": "select",
 					"default": "center",
 					"options": [
@@ -260,12 +260,12 @@
 		{
 			"id": "background",
 			"label": "Background Image",
-			"description": "Component-local background image controls.",
+			"description": "Background image controls.",
 			"settings": [
 				{
 					"variable": "--background-opacity",
 					"label": "Background Opacity",
-					"description": "Controls the opacity of the footer background layer without changing content opacity.",
+					"description": "Controls the opacity of the footer background image layer.",
 					"type": "range",
 					"default": "1",
 					"min": 0,
@@ -276,7 +276,7 @@
 				{
 					"variable": "--subfooter-background-opacity",
 					"label": "Subfooter Background Opacity",
-					"description": "Controls how much of the subfooter background color is mixed into the rendered background.",
+					"description": "Controls the opacity of the subfooter background layer.",
 					"type": "range",
 					"default": "100",
 					"min": 0,
@@ -287,7 +287,7 @@
 				{
 					"variable": "--background-rotation",
 					"label": "Background Rotation",
-					"description": "Rotates the footer background layer without rotating footer content.",
+					"description": "Rotates the footer background image.",
 					"type": "range",
 					"default": "0",
 					"min": -7,
@@ -381,7 +381,7 @@
 				{
 					"variable": "--background-blend-mode",
 					"label": "Background Blend Mode",
-					"description": "Controls the CSS background-blend-mode value.",
+					"description": "Controls the CSS background-blend-mode.",
 					"type": "select",
 					"default": "normal",
 					"options": [
@@ -391,7 +391,7 @@
 						},
 						{
 							"value": "overlay",
-							"label": "Overlay"
+							"label": "Overlay (mixes background image with background color)"
 						}
 					]
 				}

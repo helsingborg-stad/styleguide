@@ -15,7 +15,7 @@
         'alignment' => 'center',
         'content' => [
             [
-                'title' => '',
+                'title' => 'Tis is a title',
                 'content' => 'Lorem ipsum',
                 'link' => '#lorem-ipsum',
             ],
