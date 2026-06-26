@@ -18,5 +18,9 @@
 	"linked": {
 		"heading": "Logotype in a link",
 		"text": "Renders a logotype wrapped in an anchor tag, activating the hover highlight effect."
+	},
+	"masked": {
+		"heading": "Logotype masked",
+		"text": "Renders a masked logotype using --c-logotype--mask-image in markup. Color is controlled by inherited tokens such as --inherit-color-contrast and --inherit-color-primary."
 	}
 }
