@@ -105,6 +105,11 @@
                                     Do eiusmod tempor
                                 @endlink
                             </li>
+                            <li>
+                                <a href="#lorem-link-5">
+                                    No link component
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 @use "../../sass/mixin/inset-multiplier" as insetMultiplier;
+@use "../../sass/mixin/inherit";
 @use "../../sass/mixin/mq";
 @use "../../sass/mixin/tokens";
 
@@ -44,8 +45,9 @@ $_: "c-footer";
     --#{$_}--subfooter-logotype-height: calc(var(--#{$_}--subfooter-logotype-height-multiplier, 6) * #{tokens.getRawValue($_, "base")});
     --#{$_}--subfooter-justify-content-value: var(--#{$_}--subfooter-alignment, center);
     --#{$_}--subfooter-flex-direction-value: var(--#{$_}--subfooter-flex-direction, row);
-    --inherit-color-background: var(--#{$_}--background-color);
-    --inherit-color-contrast: var(--#{$_}--color);
+    @include inherit.publish("color-background", var(--#{$_}--background-color));
+    @include inherit.publish("color-contrast", var(--#{$_}--color));
+    @include inherit.publish("color-primary", #{tokens.getRawValue($_, "color--primary")});
     position: relative;
     isolation: isolate;
     overflow: hidden;
@@ -77,13 +79,6 @@ $_: "c-footer";
     >* {
         position: relative;
         z-index: 1;
-    }
-
-    a,
-    a:hover,
-    a:visited,
-    a:active {
-        color: var(--#{$_}--color);
     }
 
     &--primary {
@@ -373,11 +368,9 @@ $_: "c-footer";
             margin-right: auto;
         }
 
-        a,
-        a:hover,
-        a:visited,
-        a:active {
-            color: var(--#{$_}--subfooter-color);
+        [data-component="link"] {
+            @include inherit.publish("color-contrast", var(--#{$_}--subfooter-color));
+            @include inherit.publish("color-primary", #{tokens.getRawValue($_, "color--primary")});
         }
 
         &__wrapper {
