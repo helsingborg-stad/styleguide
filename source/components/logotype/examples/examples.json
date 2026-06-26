@@ -21,6 +21,6 @@
 	},
 	"masked": {
 		"heading": "Logotype masked",
-		"text": "Renders a masked logotype using --c-logotype--mask-image in markup. Color is controlled by inherited tokens such as --inherit-color-contrast and --inherit-color-primary."
+		"text": "Renders a masked logotype using CSS mask properties."
 	}
 }
