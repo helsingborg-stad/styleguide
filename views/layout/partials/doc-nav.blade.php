@@ -15,9 +15,10 @@
                 @logotype([
                     'src'=> '/assets/img/logotype.svg',
                     'alt' => 'Go to homepage',
+                    'maskable' => true,
                     'classList' => ['c-header__logotype'],
                     'attributeList' => [
-                        'style' => '--c-header--logotype-height: calc(var(--base) * 6); --c-logotype--mask-image: url("/assets/img/logotype.svg"); --inherit-color-contrast: var(--color--surface-contrast); --inherit-color-primary: var(--color--surface-contrast-muted);'
+                        'style' => '--c-header--logotype-height: calc(var(--base) * 6);'
                     ]
                 ])
                 @endlogotype

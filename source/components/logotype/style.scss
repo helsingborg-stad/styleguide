@@ -8,8 +8,8 @@ $_: "c-logotype";
 @include inherit.property("color-primary");
 
 .#{$_} {
-    @include inherit.consume($_, "color-contrast", tokens.getRawValue($_, "color--surface-contrast"), "mask-color");
-    @include inherit.consume($_, "color-primary", tokens.getRawValue($_, "color--primary"), "mask-color-hover");
+    --#{$_}--mask-color: var(--inherit-color-contrast, currentColor);
+    --#{$_}--mask-color-hover: var(--inherit-color-primary, var(--#{$_}--mask-color));
     margin-block-start: 0;
     margin-block-end: 0;
     margin-inline-start: 0;
@@ -34,18 +34,17 @@ $_: "c-logotype";
         text-align: right;
     }
 
-    &.#{$_}--masked,
-    &[data-logotype-mask="true"],
-    &[style*="--c-logotype--mask-image"] {
+    &[data-logotype-maskable],
+    &.#{$_}--maskable {
         background-color: var(--#{$_}--mask-color);
         transition: background-color 0.3s ease;
-        -webkit-mask-image: var(--#{$_}--mask-image);
-        -webkit-mask-repeat: var(--#{$_}--mask-repeat, no-repeat);
-        -webkit-mask-position: var(--#{$_}--mask-position, center);
-        -webkit-mask-size: var(--#{$_}--mask-size, contain);
-        mask-image: var(--#{$_}--mask-image);
+        -webkit-mask-image: var(--#{$_}--mask-image, none);
+        mask-image: var(--#{$_}--mask-image, none);
+        -webkit-mask-repeat: no-repeat;
         mask-repeat: no-repeat;
+        -webkit-mask-position: var(--#{$_}--mask-position, center);
         mask-position: var(--#{$_}--mask-position, center);
+        -webkit-mask-size: var(--#{$_}--mask-size, contain);
         mask-size: var(--#{$_}--mask-size, contain);
 
         .#{$_}__image {

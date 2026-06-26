@@ -2,9 +2,7 @@
     @logotype([
         'src' => '/assets/img/logotype.svg',
         'alt' => 'Masked logotype',
-        'attributeList' => [
-            'style' => '--c-logotype--mask-image: url("/assets/img/logotype.svg");'
-        ]
+        'maskable' => true,
     ])
     @endlogotype
 </div>
