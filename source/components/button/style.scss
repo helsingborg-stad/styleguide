@@ -60,7 +60,6 @@ $_: "c-button";
         display: inline-flex;
         gap: tokens.getCalculatedValue($_, "space", 1);
         min-width: 0;
-        overflow: hidden;
 
         >*:empty {
             display: none;
