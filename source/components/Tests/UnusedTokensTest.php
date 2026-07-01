@@ -2,6 +2,8 @@
 
 namespace MunicipioStyleGuide\Components\Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
 class UnusedTokensTest extends TestCase
@@ -10,10 +12,8 @@ class UnusedTokensTest extends TestCase
     private const SHADOW_REQUIRED_TOKENS = ['shadow-amount', 'shadow-color'];
     private const TOKEN_EXCEPTIONS = self::SHADOW_REQUIRED_TOKENS;
 
-    /**
-     * @testdox component utilizes all tokens declared in component.json
-     * @dataProvider componentFilesProvider
-     */
+    #[TestDox('component "$component" utilizes all tokens declared in component.json')]
+    #[DataProvider('componentFilesProvider')]
     public function testComponentUtilizeAllTokens(string $component, string $tokenFile, string $componentDir): void
     {
         $tokens = self::extractTokensFromTokenFile($tokenFile);

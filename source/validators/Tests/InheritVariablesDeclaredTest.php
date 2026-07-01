@@ -3,6 +3,7 @@
 namespace MunicipioStyleGuide\Validators\Tests;
 
 use MunicipioStyleGuide\Validators\Sass\InheritVariablesDeclaredValidator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -76,12 +77,11 @@ class InheritVariablesDeclaredTest extends TestCase
      * Asserts that every --inherit-* variable in the file is declared as
      * an @property block with inherits: false.
      *
-     * @dataProvider componentFilesProvider
-     *
      * @param string $filePath Absolute path to the component SCSS file.
      *
      * @return void
      */
+    #[DataProvider('componentFilesProvider')]
     public function testInheritVariablesAreDeclaredWithInheritsOff(string $filePath): void
     {
         if ($filePath === '/dev/null') {

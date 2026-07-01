@@ -3,6 +3,7 @@
 namespace MunicipioStyleGuide\Validators\Tests;
 
 use MunicipioStyleGuide\Validators\Sass\CssVariablesNamespacedValidator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class CssVariablesNamespacedTest extends TestCase
@@ -51,9 +52,7 @@ class CssVariablesNamespacedTest extends TestCase
         return $cases;
     }
 
-    /**
-     * @dataProvider componentFilesProvider
-     */
+    #[DataProvider('componentFilesProvider')]
     public function testCssVariablesAreNamespaced(string $filePath): void
     {
         if ($filePath === '/dev/null') {

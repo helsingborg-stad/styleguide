@@ -5,9 +5,6 @@ namespace MunicipioStyleGuide\Tests;
 use MunicipioStyleGuide\Data\NavigationDataParser;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \MunicipioStyleGuide\Data\NavigationDataParser
- */
 class NavigationDataParserTest extends TestCase
 {
     /**

@@ -5,9 +5,6 @@ namespace MunicipioStyleGuide\Tests;
 use MunicipioStyleGuide\Http\Request;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \MunicipioStyleGuide\Http\Request
- */
 class RequestTest extends TestCase
 {
     private string $tempBasePath;

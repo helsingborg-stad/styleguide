@@ -6,9 +6,6 @@ use MunicipioStyleGuide\Data\JsonDataLoader;
 use MunicipioStyleGuide\Data\NavigationApiDataProvider;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \MunicipioStyleGuide\Data\NavigationApiDataProvider
- */
 class NavigationApiDataProviderTest extends TestCase
 {
     /**

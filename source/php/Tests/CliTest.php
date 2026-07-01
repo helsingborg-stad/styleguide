@@ -6,18 +6,12 @@ namespace MunicipioStyleGuide\Tests;
 
 use CLI;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \CLI
- */
 class CliTest extends TestCase
 {
-    /**
-     * @return void
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testExecuteCommandClearsBladeCacheWhenSupportedFlagsAreUsed(): void
     {
         $cachePath = sys_get_temp_dir() . '/styleguide-cli-cache-' . uniqid('', true);
@@ -42,11 +36,7 @@ class CliTest extends TestCase
         @rmdir($cachePath);
     }
 
-    /**
-     * @return void
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testExecuteCommandThrowsForUnsupportedCacheOptions(): void
     {
         require_once dirname(__DIR__, 3) . '/cli.php';

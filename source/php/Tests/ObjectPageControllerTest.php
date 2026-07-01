@@ -9,18 +9,12 @@ use MunicipioStyleGuide\Http\Response;
 use MunicipioStyleGuide\Navigation;
 use MunicipioStyleGuide\Search\Search;
 use MunicipioStyleGuide\View;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \MunicipioStyleGuide\Controllers\ObjectPageController
- */
 class ObjectPageControllerTest extends TestCase
 {
-    /**
-     * @return void
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testHandleAddsObjectsOverviewItemsForObjectsPage(): void
     {
         $tempBasePath = sys_get_temp_dir() . '/styleguide-object-controller-' . uniqid('', true) . '/';
@@ -103,11 +97,7 @@ class ObjectPageControllerTest extends TestCase
         @rmdir($tempBasePath);
     }
 
-    /**
-     * @return void
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testHandleDoesNotAddObjectsOverviewItemsForSubPage(): void
     {
         $tempBasePath = sys_get_temp_dir() . '/styleguide-object-controller-sub-' . uniqid('', true) . '/';

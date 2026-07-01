@@ -9,18 +9,12 @@ use MunicipioStyleGuide\Http\Response;
 use MunicipioStyleGuide\Navigation;
 use MunicipioStyleGuide\Search\Search;
 use MunicipioStyleGuide\View;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \MunicipioStyleGuide\Controllers\PageController
- */
 class ComponentPageSubcomponentsTest extends TestCase
 {
-    /**
-     * @return void
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testHandleAddsComponentSubcomponentsForComponentPage(): void
     {
         $tempBasePath = sys_get_temp_dir() . '/styleguide-page-controller-component-' . uniqid('', true) . '/';

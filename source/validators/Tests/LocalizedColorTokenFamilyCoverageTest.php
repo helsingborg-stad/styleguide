@@ -3,6 +3,7 @@
 namespace MunicipioStyleGuide\Validators\Tests;
 
 use MunicipioStyleGuide\Validators\Sass\LocalizedColorTokenFamilyCoverageValidator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -72,12 +73,12 @@ class LocalizedColorTokenFamilyCoverageTest extends TestCase
      * Asserts that components with token-backed color settings expose all
      * localized companion family tokens they rely on.
      *
-     * @dataProvider componentFilesProvider
      *
      * @param string $filePath Absolute path to the component SCSS file.
      *
      * @return void
      */
+    #[DataProvider('componentFilesProvider')]
     public function testTokenBackedColorSettingsExposeFullFamilyCoverage(string $filePath): void
     {
         if ($filePath === '/dev/null') {

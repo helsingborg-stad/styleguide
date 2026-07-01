@@ -3,6 +3,7 @@
 namespace MunicipioStyleGuide\Validators\Tests;
 
 use MunicipioStyleGuide\Validators\Sass\TokenMixingValidator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class TokenMixingTest extends TestCase
@@ -58,9 +59,7 @@ class TokenMixingTest extends TestCase
         return $cases;
     }
 
-    /**
-     * @dataProvider utilityFilesProvider
-     */
+    #[DataProvider('utilityFilesProvider')]
     public function testNoTokenMixinInUtility(string $filePath): void
     {
         if ($filePath === '/dev/null') {
