@@ -1,5 +1,5 @@
 import { getByTestId, getByText, screen } from "@testing-library/dom"
-import { IComponentData, renderComponent } from "./helpers/ComponentRenderer"
+import { type IComponentData, renderComponent } from "./helpers/ComponentRenderer"
 import Modal from "./modal"
 import userEvent from "@testing-library/user-event"
 import Gallery from "./gallery"

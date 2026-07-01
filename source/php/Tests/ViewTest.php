@@ -7,9 +7,6 @@ namespace MunicipioStyleGuide\Tests;
 use MunicipioStyleGuide\View;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \MunicipioStyleGuide\View
- */
 class ViewTest extends TestCase
 {
     /**

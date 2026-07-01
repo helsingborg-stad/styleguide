@@ -3,6 +3,7 @@
 namespace MunicipioStyleGuide\Validators\Tests;
 
 use MunicipioStyleGuide\Validators\Sass\InheritCustomizationPrecedenceValidator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -72,12 +73,11 @@ class InheritCustomizationPrecedenceTest extends TestCase
      * Asserts that token-backed component settings are not hidden behind
      * inherit-first fallbacks.
      *
-     * @dataProvider componentFilesProvider
-     *
      * @param string $filePath Absolute path to the component SCSS file.
      *
      * @return void
      */
+    #[DataProvider('componentFilesProvider')]
     public function testTokenBackedComponentSettingsOutrankInheritFallbacks(string $filePath): void
     {
         if ($filePath === '/dev/null') {

@@ -2,8 +2,8 @@
 @use "../../sass/mixin/tokens";
 
 @property --inherit-color-background {
-  syntax: "*";
-  inherits: true;
+    syntax: "*";
+    inherits: true;
 }
 
 $_: "c-timeline";
@@ -11,298 +11,298 @@ $_: "c-timeline";
 @include tokens.create($_, getComponentTokens($_));
 
 .#{$_} {
-  --#{$_}--gap: #{tokens.getCalculatedValue($_, "space", 4)};
-  --#{$_}--line-width: max(2px, #{tokens.getCalculatedValue($_, "border-width")});
-  --#{$_}--line-color-default: #{tokens.getRawValue($_, "color--surface-border")};
-  --#{$_}--line-color-active: #{tokens.getRawValue($_, "color--primary")};
-  --#{$_}--marker-size: #{tokens.getCalculatedValue($_, "base", 2.5)};
-  --#{$_}--marker-border-width: max(4px, #{tokens.getCalculatedValue($_, "border-width")});
-  --#{$_}--marker-border-color: #{tokens.getRawValue($_, "color--surface")};
-  --#{$_}--track-width: calc(var(--#{$_}--marker-size) + #{tokens.getCalculatedValue($_, "space", 2)});
-  --#{$_}--card-width: min(100%, #{tokens.getCalculatedValue($_, "base", 44)});
-  --#{$_}--card-arrow-size: #{tokens.getCalculatedValue($_, "base", 1.25)};
-  --#{$_}--card-arrow-top: 50%;
-  --#{$_}--card-background: #{tokens.getRawValue($_, "color--surface")};
-  --#{$_}--card-outline: color-mix(in srgb, #{tokens.getRawValue($_, "color--primary")} 20%, transparent);
-  --#{$_}--date-background: #{tokens.getRawValue($_, "color--surface-alt")};
-  --#{$_}--date-color: #{tokens.getRawValue($_, "color--surface-contrast")};
-  --#{$_}--date-border: #{tokens.getRawValue($_, "color--surface-border")};
-  --#{$_}--accent: #{tokens.getRawValue($_, "color--primary")};
-  --#{$_}--accent-contrast: #{tokens.getRawValue($_, "color--primary-contrast")};
+    --#{$_}--gap: #{tokens.getCalculatedValue($_, "space", 4)};
+    --#{$_}--line-width: max(2px, #{tokens.getCalculatedValue($_, "border-width")});
+    --#{$_}--line-color-default: #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--line-color-active: #{tokens.getRawValue($_, "color--primary")};
+    --#{$_}--marker-size: #{tokens.getCalculatedValue($_, "base", 2.5)};
+    --#{$_}--marker-border-width: max(4px, #{tokens.getCalculatedValue($_, "border-width")});
+    --#{$_}--marker-border-color: #{tokens.getRawValue($_, "color--surface")};
+    --#{$_}--track-width: calc(var(--#{$_}--marker-size) + #{tokens.getCalculatedValue($_, "space", 2)});
+    --#{$_}--card-width: min(100%, #{tokens.getCalculatedValue($_, "base", 44)});
+    --#{$_}--card-arrow-size: #{tokens.getCalculatedValue($_, "base", 1.25)};
+    --#{$_}--card-arrow-top: 50%;
+    --#{$_}--card-background: #{tokens.getRawValue($_, "color--surface")};
+    --#{$_}--card-outline: color-mix(in srgb, #{tokens.getRawValue($_, "color--primary")} 20%, transparent);
+    --#{$_}--date-background: #{tokens.getRawValue($_, "color--surface-alt")};
+    --#{$_}--date-color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}--date-border: #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--accent: #{tokens.getRawValue($_, "color--primary")};
+    --#{$_}--accent-contrast: #{tokens.getRawValue($_, "color--primary-contrast")};
 
-  position: relative;
-  list-style: none;
-  margin: 0 auto;
-  padding: #{tokens.getCalculatedValue($_, "space", 1)} 0;
-  display: grid;
-  gap: var(--#{$_}--gap);
-
-  &:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: var(--#{$_}--line-width);
-    border-radius: 999px;
-    background-color: var(--#{$_}--line-color, var(--#{$_}--line-color-default));
-  }
-
-  .#{$_}__event {
     position: relative;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) var(--#{$_}--track-width) minmax(0, 1fr);
-    gap: var(--#{$_}--gap);
-    align-items: center;
     list-style: none;
-    z-index: 1;
-    padding: 0;
-  }
-
-  .#{$_}__date {
-    grid-row: 1;
-    grid-column: 3;
-    justify-self: start;
-    display: inline-flex;
-    align-items: center;
-    min-height: calc(var(--#{$_}--marker-size) - #{tokens.getCalculatedValue($_, "space", 0.5)});
-    max-width: 100%;
-    padding: #{tokens.getCalculatedValue($_, "space", 0.75)} #{tokens.getCalculatedValue($_, "space", 1.25)};
-    color: var(--#{$_}--date-color);
-    font-size: #{tokens.getRawValue($_, "font-size-100")};
-    font-weight: 600;
-    line-height: 1;
-    white-space: nowrap;
-    background-color: var(--#{$_}--date-background);
-    border: var(--#{$_}--line-width) solid var(--#{$_}--date-border);
-    border-radius: #{tokens.getCalculatedValue($_, "border-radius")};
-    corner-shape: #{tokens.getRawValue($_, "corner-shape")};
-    box-shadow: none;
-  }
-
-  .#{$_}__marker {
-    grid-row: 1;
-    grid-column: 2;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: var(--#{$_}--marker-size);
-
-    &:before {
-      content: "";
-      width: var(--#{$_}--marker-size);
-      height: var(--#{$_}--marker-size);
-      border-radius: 999px;
-      outline: var(--#{$_}--marker-border-width) solid var(--#{$_}--marker-border-color);
-      background-color: var(--#{$_}--line-color, var(--inherit-color-background, var(--#{$_}--line-color-default)));
-      box-sizing: border-box;
-      box-shadow: none;
-    }
-
-    .#{$_}__date {
-      display: none;
-    }
-  }
-
-  .#{$_}__event__card {
-    grid-row: 1;
-    grid-column: 1;
-    justify-self: end;
-    width: var(--#{$_}--card-width);
-    min-width: 0;
-    position: relative;
-    z-index: 1;
-    transform-origin: center right;
-    transition: transform 180ms ease, outline-color 180ms ease, box-shadow 180ms ease;
-
-    >* {
-      background-color: inherit;
-    }
-
-    &:before {
-      content: "";
-      position: absolute;
-      top: var(--#{$_}--card-arrow-top);
-      right: calc(var(--#{$_}--card-arrow-size) * -0.6);
-      transform: translateY(-50%) rotate(45deg);
-      width: var(--#{$_}--card-arrow-size);
-      height: var(--#{$_}--card-arrow-size);
-      background-color: inherit;
-      border: inherit;
-      z-index: -1;
-      border-radius: max(2px, #{tokens.getCalculatedValue($_, "border-radius", 0.25)});
-    }
-
-    &.c-card--flat:before,
-    &.c-card--flat:after {
-      display: none;
-    }
-  }
-
-  .#{$_}__event:nth-child(even) {
-    .#{$_}__date {
-      grid-column: 1;
-      justify-self: end;
-      text-align: right;
-    }
-
-    .#{$_}__event__card {
-      grid-column: 3;
-      justify-self: start;
-      transform-origin: center left;
-
-      &:before {
-        left: calc(var(--#{$_}--card-arrow-size) * -0.6);
-        right: auto;
-      }
-    }
-  }
-
-  .#{$_}__event--active {
-    .#{$_}__marker::before {
-      background-color: var(--#{$_}--accent);
-    }
-
-    >.#{$_}__date,
-    .#{$_}__marker>.#{$_}__date {
-      background-color: #{tokens.getRawValue($_, "color--surface")};
-    }
-
-    .#{$_}__marker>.#{$_}__date {
-      background: var(--#{$_}--accent);
-      border-color: var(--#{$_}--accent);
-      color: var(--#{$_}--accent-contrast);
-      box-shadow: none;
-
-      &:before {
-        border-left-color: var(--#{$_}--accent);
-        border-bottom-color: var(--#{$_}--accent);
-      }
-    }
-  }
-
-  &.#{$_}--sequential {
+    margin: 0 auto;
+    padding: #{tokens.getCalculatedValue($_, "space", 1)} 0;
+    display: grid;
+    gap: var(--#{$_}--gap);
 
     &:after {
-      left: calc(var(--#{$_}--track-width) / 2);
-      transform: translateX(-50%);
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: var(--#{$_}--line-width);
+        border-radius: 999px;
+        background-color: var(--#{$_}--line-color, var(--#{$_}--line-color-default));
     }
 
     .#{$_}__event {
-      grid-template-columns: var(--#{$_}--track-width) minmax(0, 1fr);
-      align-items: start;
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) var(--#{$_}--track-width) minmax(0, 1fr);
+        gap: var(--#{$_}--gap);
+        align-items: center;
+        list-style: none;
+        z-index: 1;
+        padding: 0;
+    }
+
+    .#{$_}__date {
+        grid-row: 1;
+        grid-column: 3;
+        justify-self: start;
+        display: inline-flex;
+        align-items: center;
+        min-height: calc(var(--#{$_}--marker-size) - #{tokens.getCalculatedValue($_, "space", 0.5)});
+        max-width: 100%;
+        padding: #{tokens.getCalculatedValue($_, "space", 0.75)} #{tokens.getCalculatedValue($_, "space", 1.25)};
+        color: var(--#{$_}--date-color);
+        font-size: #{tokens.getRawValue($_, "font-size-100")};
+        font-weight: 600;
+        line-height: 1;
+        white-space: nowrap;
+        background-color: var(--#{$_}--date-background);
+        border: var(--#{$_}--line-width) solid var(--#{$_}--date-border);
+        border-radius: #{tokens.getCalculatedValue($_, "border-radius")};
+        corner-shape: #{tokens.getRawValue($_, "corner-shape")};
+        box-shadow: none;
     }
 
     .#{$_}__marker {
-      grid-column: 1;
-      justify-content: center;
-      padding-top: #{tokens.getCalculatedValue($_, "space", 1.5)};
+        grid-row: 1;
+        grid-column: 2;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: var(--#{$_}--marker-size);
+
+        &:before {
+            content: "";
+            width: var(--#{$_}--marker-size);
+            height: var(--#{$_}--marker-size);
+            border-radius: 999px;
+            outline: var(--#{$_}--marker-border-width) solid var(--#{$_}--marker-border-color);
+            background-color: var(--#{$_}--line-color, var(--inherit-color-background, var(--#{$_}--line-color-default)));
+            box-sizing: border-box;
+            box-shadow: none;
+        }
+
+        .#{$_}__date {
+            display: none;
+        }
     }
 
     .#{$_}__event__card {
-      grid-column: 2;
-      justify-self: start;
-      width: 100%;
-      transform-origin: center left;
-      --#{$_}--card-arrow-top: #{tokens.getCalculatedValue($_, "space", 2.5)};
+        grid-row: 1;
+        grid-column: 1;
+        justify-self: end;
+        width: var(--#{$_}--card-width);
+        min-width: 0;
+        position: relative;
+        z-index: 1;
+        transform-origin: center right;
+        transition: transform 180ms ease, outline-color 180ms ease, box-shadow 180ms ease;
 
-      &:before {
-        left: calc(var(--#{$_}--card-arrow-size) * -0.6);
-        right: auto;
-      }
+        >* {
+            background-color: inherit;
+        }
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: var(--#{$_}--card-arrow-top);
+            right: calc(var(--#{$_}--card-arrow-size) * -0.6);
+            transform: translateY(-50%) rotate(45deg);
+            width: var(--#{$_}--card-arrow-size);
+            height: var(--#{$_}--card-arrow-size);
+            background-color: inherit;
+            border: inherit;
+            z-index: -1;
+            border-radius: max(2px, #{tokens.getCalculatedValue($_, "border-radius", 0.25)});
+        }
+
+        &.c-card--flat:before,
+        &.c-card--flat:after {
+            display: none;
+        }
     }
 
     .#{$_}__event:nth-child(even) {
-      .#{$_}__event__card {
-        grid-column: 2;
-        justify-self: start;
-      }
-    }
-  }
-
-  @include mq.mq($until: md) {
-    --#{$_}--gap: #{tokens.getCalculatedValue($_, "space", 3)};
-    --#{$_}--card-width: 100%;
-    --#{$_}--card-arrow-top: #{tokens.getCalculatedValue($_, "space", 2.5)};
-
-    &:after {
-      left: calc(var(--#{$_}--track-width) / 2);
-      transform: translateX(-50%);
-    }
-
-    .#{$_}__event {
-      grid-template-columns: var(--#{$_}--track-width) minmax(0, 1fr);
-      gap: #{tokens.getCalculatedValue($_, "space", 2)};
-      align-items: start;
-    }
-
-    .#{$_}__marker {
-      grid-column: 1;
-      justify-content: center;
-      align-items: center;
-      padding-top: 0;
-
-      .#{$_}__date {
-        display: inline-flex !important;
-        position: absolute;
-        top: 50%;
-        left: calc(100% + #{tokens.getCalculatedValue($_, "space", 2)});
-        transform: translateY(-50%);
-        visibility: visible !important;
-        width: auto !important;
-        max-width: calc(100vw - var(--#{$_}--track-width) - #{tokens.getCalculatedValue($_, "space", 6)}) !important;
-        line-height: 1.2;
-        z-index: 1;
-
-        &:before {
-          content: "";
-          position: absolute;
-          left: calc(var(--#{$_}--card-arrow-size) * -0.75);
-          top: 50%;
-          width: var(--#{$_}--card-arrow-size);
-          height: var(--#{$_}--card-arrow-size);
-          transform: translateY(-50%) rotate(45deg);
-          background-color: inherit;
-          border-left: var(--#{$_}--line-width) solid var(--#{$_}--date-border);
-          border-bottom: var(--#{$_}--line-width) solid var(--#{$_}--date-border);
-          z-index: -1;
+        .#{$_}__date {
+            grid-column: 1;
+            justify-self: end;
+            text-align: right;
         }
-      }
+
+        .#{$_}__event__card {
+            grid-column: 3;
+            justify-self: start;
+            transform-origin: center left;
+
+            &:before {
+                left: calc(var(--#{$_}--card-arrow-size) * -0.6);
+                right: auto;
+            }
+        }
     }
 
-    .#{$_}__event>.#{$_}__date {
-      display: none;
-    }
+    .#{$_}__event--active {
+        .#{$_}__marker::before {
+            background-color: var(--#{$_}--accent);
+        }
 
-    .#{$_}__event__card,
-    .#{$_}__event:nth-child(even) .#{$_}__event__card {
-      grid-column: 2;
-      justify-self: start;
-      width: 100%;
-      margin-top: calc(var(--#{$_}--marker-size) + #{tokens.getCalculatedValue($_, "space", 3)});
-      transform-origin: center left;
+        >.#{$_}__date,
+        .#{$_}__marker>.#{$_}__date {
+            background-color: #{tokens.getRawValue($_, "color--surface")};
+        }
 
-      &:before {
-        display: none;
-      }
+        .#{$_}__marker>.#{$_}__date {
+            background: var(--#{$_}--accent);
+            border-color: var(--#{$_}--accent);
+            color: var(--#{$_}--accent-contrast);
+            box-shadow: none;
+
+            &:before {
+                border-left-color: var(--#{$_}--accent);
+                border-bottom-color: var(--#{$_}--accent);
+            }
+        }
     }
 
     &.#{$_}--sequential {
 
-      .#{$_}__event__card,
-      .#{$_}__event:nth-child(even) .#{$_}__event__card {
-        margin-top: 0;
-
-        &:before {
-          display: block;
-          left: calc(var(--#{$_}--card-arrow-size) * -0.6);
-          right: auto;
-          top: var(--#{$_}--card-arrow-top);
-          transform: translateY(-50%) rotate(45deg);
+        &:after {
+            left: calc(var(--#{$_}--track-width) / 2);
+            transform: translateX(-50%);
         }
-      }
+
+        .#{$_}__event {
+            grid-template-columns: var(--#{$_}--track-width) minmax(0, 1fr);
+            align-items: start;
+        }
+
+        .#{$_}__marker {
+            grid-column: 1;
+            justify-content: center;
+            padding-top: #{tokens.getCalculatedValue($_, "space", 1.5)};
+        }
+
+        .#{$_}__event__card {
+            grid-column: 2;
+            justify-self: start;
+            width: 100%;
+            transform-origin: center left;
+            --#{$_}--card-arrow-top: #{tokens.getCalculatedValue($_, "space", 2.5)};
+
+            &:before {
+                left: calc(var(--#{$_}--card-arrow-size) * -0.6);
+                right: auto;
+            }
+        }
+
+        .#{$_}__event:nth-child(even) {
+            .#{$_}__event__card {
+                grid-column: 2;
+                justify-self: start;
+            }
+        }
     }
-  }
+
+    @include mq.mq($until: md) {
+        --#{$_}--gap: #{tokens.getCalculatedValue($_, "space", 3)};
+        --#{$_}--card-width: 100%;
+        --#{$_}--card-arrow-top: #{tokens.getCalculatedValue($_, "space", 2.5)};
+
+        &:after {
+            left: calc(var(--#{$_}--track-width) / 2);
+            transform: translateX(-50%);
+        }
+
+        .#{$_}__event {
+            grid-template-columns: var(--#{$_}--track-width) minmax(0, 1fr);
+            gap: #{tokens.getCalculatedValue($_, "space", 2)};
+            align-items: start;
+        }
+
+        .#{$_}__marker {
+            grid-column: 1;
+            justify-content: center;
+            align-items: center;
+            padding-top: 0;
+
+            .#{$_}__date {
+                display: inline-flex !important;
+                position: absolute;
+                top: 50%;
+                left: calc(100% + #{tokens.getCalculatedValue($_, "space", 2)});
+                transform: translateY(-50%);
+                visibility: visible !important;
+                width: auto !important;
+                max-width: calc(100vw - var(--#{$_}--track-width) - #{tokens.getCalculatedValue($_, "space", 6)}) !important;
+                line-height: 1.2;
+                z-index: 1;
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    left: calc(var(--#{$_}--card-arrow-size) * -0.75);
+                    top: 50%;
+                    width: var(--#{$_}--card-arrow-size);
+                    height: var(--#{$_}--card-arrow-size);
+                    transform: translateY(-50%) rotate(45deg);
+                    background-color: inherit;
+                    border-left: var(--#{$_}--line-width) solid var(--#{$_}--date-border);
+                    border-bottom: var(--#{$_}--line-width) solid var(--#{$_}--date-border);
+                    z-index: -1;
+                }
+            }
+        }
+
+        .#{$_}__event>.#{$_}__date {
+            display: none;
+        }
+
+        .#{$_}__event__card,
+        .#{$_}__event:nth-child(even) .#{$_}__event__card {
+            grid-column: 2;
+            justify-self: start;
+            width: 100%;
+            margin-top: calc(var(--#{$_}--marker-size) + #{tokens.getCalculatedValue($_, "space", 3)});
+            transform-origin: center left;
+
+            &:before {
+                display: none;
+            }
+        }
+
+        &.#{$_}--sequential {
+
+            .#{$_}__event__card,
+            .#{$_}__event:nth-child(even) .#{$_}__event__card {
+                margin-top: 0;
+
+                &:before {
+                    display: block;
+                    left: calc(var(--#{$_}--card-arrow-size) * -0.6);
+                    right: auto;
+                    top: var(--#{$_}--card-arrow-top);
+                    transform: translateY(-50%) rotate(45deg);
+                }
+            }
+        }
+    }
 }

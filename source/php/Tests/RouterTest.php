@@ -11,11 +11,9 @@ use MunicipioStyleGuide\Controllers\ScriptPageController;
 use MunicipioStyleGuide\Controllers\UtilityPageController;
 use MunicipioStyleGuide\Http\Request;
 use MunicipioStyleGuide\Router;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \MunicipioStyleGuide\Router
- */
 class RouterTest extends TestCase
 {
     /**
@@ -124,11 +122,7 @@ class RouterTest extends TestCase
         $scriptRouter->dispatch();
     }
 
-    /**
-     * @return void
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testDispatchUsesComponentAndUtilityControllersForDetailPages(): void
     {
         $componentSlug = 'button-' . uniqid('', false);
@@ -220,9 +214,6 @@ class RouterTest extends TestCase
         }
     }
 
-    /**
-     * @return void
-     */
     public function testDispatchUsesPageControllerForStandardPages(): void
     {
         $request = new Request('/about', []);

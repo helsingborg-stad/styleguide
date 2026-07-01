@@ -1,5 +1,5 @@
-import { FileInputController } from './controller';
-import Notice from './notice';
+import type { FileInputController } from './controller';
+import type Notice from './notice';
 
 export function MaxFileSize(
     controller: FileInputController,

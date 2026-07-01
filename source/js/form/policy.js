@@ -16,7 +16,7 @@ class Policy {
     validatePolicy() {
         
         if (this.parentElement) {
-            let checked = this.parentElement.querySelector('.c-option [type="checkbox"]:checked') ? true : false;
+            const checked = this.parentElement.querySelector('.c-option [type="checkbox"]:checked') ? true : false;
             if (!checked) {
                 this.parentElement.querySelector('.c-option__checkbox--label-text').classList.add('u-color__text--danger');
             }

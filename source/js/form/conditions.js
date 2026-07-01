@@ -7,7 +7,7 @@ class Conditions {
         const groups = form.querySelectorAll('[conditional-target]');
         const conditionalElements = form.querySelectorAll('[conditional]') && Array.from(form.querySelectorAll('[conditional]')).map(element => element).filter(element => element.getAttribute('conditional'));
 
-        let condtionalTargets = [];
+        const condtionalTargets = [];
         Array.from(groups).forEach(group => {
             condtionalTargets.push({element: group, json: JSON.parse(group.getAttribute('conditional-target'))});
             this.handleRequired(group.querySelectorAll('[data-js-required]'), true);      

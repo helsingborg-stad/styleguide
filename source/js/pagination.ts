@@ -123,7 +123,7 @@ export default class Pagination {
     }
 
     public tableRefresh() {
-        let list = this.paginateList(this.list);
+        const list = this.paginateList(this.list);
 
         this.renderTable(list);
         this.paginatePages();
@@ -221,7 +221,7 @@ export default class Pagination {
         btns.forEach((btn) => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                let next = (e.target as HTMLElement)?.closest(`[${this.indexLinks}]`)!.getAttribute(this.indexLinks);
+                const next = (e.target as HTMLElement)?.closest(`[${this.indexLinks}]`)!.getAttribute(this.indexLinks);
                 next && this.paginateSetCurrent(parseInt(next));
                 this.tableRefresh();
                 this.scrollToTop();
@@ -231,16 +231,16 @@ export default class Pagination {
     }
 
     private scrollToTop() {
-        let offset = document.querySelector('.c-header--sticky') ? 100 : 0;
-        let elementPosition = this.container?.getBoundingClientRect().top ?? 0;
-        let offsetPosition = elementPosition + window.pageYOffset - offset;
+        const offset = document.querySelector('.c-header--sticky') ? 100 : 0;
+        const elementPosition = this.container?.getBoundingClientRect().top ?? 0;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
         window.scrollTo({
             top: offsetPosition,
         });
     }
 
     setFocus() {
-        let element = this.listContainer?.querySelector('[data-js-pagination-item]:first-child') as HTMLElement;
+        const element = this.listContainer?.querySelector('[data-js-pagination-item]:first-child') as HTMLElement;
         if (!element) return;
         element.focus();
     }

@@ -1,75 +1,75 @@
 @use "./tokens";
 
 $default-scales: (
-  350px: 1.5,
-  500px: 2,
+    350px: 1.5,
+    500px: 2,
 );
 
 @mixin property() {
-  @property --inherit-inset-multiplier {
-    syntax: "*";
-    inherits: false;
-  }
+    @property --inherit-inset-multiplier {
+        syntax: "*";
+        inherits: false;
+    }
 }
 
 @function contextual-multiplier($local-scale, $inherited-multiplier: var(--inherit-inset-multiplier, 1)) {
-  @return max(#{$inherited-multiplier}, #{$local-scale});
+    @return max(#{$inherited-multiplier}, #{$local-scale});
 }
 
 @mixin publish($multiplier) {
-  --inherit-inset-multiplier: #{$multiplier};
+    --inherit-inset-multiplier: #{$multiplier};
 }
 
 @mixin consume($component, $multiplier: var(--inherit-inset-multiplier, 1), $includeContentGap: false, $includeStackGap: false) {
-  --#{$component}--inset-multiplier: #{$multiplier};
-  --#{$component}--inset-padding-x: calc(#{tokens.getCalculatedValue($component, "space", 2)} * var(--#{$component}--inset-multiplier));
-  --#{$component}--inset-padding-y: calc(var(--#{$component}--inset-padding-x) * 0.75);
+    --#{$component}--inset-multiplier: #{$multiplier};
+    --#{$component}--inset-padding-x: calc(#{tokens.getCalculatedValue($component, "space", 2)} * var(--#{$component}--inset-multiplier));
+    --#{$component}--inset-padding-y: calc(var(--#{$component}--inset-padding-x) * 0.75);
 
-  @if $includeContentGap {
-    --#{$component}--content-gap: calc(#{tokens.getCalculatedValue($component, "space", 0.5)} * var(--#{$component}--inset-multiplier));
-  }
+    @if $includeContentGap {
+        --#{$component}--content-gap: calc(#{tokens.getCalculatedValue($component, "space", 0.5)} * var(--#{$component}--inset-multiplier));
+    }
 
-  @if $includeStackGap {
-    --#{$component}--stack-gap: calc(#{tokens.getCalculatedValue($component, "space")} * var(--#{$component}--inset-multiplier));
-  }
+    @if $includeStackGap {
+        --#{$component}--stack-gap: calc(#{tokens.getCalculatedValue($component, "space")} * var(--#{$component}--inset-multiplier));
+    }
 }
 
 @mixin responsive-publish($selector: null, $scales: $default-scales) {
-  @each $width, $scale in $scales {
-    @container (min-width: #{$width}) {
-      @if $selector ==null {
-        @include publish(contextual-multiplier($scale));
-      }
+    @each $width, $scale in $scales {
+        @container (min-width: #{$width}) {
+            @if $selector ==null {
+                @include publish(contextual-multiplier($scale));
+            }
 
-      @else {
-        #{$selector} {
-          @include publish(contextual-multiplier($scale));
+            @else {
+                #{$selector} {
+                    @include publish(contextual-multiplier($scale));
+                }
+            }
         }
-      }
     }
-  }
 }
 
 @mixin responsive-resolve($component, $selector: null, $scales: $default-scales, $publish: false, $includeContentGap: false, $includeStackGap: false) {
-  @each $width, $scale in $scales {
-    @container (min-width: #{$width}) {
-      @if $selector ==null {
-        @if $publish {
-          @include publish(contextual-multiplier($scale));
+    @each $width, $scale in $scales {
+        @container (min-width: #{$width}) {
+            @if $selector ==null {
+                @if $publish {
+                    @include publish(contextual-multiplier($scale));
+                }
+
+                @include consume($component, contextual-multiplier($scale), $includeContentGap: $includeContentGap, $includeStackGap: $includeStackGap);
+            }
+
+            @else {
+                #{$selector} {
+                    @if $publish {
+                        @include publish(contextual-multiplier($scale));
+                    }
+
+                    @include consume($component, contextual-multiplier($scale), $includeContentGap: $includeContentGap, $includeStackGap: $includeStackGap);
+                }
+            }
         }
-
-        @include consume($component, contextual-multiplier($scale), $includeContentGap: $includeContentGap, $includeStackGap: $includeStackGap);
-      }
-
-      @else {
-        #{$selector} {
-          @if $publish {
-            @include publish(contextual-multiplier($scale));
-          }
-
-          @include consume($component, contextual-multiplier($scale), $includeContentGap: $includeContentGap, $includeStackGap: $includeStackGap);
-        }
-      }
     }
-  }
 }

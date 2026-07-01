@@ -5,9 +5,6 @@ namespace MunicipioStyleGuide\Tests;
 use MunicipioStyleGuide\Helper\ComponentCssParameters;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \MunicipioStyleGuide\Helper\ComponentCssParameters
- */
 class ComponentCssParametersTest extends TestCase
 {
     private string $tempBasePath;

@@ -9,18 +9,12 @@ use MunicipioStyleGuide\Http\Response;
 use MunicipioStyleGuide\Navigation;
 use MunicipioStyleGuide\Search\Search;
 use MunicipioStyleGuide\View;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \MunicipioStyleGuide\Controllers\ElementPageController
- */
 class ElementPageControllerTest extends TestCase
 {
-    /**
-     * @return void
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testHandleAddsElementsOverviewItemsForElementsPage(): void
     {
         $tempBasePath = sys_get_temp_dir() . '/styleguide-element-controller-' . uniqid('', true) . '/';
@@ -106,11 +100,7 @@ class ElementPageControllerTest extends TestCase
         @rmdir($tempBasePath);
     }
 
-    /**
-     * @return void
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testHandleAddsElementDocumentationDataForDetailPage(): void
     {
         $tempBasePath = sys_get_temp_dir() . '/styleguide-element-controller-detail-' . uniqid('', true) . '/';

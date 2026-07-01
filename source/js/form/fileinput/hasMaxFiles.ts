@@ -1,4 +1,4 @@
-import { FileInputController } from './controller';
+import type { FileInputController } from './controller';
 
 export function HasMaxFiles(
     controller: FileInputController,

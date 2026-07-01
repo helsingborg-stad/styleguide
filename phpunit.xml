@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.6/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
          colors="true"
          failOnRisky="true"
          failOnWarning="true"
-         verbose="true">
+         failOnDeprecation="true"
+         failOnPhpunitDeprecation="true">
     <php>
         <ini name="xdebug.mode" value="off"/>
         <ini name="xdebug.start_with_request" value="no"/>

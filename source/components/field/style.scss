@@ -178,8 +178,8 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
                 width: calc(tokens.getCalculatedValue($_, "base", 5));
                 border-left: tokens.getCalculatedValue($_, "border-width", 1) solid var(--#{$_}--border-color);
                 background-image: linear-gradient(to bottom,
-                    color-mix(in srgb, var(--#{$_}--border-color) 14%, var(--#{$_}--background-color)),
-                    color-mix(in srgb, var(--#{$_}--border-color) 8%, var(--#{$_}--background-color)));
+                color-mix(in srgb, var(--#{$_}--border-color) 14%, var(--#{$_}--background-color)),
+                color-mix(in srgb, var(--#{$_}--border-color) 8%, var(--#{$_}--background-color)));
                 border-top-right-radius: tokens.getCalculatedValue($_, "border-radius");
                 border-bottom-right-radius: tokens.getCalculatedValue($_, "border-radius");
                 pointer-events: none;

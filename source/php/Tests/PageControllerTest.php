@@ -9,18 +9,12 @@ use MunicipioStyleGuide\Http\Response;
 use MunicipioStyleGuide\Navigation;
 use MunicipioStyleGuide\Search\Search;
 use MunicipioStyleGuide\View;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \MunicipioStyleGuide\Controllers\PageController
- */
 class PageControllerTest extends TestCase
 {
-    /**
-     * @return void
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testHandleAddsComponentOverviewItemsForComponentsPage(): void
     {
         $tempBasePath = sys_get_temp_dir() . '/styleguide-page-controller-' . uniqid('', true) . '/';
@@ -103,11 +97,7 @@ class PageControllerTest extends TestCase
         @rmdir($tempBasePath);
     }
 
-    /**
-     * @return void
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testHandleAddsUtilitiesOverviewItemsForUtilitiesPage(): void
     {
         $tempBasePath = sys_get_temp_dir() . '/styleguide-page-controller-utilities-' . uniqid('', true) . '/';
@@ -208,11 +198,7 @@ class PageControllerTest extends TestCase
         @rmdir($tempBasePath);
     }
 
-    /**
-     * @return void
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testHandleAddsUtilityPageDataFromUtilityJson(): void
     {
         $tempBasePath = sys_get_temp_dir() . '/styleguide-page-controller-utility-' . uniqid('', true) . '/';
@@ -292,11 +278,7 @@ class PageControllerTest extends TestCase
         @rmdir($tempBasePath);
     }
 
-    /**
-     * @return void
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testHandleAddsUtilityPageDataFromLegacyUtilityAliasUrl(): void
     {
         $tempBasePath = sys_get_temp_dir() . '/styleguide-page-controller-utility-alias-' . uniqid('', true) . '/';
@@ -364,11 +346,7 @@ class PageControllerTest extends TestCase
         @rmdir($tempBasePath);
     }
 
-    /**
-     * @return void
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testHandleAppendsStateToUtilityHeadlineWhenNotStable(): void
     {
         $tempBasePath = sys_get_temp_dir() . '/styleguide-page-controller-utility-state-' . uniqid('', true) . '/';
@@ -436,11 +414,7 @@ class PageControllerTest extends TestCase
         @rmdir($tempBasePath);
     }
 
-    /**
-     * @return void
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testHandleAddsUtilityExampleCssUrlsWhenConfigured(): void
     {
         $tempBasePath = sys_get_temp_dir() . '/styleguide-page-controller-utility-css-' . uniqid('', true) . '/';
@@ -532,11 +506,7 @@ class PageControllerTest extends TestCase
         @rmdir($tempBasePath);
     }
 
-    /**
-     * @return void
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testHandleMapsListStyleUtilityExamplesWithSectionMetadata(): void
     {
         $tempBasePath = sys_get_temp_dir() . '/styleguide-page-controller-utility-list-examples-' . uniqid('', true) . '/';

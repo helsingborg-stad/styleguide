@@ -47,7 +47,7 @@ class Notification{
 
     setAutoHideDuration(notification){
         const autoHideDuration = notification.getAttribute('autoHideDuration');
-        setTimeout(function(){ notification.outerHTML = ""; }, autoHideDuration);
+        setTimeout(()=> { notification.outerHTML = ""; }, autoHideDuration);
     }
 }
 

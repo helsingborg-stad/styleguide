@@ -5,11 +5,9 @@ namespace MunicipioStyleGuide\Tests;
 use HelsingborgStad\BladeService\BladeServiceInterface;
 use Illuminate\Contracts\View\View as BladeView;
 use MunicipioStyleGuide\Helper\Documentation;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \MunicipioStyleGuide\Helper\Documentation
- */
 class ComponentLibraryTest extends TestCase
 {
     private string $tempBasePath;
@@ -215,11 +213,7 @@ class ComponentLibraryTest extends TestCase
         $this->assertStringContainsString("'message' => [", $subcomponents[0]['usageExample']);
     }
 
-    /**
-     * @return void
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testGetUsageExamplesMapsPaperWrapperMetadata(): void
     {
         mkdir($this->tempBasePath . 'source/components/accordion/examples', 0777, true);

@@ -22,7 +22,7 @@ class ClassToggleInitializer {
                 if (mutation.type === "childList") {
                     mutation.addedNodes.forEach((node) => {
                         if (node instanceof HTMLElement) {
-                            let triggers = [...this.findTriggers(node)];
+                            const triggers = [...this.findTriggers(node)];
 
                             if (node.hasAttribute(ClassToggleAttr.TRIGGER) || node.hasAttribute(ClassToggleAttr.TRIGGER_DEPRECATED)) {
                                 triggers.push(node);
@@ -57,8 +57,8 @@ class ClassToggleInitializer {
      * @param trigger The trigger element to initialize.
      */
     private initTrigger(trigger: HTMLElement) {
-    let triggerId = trigger.getAttribute(ClassToggleAttr.TRIGGER) || trigger.getAttribute(ClassToggleAttr.TRIGGER_DEPRECATED);
-    let groupId   = trigger.getAttribute(ClassToggleAttr.GROUP)   || trigger.getAttribute(ClassToggleAttr.GROUP_DEPRECATED);
+    const triggerId = trigger.getAttribute(ClassToggleAttr.TRIGGER) || trigger.getAttribute(ClassToggleAttr.TRIGGER_DEPRECATED);
+    const groupId   = trigger.getAttribute(ClassToggleAttr.GROUP)   || trigger.getAttribute(ClassToggleAttr.GROUP_DEPRECATED);
 
         if (triggerId) {
             new ClassToggle(trigger as HTMLElement, triggerId, groupId);

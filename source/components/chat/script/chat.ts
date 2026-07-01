@@ -1,6 +1,6 @@
-import MessageFactory from "./messages/messageFactory";
-import MessageRenderer from "./messages/messageRenderer";
-import PendingMessageManager from "./messages/pendingMessageManager";
+import type MessageFactory from "./messages/messageFactory";
+import type MessageRenderer from "./messages/messageRenderer";
+import type PendingMessageManager from "./messages/pendingMessageManager";
 
 
 class Chat implements ChatInterface {

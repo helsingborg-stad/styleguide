@@ -3,18 +3,12 @@
 namespace MunicipioStyleGuide\Tests;
 
 use MunicipioStyleGuide\Customize\CustomizeAssets;
+use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \MunicipioStyleGuide\Customize\CustomizeAssets
- */
 class CustomizeAssetsTest extends TestCase
 {
-    /**
-     * @return void
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testGetReturnsCustomizeAssetsAndDataWhenFilesExist(): void
     {
         $tempBasePath = sys_get_temp_dir() . '/styleguide-customize-assets-' . uniqid('', true) . '/';
@@ -65,11 +59,7 @@ class CustomizeAssetsTest extends TestCase
         @rmdir($tempBasePath);
     }
 
-    /**
-     * @return void
-     *
-     * @runInSeparateProcess
-     */
+    #[RunInSeparateProcess]
     public function testGetReturnsNullValuesWhenManifestAndDataAreInvalid(): void
     {
         $tempBasePath = sys_get_temp_dir() . '/styleguide-customize-assets-invalid-' . uniqid('', true) . '/';

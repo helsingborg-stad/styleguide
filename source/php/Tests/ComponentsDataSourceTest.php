@@ -5,9 +5,6 @@ namespace MunicipioStyleGuide\Tests;
 use MunicipioStyleGuide\Search\DataSources\ComponentsDataSource;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \MunicipioStyleGuide\Search\DataSources\ComponentsDataSource
- */
 class ComponentsDataSourceTest extends TestCase
 {
     /**

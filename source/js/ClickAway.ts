@@ -30,7 +30,7 @@ export class ClickAway {
 }
 
 export function initializeClickAways() {
-    let clickAwayInstances: ClickAway[] = [];
+    const clickAwayInstances: ClickAway[] = [];
     document.querySelectorAll('[data-js-click-away]').forEach((element) => {
         const classesToRemove =
             element.getAttribute('data-js-click-away')?.

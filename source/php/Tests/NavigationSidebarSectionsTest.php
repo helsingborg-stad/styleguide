@@ -14,9 +14,6 @@ use MunicipioStyleGuide\Sidebar\Sections\ScriptSection;
 use MunicipioStyleGuide\Sidebar\Sections\UtilitiesSection;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \MunicipioStyleGuide\Navigation
- */
 class NavigationSidebarSectionsTest extends TestCase
 {
     private string $tempProjectRoot;

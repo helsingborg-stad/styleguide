@@ -6,9 +6,6 @@ use MunicipioStyleGuide\Search\DataSource;
 use MunicipioStyleGuide\Search\Search;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \MunicipioStyleGuide\Search\Search
- */
 class SearchTest extends TestCase
 {
     /**

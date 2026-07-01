@@ -1,16 +1,16 @@
-let acceptedSuppliers = JSON.parse(localStorage.getItem('acceptedSuppliers')) ?? [];
+const acceptedSuppliers = JSON.parse(localStorage.getItem('acceptedSuppliers')) ?? [];
 
 /* Undefined check */
 const hasSuppressedContent = (modifier) => {
-    let suppressedContentExists = document.querySelectorAll('.js-suppressed-content' + (modifier ? modifier : '')).length > 0;
+    const suppressedContentExists = document.querySelectorAll('.js-suppressed-content' + (modifier ? modifier : '')).length > 0;
     return suppressedContentExists;
 }
 
 /* Returns url */
 const url = (contentWrapper) => { 
     if(contentWrapper.hasAttribute('data-src')) {
-        let json = JSON.parse(contentWrapper.getAttribute('data-src'));
-        let url = [];
+        const json = JSON.parse(contentWrapper.getAttribute('data-src'));
+        const url = [];
         json.forEach(host => {
             url.push(new URL(host));
         });
@@ -21,7 +21,7 @@ const url = (contentWrapper) => {
 }
 
 const handleReveal = (contentWrapper) => {
-    let needsAcceptance = [];
+    const needsAcceptance = [];
     const contentUrl = url(contentWrapper);
      contentUrl.forEach(supplier => {
          if(acceptedSuppliers.includes(supplier.host)) {

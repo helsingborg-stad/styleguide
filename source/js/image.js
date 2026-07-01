@@ -32,7 +32,7 @@ class Image {
     setAttr(){
 
         if (this.imgAttr.src) {
-            for (let [key, value] of Object.entries(this.imgAttr)) {
+            for (const [key, value] of Object.entries(this.imgAttr)) {
                 this.image.setAttribute(`${key}`, value);
             }
         }

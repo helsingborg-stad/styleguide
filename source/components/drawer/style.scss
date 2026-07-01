@@ -128,8 +128,8 @@ $_: "c-drawer";
     z-index: 10;
     transform: translate(-100%);
     transition: visibility 0s linear var(--#{$_}--drawer-transition-ms),
-    var(--#{$_}--drawer-transition-ms) ease-in transform,
-    var(--#{$_}--drawer-transition-ms) ease-in opacity;
+        var(--#{$_}--drawer-transition-ms) ease-in transform,
+        var(--#{$_}--drawer-transition-ms) ease-in opacity;
     visibility: hidden;
     opacity: 0;
     display: flex;
@@ -214,8 +214,8 @@ $_: "c-drawer";
 
 .c-drawer.is-open {
     transition: visibility 0s linear 0s,
-    var(--#{$_}--drawer-transition-ms) ease-out transform,
-    var(--#{$_}--drawer-transition-ms) ease-out opacity;
+        var(--#{$_}--drawer-transition-ms) ease-out transform,
+        var(--#{$_}--drawer-transition-ms) ease-out opacity;
     visibility: visible;
     transform: translate(0%);
     opacity: 1;
@@ -235,7 +235,7 @@ $_overlay: "drawer-overlay";
     height: 100%;
     z-index: 9;
     transition: visibility 0s linear var(--#{$_overlay}--drawer-transition-ms),
-    var(--#{$_overlay}--drawer-transition-ms) ease-in opacity;
+        var(--#{$_overlay}--drawer-transition-ms) ease-in opacity;
     visibility: hidden;
     opacity: 0;
     backdrop-filter: blur(1px);
@@ -246,6 +246,6 @@ $_overlay: "drawer-overlay";
 .c-drawer.is-open+.drawer-overlay {
     opacity: 1;
     transition: visibility 0s linear 0s,
-    var(--#{$_}--drawer-transition-ms) ease-out opacity;
+        var(--#{$_}--drawer-transition-ms) ease-out opacity;
     visibility: visible;
 }

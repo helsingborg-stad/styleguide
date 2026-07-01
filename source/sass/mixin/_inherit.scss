@@ -1,14 +1,14 @@
 @mixin property($name, $inherits: true) {
-  @property --inherit-#{$name} {
-    syntax: "*";
-    inherits: $inherits;
-  }
+    @property --inherit-#{$name} {
+        syntax: "*";
+        inherits: $inherits;
+    }
 }
 
 @mixin publish($name, $value) {
-  --inherit-#{$name}: #{$value};
+    --inherit-#{$name}: #{$value};
 }
 
 @mixin consume($component, $name, $fallback, $localName: $name) {
-  --#{$component}--#{$localName}: var(--inherit-#{$name}, #{$fallback});
+    --#{$component}--#{$localName}: var(--inherit-#{$name}, #{$fallback});
 }

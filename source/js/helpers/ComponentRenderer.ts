@@ -3,7 +3,7 @@ import util from 'node:util'
 import fs from 'node:fs'
 const exec = util.promisify(require('node:child_process').exec)
 
-export interface IComponentData {}
+export type IComponentData = {}
 
 interface IComponentRenderer {
     scriptPath: string

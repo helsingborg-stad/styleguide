@@ -1,4 +1,4 @@
-import { FileInputController } from "../controller";
+import type { FileInputController } from "../controller";
 
 class FileList {
     constructor(
