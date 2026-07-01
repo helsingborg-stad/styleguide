@@ -18,12 +18,50 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Bump version files (no release yet)
-        uses: helsingborg-stad/release-wp-plugin-action@main
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
-          php-version: 8.2
           node-version: 24.3.0
-          skip-release: true  # custom flag you added
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          tools: composer:v2
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0
+        with:
+          versionSpec: '5.x'
+
+      - name: Determine Version
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v0
+        with:
+          useConfigFile: true
+
+      - name: Configure npm for GitHub Packages
+        run: |
+          printf '//npm.pkg.github.com/:_authToken=%s\n@helsingborg-stad:registry=https://npm.pkg.github.com\n' "${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+
+      - name: Bump version files
+        run: |
+          php -r '
+            $pkgFile = "package.json";
+            $pkg = json_decode(file_get_contents($pkgFile), true);
+            $pkg["version"] = "${{ steps.gitversion.outputs.semVer }}";
+            file_put_contents($pkgFile, json_encode($pkg, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+            exec("npm update --package-lock-only");
+            print "Updated package.json version to " . $pkg["version"] . "\n";
+          '
+
+      - name: Commit version bump
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git diff --staged --quiet && echo "Nothing to commit, skipping" || git commit -m "build: update package file versions to ${{ steps.gitversion.outputs.semVer }}"
+          git push || echo "Nothing to push"
 
       - name: Pull latest main-1.x with bumped version
         run: |
@@ -40,16 +78,6 @@ jobs:
           echo "Detected version: $VERSION"
 
       # --- PHP Build ---
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.2"
-
-      - name: Configure npm for GitHub Packages
-        run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
-          echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> .npmrc
-
       - name: Run PHP build script
         run: php build.php --no-composer --cleanup --release
 
