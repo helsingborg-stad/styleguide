@@ -1,7 +1,7 @@
-import { FileInputController } from "../../controller";
-import FileIdCreator from "../helper/fileIdCreator";
-import FileNameFormatter from "../helper/fileNameFormatter";
-import FileSizeFormatter from "../helper/fileSizeFormatter";
+import type { FileInputController } from "../../controller";
+import type FileIdCreator from "../helper/fileIdCreator";
+import type FileNameFormatter from "../helper/fileNameFormatter";
+import type FileSizeFormatter from "../helper/fileSizeFormatter";
 
 class FilePreviewListRenderer implements FilePreviewRenderer {
     private fileNameTarget: string = '[data-js-file="filename"]';

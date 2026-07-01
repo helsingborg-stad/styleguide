@@ -23,7 +23,7 @@ const setListeners = (menuElements, sectionElements) => {
 
         let currentScroll = 0;
         window.addEventListener('scroll', () => {
-            let scrollTop = window.scrollY;
+            const scrollTop = window.scrollY;
             if(Math.abs(currentScroll - scrollTop > 10 || currentScroll - scrollTop < -10)) {
                 handleScroll(menuElements);
                 currentScroll = scrollTop;
@@ -52,9 +52,7 @@ const elementPositions = (sectionElements) => {
         headerHeight = header.offsetHeight;
         scrollContainer.style.top = header.offsetHeight + 'px';
     }
-    const arr = sectionElements.map(function (sectionElement) {
-        return ({"position": window.scrollY + sectionElement.getBoundingClientRect().top, "height": sectionElement.getBoundingClientRect().height});
-    });
+    const arr = sectionElements.map((sectionElement) => ({"position": window.scrollY + sectionElement.getBoundingClientRect().top, "height": sectionElement.getBoundingClientRect().height}));
     sectionElementPositions = arr;
 }
 

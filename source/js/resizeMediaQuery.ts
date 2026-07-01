@@ -17,7 +17,7 @@ class ResizeMediaQuery {
         this.element = element;
         this.resizeClass = null;
 
-        let resizeClass = element.getAttribute('data-observe-resizes');
+        const resizeClass = element.getAttribute('data-observe-resizes');
         if (resizeClass !== '') {
             this.resizeClass = resizeClass;
         }

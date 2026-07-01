@@ -1,4 +1,4 @@
-import { ImoveElement } from "./moveElement";
+import type { ImoveElement } from "./moveElement";
 
 const moveToSelector = '[data-move-to]'
 const moveToAttributeName = 'data-move-to'

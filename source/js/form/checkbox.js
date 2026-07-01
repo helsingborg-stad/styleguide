@@ -6,11 +6,11 @@ class Checkbox {
     setListener(checkboxGroups) {
         checkboxGroups.forEach(checkboxGroup => {
             const checkboxes = checkboxGroup.querySelectorAll('.c-option__checkbox--hidden-box');
-            let validationElement = checkboxGroup.querySelector('.js-checkbox-valid');
+            const validationElement = checkboxGroup.querySelector('.js-checkbox-valid');
 
             checkboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', () => {
-                    let validator = checkboxGroup.querySelectorAll('.c-option [type="checkbox"]:checked');
+                    const validator = checkboxGroup.querySelectorAll('.c-option [type="checkbox"]:checked');
                     if (validator.length > 0) {
                         validationElement.setAttribute('checked', true);
                         checkboxGroup.querySelector('.c-field__label').classList.remove('u-color__text--danger');
@@ -24,9 +24,9 @@ class Checkbox {
 
     validateCheckboxes(checkboxGroups) {
 
-        let hasChecked = [];
+        const hasChecked = [];
         checkboxGroups.forEach(group => {
-            let input = group.querySelector('[data-js-required]');
+            const input = group.querySelector('[data-js-required]');
             let validation = input.getAttribute('checked') ? true : false;
 
             if (input.hasAttribute('js-no-validation')) {

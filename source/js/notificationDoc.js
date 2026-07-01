@@ -7,14 +7,14 @@ class NotificationDoc{
         if(notification)
         {
             const direction = notification.getAttribute('direction');
-            let container = document.createElement('DIV');
+            const container = document.createElement('DIV');
             container.classList.add('c-notification__container');
             container.classList.add('c-notification__container--' + direction);
             container.setAttribute('maxAmount', 3)
             document.body.appendChild(container);
 
             notificationButton.addEventListener('click', ()=>{
-                let notificationCopy = notification.cloneNode(true);
+                const notificationCopy = notification.cloneNode(true);
                 notificationCopy.classList.remove('u-display--none');
                 
                 container.appendChild(notificationCopy);

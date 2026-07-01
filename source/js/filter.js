@@ -12,7 +12,7 @@ export default class Filter {
     }
 
     enableSearch() {
-        let containers = document.querySelectorAll(CONTAINER);//Get filterable elements
+        const containers = document.querySelectorAll(CONTAINER);//Get filterable elements
 
         containers.forEach((container) => {
 
@@ -45,12 +45,12 @@ export default class Filter {
             //Get inputs
             container.querySelectorAll(INPUT).forEach((input) => {
                 input.addEventListener('input', () => {
-                    let inputId = input.getAttribute('js-filter-input');
+                    const inputId = input.getAttribute('js-filter-input');
 
                     this.list.forEach((item) => {
                         if (item.searchId === inputId) {
                             //Get search term and search in item
-                            let res = item.data.search(input.value.toLocaleLowerCase());
+                            const res = item.data.search(input.value.toLocaleLowerCase());
 
                             if (res < 0) {
                                 item.element.remove(); //Remove unmatched

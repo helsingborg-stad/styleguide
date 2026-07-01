@@ -1,4 +1,4 @@
-import Notice from "./notice";
+import type Notice from "./notice";
 
 export class Dropzone {
     private dragCounter = 0;

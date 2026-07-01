@@ -9,12 +9,12 @@ class SplitButton{
 
 
         splitButtons.forEach((splitButton)=> {
-            let buttons = splitButton.getElementsByClassName('c-button');
-            let actionButton = buttons[0];
-            let dropDownList = splitButton.getElementsByClassName('c-dropdown__list')[0];
-            let listItems = dropDownList.getElementsByTagName('li');
+            const buttons = splitButton.getElementsByClassName('c-button');
+            const actionButton = buttons[0];
+            const dropDownList = splitButton.getElementsByClassName('c-dropdown__list')[0];
+            const listItems = dropDownList.getElementsByTagName('li');
 
-            for(let item of listItems){
+            for(const item of listItems){
                 item.addEventListener('click', () => {
                     actionButton.innerText = item.innerText;
                 }) 

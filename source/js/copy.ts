@@ -5,13 +5,13 @@ class Copy {
     }
 
     copy(element: Element) {
-        let target = element.getAttribute('data-js-copy-target');
+        const target = element.getAttribute('data-js-copy-target');
         
         element.addEventListener('click', () => {
-            let targetEl = target == "self" ? element : document.querySelector(`[data-js-copy-item="${target}"]`);
+            const targetEl = target == "self" ? element : document.querySelector(`[data-js-copy-item="${target}"]`);
 
             if (targetEl && targetEl.hasAttribute('data-js-copy-data')) {
-                let data = targetEl.getAttribute('data-js-copy-data') ?? '';
+                const data = targetEl.getAttribute('data-js-copy-data') ?? '';
 
                 if ('permissions' in navigator) {
                     navigator.permissions.query({ name: 'clipboard-write' as PermissionName})
@@ -49,7 +49,7 @@ class Copy {
         const errorNotice = element.getAttribute('data-js-copy-error') ?? 'Something went wrong';
         const notice = success ? successNotice : errorNotice;
 
-        let sibling = element.nextSibling;
+        const sibling = element.nextSibling;
         if (sibling instanceof Element && sibling.hasAttribute('js-data-copy-notice')) {
             sibling.textContent = notice;
         } else {

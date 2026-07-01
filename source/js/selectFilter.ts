@@ -1,4 +1,4 @@
-import { FilterableElementComponent, FilterSelects } from "./selectFilterInterface";
+import type { FilterableElementComponent, FilterSelects } from "./selectFilterInterface";
 
 class SelectFilter {
     selectContainerId: string;
@@ -47,7 +47,7 @@ class SelectFilter {
 
     private filterFilterableElements(): void {
         this.filterableElementComponents.forEach((filterableElementComponent: FilterableElementComponent) => {
-            let showElement = [true];
+            const showElement = [true];
             for (const key in this.filterSelects) {
                if (this.filterSelects[key].selected.length > 0) {
                     showElement.push(this.filterSelects[key].selected.some((selected) => {
@@ -71,7 +71,7 @@ class SelectFilter {
     }
 
     private updateSelected(key: string): void {
-        let selected = [] as Array<string>;
+        const selected = [] as Array<string>;
 
         this.filterSelects[key].selects.forEach((select) => {
             const selectedOptions = select.querySelectorAll('option:checked');
@@ -94,7 +94,7 @@ class SelectFilter {
     }
 
     private setFilterableElementComponent(element: HTMLElement) {
-        let filterableElementComponent = {} as FilterableElementComponent;
+        const filterableElementComponent = {} as FilterableElementComponent;
         filterableElementComponent['element'] = element;
         filterableElementComponent['filterProperties'] = {};
 

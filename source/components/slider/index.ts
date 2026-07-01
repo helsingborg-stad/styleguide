@@ -44,7 +44,7 @@ export default class Slider {
             gap: this.sliderAttributes.gap,
             padding: this.sliderAttributes.padding,
             autoplay: Boolean(autoPlay) && (!mediaQuery || !mediaQuery.matches),
-            interval: Boolean(autoPlay) ? autoPlay * 1000 : 5000,
+            interval: autoPlay ? autoPlay * 1000 : 5000,
             pagination: slider.classList.contains('c-slider--has-stepper'),
             pauseOnHover: true,
             pauseOnFocus: true,
@@ -139,7 +139,7 @@ export default class Slider {
     }
 
     getAttributes(): Options {
-        let padding = parseInt(this.sliderElement.getAttribute('data-slider-padding') || '0', 10);
+        const padding = parseInt(this.sliderElement.getAttribute('data-slider-padding') || '0', 10);
         const gap = parseInt(this.sliderElement.getAttribute('data-slider-gap') || '2', 10);
         const slidesPerPage = parseInt(this.sliderElement.getAttribute('data-slides-per-page') || '1', 10);
         const slidesPerMove = parseInt(this.sliderElement.getAttribute('data-slides-per-move') || '1', 10);

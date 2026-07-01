@@ -1,7 +1,7 @@
 import { TooltipDom, TooltipSetup } from './tooltipEnums';
-import TooltipEvents from './tooltipEvents';
-import TooltipPositioner from './tooltipPositioner';
-import TooltipView from './tooltipView';
+import type TooltipEvents from './tooltipEvents';
+import type TooltipPositioner from './tooltipPositioner';
+import type TooltipView from './tooltipView';
 
 class TooltipController {
     private activeTrigger: HTMLElement | null = null;

@@ -1,5 +1,5 @@
 import { getPendingMarkup } from "../helper/pending";
-import MessageFactory from "./messageFactory";
+import type MessageFactory from "./messageFactory";
 
 class PendingMessageManager {
     private pendingMessage: MessageInterface | null = null;

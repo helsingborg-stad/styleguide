@@ -34,7 +34,7 @@
     }
 
     subscribeInput(targetElements) {
-        let arr = [];            
+        const arr = [];            
         targetElements.forEach(input => {
             input.addEventListener('keydown', (event) => {
                 if (

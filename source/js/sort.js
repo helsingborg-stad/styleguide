@@ -17,9 +17,9 @@ class Sort {
 
     appendSortable(container, dataId, initialSort = false) {
         let sorted = [];
-        let sortOrder = container.getAttribute(this.ORDER);
-        let sortData = container.querySelectorAll(`[${this.DATA}="${dataId}"]`);
-        let comparableData = [...sortData].map((data) => {
+        const sortOrder = container.getAttribute(this.ORDER);
+        const sortData = container.querySelectorAll(`[${this.DATA}="${dataId}"]`);
+        const comparableData = [...sortData].map((data) => {
             return { data: data.innerText, index: data.closest(`[${this.SORTABLE}]`) }
         });
         
@@ -47,8 +47,8 @@ class Sort {
             const sortButtons = container.querySelectorAll(`[${this.BUTTON}]`);
             sortButtons.forEach((button) => {
 
-                let dataId = button.getAttribute(this.BUTTON);
-                let initialSort = container.getAttribute(this.INITIAL)
+                const dataId = button.getAttribute(this.BUTTON);
+                const initialSort = container.getAttribute(this.INITIAL)
 
                 if(initialSort){
                     container.setAttribute(this.ORDER, initialSort)

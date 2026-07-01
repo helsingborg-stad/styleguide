@@ -1,4 +1,4 @@
-import { FileInputController } from "../../controller";
+import type { FileInputController } from "../../controller";
 import FileIdCreator from "../helper/fileIdCreator";
 import FileNameFormatter from "../helper/fileNameFormatter";
 import FileSizeFormatter from "../helper/fileSizeFormatter";
@@ -24,7 +24,7 @@ class FilePreviewFactory {
             new FileIdCreator()
         ]
 
-        if (!!fileInput.dataset.jsFilePreview) {
+        if (fileInput.dataset.jsFilePreview) {
             return new FilePreviewCardRenderer(...params, new PreviewCreator());
         }
 
