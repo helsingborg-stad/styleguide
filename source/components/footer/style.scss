@@ -25,6 +25,8 @@ $_: "c-footer";
     --#{$_}--subfooter-separator-color: #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--list-marker-color: color-mix(in srgb, var(--#{$_}--color) 30%, var(--#{$_}--border-color));
     --#{$_}--subfooter-separator-dot-color: color-mix(in srgb, var(--#{$_}--subfooter-color) 30%, var(--#{$_}--subfooter-separator-color));
+    --#{$_}--logotype-hover-color: var(--#{$_}--color);
+    --#{$_}--subfooter-logotype-hover-color: var(--#{$_}--subfooter-color);
     --#{$_}--subfooter-border-width: 0;
     --#{$_}--subfooter-border-width-token: #{tokens.getCalculatedValue($_, "border-width")};
     --#{$_}--background-image: none;
@@ -47,7 +49,7 @@ $_: "c-footer";
     --#{$_}--subfooter-flex-direction-value: var(--#{$_}--subfooter-flex-direction, row);
     @include inherit.publish("color-background", var(--#{$_}--background-color));
     @include inherit.publish("color-contrast", var(--#{$_}--color));
-    @include inherit.publish("color-primary", #{tokens.getRawValue($_, "color--primary")});
+    @include inherit.publish("color-primary", var(--#{$_}--logotype-hover-color));
     position: relative;
     isolation: isolate;
     overflow: hidden;
@@ -89,6 +91,8 @@ $_: "c-footer";
         --#{$_}--subfooter-background-color: #{tokens.getRawValue($_, "color--primary-alt")};
         --#{$_}--subfooter-color: #{tokens.getRawValue($_, "color--primary-contrast")};
         --#{$_}--subfooter-separator-color: #{tokens.getRawValue($_, "color--primary-border")};
+        --#{$_}--logotype-hover-color: #{tokens.getRawValue($_, "color--secondary")};
+        --#{$_}--subfooter-logotype-hover-color: #{tokens.getRawValue($_, "color--secondary")};
     }
 
     &--secondary {
@@ -99,6 +103,8 @@ $_: "c-footer";
         --#{$_}--subfooter-background-color: #{tokens.getRawValue($_, "color--secondary-alt")};
         --#{$_}--subfooter-color: #{tokens.getRawValue($_, "color--secondary-contrast")};
         --#{$_}--subfooter-separator-color: #{tokens.getRawValue($_, "color--secondary-border")};
+        --#{$_}--logotype-hover-color: #{tokens.getRawValue($_, "color--primary")};
+        --#{$_}--subfooter-logotype-hover-color: #{tokens.getRawValue($_, "color--primary")};
     }
 
     &--background {
@@ -109,6 +115,8 @@ $_: "c-footer";
         --#{$_}--subfooter-background-color: #{tokens.getRawValue($_, "color--background-alt")};
         --#{$_}--subfooter-color: #{tokens.getRawValue($_, "color--background-contrast")};
         --#{$_}--subfooter-separator-color: #{tokens.getRawValue($_, "color--background-border")};
+        --#{$_}--logotype-hover-color: #{tokens.getRawValue($_, "color--primary")};
+        --#{$_}--subfooter-logotype-hover-color: #{tokens.getRawValue($_, "color--primary")};
     }
 
     &--logotype-align__left,
@@ -370,7 +378,7 @@ $_: "c-footer";
 
         [data-component="link"] {
             @include inherit.publish("color-contrast", var(--#{$_}--subfooter-color));
-            @include inherit.publish("color-primary", #{tokens.getRawValue($_, "color--primary")});
+            @include inherit.publish("color-primary", var(--#{$_}--subfooter-logotype-hover-color));
         }
 
         &__wrapper {
