@@ -171,6 +171,7 @@
 			"type": "object",
 			"properties": {
 				"token": {
+					"description": "Design token name. Must be a valid token and must also be declared in this component's top-level tokens array.",
 					"$ref": "./design-tokens-schema.json#/$defs/validToken"
 				},
 				"label": {
