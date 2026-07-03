@@ -17,10 +17,11 @@ class UnusedTokensTest extends TestCase
     public function testComponentUtilizeAllTokens(string $component, string $tokenFile, string $componentDir): void
     {
         $tokens = self::extractTokensFromTokenFile($tokenFile);
+        $settingsTokenReferences = self::extractComponentSettingsTokenReferences($tokenFile);
         $scssContents = self::readAllScssFiles($componentDir);
 
         self::assertShadowDependenciesAreDeclared($tokens, $scssContents, $component);
-        $unusedTokens = self::findUnusedTokens($tokens, $scssContents, self::TOKEN_EXCEPTIONS);
+        $unusedTokens = self::findUnusedTokens($tokens, $scssContents, self::TOKEN_EXCEPTIONS, $settingsTokenReferences);
 
         $errorMessage = sprintf("Component '%s' has declared but unused tokens in %s:%s- %s", $component, $componentDir, PHP_EOL, implode(PHP_EOL . '- ', $unusedTokens));
         $this->assertEmpty($unusedTokens, $errorMessage);
@@ -79,12 +80,17 @@ class UnusedTokensTest extends TestCase
         );
     }
 
-    private static function findUnusedTokens(array $tokens, string $scssContents, array $excludedTokens): array
+    private static function findUnusedTokens(
+        array $tokens,
+        string $scssContents,
+        array $excludedTokens,
+        array $componentSettingsTokenReferences,
+    ): array
     {
         $unusedTokens = [];
 
         foreach ($tokens as $token) {
-            if (in_array($token, $excludedTokens, true)) {
+            if (in_array($token, $excludedTokens, true) || in_array($token, $componentSettingsTokenReferences, true)) {
                 continue;
             }
 
@@ -115,6 +121,32 @@ class UnusedTokensTest extends TestCase
         }
 
         return $data['tokens'] ?? [];
+    }
+
+    private static function extractComponentSettingsTokenReferences(string $tokenFile): array
+    {
+        $content = (string) file_get_contents($tokenFile);
+        $data = json_decode($content, true);
+
+        if (!is_array($data) || !isset($data['componentSettings']) || !is_array($data['componentSettings'])) {
+            return [];
+        }
+
+        $references = [];
+
+        foreach ($data['componentSettings'] as $category) {
+            if (!is_array($category) || !isset($category['settings']) || !is_array($category['settings'])) {
+                continue;
+            }
+
+            foreach ($category['settings'] as $setting) {
+                if (is_array($setting) && is_string($setting['token'] ?? null)) {
+                    $references[] = $setting['token'];
+                }
+            }
+        }
+
+        return array_values(array_unique($references));
     }
 
     public static function componentFilesProvider(): \Generator

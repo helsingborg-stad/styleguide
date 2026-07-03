@@ -6,5 +6,9 @@
 	"list": {
 		"heading": "Scope List",
 		"text": "A list of scopes can also be provided to present multiple scopes within the same element."
+	},
+	"nested": {
+		"heading": "Multiple components within a scope",
+		"text": "This example shows how multiple components can be placed within a single scope element. The styles of the components are limited to only the components within its scope."
 	}
 }

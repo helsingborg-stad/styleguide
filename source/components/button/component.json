@@ -13,6 +13,7 @@
 		"color--secondary",
 		"font-weight-medium",
 		"font-family-base",
+		"color--surface",
 		"color--surface-contrast",
 		"shadow-color",
 		"shadow-amount",

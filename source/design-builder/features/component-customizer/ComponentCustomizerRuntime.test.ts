@@ -1390,16 +1390,14 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
-	it('maps full companion families for the real button component data', () => {
-		document.body.innerHTML = `
-			<button class="c-button c-button__filled" data-component="button"></button>
-			<button class="c-button c-button__filled--primary" data-component="button"></button>
-		`;
+	it('does not map full companion families for single variable of variable family', () => {
+		document.body.innerHTML = `<div class="c-loader c-loader__linear--color--black c-loader__linear c-loader__linear--sm" aria-busy="true" role="progressbar" data-component="loader"></div>`;
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);
 		const hostElement = document.createElement('design-builder') as HTMLElement & {
 			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
 		};
+
 		hostElement.overrideState = normalizeDesignBuilderOverrideState({
 			token: {
 				'--color--palette-1': '#0055aa',
@@ -1416,29 +1414,48 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 			buildCategoriesForComponent(componentName: string): TokenData['categories'];
 		};
 
-		const categories = runtimeInternals.buildCategoriesForComponent('button');
-		const colorCategory = categories.find((category) => category.id === 'colors');
-		const primarySetting = colorCategory?.settings.find((setting) => setting.variable === '--c-button--color--primary');
-		const defaultSetting = colorCategory?.settings.find((setting) => setting.variable === '--c-button--color--surface');
-		const secondaryPrimaryOption = primarySetting?.options?.find((option) => option.label === 'Secondary');
-		const backgroundDefaultOption = defaultSetting?.options?.find((option) => option.label === 'Background');
+		const categories = runtimeInternals.buildCategoriesForComponent('loader');
+		const layoutColorsCategorySettings = categories.find((category) => category.id === 'colors-layout')?.settings ?? [];
 
-		expect(secondaryPrimaryOption?.extraValues).toEqual(
-			expect.objectContaining({
-				'--c-button--color--primary-contrast': 'var(--color--secondary-contrast)',
-				'--c-button--color--primary-border': 'var(--color--secondary-border)',
-			}),
-		);
+		expect(layoutColorsCategorySettings.length).toEqual(1);
+		expect(layoutColorsCategorySettings[0].variable).toEqual('--c-loader--color--surface-contrast');
+		expect(layoutColorsCategorySettings[0].linkedDefaults).toEqual({});
 
-		expect(backgroundDefaultOption?.extraValues).toBeUndefined();
+		hostElement.remove();
+		mount.remove();
+	});
 
-		const palettePrimaryOption = primarySetting?.options?.find((option) => option.label === 'Palette 1');
-		expect(palettePrimaryOption?.extraValues).toEqual(
-			expect.objectContaining({
-				'--c-button--color--primary-contrast': 'var(--color--palette-1-contrast)',
-				'--c-button--color--primary-border': 'var(--color--palette-1-border)',
-			}),
-		);
+	it('maps full companion families for the real loader component data', () => {
+		document.body.innerHTML = `<div class="c-loader c-loader__linear--color--black c-loader__linear c-loader__linear--sm" aria-busy="true" role="progressbar" data-component="loader"></div>`;
+		const mount = document.createElement('div');
+
+		document.body.appendChild(mount);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({
+			token: {
+				'--color--palette-1': '#0055aa',
+				'--color--palette-1-contrast': '#ffffff',
+			},
+		});
+		document.body.appendChild(hostElement);
+
+		const realComponentData = require('../../../../component-design-tokens.json') as ComponentTokenData;
+		const realTokenLibrary = require('../../../data/design-tokens.json') as TokenData;
+
+		const runtime = new ComponentCustomizerRuntime(realComponentData, realTokenLibrary, mount, { hostElement: hostElement as RuntimeHostElement });
+		const runtimeInternals = runtime as unknown as {
+			buildCategoriesForComponent(componentName: string): TokenData['categories'];
+		};
+
+		const categories = runtimeInternals.buildCategoriesForComponent('loader');
+		const brandColorsCategorySettings = categories.find((category) => category.id === 'colors-brand')?.settings ?? [];
+		const primaryColorSetting = brandColorsCategorySettings.find((setting) => setting.label === 'Primary');
+
+		expect(primaryColorSetting).toBeDefined();
+		expect(primaryColorSetting?.linkedDefaults).not.toEqual({});
 
 		hostElement.remove();
 		mount.remove();
