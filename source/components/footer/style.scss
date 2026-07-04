@@ -16,7 +16,7 @@ $_: "c-footer";
 
     --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface")};
     --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
-    --#{$_}--color-muted: #{tokens.getRawValue($_, "color--surface-contrast-muted")};
+    --#{$_}--color-muted: color-mix(in srgb, var(--#{$_}--color) 55%, var(--#{$_}--background-color));
     --#{$_}--border-color: #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--subfooter-background-color: #{tokens.getRawValue($_, "color--surface-alt")};
     --#{$_}--subfooter-background-opacity: 100%;
@@ -88,7 +88,7 @@ $_: "c-footer";
     &--primary {
         --#{$_}--background-color: #{tokens.getRawValue($_, "color--primary")};
         --#{$_}--color: #{tokens.getRawValue($_, "color--primary-contrast")};
-        --#{$_}--color-muted: #{tokens.getRawValue($_, "color--primary-contrast")};
+        --#{$_}--color-muted: color-mix(in srgb, var(--#{$_}--color) 55%, var(--#{$_}--background-color));
         --#{$_}--border-color: #{tokens.getRawValue($_, "color--primary-border")};
         --#{$_}--subfooter-background-color: #{tokens.getRawValue($_, "color--primary-alt")};
         --#{$_}--subfooter-color: #{tokens.getRawValue($_, "color--primary-contrast")};
@@ -100,7 +100,7 @@ $_: "c-footer";
     &--secondary {
         --#{$_}--background-color: #{tokens.getRawValue($_, "color--secondary")};
         --#{$_}--color: #{tokens.getRawValue($_, "color--secondary-contrast")};
-        --#{$_}--color-muted: #{tokens.getRawValue($_, "color--secondary-contrast")};
+        --#{$_}--color-muted: color-mix(in srgb, var(--#{$_}--color) 55%, var(--#{$_}--background-color));
         --#{$_}--border-color: #{tokens.getRawValue($_, "color--secondary-border")};
         --#{$_}--subfooter-background-color: #{tokens.getRawValue($_, "color--secondary-alt")};
         --#{$_}--subfooter-color: #{tokens.getRawValue($_, "color--secondary-contrast")};
@@ -112,7 +112,7 @@ $_: "c-footer";
     &--background {
         --#{$_}--background-color: #{tokens.getRawValue($_, "color--background")};
         --#{$_}--color: #{tokens.getRawValue($_, "color--background-contrast")};
-        --#{$_}--color-muted: #{tokens.getRawValue($_, "color--background-contrast-muted")};
+        --#{$_}--color-muted: color-mix(in srgb, var(--#{$_}--color) 55%, var(--#{$_}--background-color));
         --#{$_}--border-color: #{tokens.getRawValue($_, "color--background-border")};
         --#{$_}--subfooter-background-color: #{tokens.getRawValue($_, "color--background-alt")};
         --#{$_}--subfooter-color: #{tokens.getRawValue($_, "color--background-contrast")};

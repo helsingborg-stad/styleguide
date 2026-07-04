@@ -6,7 +6,7 @@
 @footer([
     'slotOnly' => true,
     'id' => 'site-footer-abc',
-    'logotypeHref' => '#logotype-link',
+    'logotypeHref' => '/',
     'classList' => ['site-footer', 's-footer'],
     'logotype' => '/assets/img/logotype-white-full.svg',
     'subfooterLogotype' => '/assets/img/logotype-white-full.svg',
