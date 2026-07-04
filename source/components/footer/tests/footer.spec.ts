@@ -255,12 +255,13 @@ test.describe('Footer - design panel', () => {
 	});
 
 	test('hovering the footer logotype applies the resolved hover mask color', async ({ page }) => {
+		const logotypeWrapper = page.locator(`${FOOTER_TARGET} .c-footer__header-wrapper .c-link`).first();
 		const logotype = page.locator(`${FOOTER_TARGET} .c-footer__logotype`).first();
 		const initialMaskColor = await getPseudoCss(logotype, '::before', 'background-color');
 		const expectedHoverMaskColor = await resolveCssVariableColor(logotype, '--c-logotype--mask-color-hover');
 
-		await logotype.scrollIntoViewIfNeeded();
-		await logotype.hover({ force: true });
+		await logotypeWrapper.scrollIntoViewIfNeeded();
+		await logotypeWrapper.hover({ force: true });
 
 		await expect.poll(async () => getPseudoCss(logotype, '::before', 'background-color')).toBe(expectedHoverMaskColor);
 		expect(expectedHoverMaskColor).not.toBe(initialMaskColor);
