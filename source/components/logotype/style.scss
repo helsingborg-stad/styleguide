@@ -10,7 +10,7 @@ $_: "c-logotype";
 
 .#{$_} {
     --#{$_}--mask-color: var(--inherit-color-contrast, currentColor);
-    --#{$_}--mask-color-hover: var(--inherit-color-contrast-muted, var(--inherit-color-primary, var(--#{$_}--mask-color)));
+    --#{$_}--mask-color-hover: var(--inherit-color-contrast-muted, var(--#{$_}--mask-color));
     --#{$_}--mask-enabled: 1;
     --#{$_}--mask-current-color: var(--#{$_}--mask-color);
     margin-block-start: 0;

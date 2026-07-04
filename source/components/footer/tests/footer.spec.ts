@@ -259,7 +259,8 @@ test.describe('Footer - design panel', () => {
 		const initialMaskColor = await getPseudoCss(logotype, '::before', 'background-color');
 		const expectedHoverMaskColor = await resolveCssVariableColor(logotype, '--c-logotype--mask-color-hover');
 
-		await logotype.hover();
+		await logotype.scrollIntoViewIfNeeded();
+		await logotype.hover({ force: true });
 
 		await expect.poll(async () => getPseudoCss(logotype, '::before', 'background-color')).toBe(expectedHoverMaskColor);
 		expect(expectedHoverMaskColor).not.toBe(initialMaskColor);
@@ -281,7 +282,6 @@ test.describe('Footer - design panel', () => {
 		await componentLink.hover();
 		await expect(componentLink).toHaveCSS('color', componentExpectedHoverColor);
 
-		const plainInitialColor = await getComputedCss(plainLink, 'color');
 		const plainExpectedHoverColor = await resolveCssVariableColor(plainLink, '--c-link--state-link-color-mix');
 		await plainLink.hover();
 		await expect(plainLink).toHaveCSS('color', plainExpectedHoverColor);
