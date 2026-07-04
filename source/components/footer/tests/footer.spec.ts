@@ -96,6 +96,18 @@ async function getPseudoCss(locator: Locator, pseudo: string, property: string):
 	});
 }
 
+async function resolveCssVariableColor(locator: Locator, variableName: string): Promise<string> {
+	return locator.evaluate((el, customPropertyName) => {
+		const probe = document.createElement('span');
+		probe.style.color = `var(${customPropertyName})`;
+		probe.style.display = 'none';
+		el.appendChild(probe);
+		const resolvedColor = window.getComputedStyle(probe).color.trim();
+		probe.remove();
+		return resolvedColor;
+	}, variableName);
+}
+
 function escapeRegExp(value: string): string {
 	return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -242,12 +254,38 @@ test.describe('Footer - design panel', () => {
 		await expect(headerGrid).toHaveCSS('justify-content', 'flex-end');
 	});
 
+	test('hovering the footer logotype applies the resolved hover mask color', async ({ page }) => {
+		const logotype = page.locator(`${FOOTER_TARGET} .c-footer__logotype`).first();
+		const initialMaskColor = await getPseudoCss(logotype, '::before', 'background-color');
+		const expectedHoverMaskColor = await resolveCssVariableColor(logotype, '--c-logotype--mask-color-hover');
+
+		await logotype.hover();
+
+		await expect.poll(async () => getPseudoCss(logotype, '::before', 'background-color')).toBe(expectedHoverMaskColor);
+		expect(expectedHoverMaskColor).not.toBe(initialMaskColor);
+	});
+
 	test('changing Text Alignment updates footer widget text alignment', async ({ page }) => {
 		await expandCategory(page.locator('.db-category-header').filter({ hasText: 'Layout' }));
 
 		const widget = page.locator(`${FOOTER_TARGET} .c-footer__widget-area`).first();
 		await selectControlOption(page, TEXT_ALIGNMENT_LABEL, 'center');
 		await expect(widget).toHaveCSS('text-align', 'center');
+	});
+
+	test('hovering footer links applies the resolved link hover color', async ({ page }) => {
+		const componentLink = page.locator(`${FOOTER_TARGET} .c-footer__widget-area .c-link`).first();
+		const plainLink = page.locator(`${FOOTER_TARGET} .c-footer__widget-area a[href="#lorem-link-5"]`).first();
+
+		const componentExpectedHoverColor = await resolveCssVariableColor(componentLink, '--c-link--state-link-color-mix');
+		await componentLink.hover();
+		await expect(componentLink).toHaveCSS('color', componentExpectedHoverColor);
+
+		const plainInitialColor = await getComputedCss(plainLink, 'color');
+		const plainExpectedHoverColor = await resolveCssVariableColor(plainLink, '--c-link--state-link-color-mix');
+		await plainLink.hover();
+		await expect(plainLink).toHaveCSS('color', plainExpectedHoverColor);
+		expect(plainExpectedHoverColor).toBeTruthy();
 	});
 
 	test('changing Prefooter Text Alignment updates prefooter text alignment', async ({ page }) => {

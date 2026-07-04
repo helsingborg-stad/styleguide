@@ -5,11 +5,12 @@ $_: "c-logotype";
 
 @include tokens.create($_, getComponentTokens($_));
 @include inherit.property("color-contrast");
+@include inherit.property("color-contrast-muted");
 @include inherit.property("color-primary");
 
 .#{$_} {
     --#{$_}--mask-color: var(--inherit-color-contrast, currentColor);
-    --#{$_}--mask-color-hover: var(--inherit-color-primary, var(--#{$_}--mask-color));
+    --#{$_}--mask-color-hover: var(--inherit-color-contrast-muted, var(--inherit-color-primary, var(--#{$_}--mask-color)));
     --#{$_}--mask-enabled: 1;
     --#{$_}--mask-current-color: var(--#{$_}--mask-color);
     margin-block-start: 0;
