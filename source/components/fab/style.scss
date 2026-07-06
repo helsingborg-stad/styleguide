@@ -85,7 +85,7 @@ $yAxis: (
     padding: var(--#{$_}--panel-padding);
     gap: #{tokens.getCalculatedValue($_, "space", 2)};
     z-index: 1;
-    max-height: calc(100dvh - #{tokens.getCalculatedValue($_, "space", 18)} - var(--#{$_}--stack-offset));
+    max-height: calc(100dvh - #{tokens.getCalculatedValue($_, "space", 22)} - var(--#{$_}--stack-offset));
     overflow: auto;
 }
 
