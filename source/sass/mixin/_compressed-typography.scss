@@ -1,0 +1,36 @@
+/// Default compressed typography scale steps.
+/// Each key maps to a --c-typography--* custom property.
+/// The value is the exponent passed to the font-size scale ratio.
+$_default-steps: (
+    "h1-font-size": 0.8333333333,
+    "h2-font-size": 0.6666666667,
+    "h3-font-size": 0.5,
+    "h4-font-size": 0.3333333333,
+    "h5-font-size": 0.1666666667,
+    "h6-font-size": 0,
+    "font-size-headline": 0.6666666667,
+    "font-size-title": 0.5,
+    "font-size-subtitle": 0.3333333333,
+    "font-size-lead": 0,
+    "font-size-marketing": 1,
+);
+
+/// Returns a CSS calc() expression that resolves a compressed font size
+/// for a given scale $step.
+///
+/// @param {Number} $step - Exponent for the font-size scale ratio
+/// @return {String} CSS calc() expression
+@function size($step) {
+    @return calc(var(--font-size-base, var(--base-font-size, 1rem)) * pow(var(--font-size-scale-ratio), #{$step}));
+}
+
+/// Outputs --c-typography--* custom properties for compressed typography.
+/// Intended to be included on a container whose inner typography should
+/// be scaled down relative to the global type scale.
+///
+/// @param {Map} $steps [$_default-steps] - Map of typography token name → scale exponent
+@mixin apply($steps: $_default-steps) {
+    @each $variable, $step in $steps {
+        --c-typography--#{$variable}: #{size($step)};
+    }
+}
