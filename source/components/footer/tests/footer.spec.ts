@@ -328,6 +328,33 @@ test.describe('Footer - design panel', () => {
 		await expect(wrapper).toHaveCSS('justify-content', 'space-between');
 	});
 
+	test('subfooter keeps visible gap between logo and list for left center and right alignments', async ({ page }) => {
+		await expandCategory(page.locator('.db-category-header').filter({ hasText: 'Layout' }));
+
+		const wrapper = page.locator(`${FOOTER_TARGET} .c-footer__subfooter__wrapper`).first();
+		const alignments = ['flex-start', 'center', 'flex-end'];
+
+		for (const alignment of alignments) {
+			await selectControlOption(page, SUBFOOTER_JUSTIFY_LABEL, alignment);
+
+			const distance = await wrapper.evaluate((element) => {
+				const logoElement = element.querySelector('.c-footer__subfooter__logotype-wrapper');
+				const listElement = element.querySelector('.c-footer__subfooter__list');
+
+				if (!logoElement || !listElement) {
+					return -1;
+				}
+
+				const logoRect = logoElement.getBoundingClientRect();
+				const listRect = listElement.getBoundingClientRect();
+
+				return listRect.left - logoRect.right;
+			});
+
+			expect(distance).toBeGreaterThan(0);
+		}
+	});
+
 	test('changing Subfooter Direction reverses the wrapper direction', async ({ page }) => {
 		await expandCategory(page.locator('.db-category-header').filter({ hasText: 'Layout' }));
 
