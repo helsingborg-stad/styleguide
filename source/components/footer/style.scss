@@ -483,7 +483,6 @@ $_: "c-footer";
 
     .#{$_} {
         --#{$_}--outer-padding-inset-multiplier-scale: 0.5;
-        --#{$_}--text-align: center;
 
         &__body {
             grid-template-areas:
@@ -499,6 +498,39 @@ $_: "c-footer";
 
         &__subfooter__list li:not(:first-child):before {
             display: none;
+        }
+
+        &__subfooter {
+            --#{$_}--subfooter-justify-content-value: center;
+            --#{$_}--subfooter-flex-direction-value: column;
+
+            &__wrapper,
+            &__list {
+                align-items: center;
+                justify-content: center;
+            }
+
+            &__list {
+                flex-direction: column;
+                text-align: center;
+
+                li {
+                    padding-right: 0;
+                    text-align: center;
+
+                    &:before {
+                        display: none;
+                    }
+                }
+            }
+
+            &__logotype-wrapper {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: #{tokens.getCalculatedValue($_, "space", 3)};
+            }
         }
 
         &__logotype,

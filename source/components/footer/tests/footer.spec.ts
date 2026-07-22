@@ -298,6 +298,15 @@ test.describe('Footer - design panel', () => {
 		await expect(widget).toHaveCSS('text-align', 'center');
 	});
 
+	test('small viewport keeps the selected footer widget text alignment', async ({ page }) => {
+		await page.setViewportSize({ width: 820, height: 900 });
+		await expandCategory(page.locator('.db-category-header').filter({ hasText: 'Layout' }));
+
+		const widget = page.locator(`${FOOTER_TARGET} .c-footer__widget-area`).first();
+		await selectControlOption(page, TEXT_ALIGNMENT_LABEL, 'right');
+		await expect(widget).toHaveCSS('text-align', 'right');
+	});
+
 	test('hovering footer links applies the resolved link hover color', async ({ page }) => {
 		const componentLink = page.locator(`${FOOTER_TARGET} .c-footer__widget-area .c-link`).first();
 		const plainLink = page.locator(`${FOOTER_TARGET} .c-footer__widget-area a[href="#lorem-link-5"]`).first();
@@ -361,6 +370,22 @@ test.describe('Footer - design panel', () => {
 		const wrapper = page.locator(`${FOOTER_TARGET} .c-footer__subfooter__wrapper`).first();
 		await selectControlOption(page, SUBFOOTER_DIRECTION_LABEL, 'row-reverse');
 		await expect(wrapper).toHaveCSS('flex-direction', 'row-reverse');
+	});
+
+	test('subfooter stacks and centers content on small mobile viewports', async ({ page }) => {
+		await page.setViewportSize({ width: 360, height: 740 });
+
+		const wrapper = page.locator(`${FOOTER_TARGET} .c-footer__subfooter__wrapper`).first();
+		const list = page.locator(`${FOOTER_TARGET} .c-footer__subfooter__list`).first();
+		const logotypeWrapper = page.locator(`${FOOTER_TARGET} .c-footer__subfooter__logotype-wrapper`).first();
+		const separator = page.locator(`${FOOTER_TARGET} .c-footer__subfooter__list li`).nth(1);
+
+		await expect(wrapper).toHaveCSS('flex-direction', 'column');
+		await expect(wrapper).toHaveCSS('justify-content', 'center');
+		await expect(list).toHaveCSS('flex-direction', 'column');
+		await expect(list).toHaveCSS('justify-content', 'center');
+		await expect(logotypeWrapper).toHaveCSS('justify-content', 'center');
+		expect(await getPseudoCss(separator, '::before', 'display')).toBe('none');
 	});
 
 	test('changing Background Opacity updates the footer background layer opacity', async ({ page }) => {
