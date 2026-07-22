@@ -237,13 +237,25 @@ test.describe('Footer - design panel', () => {
 	});
 
 	test('changing Number of Columns updates the footer content grid columns', async ({ page }) => {
+		await page.setViewportSize({ width: 1600, height: 900 });
 		await expandCategory(page.locator('.db-category-header').filter({ hasText: 'Layout' }));
 
-		const grid = page.locator(`${FOOTER_TARGET} .c-footer__content-wrapper > .o-container > .o-grid`).first();
+		const grid = page.locator(`${FOOTER_TARGET} .c-footer__content-wrapper > .o-container > .o-grid, ${FOOTER_TARGET} .c-footer__main-wrapper > .o-container > .o-grid`).first();
 		await selectControlOption(page, COLUMNS_LABEL, '4');
 		const columns = await getComputedCss(grid, 'grid-template-columns');
 
 		expect(columns.split(' ').length).toBe(4);
+	});
+
+	test('footer content grid reduces columns on smaller viewports', async ({ page }) => {
+		await page.setViewportSize({ width: 820, height: 900 });
+		await expandCategory(page.locator('.db-category-header').filter({ hasText: 'Layout' }));
+
+		const grid = page.locator(`${FOOTER_TARGET} .c-footer__content-wrapper > .o-container > .o-grid, ${FOOTER_TARGET} .c-footer__main-wrapper > .o-container > .o-grid`).first();
+		await selectControlOption(page, COLUMNS_LABEL, '4');
+		const columns = await getComputedCss(grid, 'grid-template-columns');
+
+		expect(columns.split(' ').length).toBeLessThan(4);
 	});
 
 	test('changing Logotype Alignment updates the logotype wrapper alignment', async ({ page }) => {

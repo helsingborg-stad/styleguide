@@ -41,6 +41,8 @@ $_: "c-footer";
     --#{$_}--main-padding-x: var(--#{$_}--inset-padding-x);
     --#{$_}--gap: calc(#{tokens.getCalculatedValue($_, "space", 3)} * var(--#{$_}--gap-multiplier, 1));
     --#{$_}--columns-count: 3;
+    --#{$_}--column-min-width: calc(#{tokens.getRawValue($_, "base")} * 26);
+    --#{$_}--column-max-width: calc((100% - (var(--#{$_}--gap) * (var(--#{$_}--columns-count) - 1))) / var(--#{$_}--columns-count));
     --#{$_}--text-align: left;
     --#{$_}--prefooter-text-align: left;
     --#{$_}--logotype-justify-content: flex-start;
@@ -201,7 +203,9 @@ $_: "c-footer";
     &__content-wrapper>.o-container>.o-grid,
     &__areas-wrapper>.o-container>.o-grid {
         display: grid;
-        grid-template-columns: repeat(var(--#{$_}--columns-count), minmax(0, 1fr));
+        grid-template-columns: repeat(auto-fit,
+            minmax(min(100%, max(var(--#{$_}--column-min-width), var(--#{$_}--column-max-width))),
+                1fr));
         gap: var(--#{$_}--gap);
 
         >[class*="o-grid-"] {
@@ -477,12 +481,6 @@ $_: "c-footer";
 
     .#{$_} {
         --#{$_}--text-align: center;
-
-        &__main-wrapper>.o-container>.o-grid,
-        &__content-wrapper>.o-container>.o-grid,
-        &__areas-wrapper>.o-container>.o-grid {
-            grid-template-columns: 1fr;
-        }
 
         &__body {
             grid-template-areas:
