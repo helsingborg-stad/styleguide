@@ -107,4 +107,20 @@ describe('RangeControl', () => {
 		expect(input.step).toBe('2');
 		expect(input.value).toBe('160');
 	});
+
+	it('clamps out-of-range values to the configured bounds', () => {
+		const rangeControl = document.createElement('range-control');
+		rangeControl.setAttribute('min', '-9');
+		rangeControl.setAttribute('max', '9');
+		rangeControl.setAttribute('step', '0.5');
+		rangeControl.setAttribute('value', '360');
+		rangeControl.setAttribute('unit', 'deg');
+		document.body.appendChild(rangeControl);
+
+		const input = rangeControl.querySelector('input[type="range"]') as HTMLInputElement;
+		const output = rangeControl.querySelector('output') as HTMLOutputElement;
+
+		expect(input.value).toBe('9');
+		expect(output.textContent).toBe('9 deg');
+	});
 });

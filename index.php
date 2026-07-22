@@ -14,6 +14,13 @@ if (isset($_GET['debug'])) {
     error_reporting(0);
 }
 
+if (!function_exists('__')) {
+    function __($text, $domain = 'default')
+    {
+        return $text;
+    }
+}
+
 define('BASEPATH', dirname(__FILE__) . '/');
 require_once BASEPATH . 'config.php';
 require_once __DIR__ . '/vendor/autoload.php';

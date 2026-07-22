@@ -1,3 +1,5 @@
+@use "../../sass/mixin/inset-multiplier" as insetMultiplier;
+@use "../../sass/mixin/inherit";
 @use "../../sass/mixin/mq";
 @use "../../sass/mixin/tokens";
 
@@ -5,31 +7,211 @@
 $_: "c-footer";
 
 /* Design tokens */
+@include insetMultiplier.property();
 @include tokens.create($_, getComponentTokens($_));
 
 /* Component */
 .#{$_} {
-    --#{$_}--logotype-height: calc(var(--c-footer-height-logotype, 6) * var(--base));
-    --#{$_}--home-link-height: calc(var(--#{$_}--home-link-height-multiplier, 1) * 60px);
-    --#{$_}--header-border-color: var(--c-footer-header-border-color, rgba(0, 0, 0, 0.55));
-    --#{$_}--subfooter-logotype-height: calc(var(--c-footer-subfooter-height-logotype, 6) * var(--base));
-    --#{$_}--subfooter-color-background: var(--c-footer-subfooter-color-background, var(--color--white-100, #fff));
-    --#{$_}--subfooter-color-text: var(--c-footer-subfooter-color-text, var(--color--black-100, #000));
-    --#{$_}--subfooter-alignment: var(--c-footer-subfooter-alignment, center);
-    --#{$_}--subfooter-flex-direction: var(--c-footer-subfooter-flex-direction, row);
-    --#{$_}--subfooter-color-separator: var(--c-footer-subfooter-color-separator, #a3a3a3);
-    background-color: tokens.getRawValue($_, "color--surface");
-    color: tokens.getRawValue($_, "color--surface-contrast");
+    @include insetMultiplier.consume($_, calc(var(--#{$_}--outer-padding-inset-multiplier, var(--inherit-inset-multiplier, 1)) * var(--#{$_}--outer-padding-inset-multiplier-scale, 1)));
 
-    a,
-    a:hover,
-    a:visited,
-    a:active {
-        color: tokens.getRawValue($_, "color--surface-contrast");
+    --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface")};
+    --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}--color-muted: color-mix(in srgb, var(--#{$_}--color) 55%, var(--#{$_}--background-color));
+    --#{$_}--border-color: #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--subfooter-background-color: #{tokens.getRawValue($_, "color--surface-alt")};
+    --#{$_}--subfooter-background-opacity: 100%;
+    --#{$_}--subfooter-background: color-mix(in srgb, var(--#{$_}--subfooter-background-color) var(--#{$_}--subfooter-background-opacity), transparent);
+    --#{$_}--subfooter-color: #{tokens.getRawValue($_, "color--surface-contrast")};
+    --#{$_}--subfooter-color-muted: var(--#{$_}--color-muted);
+    --#{$_}--subfooter-separator-color: #{tokens.getRawValue($_, "color--surface-border")};
+    --#{$_}--list-marker-color: color-mix(in srgb, var(--#{$_}--color) 30%, var(--#{$_}--border-color));
+    --#{$_}--subfooter-separator-dot-color: color-mix(in srgb, var(--#{$_}--subfooter-color) 30%, var(--#{$_}--subfooter-separator-color));
+    --#{$_}--logotype-hover-color: #{tokens.getRawValue($_, "color--primary")};
+    --#{$_}--subfooter-logotype-hover-color: #{tokens.getRawValue($_, "color--primary")};
+    --#{$_}--subfooter-border-width: 0;
+    --#{$_}--subfooter-border-width-token: #{tokens.getCalculatedValue($_, "border-width")};
+    --#{$_}--subfooter-backdrop-filter: none;
+    --#{$_}--background-image: none;
+    --#{$_}--background-position: center;
+    --#{$_}--background-repeat: no-repeat;
+    --#{$_}--background-size: cover;
+    --#{$_}--background-blend-mode: normal;
+    --#{$_}--background-opacity: 1;
+    --#{$_}--background-rotation: 0deg;
+    --#{$_}--main-padding-y: calc(#{tokens.getCalculatedValue($_, "outer-space", 3)} * var(--#{$_}--inset-multiplier));
+    --#{$_}--main-padding-x: var(--#{$_}--inset-padding-x);
+    --#{$_}--outer-padding-inset-multiplier-scale: 1;
+    --#{$_}--gap: calc(#{tokens.getCalculatedValue($_, "space", 3)} * var(--#{$_}--gap-multiplier, 1));
+    --#{$_}--columns-count: 3;
+    --#{$_}--column-min-width: calc(#{tokens.getRawValue($_, "base")} * 26);
+    --#{$_}--column-max-width: calc((100% - (var(--#{$_}--gap) * (var(--#{$_}--columns-count) - 1))) / var(--#{$_}--columns-count));
+    --#{$_}--text-align: left;
+    --#{$_}--prefooter-text-align: left;
+    --#{$_}--logotype-justify-content: flex-start;
+    --#{$_}--logotype-height: calc(var(--#{$_}--logotype-height-multiplier, 6) * #{tokens.getRawValue($_, "base")});
+    --#{$_}--subfooter-logotype-height: calc(var(--#{$_}--subfooter-logotype-height-multiplier, 6) * #{tokens.getRawValue($_, "base")});
+    --#{$_}--subfooter-justify-content-value: var(--#{$_}--subfooter-alignment, center);
+    --#{$_}--subfooter-flex-direction-value: var(--#{$_}--subfooter-flex-direction, row);
+    @include inherit.publish("color-background", var(--#{$_}--background-color));
+    @include inherit.publish("color-contrast", var(--#{$_}--color));
+    @include inherit.publish("color-contrast-muted", var(--#{$_}--color-muted));
+    @include inherit.publish("color-primary", var(--#{$_}--logotype-hover-color));
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    color: var(--#{$_}--color);
+    background-color: var(--#{$_}--background-color);
+    display: grid;
+    grid-template-areas:
+        "main"
+        "subfooter";
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
+
+    &::before {
+        content: "";
+        position: absolute;
+        inset: -50%;
+        z-index: 0;
+        pointer-events: none;
+        opacity: var(--#{$_}--background-opacity);
+        transform: rotate(clamp(-9deg, var(--#{$_}--background-rotation), 9deg));
+        background-color: var(--#{$_}--background-color);
+        background-image: var(--#{$_}--background-image);
+        background-position: var(--#{$_}--background-position);
+        background-repeat: var(--#{$_}--background-repeat);
+        background-size: var(--#{$_}--background-size);
+        background-blend-mode: var(--#{$_}--background-blend-mode);
+    }
+
+    >* {
+        position: relative;
+        z-index: 1;
+    }
+
+    &--primary {
+        --#{$_}--background-color: #{tokens.getRawValue($_, "color--primary")};
+        --#{$_}--color: #{tokens.getRawValue($_, "color--primary-contrast")};
+        --#{$_}--color-muted: color-mix(in srgb, var(--#{$_}--color) 55%, var(--#{$_}--background-color));
+        --#{$_}--border-color: #{tokens.getRawValue($_, "color--primary-border")};
+        --#{$_}--subfooter-background-color: #{tokens.getRawValue($_, "color--primary-alt")};
+        --#{$_}--subfooter-color: #{tokens.getRawValue($_, "color--primary-contrast")};
+        --#{$_}--subfooter-separator-color: #{tokens.getRawValue($_, "color--primary-border")};
+        --#{$_}--logotype-hover-color: #{tokens.getRawValue($_, "color--secondary")};
+        --#{$_}--subfooter-logotype-hover-color: #{tokens.getRawValue($_, "color--secondary")};
+    }
+
+    &--secondary {
+        --#{$_}--background-color: #{tokens.getRawValue($_, "color--secondary")};
+        --#{$_}--color: #{tokens.getRawValue($_, "color--secondary-contrast")};
+        --#{$_}--color-muted: color-mix(in srgb, var(--#{$_}--color) 55%, var(--#{$_}--background-color));
+        --#{$_}--border-color: #{tokens.getRawValue($_, "color--secondary-border")};
+        --#{$_}--subfooter-background-color: #{tokens.getRawValue($_, "color--secondary-alt")};
+        --#{$_}--subfooter-color: #{tokens.getRawValue($_, "color--secondary-contrast")};
+        --#{$_}--subfooter-separator-color: #{tokens.getRawValue($_, "color--secondary-border")};
+        --#{$_}--logotype-hover-color: #{tokens.getRawValue($_, "color--primary")};
+        --#{$_}--subfooter-logotype-hover-color: #{tokens.getRawValue($_, "color--primary")};
+    }
+
+    &--background {
+        --#{$_}--background-color: #{tokens.getRawValue($_, "color--background")};
+        --#{$_}--color: #{tokens.getRawValue($_, "color--background-contrast")};
+        --#{$_}--color-muted: color-mix(in srgb, var(--#{$_}--color) 55%, var(--#{$_}--background-color));
+        --#{$_}--border-color: #{tokens.getRawValue($_, "color--background-border")};
+        --#{$_}--subfooter-background-color: #{tokens.getRawValue($_, "color--background-alt")};
+        --#{$_}--subfooter-color: #{tokens.getRawValue($_, "color--background-contrast")};
+        --#{$_}--subfooter-separator-color: #{tokens.getRawValue($_, "color--background-border")};
+        --#{$_}--logotype-hover-color: #{tokens.getRawValue($_, "color--primary")};
+        --#{$_}--subfooter-logotype-hover-color: #{tokens.getRawValue($_, "color--primary")};
+    }
+
+    &--logotype-align__left,
+    &--logotype-left {
+        --#{$_}--logotype-justify-content: flex-start;
+    }
+
+    &--logotype-align__center,
+    &--logotype-center {
+        --#{$_}--logotype-justify-content: center;
+    }
+
+    &--logotype-align__right,
+    &--logotype-right {
+        --#{$_}--logotype-justify-content: flex-end;
+    }
+
+    &--text-align__left,
+    &--text-left {
+        --#{$_}--text-align: left;
+    }
+
+    &--text-align__center,
+    &--text-center {
+        --#{$_}--text-align: center;
+    }
+
+    &--text-align__right,
+    &--text-right {
+        --#{$_}--text-align: right;
+    }
+
+    &--prefooter-text-align__left,
+    &--prefooter-text-left {
+        --#{$_}--prefooter-text-align: left;
+    }
+
+    &--prefooter-text-align__center,
+    &--prefooter-text-center {
+        --#{$_}--prefooter-text-align: center;
+    }
+
+    &--prefooter-text-align__right,
+    &--prefooter-text-right {
+        --#{$_}--prefooter-text-align: right;
+    }
+
+    &--columns-1 {
+        --#{$_}--columns-count: 1;
+    }
+
+    &--columns-2 {
+        --#{$_}--columns-count: 2;
+    }
+
+    &--columns-3 {
+        --#{$_}--columns-count: 3;
+    }
+
+    &--columns-4 {
+        --#{$_}--columns-count: 4;
     }
 
     &__main-wrapper {
-        padding: tokens.getCalculatedValue($_, "space", 3) 0;
+        display: grid;
+        grid-area: main;
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--#{$_}--gap);
+        padding: var(--#{$_}--main-padding-y) var(--#{$_}--main-padding-x);
+    }
+
+    >.#{$_}__body {
+        grid-area: main;
+    }
+
+    &__main-wrapper>.o-container>.o-grid,
+    &__content-wrapper>.o-container>.o-grid,
+    &__areas-wrapper>.o-container>.o-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit,
+            minmax(min(100%, max(var(--#{$_}--column-min-width), var(--#{$_}--column-max-width))),
+                1fr));
+        gap: var(--#{$_}--gap);
+
+        >[class*="o-grid-"] {
+            flex: initial;
+            max-width: none;
+            width: auto;
+        }
     }
 
     &__body {
@@ -37,15 +219,25 @@ $_: "c-footer";
         max-width: var(--container-width);
         margin-left: auto;
         margin-right: auto;
-        padding: tokens.getCalculatedValue($_, "space", 5) 0;
-        display: flex;
-        flex-wrap: nowrap;
+        padding: #{tokens.getCalculatedValue($_, "space", 5)} 0;
+        display: grid;
+        grid-template-areas: "home nav";
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: var(--#{$_}--gap);
+        align-items: start;
+        text-align: var(--#{$_}--text-align);
+    }
+
+    &__header-wrapper {
+        .o-grid-12 {
+            display: flex;
+            justify-content: var(--#{$_}--logotype-justify-content);
+        }
     }
 
     &__home-link {
-        margin-right: 5%;
+        grid-area: home;
         line-height: 0;
-        height: var(--#{$_}--home-link-height);
 
         img,
         svg {
@@ -53,30 +245,54 @@ $_: "c-footer";
         }
     }
 
+    &__nav {
+        grid-area: nav;
+    }
+
     &__links {
         margin-bottom: tokens.getCalculatedValue($_, "space", 3);
 
-        & h4 {
+        h4 {
             font-weight: var(--h4-font-weight);
-            font-size: 18px;
+            font-size: tokens.getRawValue($_, "font-size-200");
         }
 
-        & a {
-            color: #707070;
+        a,
+        div {
+            color: var(--#{$_}--color-muted);
             text-decoration: none;
             display: inline-block;
         }
     }
 
-    &__links div {
-        color: #707070;
-        text-decoration: none;
-        display: inline-block;
+    &__links a,
+    &__links [data-component="link"],
+    &__widget-area a,
+    &__widget-area [data-component="link"],
+    &__subfooter__list a,
+    &__subfooter__list [data-component="link"] {
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.18em;
+    }
+
+    &__links a:hover,
+    &__links a:focus-visible,
+    &__links [data-component="link"]:hover,
+    &__links [data-component="link"]:focus-visible,
+    &__widget-area a:hover,
+    &__widget-area a:focus-visible,
+    &__widget-area [data-component="link"]:hover,
+    &__widget-area [data-component="link"]:focus-visible,
+    &__subfooter__list a:hover,
+    &__subfooter__list a:focus-visible,
+    &__subfooter__list [data-component="link"]:hover,
+    &__subfooter__list [data-component="link"]:focus-visible {
+        text-decoration: underline dotted !important;
     }
 
     &__link-divider {
         display: inline-block;
-        background-color: #565656;
+        background-color: var(--#{$_}--border-color);
         border-radius: 50%;
         height: tokens.getCalculatedValue($_, "space", 0.5);
         width: tokens.getCalculatedValue($_, "space", 0.5);
@@ -86,41 +302,53 @@ $_: "c-footer";
     }
 
     &__widget-area {
-        gap: tokens.getCalculatedValue($_, "space", 2);
+        gap: calc(var(--#{$_}--gap) * 0.25);
+        text-align: var(--#{$_}--text-align);
+        max-width: #{tokens.getCalculatedValue($_, "space", 70)};
+        margin-left: auto;
+        margin-right: auto;
+
+        ul {
+            display: grid;
+            gap: tokens.getCalculatedValue($_, "space", 0.5);
+            justify-content: var(--#{$_}--text-align);
+            list-style: none;
+            padding-left: 0;
+        }
 
         .footer-title {
             margin-bottom: tokens.getCalculatedValue($_, "space", 2);
         }
 
         li {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: tokens.getCalculatedValue($_, "space");
+            align-items: baseline;
             padding-left: 0;
+            text-align: left;
+
+            &::before {
+                content: "";
+                width: tokens.getCalculatedValue($_, "base", 0.75);
+                height: tokens.getCalculatedValue($_, "base", 0.75);
+                border-radius: 50%;
+                background: var(--#{$_}--list-marker-color);
+                transform: translateY(-0.1em);
+            }
         }
 
         h2 {
-            --inherit-font-size: var(--font-size-300);
+            --inherit-font-size: #{tokens.getRawValue($_, "font-size-300")};
         }
     }
-
-    // Logo
 
     &__logotype {
         height: var(--#{$_}--logotype-height);
-
-        @include mq.mq("xs") {
-            height: clamp(#{tokens.getCalculatedValue($_, "space", 3)}, calc(#{var(--#{$_}--logotype-height)} * 0.75), #{var(--#{$_}--logotype-height)});
-        }
-
-        @include mq.mq("md") {
-            height: clamp(#{tokens.getCalculatedValue($_, "space", 3)}, calc(#{var(--#{$_}--logotype-height)} * 0.75), #{var(--#{$_}--logotype-height)});
-        }
-
-        @include mq.mq("lg") {
-            height: var(--#{$_}--logotype-height);
-        }
     }
 
-    &__header-wrapper {
-        margin-bottom: tokens.getCalculatedValue($_, "space", 3);
+    &__prefooter-wrapper {
+        text-align: var(--#{$_}--prefooter-text-align);
     }
 
     &__prefooter-wrapper,
@@ -134,63 +362,87 @@ $_: "c-footer";
         }
     }
 
+    &__header-wrapper {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
     &--header-border {
         .#{$_}__header-wrapper {
-            border-bottom: tokens.getCalculatedValue($_, "border-width") solid var(--#{$_}--header-border-color);
+            border-bottom: tokens.getCalculatedValue($_, "border-width") solid var(--#{$_}--border-color);
             padding-bottom: tokens.getCalculatedValue($_, "space", 3);
         }
     }
 
     &__subfooter {
-        color: var(--#{$_}--subfooter-color-text);
-        background: var(--#{$_}--subfooter-color-background);
+        display: flex;
+        flex-direction: column;
+        grid-area: subfooter;
+        color: var(--#{$_}--subfooter-color);
+        background: var(--#{$_}--subfooter-background);
+        backdrop-filter: var(--#{$_}--subfooter-backdrop-filter);
+        border-top: var(--#{$_}--subfooter-border-width) solid var(--#{$_}--subfooter-separator-color);
         padding: tokens.getCalculatedValue($_, "space", 3) 0;
-        font-size: .9rem;
+        font-size: tokens.getRawValue($_, "font-size-90");
 
-        a,
-        a:hover,
-        a:visited,
-        a:active {
-            color: var(--#{$_}--subfooter-color-text);
+        .o-container {
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        [data-component="link"] {
+            @include inherit.publish("color-contrast", var(--#{$_}--subfooter-color));
+            @include inherit.publish("color-contrast-muted", var(--#{$_}--subfooter-color-muted));
+            @include inherit.publish("color-primary", var(--#{$_}--subfooter-logotype-hover-color));
+        }
+
+        [data-component="logotype"] {
+            @include inherit.publish("color-contrast", var(--#{$_}--subfooter-color));
+            @include inherit.publish("color-contrast-muted", var(--#{$_}--subfooter-color-muted));
+            @include inherit.publish("color-primary", var(--#{$_}--subfooter-logotype-hover-color));
         }
 
         &__wrapper {
             display: flex;
+            flex-direction: var(--#{$_}--subfooter-flex-direction-value);
             flex-wrap: wrap;
-            justify-content: var(--#{$_}--subfooter-alignment);
-            align-items: var(--#{$_}--subfooter-alignment);
-            flex-direction: var(--#{$_}--subfooter-flex-direction);
+            gap: var(--#{$_}--gap);
+            justify-content: var(--#{$_}--subfooter-justify-content-value);
+            align-items: center;
+            overflow: hidden;
         }
 
         &__list {
             display: flex;
+            flex-direction: row;
             flex-wrap: wrap;
-            justify-content: var(--#{$_}--subfooter-alignment);
-            align-items: var(--#{$_}--subfooter-alignment);
-            flex-direction: var(--#{$_}--subfooter-flex-direction);
-            margin: tokens.getCalculatedValue($_, "space", -1) tokens.getCalculatedValue($_, "space", -5);
-            margin-left: 0;
+            gap: 0;
+            justify-content: center;
+            align-items: center;
+            margin-block: #{tokens.getCalculatedValue($_, "space", -1)};
+            margin-inline: 0;
             padding: 0;
             list-style: none;
             overflow: hidden;
-            flex: 1;
+            flex: 0 1 auto;
 
             li {
                 position: relative;
                 margin: 0;
-                padding: tokens.getCalculatedValue($_, "space") tokens.getCalculatedValue($_, "space", 5);
-                padding-left: 0;
+                padding: #{tokens.getCalculatedValue($_, "space")} #{tokens.getCalculatedValue($_, "space", 5)} #{tokens.getCalculatedValue($_, "space")} 0;
                 line-height: 1;
 
                 &:before {
                     content: "";
                     border-radius: 50%;
-                    background: var(--#{$_}--subfooter-color-separator);
+                    background: var(--#{$_}--subfooter-separator-dot-color);
                     display: none;
                     position: absolute;
-                    width: 6px;
-                    height: 6px;
-                    left: -23px;
+                    width: #{tokens.getCalculatedValue($_, "base", 0.75)};
+                    height: #{tokens.getCalculatedValue($_, "base", 0.75)};
+                    left: #{tokens.getCalculatedValue($_, "base", -2.875)};
+                    right: auto;
                     top: 50%;
                     transform: translateY(-50%);
                 }
@@ -201,82 +453,101 @@ $_: "c-footer";
             }
         }
 
-        // Logo
-
         &__logotype {
             height: var(--#{$_}--subfooter-logotype-height);
         }
 
-        // Fix for separator dots showing on new lines
+        &__logotype-wrapper {
+            flex: 0 0 auto;
+        }
+
+        &--align-flex-start {
+            --#{$_}--subfooter-justify-content-value: var(--#{$_}--subfooter-alignment, flex-start);
+        }
+
+        &--align-center {
+            --#{$_}--subfooter-justify-content-value: var(--#{$_}--subfooter-alignment, center);
+        }
 
         &--align-flex-end {
-            .#{$_}__subfooter__list {
-                margin: tokens.getCalculatedValue($_, "space", -1) tokens.getCalculatedValue($_, "space", -5);
-                margin-right: 0;
-
-                li {
-                    padding: tokens.getCalculatedValue($_, "space") tokens.getCalculatedValue($_, "space", 5);
-                    padding-right: 0;
-
-                    &:before {
-                        display: none;
-                    }
-
-                    &:not(:last-child):before {
-                        display: block;
-                        left: auto;
-                        right: -23px;
-                    }
-                }
-            }
+            --#{$_}--subfooter-justify-content-value: var(--#{$_}--subfooter-alignment, flex-end);
         }
 
         &--horizontal {
-            .#{$_}__subfooter__wrapper {
-                align-items: center;
-            }
-
-            .#{$_}__subfooter__logotype-wrapper {
-                margin-right: tokens.getCalculatedValue($_, "space", 7);
-                margin-bottom: 0;
-            }
+            --#{$_}--subfooter-flex-direction-value: var(--#{$_}--subfooter-flex-direction, row);
         }
 
         &--vertical {
-            .#{$_}__subfooter__list {
+            --#{$_}--subfooter-flex-direction-value: column;
 
-                li:not(:first-child):before,
-                li:not(:last-child):before {
-                    display: none;
-                }
-            }
-
-            .#{$_}__subfooter__logotype-wrapper {
-                margin-bottom: tokens.getCalculatedValue($_, "space", 3);
-                margin-right: 0;
+            .#{$_}__subfooter__list li:not(:first-child):before {
+                display: none;
             }
         }
-    }
-
-    //Todo: whole subfooter list implementation can/should be refactored and simplified
-    .#{$_}__subfooter__wrapper {
-        overflow: hidden; //Quick fix until refactor
     }
 }
 
 @include mq.mq("xs", "md") {
 
     .#{$_} {
+        --#{$_}--outer-padding-inset-multiplier-scale: 0.5;
 
         &__body {
-            padding: tokens.getCalculatedValue($_, "space", 5) tokens.getCalculatedValue($_, "space", 4);
-            display: block;
-            text-align: center;
+            grid-template-areas:
+                "home"
+                "nav";
+            grid-template-columns: minmax(0, 1fr);
+            padding: #{tokens.getCalculatedValue($_, "space", 5)} #{tokens.getCalculatedValue($_, "space", 4)};
         }
 
         &__home-link {
-            display: block;
-            margin-bottom: tokens.getCalculatedValue($_, "space", 5);
+            justify-self: center;
+        }
+
+        &__subfooter__list li:not(:first-child):before {
+            display: none;
+        }
+
+        &__subfooter {
+            --#{$_}--subfooter-justify-content-value: center;
+            --#{$_}--subfooter-flex-direction-value: column;
+
+            &__wrapper,
+            &__list {
+                align-items: center;
+                justify-content: center;
+            }
+
+            &__list {
+                flex-direction: column;
+                text-align: center;
+
+                li {
+                    padding-right: 0;
+                    text-align: center;
+
+                    &:before {
+                        display: none;
+                    }
+                }
+            }
+
+            &__logotype-wrapper {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: #{tokens.getCalculatedValue($_, "space", 3)};
+            }
+        }
+
+        &__logotype,
+        &__subfooter__logotype {
+            height: clamp(#{tokens.getCalculatedValue($_, "space", 3)}, calc(var(--#{$_}--logotype-height) * 0.75), var(--#{$_}--logotype-height));
+        }
+
+        &__subfooter__logotype {
+            height: clamp(#{tokens.getCalculatedValue($_, "space", 3)}, calc(var(--#{$_}--subfooter-logotype-height) * 0.75), var(--#{$_}--subfooter-logotype-height));
         }
 
         &__link-divider {
@@ -286,35 +557,6 @@ $_: "c-footer";
         &__links a {
             display: block;
             margin-bottom: tokens.getCalculatedValue($_, "space", 2);
-        }
-
-        &__subfooter {
-
-            &__list,
-            &__wrapper {
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-
-                >li:not(:first-child):before {
-                    display: none;
-                }
-            }
-
-            &--align-flex-end .#{$_}__subfooter__list li:not(:last-child):before {
-                display: none;
-            }
-
-            &__logotype {
-                height: clamp(#{tokens.getCalculatedValue($_, "space", 3)}, calc(#{var(--#{$_}--subfooter-logotype-height)} * 0.75), #{var(--#{$_}--subfooter-logotype-height)});
-            }
-
-            &--horizontal {
-                .#{$_}__subfooter__logotype-wrapper {
-                    margin-bottom: tokens.getCalculatedValue($_, "space", 3);
-                    margin-right: 0;
-                }
-            }
         }
     }
 }

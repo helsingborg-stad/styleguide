@@ -1,17 +1,27 @@
+@use "../../sass/mixin/inherit";
 @use "../../sass/mixin/tokens";
 
 $_: "c-logotype";
 
 @include tokens.create($_, getComponentTokens($_));
+@include inherit.property("color-contrast");
+@include inherit.property("color-contrast-muted");
+@include inherit.property("color-primary");
 
 .#{$_} {
+    --#{$_}--mask-color: var(--inherit-color-contrast, currentColor);
+    --#{$_}--mask-color-hover: var(--inherit-color-contrast-muted, var(--#{$_}--mask-color));
+    --#{$_}--mask-enabled: 1;
+    --#{$_}--mask-current-color: var(--#{$_}--mask-color);
     margin-block-start: 0;
     margin-block-end: 0;
     margin-inline-start: 0;
     margin-inline-end: 0;
+    display: inline-block;
     position: relative;
 
-    img {
+    .#{$_}__image {
+        display: block;
         height: inherit;
     }
 
@@ -25,5 +35,41 @@ $_: "c-logotype";
 
     &.#{$_}--align-right {
         text-align: right;
+    }
+
+    &[data-logotype-maskable],
+    &.#{$_}--maskable {
+        --#{$_}--mask-opacity: calc(var(--#{$_}--mask-enabled) * 1);
+        --#{$_}--image-opacity: calc(1 - var(--#{$_}--mask-enabled));
+
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-color: var(--#{$_}--mask-current-color);
+            opacity: var(--#{$_}--mask-opacity);
+            transition: opacity 0.3s ease, background-color 0.3s ease;
+            pointer-events: none;
+            -webkit-mask-image: var(--#{$_}--mask-image, none);
+            mask-image: var(--#{$_}--mask-image, none);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-position: var(--#{$_}--mask-position, center);
+            mask-position: var(--#{$_}--mask-position, center);
+            -webkit-mask-size: var(--#{$_}--mask-size, contain);
+            mask-size: var(--#{$_}--mask-size, contain);
+        }
+
+        .#{$_}__image {
+            opacity: var(--#{$_}--image-opacity);
+            transition: opacity 0.3s ease;
+        }
+
+        &:hover,
+        a:hover &,
+        .c-link:hover &,
+        [data-component="link"]:hover & {
+            --#{$_}--mask-current-color: var(--#{$_}--mask-color-hover, var(--#{$_}--mask-color));
+        }
     }
 }

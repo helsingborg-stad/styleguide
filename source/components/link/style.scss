@@ -1,9 +1,8 @@
+@use "../../sass/mixin/inherit";
 @use "../../sass/mixin/tokens";
 
-@property --inherit-color-contrast {
-    syntax: "*";
-    inherits: true;
-}
+@include inherit.property("color-contrast");
+@include inherit.property("color-primary");
 
 $_: "c-link";
 
@@ -11,17 +10,17 @@ $_: "c-link";
 
 a,
 .#{$_} {
-    --#{$_}-mixable-color: #{tokens.getRawValue($_, "color--background-contrast", "color-contrast")};
-    --#{$_}-mixable-color-saturated: #{tokens.getRawValue($_, "color--primary")};
-    --#{$_}-link-color-mix: color-mix(in srgb, var(--#{$_}-mixable-color) var(--#{$_}--color-mix-amount, 90%), var(--#{$_}-mixable-color-saturated));
-    --#{$_}-state-link-color-mix: color-mix(in srgb, var(--#{$_}-mixable-color) var(--#{$_}--state-color-mix-amount, 50%), var(--#{$_}-mixable-color-saturated));
+    @include inherit.consume($_, "color-contrast", tokens.getRawValue($_, "color--background-contrast"), "mixable-color");
+    @include inherit.consume($_, "color-primary", tokens.getRawValue($_, "color--primary"), "mixable-color-saturated");
+    --#{$_}--link-color-mix: color-mix(in srgb, var(--#{$_}--mixable-color) var(--#{$_}--color-mix-amount, 90%), var(--#{$_}--mixable-color-saturated));
+    --#{$_}--state-link-color-mix: color-mix(in srgb, var(--#{$_}--mixable-color) var(--#{$_}--state-color-mix-amount, 50%), var(--#{$_}--mixable-color-saturated));
 }
 
 a:not([class^="c-"]):not([class*=" c-"]),
 .#{$_} {
     text-decoration-style: solid;
     transition: 100ms color;
-    color: var(--#{$_}-link-color-mix);
+    color: var(--#{$_}--link-color-mix);
 
     i {
         text-decoration: none;
@@ -39,12 +38,12 @@ a:not([class^="c-"]):not([class*=" c-"]),
 
     &:active,
     &:hover {
-        color: var(--#{$_}-state-link-color-mix);
+        color: var(--#{$_}--state-link-color-mix);
     }
 
     &:visited,
     &:visited:hover,
     &:visited:active {
-        color: var(--#{$_}-state-link-color-mix);
+        color: var(--#{$_}--state-link-color-mix);
     }
 }

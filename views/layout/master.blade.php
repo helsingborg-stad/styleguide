@@ -45,25 +45,6 @@
 
 </head>
 <body class="no-js o-body">
-
-    <!-- Force this logotype to be white, as the header background is dark. -->
-    <style>
-        .c-header__logotype  {
-            background-color: var(--color--surface-contrast);
-            mask-image: url("/assets/img/logotype.svg");
-            mask-repeat: no-repeat;
-            mask-position: center;
-            mask-size: contain;
-            transition: background-color 0.3s ease;
-        }
-
-        .c-header__logotype:hover {
-            background-color: var(--color--surface-contrast-muted);
-        }
-        .c-header__logotype img {
-            visibility: hidden;
-        }
-    </style>
     
     <div class="l-docs">
 
@@ -173,7 +154,11 @@
                     'id' => 'main-logo',
                     'src' => '/assets/img/logotype.svg',
                     'alt' => 'Go to homepage',
-                    'classList' => ['c-header__logotype']
+                    'maskable' => true,
+                    'classList' => ['c-header__logotype'],
+                    'attributeList' => [
+                        'style' => '--c-header--logotype-height: calc(var(--base) * 6);'
+                    ],
                 ])
                 @endlogotype
             @endlink
