@@ -21,6 +21,7 @@ const SUBFOOTER_LOGOTYPE_HEIGHT_LABEL = 'Subfooter Logotype Height Multiplier';
 const OUTER_PADDING_LABEL = 'Padding Multiplier';
 const GAP_LABEL = 'Gap Multiplier';
 const SUBFOOTER_BORDER_LABEL = 'Subfooter Top Border';
+const SUBFOOTER_BACKDROP_BLUR_LABEL = 'Subfooter Backdrop Blur';
 const COLUMNS_LABEL = 'Number of Columns';
 const LOGOTYPE_ALIGNMENT_LABEL = 'Logotype Alignment';
 const TEXT_ALIGNMENT_LABEL = 'Text Alignment';
@@ -42,6 +43,7 @@ const EXPECTED_VISIBLE_CONTROLS = [
 	OUTER_PADDING_LABEL,
 	GAP_LABEL,
 	SUBFOOTER_BORDER_LABEL,
+	SUBFOOTER_BACKDROP_BLUR_LABEL,
 	COLUMNS_LABEL,
 	LOGOTYPE_ALIGNMENT_LABEL,
 	TEXT_ALIGNMENT_LABEL,
@@ -245,6 +247,25 @@ test.describe('Footer - design panel', () => {
 
 		expect(initialBorderWidth).toBe(0);
 		expect(updatedBorderWidth).toBeGreaterThan(initialBorderWidth);
+	});
+
+	test('changing Subfooter Backdrop Blur toggles subfooter backdrop filtering', async ({ page }) => {
+		await expandCategory(page.locator('.db-category-header').filter({ hasText: 'Layout' }));
+
+		const subfooter = page.locator(`${FOOTER_TARGET} .c-footer__subfooter`).first();
+		const initialFilter = await getComputedCss(subfooter, 'backdrop-filter');
+		await selectControlOption(page, SUBFOOTER_BACKDROP_BLUR_LABEL, 'blur(8px)');
+
+		const updatedFilters = await subfooter.evaluate((el) => {
+			const styles = window.getComputedStyle(el);
+			return {
+				backdropFilter: styles.getPropertyValue('backdrop-filter').trim(),
+				webkitBackdropFilter: styles.getPropertyValue('-webkit-backdrop-filter').trim(),
+			};
+		});
+
+		expect(initialFilter === 'none' || initialFilter === '').toBeTruthy();
+		expect(updatedFilters.backdropFilter.includes('blur') || updatedFilters.webkitBackdropFilter.includes('blur')).toBeTruthy();
 	});
 
 	test('changing Number of Columns updates the footer content grid columns', async ({ page }) => {

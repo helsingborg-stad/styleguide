@@ -30,6 +30,7 @@ $_: "c-footer";
     --#{$_}--subfooter-logotype-hover-color: #{tokens.getRawValue($_, "color--primary")};
     --#{$_}--subfooter-border-width: 0;
     --#{$_}--subfooter-border-width-token: #{tokens.getCalculatedValue($_, "border-width")};
+    --#{$_}--subfooter-backdrop-filter: none;
     --#{$_}--background-image: none;
     --#{$_}--background-position: center;
     --#{$_}--background-repeat: no-repeat;
@@ -193,7 +194,7 @@ $_: "c-footer";
         padding: var(--#{$_}--main-padding-y) var(--#{$_}--main-padding-x);
     }
 
-    > .#{$_}__body {
+    >.#{$_}__body {
         grid-area: main;
     }
 
@@ -379,6 +380,7 @@ $_: "c-footer";
         grid-area: subfooter;
         color: var(--#{$_}--subfooter-color);
         background: var(--#{$_}--subfooter-background);
+        backdrop-filter: var(--#{$_}--subfooter-backdrop-filter);
         border-top: var(--#{$_}--subfooter-border-width) solid var(--#{$_}--subfooter-separator-color);
         padding: tokens.getCalculatedValue($_, "space", 3) 0;
         font-size: tokens.getRawValue($_, "font-size-90");

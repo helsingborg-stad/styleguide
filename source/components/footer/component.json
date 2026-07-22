@@ -118,6 +118,23 @@
 					]
 				},
 				{
+					"variable": "--subfooter-backdrop-filter",
+					"label": "Subfooter Backdrop Blur",
+					"description": "Toggles backdrop blur behind the subfooter.",
+					"type": "select",
+					"default": "none",
+					"options": [
+						{
+							"value": "none",
+							"label": "Off"
+						},
+						{
+							"value": "blur(2px)",
+							"label": "On"
+						}
+					]
+				},
+				{
 					"variable": "--columns-count",
 					"label": "Number of Columns",
 					"description": "How many columns to display in the footer.",
