@@ -12,7 +12,7 @@ $_: "c-footer";
 
 /* Component */
 .#{$_} {
-    @include insetMultiplier.consume($_, var(--#{$_}--outer-padding-inset-multiplier, var(--inherit-inset-multiplier, 1)));
+    @include insetMultiplier.consume($_, calc(var(--#{$_}--outer-padding-inset-multiplier, var(--inherit-inset-multiplier, 1)) * var(--#{$_}--outer-padding-inset-multiplier-scale, 1)));
 
     --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface")};
     --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
@@ -39,6 +39,7 @@ $_: "c-footer";
     --#{$_}--background-rotation: 0deg;
     --#{$_}--main-padding-y: calc(#{tokens.getCalculatedValue($_, "outer-space", 3)} * var(--#{$_}--inset-multiplier));
     --#{$_}--main-padding-x: var(--#{$_}--inset-padding-x);
+    --#{$_}--outer-padding-inset-multiplier-scale: 1;
     --#{$_}--gap: calc(#{tokens.getCalculatedValue($_, "space", 3)} * var(--#{$_}--gap-multiplier, 1));
     --#{$_}--columns-count: 3;
     --#{$_}--column-min-width: calc(#{tokens.getRawValue($_, "base")} * 26);
@@ -480,6 +481,7 @@ $_: "c-footer";
 @include mq.mq("xs", "md") {
 
     .#{$_} {
+        --#{$_}--outer-padding-inset-multiplier-scale: 0.5;
         --#{$_}--text-align: center;
 
         &__body {

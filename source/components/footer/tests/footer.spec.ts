@@ -213,6 +213,17 @@ test.describe('Footer - design panel', () => {
 		expect(updatedPadding).toBeGreaterThan(initialPadding);
 	});
 
+	test('footer outer padding is reduced on smaller viewports', async ({ page }) => {
+		await page.setViewportSize({ width: 1600, height: 900 });
+		const mainWrapper = page.locator(`${FOOTER_TARGET} .c-footer__main-wrapper`).first();
+		const desktopPadding = await getComputedPx(mainWrapper, 'padding-left');
+
+		await page.setViewportSize({ width: 820, height: 900 });
+		const mobilePadding = await getComputedPx(mainWrapper, 'padding-left');
+
+		expect(mobilePadding).toBeLessThan(desktopPadding);
+	});
+
 	test('changing Gap Multiplier updates footer grid gap', async ({ page }) => {
 		await expandCategory(page.locator('.db-category-header').filter({ hasText: 'Layout' }));
 
