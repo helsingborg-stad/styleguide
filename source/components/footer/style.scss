@@ -188,13 +188,6 @@ $_: "c-footer";
     &__main-wrapper {
         display: grid;
         grid-area: main;
-        grid-template-areas:
-            "header"
-            "prefooter"
-            "content"
-            "areas"
-            "body"
-            "postfooter";
         grid-template-columns: minmax(0, 1fr);
         gap: var(--#{$_}--gap);
         padding: var(--#{$_}--main-padding-y) var(--#{$_}--main-padding-x);
@@ -221,7 +214,6 @@ $_: "c-footer";
     }
 
     &__body {
-        grid-area: body;
         width: 100%;
         max-width: var(--container-width);
         margin-left: auto;
@@ -236,8 +228,6 @@ $_: "c-footer";
     }
 
     &__header-wrapper {
-        grid-area: header;
-
         .o-grid-12 {
             display: flex;
             justify-content: var(--#{$_}--logotype-justify-content);
@@ -272,6 +262,31 @@ $_: "c-footer";
             text-decoration: none;
             display: inline-block;
         }
+    }
+
+    &__links a,
+    &__links [data-component="link"],
+    &__widget-area a,
+    &__widget-area [data-component="link"],
+    &__subfooter__list a,
+    &__subfooter__list [data-component="link"] {
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.18em;
+    }
+
+    &__links a:hover,
+    &__links a:focus-visible,
+    &__links [data-component="link"]:hover,
+    &__links [data-component="link"]:focus-visible,
+    &__widget-area a:hover,
+    &__widget-area a:focus-visible,
+    &__widget-area [data-component="link"]:hover,
+    &__widget-area [data-component="link"]:focus-visible,
+    &__subfooter__list a:hover,
+    &__subfooter__list a:focus-visible,
+    &__subfooter__list [data-component="link"]:hover,
+    &__subfooter__list [data-component="link"]:focus-visible {
+        text-decoration: underline dotted !important;
     }
 
     &__link-divider {
@@ -332,20 +347,7 @@ $_: "c-footer";
     }
 
     &__prefooter-wrapper {
-        grid-area: prefooter;
         text-align: var(--#{$_}--prefooter-text-align);
-    }
-
-    &__content-wrapper {
-        grid-area: content;
-    }
-
-    &__areas-wrapper {
-        grid-area: areas;
-    }
-
-    &__postfooter-wrapper {
-        grid-area: postfooter;
     }
 
     &__prefooter-wrapper,

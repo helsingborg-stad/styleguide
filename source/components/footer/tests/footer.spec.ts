@@ -314,10 +314,14 @@ test.describe('Footer - design panel', () => {
 		const componentExpectedHoverColor = await resolveCssVariableColor(componentLink, '--c-link--state-link-color-mix');
 		await componentLink.hover();
 		await expect(componentLink).toHaveCSS('color', componentExpectedHoverColor);
+		await expect(componentLink).toHaveCSS('text-decoration-style', 'dotted');
+		await expect(componentLink).toHaveCSS('text-decoration-line', 'underline');
 
 		const plainExpectedHoverColor = await resolveCssVariableColor(plainLink, '--c-link--state-link-color-mix');
 		await plainLink.hover();
 		await expect(plainLink).toHaveCSS('color', plainExpectedHoverColor);
+		await expect(plainLink).toHaveCSS('text-decoration-style', 'dotted');
+		await expect(plainLink).toHaveCSS('text-decoration-line', 'underline');
 		expect(plainExpectedHoverColor).toBeTruthy();
 	});
 
