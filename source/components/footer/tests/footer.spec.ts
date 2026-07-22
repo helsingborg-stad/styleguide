@@ -479,4 +479,20 @@ test.describe('Footer - design panel', () => {
 		await expect(page.locator(FOOTER_COMPONENT).first()).toBeVisible();
 		await expect(page.locator(FOOTER_TARGET)).toBeVisible();
 	});
+
+	test('basic footer body stays aligned with the footer container', async ({ page }) => {
+		const basicFooter = page.locator(`${FOOTER_COMPONENT}:has(> .c-footer__body)`).first();
+		const basicFooterBody = basicFooter.locator('> .c-footer__body');
+
+		await expect(basicFooter).toBeVisible();
+		await expect(basicFooterBody).toBeVisible();
+
+		const footerBox = await basicFooter.boundingBox();
+		const bodyBox = await basicFooterBody.boundingBox();
+
+		expect(footerBox).not.toBeNull();
+		expect(bodyBox).not.toBeNull();
+		expect(bodyBox!.x).toBeCloseTo(footerBox!.x, 1);
+		expect(bodyBox!.width).toBeCloseTo(footerBox!.width, 1);
+	});
 });

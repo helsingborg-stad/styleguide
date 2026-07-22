@@ -200,6 +200,10 @@ $_: "c-footer";
         padding: var(--#{$_}--main-padding-y) var(--#{$_}--main-padding-x);
     }
 
+    > .#{$_}__body {
+        grid-area: main;
+    }
+
     &__main-wrapper>.o-container>.o-grid,
     &__content-wrapper>.o-container>.o-grid,
     &__areas-wrapper>.o-container>.o-grid {
