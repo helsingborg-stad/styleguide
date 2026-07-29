@@ -408,7 +408,7 @@ $_: "c-footer";
             flex-direction: var(--#{$_}--subfooter-flex-direction-value);
             flex-wrap: wrap;
             gap: var(--#{$_}--gap);
-            justify-content: var(--#{$_}--subfooter-justify-content-value);
+            justify-content: var(--#{$_}--subfooter-justify-content-value, center);
             align-items: center;
             overflow: hidden;
         }
