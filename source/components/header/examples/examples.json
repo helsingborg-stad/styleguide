@@ -16,5 +16,17 @@
 	},
 	"secondary-accented": {
 		"heading": "Secondary color accented"
+	},
+	"with-logotype": {
+		"heading": "With logotype (auto-scale on)",
+		"description": "Header with a logotype. Logotype auto-scale is enabled by default — resize the browser to see the logotype scale fluidly between its minimum and maximum height."
+	},
+	"with-logotype-fixed": {
+		"heading": "With logotype (auto-scale off)",
+		"description": "Same header with the logotype auto-scale disabled. The logotype height is fixed regardless of screen or container size."
+	},
+	"no-margin": {
+		"heading": "No margin (x and y disabled)",
+		"description": "Header with both horizontal and vertical margins disabled via --padding-x-enabled and --padding-y-enabled set to 0."
 	}
 }

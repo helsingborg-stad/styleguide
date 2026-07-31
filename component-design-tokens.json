@@ -1398,6 +1398,7 @@
     "slug": "header",
     "tokens": [
       "space",
+      "outer-space",
       "color--surface",
       "color--surface-contrast",
       "color--primary",
@@ -1424,6 +1425,75 @@
             "max": 3,
             "step": 0.05,
             "unit": ""
+          },
+          {
+            "variable": "--logotype-auto-scale",
+            "label": "Logotype Auto Scale",
+            "description": "Enables fluid scaling of the logotype or brand component based on available space or screen size. Uses a min/max/scale clamp calculation for smooth mobile adaptation.",
+            "type": "select",
+            "default": "1",
+            "options": [
+              {
+                "value": "0",
+                "label": "Off"
+              },
+              {
+                "value": "1",
+                "label": "On"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "layout",
+        "label": "Layout",
+        "description": "Controls header spacing and margin presence.",
+        "settings": [
+          {
+            "variable": "--inset-multiplier",
+            "label": "Inset Multiplier",
+            "description": "Scales the inner padding and gap of the header proportionally.",
+            "type": "range",
+            "default": "1",
+            "min": 0,
+            "max": 4,
+            "step": 0.125,
+            "unit": ""
+          },
+          {
+            "variable": "--padding-x-enabled",
+            "label": "Horizontal Margin",
+            "description": "Enables or disables horizontal (left and right) margin on the header.",
+            "type": "select",
+            "default": "1",
+            "options": [
+              {
+                "value": "0",
+                "label": "Disabled"
+              },
+              {
+                "value": "1",
+                "label": "Enabled"
+              }
+            ]
+          },
+          {
+            "variable": "--padding-y-enabled",
+            "label": "Vertical Margin",
+            "description": "Enables or disables vertical (top and bottom) margin on the header.",
+            "type": "select",
+            "default": "1",
+            "options": [
+              {
+                "value": "0",
+                "label": "Disabled"
+              },
+              {
+                "value": "1",
+                "label": "Enabled"
+              }
+            ]
           }
         ]
       }
