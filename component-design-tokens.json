@@ -1411,6 +1411,19 @@
     ],
     "componentSettings": [
       {
+        "id": "colors",
+        "label": "Colors",
+        "description": "Header color scheme.",
+        "settings": [
+          {
+            "label": "Color Scheme",
+            "description": "Controls the header background, text contrast, and border color.",
+            "token": "color--surface",
+            "includeStateColors": false
+          }
+        ]
+      },
+      {
         "id": "branding",
         "label": "Branding",
         "description": "Component-local branding adjustments.",
