@@ -88,7 +88,7 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
         flex: 1;
         border: 0;
         background: none;
-        height: var(--#{$_}--height);
+        height: var(--#{$_}--height-computed);
         padding: tokens.getCalculatedValue($_, "space", 2);
         outline: 0;
         margin: 0;
