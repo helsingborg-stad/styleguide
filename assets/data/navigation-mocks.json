@@ -1,10 +1,10 @@
 {
 	"topLevel": [
-		{ "id": 1, "name": "Arbete", "href": "#", "children": true },
-		{ "id": 1, "name": "Bo, bygga och miljö", "href": "#", "children": true },
-		{ "id": 1, "name": "Förskola och utbildning", "href": "#", "children": true },
-		{ "id": 1, "name": "Kommun och politik", "href": "#", "children": true },
-		{ "id": 1, "name": "Omsorg och stöd", "href": "#", "children": true }
+		{ "id": 1, "name": "Arbete", "href": "#", "children": false },
+		{ "id": 1, "name": "Bo, bygga och miljö", "href": "#", "children": false },
+		{ "id": 1, "name": "Förskola och utbildning", "href": "#", "children": false },
+		{ "id": 1, "name": "Kommun och politik", "href": "#", "children": false },
+		{ "id": 1, "name": "Omsorg och stöd", "href": "#", "children": false }
 	],
 	"multiLevel": [
 		{
@@ -24,12 +24,13 @@
 				{
 					"id": 1,
 					"name": "Arbete - Child 2",
-					"href": "#"
+					"href": "#",
+					"children": false
 				}
 			]
 		},
-		{ "id": 1, "name": "Bo, bygga och miljö", "href": "#", "children": true },
-		{ "id": 1, "name": "Förskola och utbildning", "href": "#", "children": true },
+		{ "id": 1, "name": "Bo, bygga och miljö", "href": "#", "children": false },
+		{ "id": 1, "name": "Förskola och utbildning", "href": "#", "children": false },
 		{
 			"id": 1,
 			"name": "Kommun och politik",
@@ -45,7 +46,7 @@
 			"id": 1,
 			"name": "Omsorg och stöd",
 			"href": "#",
-			"children": true,
+			"children": false,
 			"style": "button"
 		}
 	]

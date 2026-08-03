@@ -19,11 +19,15 @@
 	},
 	"with-logotype": {
 		"heading": "With logotype (auto-scale on)",
-		"description": "Header with a logotype. Logotype auto-scale is enabled by default — resize the browser to see the logotype scale fluidly between its minimum and maximum height."
+		"description": "Header with a logotype. Logotype auto-scale is enabled by default - resize the browser to see the logotype scale fluidly between its minimum and maximum height."
 	},
 	"with-logotype-fixed": {
 		"heading": "With logotype (auto-scale off)",
 		"description": "Same header with the logotype auto-scale disabled. The logotype height is fixed regardless of screen or container size."
+	},
+	"with-brand": {
+		"heading": "With brand",
+		"description": "Header using the brand component instead of logotype while keeping the rest of the header layout unchanged."
 	},
 	"no-margin": {
 		"heading": "No margin (x and y disabled)",
