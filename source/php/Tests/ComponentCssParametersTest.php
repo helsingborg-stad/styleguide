@@ -35,6 +35,7 @@ class ComponentCssParametersTest extends TestCase
                                 ],
                                 [
                                     'variable' => '--font-size-multiplier',
+                                    'outputs' => ['--line-height-multiplier'],
                                     'label' => 'Font Size Multiplier',
                                     'description' => 'Scales component font sizes locally.',
                                     'type' => 'range',
@@ -143,7 +144,7 @@ class ComponentCssParametersTest extends TestCase
     {
         $rows = ComponentCssParameters::getForComponent('alpha', $this->tempBasePath);
 
-        $this->assertCount(6, $rows);
+        $this->assertCount(7, $rows);
 
         $this->assertSame('--c-alpha--base', $rows[0]['key']);
         $this->assertSame('var(--base)', $rows[0]['defaultValue']);
@@ -157,6 +158,9 @@ class ComponentCssParametersTest extends TestCase
         $this->assertSame('--c-alpha--font-size-multiplier', $rows[5]['key']);
         $this->assertSame('1', $rows[5]['defaultValue']);
         $this->assertSame('Scales component font sizes locally.', $rows[5]['description']);
+        $this->assertSame('--c-alpha--line-height-multiplier', $rows[6]['key']);
+        $this->assertSame('1', $rows[6]['defaultValue']);
+        $this->assertSame('Scales component font sizes locally.', $rows[6]['description']);
 
         $this->assertSame('#0055ff, #0f766e', $rows[4]['availableValues']);
     }

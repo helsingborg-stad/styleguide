@@ -128,6 +128,14 @@
 					"type": "string",
 					"pattern": "^--[a-z][a-z0-9-]*$"
 				},
+				"outputs": {
+					"description": "Additional CSS custom property names updated by the same control.",
+					"type": "array",
+					"items": {
+						"type": "string",
+						"pattern": "^--[a-z][a-z0-9-]*$"
+					}
+				},
 				"label": {
 					"type": "string"
 				},

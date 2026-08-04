@@ -906,7 +906,18 @@ export class ComponentCustomizerRuntime {
 		}
 
 		return createDesignBuilderControl(setting, currentValue, (variable, value, extraValues, options) => {
-			this.handleChange(this.activeComponent as string, this.activeScopeKey, variable, value, setting.default, setting.linkedDefaults, extraValues, options);
+			const outputDefaults = Object.fromEntries((setting.outputs ?? []).map((outputVariable) => [outputVariable, setting.default]));
+			const outputValues = Object.fromEntries((setting.outputs ?? []).map((outputVariable) => [outputVariable, value]));
+			this.handleChange(
+				this.activeComponent as string,
+				this.activeScopeKey,
+				variable,
+				value,
+				setting.default,
+				{ ...outputDefaults, ...(setting.linkedDefaults ?? {}) },
+				{ ...outputValues, ...(extraValues ?? {}) },
+				options,
+			);
 		});
 	}
 
@@ -1330,6 +1341,7 @@ export class ComponentCustomizerRuntime {
 		return {
 			...setting,
 			variable: localizedVariable,
+			outputs: setting.outputs?.map((outputVariable) => this.toLocalizedComponentVariable(componentName, outputVariable)),
 		};
 	}
 

@@ -25,6 +25,7 @@
 			"settings": [
 				{
 					"variable": "--logotype-height-multiplier",
+					"outputs": ["--brand-height-multiplier"],
 					"label": "Logotype Height Multiplier",
 					"description": "Scales the header logotype height locally without changing the global base size.",
 					"type": "range",
@@ -36,6 +37,7 @@
 				},
 				{
 					"variable": "--logotype-auto-scale",
+					"outputs": ["--brand-auto-scale"],
 					"label": "Logotype Auto Scale",
 					"description": "Enables fluid scaling of the logotype or brand component based on available space or screen size. Uses a min/max/scale clamp calculation for smooth mobile adaptation.",
 					"type": "select",

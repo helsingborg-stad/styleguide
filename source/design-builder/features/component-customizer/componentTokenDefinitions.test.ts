@@ -27,6 +27,7 @@ describe('parseComponentTokenData', () => {
 							},
 							{
 								variable: '--font-size-multiplier',
+								outputs: ['--line-height-multiplier', ' --letter-spacing-multiplier '],
 								label: 'Font Size Multiplier',
 								type: 'range',
 								default: '1',
@@ -68,6 +69,7 @@ describe('parseComponentTokenData', () => {
 					},
 					{
 						variable: '--font-size-multiplier',
+						outputs: ['--line-height-multiplier', '--letter-spacing-multiplier'],
 						label: 'Font Size Multiplier',
 						type: 'range',
 						default: '1',

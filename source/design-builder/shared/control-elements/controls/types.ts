@@ -8,6 +8,7 @@ export interface TokenSettingOption {
 
 export interface TokenSetting {
 	variable: string;
+	outputs?: string[];
 	label: string;
 	description?: string;
 	type: 'color' | 'rgba' | 'range' | 'select' | 'font' | 'token-color';

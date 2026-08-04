@@ -91,6 +91,17 @@ function normalizeComponentVariableSetting(setting: unknown): TokenSetting | nul
 		normalized.step = setting.step;
 	}
 
+	if (Array.isArray(setting.outputs)) {
+		const outputs = setting.outputs
+			.filter((value): value is string => typeof value === 'string')
+			.map((value) => value.trim())
+			.filter((value) => value.startsWith('--'));
+
+		if (outputs.length > 0) {
+			normalized.outputs = [...new Set(outputs)];
+		}
+	}
+
 	if (Array.isArray(setting.options)) {
 		const options = setting.options
 			.filter(isRecord)

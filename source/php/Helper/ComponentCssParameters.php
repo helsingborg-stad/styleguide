@@ -183,13 +183,16 @@ class ComponentCssParameters
 
                 $variable = $setting['variable'] ?? null;
                 if (is_string($variable) && str_starts_with($variable, '--')) {
-                    self::upsertRow(
-                        $rows,
-                        $rowIndexesByVariable,
-                        self::toLocalizedVariable($componentPrefix, ltrim($variable, '-')),
-                        isset($setting['default']) ? (string) $setting['default'] : '',
-                        $setting,
-                    );
+                    $outputVariables = self::extractOutputVariables($setting);
+                    foreach ($outputVariables as $outputVariable) {
+                        self::upsertRow(
+                            $rows,
+                            $rowIndexesByVariable,
+                            self::toLocalizedVariable($componentPrefix, ltrim($outputVariable, '-')),
+                            isset($setting['default']) ? (string) $setting['default'] : '',
+                            $setting,
+                        );
+                    }
                     continue;
                 }
 
@@ -211,6 +214,32 @@ class ComponentCssParameters
         }
 
         return $rows;
+    }
+
+    /**
+     * Extract variable outputs for a custom component setting.
+     *
+     * @param array<string, mixed> $setting
+     *
+     * @return array<int, string>
+     */
+    private static function extractOutputVariables(array $setting): array
+    {
+        $variables = [];
+
+        if (isset($setting['variable']) && is_string($setting['variable']) && str_starts_with($setting['variable'], '--')) {
+            $variables[] = $setting['variable'];
+        }
+
+        if (isset($setting['outputs']) && is_array($setting['outputs'])) {
+            foreach ($setting['outputs'] as $output) {
+                if (is_string($output) && str_starts_with($output, '--')) {
+                    $variables[] = $output;
+                }
+            }
+        }
+
+        return array_values(array_unique($variables));
     }
 
     /**
