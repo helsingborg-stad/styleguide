@@ -29,6 +29,14 @@
 		"heading": "With brand",
 		"description": "Header using the brand component instead of logotype while keeping the rest of the header layout unchanged."
 	},
+	"with-brand-text": {
+		"heading": "With brand and text",
+		"description": "Header using the brand component with accompanying text. The text is aligned to the right of the brand component and will wrap if necessary."
+	},
+	"with-brand-text-multiline": {
+		"heading": "With brand and multiline text",
+		"description": "Header using the brand component with accompanying text. The text is aligned to the right of the brand component and will wrap if necessary."
+	},
 	"no-margin": {
 		"heading": "No margin (x and y disabled)",
 		"description": "Header with both horizontal and vertical margins disabled via --padding-x-enabled and --padding-y-enabled set to 0."

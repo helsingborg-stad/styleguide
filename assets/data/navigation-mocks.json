@@ -11,15 +11,12 @@
 			"id": 1,
 			"name": "Arbete",
 			"href": "#",
-			"list": [
+			"children": [
 				{
 					"id": 1,
 					"name": "Arbete - Child 1 with a long name",
 					"href": "#",
-					"list": [
-						{ "id": 1, "name": "Arbete - Granchild 1", "href": "#", "children": true },
-						{ "id": 1, "name": "Arbete - Granchild 2", "href": "#", "children": true }
-					]
+					"children": [{ "id": 1, "name": "Arbete - Granchild 1", "href": "#", "children": false }, { "id": 1, "name": "Arbete - Granchild 2", "href": "#", "children": false }]
 				},
 				{
 					"id": 1,
@@ -35,12 +32,7 @@
 			"id": 1,
 			"name": "Kommun och politik",
 			"href": "#",
-			"list": [
-				{ "id": 1, "name": "About", "href": "#" },
-				{ "id": 1, "name": "Contact", "href": "#" },
-				{ "id": 1, "name": "Links", "href": "#" },
-				{ "id": 1, "name": "More info", "href": "#" }
-			]
+			"children": [{ "id": 1, "name": "About", "href": "#", "children": false }, { "id": 1, "name": "Contact", "href": "#", "children": false }, { "id": 1, "name": "Links", "href": "#", "children": false }, { "id": 1, "name": "More info", "href": "#", "children": false }]
 		},
 		{
 			"id": 1,

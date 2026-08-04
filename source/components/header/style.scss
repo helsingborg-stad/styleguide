@@ -9,17 +9,30 @@ $_: "c-header";
 
 /* Component */
 .#{$_} {
-    --#{$_}--logotype-height-min: calc(var(--#{$_}--logotype-height-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 3)});
-    --#{$_}--logotype-height-max: calc(var(--#{$_}--logotype-height-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 6)});
+    /* Logotype */
+    --#{$_}--logotype-height-min: calc(var(--#{$_}--logotype-height-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 4)});
+    --#{$_}--logotype-height-max: calc(var(--#{$_}--logotype-height-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 8)});
     --#{$_}--logotype-height: clamp(var(--#{$_}--logotype-height-min),
         calc(var(--#{$_}--logotype-height-multiplier, 1) * (#{tokens.getCalculatedValue($_, "base", 6)} + var(--#{$_}--logotype-auto-scale, 1) * (4vw - #{tokens.getCalculatedValue($_, "base", 6)}))),
         var(--#{$_}--logotype-height-max));
+
+    /* Brand */
+    --#{$_}--brand-height-min: calc(var(--#{$_}--brand-height-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 4)});
+    --#{$_}--brand-height-max: calc(var(--#{$_}--brand-height-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 8)});
+    --#{$_}--brand-height: clamp(var(--#{$_}--brand-height-min),
+        calc(var(--#{$_}--brand-height-multiplier, 1) * (#{tokens.getCalculatedValue($_, "base", 6)} + var(--#{$_}--brand-auto-scale, 1) * (4vw - #{tokens.getCalculatedValue($_, "base", 6)}))),
+        var(--#{$_}--brand-height-max));
+
+    /* Space */
     --#{$_}--padding-x: calc(var(--#{$_}--padding-x-enabled, 1) * var(--#{$_}--inset-multiplier, 1) * #{tokens.getCalculatedValue($_, "outer-space", 2)});
     --#{$_}--padding-y: calc(var(--#{$_}--padding-y-enabled, 1) * var(--#{$_}--inset-multiplier, 1) * #{tokens.getCalculatedValue($_, "outer-space", 2)});
     --#{$_}--gap: calc(var(--#{$_}--inset-multiplier, 1) * #{tokens.getCalculatedValue($_, "space", 3)});
+
+    /* Color */
     --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface")};
     --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
     --#{$_}--border-color: #{tokens.getRawValue($_, "color--primary")};
+
     position: relative;
     padding: var(--#{$_}--padding-y) var(--#{$_}--padding-x);
     gap: var(--#{$_}--gap);
@@ -88,10 +101,17 @@ $_: "c-header";
     &__logotype {
         height: var(--#{$_}--logotype-height);
     }
+
+    .c-brand {
+        --c-brand--height: var(--#{$_}--brand-height, var(--#{$_}--logotype-height));
+    }
+
+    .c-brand__logotype {
+        height: var(--#{$_}--brand-height, var(--#{$_}--logotype-height));
+    }
 }
 
 @keyframes blink {
-
     0% {}
 
     25% {

@@ -12,6 +12,7 @@
                 'src' => '/assets/img/brand-red.svg',
                 'alt' => 'Brand',
             ],
+            'text' => ['Brand Text'],
         ])
         @endbrand
     @endlink
