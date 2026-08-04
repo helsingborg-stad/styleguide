@@ -10,15 +10,15 @@ $_: "c-header";
 /* Component */
 .#{$_} {
     /* Logotype */
-    --#{$_}--logotype-height-min: calc(var(--#{$_}--logotype-height-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 4)});
-    --#{$_}--logotype-height-max: calc(var(--#{$_}--logotype-height-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 8)});
+    --#{$_}--logotype-height-min: calc(var(--#{$_}--logotype-height-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 5)});
+    --#{$_}--logotype-height-max: calc(var(--#{$_}--logotype-height-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 16)});
     --#{$_}--logotype-height: clamp(var(--#{$_}--logotype-height-min),
         calc(var(--#{$_}--logotype-height-multiplier, 1) * (#{tokens.getCalculatedValue($_, "base", 6)} + var(--#{$_}--logotype-auto-scale, 1) * (4vw - #{tokens.getCalculatedValue($_, "base", 6)}))),
         var(--#{$_}--logotype-height-max));
 
     /* Brand */
-    --#{$_}--brand-height-min: calc(var(--#{$_}--brand-height-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 4)});
-    --#{$_}--brand-height-max: calc(var(--#{$_}--brand-height-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 8)});
+    --#{$_}--brand-height-min: calc(var(--#{$_}--brand-height-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 5)});
+    --#{$_}--brand-height-max: calc(var(--#{$_}--brand-height-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 16)});
     --#{$_}--brand-height: clamp(var(--#{$_}--brand-height-min),
         calc(var(--#{$_}--brand-height-multiplier, 1) * (#{tokens.getCalculatedValue($_, "base", 6)} + var(--#{$_}--brand-auto-scale, 1) * (4vw - #{tokens.getCalculatedValue($_, "base", 6)}))),
         var(--#{$_}--brand-height-max));
@@ -104,10 +104,6 @@ $_: "c-header";
 
     .c-brand {
         --c-brand--height: var(--#{$_}--brand-height, var(--#{$_}--logotype-height));
-    }
-
-    .c-brand__logotype {
-        height: var(--#{$_}--brand-height, var(--#{$_}--logotype-height));
     }
 }
 

@@ -6,7 +6,7 @@
         'u-gap--4',
     ],
 ])
-    @link(['href' => '#', 'classList' => ['u-display--block']])
+    @link(['href' => '#', 'classList' => ['u-display--flex']])
         @brand([
             'logotype' => [
                 'src' => '/assets/img/brand-red.svg',

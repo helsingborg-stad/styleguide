@@ -10,6 +10,7 @@ $_: "c-brand";
 
 .c-brand {
     --#{$_}--height: #{tokens.getCalculatedValue($_, "base", 12)};
+    --#{$_}--canvas-height: #{tokens.getCalculatedValue($_, "base", 12)};
     --#{$_}--gap: #{tokens.getCalculatedValue($_, "space", 3)};
     --#{$_}--text-color: #{tokens.getRawValue($_, "color--primary")};
     --#{$_}--font-size: calc(var(--#{$_}--font-size-multiplier, 1) * #{tokens.getRawValue($_, "font-size-400")});
@@ -19,7 +20,8 @@ $_: "c-brand";
     display: flex;
 
     .c-brand__logotype {
-        height: var(--#{$_}--height);
+        height: var(--#{$_}--canvas-height);
+        flex: 0 0 auto;
     }
 
     .c-brand__viewbox {
@@ -27,7 +29,7 @@ $_: "c-brand";
     }
 
     .c-brand__container {
-        height: var(--#{$_}--height);
+        height: var(--#{$_}--canvas-height);
         display: flex;
         gap: var(--#{$_}--gap);
         align-items: center;
@@ -38,6 +40,8 @@ $_: "c-brand";
         display: flex;
         flex-direction: column;
         align-items: flex-start;
+        flex: 0 1 auto;
+        min-width: 0;
         height: 100%;
         font-size: var(--#{$_}--font-size);
         font-family: var(--#{$_}--font-family);

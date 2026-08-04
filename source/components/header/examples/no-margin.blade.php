@@ -9,7 +9,7 @@
         'style' => '--c-header--padding-x-enabled: 0; --c-header--padding-y-enabled: 0;',
     ],
 ])
-    @link(['href' => '#', 'classList' => ['u-display--block']])
+    @link(['href' => '#', 'classList' => ['u-display--flex']])
         @logotype([
             'src' => '/assets/img/logotype.svg',
             'alt' => 'Logotype',
