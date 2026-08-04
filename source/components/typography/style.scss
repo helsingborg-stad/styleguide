@@ -89,7 +89,7 @@ $_: "c-typography";
     @include applyScaledFontSize(var(--inherit-font-size, #{tokens.getRawValue($_, "font-size-base")}), "body-font-size-multiplier");
     font-weight: tokens.getRawValue($_, "font-weight-normal");
     letter-spacing: tokens.getRawValue($prefix: $_, $token: "letter-spacing-base", $inheritVariable: "letter-spacing");
-    line-height: tokens.getRawValue($_, "line-height-base");
+    line-height: tokens.getRawValue($prefix: $_, $token: "line-height-base", $inheritVariable: "line-height");
 }
 
 h1,
@@ -147,7 +147,7 @@ h1,
 .#{$_}__variant--h1 {
     @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "h1-font-size", "font-size"), "h1-font-size-multiplier", true);
     font-weight: tokens.getRawValue($_, "font-weight-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
+    line-height: tokens.getRawValue($prefix: $_, $token: "line-height-heading", $inheritVariable: "line-height");
     font-family: tokens.getRawValue($_, "font-family-heading");
     letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
@@ -157,7 +157,7 @@ h2,
 .#{$_}__variant--h2 {
     @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "h2-font-size", "font-size"), "h2-font-size-multiplier", true);
     font-weight: tokens.getRawValue($_, "font-weight-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
+    line-height: tokens.getRawValue($prefix: $_, $token: "line-height-heading", $inheritVariable: "line-height");
     font-family: tokens.getRawValue($_, "font-family-heading");
     letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
@@ -167,7 +167,7 @@ h3,
 .#{$_}__variant--h3 {
     @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "h3-font-size", "font-size"), "h3-font-size-multiplier", true);
     font-weight: tokens.getRawValue($_, "font-weight-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
+    line-height: tokens.getRawValue($prefix: $_, $token: "line-height-heading", $inheritVariable: "line-height");
     font-family: tokens.getRawValue($_, "font-family-heading");
     letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
@@ -177,7 +177,7 @@ h4,
 .#{$_}__variant--h4 {
     @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "h4-font-size", "font-size"), "h4-font-size-multiplier", true);
     font-weight: tokens.getRawValue($_, "font-weight-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
+    line-height: tokens.getRawValue($prefix: $_, $token: "line-height-heading", $inheritVariable: "line-height");
     font-family: tokens.getRawValue($_, "font-family-heading");
     letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
@@ -187,7 +187,7 @@ h5,
 .#{$_}__variant--h5 {
     @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "h5-font-size", "font-size"), "h5-font-size-multiplier", true);
     font-weight: tokens.getRawValue($_, "font-weight-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
+    line-height: tokens.getRawValue($prefix: $_, $token: "line-height-heading", $inheritVariable: "line-height");
     font-family: tokens.getRawValue($_, "font-family-heading");
     letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
@@ -197,7 +197,7 @@ h6,
 .#{$_}__variant--h6 {
     @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "h6-font-size", "font-size"), "h6-font-size-multiplier", true);
     font-weight: tokens.getRawValue($_, "font-weight-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
+    line-height: tokens.getRawValue($prefix: $_, $token: "line-height-heading", $inheritVariable: "line-height");
     font-family: tokens.getRawValue($_, "font-family-heading");
     letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
@@ -205,7 +205,7 @@ h6,
 .#{$_}__variant--headline {
     @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-headline", "font-size"), "headline-font-size-multiplier", true);
     font-weight: tokens.getRawValue($_, "font-weight-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
+    line-height: tokens.getRawValue($prefix: $_, $token: "line-height-heading", $inheritVariable: "line-height");
     font-family: tokens.getRawValue($_, "font-family-heading");
     letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
@@ -215,13 +215,13 @@ h6,
     @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-title", "font-size"), "title-font-size-multiplier", true);
     font-weight: tokens.getRawValue($_, "font-weight-heading");
     letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
+    line-height: tokens.getRawValue($prefix: $_, $token: "line-height-heading", $inheritVariable: "line-height");
 }
 
 .#{$_}__variant--subtitle {
     @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-subtitle", "font-size"), "subtitle-font-size-multiplier", true);
     font-weight: tokens.getRawValue($_, "font-weight-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
+    line-height: tokens.getRawValue($prefix: $_, $token: "line-height-heading", $inheritVariable: "line-height");
     font-family: tokens.getRawValue($_, "font-family-heading");
     letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
@@ -231,7 +231,7 @@ h6,
     @include applyScaledFontSize(tokens.getRawValue($prefix: $_, $token: "font-size-base", $inheritVariable: "font-size"), "bold-font-size-multiplier");
     font-weight: tokens.getDefaultRawValue($_, "font-weight-bold");
     letter-spacing: tokens.getRawValue($prefix: $_, $token: "letter-spacing-base", $inheritVariable: "letter-spacing");
-    line-height: tokens.getDefaultRawValue($_, "line-height-base");
+    line-height: tokens.getRawValue($prefix: $_, $token: "line-height-base", $inheritVariable: "line-height");
 }
 
 .#{$_}__variant--caption {
@@ -256,7 +256,7 @@ h6,
     font-family: tokens.getRawValue($_, "font-family-heading");
     @include applyScaledFontSize(tokens.getDerivedAliasValue($_, "font-size-marketing", "font-size"), "marketing-font-size-multiplier", true);
     font-weight: tokens.getRawValue($_, "font-weight-heading");
-    line-height: tokens.getRawValue($_, "line-height-heading");
+    line-height: tokens.getRawValue($prefix: $_, $token: "line-height-heading", $inheritVariable: "line-height");
     letter-spacing: tokens.getRawValue($_, "letter-spacing-heading");
 }
 

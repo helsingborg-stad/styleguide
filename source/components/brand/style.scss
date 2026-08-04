@@ -1,10 +1,12 @@
 @use "../../sass/mixin/tokens";
+@use "../../sass/mixin/inherit";
 
 /* Component name */
 $_: "c-brand";
 
 /* Design tokens */
 @include tokens.create($_, getComponentTokens($_));
+@include inherit.property("line-height");
 
 .c-brand {
     --#{$_}--height: #{tokens.getCalculatedValue($_, "base", 12)};
@@ -12,6 +14,7 @@ $_: "c-brand";
     --#{$_}--text-color: #{tokens.getRawValue($_, "color--primary")};
     --#{$_}--font-size: calc(var(--#{$_}--font-size-multiplier, 1) * #{tokens.getRawValue($_, "font-size-400")});
     --#{$_}--font-family: #{tokens.getRawValue($_, "font-family-heading")};
+    --#{$_}--line-height: 1.2;
 
     display: flex;
 
@@ -31,6 +34,7 @@ $_: "c-brand";
     }
 
     .c-brand__text {
+        --inherit-line-height: var(--#{$_}--line-height);
         display: flex;
         flex-direction: column;
         align-items: flex-start;
@@ -38,7 +42,7 @@ $_: "c-brand";
         font-size: var(--#{$_}--font-size);
         font-family: var(--#{$_}--font-family);
         color: var(--#{$_}--text-color);
-        line-height: 1.2;
+        line-height: var(--#{$_}--line-height);
         justify-content: center;
     }
 
