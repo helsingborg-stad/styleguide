@@ -8,6 +8,7 @@ const CUSTOMIZER_PANEL = '.db-builder-customizer';
 const HEADER_TARGET = '.markup-preview [data-component="header"].o-container';
 const LAYOUT_CATEGORY_HEADER = '.db-category-header';
 const CONTAINER_WIDTH_LABEL = 'Container Width';
+const LOGOTYPE_HEIGHT_MULTIPLIER_LABEL = 'Logotype Height Multiplier';
 
 async function expandCategory(categoryHeader: Locator): Promise<void> {
 	const category = categoryHeader.locator('..');
@@ -37,6 +38,24 @@ async function selectControlOption(page: Page, label: string, optionValue: strin
 
 async function getRenderedWidthPx(locator: Locator): Promise<number> {
 	return locator.evaluate((el) => el.getBoundingClientRect().width);
+}
+
+async function setRangeValue(rangeLocator: Locator, value: string): Promise<void> {
+	await rangeLocator.evaluate((input: HTMLInputElement, val: string) => {
+		input.value = val;
+		input.dispatchEvent(new Event('input', { bubbles: true }));
+	}, value);
+}
+
+async function setRangeControl(page: Page, label: string, value: string): Promise<void> {
+	const row = await getControlRow(page, label);
+	const input = row.locator('input[type="range"]');
+	await expect(input).toBeVisible();
+	await setRangeValue(input, value);
+}
+
+async function getComputedPx(locator: Locator, property: string): Promise<number> {
+	return locator.evaluate((el, prop) => Number.parseFloat(window.getComputedStyle(el).getPropertyValue(prop)), property);
 }
 
 test.describe('Header - design panel', () => {
@@ -88,5 +107,25 @@ test.describe('Header - design panel', () => {
 
 		expect(wideWidth).toBeGreaterThan(defaultWidth + 20);
 		expect(fullWidth).toBeGreaterThan(wideWidth + 20);
+	});
+
+	test('logotype height remains stable when multiplier returns to default value', async ({ page }) => {
+		const brandingHeader = page.locator(LAYOUT_CATEGORY_HEADER).filter({ hasText: 'Branding' });
+		await expandCategory(brandingHeader);
+
+		const logotype = page.locator(`${HEADER_TARGET} .c-header__logotype`).first();
+
+		await setRangeControl(page, LOGOTYPE_HEIGHT_MULTIPLIER_LABEL, '2');
+		const changedHeight = await getComputedPx(logotype, 'height');
+
+		await setRangeControl(page, LOGOTYPE_HEIGHT_MULTIPLIER_LABEL, '1.5');
+		const restoredHeight = await getComputedPx(logotype, 'height');
+
+		await setRangeControl(page, LOGOTYPE_HEIGHT_MULTIPLIER_LABEL, '2');
+		await setRangeControl(page, LOGOTYPE_HEIGHT_MULTIPLIER_LABEL, '1.5');
+		const restoredHeightRepeat = await getComputedPx(logotype, 'height');
+
+		expect(changedHeight).toBeGreaterThan(restoredHeight + 5);
+		expect(Math.abs(restoredHeightRepeat - restoredHeight)).toBeLessThan(0.5);
 	});
 });
