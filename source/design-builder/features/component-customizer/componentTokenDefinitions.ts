@@ -108,7 +108,7 @@ function normalizeComponentVariableSetting(setting: unknown): TokenSetting | nul
 			.map((option) => {
 				const value = typeof option.value === 'string' ? option.value : null;
 				const optionLabel = typeof option.label === 'string' ? option.label : null;
-				return value && optionLabel ? { value, label: optionLabel } : null;
+				return value !== null && optionLabel ? { value, label: optionLabel } : null;
 			})
 			.filter((option): option is { value: string; label: string } => option !== null);
 

@@ -20,6 +20,11 @@ const INPUT = resolve(__dirname, 'source/data/design-tokens.json');
 const OUTPUT = resolve(__dirname, 'source/sass/setting/_design-tokens.scss');
 const COMPONENT_DIR = resolve(__dirname, 'source/components');
 const COMPONENT_OUTPUT = resolve(__dirname, 'component-design-tokens.json');
+const OBJECT_DIR = resolve(__dirname, 'source/objects');
+
+function isRecord(value) {
+	return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
+}
 
 function writeFileAtomic(path, content) {
 	const tempPath = `${path}.tmp`;
@@ -66,6 +71,88 @@ function validateComponentTokenReferences(componentName, componentData) {
 		const details = invalidReferences.map(({ categoryId, token }) => `- category "${categoryId}" references token "${token}" that is missing from tokens[]`).join('\n');
 
 		throw new Error(`Invalid component token references in source/components/${componentName}/component.json:\n${details}`);
+	}
+}
+
+function loadObjectDefinitions(objectsDir) {
+	if (!existsSync(objectsDir)) {
+		return {};
+	}
+
+	const definitions = {};
+	const objectDirs = readdirSync(objectsDir, { withFileTypes: true })
+		.filter((dirent) => dirent.isDirectory())
+		.map((dirent) => dirent.name);
+
+	for (const objectName of objectDirs) {
+		const objectFile = join(objectsDir, objectName, 'object.json');
+		if (!existsSync(objectFile)) {
+			continue;
+		}
+
+		const objectData = JSON.parse(readFileSync(objectFile, 'utf-8'));
+		if (!isRecord(objectData)) {
+			continue;
+		}
+
+		definitions[objectName] = objectData;
+	}
+
+	return definitions;
+}
+
+function resolveComponentSettingOptionsFromObjects(componentName, componentData, objectDefinitions) {
+	const componentSettings = Array.isArray(componentData?.componentSettings) ? componentData.componentSettings : [];
+
+	for (const category of componentSettings) {
+		const settings = Array.isArray(category?.settings) ? category.settings : [];
+
+		for (const setting of settings) {
+			if (!isRecord(setting) || setting.type !== 'select' || (Array.isArray(setting.options) && setting.options.length > 0)) {
+				continue;
+			}
+
+			const optionsFromObject = isRecord(setting.optionsFromObject) ? setting.optionsFromObject : null;
+			if (!optionsFromObject) {
+				continue;
+			}
+
+			const objectSlug = typeof optionsFromObject.object === 'string' ? optionsFromObject.object : '';
+			const settingSlug = typeof optionsFromObject.setting === 'string' ? optionsFromObject.setting : '';
+
+			if (!objectSlug || !settingSlug) {
+				throw new Error(`Invalid optionsFromObject reference in source/components/${componentName}/component.json. Expected both "object" and "setting" as non-empty strings.`);
+			}
+
+			const referencedObject = objectDefinitions[objectSlug];
+			if (!isRecord(referencedObject)) {
+				throw new Error(`Unable to resolve optionsFromObject.object "${objectSlug}" for source/components/${componentName}/component.json. Ensure source/objects/${objectSlug}/object.json exists.`);
+			}
+
+			const objectSettings = isRecord(referencedObject.settings) ? referencedObject.settings : null;
+			const referencedSetting = objectSettings && isRecord(objectSettings[settingSlug]) ? objectSettings[settingSlug] : null;
+			const referencedOptions = referencedSetting && Array.isArray(referencedSetting.options) ? referencedSetting.options : null;
+
+			if (!referencedOptions || referencedOptions.length === 0) {
+				throw new Error(`Unable to resolve optionsFromObject.setting "${settingSlug}" for source/components/${componentName}/component.json. Ensure source/objects/${objectSlug}/object.json defines settings.${settingSlug}.options.`);
+			}
+
+			const normalizedOptions = referencedOptions
+				.filter(isRecord)
+				.map((option) => {
+					const value = typeof option.value === 'string' ? option.value : null;
+					const label = typeof option.label === 'string' ? option.label : null;
+					return value !== null && label ? { value, label } : null;
+				})
+				.filter((option) => option !== null);
+
+			if (normalizedOptions.length === 0) {
+				throw new Error(`Resolved optionsFromObject for source/components/${componentName}/component.json but no valid { value, label } option pairs were found.`);
+			}
+
+			setting.options = normalizedOptions;
+			delete setting.optionsFromObject;
+		}
 	}
 }
 
@@ -143,6 +230,7 @@ console.log(`  ${data.categories.length} categories, ${tokenCount} tokens`);
 if (existsSync(COMPONENT_DIR)) {
 	const componentTokens = {};
 	const componentErrors = [];
+	const objectDefinitions = loadObjectDefinitions(OBJECT_DIR);
 	const componentDirs = readdirSync(COMPONENT_DIR, { withFileTypes: true })
 		.filter((dirent) => dirent.isDirectory())
 		.map((dirent) => dirent.name);
@@ -152,6 +240,7 @@ if (existsSync(COMPONENT_DIR)) {
 		if (existsSync(tokenFile)) {
 			try {
 				const tokenData = JSON.parse(readFileSync(tokenFile, 'utf-8'));
+				resolveComponentSettingOptionsFromObjects(componentName, tokenData, objectDefinitions);
 				validateComponentTokenReferences(componentName, tokenData);
 				componentTokens[componentName] = tokenData;
 			} catch (error) {

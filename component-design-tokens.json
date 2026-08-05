@@ -1481,6 +1481,27 @@
         "description": "Controls header spacing and margin presence.",
         "settings": [
           {
+            "variable": "--container-max-width",
+            "label": "Container Width",
+            "description": "Controls the rendered width of header containers.",
+            "type": "select",
+            "default": "",
+            "options": [
+              {
+                "value": "",
+                "label": "Default"
+              },
+              {
+                "value": "var(--container-width-wide)",
+                "label": "Wide"
+              },
+              {
+                "value": "100%",
+                "label": "Full Width"
+              }
+            ]
+          },
+          {
             "variable": "--inset-multiplier",
             "label": "Inset Multiplier",
             "description": "Scales the inner padding and gap of the header proportionally.",

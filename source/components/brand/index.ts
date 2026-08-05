@@ -44,17 +44,17 @@ export function init() {
 		document.querySelectorAll<HTMLElement>('.c-brand').forEach((brandElement) => {
 			const svg = brandElement.querySelector<SVGElement>('.c-brand__viewbox');
 			const container = brandElement.querySelector<HTMLElement>('.c-brand__container');
-				const textElement = brandElement.querySelector<HTMLElement>('.c-brand__text');
-				const figureElement = brandElement.querySelector<HTMLElement>('.c-brand__logotype');
+			const textElement = brandElement.querySelector<HTMLElement>('.c-brand__text');
+			const figureElement = brandElement.querySelector<HTMLElement>('.c-brand__logotype');
 
-				if (!svg || !container || !textElement) {
+			if (!svg || !container || !textElement) {
 				return;
 			}
 
-				const img = brandElement.querySelector<HTMLImageElement>('.c-brand__logotype img');
+			const img = brandElement.querySelector<HTMLImageElement>('.c-brand__logotype img');
 
 			const initViewBoxManager = () => {
-					new BrandViewBoxManager(svg, container, textElement, figureElement);
+				new BrandViewBoxManager(svg, container, textElement, figureElement);
 			};
 
 			if (!img || img.complete) {

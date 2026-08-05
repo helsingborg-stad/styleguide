@@ -168,6 +168,22 @@
 						"$ref": "./design-tokens-schema.json#/$defs/option"
 					}
 				},
+				"optionsFromObject": {
+					"description": "Reference select options from an object definition in source/objects/<object>/object.json.",
+					"type": "object",
+					"properties": {
+						"object": {
+							"type": "string",
+							"pattern": "^[a-z][a-z0-9-]*$"
+						},
+						"setting": {
+							"type": "string",
+							"pattern": "^[a-z][a-z0-9-]*$"
+						}
+					},
+					"required": ["object", "setting"],
+					"additionalProperties": false
+				},
 				"visibleWhen": {
 					"$ref": "#/$defs/componentSettingVisibilityCondition"
 				}
