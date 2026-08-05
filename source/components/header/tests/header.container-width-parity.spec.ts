@@ -97,10 +97,7 @@ test.describe('Header - container width parity with o-container variants', () =>
 			const renderedHeaderContentWidth = await getHeaderContentWidthPx(header);
 			const renderedContainerVariantWidth = await getContainerVariantWidthPx(page, variant.containerModifierClass);
 
-			expect(
-				renderedHeaderContentWidth,
-				`Expected header content width for ${variant.label} to match o-container variant width`,
-			).toBeCloseTo(renderedContainerVariantWidth, 0);
+			expect(renderedHeaderContentWidth, `Expected header content width for ${variant.label} to match o-container variant width`).toBeCloseTo(renderedContainerVariantWidth, 0);
 		}
 	});
 });

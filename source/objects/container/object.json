@@ -1,26 +1,26 @@
 {
-    "slug": "container",
-    "name": "Container",
-    "description": "Controls horizontal rhythm and readable content width.",
-    "icon": "width_normal",
-    "settings": {
-        "width": {
-            "label": "Container Width",
-            "description": "Shared width presets for components that render in a container layout.",
-            "options": [
-                {
-                    "value": "",
-                    "label": "Default"
-                },
-                {
-                    "value": "var(--container-width-wide)",
-                    "label": "Wide"
-                },
-                {
-                    "value": "100%",
-                    "label": "Full Width"
-                }
-            ]
-        }
-    }
+	"slug": "container",
+	"name": "Container",
+	"description": "Controls horizontal rhythm and readable content width.",
+	"icon": "width_normal",
+	"settings": {
+		"width": {
+			"label": "Container Width",
+			"description": "Shared width presets for components that render in a container layout.",
+			"options": [
+				{
+					"value": "",
+					"label": "Default"
+				},
+				{
+					"value": "var(--container-width-wide)",
+					"label": "Wide"
+				},
+				{
+					"value": "100%",
+					"label": "Full Width"
+				}
+			]
+		}
+	}
 }

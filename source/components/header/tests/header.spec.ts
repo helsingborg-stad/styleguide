@@ -36,10 +36,6 @@ async function selectControlOption(page: Page, label: string, optionValue: strin
 	await select.selectOption(optionValue);
 }
 
-async function getRenderedWidthPx(locator: Locator): Promise<number> {
-	return locator.evaluate((el) => el.getBoundingClientRect().width);
-}
-
 async function setRangeValue(rangeLocator: Locator, value: string): Promise<void> {
 	await rangeLocator.evaluate((input: HTMLInputElement, val: string) => {
 		input.value = val;
@@ -56,6 +52,20 @@ async function setRangeControl(page: Page, label: string, value: string): Promis
 
 async function getComputedPx(locator: Locator, property: string): Promise<number> {
 	return locator.evaluate((el, prop) => Number.parseFloat(window.getComputedStyle(el).getPropertyValue(prop)), property);
+}
+
+async function resolveCssLengthPx(locator: Locator, expression: string): Promise<number> {
+	return locator.evaluate((el, valueExpression) => {
+		const probe = document.createElement('div');
+		probe.style.position = 'absolute';
+		probe.style.visibility = 'hidden';
+		probe.style.inlineSize = valueExpression;
+		probe.style.pointerEvents = 'none';
+		el.appendChild(probe);
+		const width = Number.parseFloat(window.getComputedStyle(probe).width);
+		probe.remove();
+		return width;
+	}, expression);
 }
 
 test.describe('Header - design panel', () => {
@@ -78,10 +88,12 @@ test.describe('Header - design panel', () => {
 		const select = row.locator('select').first();
 		await expect(select).toBeVisible();
 
-		const options = await select.locator('option').evaluateAll((nodes) => nodes.map((option) => ({
-			value: (option as HTMLOptionElement).value,
-			label: option.textContent?.trim() ?? '',
-		})));
+		const options = await select.locator('option').evaluateAll((nodes) =>
+			nodes.map((option) => ({
+				value: (option as HTMLOptionElement).value,
+				label: option.textContent?.trim() ?? '',
+			})),
+		);
 
 		expect(options).toEqual([
 			{ value: '', label: 'Default' },
@@ -97,23 +109,24 @@ test.describe('Header - design panel', () => {
 		const header = page.locator(HEADER_TARGET).first();
 
 		await selectControlOption(page, CONTAINER_WIDTH_LABEL, '');
-		const defaultWidth = await getRenderedWidthPx(header);
+		const defaultContentWidth = await resolveCssLengthPx(header, 'var(--c-header--content-max-width)');
 
 		await selectControlOption(page, CONTAINER_WIDTH_LABEL, 'var(--container-width-wide)');
-		const wideWidth = await getRenderedWidthPx(header);
+		const wideContentWidth = await resolveCssLengthPx(header, 'var(--c-header--content-max-width)');
 
 		await selectControlOption(page, CONTAINER_WIDTH_LABEL, '100%');
-		const fullWidth = await getRenderedWidthPx(header);
+		const fullContentWidth = await resolveCssLengthPx(header, 'var(--c-header--content-max-width)');
 
-		expect(wideWidth).toBeGreaterThan(defaultWidth + 20);
-		expect(fullWidth).toBeGreaterThan(wideWidth + 20);
+		expect(wideContentWidth).toBeGreaterThan(defaultContentWidth + 20);
+		expect(fullContentWidth).toBeGreaterThan(wideContentWidth + 20);
 	});
 
 	test('logotype height remains stable when multiplier returns to default value', async ({ page }) => {
 		const brandingHeader = page.locator(LAYOUT_CATEGORY_HEADER).filter({ hasText: 'Branding' });
 		await expandCategory(brandingHeader);
 
-		const logotype = page.locator(`${HEADER_TARGET} .c-header__logotype`).first();
+		const logotype = page.locator('.markup-preview .c-header__logotype').first();
+		await expect(logotype).toBeVisible();
 
 		await setRangeControl(page, LOGOTYPE_HEIGHT_MULTIPLIER_LABEL, '2');
 		const changedHeight = await getComputedPx(logotype, 'height');
@@ -127,5 +140,27 @@ test.describe('Header - design panel', () => {
 
 		expect(changedHeight).toBeGreaterThan(restoredHeight + 5);
 		expect(Math.abs(restoredHeightRepeat - restoredHeight)).toBeLessThan(0.5);
+	});
+
+	test('container width math subtracts built-in container padding on mobile and sm breakpoints', async ({ page }) => {
+		const layoutHeader = page.locator(LAYOUT_CATEGORY_HEADER).filter({ hasText: 'Layout' });
+		await expandCategory(layoutHeader);
+
+		const header = page.locator(HEADER_TARGET).first();
+		await selectControlOption(page, CONTAINER_WIDTH_LABEL, '100%');
+
+		await page.setViewportSize({ width: 500, height: 1000 });
+		const mobileContainerMaxWidth = await resolveCssLengthPx(header, 'var(--c-header--container-max-width)');
+		const mobileContentMaxWidth = await resolveCssLengthPx(header, 'var(--c-header--content-max-width)');
+		const mobileContainerPadding = await resolveCssLengthPx(header, 'var(--c-header--container-padding-inline)');
+
+		expect(Math.abs((mobileContainerMaxWidth - mobileContentMaxWidth) - (mobileContainerPadding * 2))).toBeLessThan(1);
+
+		await page.setViewportSize({ width: 900, height: 1000 });
+		const smContainerMaxWidth = await resolveCssLengthPx(header, 'var(--c-header--container-max-width)');
+		const smContentMaxWidth = await resolveCssLengthPx(header, 'var(--c-header--content-max-width)');
+		const smContainerPadding = await resolveCssLengthPx(header, 'var(--c-header--container-padding-inline)');
+
+		expect(Math.abs((smContainerMaxWidth - smContentMaxWidth) - (smContainerPadding * 2))).toBeLessThan(1);
 	});
 });

@@ -1,5 +1,7 @@
 @use "../../sass/mixin/focus";
+@use "../../sass/mixin/mq";
 @use "../../sass/mixin/tokens";
+@use "../../sass/setting/var_default";
 
 /* Component name */
 $_: "c-header";
@@ -32,7 +34,8 @@ $_: "c-header";
     --#{$_}--container-max-width-default: var(--container-width);
     --#{$_}--container-max-width-wide: var(--container-width-wide);
     --#{$_}--container-max-width: var(--#{$_}--container-max-width-default);
-    --#{$_}--content-max-width: min(100%, var(--#{$_}--container-max-width, var(--#{$_}--container-max-width-default)));
+    --#{$_}--container-padding-inline: clamp(1rem, 4vw, 2rem);
+    --#{$_}--content-max-width: min(100%, max(0px, calc(var(--#{$_}--container-max-width, var(--#{$_}--container-max-width-default)) - (var(--#{$_}--container-padding-inline) * 2))));
     --#{$_}--content-padding-inline: max(var(--#{$_}--padding-x), calc((100% - var(--#{$_}--content-max-width)) / 2));
 
     /* Color */
@@ -57,6 +60,10 @@ $_: "c-header";
      * "" (default), var(--container-width-wide) (wide), and 100% (full width).
      */
     grid-template-columns: 1fr;
+
+    @include mq.mq("sm") {
+        --#{$_}--container-padding-inline: calc(#{var_default.$base} * 3);
+    }
 
     #main-menu:target {
         animation: blink 0.65s ease-in-out 3 both;
