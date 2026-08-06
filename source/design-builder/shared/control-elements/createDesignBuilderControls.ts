@@ -33,6 +33,7 @@ type CategoryElement = HTMLElement & {
 
 export function createDesignBuilderControl(setting: TokenSetting, currentValue: string, onChange: ChangeCallback): HTMLElement {
 	const row = document.createElement('db-control-row') as ControlRowElement;
+	row.dataset.variable = setting.variable;
 	row.setting = setting;
 	row.value = currentValue;
 	row.addEventListener('control-change', (event) => {

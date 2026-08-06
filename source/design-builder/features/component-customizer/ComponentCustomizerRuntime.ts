@@ -1243,9 +1243,46 @@ export class ComponentCustomizerRuntime {
 		return this.activeTargetWasPicked && activeElement ? [activeElement] : contextElements;
 	}
 
-	private matchesVisibilityCondition(targetElement: HTMLElement, condition: ComponentSettingVisibilityCondition | undefined): boolean {
+	private getComponentSettingDefaultValue(componentName: string, variable: string): string {
+		const definition = this.componentData[componentName];
+		const componentSettings = Array.isArray(definition?.componentSettings) ? definition.componentSettings : [];
+
+		for (const category of componentSettings) {
+			const settings = Array.isArray(category.settings) ? category.settings : [];
+			for (const setting of settings) {
+				if (this.isTokenReferenceSetting(setting) || setting.variable !== variable) {
+					continue;
+				}
+
+				return setting.default;
+			}
+		}
+
+		return '';
+	}
+
+	private getEffectiveVisibilityConditionSettingValue(componentName: string, variable: string, targetElement: HTMLElement): string {
+		const localizedVariable = this.toLocalizedComponentVariable(componentName, variable);
+		const appliedValue = targetElement.style.getPropertyValue(localizedVariable).trim();
+		if (appliedValue !== '') {
+			return appliedValue;
+		}
+
+		const defaultValue = this.getComponentSettingDefaultValue(componentName, variable);
+		return this.getEffectiveComponentVariableValue(componentName, this.activeScopeKey, localizedVariable, defaultValue);
+	}
+
+	private matchesVisibilityCondition(componentName: string, targetElement: HTMLElement, condition: ComponentSettingVisibilityCondition | undefined): boolean {
 		if (!condition) {
 			return true;
+		}
+
+		if (condition.settingEquals?.some(({ variable, value }) => this.getEffectiveVisibilityConditionSettingValue(componentName, variable, targetElement) !== value)) {
+			return false;
+		}
+
+		if (condition.settingNotEquals?.some(({ variable, value }) => this.getEffectiveVisibilityConditionSettingValue(componentName, variable, targetElement) === value)) {
+			return false;
 		}
 
 		if (condition.hasClass?.some((className) => !targetElement.classList.contains(className))) {
@@ -1263,12 +1300,12 @@ export class ComponentCustomizerRuntime {
 		return true;
 	}
 
-	private isComponentSettingVisible(setting: ComponentSettingDefinition, targetElements: HTMLElement[]): boolean {
+	private isComponentSettingVisible(componentName: string, setting: ComponentSettingDefinition, targetElements: HTMLElement[]): boolean {
 		if (!setting.visibleWhen || targetElements.length === 0) {
 			return true;
 		}
 
-		return targetElements.some((targetElement) => this.matchesVisibilityCondition(targetElement, setting.visibleWhen));
+		return targetElements.some((targetElement) => this.matchesVisibilityCondition(componentName, targetElement, setting.visibleWhen));
 	}
 
 	private getRedundantCompanionColorTokens(tokenNames: Iterable<string>): Set<string> {
@@ -1384,7 +1421,7 @@ export class ComponentCustomizerRuntime {
 		const targetElements = this.getComponentSettingVisibilityTargets(componentName);
 		for (const category of componentSettings) {
 			const matchedSettings = category.settings
-				.filter((setting) => this.isComponentSettingVisible(setting, targetElements))
+				.filter((setting) => this.isComponentSettingVisible(componentName, setting, targetElements))
 				.map((setting) => this.resolveComponentSetting(componentName, availableTokenNames, hiddenTokenNames, setting))
 				.filter((setting): setting is TokenCategory['settings'][number] => setting !== null);
 
@@ -1442,6 +1479,7 @@ export class ComponentCustomizerRuntime {
 		this.syncOverrideState();
 		this.presetManager.clearActive();
 		this.refreshPresetBar();
+		this.renderControls();
 		this.emitAction('change', {
 			componentName,
 			scopeKey,
@@ -1450,6 +1488,22 @@ export class ComponentCustomizerRuntime {
 			defaultValue,
 			relatedVariables: Object.keys(linkedDefaults),
 		});
+	}
+
+	private getEffectiveComponentVariableValue(componentName: string, scopeKey: string, variable: string, fallback: string): string {
+		const scopeValue = this.overrides[scopeKey]?.[componentName]?.[variable];
+		if (typeof scopeValue === 'string' && scopeValue.trim() !== '') {
+			return scopeValue;
+		}
+
+		if (scopeKey !== GENERAL_SCOPE_KEY) {
+			const generalValue = this.overrides[GENERAL_SCOPE_KEY]?.[componentName]?.[variable];
+			if (typeof generalValue === 'string' && generalValue.trim() !== '') {
+				return generalValue;
+			}
+		}
+
+		return fallback;
 	}
 
 	private hasLocalScopeOverrideForElement(componentName: string, variable: string, element: HTMLElement): boolean {

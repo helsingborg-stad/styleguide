@@ -217,6 +217,40 @@
 		"componentSettingVisibilityCondition": {
 			"type": "object",
 			"properties": {
+				"settingEquals": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"variable": {
+								"type": "string",
+								"pattern": "^--[a-z][a-z0-9-]*$"
+							},
+							"value": {
+								"type": "string"
+							}
+						},
+						"required": ["variable", "value"],
+						"additionalProperties": false
+					}
+				},
+				"settingNotEquals": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"variable": {
+								"type": "string",
+								"pattern": "^--[a-z][a-z0-9-]*$"
+							},
+							"value": {
+								"type": "string"
+							}
+						},
+						"required": ["variable", "value"],
+						"additionalProperties": false
+					}
+				},
 				"hasClass": {
 					"type": "array",
 					"items": {

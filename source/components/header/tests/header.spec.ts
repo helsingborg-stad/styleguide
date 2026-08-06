@@ -9,6 +9,9 @@ const HEADER_TARGET = '.markup-preview [data-component="header"].o-container';
 const LAYOUT_CATEGORY_HEADER = '.db-category-header';
 const CONTAINER_WIDTH_LABEL = 'Container Width';
 const LOGOTYPE_HEIGHT_MULTIPLIER_LABEL = 'Logotype Height Multiplier';
+const LOGOTYPE_AUTO_SCALE_LABEL = 'Logotype Auto Scale';
+const MIN_HEIGHT_LABEL = 'Min Height';
+const MAX_HEIGHT_LABEL = 'Max Height';
 
 async function expandCategory(categoryHeader: Locator): Promise<void> {
 	const category = categoryHeader.locator('..');
@@ -102,6 +105,24 @@ test.describe('Header - design panel', () => {
 		]);
 	});
 
+	test('branding shows single shared min/max controls and hides them when autoscale is off', async ({ page }) => {
+		const brandingHeader = page.locator(LAYOUT_CATEGORY_HEADER).filter({ hasText: 'Branding' });
+		await expandCategory(brandingHeader);
+
+		const minControlRow = page.locator('db-control-row').filter({ has: page.locator('.db-control-row-label-text').filter({ hasText: new RegExp(`^${escapeRegExp(MIN_HEIGHT_LABEL)}$`) }) });
+		const maxControlRow = page.locator('db-control-row').filter({ has: page.locator('.db-control-row-label-text').filter({ hasText: new RegExp(`^${escapeRegExp(MAX_HEIGHT_LABEL)}$`) }) });
+
+		await expect(minControlRow).toHaveCount(1);
+		await expect(maxControlRow).toHaveCount(1);
+		await expect(minControlRow).toBeVisible();
+		await expect(maxControlRow).toBeVisible();
+
+		await selectControlOption(page, LOGOTYPE_AUTO_SCALE_LABEL, '0');
+
+		await expect(minControlRow).not.toBeVisible();
+		await expect(maxControlRow).not.toBeVisible();
+	});
+
 	test('container width setting updates the rendered header width', async ({ page }) => {
 		const layoutHeader = page.locator(LAYOUT_CATEGORY_HEADER).filter({ hasText: 'Layout' });
 		await expandCategory(layoutHeader);
@@ -149,6 +170,26 @@ test.describe('Header - design panel', () => {
 
 		expect(changedHeight).toBeGreaterThan(restoredHeight + 5);
 		expect(Math.abs(restoredHeightRepeat - restoredHeight)).toBeLessThan(0.5);
+	});
+
+	test('max height control is a hard cap for logotype and brand', async ({ page }) => {
+		const brandingHeader = page.locator(LAYOUT_CATEGORY_HEADER).filter({ hasText: 'Branding' });
+		await expandCategory(brandingHeader);
+
+		const header = page.locator(HEADER_TARGET).first();
+		await selectControlOption(page, LOGOTYPE_AUTO_SCALE_LABEL, '1');
+		await setRangeControl(page, MAX_HEIGHT_LABEL, '8');
+		await setRangeControl(page, LOGOTYPE_HEIGHT_MULTIPLIER_LABEL, '3');
+
+		const logotypeMax = await resolveCssLengthPx(header, 'var(--c-header--logotype-height-max)');
+		const brandMax = await resolveCssLengthPx(header, 'var(--c-header--brand-height-max)');
+		const logotypeHeight = await getComputedPx(page.locator('.markup-preview .c-header__logotype').first(), 'height');
+		const brandHeight = await resolveCssLengthPx(header, 'var(--c-header--brand-height)');
+
+		expect(Math.abs(logotypeMax - 64)).toBeLessThan(0.5);
+		expect(Math.abs(brandMax - 64)).toBeLessThan(0.5);
+		expect(logotypeHeight).toBeLessThanOrEqual(64.5);
+		expect(brandHeight).toBeLessThanOrEqual(64.5);
 	});
 
 	test('container width math subtracts built-in container padding on mobile and sm breakpoints', async ({ page }) => {

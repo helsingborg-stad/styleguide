@@ -12,10 +12,19 @@ $_: "c-header";
 /* Component */
 .#{$_} {
     --#{$_}--logotype-height-multiplier-default: 1.5;
-    --#{$_}--logotype-height-min: #{tokens.getCalculatedValue($_, "base", 5)};
-    --#{$_}--logotype-height-max: #{tokens.getCalculatedValue($_, "base", 12)};
-    --#{$_}--brand-height-min: #{tokens.getCalculatedValue($_, "base", 5)};
-    --#{$_}--brand-height-max: #{tokens.getCalculatedValue($_, "base", 12)};
+    --#{$_}--brand-height-multiplier-default: 1.5;
+    --#{$_}--logotype-height-min-multiplier: 5;
+    --#{$_}--logotype-height-max-multiplier: 12;
+    --#{$_}--brand-height-min-multiplier: 5;
+    --#{$_}--brand-height-max-multiplier: 12;
+    --#{$_}--logotype-height-min-base: calc(var(--#{$_}--logotype-height-min-multiplier) * #{tokens.getCalculatedValue($_, "base", 1)});
+    --#{$_}--logotype-height-max-base: calc(var(--#{$_}--logotype-height-max-multiplier) * #{tokens.getCalculatedValue($_, "base", 1)});
+    --#{$_}--brand-height-min-base: calc(var(--#{$_}--brand-height-min-multiplier) * #{tokens.getCalculatedValue($_, "base", 1)});
+    --#{$_}--brand-height-max-base: calc(var(--#{$_}--brand-height-max-multiplier) * #{tokens.getCalculatedValue($_, "base", 1)});
+    --#{$_}--logotype-height-min: var(--#{$_}--logotype-height-min-base);
+    --#{$_}--logotype-height-max: var(--#{$_}--logotype-height-max-base);
+    --#{$_}--brand-height-min: var(--#{$_}--brand-height-min-base);
+    --#{$_}--brand-height-max: var(--#{$_}--brand-height-max-base);
 
     /* Logotype */
     --#{$_}--logotype-height: clamp(var(--#{$_}--logotype-height-min),
@@ -24,7 +33,7 @@ $_: "c-header";
 
     /* Brand */
     --#{$_}--brand-height: clamp(var(--#{$_}--brand-height-min),
-        calc(var(--#{$_}--brand-height-multiplier, var(--#{$_}--logotype-height-multiplier-default)) * (#{tokens.getCalculatedValue($_, "base", 6)} + var(--#{$_}--brand-auto-scale, 1) * (4vw - #{tokens.getCalculatedValue($_, "base", 6)}))),
+        calc(var(--#{$_}--brand-height-multiplier, var(--#{$_}--brand-height-multiplier-default)) * (#{tokens.getCalculatedValue($_, "base", 6)} + var(--#{$_}--brand-auto-scale, 1) * (4vw - #{tokens.getCalculatedValue($_, "base", 6)}))),
         var(--#{$_}--brand-height-max));
 
     /* Space */

@@ -25,6 +25,26 @@ function normalizeVisibleWhen(input: unknown): ComponentSettingVisibilityConditi
 	const hasClass = normalizeStringArray(input.hasClass);
 	const hasAnyClass = normalizeStringArray(input.hasAnyClass);
 	const doesNotHaveClass = normalizeStringArray(input.doesNotHaveClass);
+	const settingEquals = Array.isArray(input.settingEquals)
+		? input.settingEquals
+				.filter(isRecord)
+				.map((entry) => {
+					const variable = typeof entry.variable === 'string' ? entry.variable.trim() : '';
+					const value = entry.value !== undefined && entry.value !== null ? String(entry.value).trim() : '';
+					return variable.startsWith('--') && value !== '' ? { variable, value } : null;
+				})
+				.filter((entry): entry is { variable: string; value: string } => entry !== null)
+		: [];
+	const settingNotEquals = Array.isArray(input.settingNotEquals)
+		? input.settingNotEquals
+				.filter(isRecord)
+				.map((entry) => {
+					const variable = typeof entry.variable === 'string' ? entry.variable.trim() : '';
+					const value = entry.value !== undefined && entry.value !== null ? String(entry.value).trim() : '';
+					return variable.startsWith('--') && value !== '' ? { variable, value } : null;
+				})
+				.filter((entry): entry is { variable: string; value: string } => entry !== null)
+		: [];
 
 	if (hasClass.length > 0) {
 		visibleWhen.hasClass = hasClass;
@@ -36,6 +56,14 @@ function normalizeVisibleWhen(input: unknown): ComponentSettingVisibilityConditi
 
 	if (doesNotHaveClass.length > 0) {
 		visibleWhen.doesNotHaveClass = doesNotHaveClass;
+	}
+
+	if (settingEquals.length > 0) {
+		visibleWhen.settingEquals = settingEquals;
+	}
+
+	if (settingNotEquals.length > 0) {
+		visibleWhen.settingNotEquals = settingNotEquals;
 	}
 
 	return Object.keys(visibleWhen).length > 0 ? visibleWhen : undefined;

@@ -15,6 +15,14 @@ export interface TokenData {
 }
 
 export interface ComponentSettingVisibilityCondition {
+	settingEquals?: Array<{
+		variable: string;
+		value: string;
+	}>;
+	settingNotEquals?: Array<{
+		variable: string;
+		value: string;
+	}>;
 	hasClass?: string[];
 	hasAnyClass?: string[];
 	doesNotHaveClass?: string[];
