@@ -144,7 +144,12 @@
 				},
 				"type": {
 					"type": "string",
-					"enum": ["range", "select", "font"]
+					"enum": ["range", "minmaxrange", "select", "font"]
+				},
+				"pairWith": {
+					"description": "For minmaxrange settings, references the related minimum variable setting.",
+					"type": "string",
+					"pattern": "^--[a-z][a-z0-9-]*$"
 				},
 				"default": {},
 				"unit": {
@@ -161,6 +166,22 @@
 				},
 				"step": {
 					"type": "number"
+				},
+				"rangeConstraint": {
+					"description": "Links range controls into a shared constrained group (for example min/max pairs).",
+					"type": "object",
+					"properties": {
+						"group": {
+							"type": "string",
+							"pattern": "^[a-z][a-z0-9-]*$"
+						},
+						"role": {
+							"type": "string",
+							"enum": ["min", "max"]
+						}
+					},
+					"required": ["group", "role"],
+					"additionalProperties": false
 				},
 				"options": {
 					"type": "array",

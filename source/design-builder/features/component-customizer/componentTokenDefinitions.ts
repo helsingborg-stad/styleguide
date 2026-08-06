@@ -119,6 +119,21 @@ function normalizeComponentVariableSetting(setting: unknown): TokenSetting | nul
 		normalized.step = setting.step;
 	}
 
+	if (typeof setting.pairWith === 'string' && setting.pairWith.trim().startsWith('--')) {
+		normalized.pairWith = setting.pairWith.trim();
+	}
+
+	if (isRecord(setting.rangeConstraint)) {
+		const group = typeof setting.rangeConstraint.group === 'string' ? setting.rangeConstraint.group.trim() : '';
+		const role = setting.rangeConstraint.role === 'min' || setting.rangeConstraint.role === 'max' ? setting.rangeConstraint.role : null;
+		if (group !== '' && role) {
+			normalized.rangeConstraint = {
+				group,
+				role,
+			};
+		}
+	}
+
 	if (Array.isArray(setting.outputs)) {
 		const outputs = setting.outputs
 			.filter((value): value is string => typeof value === 'string')

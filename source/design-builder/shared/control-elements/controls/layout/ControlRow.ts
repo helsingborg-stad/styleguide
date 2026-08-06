@@ -32,11 +32,12 @@ function getControlChangePayload(event: Event): ControlChangePayload | undefined
 	const extraValuesRaw = (detail as { extraValues?: unknown }).extraValues;
 	const extraValues = extraValuesRaw && typeof extraValuesRaw === 'object' && !Array.isArray(extraValuesRaw) ? Object.fromEntries(Object.entries(extraValuesRaw as Record<string, unknown>).filter(([, entryValue]) => typeof entryValue === 'string')) : undefined;
 	const optionsRaw = (detail as { options?: unknown }).options;
-	const options = optionsRaw && typeof optionsRaw === 'object' && !Array.isArray(optionsRaw)
-		? {
-				preserveMatchingDefault: (optionsRaw as { preserveMatchingDefault?: unknown }).preserveMatchingDefault === true,
-			}
-		: undefined;
+	const options =
+		optionsRaw && typeof optionsRaw === 'object' && !Array.isArray(optionsRaw)
+			? {
+					preserveMatchingDefault: (optionsRaw as { preserveMatchingDefault?: unknown }).preserveMatchingDefault === true,
+				}
+			: undefined;
 
 	return {
 		value: String(value),
@@ -130,10 +131,23 @@ class DbControlRow extends HTMLElement {
 			}
 		}
 
+		let extraValues = payload.extraValues;
+		if (setting.type === 'range-bounds' && setting.unit && extraValues && setting.rangeBounds) {
+			const unit = setting.unit;
+			const maxVariable = setting.rangeBounds.maxVariable;
+			const maxRawValue = extraValues[maxVariable];
+			if (maxRawValue !== undefined && maxRawValue !== '' && !maxRawValue.endsWith(unit)) {
+				extraValues = {
+					...extraValues,
+					[maxVariable]: `${maxRawValue}${unit}`,
+				};
+			}
+		}
+
 		this._value = value;
 		// Avoid re-rendering the whole control row on each input event.
 		// Replacing the range input mid-drag causes the thumb interaction to break.
-		this.emitChange(value, payload.extraValues, payload.options);
+		this.emitChange(value, extraValues, payload.options);
 	}
 
 	private onReset() {
@@ -144,6 +158,13 @@ class DbControlRow extends HTMLElement {
 
 		this._value = setting.default;
 		this.render();
+		if (setting.type === 'range-bounds' && setting.rangeBounds) {
+			this.emitChange('', {
+				[setting.rangeBounds.maxVariable]: '',
+			});
+			return;
+		}
+
 		this.emitChange('');
 	}
 
@@ -165,6 +186,30 @@ class DbControlRow extends HTMLElement {
 			case 'range':
 				return html`<range-control
 					value=${Number.isNaN(parseFloat(this._value)) ? '0' : String(parseFloat(this._value))}
+					?locked=${setting.locked === true}
+					min=${setting.min !== undefined ? String(setting.min) : undefined}
+					max=${setting.max !== undefined ? String(setting.max) : undefined}
+					step=${setting.step !== undefined ? String(setting.step) : undefined}
+					unit=${setting.unit}
+					@change=${(e: Event) => this.onControlChange(e)}
+				/>`;
+			case 'minmaxrange':
+				return html`<range-control
+					value=${Number.isNaN(parseFloat(this._value)) ? '0' : String(parseFloat(this._value))}
+					?locked=${setting.locked === true}
+					min=${setting.min !== undefined ? String(setting.min) : undefined}
+					max=${setting.max !== undefined ? String(setting.max) : undefined}
+					step=${setting.step !== undefined ? String(setting.step) : undefined}
+					unit=${setting.unit}
+					@change=${(e: Event) => this.onControlChange(e)}
+				/>`;
+			case 'range-bounds':
+				return html`<range-bounds-control
+					value=${Number.isNaN(parseFloat(this._value)) ? '0' : String(parseFloat(this._value))}
+					max-value=${setting.rangeBounds?.maxValue ?? setting.rangeBounds?.maxDefault ?? '0'}
+					max-variable=${setting.rangeBounds?.maxVariable ?? ''}
+					min-label=${setting.rangeBounds?.minLabel ?? 'Min'}
+					max-label=${setting.rangeBounds?.maxLabel ?? 'Max'}
 					?locked=${setting.locked === true}
 					min=${setting.min !== undefined ? String(setting.min) : undefined}
 					max=${setting.max !== undefined ? String(setting.max) : undefined}

@@ -892,15 +892,138 @@ export class ComponentCustomizerRuntime {
 	}
 
 	private renderControlsCategoryTemplate(category: TokenCategory): HTMLElement {
+		const renderableSettings = this.getRenderableCategorySettings(category.settings);
+
 		return createDesignBuilderCategory(
 			category,
-			category.settings.map((setting) => this.renderControl(setting)),
+			renderableSettings.map((setting) => this.renderControl(setting)),
 			false,
 		);
 	}
 
+	private getRenderableCategorySettings(settings: TokenCategory['settings']): TokenCategory['settings'] {
+		const renderableSettings: TokenCategory['settings'] = [];
+		const consumedVariables = new Set<string>();
+		const activeComponentName = this.activeComponent;
+
+		for (const setting of settings) {
+			if (consumedVariables.has(setting.variable)) {
+				continue;
+			}
+
+			if (setting.type === 'range' && setting.rangeConstraint?.role === 'min') {
+				const counterpart = settings.find((candidate) => candidate.type === 'range' && candidate.rangeConstraint?.group === setting.rangeConstraint?.group && candidate.rangeConstraint?.role === 'max');
+
+				if (counterpart) {
+					const counterpartOutputs = counterpart.outputs ?? [];
+					const minLabel = setting.label.trim();
+					const maxLabel = counterpart.label.trim();
+					const hasComplementaryLabels = minLabel.toLowerCase().startsWith('min ') && maxLabel.toLowerCase().startsWith('max ') && minLabel.slice(4).trim().toLowerCase() === maxLabel.slice(4).trim().toLowerCase();
+					const combinedLabel = hasComplementaryLabels ? minLabel.slice(4).trim() : `${minLabel} / ${maxLabel}`;
+					consumedVariables.add(counterpart.variable);
+					renderableSettings.push({
+						...setting,
+						type: 'range-bounds',
+						label: combinedLabel,
+						rangeBounds: {
+							maxVariable: counterpart.variable,
+							maxDefault: counterpart.default,
+							maxOutputs: counterpartOutputs,
+							maxLabel: counterpart.label,
+							minLabel: setting.label,
+						},
+						linkedDefaults: {
+							...(setting.linkedDefaults ?? {}),
+							[counterpart.variable]: counterpart.default,
+						},
+						min: setting.min !== undefined && counterpart.min !== undefined ? Math.min(setting.min, counterpart.min) : (setting.min ?? counterpart.min),
+						max: setting.max !== undefined && counterpart.max !== undefined ? Math.max(setting.max, counterpart.max) : (setting.max ?? counterpart.max),
+						step: setting.step ?? counterpart.step,
+					});
+					continue;
+				}
+			}
+
+			if (setting.type === 'range') {
+				const counterpart = settings.find((candidate) => candidate.type === 'minmaxrange' && typeof candidate.pairWith === 'string' && activeComponentName !== null && this.toLocalizedComponentVariable(activeComponentName, candidate.pairWith) === setting.variable);
+
+				if (counterpart) {
+					const counterpartOutputs = counterpart.outputs ?? [];
+					const minLabel = setting.label.trim();
+					const maxLabel = counterpart.label.trim();
+					const hasComplementaryLabels = minLabel.toLowerCase().startsWith('min ') && maxLabel.toLowerCase().startsWith('max ') && minLabel.slice(4).trim().toLowerCase() === maxLabel.slice(4).trim().toLowerCase();
+					const combinedLabel = hasComplementaryLabels ? minLabel.slice(4).trim() : `${minLabel} / ${maxLabel}`;
+					consumedVariables.add(counterpart.variable);
+					renderableSettings.push({
+						...setting,
+						type: 'range-bounds',
+						label: combinedLabel,
+						rangeBounds: {
+							maxVariable: counterpart.variable,
+							maxDefault: counterpart.default,
+							maxOutputs: counterpartOutputs,
+							maxLabel: counterpart.label,
+							minLabel: setting.label,
+						},
+						linkedDefaults: {
+							...(setting.linkedDefaults ?? {}),
+							[counterpart.variable]: counterpart.default,
+						},
+						min: setting.min !== undefined && counterpart.min !== undefined ? Math.min(setting.min, counterpart.min) : (setting.min ?? counterpart.min),
+						max: setting.max !== undefined && counterpart.max !== undefined ? Math.max(setting.max, counterpart.max) : (setting.max ?? counterpart.max),
+						step: setting.step ?? counterpart.step,
+					});
+					continue;
+				}
+			}
+
+			if (setting.type === 'range' && setting.rangeConstraint?.role === 'max') {
+				const hasMinCounterpart = settings.some((candidate) => candidate.type === 'range' && candidate.rangeConstraint?.group === setting.rangeConstraint?.group && candidate.rangeConstraint?.role === 'min');
+
+				if (hasMinCounterpart) {
+					continue;
+				}
+			}
+
+			if (setting.type === 'minmaxrange' && setting.pairWith) {
+				const hasRangePair = activeComponentName !== null && settings.some((candidate) => candidate.type === 'range' && candidate.variable === this.toLocalizedComponentVariable(activeComponentName, setting.pairWith as string));
+				if (hasRangePair) {
+					continue;
+				}
+			}
+
+			renderableSettings.push(setting);
+		}
+
+		return renderableSettings;
+	}
+
 	private renderControl(setting: TokenCategory['settings'][number]): HTMLElement {
-		const currentValue = this.overrides[this.activeScopeKey]?.[this.activeComponent as string]?.[setting.variable] || setting.default;
+		const componentName = this.activeComponent as string;
+		const currentValue = this.overrides[this.activeScopeKey]?.[componentName]?.[setting.variable] || setting.default;
+
+		if (setting.type === 'range-bounds' && setting.rangeBounds) {
+			const maxCurrentValue = this.overrides[this.activeScopeKey]?.[componentName]?.[setting.rangeBounds.maxVariable] || setting.rangeBounds.maxDefault;
+			const boundedSetting: TokenCategory['settings'][number] = {
+				...setting,
+				rangeBounds: {
+					...setting.rangeBounds,
+					maxValue: maxCurrentValue,
+				},
+			};
+
+			return createDesignBuilderControl(boundedSetting, currentValue, (variable, value, extraValues, options) => {
+				const minOutputDefaults = Object.fromEntries((boundedSetting.outputs ?? []).map((outputVariable) => [outputVariable, boundedSetting.default]));
+				const maxOutputDefaults = Object.fromEntries((boundedSetting.rangeBounds?.maxOutputs ?? []).map((outputVariable) => [outputVariable, boundedSetting.rangeBounds?.maxDefault ?? '']));
+				const maxVariable = boundedSetting.rangeBounds?.maxVariable;
+				const maxValue = maxVariable ? extraValues?.[maxVariable] : undefined;
+				const minOutputValues = Object.fromEntries((boundedSetting.outputs ?? []).map((outputVariable) => [outputVariable, value]));
+				const maxOutputValues = maxValue !== undefined ? Object.fromEntries((boundedSetting.rangeBounds?.maxOutputs ?? []).map((outputVariable) => [outputVariable, maxValue])) : {};
+
+				this.handleChange(componentName, this.activeScopeKey, variable, value, boundedSetting.default, { ...minOutputDefaults, ...maxOutputDefaults, ...(boundedSetting.linkedDefaults ?? {}) }, { ...minOutputValues, ...maxOutputValues, ...(extraValues ?? {}) }, options);
+			});
+		}
+
 		if (setting.locked) {
 			return createReadOnlyDesignBuilderControl(setting, currentValue);
 		}
@@ -908,7 +1031,7 @@ export class ComponentCustomizerRuntime {
 		return createDesignBuilderControl(setting, currentValue, (variable, value, extraValues, options) => {
 			const outputDefaults = Object.fromEntries((setting.outputs ?? []).map((outputVariable) => [outputVariable, setting.default]));
 			const outputValues = Object.fromEntries((setting.outputs ?? []).map((outputVariable) => [outputVariable, value]));
-			this.handleChange(this.activeComponent as string, this.activeScopeKey, variable, value, setting.default, { ...outputDefaults, ...(setting.linkedDefaults ?? {}) }, { ...outputValues, ...(extraValues ?? {}) }, options);
+			this.handleChange(componentName, this.activeScopeKey, variable, value, setting.default, { ...outputDefaults, ...(setting.linkedDefaults ?? {}) }, { ...outputValues, ...(extraValues ?? {}) }, options);
 		});
 	}
 
@@ -1329,10 +1452,7 @@ export class ComponentCustomizerRuntime {
 					continue;
 				}
 
-				const conditionVariables = [
-					...(condition.settingEquals ?? []).map((item) => item.variable),
-					...(condition.settingNotEquals ?? []).map((item) => item.variable),
-				];
+				const conditionVariables = [...(condition.settingEquals ?? []).map((item) => item.variable), ...(condition.settingNotEquals ?? []).map((item) => item.variable)];
 
 				if (conditionVariables.some((conditionVariable) => normalizedChangedVariables.has(this.toLocalizedComponentVariable(componentName, conditionVariable)))) {
 					return true;
@@ -1408,6 +1528,109 @@ export class ComponentCustomizerRuntime {
 		};
 	}
 
+	private getComponentVariableSettingByLocalizedVariable(componentName: string, localizedVariable: string): TokenCategory['settings'][number] | null {
+		const definition = this.componentData[componentName];
+		const componentSettings = Array.isArray(definition?.componentSettings) ? definition.componentSettings : [];
+
+		for (const category of componentSettings) {
+			for (const setting of category.settings) {
+				if (this.isTokenReferenceSetting(setting)) {
+					continue;
+				}
+
+				if (this.toLocalizedComponentVariable(componentName, setting.variable) === localizedVariable) {
+					return {
+						...setting,
+						variable: localizedVariable,
+						outputs: setting.outputs?.map((outputVariable) => this.toLocalizedComponentVariable(componentName, outputVariable)),
+					};
+				}
+			}
+		}
+
+		return null;
+	}
+
+	private constrainRangeValue(componentName: string, scopeKey: string, variable: string, value: string): string {
+		const setting = this.getComponentVariableSettingByLocalizedVariable(componentName, variable);
+		if (!setting) {
+			return value;
+		}
+
+		const nextNumericValue = Number.parseFloat(value);
+		if (Number.isNaN(nextNumericValue)) {
+			return value;
+		}
+
+		const definition = this.componentData[componentName];
+		const componentSettings = Array.isArray(definition?.componentSettings) ? definition.componentSettings : [];
+
+		if (setting.type === 'range') {
+			const counterpartSetting = componentSettings
+				.flatMap((category) => category.settings)
+				.find(
+					(candidate): candidate is Exclude<ComponentSettingDefinition, ComponentTokenReferenceSetting> => !this.isTokenReferenceSetting(candidate) && candidate.type === 'minmaxrange' && typeof candidate.pairWith === 'string' && this.toLocalizedComponentVariable(componentName, candidate.pairWith) === setting.variable,
+				);
+
+			if (counterpartSetting) {
+				const counterpartVariable = this.toLocalizedComponentVariable(componentName, counterpartSetting.variable);
+				const counterpartValue = this.getEffectiveComponentVariableValue(componentName, scopeKey, counterpartVariable, counterpartSetting.default);
+				const counterpartNumericValue = Number.parseFloat(counterpartValue);
+				if (Number.isNaN(counterpartNumericValue)) {
+					return value;
+				}
+
+				return String(Math.min(nextNumericValue, counterpartNumericValue));
+			}
+		}
+
+		if (setting.type === 'minmaxrange' && setting.pairWith) {
+			const counterpartVariable = this.toLocalizedComponentVariable(componentName, setting.pairWith);
+			const counterpartSetting = this.getComponentVariableSettingByLocalizedVariable(componentName, counterpartVariable);
+			const counterpartFallback = counterpartSetting?.default ?? '0';
+			const counterpartValue = this.getEffectiveComponentVariableValue(componentName, scopeKey, counterpartVariable, counterpartFallback);
+			const counterpartNumericValue = Number.parseFloat(counterpartValue);
+			if (Number.isNaN(counterpartNumericValue)) {
+				return value;
+			}
+
+			return String(Math.max(nextNumericValue, counterpartNumericValue));
+		}
+
+		if (setting.type !== 'range' || !setting.rangeConstraint) {
+			return value;
+		}
+
+		const desiredRole = setting.rangeConstraint.role === 'min' ? 'max' : 'min';
+
+		for (const category of componentSettings) {
+			for (const candidate of category.settings) {
+				if (this.isTokenReferenceSetting(candidate)) {
+					continue;
+				}
+
+				if (candidate.type !== 'range' || !candidate.rangeConstraint || candidate.rangeConstraint.group !== setting.rangeConstraint.group || candidate.rangeConstraint.role !== desiredRole) {
+					continue;
+				}
+
+				const counterpartVariable = this.toLocalizedComponentVariable(componentName, candidate.variable);
+				const counterpartValue = this.getEffectiveComponentVariableValue(componentName, scopeKey, counterpartVariable, candidate.default);
+				const counterpartNumericValue = Number.parseFloat(counterpartValue);
+				if (Number.isNaN(counterpartNumericValue)) {
+					return value;
+				}
+
+				if (setting.rangeConstraint.role === 'min') {
+					return String(Math.min(nextNumericValue, counterpartNumericValue));
+				}
+
+				return String(Math.max(nextNumericValue, counterpartNumericValue));
+			}
+		}
+
+		return value;
+	}
+
 	private buildLegacyTokenCategories(componentName: string, availableTokenNames: Set<string>, includeStateColors = false): TokenCategory[] {
 		const categories: TokenCategory[] = [];
 		const hiddenTokenNames = this.getRedundantCompanionColorTokens(availableTokenNames);
@@ -1481,8 +1704,10 @@ export class ComponentCustomizerRuntime {
 			this.overrides[scopeKey][componentName] = {};
 		}
 
+		const constrainedValue = this.constrainRangeValue(componentName, scopeKey, variable, value);
+
 		const nextValues = {
-			[variable]: value,
+			[variable]: constrainedValue,
 			...extraValues,
 		};
 		const defaultValues = {
@@ -1522,7 +1747,7 @@ export class ComponentCustomizerRuntime {
 			componentName,
 			scopeKey,
 			variable,
-			value,
+			value: constrainedValue,
 			defaultValue,
 			relatedVariables: Object.keys(linkedDefaults),
 		});

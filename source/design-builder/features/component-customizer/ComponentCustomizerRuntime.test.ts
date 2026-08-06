@@ -430,6 +430,72 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
+	it('clamps linked min and max range controls to prevent crossing values', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
+		document.body.appendChild(hostElement);
+
+		const runtime = new ComponentCustomizerRuntime(
+			{
+				button: {
+					name: 'Button',
+					tokens: [],
+					componentSettings: [
+						{
+							id: 'settings',
+							label: 'Settings',
+							settings: [
+								{
+									variable: '--min-size',
+									label: 'Min Size',
+									type: 'range',
+									default: '5',
+									min: 4,
+									max: 12,
+									step: 0.5,
+									rangeConstraint: {
+										group: 'size-bounds',
+										role: 'min',
+									},
+								},
+								{
+									variable: '--max-size',
+									label: 'Max Size',
+									type: 'minmaxrange',
+									pairWith: '--min-size',
+									default: '12',
+									min: 5,
+									max: 16,
+									step: 0.5,
+								},
+							],
+						},
+					],
+				},
+			},
+			tokenLibrary,
+			mount,
+			{ hostElement: hostElement as RuntimeHostElement },
+		);
+		const runtimeInternals = runtime as unknown as {
+			handleChange(componentName: string, scopeKey: string, variable: string, value: string, defaultValue: string): void;
+		};
+
+		runtimeInternals.handleChange('button', GENERAL_SCOPE_KEY, '--c-button--min-size', '15', '5');
+		expect(hostElement.overrideState.component[GENERAL_SCOPE_KEY]?.button?.['--c-button--min-size']).toBe('12');
+
+		runtimeInternals.handleChange('button', GENERAL_SCOPE_KEY, '--c-button--min-size', '9', '5');
+		runtimeInternals.handleChange('button', GENERAL_SCOPE_KEY, '--c-button--max-size', '8', '12');
+		expect(hostElement.overrideState.component[GENERAL_SCOPE_KEY]?.button?.['--c-button--max-size']).toBe('9');
+
+		hostElement.remove();
+		mount.remove();
+	});
+
 	it('only exposes configured palette variants in token-color options', () => {
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);

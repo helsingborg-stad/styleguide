@@ -1,4 +1,5 @@
 import './controls/RangeControl';
+import './controls/RangeBoundsControl';
 import './controls/SelectControl';
 import './controls/ColorControl';
 import './controls/RgbaControl';

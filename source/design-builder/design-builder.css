@@ -1176,6 +1176,94 @@ range-control output {
 	min-width: 4.25rem;
 }
 
+range-bounds-control {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: center;
+	align-self: stretch;
+	gap: 0.65rem;
+	height: 100%;
+	width: 100%;
+	min-width: 0;
+}
+
+range-bounds-control .db-range-bounds-slider {
+	position: relative;
+	height: 1.75rem;
+	display: flex;
+	align-items: center;
+}
+
+range-bounds-control .db-range-bounds-track,
+range-bounds-control .db-range-bounds-fill {
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 0.25rem;
+	border-radius: 999px;
+	pointer-events: none;
+}
+
+range-bounds-control .db-range-bounds-track {
+	background: color-mix(in srgb, var(--db-border) 70%, transparent);
+}
+
+range-bounds-control .db-range-bounds-fill {
+	left: var(--db-range-min);
+	right: calc(100% - var(--db-range-max));
+	background: color-mix(in srgb, var(--db-primary) 78%, white 22%);
+}
+
+range-bounds-control .db-range-bounds-input {
+	-webkit-appearance: none;
+	appearance: none;
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 100%;
+	background: transparent;
+	margin: 0;
+	pointer-events: none;
+}
+
+range-bounds-control .db-range-bounds-input::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	height: 0.95rem;
+	width: 0.95rem;
+	border-radius: 50%;
+	border: 2px solid var(--db-primary);
+	background: #fff;
+	cursor: pointer;
+	pointer-events: auto;
+	box-shadow: 0 0 0 2px color-mix(in srgb, var(--db-primary) 20%, transparent);
+}
+
+range-bounds-control .db-range-bounds-input::-moz-range-thumb {
+	height: 0.95rem;
+	width: 0.95rem;
+	border-radius: 50%;
+	border: 2px solid var(--db-primary);
+	background: #fff;
+	cursor: pointer;
+	pointer-events: auto;
+}
+
+range-bounds-control .db-range-bounds-input:disabled::-webkit-slider-thumb,
+range-bounds-control .db-range-bounds-input:disabled::-moz-range-thumb {
+	cursor: not-allowed;
+	opacity: 0.8;
+}
+
+range-bounds-control output {
+	font-family: var(--db-font-family-mono);
+	font-size: 0.75rem;
+	color: var(--db-text-muted);
+	text-align: right;
+	min-width: 5rem;
+}
+
 range-control input[type="range"]:disabled,
 .db-control-text:disabled,
 select-control select:disabled,

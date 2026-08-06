@@ -10,6 +10,7 @@ const LAYOUT_CATEGORY_HEADER = '.db-category-header';
 const CONTAINER_WIDTH_LABEL = 'Container Width';
 const LOGOTYPE_HEIGHT_MULTIPLIER_LABEL = 'Logotype Height Multiplier';
 const LOGOTYPE_AUTO_SCALE_LABEL = 'Logotype Auto Scale';
+const HEIGHT_BOUNDS_LABEL = 'Height';
 const MIN_HEIGHT_LABEL = 'Min Height';
 const MAX_HEIGHT_LABEL = 'Max Height';
 
@@ -53,6 +54,13 @@ async function setRangeControl(page: Page, label: string, value: string): Promis
 	await setRangeValue(input, value);
 }
 
+async function setRangeBoundsHandle(page: Page, rowLabel: string, handleLabel: string, value: string): Promise<void> {
+	const row = await getControlRow(page, rowLabel);
+	const input = row.locator(`input[type="range"][aria-label="${handleLabel}"]`).first();
+	await expect(input).toBeVisible();
+	await setRangeValue(input, value);
+}
+
 async function getComputedPx(locator: Locator, property: string): Promise<number> {
 	return locator.evaluate((el, prop) => Number.parseFloat(window.getComputedStyle(el).getPropertyValue(prop)), property);
 }
@@ -69,6 +77,10 @@ async function resolveCssLengthPx(locator: Locator, expression: string): Promise
 		probe.remove();
 		return width;
 	}, expression);
+}
+
+async function getInlineCustomProperty(locator: Locator, propertyName: string): Promise<string> {
+	return locator.evaluate((el, variableName) => el.style.getPropertyValue(variableName).trim(), propertyName);
 }
 
 test.describe('Header - design panel', () => {
@@ -111,16 +123,16 @@ test.describe('Header - design panel', () => {
 
 		const minControlRow = page.locator('db-control-row').filter({ has: page.locator('.db-control-row-label-text').filter({ hasText: new RegExp(`^${escapeRegExp(MIN_HEIGHT_LABEL)}$`) }) });
 		const maxControlRow = page.locator('db-control-row').filter({ has: page.locator('.db-control-row-label-text').filter({ hasText: new RegExp(`^${escapeRegExp(MAX_HEIGHT_LABEL)}$`) }) });
+		const boundsControlRow = page.locator('db-control-row').filter({ has: page.locator('.db-control-row-label-text').filter({ hasText: new RegExp(`^${escapeRegExp(HEIGHT_BOUNDS_LABEL)}$`) }) });
 
-		await expect(minControlRow).toHaveCount(1);
-		await expect(maxControlRow).toHaveCount(1);
-		await expect(minControlRow).toBeVisible();
-		await expect(maxControlRow).toBeVisible();
+		await expect(boundsControlRow).toHaveCount(1);
+		await expect(minControlRow).toHaveCount(0);
+		await expect(maxControlRow).toHaveCount(0);
+		await expect(boundsControlRow).toBeVisible();
 
 		await selectControlOption(page, LOGOTYPE_AUTO_SCALE_LABEL, '0');
 
-		await expect(minControlRow).not.toBeVisible();
-		await expect(maxControlRow).not.toBeVisible();
+		await expect(boundsControlRow).not.toBeVisible();
 	});
 
 	test('container width setting updates the rendered header width', async ({ page }) => {
@@ -178,7 +190,7 @@ test.describe('Header - design panel', () => {
 
 		const header = page.locator(HEADER_TARGET).first();
 		await selectControlOption(page, LOGOTYPE_AUTO_SCALE_LABEL, '1');
-		await setRangeControl(page, MAX_HEIGHT_LABEL, '8');
+		await setRangeBoundsHandle(page, HEIGHT_BOUNDS_LABEL, MAX_HEIGHT_LABEL, '8');
 		await setRangeControl(page, LOGOTYPE_HEIGHT_MULTIPLIER_LABEL, '3');
 
 		const logotypeMax = await resolveCssLengthPx(header, 'var(--c-header--logotype-height-max)');
@@ -190,6 +202,26 @@ test.describe('Header - design panel', () => {
 		expect(Math.abs(brandMax - 64)).toBeLessThan(0.5);
 		expect(logotypeHeight).toBeLessThanOrEqual(64.5);
 		expect(brandHeight).toBeLessThanOrEqual(64.5);
+	});
+
+	test('linked min/max controls prevent conflicting values', async ({ page }) => {
+		const brandingHeader = page.locator(LAYOUT_CATEGORY_HEADER).filter({ hasText: 'Branding' });
+		await expandCategory(brandingHeader);
+
+		const header = page.locator(HEADER_TARGET).first();
+		await selectControlOption(page, LOGOTYPE_AUTO_SCALE_LABEL, '1');
+
+		await setRangeBoundsHandle(page, HEIGHT_BOUNDS_LABEL, MAX_HEIGHT_LABEL, '8');
+		await setRangeBoundsHandle(page, HEIGHT_BOUNDS_LABEL, MIN_HEIGHT_LABEL, '11');
+
+		const minAfterClamp = Number.parseFloat(await getInlineCustomProperty(header, '--c-header--logotype-height-min-multiplier'));
+		expect(minAfterClamp).toBe(8);
+
+		await setRangeBoundsHandle(page, HEIGHT_BOUNDS_LABEL, MIN_HEIGHT_LABEL, '7');
+		await setRangeBoundsHandle(page, HEIGHT_BOUNDS_LABEL, MAX_HEIGHT_LABEL, '6');
+
+		const maxAfterClamp = Number.parseFloat(await getInlineCustomProperty(header, '--c-header--logotype-height-max-multiplier'));
+		expect(maxAfterClamp).toBe(7);
 	});
 
 	test('container width math subtracts built-in container padding on mobile and sm breakpoints', async ({ page }) => {

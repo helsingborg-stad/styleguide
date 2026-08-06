@@ -3,6 +3,7 @@
  */
 
 import './shared/control-elements/controls/RangeControl';
+import './shared/control-elements/controls/RangeBoundsControl';
 import './shared/control-elements/controls/SelectControl';
 import './shared/control-elements/controls/ColorControl';
 import './shared/control-elements/controls/RgbaControl';

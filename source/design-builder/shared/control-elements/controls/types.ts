@@ -11,7 +11,7 @@ export interface TokenSetting {
 	outputs?: string[];
 	label: string;
 	description?: string;
-	type: 'color' | 'rgba' | 'range' | 'select' | 'font' | 'token-color';
+	type: 'color' | 'rgba' | 'range' | 'minmaxrange' | 'range-bounds' | 'select' | 'font' | 'token-color';
 	default: string;
 	unit?: string;
 	min?: number;
@@ -22,6 +22,19 @@ export interface TokenSetting {
 	contrast?: string | string[];
 	notes?: string;
 	linkedDefaults?: Record<string, string>;
+	pairWith?: string;
+	rangeConstraint?: {
+		group: string;
+		role: 'min' | 'max';
+	};
+	rangeBounds?: {
+		maxVariable: string;
+		maxDefault: string;
+		maxValue?: string;
+		maxOutputs?: string[];
+		minLabel?: string;
+		maxLabel?: string;
+	};
 	visibleWhen?: {
 		settingEquals?: Array<{
 			variable: string;
