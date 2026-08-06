@@ -1308,6 +1308,41 @@ export class ComponentCustomizerRuntime {
 		return targetElements.some((targetElement) => this.matchesVisibilityCondition(componentName, targetElement, setting.visibleWhen));
 	}
 
+	private shouldRenderControlsForChangedVariables(componentName: string, changedVariables: string[]): boolean {
+		if (this.activeComponent !== componentName) {
+			return false;
+		}
+
+		const normalizedChangedVariables = new Set(changedVariables.map((variable) => variable.trim()).filter(Boolean));
+		if (normalizedChangedVariables.size === 0) {
+			return false;
+		}
+
+		const definition = this.componentData[componentName];
+		const componentSettings = Array.isArray(definition?.componentSettings) ? definition.componentSettings : [];
+
+		for (const category of componentSettings) {
+			const settings = Array.isArray(category.settings) ? category.settings : [];
+			for (const setting of settings) {
+				const condition = setting.visibleWhen;
+				if (!condition) {
+					continue;
+				}
+
+				const conditionVariables = [
+					...(condition.settingEquals ?? []).map((item) => item.variable),
+					...(condition.settingNotEquals ?? []).map((item) => item.variable),
+				];
+
+				if (conditionVariables.some((conditionVariable) => normalizedChangedVariables.has(this.toLocalizedComponentVariable(componentName, conditionVariable)))) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
 	private getRedundantCompanionColorTokens(tokenNames: Iterable<string>): Set<string> {
 		const normalized = new Set<string>([...tokenNames].map((tokenName) => this.normalizeColorTokenName(tokenName)));
 		const redundant = new Set<string>();
@@ -1454,6 +1489,7 @@ export class ComponentCustomizerRuntime {
 			[variable]: defaultValue,
 			...linkedDefaults,
 		};
+		const shouldRenderControls = this.shouldRenderControlsForChangedVariables(componentName, Object.keys(nextValues));
 
 		for (const [currentVariable, currentDefaultValue] of Object.entries(defaultValues)) {
 			const nextValue = nextValues[currentVariable] ?? '';
@@ -1479,7 +1515,9 @@ export class ComponentCustomizerRuntime {
 		this.syncOverrideState();
 		this.presetManager.clearActive();
 		this.refreshPresetBar();
-		this.renderControls();
+		if (shouldRenderControls) {
+			this.renderControls();
+		}
 		this.emitAction('change', {
 			componentName,
 			scopeKey,

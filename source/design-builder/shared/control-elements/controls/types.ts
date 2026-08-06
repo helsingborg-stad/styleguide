@@ -23,6 +23,14 @@ export interface TokenSetting {
 	notes?: string;
 	linkedDefaults?: Record<string, string>;
 	visibleWhen?: {
+		settingEquals?: Array<{
+			variable: string;
+			value: string;
+		}>;
+		settingNotEquals?: Array<{
+			variable: string;
+			value: string;
+		}>;
 		hasClass?: string[];
 		hasAnyClass?: string[];
 		doesNotHaveClass?: string[];

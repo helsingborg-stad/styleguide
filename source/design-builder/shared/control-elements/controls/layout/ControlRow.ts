@@ -131,7 +131,8 @@ class DbControlRow extends HTMLElement {
 		}
 
 		this._value = value;
-		this.render();
+		// Avoid re-rendering the whole control row on each input event.
+		// Replacing the range input mid-drag causes the thumb interaction to break.
 		this.emitChange(value, payload.extraValues, payload.options);
 	}
 

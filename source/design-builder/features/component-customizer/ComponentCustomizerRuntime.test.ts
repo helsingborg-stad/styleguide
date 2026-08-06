@@ -352,6 +352,84 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
+	it('does not rerender controls on change when no visibility conditions depend on changed variables', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		const runtime = new ComponentCustomizerRuntime(componentData, tokenLibrary, mount);
+		const runtimeInternals = runtime as unknown as {
+			handleChange(componentName: string, scopeKey: string, variable: string, value: string, defaultValue: string): void;
+			renderControls(): void;
+		};
+
+		const renderControlsSpy = jest.spyOn(runtimeInternals, 'renderControls');
+
+		runtimeInternals.handleChange('button', GENERAL_SCOPE_KEY, '--c-button--font-size-multiplier', '1.5', '1');
+
+		expect(renderControlsSpy).not.toHaveBeenCalled();
+
+		renderControlsSpy.mockRestore();
+		mount.remove();
+	});
+
+	it('rerenders controls on change when visibility depends on changed variable', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+
+		const runtime = new ComponentCustomizerRuntime(
+			{
+				button: {
+					name: 'Button',
+					tokens: [],
+					componentSettings: [
+						{
+							id: 'settings',
+							label: 'Settings',
+							settings: [
+								{
+									variable: '--toggle',
+									label: 'Toggle',
+									type: 'range',
+									default: '0',
+									min: 0,
+									max: 1,
+									step: 1,
+								},
+								{
+									variable: '--dependent',
+									label: 'Dependent',
+									type: 'range',
+									default: '2',
+									min: 1,
+									max: 3,
+									step: 1,
+									visibleWhen: {
+										settingEquals: [{ variable: '--toggle', value: '1' }],
+									},
+								},
+							],
+						},
+					],
+				},
+			},
+			tokenLibrary,
+			mount,
+		);
+		const runtimeInternals = runtime as unknown as {
+			handleChange(componentName: string, scopeKey: string, variable: string, value: string, defaultValue: string): void;
+			renderControls(): void;
+		};
+
+		const renderControlsSpy = jest.spyOn(runtimeInternals, 'renderControls');
+
+		runtimeInternals.handleChange('button', GENERAL_SCOPE_KEY, '--c-button--toggle', '1', '0');
+
+		expect(renderControlsSpy).toHaveBeenCalledTimes(1);
+
+		renderControlsSpy.mockRestore();
+		mount.remove();
+	});
+
 	it('only exposes configured palette variants in token-color options', () => {
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);

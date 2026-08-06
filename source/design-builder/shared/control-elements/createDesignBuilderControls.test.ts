@@ -67,6 +67,32 @@ describe('controls change handling', () => {
 		expect(onChange).toHaveBeenCalledWith('--space-medium', '12', undefined, undefined);
 	});
 
+	it('keeps the same range input element during input updates', () => {
+		const setting: TokenSetting = {
+			variable: '--space-medium',
+			label: 'Space medium',
+			type: 'range',
+			default: '8',
+			min: 0,
+			max: 16,
+			step: 1,
+		};
+		const onChange = jest.fn();
+
+		const row = createDesignBuilderControl(setting, '8', onChange);
+		document.body.appendChild(row);
+
+		const inputBefore = row.querySelector('range-control input[type="range"]') as HTMLInputElement;
+		expect(inputBefore).toBeTruthy();
+
+		inputBefore.value = '11';
+		inputBefore.dispatchEvent(new Event('input', { bubbles: true }));
+
+		const inputAfter = row.querySelector('range-control input[type="range"]') as HTMLInputElement;
+		expect(inputAfter).toBe(inputBefore);
+		expect(onChange).toHaveBeenCalledWith('--space-medium', '11', undefined, undefined);
+	});
+
 	it('emits range control values with unit suffix when defined', () => {
 		const setting: TokenSetting = {
 			variable: '--color--border-mix-amount',
