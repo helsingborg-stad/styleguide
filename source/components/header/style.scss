@@ -28,12 +28,12 @@ $_: "c-header";
 
     /* Logotype */
     --#{$_}--logotype-height: clamp(var(--#{$_}--logotype-height-min),
-        calc(var(--#{$_}--logotype-height-multiplier, var(--#{$_}--logotype-height-multiplier-default)) * (#{tokens.getCalculatedValue($_, "base", 6)} + var(--#{$_}--logotype-auto-scale, 1) * (4vw - #{tokens.getCalculatedValue($_, "base", 6)}))),
+        calc(var(--#{$_}--logotype-height-multiplier, var(--#{$_}--logotype-height-multiplier-default)) * (#{tokens.getCalculatedValue($_, "base", 6)} + var(--#{$_}--logotype-auto-scale, 1) * (calc(var(--#{$_}--logotype-auto-scale-curve-factor, 1) * 4vw) - #{tokens.getCalculatedValue($_, "base", 6)}))),
         var(--#{$_}--logotype-height-max));
 
     /* Brand */
     --#{$_}--brand-height: clamp(var(--#{$_}--brand-height-min),
-        calc(var(--#{$_}--brand-height-multiplier, var(--#{$_}--brand-height-multiplier-default)) * (#{tokens.getCalculatedValue($_, "base", 6)} + var(--#{$_}--brand-auto-scale, 1) * (4vw - #{tokens.getCalculatedValue($_, "base", 6)}))),
+        calc(var(--#{$_}--brand-height-multiplier, var(--#{$_}--brand-height-multiplier-default)) * (#{tokens.getCalculatedValue($_, "base", 6)} + var(--#{$_}--brand-auto-scale, 1) * (calc(var(--#{$_}--brand-auto-scale-curve-factor, 1) * 4vw) - #{tokens.getCalculatedValue($_, "base", 6)}))),
         var(--#{$_}--brand-height-max));
 
     /* Space */

@@ -8,8 +8,8 @@ const CUSTOMIZER_PANEL = '.db-builder-customizer';
 const HEADER_TARGET = '.markup-preview [data-component="header"].o-container';
 const LAYOUT_CATEGORY_HEADER = '.db-category-header';
 const CONTAINER_WIDTH_LABEL = 'Container Width';
-const LOGOTYPE_HEIGHT_MULTIPLIER_LABEL = 'Logotype Height Multiplier';
 const LOGOTYPE_AUTO_SCALE_LABEL = 'Logotype Auto Scale';
+const AUTO_SCALE_CURVE_LABEL = 'Auto Scale Curve';
 const HEIGHT_BOUNDS_LABEL = 'Height';
 const MIN_HEIGHT_LABEL = 'Min Height';
 const MAX_HEIGHT_LABEL = 'Max Height';
@@ -124,15 +124,57 @@ test.describe('Header - design panel', () => {
 		const minControlRow = page.locator('db-control-row').filter({ has: page.locator('.db-control-row-label-text').filter({ hasText: new RegExp(`^${escapeRegExp(MIN_HEIGHT_LABEL)}$`) }) });
 		const maxControlRow = page.locator('db-control-row').filter({ has: page.locator('.db-control-row-label-text').filter({ hasText: new RegExp(`^${escapeRegExp(MAX_HEIGHT_LABEL)}$`) }) });
 		const boundsControlRow = page.locator('db-control-row').filter({ has: page.locator('.db-control-row-label-text').filter({ hasText: new RegExp(`^${escapeRegExp(HEIGHT_BOUNDS_LABEL)}$`) }) });
+		const curveControlRow = page.locator('db-control-row').filter({ has: page.locator('.db-control-row-label-text').filter({ hasText: new RegExp(`^${escapeRegExp(AUTO_SCALE_CURVE_LABEL)}$`) }) });
 
 		await expect(boundsControlRow).toHaveCount(1);
+		await expect(curveControlRow).toHaveCount(1);
 		await expect(minControlRow).toHaveCount(0);
 		await expect(maxControlRow).toHaveCount(0);
 		await expect(boundsControlRow).toBeVisible();
+		await expect(curveControlRow).toBeVisible();
+
+		const curveSelect = curveControlRow.locator('select').first();
+		const curveOptions = await curveSelect.locator('option').evaluateAll((nodes) =>
+			nodes.map((option) => ({
+				value: (option as HTMLOptionElement).value,
+				label: option.textContent?.trim() ?? '',
+			})),
+		);
+		expect(curveOptions).toHaveLength(3);
+		expect(curveOptions).toEqual(
+			expect.arrayContaining([
+				{ value: '0.85', label: 'Gentle' },
+				{ value: '1', label: 'Balanced' },
+				{ value: '1.2', label: 'Strong' },
+			]),
+		);
 
 		await selectControlOption(page, LOGOTYPE_AUTO_SCALE_LABEL, '0');
 
 		await expect(boundsControlRow).not.toBeVisible();
+		await expect(curveControlRow).not.toBeVisible();
+	});
+
+	test('auto scale curve presets affect logotype scaling strength', async ({ page }) => {
+		const brandingHeader = page.locator(LAYOUT_CATEGORY_HEADER).filter({ hasText: 'Branding' });
+		await expandCategory(brandingHeader);
+
+		const logotype = page.locator('.markup-preview .c-header__logotype').first();
+		await expect(logotype).toBeVisible();
+
+		await selectControlOption(page, LOGOTYPE_AUTO_SCALE_LABEL, '1');
+		await setRangeBoundsHandle(page, HEIGHT_BOUNDS_LABEL, MIN_HEIGHT_LABEL, '4');
+		await setRangeBoundsHandle(page, HEIGHT_BOUNDS_LABEL, MAX_HEIGHT_LABEL, '12');
+
+		await page.setViewportSize({ width: 500, height: 1000 });
+
+		await selectControlOption(page, AUTO_SCALE_CURVE_LABEL, '0.85');
+		const gentleHeight = await getComputedPx(logotype, 'height');
+
+		await selectControlOption(page, AUTO_SCALE_CURVE_LABEL, '1.2');
+		const strongHeight = await getComputedPx(logotype, 'height');
+
+		expect(strongHeight).toBeGreaterThan(gentleHeight + 2);
 	});
 
 	test('container width setting updates the rendered header width', async ({ page }) => {
@@ -154,36 +196,6 @@ test.describe('Header - design panel', () => {
 		expect(fullContentWidth).toBeGreaterThan(wideContentWidth + 20);
 	});
 
-	test('logotype height remains stable when multiplier returns to default value', async ({ page }) => {
-		await page.setViewportSize({ width: 1200, height: 1000 });
-		await page.goto(HEADER_PAGE);
-		await expect(page.locator(HEADER_TARGET).first()).toBeVisible();
-
-		await page.getByRole('button', { name: FAB_TRIGGER_LABEL }).click();
-		await expect(page.locator(`.${FAB_PANEL_OPEN_CLASS}`)).toBeVisible();
-		await expect(page.locator(CUSTOMIZER_PANEL)).toBeVisible();
-		await page.locator(COMPONENT_SELECT).selectOption({ value: 'header' });
-
-		const brandingHeader = page.locator(LAYOUT_CATEGORY_HEADER).filter({ hasText: 'Branding' });
-		await expandCategory(brandingHeader);
-
-		const logotype = page.locator('.markup-preview .c-header__logotype').first();
-		await expect(logotype).toBeVisible();
-
-		await setRangeControl(page, LOGOTYPE_HEIGHT_MULTIPLIER_LABEL, '2');
-		const changedHeight = await getComputedPx(logotype, 'height');
-
-		await setRangeControl(page, LOGOTYPE_HEIGHT_MULTIPLIER_LABEL, '1.5');
-		const restoredHeight = await getComputedPx(logotype, 'height');
-
-		await setRangeControl(page, LOGOTYPE_HEIGHT_MULTIPLIER_LABEL, '2');
-		await setRangeControl(page, LOGOTYPE_HEIGHT_MULTIPLIER_LABEL, '1.5');
-		const restoredHeightRepeat = await getComputedPx(logotype, 'height');
-
-		expect(changedHeight).toBeGreaterThan(restoredHeight + 5);
-		expect(Math.abs(restoredHeightRepeat - restoredHeight)).toBeLessThan(0.5);
-	});
-
 	test('max height control is a hard cap for logotype and brand', async ({ page }) => {
 		const brandingHeader = page.locator(LAYOUT_CATEGORY_HEADER).filter({ hasText: 'Branding' });
 		await expandCategory(brandingHeader);
@@ -191,7 +203,10 @@ test.describe('Header - design panel', () => {
 		const header = page.locator(HEADER_TARGET).first();
 		await selectControlOption(page, LOGOTYPE_AUTO_SCALE_LABEL, '1');
 		await setRangeBoundsHandle(page, HEIGHT_BOUNDS_LABEL, MAX_HEIGHT_LABEL, '8');
-		await setRangeControl(page, LOGOTYPE_HEIGHT_MULTIPLIER_LABEL, '3');
+		await header.evaluate((element) => {
+			element.style.setProperty('--c-header--logotype-height-multiplier', '3');
+			element.style.setProperty('--c-header--brand-height-multiplier', '3');
+		});
 
 		const logotypeMax = await resolveCssLengthPx(header, 'var(--c-header--logotype-height-max)');
 		const brandMax = await resolveCssLengthPx(header, 'var(--c-header--brand-height-max)');
