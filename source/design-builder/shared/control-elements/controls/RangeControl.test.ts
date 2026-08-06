@@ -61,6 +61,20 @@ describe('RangeControl', () => {
 		);
 	});
 
+	it('updates output text live on input', () => {
+		const rangeControl = document.createElement('range-control');
+		rangeControl.setAttribute('unit', 'px');
+		document.body.appendChild(rangeControl);
+
+		const input = rangeControl.querySelector('input[type="range"]') as HTMLInputElement;
+		const output = rangeControl.querySelector('output') as HTMLOutputElement;
+
+		input.value = '42';
+		input.dispatchEvent(new Event('input'));
+
+		expect(output.textContent).toBe('42 px');
+	});
+
 	it('keeps slider state in sync when value updates after connect', () => {
 		const rangeControl = document.createElement('range-control');
 		document.body.appendChild(rangeControl);

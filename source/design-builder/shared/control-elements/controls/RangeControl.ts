@@ -11,6 +11,10 @@ export type RangeControlProps = {
 };
 
 class RangeControl extends HTMLElement {
+	private formatOutput(value: string, unit: string): string {
+		return `${value} ${unit}`;
+	}
+
 	connectedCallback() {
 		this.render();
 	}
@@ -56,7 +60,7 @@ class RangeControl extends HTMLElement {
 		const markup = () =>
 			html`
 				<input type="range" min=${min} max=${max} step=${step} .value=${live(value)} ?disabled=${isDisabled} @input=${(e: Event) => this._onInput(e)}/>
-                <output>${value} ${unit}</output>
+				<output>${this.formatOutput(value, unit)}</output>
             `;
 
 		render(markup(), this);
@@ -65,6 +69,14 @@ class RangeControl extends HTMLElement {
 	_onInput(e: Event) {
 		const input = e.target as HTMLInputElement;
 		const value = this.getClampedValue(input.value, input.min, input.max);
+		if (input.value !== value) {
+			input.value = value;
+		}
+
+		const output = this.querySelector('output');
+		if (output) {
+			output.textContent = this.formatOutput(value, this.getAttribute('unit') || '');
+		}
 
 		this.dispatchEvent(
 			new CustomEvent('change', {
