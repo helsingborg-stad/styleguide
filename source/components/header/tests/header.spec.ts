@@ -122,6 +122,15 @@ test.describe('Header - design panel', () => {
 	});
 
 	test('logotype height remains stable when multiplier returns to default value', async ({ page }) => {
+		await page.setViewportSize({ width: 1200, height: 1000 });
+		await page.goto(HEADER_PAGE);
+		await expect(page.locator(HEADER_TARGET).first()).toBeVisible();
+
+		await page.getByRole('button', { name: FAB_TRIGGER_LABEL }).click();
+		await expect(page.locator(`.${FAB_PANEL_OPEN_CLASS}`)).toBeVisible();
+		await expect(page.locator(CUSTOMIZER_PANEL)).toBeVisible();
+		await page.locator(COMPONENT_SELECT).selectOption({ value: 'header' });
+
 		const brandingHeader = page.locator(LAYOUT_CATEGORY_HEADER).filter({ hasText: 'Branding' });
 		await expandCategory(brandingHeader);
 
@@ -154,13 +163,13 @@ test.describe('Header - design panel', () => {
 		const mobileContentMaxWidth = await resolveCssLengthPx(header, 'var(--c-header--content-max-width)');
 		const mobileContainerPadding = await resolveCssLengthPx(header, 'var(--c-header--container-padding-inline)');
 
-		expect(Math.abs((mobileContainerMaxWidth - mobileContentMaxWidth) - (mobileContainerPadding * 2))).toBeLessThan(1);
+		expect(Math.abs(mobileContainerMaxWidth - mobileContentMaxWidth - mobileContainerPadding * 2)).toBeLessThan(1);
 
 		await page.setViewportSize({ width: 900, height: 1000 });
 		const smContainerMaxWidth = await resolveCssLengthPx(header, 'var(--c-header--container-max-width)');
 		const smContentMaxWidth = await resolveCssLengthPx(header, 'var(--c-header--content-max-width)');
 		const smContainerPadding = await resolveCssLengthPx(header, 'var(--c-header--container-padding-inline)');
 
-		expect(Math.abs((smContainerMaxWidth - smContentMaxWidth) - (smContainerPadding * 2))).toBeLessThan(1);
+		expect(Math.abs(smContainerMaxWidth - smContentMaxWidth - smContainerPadding * 2)).toBeLessThan(1);
 	});
 });
