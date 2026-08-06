@@ -1165,7 +1165,51 @@ range-control {
 
 range-control input[type="range"] {
 	width: 100%;
-	accent-color: var(--db-primary);
+	-webkit-appearance: none;
+	appearance: none;
+	background: transparent;
+	margin: 0;
+	height: 1.75rem;
+}
+
+range-control input[type="range"]::-webkit-slider-runnable-track {
+	height: 0.25rem;
+	border-radius: 999px;
+	background: color-mix(in srgb, var(--db-border) 70%, transparent);
+}
+
+range-control input[type="range"]::-moz-range-track {
+	height: 0.25rem;
+	border-radius: 999px;
+	background: color-mix(in srgb, var(--db-border) 70%, transparent);
+}
+
+range-control input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	margin-top: calc((0.25rem - 0.95rem) / 2);
+	height: 0.95rem;
+	width: 0.95rem;
+	border-radius: 50%;
+	border: 2px solid var(--db-primary);
+	background: #fff;
+	cursor: pointer;
+	box-shadow: 0 0 0 2px color-mix(in srgb, var(--db-primary) 20%, transparent);
+}
+
+range-control input[type="range"]::-moz-range-thumb {
+	height: 0.95rem;
+	width: 0.95rem;
+	border-radius: 50%;
+	border: 2px solid var(--db-primary);
+	background: #fff;
+	cursor: pointer;
+}
+
+range-control input[type="range"]:disabled::-webkit-slider-thumb,
+range-control input[type="range"]:disabled::-moz-range-thumb {
+	cursor: not-allowed;
+	opacity: 0.8;
 }
 
 range-control output {
@@ -1173,7 +1217,7 @@ range-control output {
 	font-size: 0.75rem;
 	color: var(--db-text-muted);
 	text-align: right;
-	min-width: 4.25rem;
+	min-width: 5rem;
 }
 
 range-bounds-control {
@@ -1183,6 +1227,15 @@ range-bounds-control {
 	align-self: stretch;
 	gap: 0.65rem;
 	height: 100%;
+	width: 100%;
+	min-width: 0;
+}
+
+range-bounds-control .db-range-bounds {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	align-items: center;
+	gap: 0.65rem;
 	width: 100%;
 	min-width: 0;
 }
