@@ -42,6 +42,10 @@ class BrandViewBoxManager {
 export function init() {
 	document.addEventListener('DOMContentLoaded', () => {
 		document.querySelectorAll<HTMLElement>('.c-brand').forEach((brandElement) => {
+			if (brandElement.dataset.aspectRatio) {
+				return;
+			}
+
 			const svg = brandElement.querySelector<SVGElement>('.c-brand__viewbox');
 			const container = brandElement.querySelector<HTMLElement>('.c-brand__container');
 			const textElement = brandElement.querySelector<HTMLElement>('.c-brand__text');

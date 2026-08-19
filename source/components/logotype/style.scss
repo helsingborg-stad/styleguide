@@ -20,9 +20,19 @@ $_: "c-logotype";
     display: inline-block;
     position: relative;
 
+    &[data-aspect-ratio] {
+        aspect-ratio: var(--#{$_}--aspect-ratio);
+    }
+
     .#{$_}__image {
         display: block;
         height: inherit;
+
+        .#{$_}[data-aspect-ratio] & {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
     }
 
     &.#{$_}--align-left {

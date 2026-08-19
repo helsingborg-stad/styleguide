@@ -26,6 +26,7 @@ $_: "c-brand";
 
     .c-brand__viewbox {
         height: var(--#{$_}--height);
+        aspect-ratio: var(--#{$_}--aspect-ratio, auto);
     }
 
     .c-brand__container {

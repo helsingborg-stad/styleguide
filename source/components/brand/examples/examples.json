@@ -11,6 +11,10 @@
         "heading": "Only logotype (no text)",
         "text": "A logotype component will be shown."
     },
+    "aspectRatio": {
+        "heading": "Aspect ratio",
+        "text": "Provide aspectRatio to let CSS control brand width from the configured height."
+    },
     "text": {
         "heading": "Only text (no logo)",
         "text": "Logotype will be removed"
