@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/php:8.3-trixie
+FROM mcr.microsoft.com/devcontainers/php:8.4-trixie
 
 # Remove broken Yarn repo
 RUN rm -f /etc/apt/sources.list.d/yarn.list
