@@ -22,7 +22,7 @@ jobs:
     - name: Setup PHP with composer v2
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.4'
+        php-version: '8.3'
         tools: composer:v2
 
     - name: Configure npm for GitHub Packages
