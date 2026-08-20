@@ -8,8 +8,6 @@ import { PAGINATION_ATTRIBUTES, type PaginationAttributes, type PaginationElemen
  * Runtime controller for one pagination instance.
  */
 class Pagination {
-	private renderer: PaginationDomRenderer;
-	private navigation: PaginationNavigation;
 	private activeList: HTMLElement[];
 	private currentPage: number;
 
@@ -18,14 +16,14 @@ class Pagination {
 		index: number,
 		private urlHandler: PaginationUrlState,
 		private sorter: PaginationSorter,
+		private renderer: PaginationDomRenderer,
+		private navigation: PaginationNavigation,
 		private paginationElements: PaginationElements,
 		private paginationAttributes: PaginationAttributes,
 		private paginationItems: HTMLElement[]
 	) {
 		this.activeList = this.sorter.getSortedList(this.paginationItems, 'default', this.paginationAttributes.randomize);
 		this.currentPage = this.clampPage(this.urlHandler.getCurrentPage());
-		this.renderer = new PaginationDomRenderer(this.paginationElements, this.paginationAttributes);
-		this.navigation = new PaginationNavigation(this.paginationElements);
 
 		this.setPageNumberAttribute();
 		this.bindControlListeners();

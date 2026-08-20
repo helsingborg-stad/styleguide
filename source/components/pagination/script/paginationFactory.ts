@@ -2,6 +2,8 @@ import Pagination from './pagination';
 import { PAGINATION_ATTRIBUTES, type PaginationAttributes, type PaginationElements, type PaginationInitialization } from './interface';
 import PaginationUrlState from './paginationUrlState';
 import PaginationSorter from './paginationSorter';
+import PaginationDomRenderer from './paginationDomRenderer';
+import PaginationNavigation from './paginationNavigation';
 
 /**
  * Creates pagination instances from container elements.
@@ -18,6 +20,8 @@ class PaginationFactory {
 			index,
 			new PaginationUrlState(),
 			new PaginationSorter(),
+			new PaginationDomRenderer(initialization.elements, initialization.attributes),
+			new PaginationNavigation(initialization.elements),
 			initialization.elements,
 			initialization.attributes,
 			initialization.paginationItems
