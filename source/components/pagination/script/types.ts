@@ -24,6 +24,15 @@ export interface PaginationElements {
 }
 
 /**
+ * Resolved setup data used to initialize a pagination instance.
+ */
+export interface PaginationInitialization {
+	elements: PaginationElements;
+	attributes: PaginationAttributes;
+	sourceList: Element[];
+}
+
+/**
  * Available sort modes for paginated items.
  */
 export type PaginationSortMode = 'default' | 'alphabetical' | 'random';

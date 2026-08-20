@@ -65,19 +65,6 @@ class PaginationDomRenderer {
 		}
 	}
 
-	public updateNavigationButtonState(currentPage: number, numberOfPages: number): void {
-		this.elements.nextButton?.removeAttribute('disabled');
-		this.elements.prevButton?.removeAttribute('disabled');
-
-		if (currentPage >= numberOfPages) {
-			this.elements.nextButton?.setAttribute('disabled', 'true');
-		}
-
-		if (currentPage <= 1) {
-			this.elements.prevButton?.setAttribute('disabled', 'true');
-		}
-	}
-
 	public setFocusToFirstItem(): void {
 		const firstVisibleItem = this.elements.listContainer.querySelector(`[${PAGINATION_ATTRIBUTES.item}]:first-child`) as HTMLElement | null;
 		firstVisibleItem?.focus();

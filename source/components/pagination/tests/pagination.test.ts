@@ -1,4 +1,4 @@
-import { Pagination } from '..';
+import Pagination from '../script/pagination';
 
 interface PaginationMarkupOptions {
 	withSort?: boolean;
@@ -113,6 +113,32 @@ describe('Pagination', () => {
 		expect(window.location.search).toContain('pagenum=3');
 	});
 
+	it('moves with next and previous buttons and toggles disabled states at boundaries', () => {
+		const container = createPaginationMarkup({
+			items: [
+				{ title: '1', label: 'Item 1' },
+				{ title: '2', label: 'Item 2' },
+			],
+		});
+
+		new Pagination(container, 1);
+
+		const nextButton = document.querySelector('[data-js-pagination-next]') as HTMLButtonElement;
+		const previousButton = document.querySelector('[data-js-pagination-prev]') as HTMLButtonElement;
+
+		nextButton.click();
+
+		expect(readVisibleItemLabels()).toEqual(['Item 2']);
+		expect(previousButton.hasAttribute('disabled')).toBe(false);
+		expect(nextButton.hasAttribute('disabled')).toBe(true);
+
+		previousButton.click();
+
+		expect(readVisibleItemLabels()).toEqual(['Item 1']);
+		expect(previousButton.hasAttribute('disabled')).toBe(true);
+		expect(nextButton.hasAttribute('disabled')).toBe(false);
+	});
+
 	it('respects pagesToShow when generating page links', () => {
 		const container = createPaginationMarkup({ pagesToShow: 4 });
 
@@ -149,6 +175,7 @@ describe('Pagination', () => {
 		pushStateSpy.mockClear();
 
 		window.history.pushState({}, '', '/components/pagination?pagenum=2');
+		pushStateSpy.mockClear();
 		window.dispatchEvent(new PopStateEvent('popstate'));
 
 		expect(readVisibleItemLabels()).toEqual(['Item 9']);
