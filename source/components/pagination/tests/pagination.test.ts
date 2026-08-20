@@ -1,4 +1,4 @@
-import { Pagination } from '..';
+import Pagination from '../script/pagination';
 
 interface PaginationMarkupOptions {
 	withSort?: boolean;
@@ -113,6 +113,15 @@ describe('Pagination', () => {
 		expect(window.location.search).toContain('pagenum=3');
 	});
 
+	it('ignores sort query state when no sort control exists', () => {
+		window.history.replaceState({}, '', '/components/pagination?sortby=alphabetical');
+		const container = createPaginationMarkup();
+
+		new Pagination(container, 1);
+
+		expect(readVisibleItemLabels()).toEqual(['Item 8']);
+	});
+
 	it('respects pagesToShow when generating page links', () => {
 		const container = createPaginationMarkup({ pagesToShow: 4 });
 
@@ -139,6 +148,20 @@ describe('Pagination', () => {
 		expect(window.location.search).toContain('sortby=alphabetical');
 		expect(window.location.search).toContain('pagenum=1');
 		expect(replaceStateSpy).toHaveBeenCalled();
+	});
+
+	it('restores original item order when switching back to default sorting', () => {
+		const container = createPaginationMarkup({ withSort: true });
+
+		new Pagination(container, 1);
+
+		const sortSelect = document.querySelector('[data-js-pagination-sort] select') as HTMLSelectElement;
+		sortSelect.value = 'alphabetical';
+		sortSelect.dispatchEvent(new Event('change'));
+		sortSelect.value = 'default';
+		sortSelect.dispatchEvent(new Event('change'));
+
+		expect(readVisibleItemLabels()).toEqual(['Item 8']);
 	});
 
 	it('does not push a new URL entry on popstate handling', () => {

@@ -10,6 +10,16 @@ export interface PaginationAttributes {
 }
 
 /**
+ * Internal state representation for one pagination instance.
+ */
+export interface PaginationStateSnapshot {
+	sourceList: Element[];
+	activeList: Element[];
+	currentPage: number;
+	sortMode: PaginationSortMode;
+}
+
+/**
  * Markup references needed by the pagination runtime.
  */
 export interface PaginationElements {
@@ -27,6 +37,26 @@ export interface PaginationElements {
  * Available sort modes for paginated items.
  */
 export type PaginationSortMode = 'default' | 'alphabetical' | 'random';
+
+/**
+ * Precomputed list variants used to preserve stable ordering semantics.
+ */
+export interface PaginationSortedLists {
+	default: Element[];
+	alphabetical: Element[];
+	random: Element[];
+}
+
+/**
+ * Callback contract used by event binders.
+ */
+export interface PaginationEventCallbacks {
+	onNext(): void;
+	onPrevious(): void;
+	onPageSelected(pageNumber: number): void;
+	onSortChanged(sortMode: PaginationSortMode): void;
+	onPopstate(): void;
+}
 
 /**
  * Shared data-attribute constants used by pagination.

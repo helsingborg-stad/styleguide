@@ -1,5 +1,6 @@
 import type { PaginationAttributes, PaginationElements } from './types';
 import { PAGINATION_ATTRIBUTES } from './types';
+import { getPageRenderRange } from './paginationMath';
 
 /**
  * Renders pagination-controlled markup and control links.
@@ -40,7 +41,7 @@ class PaginationDomRenderer {
 
 		this.elements.linksContainer.innerHTML = '';
 
-		const range = this.getPageRangeToRender(currentPage, numberOfPages);
+		const range = getPageRenderRange(currentPage, numberOfPages, this.attributes.pagesToShow);
 		for (let pageNumber = range.start; pageNumber <= range.end; pageNumber++) {
 			const linkElement = this.elements.linkTemplate.cloneNode(true) as HTMLElement;
 			linkElement.setAttribute(PAGINATION_ATTRIBUTES.indexLink, pageNumber.toString());
@@ -89,23 +90,6 @@ class PaginationDomRenderer {
 		const offsetPosition = elementPosition + window.pageYOffset - offset;
 
 		window.scrollTo({ top: offsetPosition });
-	}
-
-	private getPageRangeToRender(currentPage: number, numberOfPages: number): { start: number; end: number } {
-		const fallbackWindow = 100;
-		const windowSize = this.attributes.pagesToShow || fallbackWindow;
-		const halfWindow = Math.floor(windowSize / 2);
-
-		let start = Math.max(currentPage - halfWindow, 1);
-		let end = Math.min(currentPage + halfWindow, numberOfPages);
-
-		if (start === 1) {
-			end = Math.min(numberOfPages, start + windowSize);
-		} else if (end === numberOfPages) {
-			start = Math.max(1, end - windowSize);
-		}
-
-		return { start, end };
 	}
 }
 

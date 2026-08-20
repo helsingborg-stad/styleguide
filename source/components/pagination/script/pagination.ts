@@ -1,6 +1,11 @@
 import PaginationDomRenderer from './paginationDomRenderer';
 import PaginationUrlState from './paginationUrlState';
-import { PAGINATION_ATTRIBUTES, type PaginationAttributes, type PaginationElements, type PaginationSortMode } from './types';
+import PaginationEventBinder from './paginationEventBinder';
+import PaginationState from './paginationState';
+import { createSortedLists, getSortedListByMode, resolveSortMode } from './paginationSort';
+import { resolvePaginationElements } from './paginationElements';
+import { resolvePaginationAttributes } from './paginationAttributes';
+import { PAGINATION_ATTRIBUTES, type PaginationAttributes, type PaginationElements, type PaginationSortedLists, type PaginationSortMode } from './types';
 
 /**
  * Runtime controller for one pagination instance.
@@ -12,34 +17,45 @@ class Pagination {
 	private readonly urlState: PaginationUrlState;
 	private readonly renderer: PaginationDomRenderer | null;
 	private readonly attributes: PaginationAttributes | null;
-
-	private readonly sourceList: Element[];
-	private activeList: Element[];
-	private currentPage: number;
+	private readonly eventBinder: PaginationEventBinder | null;
+	private readonly state: PaginationState | null;
+	private readonly sortedLists: PaginationSortedLists | null;
 
 	constructor(private readonly container: HTMLElement, index: number) {
-		this.elements = this.resolveElements();
+		this.elements = resolvePaginationElements(this.container);
 		this.urlState = new PaginationUrlState();
 
 		if (!this.elements) {
 			this.renderer = null;
 			this.attributes = null;
-			this.sourceList = [];
-			this.activeList = [];
-			this.currentPage = 1;
+			this.eventBinder = null;
+			this.state = null;
+			this.sortedLists = null;
 			return;
 		}
 
-		this.attributes = this.getAttributes(this.elements.paginationContainer);
-		this.sourceList = [...this.container.querySelectorAll(`[${PAGINATION_ATTRIBUTES.item}]`)];
-		this.activeList = this.attributes.randomize ? this.randomizeList(this.sourceList) : [...this.sourceList];
-		this.currentPage = this.clampPage(this.urlState.getCurrentPage());
-		this.renderer = new PaginationDomRenderer(this.elements, this.attributes);
+		this.attributes = resolvePaginationAttributes(this.elements.paginationContainer);
 
-		this.setPageNumberAttribute();
-		this.bindControlListeners();
-		this.bindSortListener();
-		this.bindPopstateListener();
+		const sourceList = [...this.container.querySelectorAll(`[${PAGINATION_ATTRIBUTES.item}]`)];
+		this.sortedLists = createSortedLists(
+			sourceList,
+			PAGINATION_ATTRIBUTES.itemTitle,
+			this.attributes.randomize,
+		);
+		this.state = new PaginationState(sourceList, this.attributes, this.urlState.getCurrentPage());
+
+		const initialSortMode = this.resolveInitialSortMode();
+		this.applySort(initialSortMode, false, false);
+		this.state.setCurrentPage(this.urlState.getCurrentPage());
+
+		this.renderer = new PaginationDomRenderer(this.elements, this.attributes);
+		this.eventBinder = new PaginationEventBinder(this.elements);
+
+		if (this.elements.sortElement) {
+			this.elements.sortElement.value = initialSortMode;
+		}
+
+		this.bindEvents();
 		this.refresh();
 
 		const instanceId = `pagination-${index}`;
@@ -52,7 +68,7 @@ class Pagination {
 	}
 
 	public paginateSetCurrent(current: number = 1): void {
-		if (!this.attributes) {
+		if (!this.state) {
 			return;
 		}
 
@@ -60,223 +76,117 @@ class Pagination {
 		this.refresh();
 	}
 
-	private resolveElements(): PaginationElements | null {
-		const paginationContainer = this.container.querySelector(`[${PAGINATION_ATTRIBUTES.root}]`) as HTMLElement | null;
-		const listContainer = this.container.querySelector(`[${PAGINATION_ATTRIBUTES.container}]`) as HTMLElement | null;
-		const linksContainer = this.container.querySelector(`[${PAGINATION_ATTRIBUTES.linksContainer}]`) as HTMLElement | null;
-
-		if (!paginationContainer || !listContainer || !linksContainer) {
-			return null;
-		}
-
-		const linkTemplate = this.container.querySelector(`[${PAGINATION_ATTRIBUTES.indexLink}]`) as HTMLElement | null;
-		linkTemplate?.classList.remove('c-pagination__item--is-active');
-
-		const sortElement = this.container.querySelector(`[${PAGINATION_ATTRIBUTES.sort}] select`) as HTMLSelectElement | null;
-
-		return {
-			container: this.container,
-			paginationContainer,
-			listContainer,
-			linksContainer,
-			prevButton: this.container.querySelector(`[${PAGINATION_ATTRIBUTES.previous}]`) as HTMLElement | null,
-			nextButton: this.container.querySelector(`[${PAGINATION_ATTRIBUTES.next}]`) as HTMLElement | null,
-			linkTemplate,
-			sortElement,
-		};
-	}
-
-	private getAttributes(paginationContainer: HTMLElement): PaginationAttributes {
-		const perPage = paginationContainer.getAttribute('data-js-pagination-per-page');
-		const maxPages = paginationContainer.getAttribute('data-js-pagination-max-pages');
-		const randomize = paginationContainer.hasAttribute('data-js-pagination-randomize-order');
-		const keepDOM = paginationContainer.hasAttribute('data-js-pagination-keep-dom');
-		const pagesToShow = paginationContainer.hasAttribute('data-js-pagination-pages-to-show')
-			? parseInt(paginationContainer.getAttribute('data-js-pagination-pages-to-show') ?? '0', 10)
-			: 0;
-
-		return {
-			perPage: perPage ? parseInt(perPage, 10) : 10,
-			maxPages: maxPages ? parseInt(maxPages, 10) : 0,
-			randomize,
-			keepDOM,
-			pagesToShow: pagesToShow > 0 ? (pagesToShow % 2 === 0 ? pagesToShow : pagesToShow + 1) : 0,
-		};
-	}
-
-	private bindControlListeners(): void {
-		if (!this.elements) {
+	private bindEvents(): void {
+		if (!this.eventBinder) {
 			return;
 		}
 
-		this.elements.nextButton?.addEventListener('click', (event) => {
-			event.preventDefault();
-			this.setCurrentPage(this.currentPage + 1, true);
-			this.refresh();
-			this.renderer?.scrollToTop();
-		});
-
-		this.elements.prevButton?.addEventListener('click', (event) => {
-			event.preventDefault();
-			this.setCurrentPage(this.currentPage - 1, true);
-			this.refresh();
-			this.renderer?.scrollToTop();
-		});
-
-		this.elements.linksContainer.addEventListener('click', (event) => {
-			event.preventDefault();
-			const target = (event.target as HTMLElement).closest(`[${PAGINATION_ATTRIBUTES.indexLink}]`) as HTMLElement | null;
-			if (!target) {
-				return;
-			}
-
-			const nextPage = target.getAttribute(PAGINATION_ATTRIBUTES.indexLink);
-			if (!nextPage) {
-				return;
-			}
-
-			const parsedPage = parseInt(nextPage, 10);
-			if (Number.isNaN(parsedPage)) {
-				return;
-			}
-
-			this.setCurrentPage(parsedPage, true);
-			this.refresh();
-			this.renderer?.scrollToTop();
-			this.renderer?.setFocusToFirstItem();
-		});
-	}
-
-	private bindSortListener(): void {
-		const sortElement = this.elements?.sortElement;
-		if (!sortElement) {
-			return;
-		}
-
-		const urlSortMode = this.urlState.getSortMode();
-		const initialSortMode = this.resolveSortMode(urlSortMode ?? sortElement.value ?? 'default');
-		sortElement.value = initialSortMode;
-		this.applySort(initialSortMode, false);
-
-		sortElement.addEventListener('change', (event) => {
-			const selectedSortMode = this.resolveSortMode((event.target as HTMLSelectElement).value);
-			this.applySort(selectedSortMode, true);
-			this.refresh();
-		});
-	}
-
-	private bindPopstateListener(): void {
-		window.addEventListener('popstate', () => {
-			const pageFromUrl = this.clampPage(this.urlState.getCurrentPage());
-			if (pageFromUrl !== this.currentPage) {
-				this.setCurrentPage(pageFromUrl, false);
+		this.eventBinder.bind({
+			onNext: () => {
+				this.setCurrentPage((this.state?.getCurrentPage() ?? 1) + 1, true);
 				this.refresh();
-			}
+				this.renderer?.scrollToTop();
+			},
+			onPrevious: () => {
+				this.setCurrentPage((this.state?.getCurrentPage() ?? 1) - 1, true);
+				this.refresh();
+				this.renderer?.scrollToTop();
+			},
+			onPageSelected: (pageNumber) => {
+				this.setCurrentPage(pageNumber, true);
+				this.refresh();
+				this.renderer?.scrollToTop();
+				this.renderer?.setFocusToFirstItem();
+			},
+			onSortChanged: (sortMode) => {
+				this.applySort(sortMode, true);
+				this.refresh();
+			},
+			onPopstate: () => {
+				this.restoreStateFromUrl();
+			},
 		});
 	}
 
 	private refresh(): void {
-		if (!this.attributes || !this.renderer) {
+		if (!this.renderer || !this.state) {
 			return;
 		}
 
-		this.container.setAttribute(PAGINATION_ATTRIBUTES.currentPage, this.currentPage.toString());
-		this.renderer.renderPageItems(this.paginateList(this.activeList));
-		this.renderer.renderLinks(this.paginatePages(), this.currentPage);
-		this.renderer.updateNavigationButtonState(this.currentPage, this.paginatePages());
+		const currentPage = this.state.getCurrentPage();
+		const totalPages = this.state.getTotalPages();
+
+		this.container.setAttribute(PAGINATION_ATTRIBUTES.currentPage, currentPage.toString());
+		this.renderer.renderPageItems(this.state.getVisibleItems());
+		this.renderer.renderLinks(totalPages, currentPage);
+		this.renderer.updateNavigationButtonState(currentPage, totalPages);
 	}
 
-	private applySort(mode: PaginationSortMode, resetPage: boolean): void {
-		const defaultList = this.attributes?.randomize ? this.randomizeList(this.sourceList) : [...this.sourceList];
-
-		if (mode === 'random') {
-			this.activeList = this.randomizeList(this.sourceList);
-		} else if (mode === 'alphabetical') {
-			this.activeList = [...this.sourceList].sort((a, b) => {
-				const firstTitle = a.getAttribute(PAGINATION_ATTRIBUTES.itemTitle) || '';
-				const secondTitle = b.getAttribute(PAGINATION_ATTRIBUTES.itemTitle) || '';
-
-				return firstTitle.localeCompare(secondTitle);
-			});
-		} else {
-			this.activeList = defaultList;
+	private applySort(mode: PaginationSortMode, resetPage: boolean, updateUrl: boolean = true): void {
+		if (!this.state || !this.sortedLists) {
+			return;
 		}
 
-		this.setPageNumberAttribute();
-		this.urlState.setSortMode(mode === 'default' ? 'default' : mode);
+		const sortedList = getSortedListByMode(mode, this.sortedLists);
+
+		this.state.setSortMode(mode);
+		this.state.setActiveList(sortedList);
+		this.state.applyItemPageAttribute(PAGINATION_ATTRIBUTES.itemPage);
+
+		if (updateUrl) {
+			this.urlState.setSortMode(mode);
+		}
 
 		if (resetPage) {
 			this.setCurrentPage(1, true);
 		}
 	}
 
-	private resolveSortMode(value: string): PaginationSortMode {
-		if (value === 'alphabetical' || value === 'random') {
-			return value;
-		}
-
-		return 'default';
-	}
-
-	private setPageNumberAttribute(): void {
-		if (!this.attributes) {
+	private setCurrentPage(pageNumber: number, updateUrl: boolean): void {
+		if (!this.state) {
 			return;
 		}
 
-		this.activeList.forEach((item, index) => {
-			const pageNumber = Math.floor(index / this.attributes.perPage) + 1;
-			item.setAttribute(PAGINATION_ATTRIBUTES.itemPage, pageNumber.toString());
-		});
-	}
-
-	private paginatePages(): number {
-		if (!this.attributes) {
-			return 0;
-		}
-
-		const numberOfPages = Math.ceil(this.activeList.length / this.attributes.perPage);
-		if (this.attributes.maxPages && numberOfPages > this.attributes.maxPages) {
-			return this.attributes.maxPages;
-		}
-
-		return numberOfPages;
-	}
-
-	private paginateList(list: Element[]): Element[] {
-		if (!this.attributes) {
-			return [];
-		}
-
-		const firstIndex = (this.currentPage - 1) * this.attributes.perPage;
-		const lastIndex = this.currentPage * this.attributes.perPage;
-
-		return Array.from(list).slice(firstIndex, lastIndex);
-	}
-
-	private setCurrentPage(pageNumber: number, updateUrl: boolean): void {
-		const nextPage = this.clampPage(pageNumber);
-		this.currentPage = nextPage;
+		const nextPage = this.state.setCurrentPage(pageNumber);
 
 		if (updateUrl) {
 			this.urlState.setCurrentPage(nextPage, false);
 		}
 	}
 
-	private clampPage(pageNumber: number): number {
-		if (pageNumber <= 1) {
-			return 1;
+	private restoreStateFromUrl(): void {
+		if (!this.state || !this.elements) {
+			return;
 		}
 
-		const maxPage = this.paginatePages() || 1;
-		if (pageNumber > maxPage) {
-			return maxPage;
+		let shouldRefresh = false;
+
+		if (this.elements.sortElement) {
+			const urlSortMode = resolveSortMode(this.urlState.getSortMode() ?? this.elements.sortElement.value ?? 'default');
+			if (urlSortMode !== this.state.getSortMode()) {
+				this.applySort(urlSortMode, false, false);
+				shouldRefresh = true;
+				this.elements.sortElement.value = urlSortMode;
+			}
 		}
 
-		return pageNumber;
+		const pageFromUrl = this.urlState.getCurrentPage();
+		if (pageFromUrl !== this.state.getCurrentPage()) {
+			this.setCurrentPage(pageFromUrl, false);
+			shouldRefresh = true;
+		}
+
+		if (shouldRefresh) {
+			this.refresh();
+		}
 	}
 
-	private randomizeList(list: Element[]): Element[] {
-		return [...list].sort(() => Math.random() - 0.5);
+	private resolveInitialSortMode(): PaginationSortMode {
+		if (!this.elements?.sortElement) {
+			return 'default';
+		}
+
+		return resolveSortMode(this.urlState.getSortMode() ?? this.elements.sortElement.value ?? 'default');
 	}
 }
 
