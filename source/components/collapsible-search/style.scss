@@ -1,0 +1,115 @@
+@use "../../sass/mixin/focus";
+@use "../../sass/mixin/tokens";
+
+/* Component name */
+$_: "c-collapsible-search";
+
+/* Design tokens */
+@include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
+
+.#{$_} {
+  --#{$_}--transition-duration: 200ms;
+  --#{$_}--input-min-width: #{tokens.getCalculatedValue($_, "base", 20)};
+  --#{$_}--input-max-width: #{tokens.getCalculatedValue($_, "base", 40)};
+  --#{$_}--border-color: #{tokens.getRawValue($_, "color--surface-border")};
+  --#{$_}--background: #{tokens.getRawValue($_, "color--surface")};
+  --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
+  --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 1)};
+  --#{$_}--border-radius: #{tokens.getCalculatedValue($_, "border-radius")};
+  --#{$_}--panel-gap: #{tokens.getCalculatedValue($_, "space", 0.5)};
+  --#{$_}--padding-x: #{tokens.getCalculatedValue($_, "space", 1)};
+
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+
+  >.c-button[data-js-collapsible-search-trigger] {
+    transition: opacity var(--#{$_}--transition-duration) ease,
+    visibility var(--#{$_}--transition-duration) ease;
+  }
+
+  /* ------------------------------------------------------------------
+     * Panel (hidden in collapsed state)
+     * --------------------------------------------------------------- */
+  &__panel {
+    display: flex;
+    align-items: center;
+    gap: var(--#{$_}--panel-gap);
+    padding-inline: var(--#{$_}--padding-x);
+    background: var(--#{$_}--background);
+    color: var(--#{$_}--color);
+    border: tokens.getCalculatedValue($_, "border-width", 1) solid var(--#{$_}--border-color);
+    border-radius: tokens.getCalculatedValue($_, "border-radius");
+    corner-shape: tokens.getRawValue($_, "corner-shape");
+    box-shadow: var(--#{$_}--shadow);
+
+    border-radius: max(#{tokens.getCalculatedValue($_, "border-radius")},
+      calc(#{tokens.getCalculatedValue($_, "base", 100)} * 9999));
+
+    position: absolute;
+    inset-inline-end: 0;
+    inset-block-start: 50%;
+    transform: translateY(-50%) scaleX(0.6);
+    transform-origin: right center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity var(--#{$_}--transition-duration) ease,
+    transform var(--#{$_}--transition-duration) ease,
+    visibility var(--#{$_}--transition-duration) ease;
+    white-space: nowrap;
+    z-index: 10;
+  }
+
+  &__input {
+    flex: 1 1 auto;
+    min-width: var(--#{$_}--input-min-width);
+    max-width: var(--#{$_}--input-max-width);
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--#{$_}--color);
+    font-size: tokens.getRawValue($_, "font-size-100");
+    padding-block: tokens.getCalculatedValue($_, "space", 1);
+    padding-inline: tokens.getCalculatedValue($_, "space", 0.5);
+
+    &::placeholder {
+      color: var(--#{$_}--color);
+      opacity: 0.55;
+    }
+
+    &:focus {
+      @include focus.focus-remove-default;
+    }
+
+    &[type="search"]::-webkit-search-cancel-button {
+      appearance: none;
+      -webkit-appearance: none;
+    }
+  }
+
+  &__submit,
+  &__close {
+    flex-shrink: 0;
+  }
+
+
+  /* ------------------------------------------------------------------
+     * Expanded state
+     * --------------------------------------------------------------- */
+  &--expanded {
+
+    >.c-button[data-js-collapsible-search-trigger] {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .#{$_}__panel {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(-50%) scaleX(1);
+    }
+  }
+}

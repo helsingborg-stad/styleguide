@@ -1,0 +1,14 @@
+{
+	"default": {
+		"heading": "Default (collapsed)"
+	},
+	"expanded": {
+		"heading": "Pre-expanded state"
+	},
+	"in-header": {
+		"heading": "Inside a header"
+	},
+	"primary": {
+		"heading": "Primary colour trigger"
+	}
+}

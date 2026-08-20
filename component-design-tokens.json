@@ -513,6 +513,44 @@
     "requiredBy": [],
     "icon": "code"
   },
+  "collapsible-search": {
+    "$schema": "../../component-schema.json",
+    "apiVersion": 1,
+    "name": "Collapsible Search",
+    "slug": "collapsible-search",
+    "tokens": [
+      "base",
+      "border-radius",
+      "border-width",
+      "space",
+      "outer-space",
+      "color--surface",
+      "color--surface-contrast",
+      "color--surface-border",
+      "color--surface-alt",
+      "shadow-color",
+      "shadow-amount",
+      "corner-shape",
+      "font-size-100"
+    ],
+    "description": "A button that expands into a pill-shaped search form. Accepts all standard button parameters to configure the trigger appearance.",
+    "tags": [
+      "search",
+      "collapsible",
+      "component"
+    ],
+    "similarComponents": [
+      "button",
+      "field",
+      "header"
+    ],
+    "requires": [
+      "button",
+      "icon"
+    ],
+    "requiredBy": [],
+    "icon": "search"
+  },
   "collection": {
     "$schema": "../../component-schema.json",
     "apiVersion": 1,
