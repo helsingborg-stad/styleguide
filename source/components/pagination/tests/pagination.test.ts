@@ -1,4 +1,4 @@
-import Pagination from '../script/pagination';
+import PaginationFactory from '../script/paginationFactory';
 
 interface PaginationMarkupOptions {
 	withSort?: boolean;
@@ -74,6 +74,10 @@ function queryByPage(pageNumber: number): HTMLElement {
 	return document.querySelector(`[data-js-pagination-index="${pageNumber}"]`) as HTMLElement;
 }
 
+function createPaginationInstance(container: HTMLElement) {
+	return new PaginationFactory().create(container, 1);
+}
+
 describe('Pagination', () => {
 	let pushStateSpy: jest.SpyInstance;
 	let replaceStateSpy: jest.SpyInstance;
@@ -95,7 +99,7 @@ describe('Pagination', () => {
 	it('renders the first page on initialization and disables previous button', () => {
 		const container = createPaginationMarkup();
 
-		new Pagination(container, 1);
+		createPaginationInstance(container);
 
 		expect(readVisibleItemLabels()).toEqual(['Item 8']);
 		expect((document.querySelector('[data-js-pagination-prev]') as HTMLButtonElement).hasAttribute('disabled')).toBe(true);
@@ -105,7 +109,7 @@ describe('Pagination', () => {
 	it('moves to selected page and updates URL when page link is clicked', () => {
 		const container = createPaginationMarkup();
 
-		new Pagination(container, 1);
+		createPaginationInstance(container);
 		queryByPage(3).click();
 
 		expect(readVisibleItemLabels()).toEqual(['Item 3']);
@@ -121,7 +125,7 @@ describe('Pagination', () => {
 			],
 		});
 
-		new Pagination(container, 1);
+		createPaginationInstance(container);
 
 		const nextButton = document.querySelector('[data-js-pagination-next]') as HTMLButtonElement;
 		const previousButton = document.querySelector('[data-js-pagination-prev]') as HTMLButtonElement;
@@ -142,7 +146,7 @@ describe('Pagination', () => {
 	it('respects pagesToShow when generating page links', () => {
 		const container = createPaginationMarkup({ pagesToShow: 4 });
 
-		new Pagination(container, 1);
+		createPaginationInstance(container);
 
 		const pageLinks = [...document.querySelectorAll('[data-js-pagination-index]')]
 			.map((element) => element.getAttribute('data-js-pagination-index'))
@@ -154,7 +158,7 @@ describe('Pagination', () => {
 	it('sorts alphabetically and resets to page 1 on sort change', () => {
 		const container = createPaginationMarkup({ withSort: true });
 
-		new Pagination(container, 1);
+		createPaginationInstance(container);
 		queryByPage(4).click();
 
 		const sortSelect = document.querySelector('[data-js-pagination-sort] select') as HTMLSelectElement;
@@ -170,7 +174,7 @@ describe('Pagination', () => {
 	it('does not push a new URL entry on popstate handling', () => {
 		const container = createPaginationMarkup();
 
-		new Pagination(container, 1);
+		createPaginationInstance(container);
 		queryByPage(3).click();
 		pushStateSpy.mockClear();
 
@@ -185,7 +189,7 @@ describe('Pagination', () => {
 	it('keeps DOM children and toggles hidden class in keepDOM mode', () => {
 		const container = createPaginationMarkup({ keepDom: true });
 
-		new Pagination(container, 1);
+		createPaginationInstance(container);
 		queryByPage(2).click();
 
 		const allItems = [...document.querySelectorAll('[data-js-pagination-container] [data-js-pagination-item]')] as HTMLElement[];
@@ -194,10 +198,10 @@ describe('Pagination', () => {
 		expect(allItems.some((item) => item.classList.contains('u-display--none'))).toBe(true);
 	});
 
-	it('does not throw when required pagination markup is missing', () => {
+	it('does not create a pagination instance when required markup is missing', () => {
 		document.body.innerHTML = '<div data-js-pagination-target><div data-js-pagination-container></div></div>';
 		const container = document.querySelector('[data-js-pagination-target]') as HTMLElement;
 
-		expect(() => new Pagination(container, 1)).not.toThrow();
+		expect(createPaginationInstance(container)).toBeNull();
 	});
 });

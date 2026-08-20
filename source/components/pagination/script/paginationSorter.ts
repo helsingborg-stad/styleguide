@@ -1,4 +1,4 @@
-import { PAGINATION_ATTRIBUTES, type PaginationSortMode } from './types';
+import { PAGINATION_ATTRIBUTES, type PaginationSortMode } from './interface';
 
 /**
  * Encapsulates sorting behavior for pagination items.
@@ -12,7 +12,7 @@ class PaginationSorter {
 		return 'default';
 	}
 
-	public getSortedList(sourceList: Element[], mode: PaginationSortMode, randomizeByDefault: boolean): Element[] {
+	public getSortedList(sourceList: HTMLElement[], mode: PaginationSortMode, randomizeByDefault: boolean): HTMLElement[] {
 		const defaultList = randomizeByDefault ? this.randomizeList(sourceList) : [...sourceList];
 
 		if (mode === 'random') {
@@ -31,7 +31,7 @@ class PaginationSorter {
 		return defaultList;
 	}
 
-	public randomizeList(list: Element[]): Element[] {
+	public randomizeList(list: HTMLElement[]): HTMLElement[] {
 		return [...list].sort(() => Math.random() - 0.5);
 	}
 }

@@ -1,5 +1,5 @@
 import PaginationFactory from './script/paginationFactory';
-import { PAGINATION_ATTRIBUTES } from './script/types';
+import { PAGINATION_ATTRIBUTES } from './script/interface';
 
 export function init(): void {
 	document.addEventListener('DOMContentLoaded', () => {

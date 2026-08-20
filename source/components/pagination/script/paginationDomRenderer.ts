@@ -1,5 +1,5 @@
-import type { PaginationAttributes, PaginationElements } from './types';
-import { PAGINATION_ATTRIBUTES } from './types';
+import type { PaginationAttributes, PaginationElements } from './interface';
+import { PAGINATION_ATTRIBUTES } from './interface';
 
 /**
  * Renders pagination-controlled markup and control links.

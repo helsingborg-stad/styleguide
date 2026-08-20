@@ -29,7 +29,7 @@ export interface PaginationElements {
 export interface PaginationInitialization {
 	elements: PaginationElements;
 	attributes: PaginationAttributes;
-	sourceList: Element[];
+	paginationItems: HTMLElement[];
 }
 
 /**
@@ -54,3 +54,16 @@ export const PAGINATION_ATTRIBUTES = {
 	linksContainer: 'js-table-pagination--links',
 	currentPage: 'js-table-pagination--current',
 } as const;
+
+/**
+ * Supported navigation actions emitted from pagination controls.
+ */
+export type PaginationNavigationAction = 'next' | 'previous' | 'index';
+
+/**
+ * Callback contract used by pagination navigation controls.
+ */
+export interface PaginationNavigationCallbacks {
+	onNavigate: (action: PaginationNavigationAction, pageNumber?: number) => void;
+}
+

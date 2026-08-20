@@ -2,13 +2,10 @@
  * Handles URL query state used by pagination.
  */
 class PaginationUrlState {
-	private readonly pageQueryParameter: string;
-	private readonly sortQueryParameter: string;
-
-	constructor(pageQueryParameter: string = 'pagenum', sortQueryParameter: string = 'sortby') {
-		this.pageQueryParameter = pageQueryParameter;
-		this.sortQueryParameter = sortQueryParameter;
-	}
+	constructor(
+		private pageQueryParameter: string = 'pagenum',
+		private sortQueryParameter: string = 'sortby'
+	) {}
 
 	public getCurrentPage(): number {
 		const pageValue = new URLSearchParams(window.location.search).get(this.pageQueryParameter);
