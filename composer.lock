@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "93220b22158cfee987d9a92c516e5b11",
+    "content-hash": "ddc8a357126246f9cbf57a030cc39953",
     "packages": [
         {
             "name": "brick/math",
@@ -336,16 +336,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.24.18",
+            "version": "5.25.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "38c7263d37aeb43baf74b38d246fe47053696062"
+                "reference": "12a2d4a2a7719113bd222e391f9f80cb9f9e81f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/38c7263d37aeb43baf74b38d246fe47053696062",
-                "reference": "38c7263d37aeb43baf74b38d246fe47053696062",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/12a2d4a2a7719113bd222e391f9f80cb9f9e81f0",
+                "reference": "12a2d4a2a7719113bd222e391f9f80cb9f9e81f0",
                 "shasum": ""
             },
             "require": {
@@ -377,9 +377,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.24.18"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.25.0"
             },
-            "time": "2026-08-19T09:28:06+00:00"
+            "time": "2026-08-19T14:36:59+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
