@@ -13,9 +13,11 @@ $_: "c-collapsible-search";
   --#{$_}--input-max-width: #{tokens.getCalculatedValue($_, "base", 40)};
   --#{$_}--border-color: #{tokens.getRawValue($_, "color--surface-border")};
   --#{$_}--background: #{tokens.getRawValue($_, "color--surface")};
+  --#{$_}--background-alt: #{tokens.getRawValue($_, "color--surface-alt")};
   --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
   --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 1)};
   --#{$_}--border-radius: #{tokens.getCalculatedValue($_, "border-radius")};
+  --#{$_}--border-radius-capped: max(#{tokens.getCalculatedValue($_, "border-radius")}, calc(#{tokens.getCalculatedValue($_, "base", 100)} * 9999));
   --#{$_}--panel-gap: #{tokens.getCalculatedValue($_, "space", 0.5)};
   --#{$_}--padding-x: #{tokens.getCalculatedValue($_, "space", 1)};
 
@@ -28,24 +30,15 @@ $_: "c-collapsible-search";
     visibility var(--#{$_}--transition-duration) ease;
   }
 
-  /* ------------------------------------------------------------------
-     * Panel (hidden in collapsed state)
-     * --------------------------------------------------------------- */
   &__panel {
     display: flex;
     align-items: center;
-    gap: var(--#{$_}--panel-gap);
-    padding-inline: var(--#{$_}--padding-x);
-    background: var(--#{$_}--background);
+    background: var(--#{$_}--background-alt);
     color: var(--#{$_}--color);
-    border: tokens.getCalculatedValue($_, "border-width", 1) solid var(--#{$_}--border-color);
-    border-radius: tokens.getCalculatedValue($_, "border-radius");
-    corner-shape: tokens.getRawValue($_, "corner-shape");
+    border-radius: var(--#{$_}--border-radius);
+    corner-shape: #{tokens.getRawValue($_, "corner-shape")};
     box-shadow: var(--#{$_}--shadow);
-
-    border-radius: max(#{tokens.getCalculatedValue($_, "border-radius")},
-      calc(#{tokens.getCalculatedValue($_, "base", 100)} * 9999));
-
+    border-radius: var(--#{$_}--border-radius-capped);
     position: absolute;
     inset-inline-end: 0;
     inset-block-start: 50%;
@@ -61,17 +54,29 @@ $_: "c-collapsible-search";
     z-index: 10;
   }
 
-  &__input {
-    flex: 1 1 auto;
+  &__input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--#{$_}--panel-gap);
     min-width: var(--#{$_}--input-min-width);
     max-width: var(--#{$_}--input-max-width);
-    border: none;
-    outline: none;
-    background: transparent;
-    color: var(--#{$_}--color);
-    font-size: tokens.getRawValue($_, "font-size-100");
+    background: var(--#{$_}--background);
     padding-block: tokens.getCalculatedValue($_, "space", 1);
     padding-inline: tokens.getCalculatedValue($_, "space", 0.5);
+
+    border-radius: var(--#{$_}--border-radius-capped);
+    border: #{tokens.getCalculatedValue($_, "border-width", 2)} solid #{tokens.getRawValue($_, "color--primary")};
+    height: #{tokens.getCalculatedValue($_, "base", 6)};
+  }
+
+  &__input {
+    flex: 1 1 auto;
+    border: none;
+    outline: none;
+
+    color: var(--#{$_}--color);
+    font-size: tokens.getRawValue($_, "font-size-100");
+
 
     &::placeholder {
       color: var(--#{$_}--color);
@@ -93,10 +98,15 @@ $_: "c-collapsible-search";
     flex-shrink: 0;
   }
 
+  &__close[data-component="button"].c-button {
+    height: #{tokens.getCalculatedValue($_, "base", 6)};
+    width: calc(#{tokens.getCalculatedValue($_, "base", 6)});
+    padding-left: calc(#{tokens.getCalculatedValue($_, "base", 4)});
+    margin-left: calc(#{tokens.getCalculatedValue($_, "base", 4)} * -1);
+    border-radius: 0 var(--#{$_}--border-radius-capped) var(--#{$_}--border-radius-capped) 0;
+    box-sizing: initial;
+  }
 
-  /* ------------------------------------------------------------------
-     * Expanded state
-     * --------------------------------------------------------------- */
   &--expanded {
 
     >.c-button[data-js-collapsible-search-trigger] {

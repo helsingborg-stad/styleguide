@@ -528,6 +528,7 @@
       "color--surface-contrast",
       "color--surface-border",
       "color--surface-alt",
+      "color--primary",
       "shadow-color",
       "shadow-amount",
       "corner-shape",
