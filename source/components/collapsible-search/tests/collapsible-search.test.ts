@@ -111,6 +111,11 @@ describe('collapsible-search: rendering', () => {
 		expect(getPanel().hasAttribute('inert')).toBe(true);
 	});
 
+	it('search landmark has an accessible name', async () => {
+		await renderSearch({ inputLabel: 'Site search' });
+		expect(getPanel().getAttribute('aria-label')).toBe('Site search');
+	});
+
 	it('renders the placeholder text on the input', async () => {
 		await renderSearch({ placeholder: 'Find it…' });
 		expect(getInput().getAttribute('placeholder')).toBe('Find it…');
@@ -182,6 +187,12 @@ describe('collapsible-search: behaviour', () => {
 		expect(getPanel().hasAttribute('inert')).toBe(false);
 	});
 
+	it('suppresses the keyboard focus treatment for automatic input focus', async () => {
+		await setup();
+		await userEvent.click(getTrigger());
+		expect(getRoot().hasAttribute('data-js-collapsible-search-auto-focus')).toBe(true);
+	});
+
 	it('closes on close button click', async () => {
 		const instance = await setup();
 		await userEvent.click(getTrigger());
@@ -229,6 +240,7 @@ describe('collapsible-search: behaviour', () => {
 		await userEvent.click(getTrigger());
 		await userEvent.click(document.body);
 		expect(instance.isOpen()).toBe(false);
+		expect(document.activeElement).toBe(document.body);
 	});
 
 	it('does not close on click inside the component', async () => {

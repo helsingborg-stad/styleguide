@@ -1,6 +1,7 @@
 /** CSS class applied to the wrapper when the panel is open. */
 const EXPANDED_CLASS = 'c-collapsible-search--expanded';
 const PILL_CLASS = 'c-button--pill';
+const AUTO_FOCUS_ATTR = 'data-js-collapsible-search-auto-focus';
 
 /** Attribute selector used to find all collapsible-search root elements. */
 const ROOT_SELECTOR = '[data-js-collapsible-search]';
@@ -61,6 +62,7 @@ class CollapsibleSearch {
 		this.panel.removeAttribute('inert');
 		this.panel.setAttribute('aria-hidden', 'false');
 		this.attachGlobalListeners();
+		this.root.setAttribute(AUTO_FOCUS_ATTR, '');
 
 		requestAnimationFrame(() => {
 			requestAnimationFrame(() => {
@@ -70,7 +72,7 @@ class CollapsibleSearch {
 		});
 	}
 
-	close(): void {
+	close(returnFocus = true): void {
 		if (!this.isOpen()) return;
 
 		this.root.classList.remove(EXPANDED_CLASS);
@@ -78,8 +80,9 @@ class CollapsibleSearch {
 		this.trigger.setAttribute('aria-expanded', 'false');
 		this.panel.setAttribute('inert', '');
 		this.panel.setAttribute('aria-hidden', 'true');
+		this.root.removeAttribute(AUTO_FOCUS_ATTR);
 		this.detachGlobalListeners();
-		this.trigger.focus();
+		if (returnFocus) this.trigger.focus();
 	}
 
 	isOpen(): boolean {
@@ -91,10 +94,12 @@ class CollapsibleSearch {
 	}
 
 	private onDocumentClick(event: MouseEvent): void {
-		if (event.target instanceof Node && !this.root.contains(event.target)) this.close();
+		if (event.target instanceof Node && !this.root.contains(event.target)) this.close(false);
 	}
 
 	private onKeydown(event: KeyboardEvent): void {
+		if (event.key === 'Tab') this.root.removeAttribute(AUTO_FOCUS_ATTR);
+
 		if (event.key === 'Escape') {
 			event.preventDefault();
 			this.close();
@@ -103,7 +108,7 @@ class CollapsibleSearch {
 
 	private onFocusOut(_event: FocusEvent): void {
 		setTimeout(() => {
-			if (!this.root.contains(document.activeElement)) this.close();
+			if (!this.root.contains(document.activeElement)) this.close(false);
 		}, 0);
 	}
 
