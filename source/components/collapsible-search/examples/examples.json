@@ -1,6 +1,12 @@
 {
 	"default": {
-		"heading": "Default (collapsed)"
+		"heading": "Default / Medium (md)"
+	},
+	"small": {
+		"heading": "Small (sm)"
+	},
+	"large": {
+		"heading": "Large (lg)"
 	},
 	"expanded": {
 		"heading": "Pre-expanded state"

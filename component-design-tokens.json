@@ -530,7 +530,9 @@
       "shadow-color",
       "shadow-amount",
       "corner-shape",
-      "font-size-100"
+      "font-size-90",
+      "font-size-100",
+      "font-size-200"
     ],
     "description": "A button that expands into a pill-shaped search form. Accepts all standard button parameters to configure the trigger appearance.",
     "tags": [

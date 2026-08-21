@@ -130,4 +130,23 @@ $_: "c-collapsible-search";
       transform: translateY(-50%) scaleX(1);
     }
   }
+
+  /* ------------------------------------------------------------------
+   * Size modifiers — override only the vars that differ from md
+   * --------------------------------------------------------------- */
+  &--sm {
+    --#{$_}--item-size: #{tokens.getCalculatedValue($_, "base", 4.5)};
+    --#{$_}--font-size: #{tokens.getRawValue($_, "font-size-90")};
+    --#{$_}--padding-block: #{tokens.getCalculatedValue($_, "space", 0.5)};
+    --#{$_}--padding-start: #{tokens.getCalculatedValue($_, "space", 1.5)};
+    --#{$_}--close-overlap: #{tokens.getCalculatedValue($_, "base", 1)};
+  }
+
+  &--lg {
+    --#{$_}--item-size: #{tokens.getCalculatedValue($_, "base", 8)};
+    --#{$_}--font-size: #{tokens.getRawValue($_, "font-size-200")};
+    --#{$_}--padding-block: #{tokens.getCalculatedValue($_, "space", 1.5)};
+    --#{$_}--padding-start: #{tokens.getCalculatedValue($_, "space", 3)};
+    --#{$_}--close-overlap: #{tokens.getCalculatedValue($_, "base", 2)};
+  }
 }
