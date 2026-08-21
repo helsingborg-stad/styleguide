@@ -33,7 +33,7 @@ $_: "c-collapsible-search";
   &__panel {
     display: flex;
     align-items: center;
-    background: var(--#{$_}--background-alt);
+    background: #{tokens.getRawValue($_, "color--secondary")};
     color: var(--#{$_}--color);
     border-radius: var(--#{$_}--border-radius);
     corner-shape: #{tokens.getRawValue($_, "corner-shape")};
@@ -61,9 +61,7 @@ $_: "c-collapsible-search";
     min-width: var(--#{$_}--input-min-width);
     max-width: var(--#{$_}--input-max-width);
     background: var(--#{$_}--background);
-    padding-block: tokens.getCalculatedValue($_, "space", 1);
-    padding-inline: tokens.getCalculatedValue($_, "space", 0.5);
-
+    padding: #{tokens.getCalculatedValue($_, "space", 1)} 0 #{tokens.getCalculatedValue($_, "space", 1)} #{tokens.getCalculatedValue($_, "space", 2)};
     border-radius: var(--#{$_}--border-radius-capped);
     border: #{tokens.getCalculatedValue($_, "border-width", 2)} solid #{tokens.getRawValue($_, "color--primary")};
     height: #{tokens.getCalculatedValue($_, "base", 6)};
@@ -93,22 +91,26 @@ $_: "c-collapsible-search";
     }
   }
 
-  &__submit,
-  &__close {
+  &__submit[data-component="button"].c-button,
+  &__close[data-component="button"].c-button {
     flex-shrink: 0;
+    height: #{tokens.getCalculatedValue($_, "base", 6)};
+    width: #{tokens.getCalculatedValue($_, "base", 6)};
+  }
+
+  &__submit[data-component="button"].c-button {
+    border-radius: var(--#{$_}--border-radius-capped);
+    margin: calc(#{tokens.getCalculatedValue($_, "border-width", 4)} * -1) 0 calc(#{tokens.getCalculatedValue($_, "border-width", 4)} * -1) 0;
   }
 
   &__close[data-component="button"].c-button {
-    height: #{tokens.getCalculatedValue($_, "base", 6)};
-    width: calc(#{tokens.getCalculatedValue($_, "base", 6)});
-    padding-left: calc(#{tokens.getCalculatedValue($_, "base", 4)});
-    margin-left: calc(#{tokens.getCalculatedValue($_, "base", 4)} * -1);
+    padding-left: calc(#{tokens.getCalculatedValue($_, "base", 1.5)});
+    margin-left: calc(#{tokens.getCalculatedValue($_, "base", 1.5)} * -1 - #{tokens.getCalculatedValue($_, "base", 1)});
     border-radius: 0 var(--#{$_}--border-radius-capped) var(--#{$_}--border-radius-capped) 0;
     box-sizing: initial;
   }
 
   &--expanded {
-
     >.c-button[data-js-collapsible-search-trigger] {
       opacity: 0;
       visibility: hidden;
