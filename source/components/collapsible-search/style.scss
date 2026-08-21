@@ -77,7 +77,7 @@ $_: "c-collapsible-search";
     flex: 1 1 auto;
     border: none;
     outline: none;
-
+    background-color: transparent;
     color: var(--#{$_}--color);
     font-size: var(--#{$_}--font-size);
 
@@ -110,6 +110,7 @@ $_: "c-collapsible-search";
   }
 
   &__close[data-component="button"].c-button {
+    --inherit-color-contrast: #{tokens.getRawValue($_, "color--secondary-contrast")};
     padding-left: var(--#{$_}--close-overlap);
     margin-left: calc(var(--#{$_}--close-overlap) * -1 - #{tokens.getCalculatedValue($_, "base", 1)});
     border-radius: 0 var(--#{$_}--border-radius-capped) var(--#{$_}--border-radius-capped) 0;

@@ -527,6 +527,7 @@
       "color--surface-contrast",
       "color--primary",
       "color--secondary",
+      "color--secondary-contrast",
       "shadow-color",
       "shadow-amount",
       "corner-shape",
