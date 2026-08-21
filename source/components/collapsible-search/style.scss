@@ -8,7 +8,10 @@ $_: "c-collapsible-search";
 @include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
 .#{$_} {
-  --#{$_}--transition-duration: 200ms;
+  --#{$_}--expand-duration: 300ms;
+  --#{$_}--collapse-duration: 180ms;
+  --#{$_}--expand-easing: cubic-bezier(0.16, 1, 0.3, 1);
+  --#{$_}--collapse-easing: cubic-bezier(0.4, 0, 0.8, 0.4);
   --#{$_}--input-min-width: #{tokens.getCalculatedValue($_, "base", 20)};
   --#{$_}--input-max-width: #{tokens.getCalculatedValue($_, "base", 40)};
   --#{$_}--background: #{tokens.getRawValue($_, "color--surface")};
@@ -32,8 +35,11 @@ $_: "c-collapsible-search";
   contain: layout style;
 
   >.c-button[data-js-collapsible-search-trigger] {
-    transition: opacity var(--#{$_}--transition-duration) ease,
-    visibility var(--#{$_}--transition-duration) ease;
+    transform: translateX(0) scale(1);
+    transform-origin: right center;
+    transition: opacity 120ms var(--#{$_}--collapse-easing),
+      transform 180ms var(--#{$_}--collapse-easing),
+      visibility 0s linear 0s;
   }
 
   &__panel {
@@ -47,14 +53,14 @@ $_: "c-collapsible-search";
     position: absolute;
     inset-inline-end: 0;
     inset-block-start: 50%;
-    transform: translateY(-50%) scaleX(0.6);
+    transform: translateY(-50%) translateX(0.5rem) scaleX(0.78);
     transform-origin: right center;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: opacity var(--#{$_}--transition-duration) ease,
-    transform var(--#{$_}--transition-duration) ease,
-    visibility var(--#{$_}--transition-duration) ease;
+    transition: opacity var(--#{$_}--collapse-duration) var(--#{$_}--collapse-easing),
+      transform var(--#{$_}--collapse-duration) var(--#{$_}--collapse-easing),
+      visibility 0s linear var(--#{$_}--collapse-duration);
     white-space: nowrap;
     z-index: 10;
 
@@ -75,6 +81,8 @@ $_: "c-collapsible-search";
     border: var(--#{$_}--border);
     height: var(--#{$_}--item-size);
     z-index: 5;
+    transform: translateX(0.375rem);
+    transition: transform var(--#{$_}--collapse-duration) var(--#{$_}--collapse-easing);
   }
 
   &__input {
@@ -118,6 +126,10 @@ $_: "c-collapsible-search";
     margin-left: calc(var(--#{$_}--close-overlap) * -1 - #{tokens.getCalculatedValue($_, "base", 1)});
     border-radius: 0 var(--#{$_}--border-radius-capped) var(--#{$_}--border-radius-capped) 0;
     box-sizing: initial;
+    opacity: 0;
+    transform: translateX(0.25rem) scale(0.94);
+    transition: opacity 100ms var(--#{$_}--collapse-easing),
+      transform var(--#{$_}--collapse-duration) var(--#{$_}--collapse-easing);
   }
 
   &--expanded {
@@ -125,13 +137,41 @@ $_: "c-collapsible-search";
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
+      transform: translateX(0.25rem) scale(0.96);
+      transition-duration: 100ms, 140ms, 0s;
+      transition-delay: 0s, 0s, 140ms;
     }
 
     .#{$_}__panel {
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
-      transform: translateY(-50%) scaleX(1);
+      transform: translateY(-50%) translateX(0) scaleX(1);
+      transition-duration: var(--#{$_}--expand-duration), var(--#{$_}--expand-duration), 0s;
+      transition-timing-function: var(--#{$_}--expand-easing), var(--#{$_}--expand-easing), linear;
+      transition-delay: 35ms, 35ms, 0s;
+    }
+
+    .#{$_}__input-wrapper {
+      transform: translateX(0);
+      transition-duration: 240ms;
+      transition-timing-function: var(--#{$_}--expand-easing);
+      transition-delay: 70ms;
+    }
+
+    .#{$_}__close[data-component="button"].c-button {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      transition-duration: 140ms, 200ms;
+      transition-timing-function: var(--#{$_}--expand-easing), var(--#{$_}--expand-easing);
+      transition-delay: 110ms, 110ms;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &, & *, & *::before, & *::after {
+      transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
     }
   }
 

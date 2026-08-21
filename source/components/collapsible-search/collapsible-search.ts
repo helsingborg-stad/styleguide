@@ -1,5 +1,6 @@
 /** CSS class applied to the wrapper when the panel is open. */
 const EXPANDED_CLASS = 'c-collapsible-search--expanded';
+const PILL_CLASS = 'c-button--pill';
 
 /** Attribute selector used to find all collapsible-search root elements. */
 const ROOT_SELECTOR = '[data-js-collapsible-search]';
@@ -15,6 +16,7 @@ class CollapsibleSearch {
 	private readonly panel!: HTMLFormElement;
 	private readonly input!: HTMLInputElement;
 	private readonly closeButton!: HTMLButtonElement;
+	private readonly triggerWasPill!: boolean;
 
 	private readonly onDocumentClickBound!: (event: MouseEvent) => void;
 	private readonly onKeydownBound!: (event: KeyboardEvent) => void;
@@ -36,6 +38,7 @@ class CollapsibleSearch {
 		this.panel = panel;
 		this.input = input;
 		this.closeButton = closeButton;
+		this.triggerWasPill = this.trigger.classList.contains(PILL_CLASS);
 		this.onDocumentClickBound = (event) => this.onDocumentClick(event);
 		this.onKeydownBound = (event) => this.onKeydown(event);
 		this.onFocusOutBound = (event) => this.onFocusOut(event);
@@ -43,13 +46,17 @@ class CollapsibleSearch {
 		this.trigger.addEventListener('click', () => this.open());
 		this.closeButton.addEventListener('click', () => this.close());
 
-		if (this.isOpen()) this.attachGlobalListeners();
+		if (this.isOpen()) {
+			this.setTriggerPill(true);
+			this.attachGlobalListeners();
+		}
 	}
 
 	open(): void {
 		if (this.isOpen()) return;
 
 		this.root.classList.add(EXPANDED_CLASS);
+		this.setTriggerPill(true);
 		this.trigger.setAttribute('aria-expanded', 'true');
 		this.panel.removeAttribute('inert');
 		this.panel.setAttribute('aria-hidden', 'false');
@@ -67,6 +74,7 @@ class CollapsibleSearch {
 		if (!this.isOpen()) return;
 
 		this.root.classList.remove(EXPANDED_CLASS);
+		this.setTriggerPill(false);
 		this.trigger.setAttribute('aria-expanded', 'false');
 		this.panel.setAttribute('inert', '');
 		this.panel.setAttribute('aria-hidden', 'true');
@@ -76,6 +84,10 @@ class CollapsibleSearch {
 
 	isOpen(): boolean {
 		return this.root.classList.contains(EXPANDED_CLASS);
+	}
+
+	private setTriggerPill(isPill: boolean): void {
+		if (!this.triggerWasPill) this.trigger.classList.toggle(PILL_CLASS, isPill);
 	}
 
 	private onDocumentClick(event: MouseEvent): void {

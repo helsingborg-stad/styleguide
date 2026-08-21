@@ -164,6 +164,12 @@ describe('collapsible-search: behaviour', () => {
 		expect(getRoot().classList.contains('c-collapsible-search--expanded')).toBe(true);
 	});
 
+	it('morphs the trigger into a pill on open', async () => {
+		await setup();
+		await userEvent.click(getTrigger());
+		expect(getTrigger().classList.contains('c-button--pill')).toBe(true);
+	});
+
 	it('sets aria-expanded="true" on trigger after open', async () => {
 		await setup();
 		await userEvent.click(getTrigger());
@@ -188,6 +194,13 @@ describe('collapsible-search: behaviour', () => {
 		await userEvent.click(getTrigger());
 		await userEvent.click(getCloseButton());
 		expect(getRoot().classList.contains('c-collapsible-search--expanded')).toBe(false);
+	});
+
+	it('restores the trigger shape on close', async () => {
+		await setup();
+		await userEvent.click(getTrigger());
+		await userEvent.click(getCloseButton());
+		expect(getTrigger().classList.contains('c-button--pill')).toBe(false);
 	});
 
 	it('sets aria-expanded="false" on trigger after close', async () => {
