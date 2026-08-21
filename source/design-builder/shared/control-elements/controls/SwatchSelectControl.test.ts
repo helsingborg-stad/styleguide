@@ -40,6 +40,8 @@ describe('SwatchSelectControl', () => {
 		options[1].click();
 
 		expect(changeHandler).toHaveBeenCalledTimes(1);
+		expect(control.getAttribute('value')).toBe('var(--color--secondary)');
+		expect(control.querySelector('.db-swatch-select-option[aria-selected="true"]')).toBe(control.querySelectorAll<HTMLButtonElement>('.db-swatch-select-option')[1]);
 		expect(changeHandler).toHaveBeenCalledWith(
 			expect.objectContaining({
 				detail: {

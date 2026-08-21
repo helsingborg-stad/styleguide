@@ -1296,7 +1296,10 @@ export class ComponentCustomizerRuntime {
 			}
 
 			const sourceToken = this.resolveSourceTokenForVariant(sourceFamily, descriptor.variant);
-			extraValues[this.toLocalizedComponentVariable(componentName, targetContrastToken)] = sourceToken ? `var(--${sourceToken})` : '';
+			const mutedFallback = descriptor.variant === 'contrast-muted' && !sourceFamily.variants['contrast-muted'] && sourceFamily.variants.contrast && sourceFamily.variants.base
+				? `color-mix(in srgb, var(--${sourceFamily.variants.contrast}) 67.5%, var(--${sourceFamily.variants.base}))`
+				: null;
+			extraValues[this.toLocalizedComponentVariable(componentName, targetContrastToken)] = mutedFallback ?? (sourceToken ? `var(--${sourceToken})` : '');
 		}
 
 		return Object.keys(extraValues).length > 0 ? extraValues : undefined;

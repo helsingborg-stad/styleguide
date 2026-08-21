@@ -1526,7 +1526,7 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		});
 		expect(primaryOption?.extraValues).toEqual({
 			'--c-button--color--surface-contrast': 'var(--color--primary-contrast)',
-			'--c-button--color--surface-contrast-muted': 'var(--color--primary-contrast)',
+			'--c-button--color--surface-contrast-muted': 'color-mix(in srgb, var(--color--primary-contrast) 67.5%, var(--color--primary))',
 			'--c-button--color--surface-border': 'var(--color--primary-border)',
 			'--c-button--color--surface-alt': 'var(--color--primary-alt)',
 		});

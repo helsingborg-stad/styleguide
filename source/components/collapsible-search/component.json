@@ -3,7 +3,7 @@
 	"apiVersion": 1,
 	"name": "Collapsible Search",
 	"slug": "collapsible-search",
-	"tokens": ["base", "border-radius", "border-width", "space", "color--surface", "color--surface-contrast", "color--primary", "color--secondary", "color--secondary-contrast", "shadow-color", "shadow-amount", "corner-shape", "font-size-90", "font-size-100", "font-size-200"],
+	"tokens": ["base", "border-radius", "border-width", "space", "color--surface", "color--surface-contrast", "color--surface-contrast-muted", "color--primary", "color--secondary", "color--secondary-contrast", "corner-shape", "font-size-90", "font-size-100", "font-size-200"],
 	"description": "A button that expands into a pill-shaped search form. Accepts all standard button parameters to configure the trigger appearance.",
 	"tags": ["search", "collapsible", "component"],
 	"similarComponents": ["button", "field", "header"],
@@ -103,23 +103,6 @@
 					"max": 1.5,
 					"step": 0.05,
 					"unit": ""
-				}
-			]
-		},
-		{
-			"id": "elevation",
-			"label": "Elevation",
-			"description": "Component-local shadow controls for the expanded panel.",
-			"settings": [
-				{
-					"label": "Shadow Color",
-					"description": "Controls the color used by the expanded panel shadow.",
-					"token": "shadow-color"
-				},
-				{
-					"label": "Shadow Intensity",
-					"description": "Controls how prominent the expanded panel shadow appears.",
-					"token": "shadow-amount"
 				}
 			]
 		}

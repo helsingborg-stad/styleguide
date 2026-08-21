@@ -26,12 +26,12 @@ $_: "c-collapsible-search";
   --#{$_}--border-bleed: #{tokens.getCalculatedValue($_, "border-width", 4)};
   --#{$_}--close-overlap: #{tokens.getCalculatedValue($_, "base", 1.5)};
   --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
+  --#{$_}--placeholder-color: #{tokens.getRawValue($_, "color--surface-contrast-muted")};
   --#{$_}--corner-shape: #{tokens.getRawValue($_, "corner-shape")};
   --#{$_}--font-size: #{tokens.getRawValue($_, "font-size-100")};
   --#{$_}--item-size: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--item-size-multiplier));
   --#{$_}--padding-block: #{tokens.getCalculatedValue($_, "space", 1)};
   --#{$_}--padding-start: calc(#{tokens.getCalculatedValue($_, "space")} * var(--#{$_}--padding-inline-multiplier));
-  --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 1)};
   --#{$_}--border-radius-capped: max(#{tokens.getCalculatedValue($_, "border-radius")}, calc(#{tokens.getCalculatedValue($_, "base", 100)} * 9999));
   --#{$_}--panel-gap: #{tokens.getCalculatedValue($_, "space", 0.5)};
 
@@ -54,7 +54,6 @@ $_: "c-collapsible-search";
     background: var(--#{$_}--background-panel);
     color: var(--#{$_}--color);
     corner-shape: var(--#{$_}--corner-shape);
-    box-shadow: var(--#{$_}--shadow);
     border-radius: var(--#{$_}--border-radius-capped);
     position: absolute;
     inset-inline-end: 0;
@@ -105,8 +104,8 @@ $_: "c-collapsible-search";
 
 
     &::placeholder {
-      color: var(--#{$_}--color);
-      opacity: 0.55;
+      color: var(--#{$_}--placeholder-color);
+      opacity: 1;
     }
 
     &:focus {
@@ -127,6 +126,7 @@ $_: "c-collapsible-search";
   }
 
   &__submit[data-component="button"].c-button {
+    --inherit-color-contrast: #{tokens.getRawValue($_, "color--surface-contrast")};
     border-radius: var(--#{$_}--border-radius-capped);
     margin: calc(var(--#{$_}--border-bleed) * -1) 0 calc(var(--#{$_}--border-bleed) * -1) 0;
   }

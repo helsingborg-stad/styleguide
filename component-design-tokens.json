@@ -525,11 +525,10 @@
       "space",
       "color--surface",
       "color--surface-contrast",
+      "color--surface-contrast-muted",
       "color--primary",
       "color--secondary",
       "color--secondary-contrast",
-      "shadow-color",
-      "shadow-amount",
       "corner-shape",
       "font-size-90",
       "font-size-100",
@@ -645,23 +644,6 @@
             "max": 1.5,
             "step": 0.05,
             "unit": ""
-          }
-        ]
-      },
-      {
-        "id": "elevation",
-        "label": "Elevation",
-        "description": "Component-local shadow controls for the expanded panel.",
-        "settings": [
-          {
-            "label": "Shadow Color",
-            "description": "Controls the color used by the expanded panel shadow.",
-            "token": "shadow-color"
-          },
-          {
-            "label": "Shadow Intensity",
-            "description": "Controls how prominent the expanded panel shadow appears.",
-            "token": "shadow-amount"
           }
         ]
       }
