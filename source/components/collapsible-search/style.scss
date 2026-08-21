@@ -57,6 +57,10 @@ $_: "c-collapsible-search";
     visibility var(--#{$_}--transition-duration) ease;
     white-space: nowrap;
     z-index: 10;
+
+    .#{$_}__close[data-component="button"].c-button {
+      --inherit-color-contrast: #{tokens.getRawValue($_, "color--secondary-contrast")};
+    }
   }
 
   &__input-wrapper {
@@ -110,7 +114,6 @@ $_: "c-collapsible-search";
   }
 
   &__close[data-component="button"].c-button {
-    --inherit-color-contrast: #{tokens.getRawValue($_, "color--secondary-contrast")};
     padding-left: var(--#{$_}--close-overlap);
     margin-left: calc(var(--#{$_}--close-overlap) * -1 - #{tokens.getCalculatedValue($_, "base", 1)});
     border-radius: 0 var(--#{$_}--border-radius-capped) var(--#{$_}--border-radius-capped) 0;
