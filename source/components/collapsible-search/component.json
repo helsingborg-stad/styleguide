@@ -85,6 +85,17 @@
 					"max": 4,
 					"step": 0.25,
 					"unit": ""
+				},
+				{
+					"variable": "--border-width-multiplier",
+					"label": "Border Width",
+					"description": "Scales the field border thickness locally while keeping the search action aligned to its edge.",
+					"type": "range",
+					"default": "2",
+					"min": 0.5,
+					"max": 6,
+					"step": 0.5,
+					"unit": ""
 				}
 			]
 		},

@@ -18,12 +18,14 @@ $_: "c-collapsible-search";
   --#{$_}--input-max-width-multiplier: 40;
   --#{$_}--item-size-multiplier: 6;
   --#{$_}--padding-inline-multiplier: 2;
+  --#{$_}--border-width-multiplier: 2;
   --#{$_}--input-min-width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--input-min-width-multiplier));
   --#{$_}--input-max-width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--input-max-width-multiplier));
   --#{$_}--background: #{tokens.getRawValue($_, "color--surface")};
   --#{$_}--background-panel: #{tokens.getRawValue($_, "color--secondary")};
-  --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 2)} solid #{tokens.getRawValue($_, "color--primary")};
-  --#{$_}--border-bleed: #{tokens.getCalculatedValue($_, "border-width", 4)};
+  --#{$_}--field-border-width: calc(#{tokens.getCalculatedValue($_, "border-width")} * var(--#{$_}--border-width-multiplier));
+  --#{$_}--border: var(--#{$_}--field-border-width) solid #{tokens.getRawValue($_, "color--primary")};
+  --#{$_}--border-bleed: calc(var(--#{$_}--field-border-width) * 2);
   --#{$_}--close-overlap: #{tokens.getCalculatedValue($_, "base", 1.5)};
   --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
   --#{$_}--placeholder-color: #{tokens.getRawValue($_, "color--surface-contrast-muted")};
@@ -128,7 +130,8 @@ $_: "c-collapsible-search";
   &__submit[data-component="button"].c-button {
     --inherit-color-contrast: #{tokens.getRawValue($_, "color--surface-contrast")};
     border-radius: var(--#{$_}--border-radius-capped);
-    margin: calc(var(--#{$_}--border-bleed) * -1) 0 calc(var(--#{$_}--border-bleed) * -1) 0;
+    margin-block: calc(var(--#{$_}--border-bleed) * -1);
+    margin-inline-end: calc(var(--#{$_}--field-border-width) * -1);
   }
 
   &__close[data-component="button"].c-button {
