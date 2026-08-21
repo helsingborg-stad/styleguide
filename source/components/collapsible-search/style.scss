@@ -11,15 +11,20 @@ $_: "c-collapsible-search";
   --#{$_}--transition-duration: 200ms;
   --#{$_}--input-min-width: #{tokens.getCalculatedValue($_, "base", 20)};
   --#{$_}--input-max-width: #{tokens.getCalculatedValue($_, "base", 40)};
-  --#{$_}--border-color: #{tokens.getRawValue($_, "color--surface-border")};
   --#{$_}--background: #{tokens.getRawValue($_, "color--surface")};
-  --#{$_}--background-alt: #{tokens.getRawValue($_, "color--surface-alt")};
+  --#{$_}--background-panel: #{tokens.getRawValue($_, "color--secondary")};
+  --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 2)} solid #{tokens.getRawValue($_, "color--primary")};
+  --#{$_}--border-bleed: #{tokens.getCalculatedValue($_, "border-width", 4)};
+  --#{$_}--close-overlap: #{tokens.getCalculatedValue($_, "base", 1.5)};
   --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
+  --#{$_}--corner-shape: #{tokens.getRawValue($_, "corner-shape")};
+  --#{$_}--font-size: #{tokens.getRawValue($_, "font-size-100")};
+  --#{$_}--item-size: #{tokens.getCalculatedValue($_, "base", 6)};
+  --#{$_}--padding-block: #{tokens.getCalculatedValue($_, "space", 1)};
+  --#{$_}--padding-start: #{tokens.getCalculatedValue($_, "space", 2)};
   --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 1)};
-  --#{$_}--border-radius: #{tokens.getCalculatedValue($_, "border-radius")};
   --#{$_}--border-radius-capped: max(#{tokens.getCalculatedValue($_, "border-radius")}, calc(#{tokens.getCalculatedValue($_, "base", 100)} * 9999));
   --#{$_}--panel-gap: #{tokens.getCalculatedValue($_, "space", 0.5)};
-  --#{$_}--padding-x: #{tokens.getCalculatedValue($_, "space", 1)};
 
   display: inline-flex;
   align-items: center;
@@ -34,10 +39,9 @@ $_: "c-collapsible-search";
   &__panel {
     display: flex;
     align-items: center;
-    background: #{tokens.getRawValue($_, "color--secondary")};
+    background: var(--#{$_}--background-panel);
     color: var(--#{$_}--color);
-    border-radius: var(--#{$_}--border-radius);
-    corner-shape: #{tokens.getRawValue($_, "corner-shape")};
+    corner-shape: var(--#{$_}--corner-shape);
     box-shadow: var(--#{$_}--shadow);
     border-radius: var(--#{$_}--border-radius-capped);
     position: absolute;
@@ -62,10 +66,10 @@ $_: "c-collapsible-search";
     min-width: var(--#{$_}--input-min-width);
     max-width: var(--#{$_}--input-max-width);
     background: var(--#{$_}--background);
-    padding: #{tokens.getCalculatedValue($_, "space", 1)} 0 #{tokens.getCalculatedValue($_, "space", 1)} #{tokens.getCalculatedValue($_, "space", 2)};
+    padding: var(--#{$_}--padding-block) 0 var(--#{$_}--padding-block) var(--#{$_}--padding-start);
     border-radius: var(--#{$_}--border-radius-capped);
-    border: #{tokens.getCalculatedValue($_, "border-width", 2)} solid #{tokens.getRawValue($_, "color--primary")};
-    height: #{tokens.getCalculatedValue($_, "base", 6)};
+    border: var(--#{$_}--border);
+    height: var(--#{$_}--item-size);
     z-index: 5;
   }
 
@@ -75,7 +79,7 @@ $_: "c-collapsible-search";
     outline: none;
 
     color: var(--#{$_}--color);
-    font-size: tokens.getRawValue($_, "font-size-100");
+    font-size: var(--#{$_}--font-size);
 
 
     &::placeholder {
@@ -96,18 +100,18 @@ $_: "c-collapsible-search";
   &__submit[data-component="button"].c-button,
   &__close[data-component="button"].c-button {
     flex-shrink: 0;
-    height: #{tokens.getCalculatedValue($_, "base", 6)};
-    width: #{tokens.getCalculatedValue($_, "base", 6)};
+    height: var(--#{$_}--item-size);
+    width: var(--#{$_}--item-size);
   }
 
   &__submit[data-component="button"].c-button {
     border-radius: var(--#{$_}--border-radius-capped);
-    margin: calc(#{tokens.getCalculatedValue($_, "border-width", 4)} * -1) 0 calc(#{tokens.getCalculatedValue($_, "border-width", 4)} * -1) 0;
+    margin: calc(var(--#{$_}--border-bleed) * -1) 0 calc(var(--#{$_}--border-bleed) * -1) 0;
   }
 
   &__close[data-component="button"].c-button {
-    padding-left: calc(#{tokens.getCalculatedValue($_, "base", 1.5)});
-    margin-left: calc(#{tokens.getCalculatedValue($_, "base", 1.5)} * -1 - #{tokens.getCalculatedValue($_, "base", 1)});
+    padding-left: var(--#{$_}--close-overlap);
+    margin-left: calc(var(--#{$_}--close-overlap) * -1 - #{tokens.getCalculatedValue($_, "base", 1)});
     border-radius: 0 var(--#{$_}--border-radius-capped) var(--#{$_}--border-radius-capped) 0;
     box-sizing: initial;
   }
