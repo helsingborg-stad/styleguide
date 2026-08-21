@@ -24,6 +24,7 @@ $_: "c-collapsible-search";
   display: inline-flex;
   align-items: center;
   position: relative;
+  contain: layout style;
 
   >.c-button[data-js-collapsible-search-trigger] {
     transition: opacity var(--#{$_}--transition-duration) ease,
@@ -65,6 +66,7 @@ $_: "c-collapsible-search";
     border-radius: var(--#{$_}--border-radius-capped);
     border: #{tokens.getCalculatedValue($_, "border-width", 2)} solid #{tokens.getRawValue($_, "color--primary")};
     height: #{tokens.getCalculatedValue($_, "base", 6)};
+    z-index: 5;
   }
 
   &__input {

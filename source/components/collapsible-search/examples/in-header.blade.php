@@ -25,14 +25,15 @@
 
     @collapsiblesearch([
         'button' => [
-            'text'      => '',
+            'text'      => 'Sök',
             'icon'      => ['name' => 'search'],
             'style'     => 'basic',
             'color'     => 'default',
             'size'      => 'md',
-            'ariaLabel' => 'Open site search',
+            'ariaLabel' => 'Öppna sökfält',
+            'reversePositions' => true,
         ],
-        'placeholder' => 'Search the site…',
+        'placeholder' => 'Vad letar du efter?',
         'action'      => '/search',
     ])
     @endcollapsiblesearch
