@@ -8,7 +8,9 @@ class PaginationDomRenderer {
 	constructor(private readonly elements: PaginationElements, private readonly attributes: PaginationAttributes) {}
 
 	public renderPageItems(listItems: Element[]): void {
-		if (this.attributes.keepDOM) {
+		const isAsyncPagination = this.elements.paginationContainer.hasAttribute(PAGINATION_ATTRIBUTES.async);
+
+		if (this.attributes.keepDOM && !isAsyncPagination) {
 			Array.from(this.elements.listContainer.children).forEach((element) => {
 				if (!(element as HTMLElement).querySelector(`[${PAGINATION_ATTRIBUTES.sort}]`)) {
 					(element as HTMLElement).classList.add('u-display--none');
