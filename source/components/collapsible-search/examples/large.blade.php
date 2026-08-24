@@ -1,6 +1,6 @@
 {{-- Large size variant --}}
 <div class="u-display--flex u-justify-content--end" style="min-height:80px;align-items:center">
-    @collapsiblesearch([
+    @collapsibleSearch([
         'button' => [
             'text'  => 'Search',
             'icon'  => ['name' => 'search'],
@@ -9,5 +9,5 @@
             'size'  => 'lg',
         ],
     ])
-    @endcollapsiblesearch
+    @endcollapsibleSearch
 </div>

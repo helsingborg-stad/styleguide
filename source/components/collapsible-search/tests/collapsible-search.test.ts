@@ -38,7 +38,7 @@ const defaultData: ICollapsibleSearchData = {
 
 async function renderSearch(partialData: Partial<ICollapsibleSearchData> = {}) {
 	const data = { ...defaultData, ...partialData };
-	const component = await renderComponent('ComponentLibrary\\Component\\CollapsibleSearch\\CollapsibleSearch', 'collapsiblesearch', data);
+	const component = await renderComponent('ComponentLibrary\\Component\\CollapsibleSearch\\CollapsibleSearch', 'collapsibleSearch', data);
 	document.body.innerHTML += component.innerHTML;
 }
 

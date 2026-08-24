@@ -23,7 +23,7 @@
     ])
     @endnav
 
-    @collapsiblesearch([
+    @collapsibleSearch([
         'button' => [
             'text'      => 'Sök',
             'icon'      => ['name' => 'search'],
@@ -36,5 +36,5 @@
         'placeholder' => 'Vad letar du efter?',
         'action'      => '/search',
     ])
-    @endcollapsiblesearch
+    @endcollapsibleSearch
 @endheader

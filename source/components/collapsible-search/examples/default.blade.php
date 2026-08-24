@@ -1,7 +1,7 @@
 {{-- Default (collapsed) state. Placed right-aligned to show the
      panel expanding left, as it would in a real header. --}}
 <div class="u-display--flex u-justify-content--end" style="min-height:64px;align-items:center">
-    @collapsiblesearch([
+    @collapsibleSearch([
         'button' => [
             'text'  => 'Search',
             'icon'  => ['name' => 'search'],
@@ -10,5 +10,5 @@
             'size'  => 'md',
         ],
     ])
-    @endcollapsiblesearch
+    @endcollapsibleSearch
 </div>

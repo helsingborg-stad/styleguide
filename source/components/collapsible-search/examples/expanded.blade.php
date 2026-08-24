@@ -1,6 +1,6 @@
 {{-- Pre-expanded state. Right-aligned wrapper shows the panel in context. --}}
 <div class="u-display--flex u-justify-content--end" style="min-height:64px;align-items:center">
-    @collapsiblesearch([
+    @collapsibleSearch([
         'button' => [
             'text'  => 'Search',
             'icon'  => ['name' => 'search'],
@@ -11,5 +11,5 @@
         'isExpanded'  => true,
         'placeholder' => 'Type to search…',
     ])
-    @endcollapsiblesearch
+    @endcollapsibleSearch
 </div>
