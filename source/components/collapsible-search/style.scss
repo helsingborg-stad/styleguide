@@ -1,0 +1,238 @@
+@use "../../sass/mixin/focus";
+@use "../../sass/mixin/mq";
+@use "../../sass/mixin/tokens";
+
+/* Component name */
+$_: "c-collapsiblesearch";
+
+/* Design tokens */
+@include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
+
+.#{$_} {
+  --#{$_}--motion-duration-multiplier: 1;
+  --#{$_}--expand-duration: calc(300ms * var(--#{$_}--motion-duration-multiplier));
+  --#{$_}--collapse-duration: calc(180ms * var(--#{$_}--motion-duration-multiplier));
+  --#{$_}--expand-easing: cubic-bezier(0.16, 1, 0.3, 1);
+  --#{$_}--collapse-easing: cubic-bezier(0.4, 0, 0.8, 0.4);
+  --#{$_}--input-min-width-multiplier: 20;
+  --#{$_}--input-max-width-multiplier: 40;
+  --#{$_}--item-size-multiplier: 6;
+  --#{$_}--padding-inline-multiplier: 2;
+  --#{$_}--border-width-multiplier: 2;
+  --#{$_}--input-min-width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--input-min-width-multiplier));
+  --#{$_}--input-max-width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--input-max-width-multiplier));
+  --#{$_}--background: #{tokens.getRawValue($_, "color--surface")};
+  --#{$_}--background-panel: #{tokens.getRawValue($_, "color--secondary")};
+  --#{$_}--field-border-width: calc(#{tokens.getCalculatedValue($_, "border-width")} * var(--#{$_}--border-width-multiplier));
+  --#{$_}--border: var(--#{$_}--field-border-width) solid #{tokens.getRawValue($_, "color--primary")};
+  --#{$_}--border-bleed: calc(var(--#{$_}--field-border-width) * 2);
+  --#{$_}--close-overlap: #{tokens.getCalculatedValue($_, "base", 1.5)};
+  --#{$_}--color: #{tokens.getRawValue($_, "color--surface-contrast")};
+  --#{$_}--placeholder-color: #{tokens.getRawValue($_, "color--surface-contrast-muted")};
+  --#{$_}--corner-shape: #{tokens.getRawValue($_, "corner-shape")};
+  --#{$_}--font-size: #{tokens.getRawValue($_, "font-size-100")};
+  --#{$_}--item-size: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--item-size-multiplier));
+  --#{$_}--padding-block: #{tokens.getCalculatedValue($_, "space", 1)};
+  --#{$_}--padding-start: calc(#{tokens.getCalculatedValue($_, "space")} * var(--#{$_}--padding-inline-multiplier));
+  --#{$_}--border-radius-capped: max(#{tokens.getCalculatedValue($_, "border-radius")}, calc(#{tokens.getCalculatedValue($_, "base", 100)} * 9999));
+  --#{$_}--panel-gap: #{tokens.getCalculatedValue($_, "space", 0.5)};
+
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  contain: layout style;
+
+  >.c-button[data-js-collapsible-search-trigger] {
+    transform: translateX(0) scale(1);
+    transform-origin: right center;
+    transition: opacity 120ms var(--#{$_}--collapse-easing),
+    transform 180ms var(--#{$_}--collapse-easing),
+    visibility 0s linear 0s;
+  }
+
+  &__panel {
+    display: flex;
+    align-items: center;
+    background: var(--#{$_}--background-panel);
+    color: var(--#{$_}--color);
+    corner-shape: var(--#{$_}--corner-shape);
+    border-radius: var(--#{$_}--border-radius-capped);
+    position: absolute;
+    inset-inline-end: 0;
+    inset-block-start: 50%;
+    transform: translateY(-50%) translateX(0.5rem) scaleX(0.78);
+    transform-origin: right center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity var(--#{$_}--collapse-duration) var(--#{$_}--collapse-easing),
+    transform var(--#{$_}--collapse-duration) var(--#{$_}--collapse-easing),
+    visibility 0s linear var(--#{$_}--collapse-duration);
+    white-space: nowrap;
+    z-index: 10;
+
+    .#{$_}__close[data-component="button"].c-button {
+      --inherit-color-contrast: #{tokens.getRawValue($_, "color--secondary-contrast")};
+    }
+  }
+
+  &__input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: var(--#{$_}--panel-gap);
+    min-width: var(--#{$_}--input-min-width);
+    max-width: var(--#{$_}--input-max-width);
+    background: var(--#{$_}--background);
+    padding: var(--#{$_}--padding-block) 0 var(--#{$_}--padding-block) var(--#{$_}--padding-start);
+    border-radius: var(--#{$_}--border-radius-capped);
+    border: var(--#{$_}--border);
+    height: var(--#{$_}--item-size);
+    z-index: 5;
+    transform: translateX(0.375rem);
+    transition: transform var(--#{$_}--collapse-duration) var(--#{$_}--collapse-easing);
+
+    .#{$_}:not([data-js-collapsible-search-auto-focus]) &:has(.#{$_}__input:focus-visible) {
+      @include focus.focus;
+    }
+  }
+
+  &__input {
+    flex: 1 1 auto;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: var(--#{$_}--color);
+    font-size: var(--#{$_}--font-size);
+
+
+    &::placeholder {
+      color: var(--#{$_}--placeholder-color);
+      opacity: 1;
+    }
+
+    &:focus {
+      @include focus.focus-remove-default;
+    }
+
+    &[type="search"]::-webkit-search-cancel-button {
+      appearance: none;
+      -webkit-appearance: none;
+    }
+  }
+
+  &__submit[data-component="button"].c-button,
+  &__close[data-component="button"].c-button {
+    flex-shrink: 0;
+    height: var(--#{$_}--item-size);
+    width: var(--#{$_}--item-size);
+  }
+
+  &__submit[data-component="button"].c-button {
+    --inherit-color-contrast: #{tokens.getRawValue($_, "color--surface-contrast")};
+    border-radius: var(--#{$_}--border-radius-capped);
+    margin-block: calc(var(--#{$_}--border-bleed) * -1);
+    margin-inline-end: calc(var(--#{$_}--field-border-width) * -1);
+  }
+
+  &__close[data-component="button"].c-button {
+    padding-left: var(--#{$_}--close-overlap);
+    margin-left: calc(var(--#{$_}--close-overlap) * -1 - #{tokens.getCalculatedValue($_, "base", 1)});
+    border-radius: 0 var(--#{$_}--border-radius-capped) var(--#{$_}--border-radius-capped) 0;
+    box-sizing: initial;
+    opacity: 0;
+    transform: translateX(0.25rem) scale(0.94);
+    transition: opacity 100ms var(--#{$_}--collapse-easing),
+    transform var(--#{$_}--collapse-duration) var(--#{$_}--collapse-easing);
+  }
+
+  &--expanded {
+    >.c-button[data-js-collapsible-search-trigger] {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateX(0.25rem) scale(0.96);
+      transition-duration: 100ms, 140ms, 0s;
+      transition-delay: 0s, 0s, 140ms;
+    }
+
+    .#{$_}__panel {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(-50%) translateX(0) scaleX(1);
+      transition-duration: var(--#{$_}--expand-duration),
+      var(--#{$_}--expand-duration),
+      0s;
+      transition-timing-function: var(--#{$_}--expand-easing),
+      var(--#{$_}--expand-easing),
+      linear;
+      transition-delay: 35ms, 35ms, 0s;
+    }
+
+    .#{$_}__input-wrapper {
+      transform: translateX(0);
+      transition-duration: 240ms;
+      transition-timing-function: var(--#{$_}--expand-easing);
+      transition-delay: 70ms;
+    }
+
+    .#{$_}__close[data-component="button"].c-button {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      transition-duration: 140ms, 200ms;
+      transition-timing-function: var(--#{$_}--expand-easing),
+      var(--#{$_}--expand-easing);
+      transition-delay: 110ms, 110ms;
+    }
+
+    @include mq.mq(null, "sm") {
+      inline-size: 100%;
+      justify-content: flex-end;
+
+      .#{$_}__panel {
+        inline-size: 100%;
+        max-inline-size: 100%;
+      }
+
+      .#{$_}__input-wrapper {
+        flex: 1 1 auto;
+        min-inline-size: 0;
+        max-inline-size: none;
+      }
+
+      .#{$_}__input {
+        min-inline-size: 0;
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+
+    &,
+    & *,
+    & *::before,
+    & *::after {
+      transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
+    }
+  }
+
+  /* ------------------------------------------------------------------
+   * Size modifiers — override only the vars that differ from md
+   * --------------------------------------------------------------- */
+  &--sm {
+    --#{$_}--item-size: #{tokens.getCalculatedValue($_, "base", 4.5)};
+    --#{$_}--font-size: #{tokens.getRawValue($_, "font-size-90")};
+    --#{$_}--padding-block: #{tokens.getCalculatedValue($_, "space", 0.5)};
+    --#{$_}--padding-start: #{tokens.getCalculatedValue($_, "space", 1.5)};
+    --#{$_}--close-overlap: #{tokens.getCalculatedValue($_, "base", 1)};
+  }
+
+  &--lg {
+    --#{$_}--item-size: #{tokens.getCalculatedValue($_, "base", 8)};
+    --#{$_}--font-size: #{tokens.getRawValue($_, "font-size-200")};
+    --#{$_}--padding-block: #{tokens.getCalculatedValue($_, "space", 1.5)};
+    --#{$_}--padding-start: #{tokens.getCalculatedValue($_, "space", 3)};
+    --#{$_}--close-overlap: #{tokens.getCalculatedValue($_, "base", 2)};
+  }
+}
