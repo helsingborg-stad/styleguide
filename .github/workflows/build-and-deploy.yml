@@ -60,6 +60,7 @@ jobs:
         script: |
           cd ${{ secrets.DEPLOY_PATH }}
           rm -rf ${{ secrets.DEPLOY_PATH }}/../.cache/vhosts/Jelastic/* || true
+          rm /tmp/blade-cache/* || true
           rm /tmp/blade-engine-cache/* || true
         host: ${{ secrets.DEPLOY_HOST }}
         username: ${{ secrets.DEPLOY_USER }}
