@@ -8,7 +8,8 @@ class PaginationDomRenderer {
 	constructor(private readonly elements: PaginationElements, private readonly attributes: PaginationAttributes) {}
 
 	public renderPageItems(listItems: Element[]): void {
-		const isAsyncPagination = this.elements.paginationContainer.hasAttribute(PAGINATION_ATTRIBUTES.async);
+		const isAsyncPagination = this.elements.container.hasAttribute(PAGINATION_ATTRIBUTES.async)
+			|| this.elements.paginationContainer.hasAttribute(PAGINATION_ATTRIBUTES.async);
 
 		if (this.attributes.keepDOM && !isAsyncPagination) {
 			Array.from(this.elements.listContainer.children).forEach((element) => {

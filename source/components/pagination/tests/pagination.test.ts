@@ -4,6 +4,7 @@ interface PaginationMarkupOptions {
 	withSort?: boolean;
 	keepDom?: boolean;
 	asyncItems?: boolean;
+	asyncItemsOnPagination?: boolean;
 	perPage?: number;
 	pagesToShow?: number;
 	items?: Array<{ title: string; label: string }>;
@@ -14,6 +15,7 @@ function createPaginationMarkup(options: PaginationMarkupOptions = {}): HTMLElem
 		withSort = false,
 		keepDom = false,
 		asyncItems = false,
+		asyncItemsOnPagination = false,
 		perPage = 1,
 		pagesToShow = 4,
 		items = [
@@ -51,7 +53,7 @@ function createPaginationMarkup(options: PaginationMarkupOptions = {}): HTMLElem
 		<div data-js-pagination-target ${asyncItems ? 'data-js-pagination-async' : ''}>
 			${sortMarkup}
 			<div data-js-pagination-container>${listMarkup}</div>
-			<nav data-js-pagination data-js-pagination-per-page="${perPage}" data-js-pagination-pages-to-show="${pagesToShow}" ${keepDom ? 'data-js-pagination-keep-dom' : ''}>
+			<nav data-js-pagination data-js-pagination-per-page="${perPage}" data-js-pagination-pages-to-show="${pagesToShow}" ${keepDom ? 'data-js-pagination-keep-dom' : ''} ${asyncItemsOnPagination ? 'data-js-pagination-async' : ''}>
 				<button data-js-pagination-prev>Previous</button>
 				<div js-table-pagination--links>
 					<a data-js-pagination-index>
@@ -252,5 +254,20 @@ describe('Pagination', () => {
 		await waitForMutationObserverTick();
 
 		expect(document.querySelector('[data-js-pagination-index="2"]')).toBeNull();
+	});
+
+	it('updates pages when async attribute is set on pagination element', async () => {
+		const container = createPaginationMarkup({ items: [], asyncItems: false, asyncItemsOnPagination: true, perPage: 1 });
+
+		createPaginationInstance(container);
+
+		const listContainer = document.querySelector('[data-js-pagination-container]') as HTMLElement;
+		listContainer.insertAdjacentHTML('beforeend', '<div data-js-pagination-item data-js-pagination-item-title="1">Async Item 1</div>');
+		listContainer.insertAdjacentHTML('beforeend', '<div data-js-pagination-item data-js-pagination-item-title="2">Async Item 2</div>');
+
+		await waitForMutationObserverTick();
+
+		expect(readVisibleItemLabels()).toEqual(['Async Item 1']);
+		expect(queryByPage(2)).toBeTruthy();
 	});
 });
