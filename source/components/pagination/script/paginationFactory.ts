@@ -4,6 +4,7 @@ import PaginationUrlState from './paginationUrlState';
 import PaginationSorter from './paginationSorter';
 import PaginationDomRenderer from './paginationDomRenderer';
 import PaginationNavigation from './paginationNavigation';
+import PaginationAsyncItemSync from './paginationAsyncItemSync';
 
 /**
  * Creates pagination instances from container elements.
@@ -15,6 +16,10 @@ class PaginationFactory {
 			return null;
 		}
 
+		const asyncItemSync = container.hasAttribute(PAGINATION_ATTRIBUTES.async)
+			? new PaginationAsyncItemSync(container, initialization.elements.listContainer)
+			: null;
+
 		return new Pagination(
 			container,
 			index,
@@ -22,6 +27,7 @@ class PaginationFactory {
 			new PaginationSorter(),
 			new PaginationDomRenderer(initialization.elements, initialization.attributes),
 			new PaginationNavigation(initialization.elements),
+			asyncItemSync,
 			initialization.elements,
 			initialization.attributes,
 			initialization.paginationItems

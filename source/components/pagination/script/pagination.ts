@@ -2,7 +2,8 @@ import PaginationDomRenderer from './paginationDomRenderer';
 import PaginationNavigation from './paginationNavigation';
 import PaginationSorter from './paginationSorter';
 import PaginationUrlState from './paginationUrlState';
-import { PAGINATION_ATTRIBUTES, type PaginationAttributes, type PaginationElements, type PaginationInitialization, type PaginationSortMode } from './interface';
+import PaginationAsyncItemSync from './paginationAsyncItemSync';
+import { PAGINATION_ATTRIBUTES, type PaginationAsyncItemsChange, type PaginationAttributes, type PaginationElements, type PaginationInitialization, type PaginationSortMode } from './interface';
 
 /**
  * Runtime controller for one pagination instance.
@@ -10,6 +11,7 @@ import { PAGINATION_ATTRIBUTES, type PaginationAttributes, type PaginationElemen
 class Pagination {
 	private activeList: HTMLElement[];
 	private currentPage: number;
+	private currentSortMode: PaginationSortMode;
 
 	constructor(
 		private container: HTMLElement,
@@ -18,18 +20,21 @@ class Pagination {
 		private sorter: PaginationSorter,
 		private renderer: PaginationDomRenderer,
 		private navigation: PaginationNavigation,
+		private asyncItemSync: PaginationAsyncItemSync | null,
 		private paginationElements: PaginationElements,
 		private paginationAttributes: PaginationAttributes,
 		private paginationItems: HTMLElement[]
 	) {
 		this.activeList = this.sorter.getSortedList(this.paginationItems, 'default', this.paginationAttributes.randomize);
 		this.currentPage = this.clampPage(this.urlHandler.getCurrentPage());
+		this.currentSortMode = 'default';
 
 		this.setPageNumberAttribute();
 		this.bindControlListeners();
 		this.bindSortListener();
 		this.bindPopstateListener();
 		this.refresh();
+		this.bindAsyncItemSync();
 
 		const instanceId = `pagination-${index}`;
 		this.container.dataset.paginationInstance = instanceId;
@@ -98,13 +103,16 @@ class Pagination {
 	}
 
 	private refresh(): void {
+		this.asyncItemSync?.pause();
 		this.container.setAttribute(PAGINATION_ATTRIBUTES.currentPage, this.currentPage.toString());
 		this.renderer.renderPageItems(this.paginateList(this.activeList));
 		this.renderer.renderLinks(this.paginatePages(), this.currentPage);
 		this.navigation.updateButtonState(this.currentPage, this.paginatePages());
+		this.asyncItemSync?.resume();
 	}
 
 	private applySort(mode: PaginationSortMode, resetPage: boolean): void {
+		this.currentSortMode = mode;
 		this.activeList = this.sorter.getSortedList(this.paginationItems, mode, this.paginationAttributes.randomize);
 
 		this.setPageNumberAttribute();
@@ -158,6 +166,56 @@ class Pagination {
 		}
 
 		return pageNumber;
+	}
+
+	private bindAsyncItemSync(): void {
+		if (!this.asyncItemSync) {
+			return;
+		}
+
+		this.asyncItemSync.start((itemsChange) => {
+			this.handleAsyncItemsUpdated(itemsChange);
+		});
+	}
+
+	private handleAsyncItemsUpdated(itemsChange: PaginationAsyncItemsChange): void {
+		const nextItems = this.getNextPaginationItems(itemsChange);
+		if (this.isSameItemsReferenceOrder(nextItems, this.paginationItems)) {
+			return;
+		}
+
+		this.paginationItems = nextItems;
+		this.activeList = this.sorter.getSortedList(this.paginationItems, this.currentSortMode, this.paginationAttributes.randomize);
+		this.setCurrentPage(this.currentPage, false);
+		this.setPageNumberAttribute();
+		this.refresh();
+	}
+
+	private getNextPaginationItems(itemsChange: PaginationAsyncItemsChange): HTMLElement[] {
+		const removedSet = new Set(itemsChange.removedItems);
+		const nextItems = this.paginationItems.filter((item) => !removedSet.has(item));
+
+		itemsChange.addedItems.forEach((item) => {
+			if (!nextItems.includes(item)) {
+				nextItems.push(item);
+			}
+		});
+
+		return nextItems;
+	}
+
+	private isSameItemsReferenceOrder(a: HTMLElement[], b: HTMLElement[]): boolean {
+		if (a.length !== b.length) {
+			return false;
+		}
+
+		for (let index = 0; index < a.length; index++) {
+			if (a[index] !== b[index]) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 }

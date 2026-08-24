@@ -42,6 +42,7 @@ export type PaginationSortMode = 'default' | 'alphabetical' | 'random';
  */
 export const PAGINATION_ATTRIBUTES = {
 	target: 'data-js-pagination-target',
+	async: 'data-js-pagination-async',
 	root: 'data-js-pagination',
 	container: 'data-js-pagination-container',
 	item: 'data-js-pagination-item',
@@ -65,5 +66,13 @@ export type PaginationNavigationAction = 'next' | 'previous' | 'index';
  */
 export interface PaginationNavigationCallbacks {
 	onNavigate: (action: PaginationNavigationAction, pageNumber?: number) => void;
+}
+
+/**
+ * Added/removed pagination items emitted from async item synchronization.
+ */
+export interface PaginationAsyncItemsChange {
+	addedItems: HTMLElement[];
+	removedItems: HTMLElement[];
 }
 

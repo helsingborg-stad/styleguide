@@ -3,6 +3,7 @@ import PaginationFactory from '../script/paginationFactory';
 interface PaginationMarkupOptions {
 	withSort?: boolean;
 	keepDom?: boolean;
+	asyncItems?: boolean;
 	perPage?: number;
 	pagesToShow?: number;
 	items?: Array<{ title: string; label: string }>;
@@ -12,6 +13,7 @@ function createPaginationMarkup(options: PaginationMarkupOptions = {}): HTMLElem
 	const {
 		withSort = false,
 		keepDom = false,
+		asyncItems = false,
 		perPage = 1,
 		pagesToShow = 4,
 		items = [
@@ -46,7 +48,7 @@ function createPaginationMarkup(options: PaginationMarkupOptions = {}): HTMLElem
 		.join('');
 
 	document.body.innerHTML = `
-		<div data-js-pagination-target>
+		<div data-js-pagination-target ${asyncItems ? 'data-js-pagination-async' : ''}>
 			${sortMarkup}
 			<div data-js-pagination-container>${listMarkup}</div>
 			<nav data-js-pagination data-js-pagination-per-page="${perPage}" data-js-pagination-pages-to-show="${pagesToShow}" ${keepDom ? 'data-js-pagination-keep-dom' : ''}>
@@ -76,6 +78,12 @@ function queryByPage(pageNumber: number): HTMLElement {
 
 function createPaginationInstance(container: HTMLElement) {
 	return new PaginationFactory().create(container, 1);
+}
+
+function waitForMutationObserverTick(): Promise<void> {
+	return new Promise((resolve) => {
+		setTimeout(() => resolve(), 0);
+	});
 }
 
 describe('Pagination', () => {
@@ -203,5 +211,46 @@ describe('Pagination', () => {
 		const container = document.querySelector('[data-js-pagination-target]') as HTMLElement;
 
 		expect(createPaginationInstance(container)).toBeNull();
+	});
+
+	it('updates pages for asynchronously rendered items when async attribute is present', async () => {
+		const container = createPaginationMarkup({ items: [], asyncItems: true });
+
+		createPaginationInstance(container);
+
+		const listContainer = document.querySelector('[data-js-pagination-container]') as HTMLElement;
+		listContainer.insertAdjacentHTML('beforeend', '<div data-js-pagination-item data-js-pagination-item-title="1">Async Item 1</div>');
+		listContainer.insertAdjacentHTML('beforeend', '<div data-js-pagination-item data-js-pagination-item-title="2">Async Item 2</div>');
+
+		await waitForMutationObserverTick();
+
+		expect(readVisibleItemLabels()).toEqual(['Async Item 1']);
+		expect(queryByPage(2)).toBeTruthy();
+
+		queryByPage(2).click();
+		expect(readVisibleItemLabels()).toEqual(['Async Item 2']);
+
+		queryByPage(1).click();
+		listContainer.insertAdjacentHTML('beforeend', '<div data-js-pagination-item data-js-pagination-item-title="3">Async Item 3</div>');
+		listContainer.insertAdjacentHTML('beforeend', '<div data-js-pagination-item data-js-pagination-item-title="4">Async Item 4</div>');
+
+		await waitForMutationObserverTick();
+
+		expect(readVisibleItemLabels()).toEqual(['Async Item 1']);
+		queryByPage(3).click();
+		expect(readVisibleItemLabels()).toEqual(['Async Item 3']);
+	});
+
+	it('does not update pages for asynchronously rendered items without async attribute', async () => {
+		const container = createPaginationMarkup({ items: [], asyncItems: false });
+
+		createPaginationInstance(container);
+
+		const listContainer = document.querySelector('[data-js-pagination-container]') as HTMLElement;
+		listContainer.insertAdjacentHTML('beforeend', '<div data-js-pagination-item data-js-pagination-item-title="1">Async Item 1</div>');
+
+		await waitForMutationObserverTick();
+
+		expect(document.querySelector('[data-js-pagination-index="2"]')).toBeNull();
 	});
 });
