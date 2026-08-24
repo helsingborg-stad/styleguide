@@ -31,6 +31,6 @@ export * from '../components/gallery/image.js';
 
 export * from '../components/modal/modal';
 
-import { init as initCollapsibleSearch } from '../components/collapsible-search/collapsible-search';
+import { init as initCollapsibleSearch } from '../components/collapsiblesearch/collapsible-search';
 
 initCollapsibleSearch();

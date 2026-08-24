@@ -38,7 +38,7 @@ const defaultData: ICollapsibleSearchData = {
 
 async function renderSearch(partialData: Partial<ICollapsibleSearchData> = {}) {
 	const data = { ...defaultData, ...partialData };
-	const component = await renderComponent('ComponentLibrary\\Component\\CollapsibleSearch\\CollapsibleSearch', 'collapsibleSearch', data);
+	const component = await renderComponent('ComponentLibrary\\Component\\Collapsiblesearch\\Collapsiblesearch', 'collapsiblesearch', data);
 	document.body.innerHTML += component.innerHTML;
 }
 
@@ -133,7 +133,7 @@ describe('collapsible-search: rendering', () => {
 
 	it('root has expanded modifier class when isExpanded', async () => {
 		await renderSearch({ isExpanded: true });
-		expect(getRoot().classList.contains('c-collapsible-search--expanded')).toBe(true);
+			expect(getRoot().classList.contains('c-collapsiblesearch--expanded')).toBe(true);
 	});
 
 	it('panel does not have inert when isExpanded', async () => {
@@ -166,7 +166,7 @@ describe('collapsible-search: behaviour', () => {
 	it('adds expanded class on open', async () => {
 		await setup();
 		await userEvent.click(getTrigger());
-		expect(getRoot().classList.contains('c-collapsible-search--expanded')).toBe(true);
+		expect(getRoot().classList.contains('c-collapsiblesearch--expanded')).toBe(true);
 	});
 
 	it('morphs the trigger into a pill on open', async () => {
@@ -204,7 +204,7 @@ describe('collapsible-search: behaviour', () => {
 		await setup();
 		await userEvent.click(getTrigger());
 		await userEvent.click(getCloseButton());
-		expect(getRoot().classList.contains('c-collapsible-search--expanded')).toBe(false);
+		expect(getRoot().classList.contains('c-collapsiblesearch--expanded')).toBe(false);
 	});
 
 	it('restores the trigger shape on close', async () => {
@@ -254,6 +254,6 @@ describe('collapsible-search: behaviour', () => {
 		await renderSearch();
 		init();
 		await userEvent.click(getTrigger());
-		expect(getRoot().classList.contains('c-collapsible-search--expanded')).toBe(true);
+		expect(getRoot().classList.contains('c-collapsiblesearch--expanded')).toBe(true);
 	});
 });

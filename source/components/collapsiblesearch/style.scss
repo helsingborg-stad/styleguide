@@ -3,7 +3,7 @@
 @use "../../sass/mixin/tokens";
 
 /* Component name */
-$_: "c-collapsible-search";
+$_: "c-collapsiblesearch";
 
 /* Design tokens */
 @include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);

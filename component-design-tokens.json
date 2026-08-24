@@ -513,11 +513,11 @@
     "requiredBy": [],
     "icon": "code"
   },
-  "collapsible-search": {
+  "collapsiblesearch": {
     "$schema": "../../component-schema.json",
     "apiVersion": 1,
     "name": "Collapsible Search",
-    "slug": "collapsible-search",
+    "slug": "collapsiblesearch",
     "tokens": [
       "base",
       "border-radius",

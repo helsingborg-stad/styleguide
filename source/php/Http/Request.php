@@ -128,26 +128,48 @@ class Request
             return implode('/', $segments);
         }
 
+        return $this->resolveComponentSlug($componentSlug) !== null ? 'component' : implode('/', $segments);
+    }
+
+    /**
+     * Resolves a public component slug to its local component directory name.
+     *
+     * Slugs may differ in punctuation or casing between the URL, metadata,
+     * and local directory, so all three identifiers are compared normalized.
+     *
+     * @param string $requestedSlug Public component slug.
+     *
+     * @return string|null Local component directory name, or null when missing.
+     */
+    public function resolveComponentSlug(string $requestedSlug): ?string
+    {
         if (!defined('BASEPATH')) {
-            return implode('/', $segments);
+            return null;
         }
 
-        $componentPath = BASEPATH . 'source/components/' . $componentSlug . '/component.json';
-        if (is_file($componentPath)) {
-            return 'component';
+        $requested = $this->normalizeIdentifier($requestedSlug);
+        if ($requested === '') {
+            return null;
         }
 
         $componentConfigPaths = glob(BASEPATH . 'source/components/*/component.json') ?: [];
         foreach ($componentConfigPaths as $componentConfigPath) {
             $configContent = file_get_contents($componentConfigPath);
             $config = is_string($configContent) ? json_decode($configContent, true) : null;
+            if (!is_array($config)) {
+                continue;
+            }
 
-            if (is_array($config) && strtolower((string) ($config['slug'] ?? '')) === strtolower($componentSlug)) {
-                return 'component';
+            $directoryName = basename(dirname($componentConfigPath));
+            $candidates = [$directoryName, (string) ($config['slug'] ?? '')];
+            foreach ($candidates as $candidate) {
+                if ($this->normalizeIdentifier($candidate) === $requested) {
+                    return $directoryName;
+                }
             }
         }
 
-        return implode('/', $segments);
+        return null;
     }
 
     /**

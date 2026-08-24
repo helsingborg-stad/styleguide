@@ -1,6 +1,6 @@
 {{-- Primary colour trigger. --}}
 <div class="u-display--flex u-justify-content--end" style="min-height:64px;align-items:center">
-    @collapsibleSearch([
+    @collapsiblesearch([
         'button' => [
             'text'  => 'Search',
             'icon'  => ['name' => 'search'],
@@ -9,5 +9,5 @@
             'size'  => 'md',
         ],
     ])
-    @endcollapsibleSearch
+    @endcollapsiblesearch
 </div>

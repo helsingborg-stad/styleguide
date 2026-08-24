@@ -1,5 +1,5 @@
 /** CSS class applied to the wrapper when the panel is open. */
-const EXPANDED_CLASS = 'c-collapsible-search--expanded';
+const EXPANDED_CLASS = 'c-collapsiblesearch--expanded';
 const PILL_CLASS = 'c-button--pill';
 const AUTO_FOCUS_ATTR = 'data-js-collapsible-search-auto-focus';
 
