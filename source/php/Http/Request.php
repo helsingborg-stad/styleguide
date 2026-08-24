@@ -137,6 +137,16 @@ class Request
             return 'component';
         }
 
+        $componentConfigPaths = glob(BASEPATH . 'source/components/*/component.json') ?: [];
+        foreach ($componentConfigPaths as $componentConfigPath) {
+            $configContent = file_get_contents($componentConfigPath);
+            $config = is_string($configContent) ? json_decode($configContent, true) : null;
+
+            if (is_array($config) && strtolower((string) ($config['slug'] ?? '')) === strtolower($componentSlug)) {
+                return 'component';
+            }
+        }
+
         return implode('/', $segments);
     }
 
