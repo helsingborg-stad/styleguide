@@ -62,7 +62,6 @@
 @card([
     'attributeList' => [
         'data-js-pagination-target' => '',
-        'data-js-pagination-async' => '',
         'data-async-pagination-example' => 'true'
     ],
     'classList' => ['u-margin__bottom--8']
@@ -91,6 +90,7 @@
             'perPage' => 2,
             'pagesToShow' => 4,
             'keepDOM' => true,
+            'async' => true
         ])
         @endpagination
     @endcard__body
