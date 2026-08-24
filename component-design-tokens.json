@@ -517,7 +517,7 @@
     "$schema": "../../component-schema.json",
     "apiVersion": 1,
     "name": "Collapsible Search",
-    "slug": "collapsible-search",
+    "slug": "collapsibleSearch",
     "tokens": [
       "base",
       "border-radius",
