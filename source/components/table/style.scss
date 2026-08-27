@@ -24,7 +24,7 @@ $_: "c-table";
     position: relative;
     container-type: inline-size;
 
-    .#{$_}__column-content {
+    .#{$_}__cell-content {
         width: 100%;
         display: inline-block;
     }
@@ -83,7 +83,7 @@ $_: "c-table";
         min-width: 100%;
     }
 
-    .#{$_}__column {
+    .#{$_}__cell {
         position: relative;
         min-width: tokens.getCalculatedValue($_, "space", 13);
     }
@@ -92,7 +92,7 @@ $_: "c-table";
      * Table head
      */
     .#{$_}__head {
-        .#{$_}__column-content {
+        .#{$_}__cell-content {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
@@ -116,7 +116,7 @@ $_: "c-table";
         color: tokens.getRawValue($_, "color--surface-contrast");
     }
 
-    .#{$_}__column.#{$_}__column-0 {
+    .#{$_}__cell.#{$_}__cell-0 {
         z-index: 1;
     }
 
@@ -172,7 +172,7 @@ $_: "c-table";
     /**
      * Modifier: summary line
      */
-    &.#{$_}--summary .#{$_}__line:last-of-type .#{$_}__column-content {
+    &.#{$_}--summary .#{$_}__row:last-of-type .#{$_}__cell-content {
         font-weight: var(--font-weight-bold, 700);
         font-family: var(--font-family-bold, var(--font-family-base));
     }
@@ -183,7 +183,7 @@ $_: "c-table";
     &.#{$_}--multidimensional {
 
         &.is-collapsed {
-            .#{$_}__column-0 {
+            .#{$_}__cell-0 {
                 min-width: tokens.getCalculatedValue($_, "space", 10);
 
                 @include mq.mq("xs", "md") {
@@ -194,7 +194,7 @@ $_: "c-table";
                     max-width: tokens.getCalculatedValue($_, "space", 25);
                 }
 
-                .#{$_}__column-content {
+                .#{$_}__cell-content {
                     text-overflow: ellipsis;
                     overflow: hidden;
                     white-space: nowrap;
@@ -206,7 +206,7 @@ $_: "c-table";
             }
         }
 
-        .#{$_}__column-0 {
+        .#{$_}__cell-0 {
             position: sticky;
             left: 0;
             top: 0;
@@ -260,7 +260,7 @@ table:not(.#{$_} *) {
     vertical-align: top;
 }
 
-.#{$_}__column {
+.#{$_}__cell {
     padding: var(--#{$_}--inset-padding-y-content) var(--#{$_}--inset-padding-x);
     font-size: tokens.getCalculatedValue($_, "space", 2);
     text-align: left;
@@ -285,37 +285,37 @@ table:not(.#{$_} *) thead {
     background-color: tokens.getRawValue($_, "color--surface-alt");
 }
 
-.#{$_}__head .#{$_}__column,
+.#{$_}__head .#{$_}__cell,
 table:not(.#{$_} *) thead th {
     border-bottom: var(--#{$_}--border);
 }
 
-.#{$_}__body .#{$_}__line .#{$_}__column,
+.#{$_}__body .#{$_}__row .#{$_}__cell,
 table:not(.#{$_} *) tbody tr td {
     transition: background-color 100ms ease;
 }
 
-.#{$_}__body .#{$_}__line:nth-child(odd) .#{$_}__column,
+.#{$_}__body .#{$_}__row:nth-child(odd) .#{$_}__cell,
 table:not(.#{$_} *) tbody tr:nth-child(odd) td {
     background-color: tokens.getRawValue($_, "color--surface");
 }
 
-.#{$_}__body .#{$_}__line:nth-child(odd):hover .#{$_}__column,
+.#{$_}__body .#{$_}__row:nth-child(odd):hover .#{$_}__cell,
 table:not(.#{$_} *) tbody tr:nth-child(odd):hover td {
     background-color: tokens.getRawValue($_, "color--surface-border");
 }
 
-.#{$_}__body .#{$_}__line:nth-child(even) .#{$_}__column,
+.#{$_}__body .#{$_}__row:nth-child(even) .#{$_}__cell,
 table:not(.#{$_} *) tbody tr:nth-child(even) td {
     background-color: tokens.getRawValue($_, "color--surface-alt");
 }
 
-.#{$_}__body .#{$_}__line:nth-child(even):hover .#{$_}__column,
+.#{$_}__body .#{$_}__row:nth-child(even):hover .#{$_}__cell,
 table:not(.#{$_} *) tbody tr:nth-child(even):hover td {
     background-color: tokens.getRawValue($_, "color--surface-border");
 }
 
-.#{$_}__body .#{$_}__column+.#{$_}__column,
+.#{$_}__body .#{$_}__cell+.#{$_}__cell,
 table:not(.#{$_} *) tbody td+td {
     border-left: var(--#{$_}--border);
 }
