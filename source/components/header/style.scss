@@ -45,7 +45,7 @@ $_: "c-header";
     --#{$_}--container-max-width: var(--#{$_}--container-max-width-default);
     --#{$_}--container-padding-inline: clamp(1rem, 4vw, 2rem);
     --#{$_}--content-max-width: min(100%, max(0px, calc(var(--#{$_}--container-max-width, var(--#{$_}--container-max-width-default)) - (var(--#{$_}--container-padding-inline) * 2))));
-    --#{$_}--content-padding-inline: max(var(--#{$_}--padding-x), calc((100% - var(--#{$_}--content-max-width)) / 2));
+    --#{$_}--content-padding-inline: calc(var(--c-header--padding-x-enabled, 1) * max(var(--c-header--padding-x), calc((100% - var(--c-header--content-max-width)) / 2)));
 
     /* Color */
     --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface")};
