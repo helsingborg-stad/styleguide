@@ -43,8 +43,6 @@ $_: "c-header";
     --#{$_}--container-max-width-default: var(--container-width);
     --#{$_}--container-max-width-wide: var(--container-width-wide);
     --#{$_}--container-max-width: var(--#{$_}--container-max-width-default);
-    --#{$_}--container-padding-inline: clamp(1rem, 4vw, 2rem);
-    --#{$_}--content-max-width: min(100%, max(0px, calc(var(--#{$_}--container-max-width, var(--#{$_}--container-max-width-default)) - (var(--#{$_}--container-padding-inline) * 2))));
     --#{$_}--content-padding-inline: calc(var(--c-header--padding-x-enabled, 1) * max(var(--c-header--padding-x), calc((100% - var(--c-header--content-max-width)) / 2)));
 
     /* Color */
@@ -60,15 +58,22 @@ $_: "c-header";
     background-color: var(--#{$_}--background-color);
     color: var(--#{$_}--color);
     display: grid;
+    // Width modes size a content area. They must not be affected by whether
+    // the header's visual horizontal padding is enabled.
+    --#{$_}--content-max-width: min(100vw, var(--#{$_}--container-max-width));
+    --#{$_}--content-padding-inline: var(--#{$_}--padding-x);
 
     /*
      * Container width modes are controlled by --c-header--container-max-width.
-     * The centered content area is resolved via padding-inline, not by forcing
-     * width on child elements.
-     * Current selectable values are expected to be:
-     * "" (default), var(--container-width-wide) (wide), and 100% (full width).
+     * Consumers with a dedicated content area use --c-header--content-max-width
+     * to size that area; header padding remains independent.
      */
     grid-template-columns: 1fr;
+
+    // Component examples use the header itself as their content area.
+    &.o-container {
+        inline-size: var(--#{$_}--content-max-width);
+    }
 
     @include mq.mq("sm") {
         --#{$_}--container-padding-inline: calc(#{var_default.$base} * 3);

@@ -1698,7 +1698,7 @@
             "default": "",
             "options": [
               {
-                "value": "",
+                "value": "var(--container-width)",
                 "label": "Default"
               },
               {
