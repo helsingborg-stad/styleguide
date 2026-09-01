@@ -19,6 +19,7 @@ interface ItemsInterface {
     getRows(): HTMLElement[];
     addItems(items: HTMLElement[]): void;
     getDataCellsFromColumnIndex(columnIndex: number): HTMLElement[];
+    getSummaryRow(): HTMLElement | null;
 }
 
 type SortOrder = 'asc' | 'desc';

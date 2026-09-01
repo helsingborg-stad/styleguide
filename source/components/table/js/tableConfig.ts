@@ -22,7 +22,7 @@ class TableConfig implements TableConfigInterface {
         this.scrollIndicatorContainer = root.querySelector(`[${AttributeNames.TableScrollIndicatorContainer}]`);
         this.scrollElement = root.querySelector(`[${AttributeNames.TableScrollIndicator}]`);
         this.isMultidimensional = root.hasAttribute(`${AttributeNames.HasMultidimensional}`);
-        this.hasSummaryRow = root.hasAttribute(`${AttributeNames.HasSummaryRow}`);
+        this.hasSummaryRow = root.querySelector(`[${AttributeNames.SummaryRow}]`) ? true : false;
         this.tableBody = root.querySelector(`[${AttributeNames.TableBody}]`);
         this.tableHead = root.querySelector(`[${AttributeNames.TableHead}]`);
     }

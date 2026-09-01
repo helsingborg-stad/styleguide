@@ -164,8 +164,12 @@ $_: "c-table";
         transition: transform 200ms;
     }
 
+    &.#{$_}--sortable .#{$_}__head .#{$_}__cell,
     .#{$_}__sort-button {
         cursor: pointer;
+    }
+
+    .#{$_}__sort-button {
         color: tokens.getRawValue($_, "color--surface-contrast-muted");
     }
 

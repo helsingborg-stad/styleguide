@@ -5,7 +5,6 @@ export const enum SortOrder {
 }
 
 export const enum AttributeNames {
-    HasSummaryRow = 'data-js-table-summary-row',
     HasTableSort = 'data-js-table-sort',
     HasTableFilter = 'data-js-table-filter',
     HasMultidimensional = 'data-js-table-multidimensional',
@@ -19,5 +18,6 @@ export const enum AttributeNames {
     ColumnIndex = 'data-js-column-index',
     RowIndex = 'data-js-row-index',
     SortingOrder = 'data-js-table-sort-order',
-    FilterInput = 'data-js-table-filter-input'
+    FilterInput = 'data-js-table-filter-input',
+    SummaryRow = 'data-js-table-summary-row'
 }

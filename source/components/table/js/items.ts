@@ -1,6 +1,8 @@
 import { AttributeNames } from "../enum";
 
 class Items implements ItemsInterface {
+
+    private targetWithoutSummaryRow: string = `[${AttributeNames.RowIndex}]:not([${AttributeNames.SummaryRow}])`;
     constructor(private config: TableConfigInterface) {}
 
     public getHeadingCells(): HTMLElement[] {
@@ -8,15 +10,19 @@ class Items implements ItemsInterface {
     }
 
     public getDataCells(): HTMLElement[] {
-        return Array.from(this.config.getTableBody().querySelectorAll(`[${AttributeNames.TableCell}]`));
+        return Array.from(this.config.getTableBody().querySelectorAll(`${this.targetWithoutSummaryRow} [${AttributeNames.TableCell}]`));
     }
 
     public getRows(): HTMLElement[] {
-        return Array.from(this.config.getTableBody().querySelectorAll(`[${AttributeNames.RowIndex}]`));
+        return Array.from(this.config.getTableBody().querySelectorAll(this.targetWithoutSummaryRow));
     }
 
     public getDataCellsFromColumnIndex(columnIndex: number): HTMLElement[] {
-        return Array.from(this.config.getTableBody().querySelectorAll(`[${AttributeNames.TableCell}][${AttributeNames.ColumnIndex}="${columnIndex}"]`));
+        return Array.from(this.config.getTableBody().querySelectorAll(`${this.targetWithoutSummaryRow} [${AttributeNames.TableCell}][${AttributeNames.ColumnIndex}="${columnIndex}"]`));
+    }
+
+    public getSummaryRow(): HTMLElement | null {
+        return this.config.getTableBody().querySelector(`[${AttributeNames.SummaryRow}]`);
     }
 
     public addItems(items: HTMLElement[]): void {
