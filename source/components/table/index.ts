@@ -3,6 +3,7 @@ import TableFilter from "./js/tableFilter";
 import Table from "./js/table";
 import TableConfig from "./js/tableConfig";
 import Items from "./js/items";
+import TableScrollIndicator from "./js/tableScrollIndicator";
 
 class TableFactory {
 	private static factoryInstance: TableFactory | null = null;
@@ -18,11 +19,20 @@ class TableFactory {
 		const tableInstance = new Table(config);
 
 		if (config.isTableSortable()) {
-			new TableSort(tableInstance, config, itemsInstance);
+			new TableSort(config, itemsInstance);
 		}
 
 		if (config.isTableFilterable()) {
-			new TableFilter(tableInstance, config, itemsInstance);
+			new TableFilter(config, itemsInstance);
+		}
+
+		if (
+			config.getScrollIndicator() &&
+			config.getScrollIndicatorContainer() &&
+			config.getTableElement() &&
+			config.getTableWrapper()
+		) {
+			new TableScrollIndicator(config);
 		}
 
 		return tableInstance;

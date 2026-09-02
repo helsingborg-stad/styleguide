@@ -1,13 +1,11 @@
 import { AttributeNames } from "../enum";
 import Items from "./items";
-import Table from "./table";
 
 /**
  * Handles real-time text filtering of table rows.
  */
 class TableFilter {
 	constructor(
-		private tableInstance: Table,
 		private tableConfig: TableConfigInterface,
 		private itemsInstance: Items
 	) {

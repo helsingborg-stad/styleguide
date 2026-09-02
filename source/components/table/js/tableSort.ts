@@ -1,21 +1,15 @@
 import { AttributeNames } from "../enum";
 import Items from "./items";
-import Table from "./table";
 
 /**
  * Handles sorting interactions and row ordering for table components.
  */
 class TableSort {
-	private sortingButtons: HTMLElement[];
-	private currentSortOrder: SortOrder = 'desc';
-	private currentSortColumn: number | null = null;
-
 	constructor(
-		private tableInstance: Table,
 		private tableConfig: TableConfigInterface,
 		private itemsInstance: Items
 	) {
-		this.sortingButtons = this.setupSortingButtons();
+		this.setupSortingButtons();
 	}
 
 	private setupSortingButtons(): HTMLElement[] {
@@ -66,7 +60,7 @@ class TableSort {
 	}
 
 	private getSortingColumn(sortingButton: HTMLElement): number | null {
-		return this.currentSortColumn = sortingButton.hasAttribute(`${AttributeNames.ColumnIndex}`) ? parseInt(sortingButton.getAttribute(`${AttributeNames.ColumnIndex}`) as string, 10) : null;
+		return sortingButton.hasAttribute(`${AttributeNames.ColumnIndex}`) ? parseInt(sortingButton.getAttribute(`${AttributeNames.ColumnIndex}`) as string, 10) : null;
 	}
 
 	private getNextSortOrder(sortingButton: HTMLElement): SortOrder {
@@ -78,8 +72,6 @@ class TableSort {
 		const nextState = states[(currentIndex + 1) % states.length];
 
 		sortingButton.setAttribute(`${AttributeNames.SortingOrder}`, nextState);
-
-		this.currentSortOrder = nextState;
 
 		return nextState;
 	}

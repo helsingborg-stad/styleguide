@@ -164,7 +164,7 @@ $_: "c-table";
         transition: transform 200ms;
     }
 
-    &.#{$_}--sortable .#{$_}__head .#{$_}__cell,
+    &.#{$_}--sortable .#{$_}__head .#{$_}__cell-content,
     .#{$_}__sort-button {
         cursor: pointer;
     }

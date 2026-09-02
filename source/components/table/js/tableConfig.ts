@@ -3,24 +3,24 @@ import { AttributeNames } from "../enum";
 class TableConfig implements TableConfigInterface {
     private isSortable: boolean;
     private isFilterable: boolean;
-    private innerContainer: HTMLElement | null;
     private tableElement: HTMLElement | null;
     private scrollIndicatorContainer: HTMLElement | null;
-    private scrollElement: HTMLElement | null;
+    private scrollIndicatorElement: HTMLElement | null;
     private isMultidimensional: boolean;
     private hasSummaryRow: boolean;
     private tableBody: HTMLElement | null;
     private tableHead: HTMLElement | null;
+    private tableWrapper: HTMLElement | null;
 
     constructor(
         private root: HTMLElement
     ) {
         this.isSortable = root.hasAttribute(`${AttributeNames.HasTableSort}`);
         this.isFilterable = root.hasAttribute(`${AttributeNames.HasTableFilter}`);
-        this.innerContainer = root.querySelector(`[${AttributeNames.TableInnerContainer}]`);
+        this.tableWrapper = root.querySelector(`[${AttributeNames.TableWrapper}]`);
         this.tableElement = root.querySelector(`[${AttributeNames.TableElement}]`);
         this.scrollIndicatorContainer = root.querySelector(`[${AttributeNames.TableScrollIndicatorContainer}]`);
-        this.scrollElement = root.querySelector(`[${AttributeNames.TableScrollIndicator}]`);
+        this.scrollIndicatorElement = root.querySelector(`[${AttributeNames.TableScrollIndicator}]`);
         this.isMultidimensional = root.hasAttribute(`${AttributeNames.HasMultidimensional}`);
         this.hasSummaryRow = root.querySelector(`[${AttributeNames.SummaryRow}]`) ? true : false;
         this.tableBody = root.querySelector(`[${AttributeNames.TableBody}]`);
@@ -39,8 +39,8 @@ class TableConfig implements TableConfigInterface {
         return this.tableHead as HTMLElement;
     }
 
-    public getInnerContainer(): HTMLElement | null {
-        return this.innerContainer;
+    public getTableWrapper(): HTMLElement | null {
+        return this.tableWrapper;
     }
 
     public getTableElement(): HTMLElement | null {
@@ -51,8 +51,8 @@ class TableConfig implements TableConfigInterface {
         return this.scrollIndicatorContainer;
     }
 
-    public getScrollElement(): HTMLElement | null {
-        return this.scrollElement;
+    public getScrollIndicator(): HTMLElement | null {
+        return this.scrollIndicatorElement;
     }
 
     public isTableSortable(): boolean {

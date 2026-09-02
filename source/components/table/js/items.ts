@@ -24,10 +24,6 @@ class Items implements ItemsInterface {
     public getSummaryRow(): HTMLElement | null {
         return this.config.getTableBody().querySelector(`[${AttributeNames.SummaryRow}]`);
     }
-
-    public addItems(items: HTMLElement[]): void {
-        // Implement logic to add items to storage
-    }
 }
 
 export default Items;
