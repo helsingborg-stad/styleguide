@@ -2,27 +2,28 @@ import { AttributeNames } from "../enum";
 
 class Items implements ItemsInterface {
 
-    private targetWithoutSummaryRow: string = `[${AttributeNames.RowIndex}]:not([${AttributeNames.SummaryRow}])`;
-    constructor(private config: TableConfigInterface) {}
+    private readonly targetWithoutSummaryRow: string = `[${AttributeNames.RowIndex}]:not([${AttributeNames.SummaryRow}])`;
+
+    constructor(private readonly tableConfig: TableConfigInterface) {}
 
     public getHeadingCells(): HTMLElement[] {
-        return Array.from(this.config.getTableHead().querySelectorAll(`[${AttributeNames.TableCell}]`));
+        return Array.from(this.tableConfig.getTableHead().querySelectorAll(`[${AttributeNames.TableCell}]`));
     }
 
     public getDataCells(): HTMLElement[] {
-        return Array.from(this.config.getTableBody().querySelectorAll(`${this.targetWithoutSummaryRow} [${AttributeNames.TableCell}]`));
+        return Array.from(this.tableConfig.getTableBody().querySelectorAll(`${this.targetWithoutSummaryRow} [${AttributeNames.TableCell}]`));
     }
 
     public getRows(): HTMLElement[] {
-        return Array.from(this.config.getTableBody().querySelectorAll(this.targetWithoutSummaryRow));
+        return Array.from(this.tableConfig.getTableBody().querySelectorAll(this.targetWithoutSummaryRow));
     }
 
     public getDataCellsFromColumnIndex(columnIndex: number): HTMLElement[] {
-        return Array.from(this.config.getTableBody().querySelectorAll(`${this.targetWithoutSummaryRow} [${AttributeNames.TableCell}][${AttributeNames.ColumnIndex}="${columnIndex}"]`));
+        return Array.from(this.tableConfig.getTableBody().querySelectorAll(`${this.targetWithoutSummaryRow} [${AttributeNames.TableCell}][${AttributeNames.ColumnIndex}="${columnIndex}"]`));
     }
 
     public getSummaryRow(): HTMLElement | null {
-        return this.config.getTableBody().querySelector(`[${AttributeNames.SummaryRow}]`);
+        return this.tableConfig.getTableBody().querySelector(`[${AttributeNames.SummaryRow}]`);
     }
 }
 

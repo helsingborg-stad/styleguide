@@ -1,22 +1,20 @@
 import TableSort from "./js/tableSort";
 import TableFilter from "./js/tableFilter";
-import Table from "./js/table";
 import TableConfig from "./js/tableConfig";
 import Items from "./js/items";
 import TableScrollIndicator from "./js/tableScrollIndicator";
 
 class TableFactory {
 	private static factoryInstance: TableFactory | null = null;
-	public create(table: HTMLElement): Table | null{
+	public create(table: HTMLElement): void {
 		const config = new TableConfig(table);
 
 		if (this.hasRequiredElements(config)) {
 			console.error('Table element, table body, or table head is missing.');
-			return null;
+			return;
 		}
 
 		const itemsInstance = new Items(config);
-		const tableInstance = new Table(config);
 
 		if (config.isTableSortable()) {
 			new TableSort(config, itemsInstance);
@@ -34,8 +32,6 @@ class TableFactory {
 		) {
 			new TableScrollIndicator(config);
 		}
-
-		return tableInstance;
 	}
 
 	private hasRequiredElements(config: TableConfig): boolean {

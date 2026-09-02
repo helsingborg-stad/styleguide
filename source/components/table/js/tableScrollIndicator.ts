@@ -1,8 +1,8 @@
 class TableScrollIndicator {
-	private wrapper: HTMLElement;
-	private table: HTMLElement;
-	private indicator: HTMLElement;
-	private indicatorContainer: HTMLElement;
+	private readonly wrapper: HTMLElement;
+	private readonly table: HTMLElement;
+	private readonly indicator: HTMLElement;
+	private readonly indicatorContainer: HTMLElement;
 	private readonly onPointerDown = (event: PointerEvent) => this.startDrag(event);
 	private readonly onScroll = () => this.scheduleSync();
 	private readonly onPointerMove = (event: PointerEvent) => this.handlePointerMove(event);
@@ -13,7 +13,7 @@ class TableScrollIndicator {
 	private isDragging = false;
 	private syncScheduled = false;
 
-	constructor(private tableConfig: TableConfigInterface) {
+	constructor(private readonly tableConfig: TableConfigInterface) {
 		this.wrapper = this.tableConfig.getTableWrapper()!;
 		this.table = this.tableConfig.getTableElement()!;
 		this.indicator = this.tableConfig.getScrollIndicator()!;

@@ -20,7 +20,7 @@ class PaginationFactory {
 			|| initialization.elements.paginationContainer.hasAttribute(PAGINATION_ATTRIBUTES.async);
 
 		const asyncItemSync = isAsyncPagination
-			? new PaginationAsyncItemSync(container, initialization.elements.listContainer)
+			? new PaginationAsyncItemSync(initialization.elements.listContainer)
 			: null;
 
 		return new Pagination(

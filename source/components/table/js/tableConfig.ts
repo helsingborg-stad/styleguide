@@ -1,16 +1,16 @@
 import { AttributeNames } from "../enum";
 
 class TableConfig implements TableConfigInterface {
-    private isSortable: boolean;
-    private isFilterable: boolean;
-    private tableElement: HTMLElement | null;
-    private scrollIndicatorContainer: HTMLElement | null;
-    private scrollIndicatorElement: HTMLElement | null;
-    private isMultidimensional: boolean;
-    private hasSummaryRow: boolean;
-    private tableBody: HTMLElement | null;
-    private tableHead: HTMLElement | null;
-    private tableWrapper: HTMLElement | null;
+    private readonly isSortable: boolean;
+    private readonly isFilterable: boolean;
+    private readonly tableElement: HTMLElement | null;
+    private readonly scrollIndicatorContainer: HTMLElement | null;
+    private readonly scrollIndicatorElement: HTMLElement | null;
+    private readonly isMultidimensional: boolean;
+    private readonly hasSummaryRow: boolean;
+    private readonly tableBody: HTMLElement | null;
+    private readonly tableHead: HTMLElement | null;
+    private readonly tableWrapper: HTMLElement | null;
 
     constructor(
         private root: HTMLElement

@@ -6,8 +6,8 @@ import Items from "./items";
  */
 class TableSort {
 	constructor(
-		private tableConfig: TableConfigInterface,
-		private itemsInstance: Items
+		private readonly tableConfig: TableConfigInterface,
+		private readonly itemsInstance: Items
 	) {
 		this.setupSortingButtons();
 	}

@@ -4,13 +4,11 @@ import { PAGINATION_ATTRIBUTES, type PaginationAsyncItemsChange } from './interf
  * Observes async pagination item rendering and notifies when items are updated.
  */
 class PaginationAsyncItemSync {
-	private observer: MutationObserver | null;
+	private observer: MutationObserver | null = null;
 
 	constructor(
-		private container: HTMLElement,
 		private listContainer: HTMLElement
 	) {
-		this.observer = null;
 	}
 
 	public start(onItemsChanged: (itemsChange: PaginationAsyncItemsChange) => void): void {

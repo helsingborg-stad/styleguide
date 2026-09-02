@@ -6,8 +6,8 @@ import Items from "./items";
  */
 class TableFilter {
 	constructor(
-		private tableConfig: TableConfigInterface,
-		private itemsInstance: Items
+		private readonly tableConfig: TableConfigInterface,
+		private readonly itemsInstance: Items
 	) {
 		this.setupFilterInput();
 	}

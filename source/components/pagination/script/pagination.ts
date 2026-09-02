@@ -3,7 +3,7 @@ import PaginationNavigation from './paginationNavigation';
 import PaginationSorter from './paginationSorter';
 import PaginationUrlState from './paginationUrlState';
 import PaginationAsyncItemSync from './paginationAsyncItemSync';
-import { PAGINATION_ATTRIBUTES, type PaginationAsyncItemsChange, type PaginationAttributes, type PaginationElements, type PaginationInitialization, type PaginationSortMode } from './interface';
+import { PAGINATION_ATTRIBUTES, type PaginationAsyncItemsChange, type PaginationAttributes, type PaginationElements, type PaginationSortMode } from './interface';
 
 /**
  * Runtime controller for one pagination instance.
