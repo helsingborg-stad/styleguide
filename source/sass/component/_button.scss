@@ -1,5 +1,6 @@
 @use "sass:map";
 @use "../mixin/cover";
+@use "../mixin/focus";
 @use "../setting/var_border-radius";
 @use "../setting/var_colors";
 @use "../setting/var_default";
@@ -497,6 +498,11 @@ $c-button-border-width: var(--c-button-border-width, var_properties.$border-widt
 
     &.c-button__filled--secondary[aria-pressed='true'] {
         outline-color: $c-button-secondary-color-contrasting; 
+    }
+
+    &.c-button__filled:focus-visible {
+        // Keyboard focus must remain distinct from the toggle's pressed outline.
+        @include focus.focus();
     }
 
     /* Basic color - active */ 
