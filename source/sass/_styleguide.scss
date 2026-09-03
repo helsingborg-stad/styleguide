@@ -66,6 +66,7 @@
 @include meta.load-css("mixin/stretch");
 @include meta.load-css("mixin/focus");
 @include meta.load-css("mixin/tokens");
+@include meta.load-css("mixin/compressed-typography");
 @include meta.load-css("mixin/animations/ken-burns");
 
 // ***************************************************************
