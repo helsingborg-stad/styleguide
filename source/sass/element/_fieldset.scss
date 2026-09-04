@@ -1,7 +1,10 @@
-$legend-color: var(--c-field-label-color, var(--color-darker, #565656)) !default;
-$legend-font-size: var(--c-field-label-font-size, 0.75rem) !default;
-$legend-font-weight: var(--c-field-label-font-size, 700) !default;
-$legend-text-transform: var(--c-field-label-text-transform, uppercase) !default;
+@use "../component/field";
+@use "../setting/var_default";
+
+$legend-color: field.$c-field-label-color !default;
+$legend-font-size: field.$c-field-label-font-size !default;
+$legend-font-weight: field.$c-field-label-font-weight !default;
+$legend-text-transform: field.$c-field-label-text-transform !default;
 
 fieldset {
     margin-inline: unset;
@@ -15,7 +18,7 @@ fieldset {
         font-size: $legend-font-size;
         font-weight: $legend-font-weight;
         text-transform: $legend-text-transform;
-        margin-bottom: calc(var(--base, 8px) / 2);
+        margin-bottom: calc(#{var_default.$base} / 2);
         letter-spacing: 0.05rem;
     }
 }
