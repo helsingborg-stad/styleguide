@@ -35,7 +35,7 @@ $token: "c-chat";
         corner-shape: tokens.getRawValue($token, "corner-shape");
         border-radius: calc(tokens.getCalculatedValue($token, "border-radius") * 2.5);
         word-break: break-word;
-        white-space: pre-wrap;
+        white-space: pre-line;
 
         &>* {
             display: inline-block;
