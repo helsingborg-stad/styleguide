@@ -88,7 +88,7 @@ $c-card-image-background-color: var(--c-card-image-background-color, var_colors.
     
     .c-card__image {
         background-color: var_colors.$color-card-image-background;
-        border-radius: none;
+        border-radius: 0;
 
         .c-image__image {
             border-radius: inherit;

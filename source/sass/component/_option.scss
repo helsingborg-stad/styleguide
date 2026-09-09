@@ -245,3 +245,17 @@ $c-option-success-color: var(--c-option-success-color, var(--color-success, var_
         }
     }
 }
+
+@keyframes pop-in {
+    0% {
+        transform: scale(0.5);
+    }
+
+    80% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
