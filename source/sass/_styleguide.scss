@@ -105,6 +105,8 @@
     @include meta.load-css("object/layout-grid");
     @include meta.load-css("object/minimal-slider");
     @include meta.load-css("object/tooltip");
+    @include meta.load-css("object/popover");
+    @include meta.load-css("object/popover-animation");
 }
 
 // ***************************************************************

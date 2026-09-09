@@ -2,12 +2,19 @@ export enum PopoverSetup {
     TriggerSelector = '[popovertarget]',
     PopoverSelector = '[popover]',
     InitializedAttribute = 'data-popover-initialized',
-    UninitializedSelector = '[popover]:not([data-popover-initialized])',
+    TriggerInitializedAttribute = 'data-popover-trigger-initialized',
+    PendingPositionAttribute = 'data-popover-pending-position',
+    ClosingAttribute = 'data-popover-closing',
+    SkipCloseAnimationAttribute = 'data-popover-skip-close-animation',
 }
 
 export enum PopoverOffset {
     Top = 8,
     Viewport = 12,
+}
+
+export enum PopoverTiming {
+    CloseAnimationDurationMs = 180,
 }
 
 export enum PopoverStyleProperty {
