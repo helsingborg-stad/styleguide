@@ -47,6 +47,10 @@ $_: "c-block";
         }
     }
 
+    .c-datebadge + .#{$_}__body {
+        padding-top: tokens.getCalculatedValue($_, "base", 12);
+    }
+
     .#{$_}__body {
         background: linear-gradient(0deg, var(--#{$_}--color-overlay) 0%, var(--#{$_}--color-overlay-middle) 80%, var(--#{$_}--color-overlay-end) 100%);
         border-radius: inherit;
