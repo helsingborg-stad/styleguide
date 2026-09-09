@@ -1,11 +1,11 @@
 import { PopoverOffset } from './popoverEnums';
 
-class PopoverPositioner {
+class PopoverPositionCalculator {
     public calculate(trigger: HTMLElement, popover: HTMLElement): PopoverPosition {
         const triggerRect = trigger.getBoundingClientRect();
         const popoverRect = popover.getBoundingClientRect();
 
-        const preferredLeft = triggerRect.left;
+        const preferredLeft = triggerRect.left + triggerRect.width / 2 - popoverRect.width / 2;
         const maxLeft = Math.max(PopoverOffset.Viewport, window.innerWidth - popoverRect.width - PopoverOffset.Viewport);
         const left = Math.min(maxLeft, Math.max(PopoverOffset.Viewport, preferredLeft));
 
@@ -27,10 +27,4 @@ class PopoverPositioner {
     }
 }
 
-export default PopoverPositioner;
-
-interface PopoverPosition {
-    left: number;
-    top: number;
-    placement: 'top' | 'bottom';
-}
+export default PopoverPositionCalculator;

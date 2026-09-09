@@ -58,7 +58,3 @@ class PopoverAnimator {
 }
 
 export default PopoverAnimator;
-
-interface BeforeToggleEvent extends Event {
-    newState?: 'open' | 'closed';
-}

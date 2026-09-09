@@ -1,6 +1,6 @@
 import { PopoverStyleProperty } from './popoverEnums';
 
-class PopoverView {
+class PopoverPlacement {
     private readonly preferredWidths = new WeakMap<HTMLElement, number>();
 
     public syncResponsiveWidth(popover: HTMLElement): void {
@@ -42,10 +42,4 @@ class PopoverView {
     }
 }
 
-export default PopoverView;
-
-interface PopoverPosition {
-    left: number;
-    top: number;
-    placement: 'top' | 'bottom';
-}
+export default PopoverPlacement;

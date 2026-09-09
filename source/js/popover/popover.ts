@@ -1,19 +1,38 @@
 import { PopoverSetup } from './popoverEnums';
 import PopoverAnimator from './popoverAnimator';
-import PopoverPositioner from './popoverPositioner';
-import PopoverView from './popoverView';
+import PopoverPlacement from './popoverPlacement';
+import PopoverPositionCalculator from './popoverPositionCalculator';
 
 class Popover {
-    private readonly view = new PopoverView();
-    private readonly positioner = new PopoverPositioner();
-    private readonly animator = new PopoverAnimator();
-    private readonly lastInteractionTrigger = new WeakMap<HTMLElement, HTMLElement>();
+    public constructor(
+        private readonly popoverPlacement: PopoverPlacement = new PopoverPlacement(),
+        private readonly positionCalculator: PopoverPositionCalculator = new PopoverPositionCalculator(),
+        private readonly animator: PopoverAnimator = new PopoverAnimator(),
+    ) {
+    }
 
-    public init(): void {
-        this.bindWithin(document.body);
+    public init(root: HTMLElement = document.body): void {
+        this.bindWithin(root);
         this.observeDom();
-        this.positionOpenPopovers();
-        this.addViewportListeners();
+        this.repositionOpenPopovers();
+    }
+
+    public setupPopover(trigger: HTMLElement, popover: HTMLElement): void {
+        this.bindTrigger(trigger, popover);
+        this.bindPopover(popover);
+        this.updateExpandedState(trigger, popover);
+    }
+
+    private bindWithin(root: HTMLElement): void {
+        for (const trigger of this.getTriggers(root)) {
+            const popover = this.getPopover(trigger);
+
+            if (!popover) {
+                continue;
+            }
+
+            this.setupPopover(trigger, popover);
+        }
     }
 
     private observeDom(): void {
@@ -30,53 +49,33 @@ class Popover {
         });
 
         observer.observe(document.body, { childList: true, subtree: true });
+
+        window.addEventListener('resize', () => this.repositionOpenPopovers(), { passive: true });
+        document.addEventListener('scroll', () => this.repositionOpenPopovers(), { capture: true, passive: true });
     }
 
-    private addViewportListeners(): void {
-        const syncPositionWhenOpen = () => {
-            this.positionOpenPopovers();
-        };
-
-        window.addEventListener('resize', syncPositionWhenOpen, { passive: true });
-        document.addEventListener('scroll', syncPositionWhenOpen, { capture: true, passive: true });
-    }
-
-    private bindWithin(root: HTMLElement): void {
-        this.getPopovers(root).forEach((popover) => this.bindPopover(popover));
-        this.getTriggers(root).forEach((trigger) => this.bindTrigger(trigger));
-    }
-
-    private getPopovers(root: HTMLElement): HTMLElement[] {
-        return [
-            ...(root.matches(PopoverSetup.PopoverSelector) ? [root] : []),
-            ...Array.from(root.querySelectorAll<HTMLElement>(PopoverSetup.PopoverSelector)),
-        ];
-    }
-
-    private getTriggers(root: HTMLElement): HTMLElement[] {
-        return [
-            ...(root.matches(PopoverSetup.TriggerSelector) ? [root] : []),
-            ...Array.from(root.querySelectorAll<HTMLElement>(PopoverSetup.TriggerSelector)),
-        ];
-    }
-
-    private bindTrigger(trigger: HTMLElement): void {
+    private bindTrigger(trigger: HTMLElement, popover: HTMLElement): void {
         if (trigger.hasAttribute(PopoverSetup.TriggerInitializedAttribute)) {
             return;
         }
 
-        trigger.addEventListener('click', () => {
-            const popover = this.getPopoverByTrigger(trigger);
+        trigger.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
 
-            if (!popover) {
+            if (this.isOpen(popover)) {
+                popover.hidePopover?.();
                 return;
             }
 
-            this.lastInteractionTrigger.set(popover, trigger);
             popover.setAttribute(PopoverSetup.PendingPositionAttribute, 'true');
+            popover.style.visibility = 'hidden';
+            popover.showPopover?.();
 
             window.requestAnimationFrame(() => {
-                this.positionIfOpen(popover, trigger);
+                this.position(trigger, popover);
+                popover.style.visibility = '';
+                popover.removeAttribute(PopoverSetup.PendingPositionAttribute);
             });
         });
 
@@ -90,82 +89,64 @@ class Popover {
 
         this.animator.bind(popover);
 
-        popover.addEventListener('beforetoggle', (event) => {
-            const beforeToggleEvent = event as BeforeToggleEvent;
+        popover.addEventListener('toggle', () => {
+            const trigger = this.getTrigger(popover);
+            const isOpen = this.isOpen(popover);
 
-            if (beforeToggleEvent.newState === 'open') {
-                popover.setAttribute(PopoverSetup.PendingPositionAttribute, 'true');
+            if (trigger) {
+                trigger.setAttribute('aria-expanded', String(isOpen));
+            }
+
+            if (!isOpen) {
+                this.popoverPlacement.resetResponsiveWidth(popover);
+                popover.style.visibility = '';
+                popover.removeAttribute(PopoverSetup.PendingPositionAttribute);
                 return;
             }
 
-            if (beforeToggleEvent.newState === 'closed') {
+            if (trigger) {
+                this.position(trigger, popover);
                 popover.removeAttribute(PopoverSetup.PendingPositionAttribute);
             }
-        });
-
-        popover.addEventListener('toggle', () => {
-            this.onPopoverToggle(popover);
         });
 
         popover.setAttribute(PopoverSetup.InitializedAttribute, '');
     }
 
-    private onPopoverToggle(popover: HTMLElement): void {
-        if (this.isOpen(popover)) {
-            const trigger = this.getTrigger(popover);
-
-            if (trigger) {
-                this.position(trigger, popover);
-            }
-
-            window.requestAnimationFrame(() => {
-                popover.removeAttribute(PopoverSetup.PendingPositionAttribute);
-            });
-
-            this.setTriggersExpanded(popover, true);
-            return;
-        }
-
-        this.view.resetResponsiveWidth(popover);
-        popover.removeAttribute(PopoverSetup.PendingPositionAttribute);
-        this.setTriggersExpanded(popover, false);
+    private updateExpandedState(trigger: HTMLElement, popover: HTMLElement): void {
+        trigger.setAttribute('aria-expanded', String(this.isOpen(popover)));
     }
 
-    private positionOpenPopovers(): void {
-        Array.from(document.querySelectorAll<HTMLElement>(PopoverSetup.PopoverSelector)).forEach((popover) => {
+    private repositionOpenPopovers(): void {
+        document.querySelectorAll<HTMLElement>(PopoverSetup.PopoverSelector).forEach((popover) => {
             if (!this.isOpen(popover)) {
                 return;
             }
 
             const trigger = this.getTrigger(popover);
 
-            if (trigger) {
-                this.position(trigger, popover);
+            if (!trigger) {
+                return;
             }
+
+            this.position(trigger, popover);
         });
     }
 
-    private positionIfOpen(popover: HTMLElement, fallbackTrigger?: HTMLElement): void {
-        if (!this.isOpen(popover)) {
-            return;
-        }
-
-        const trigger = fallbackTrigger ?? this.getTrigger(popover);
-
-        if (!trigger) {
-            return;
-        }
-
-        this.position(trigger, popover);
-    }
-
     private position(trigger: HTMLElement, popover: HTMLElement): void {
-        this.view.syncResponsiveWidth(popover);
-        const { left, top, placement } = this.positioner.calculate(trigger, popover);
-        this.view.setPosition(popover, { left, top, placement });
+        this.popoverPlacement.syncResponsiveWidth(popover);
+        const position = this.positionCalculator.calculate(trigger, popover);
+        this.popoverPlacement.setPosition(popover, position);
     }
 
-    private getPopoverByTrigger(trigger: HTMLElement): HTMLElement | null {
+    private getTriggers(root: HTMLElement): HTMLElement[] {
+        return [
+            ...(root.matches(PopoverSetup.TriggerSelector) ? [root] : []),
+            ...Array.from(root.querySelectorAll<HTMLElement>(PopoverSetup.TriggerSelector)),
+        ];
+    }
+
+    private getPopover(trigger: HTMLElement): HTMLElement | null {
         const popoverId = trigger.getAttribute('popovertarget')?.trim();
 
         if (!popoverId) {
@@ -177,12 +158,6 @@ class Popover {
     }
 
     private getTrigger(popover: HTMLElement): HTMLElement | null {
-        const lastTrigger = this.lastInteractionTrigger.get(popover);
-
-        if (lastTrigger && document.contains(lastTrigger)) {
-            return lastTrigger;
-        }
-
         const popoverId = popover.id.trim();
 
         if (!popoverId) {
@@ -193,33 +168,9 @@ class Popover {
         return triggers.find((trigger) => trigger.getAttribute('popovertarget')?.trim() === popoverId) ?? null;
     }
 
-    private setTriggersExpanded(popover: HTMLElement, isExpanded: boolean): void {
-        const popoverId = popover.id.trim();
-
-        if (!popoverId) {
-            return;
-        }
-
-        const triggers = Array.from(document.querySelectorAll<HTMLElement>(PopoverSetup.TriggerSelector)).filter(
-            (trigger) => trigger.getAttribute('popovertarget')?.trim() === popoverId,
-        );
-
-        triggers.forEach((trigger) => {
-            trigger.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
-        });
-    }
-
     private isOpen(popover: HTMLElement): boolean {
         return typeof popover.matches === 'function' ? popover.matches(':popover-open') : !popover.hidden;
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    new Popover().init();
-});
-
 export default Popover;
-
-interface BeforeToggleEvent extends Event {
-    newState?: 'open' | 'closed';
-}
