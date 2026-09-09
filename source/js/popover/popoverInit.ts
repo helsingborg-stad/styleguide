@@ -7,6 +7,8 @@ import { PopoverSetup } from './popoverEnums';
 let popoverInstance: Popover | null = null;
 
 document.addEventListener('DOMContentLoaded', () => {
+    getPopoverInstance().init();
+
     document.querySelectorAll<HTMLElement>(PopoverSetup.TriggerSelector).forEach((trigger) => {
         const popover = getPopover(trigger);
 

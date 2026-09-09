@@ -49,7 +49,7 @@ class Popover {
         });
 
         observer.observe(document.body, { childList: true, subtree: true });
-
+        console.log('Popover DOM observer initialized');
         window.addEventListener('resize', () => this.repositionOpenPopovers(), { passive: true });
         document.addEventListener('scroll', () => this.repositionOpenPopovers(), { capture: true, passive: true });
     }
@@ -119,13 +119,20 @@ class Popover {
 
     private repositionOpenPopovers(): void {
         document.querySelectorAll<HTMLElement>(PopoverSetup.PopoverSelector).forEach((popover) => {
-            if (!this.isOpen(popover)) {
+            if (!popover.id) {
                 return;
             }
 
             const trigger = this.getTrigger(popover);
 
             if (!trigger) {
+                return;
+            }
+
+            const isOpen = this.isOpen(popover);
+            const isPending = popover.hasAttribute(PopoverSetup.PendingPositionAttribute);
+
+            if (!isOpen && !isPending) {
                 return;
             }
 
