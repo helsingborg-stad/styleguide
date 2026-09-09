@@ -68,5 +68,11 @@ details.#{$_} {
     &[open] summary,
     &:hover summary {
         background-color: #{tokens.getRawValue($token, "color--surface-alt")};
+        box-shadow: inset 0 0 0 2px #{tokens.getRawValue($token, "color--surface-border")};
+    }
+
+    summary:focus-visible {
+        background-color: #{tokens.getRawValue($token, "color--surface-alt")};
+        outline-offset: -2px;
     }
 }
