@@ -59,6 +59,86 @@
     @endcard__body
 @endcard
 
+@card([
+    'attributeList' => [
+        'data-js-pagination-target' => '',
+        'data-async-pagination-example' => 'true'
+    ],
+    'classList' => ['u-margin__bottom--8']
+])
+    @card__header()
+        @typography([
+            'element' => "h4"
+        ])
+            Async rendered pagination items
+        @endtypography
+        @typography([])
+            Items are injected into the pagination container after initialization using script.
+        @endtypography
+    @endcard__header
+    @card__body()
+        @collection([
+            'attributeList' => [
+                'data-js-pagination-container' => ''
+            ]
+        ])
+        @endcollection
+
+        @pagination([
+            'current' => 1,
+            'useJS' => true,
+            'perPage' => 2,
+            'pagesToShow' => 4,
+            'keepDOM' => true,
+            'async' => true
+        ])
+        @endpagination
+    @endcard__body
+@endcard
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const asyncExample = document.querySelector('[data-async-pagination-example="true"]');
+        if (!(asyncExample instanceof HTMLElement)) {
+            return;
+        }
+
+        const listContainer = asyncExample.querySelector('[data-js-pagination-container]');
+        if (!(listContainer instanceof HTMLElement)) {
+            return;
+        }
+
+        const createItem = (number) => {
+            const item = document.createElement('div');
+            item.setAttribute('data-js-pagination-item', '');
+            item.setAttribute('data-js-pagination-item-title', String(number));
+            item.textContent = `Async item ${number}`;
+
+            return item;
+        };
+
+        const delay = (milliseconds) => new Promise((resolve) => {
+            setTimeout(resolve, milliseconds);
+        });
+
+        const renderAsyncItems = async () => {
+            await delay(4000);
+
+            [1, 2, 3, 4].forEach((number) => {
+                listContainer.appendChild(createItem(number));
+            });
+
+            await delay(600);
+
+            [5, 6, 7, 8].forEach((number) => {
+                listContainer.appendChild(createItem(number));
+            });
+        };
+
+        renderAsyncItems();
+    }, { once: true });
+</script>
+
 
 
 @card([
