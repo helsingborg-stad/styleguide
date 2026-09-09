@@ -1,22 +1,5 @@
 @use "../../sass/mixin/tokens";
-
-@function getCompressedTitleFontSize($step) {
-    @return calc(var(--font-size-base, var(--base-font-size, 1rem)) * pow(var(--font-size-scale-ratio), #{$step}));
-}
-
-$compressedTypographySteps: (
-    "h1-font-size": 0.8333333333,
-    "h2-font-size": 0.6666666667,
-    "h3-font-size": 0.5,
-    "h4-font-size": 0.3333333333,
-    "h5-font-size": 0.1666666667,
-    "h6-font-size": 0,
-    "font-size-headline": 0.6666666667,
-    "font-size-title": 0.5,
-    "font-size-subtitle": 0.3333333333,
-    "font-size-lead": 0,
-    "font-size-marketing": 1,
-);
+@use "../../sass/mixin/compressed-typography";
 
 /* Component name */
 $_: "c-accordion__item";
@@ -56,9 +39,7 @@ details.#{$_} {
     }
 
     .#{$_}__content {
-        @each $variable, $step in $compressedTypographySteps {
-            --c-typography--#{$variable}: #{getCompressedTitleFontSize($step)};
-        }
+        @include compressed-typography.apply();
 
         opacity: 0;
         margin-top: calc(var(--#{$token}--inset-padding-y, var(--#{$token}--padding-y)) * 2);

@@ -1,6 +1,7 @@
 @use "../../sass/mixin/inset-multiplier" as insetMultiplier;
 @use "../../sass/mixin/inherit";
 @use "../../sass/mixin/tokens";
+@use "../../sass/mixin/compressed-typography";
 
 /* Inheritance properties */
 @include insetMultiplier.property();
@@ -47,6 +48,10 @@ $_: "c-card";
     corner-shape: tokens.getRawValue($_, "corner-shape");
     transition: all 200ms ease-in;
     border: var(--#{$_}--border);
+
+    & > * {
+        @include compressed-typography.apply();
+    }
 
     /* switch to surface color tokens for nested components */
 
