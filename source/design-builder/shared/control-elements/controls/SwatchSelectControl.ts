@@ -73,6 +73,11 @@ class SwatchSelectControl extends HTMLElement {
 			return;
 		}
 
+		// The component customizer applies the override to the preview without
+		// rebuilding every control. Keep this control's value in sync locally so
+		// the selected chip immediately reflects the applied color.
+		this.setAttribute('value', option.value);
+
 		this.dispatchEvent(
 			new CustomEvent('change', {
 				detail: {
@@ -86,7 +91,6 @@ class SwatchSelectControl extends HTMLElement {
 				composed: true,
 			}),
 		);
-		this.render();
 	}
 
 	private renderSwatch(option: TokenSettingOption, selected = false) {

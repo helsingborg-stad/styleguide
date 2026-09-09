@@ -37,7 +37,7 @@ jobs:
     - name: rsync deploy files and set www-data user.
       uses: burnett01/rsync-deployments@4.1
       with:
-        switches: -avzrog --backup --backup-dir=${{ secrets.BACKUP_PATH }}/$GITHUB_SHA --chown=www-data:www-data
+        switches: -avzrog --delete --backup --backup-dir=${{ secrets.BACKUP_PATH }}/$GITHUB_SHA --chown=www-data:www-data
         path: .
         remote_path: ${{ secrets.DEPLOY_PATH }}
         remote_host: ${{ secrets.DEPLOY_HOST }}
@@ -60,6 +60,7 @@ jobs:
         script: |
           cd ${{ secrets.DEPLOY_PATH }}
           rm -rf ${{ secrets.DEPLOY_PATH }}/../.cache/vhosts/Jelastic/* || true
+          rm /tmp/blade-cache/* || true
           rm /tmp/blade-engine-cache/* || true
         host: ${{ secrets.DEPLOY_HOST }}
         username: ${{ secrets.DEPLOY_USER }}

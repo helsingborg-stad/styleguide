@@ -11,7 +11,7 @@ const CONTAINER_WIDTH_LABEL = 'Container Width';
 const HORIZONTAL_MARGIN_LABEL = 'Horizontal Margin';
 
 const CONTAINER_WIDTH_VARIANTS = [
-	{ optionValue: '', label: 'Default', containerModifierClass: '' },
+	{ optionValue: 'var(--container-width)', label: 'Default', containerModifierClass: '' },
 	{ optionValue: 'var(--container-width-wide)', label: 'Wide', containerModifierClass: 'o-container--wide' },
 	{ optionValue: '100%', label: 'Full Width', containerModifierClass: 'o-container--fullwidth' },
 ] as const;

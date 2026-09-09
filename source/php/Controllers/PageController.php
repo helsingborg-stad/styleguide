@@ -164,7 +164,8 @@ class PageController extends BaseController implements ControllerInterface
         $path = trim($this->request->getPath(), '/');
         $segments = array_values(array_filter(explode('/', $path), static fn(string $segment): bool => $segment !== ''));
 
-        $slug = $segments[1] ?? '';
+        $requestedSlug = $segments[1] ?? '';
+        $slug = $this->request->resolveComponentSlug($requestedSlug) ?? $requestedSlug;
         if ($slug === '') {
             return;
         }

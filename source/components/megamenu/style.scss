@@ -12,6 +12,8 @@ $_: "c-megamenu";
     position: absolute;
     width: 100%;
     z-index: 7;
+    left: 0;
+    right: 0;
 
     &.#{$_}--secondary {
         background-color: tokens.getRawValue($_, "color--secondary");

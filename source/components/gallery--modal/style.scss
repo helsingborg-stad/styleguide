@@ -56,9 +56,10 @@ $_: "c-modal--gallery";
 
         .c-image {
             margin: auto;
-            width: fit-content;
+            width: 100%;
             max-width: min(75rem, calc(100vw - (tokens.getCalculatedValue($_, "base", 2) * 2)));
             margin-inline: auto;
+            text-align: center;
         }
 
         .c-image .c-image__image {

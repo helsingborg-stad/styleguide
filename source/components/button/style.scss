@@ -33,7 +33,7 @@ $_: "c-button";
     position: relative;
     text-decoration: none;
     transition-duration: 100ms;
-    transition-property: background-color, border-color, color;
+    transition-property: background-color, border-color, border-radius, color;
     transition-timing-function: ease-in-out;
     user-select: none;
     align-items: center;

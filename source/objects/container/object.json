@@ -9,7 +9,7 @@
 			"description": "Shared width presets for components that render in a container layout.",
 			"options": [
 				{
-					"value": "",
+					"value": "var(--container-width)",
 					"label": "Default"
 				},
 				{

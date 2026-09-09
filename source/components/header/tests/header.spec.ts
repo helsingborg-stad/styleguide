@@ -111,7 +111,7 @@ test.describe('Header - design panel', () => {
 		);
 
 		expect(options).toEqual([
-			{ value: '', label: 'Default' },
+			{ value: 'var(--container-width)', label: 'Default' },
 			{ value: 'var(--container-width-wide)', label: 'Wide' },
 			{ value: '100%', label: 'Full Width' },
 		]);
@@ -183,7 +183,7 @@ test.describe('Header - design panel', () => {
 
 		const header = page.locator(HEADER_TARGET).first();
 
-		await selectControlOption(page, CONTAINER_WIDTH_LABEL, '');
+		await selectControlOption(page, CONTAINER_WIDTH_LABEL, 'var(--container-width)');
 		const defaultContentWidth = await resolveCssLengthPx(header, 'var(--c-header--content-max-width)');
 
 		await selectControlOption(page, CONTAINER_WIDTH_LABEL, 'var(--container-width-wide)');
@@ -239,25 +239,24 @@ test.describe('Header - design panel', () => {
 		expect(maxAfterClamp).toBe(7);
 	});
 
-	test('container width math subtracts built-in container padding on mobile and sm breakpoints', async ({ page }) => {
+	test('container width is independent of horizontal margin at mobile and desktop breakpoints', async ({ page }) => {
 		const layoutHeader = page.locator(LAYOUT_CATEGORY_HEADER).filter({ hasText: 'Layout' });
 		await expandCategory(layoutHeader);
 
 		const header = page.locator(HEADER_TARGET).first();
-		await selectControlOption(page, CONTAINER_WIDTH_LABEL, '100%');
+		await selectControlOption(page, HORIZONTAL_MARGIN_LABEL, '0');
+		await selectControlOption(page, CONTAINER_WIDTH_LABEL, 'var(--container-width)');
 
 		await page.setViewportSize({ width: 500, height: 1000 });
 		const mobileContainerMaxWidth = await resolveCssLengthPx(header, 'var(--c-header--container-max-width)');
 		const mobileContentMaxWidth = await resolveCssLengthPx(header, 'var(--c-header--content-max-width)');
-		const mobileContainerPadding = await resolveCssLengthPx(header, 'var(--c-header--container-padding-inline)');
 
-		expect(Math.abs(mobileContainerMaxWidth - mobileContentMaxWidth - mobileContainerPadding * 2)).toBeLessThan(1);
+		expect(mobileContentMaxWidth).toBeCloseTo(mobileContainerMaxWidth, 0);
 
-		await page.setViewportSize({ width: 900, height: 1000 });
+		await page.setViewportSize({ width: 1600, height: 1000 });
 		const smContainerMaxWidth = await resolveCssLengthPx(header, 'var(--c-header--container-max-width)');
 		const smContentMaxWidth = await resolveCssLengthPx(header, 'var(--c-header--content-max-width)');
-		const smContainerPadding = await resolveCssLengthPx(header, 'var(--c-header--container-padding-inline)');
 
-		expect(Math.abs(smContainerMaxWidth - smContentMaxWidth - smContainerPadding * 2)).toBeLessThan(1);
+		expect(smContentMaxWidth).toBeCloseTo(smContainerMaxWidth, 0);
 	});
 });

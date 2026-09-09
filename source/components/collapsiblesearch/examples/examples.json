@@ -1,0 +1,20 @@
+{
+	"default": {
+		"heading": "Default / Medium (md)"
+	},
+	"small": {
+		"heading": "Small (sm)"
+	},
+	"large": {
+		"heading": "Large (lg)"
+	},
+	"expanded": {
+		"heading": "Pre-expanded state"
+	},
+	"in-header": {
+		"heading": "Inside a header"
+	},
+	"primary": {
+		"heading": "Primary colour trigger"
+	}
+}
