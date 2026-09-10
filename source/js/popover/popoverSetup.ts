@@ -5,8 +5,8 @@ class PopoverSetup {
     private onViewportChange: (() => void) | null = null;
 
     public init(
-        root: HTMLElement = document.body,
         callbacks: PopoverSetupCallbacks,
+        root: HTMLElement = document.body
     ): void {
         this.onSetupPair = callbacks.onSetupPair;
         this.onViewportChange = callbacks.onViewportChange;

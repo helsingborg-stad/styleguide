@@ -19,7 +19,7 @@ function initPopovers(): void {
     const positionCalculator = new PopoverPositionCalculator();
     const animator = new PopoverAnimator();
 
-    setup.init(document.body, {
+    setup.init({
         onSetupPair: (trigger, popover) => {
             const key = getPairKey(trigger, popover);
 
@@ -51,7 +51,7 @@ function initPopovers(): void {
                 popoverInstance.repositionIfOpen();
             });
         },
-    });
+    }, document.body);
 
     popoverInstances.forEach((popoverInstance) => {
         popoverInstance.repositionIfOpen();
