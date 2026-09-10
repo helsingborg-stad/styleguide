@@ -18,5 +18,29 @@
 	"cover": {
 		"heading": "Cover image",
 		"text": "Image with cover mode, that covers the parent container."
+	},
+	"container-query": {
+		"heading": "Container query switching (default)",
+		"text": "The default behaviour for an ImageInterface source with several candidate sizes: one <img> per size, switched by CSS container queries. Inspect the element to see multiple <img> tags, only one of which is visible at a time."
+	},
+	"responsive": {
+		"heading": "Single image via srcset (opt-in)",
+		"text": "Setting preferSrcset renders a single <img> using srcset, sizes and container query data instead of one <img> per breakpoint. Inspect the element to verify only one <img> is rendered."
+	},
+	"focus-point": {
+		"heading": "Focus point",
+		"text": "A responsive image with an off-center focus point, verifying that object-position is applied together with the srcset/sizes attributes."
+	},
+	"lqip": {
+		"heading": "Low quality image placeholder",
+		"text": "A responsive image with a low quality placeholder shown as a background while the full image loads."
+	},
+	"single-candidate": {
+		"heading": "Single candidate size",
+		"text": "An image contract with only one candidate size. No srcset or sizes attribute should be rendered."
+	},
+	"eager-priority": {
+		"heading": "Eager loading with priority",
+		"text": "Overriding imgAttributeList to opt out of the lazy-loading default, useful for above-the-fold images such as a Hero background."
 	}
 }

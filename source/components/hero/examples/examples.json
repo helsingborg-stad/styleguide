@@ -42,5 +42,9 @@
     "stretch": {
         "heading": "Stretch hero",
         "text": "Renders a hero with stretch enabled, making it fill the full viewport height."
+    },
+    "responsiveimage": {
+        "heading": "Responsive image contract",
+        "text": "Renders a hero fed by a fake ImageInterface with several candidate sizes, verifying only one eager, high-priority <img> is rendered instead of one hidden image per breakpoint."
     }
 }
