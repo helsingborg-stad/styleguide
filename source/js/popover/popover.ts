@@ -87,7 +87,9 @@ class Popover {
             trigger.setAttribute('aria-expanded', String(isOpen));
 
             if (!isOpen) {
-                this.popoverPlacement.resetCustomPosition(popover);
+                if (!hasCustomPositioning) {
+                    this.popoverPlacement.resetCustomPosition(popover);
+                }
                 return;
             }
 

@@ -26,5 +26,9 @@
 	"combinationRelative": {
 		"heading": "Combination Placement (Relative to Trigger)",
 		"text": "These examples combine horizontal and vertical placement values relative to the trigger element."
+	},
+	"backdrop": {
+		"heading": "Backdrop",
+		"text": "These examples demonstrate the use of the popover backdrop. The backdrop can be styled using the data-popover-backdrop attribute."
 	}
 }

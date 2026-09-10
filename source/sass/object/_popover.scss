@@ -1,6 +1,17 @@
+@use "../../sass/mixin/tokens";
+
 $_: "[popover]";
+$token: 'o-popover';
 
 #{$_} {
     background: unset;
     border: unset;
+
+    &::backdrop {
+        background: transparent;
+    }
+
+    &[data-popover-backdrop]::backdrop {
+        background: #{tokens.getRawValue($token, "color--alpha")};
+    }
 }
