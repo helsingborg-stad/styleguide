@@ -2,37 +2,48 @@ import { PopoverSetup } from './popoverEnums';
 import PopoverAnimator from './popoverAnimator';
 import PopoverPlacement from './popoverPlacement';
 import PopoverPositionCalculator from './popoverPositionCalculator';
-import PopoverSetupController from './popoverSetup';
 
 class Popover {
     public constructor(
-        private readonly setupController: PopoverSetupController,
+        private readonly config: PopoverConfig,
         private readonly popoverPlacement: PopoverPlacement,
         private readonly positionCalculator: PopoverPositionCalculator,
         private readonly animator: PopoverAnimator,
     ) {}
 
-    public init(root: HTMLElement = document.body): void {
-        this.setupController.init(root, {
-            onSetupPair: (trigger, popover) => this.setupPopover(trigger, popover),
-            onViewportChange: () => this.repositionOpenPopovers(),
-        });
-        this.repositionOpenPopovers();
+    public init(): void {
+        this.bindTrigger();
+        this.bindPopover();
+        this.updateExpandedState();
+        this.repositionIfOpen();
     }
 
-    public setupPopover(trigger: HTMLElement, popover: HTMLElement): void {
-        this.bindTrigger(trigger, popover);
-        this.bindPopover(popover);
-        this.updateExpandedState(trigger, popover);
+    public repositionIfOpen(): void {
+        const { popover } = this.config;
+
+        if (!this.positionCalculator.hasCustomPositioning(this.config)) {
+            return;
+        }
+
+        const isOpen = this.isOpen(popover);
+        const isPending = popover.hasAttribute(PopoverSetup.PendingPositionAttribute);
+
+        if (!isOpen && !isPending) {
+            return;
+        }
+
+        this.position();
     }
 
-    private bindTrigger(trigger: HTMLElement, popover: HTMLElement): void {
+    private bindTrigger(): void {
+        const { trigger, popover } = this.config;
+
         if (trigger.hasAttribute(PopoverSetup.TriggerInitializedAttribute)) {
             return;
         }
 
         trigger.addEventListener('click', (event) => {
-            const hasCustomPositioning = this.positionCalculator.hasCustomPositioning(trigger);
+            const hasCustomPositioning = this.positionCalculator.hasCustomPositioning(this.config);
 
             if (!hasCustomPositioning) {
                 return;
@@ -51,7 +62,7 @@ class Popover {
             popover.showPopover?.();
 
             window.requestAnimationFrame(() => {
-                this.position(trigger, popover);
+                this.position();
                 popover.style.visibility = '';
                 popover.removeAttribute(PopoverSetup.PendingPositionAttribute);
             });
@@ -60,7 +71,9 @@ class Popover {
         trigger.setAttribute(PopoverSetup.TriggerInitializedAttribute, '');
     }
 
-    private bindPopover(popover: HTMLElement): void {
+    private bindPopover(): void {
+        const { trigger, popover } = this.config;
+
         if (popover.hasAttribute(PopoverSetup.InitializedAttribute)) {
             return;
         }
@@ -68,13 +81,10 @@ class Popover {
         this.animator.bind(popover);
 
         popover.addEventListener('toggle', () => {
-            const trigger = this.getTrigger(popover);
             const isOpen = this.isOpen(popover);
-            const hasCustomPositioning = trigger ? this.positionCalculator.hasCustomPositioning(trigger) : false;
+            const hasCustomPositioning = this.positionCalculator.hasCustomPositioning(this.config);
 
-            if (trigger) {
-                trigger.setAttribute('aria-expanded', String(isOpen));
-            }
+            trigger.setAttribute('aria-expanded', String(isOpen));
 
             if (!isOpen) {
                 this.popoverPlacement.resetCustomPosition(popover);
@@ -86,48 +96,21 @@ class Popover {
                 return;
             }
 
-            if (trigger) {
-                this.position(trigger, popover);
-                popover.removeAttribute(PopoverSetup.PendingPositionAttribute);
-            }
+            this.position();
+            popover.removeAttribute(PopoverSetup.PendingPositionAttribute);
         });
 
         popover.setAttribute(PopoverSetup.InitializedAttribute, '');
     }
 
-    private updateExpandedState(trigger: HTMLElement, popover: HTMLElement): void {
+    private updateExpandedState(): void {
+        const { trigger, popover } = this.config;
         trigger.setAttribute('aria-expanded', String(this.isOpen(popover)));
     }
 
-    private repositionOpenPopovers(): void {
-        document.querySelectorAll<HTMLElement>(PopoverSetup.PopoverSelector).forEach((popover) => {
-            if (!popover.id) {
-                return;
-            }
-
-            const trigger = this.getTrigger(popover);
-
-            if (!trigger) {
-                return;
-            }
-
-            if (!this.positionCalculator.hasCustomPositioning(trigger)) {
-                return;
-            }
-
-            const isOpen = this.isOpen(popover);
-            const isPending = popover.hasAttribute(PopoverSetup.PendingPositionAttribute);
-
-            if (!isOpen && !isPending) {
-                return;
-            }
-
-            this.position(trigger, popover);
-        });
-    }
-
-    private position(trigger: HTMLElement, popover: HTMLElement): void {
-        const position = this.positionCalculator.calculate(trigger, popover);
+    private position(): void {
+        const { popover } = this.config;
+        const position = this.positionCalculator.calculate(this.config);
 
         if (!position) {
             this.popoverPlacement.resetCustomPosition(popover);
@@ -136,17 +119,6 @@ class Popover {
 
         this.popoverPlacement.syncResponsiveWidth(popover);
         this.popoverPlacement.setPosition(popover, position);
-    }
-
-    private getTrigger(popover: HTMLElement): HTMLElement | null {
-        const popoverId = popover.id.trim();
-
-        if (!popoverId) {
-            return null;
-        }
-
-        const triggers = Array.from(document.querySelectorAll<HTMLElement>(PopoverSetup.TriggerSelector));
-        return triggers.find((trigger) => trigger.getAttribute('popovertarget')?.trim() === popoverId) ?? null;
     }
 
     private isOpen(popover: HTMLElement): boolean {

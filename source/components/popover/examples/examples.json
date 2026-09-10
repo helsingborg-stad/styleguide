@@ -1,0 +1,15 @@
+{
+	"default": {
+		"heading": "Popover",
+        "text": "The Popover component allows you to easily add popovers with the correct attributes and positioning. For it to work you will need to create a trigger on your own. It is also possible to create a popover without using the component itself. Note that elements containing a container query item wont work with the default popover width setting. Check out the object documentation for more information about the attributes."
+	},
+    "horizontalViewport": {
+		"heading": "Horizontal Placement (Viewport)"
+	},
+	"verticalViewport": {
+		"heading": "Vertical Placement (Viewport)"
+	},
+	"combinationViewport": {
+		"heading": "Combination Placement (Viewport)"
+	}
+}

@@ -1,0 +1,30 @@
+{
+	"title": "Popover",
+	"summary": ["The popover object displays a small text bubble for any element using the `data-popover` attribute."],
+	"description": {
+		"main": "Use the popover object to provide short, supporting information on click or keyboard focus. The popover is applied automatically through the `[data-popover]` selector, so no extra class is required. For non-interactive elements, add `tabindex=\"0\"` if the popover should also be reachable by keyboard."
+	},
+	"attributes": {
+		"data-popover": "The text content shown inside the popover bubble.",
+		"tabindex": "Optional. Add `0` on non-interactive elements to allow keyboard focus and reveal the tooltip on focus."
+	},
+	"available": {
+		"selector": "[data-popover]",
+		"data-popover": "Any short plain-text popover message"
+	},
+	"examples": {
+		"default": {
+			"description": {
+				"heading": "Basic popover",
+				"description": "A simple inline element with popover text revealed on click."
+			},
+			"component": "docs.objects.popover.examples.default",
+			"html": {
+				"code": "<span data-tooltip=\"Helpful extra information\">Hover me</span>"
+			},
+			"blade": {
+				"code": "<span data-tooltip=\"Helpful extra information\">Hover me</span>"
+			}
+		}
+	}
+}

@@ -6,6 +6,9 @@ export enum PopoverSetup {
     PendingPositionAttribute = 'data-popover-pending-position',
     ClosingAttribute = 'data-popover-closing',
     SkipCloseAnimationAttribute = 'data-popover-skip-close-animation',
+    VerticalPlacementAttribute = 'data-js-popover-vertical-placement',
+    HorizontalPlacementAttribute = 'data-js-popover-horizontal-placement',
+    RelativeToTrigger = 'data-js-popover-relative-to-trigger'
 }
 
 export enum PopoverOffset {
