@@ -131,7 +131,7 @@ class PopoverPositionCalculator {
             return placement as PopoverVerticalPlacement;
         }
 
-        return 'center';
+        return config.mode === 'relative' ? 'bottom' : 'center';
     }
 
     private getHorizontalPlacement(config: PopoverConfig): PopoverHorizontalPlacement {
