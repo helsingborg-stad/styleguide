@@ -17,7 +17,7 @@
 	])
 		@card([
 			'heading' => "I'm a popover",
-			'content' => "This popover is placed at top-left relative to its trigger element."
+			'content' => "This popover is placed at top-left relative to the viewport."
 		])
 		@endcard
 	@endelement
@@ -42,7 +42,7 @@
 	])
 		@card([
 			'heading' => "I'm a popover",
-			'content' => "This popover is placed at top-center relative to its trigger element."
+			'content' => "This popover is placed at top-center relative to the viewport."
 		])
 		@endcard
 	@endelement
@@ -67,7 +67,7 @@
 	])
 		@card([
 			'heading' => "I'm a popover",
-			'content' => "This popover is placed at top-right relative to its trigger element."
+			'content' => "This popover is placed at top-right relative to the viewport."
 		])
 		@endcard
 	@endelement
@@ -92,7 +92,7 @@
 	])
 		@card([
 			'heading' => "I'm a popover",
-			'content' => "This popover is placed at center-left relative to its trigger element."
+			'content' => "This popover is placed at center-left relative to the viewport."
 		])
 		@endcard
 	@endelement
@@ -117,7 +117,7 @@
 	])
 		@card([
 			'heading' => "I'm a popover",
-			'content' => "This popover is placed at center-center relative to its trigger element."
+			'content' => "This popover is placed at center-center relative to the viewport."
 		])
 		@endcard
 	@endelement
@@ -142,7 +142,7 @@
 	])
 		@card([
 			'heading' => "I'm a popover",
-			'content' => "This popover is placed at center-right relative to its trigger element."
+			'content' => "This popover is placed at center-right relative to the viewport."
 		])
 		@endcard
 	@endelement
@@ -167,7 +167,7 @@
 	])
 		@card([
 			'heading' => "I'm a popover",
-			'content' => "This popover is placed at bottom-left relative to its trigger element."
+			'content' => "This popover is placed at bottom-left relative to the viewport."
 		])
 		@endcard
 	@endelement
@@ -192,7 +192,7 @@
 	])
 		@card([
 			'heading' => "I'm a popover",
-			'content' => "This popover is placed at bottom-center relative to its trigger element."
+			'content' => "This popover is placed at bottom-center relative to the viewport."
 		])
 		@endcard
 	@endelement
@@ -217,7 +217,7 @@
 	])
 		@card([
 			'heading' => "I'm a popover",
-			'content' => "This popover is placed at bottom-right relative to its trigger element."
+			'content' => "This popover is placed at bottom-right relative to the viewport."
 		])
 		@endcard
 	@endelement

@@ -1,12 +1,13 @@
 @button([
     'attributeList' => [
-        'popovertarget' => 'placement-popover-left'
+        'popovertarget' => 'placement-relative-popover-left'
     ]
 ])
     Left
 @endbutton
 @popover([
-    'id' => 'placement-popover-left',
+    'id' => 'placement-relative-popover-left',
+    'relativeToTrigger' => true,
     'horizontalPlacement' => 'left'
 ])
     @element([
@@ -16,7 +17,7 @@
     ])
         @card([
             'heading' => "I'm a popover",
-            'content' => "This popover is placed at the left relative to the viewport."
+            'content' => "This popover is placed at the left relative to its trigger element."
         ])
         @endcard
     @endelement
@@ -24,13 +25,14 @@
 
 @button([
     'attributeList' => [
-        'popovertarget' => 'placement-popover-center'
+        'popovertarget' => 'placement-relative-popover-center'
     ]
 ])
     Center
 @endbutton
 @popover([
-    'id' => 'placement-popover-center',
+    'id' => 'placement-relative-popover-center',
+    'relativeToTrigger' => true,
     'horizontalPlacement' => 'center'
 ])
     @element([
@@ -40,7 +42,7 @@
     ])
         @card([
             'heading' => "I'm a popover",
-            'content' => "This popover is placed at the center relative to the viewport."
+            'content' => "This popover is placed at the center relative to its trigger element."
         ])
         @endcard
     @endelement
@@ -48,13 +50,14 @@
 
 @button([
     'attributeList' => [
-        'popovertarget' => 'placement-popover-right'
+        'popovertarget' => 'placement-relative-popover-right'
     ]
 ])
     Right
 @endbutton
 @popover([
-    'id' => 'placement-popover-right',
+    'id' => 'placement-relative-popover-right',
+    'relativeToTrigger' => true,
     'horizontalPlacement' => 'right'
 ])
     @element([
@@ -64,7 +67,7 @@
     ])
         @card([
             'heading' => "I'm a popover",
-            'content' => "This popover is placed at the right relative to the viewport."
+            'content' => "This popover is placed at the right relative to its trigger element."
         ])
         @endcard
     @endelement

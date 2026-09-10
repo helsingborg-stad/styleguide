@@ -1,12 +1,13 @@
 @button([
     'attributeList' => [
-        'popovertarget' => 'placement-popover-top'
+        'popovertarget' => 'placement-relative-popover-top'
     ]
 ])
-    top
+    Top
 @endbutton
 @popover([
-    'id' => 'placement-popover-top',
+    'id' => 'placement-relative-popover-top',
+    'relativeToTrigger' => true,
     'verticalPlacement' => 'top'
 ])
     @element([
@@ -16,7 +17,7 @@
     ])
         @card([
             'heading' => "I'm a popover",
-            'content' => "This popover is placed at the top relative to the viewport."
+            'content' => "This popover is placed at the top relative to its trigger element."
         ])
         @endcard
     @endelement
@@ -24,13 +25,14 @@
 
 @button([
     'attributeList' => [
-        'popovertarget' => 'placement-popover-center'
+        'popovertarget' => 'placement-relative-popover-center-y'
     ]
 ])
     Center
 @endbutton
 @popover([
-    'id' => 'placement-popover-center',
+    'id' => 'placement-relative-popover-center-y',
+    'relativeToTrigger' => true,
     'verticalPlacement' => 'center'
 ])
     @element([
@@ -40,7 +42,7 @@
     ])
         @card([
             'heading' => "I'm a popover",
-            'content' => "This popover is placed at the center relative to the viewport."
+            'content' => "This popover is placed at the center relative to its trigger element."
         ])
         @endcard
     @endelement
@@ -48,13 +50,14 @@
 
 @button([
     'attributeList' => [
-        'popovertarget' => 'placement-popover-bottom'
+        'popovertarget' => 'placement-relative-popover-bottom'
     ]
 ])
-    bottom
+    Bottom
 @endbutton
 @popover([
-    'id' => 'placement-popover-bottom',
+    'id' => 'placement-relative-popover-bottom',
+    'relativeToTrigger' => true,
     'verticalPlacement' => 'bottom'
 ])
     @element([
@@ -64,7 +67,7 @@
     ])
         @card([
             'heading' => "I'm a popover",
-            'content' => "This popover is placed at the bottom relative to the viewport."
+            'content' => "This popover is placed at the bottom relative to its trigger element."
         ])
         @endcard
     @endelement
