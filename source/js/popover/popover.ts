@@ -32,6 +32,12 @@ class Popover {
         }
 
         trigger.addEventListener('click', (event) => {
+            const hasCustomPositioning = this.positionCalculator.hasCustomPositioning(trigger);
+
+            if (!hasCustomPositioning) {
+                return;
+            }
+
             event.preventDefault();
             event.stopPropagation();
 
@@ -64,15 +70,19 @@ class Popover {
         popover.addEventListener('toggle', () => {
             const trigger = this.getTrigger(popover);
             const isOpen = this.isOpen(popover);
+            const hasCustomPositioning = trigger ? this.positionCalculator.hasCustomPositioning(trigger) : false;
 
             if (trigger) {
                 trigger.setAttribute('aria-expanded', String(isOpen));
             }
 
             if (!isOpen) {
-                this.popoverPlacement.resetResponsiveWidth(popover);
-                popover.style.visibility = '';
-                popover.removeAttribute(PopoverSetup.PendingPositionAttribute);
+                this.popoverPlacement.resetCustomPosition(popover);
+                return;
+            }
+
+            if (!hasCustomPositioning) {
+                this.popoverPlacement.resetCustomPosition(popover);
                 return;
             }
 
@@ -101,6 +111,10 @@ class Popover {
                 return;
             }
 
+            if (!this.positionCalculator.hasCustomPositioning(trigger)) {
+                return;
+            }
+
             const isOpen = this.isOpen(popover);
             const isPending = popover.hasAttribute(PopoverSetup.PendingPositionAttribute);
 
@@ -113,8 +127,14 @@ class Popover {
     }
 
     private position(trigger: HTMLElement, popover: HTMLElement): void {
-        this.popoverPlacement.syncResponsiveWidth(popover);
         const position = this.positionCalculator.calculate(trigger, popover);
+
+        if (!position) {
+            this.popoverPlacement.resetCustomPosition(popover);
+            return;
+        }
+
+        this.popoverPlacement.syncResponsiveWidth(popover);
         this.popoverPlacement.setPosition(popover, position);
     }
 

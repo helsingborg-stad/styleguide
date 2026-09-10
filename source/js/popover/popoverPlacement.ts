@@ -1,4 +1,4 @@
-import { PopoverStyleProperty } from './popoverEnums';
+import { PopoverStyleProperty, PopoverSetup } from './popoverEnums';
 
 class PopoverPlacement {
     private readonly preferredWidths = new WeakMap<HTMLElement, number>();
@@ -40,6 +40,21 @@ class PopoverPlacement {
         popover.style.left = `${position.left}px`;
         popover.style.top = `${position.top}px`;
     }
+
+    public resetCustomPosition(popover: HTMLElement): void {
+        this.resetResponsiveWidth(popover);
+        popover.style.visibility = '';
+        popover.removeAttribute(PopoverSetup.PendingPositionAttribute);
+        popover.style.left = '';
+        popover.style.top = '';
+        popover.style.right = '';
+        popover.style.bottom = '';
+        popover.style.removeProperty('--o-popover-x');
+        popover.style.removeProperty('--o-popover-y');
+        popover.style.removeProperty('z-index');
+        delete popover.dataset.placement;
+    }
+    
 }
 
 export default PopoverPlacement;
