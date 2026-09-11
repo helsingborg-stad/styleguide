@@ -112,6 +112,9 @@ class Popover {
 
     private position(): void {
         const { popover } = this.config;
+
+        this.popoverPlacement.syncResponsiveWidth(popover);
+
         const position = this.positionCalculator.calculate(this.config);
 
         if (!position) {
@@ -119,7 +122,6 @@ class Popover {
             return;
         }
 
-        this.popoverPlacement.syncResponsiveWidth(popover);
         this.popoverPlacement.setPosition(popover, position);
     }
 

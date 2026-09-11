@@ -32,14 +32,14 @@ class PopoverPositionCalculator {
         const { trigger, popover } = config;
 
         const triggerRect = trigger.getBoundingClientRect();
-        const popoverRect = popover.getBoundingClientRect();
+        const { width: popoverWidth, height: popoverHeight } = this.getPopoverLayoutSize(popover);
 
         const horizontalPlacement = this.getHorizontalPlacement(config);
         const verticalPlacement = this.getVerticalPlacement(config);
-        const preferredLeft = this.getPreferredLeft(mode, triggerRect, popoverRect, horizontalPlacement);
-        const preferredTop = this.getPreferredTop(mode, triggerRect, popoverRect, verticalPlacement);
-        const left = this.clampToViewport(preferredLeft, popoverRect.width, window.innerWidth);
-        const top = this.clampToViewport(preferredTop, popoverRect.height, window.innerHeight);
+        const preferredLeft = this.getPreferredLeft(mode, triggerRect, popoverWidth, horizontalPlacement);
+        const preferredTop = this.getPreferredTop(mode, triggerRect, popoverHeight, verticalPlacement);
+        const left = this.clampToViewport(preferredLeft, popoverWidth, window.innerWidth);
+        const top = this.clampToViewport(preferredTop, popoverHeight, window.innerHeight);
 
         return {
             left: Math.round(left),
@@ -54,7 +54,7 @@ class PopoverPositionCalculator {
     private getPreferredLeft(
         mode: PopoverPositionMode,
         triggerRect: DOMRect,
-        popoverRect: DOMRect,
+        popoverWidth: number,
         placement: PopoverHorizontalPlacement
     ): number {
         if (mode === 'viewport') {
@@ -63,10 +63,10 @@ class PopoverPositionCalculator {
             }
 
             if (placement === 'right') {
-                return window.innerWidth - popoverRect.width - PopoverOffset.Viewport;
+                return window.innerWidth - popoverWidth - PopoverOffset.Viewport;
             }
 
-            return (window.innerWidth - popoverRect.width) / 2;
+            return (window.innerWidth - popoverWidth) / 2;
         }
 
         if (placement === 'left') {
@@ -74,16 +74,16 @@ class PopoverPositionCalculator {
         }
 
         if (placement === 'right') {
-            return triggerRect.right - popoverRect.width;
+            return triggerRect.right - popoverWidth;
         }
 
-        return triggerRect.left + triggerRect.width / 2 - popoverRect.width / 2;
+        return triggerRect.left + triggerRect.width / 2 - popoverWidth / 2;
     }
 
     private getPreferredTop(
         mode: PopoverPositionMode,
         triggerRect: DOMRect,
-        popoverRect: DOMRect,
+        popoverHeight: number,
         placement: PopoverVerticalPlacement
     ): number {
         if (mode === 'viewport') {
@@ -92,21 +92,36 @@ class PopoverPositionCalculator {
             }
 
             if (placement === 'bottom') {
-                return window.innerHeight - popoverRect.height - PopoverOffset.Viewport;
+                return window.innerHeight - popoverHeight - PopoverOffset.Viewport;
             }
 
-            return (window.innerHeight - popoverRect.height) / 2;
+            return (window.innerHeight - popoverHeight) / 2;
         }
 
         if (placement === 'top') {
-            return triggerRect.top - popoverRect.height - PopoverOffset.Top;
+            return triggerRect.top - popoverHeight - PopoverOffset.Top;
         }
 
         if (placement === 'bottom') {
             return triggerRect.bottom + PopoverOffset.Top;
         }
 
-        return triggerRect.top + triggerRect.height / 2 - popoverRect.height / 2;
+        return triggerRect.top + triggerRect.height / 2 - popoverHeight / 2;
+    }
+
+    private getPopoverLayoutSize(popover: HTMLElement): { width: number; height: number } {
+        const width = Math.round(popover.offsetWidth);
+        const height = Math.round(popover.offsetHeight);
+
+        if (width > 0 && height > 0) {
+            return { width, height };
+        }
+
+        const rect = popover.getBoundingClientRect();
+        return {
+            width: Math.round(rect.width),
+            height: Math.round(rect.height),
+        };
     }
 
     private clampToViewport(position: number, size: number, viewportSize: number): number {

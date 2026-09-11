@@ -4,7 +4,7 @@ class PopoverPlacement {
     private readonly preferredWidths = new WeakMap<HTMLElement, number>();
 
     public syncResponsiveWidth(popover: HTMLElement): void {
-        const measuredWidth = Math.round(popover.getBoundingClientRect().width);
+        const measuredWidth = this.getLayoutWidth(popover);
         const preferredWidth = this.preferredWidths.get(popover);
 
         if (preferredWidth === undefined && measuredWidth > 0) {
@@ -22,6 +22,16 @@ class PopoverPlacement {
 
         popover.style.maxWidth = `${viewportMaxWidth}px`;
         popover.style.width = `${Math.min(lockedWidth, viewportMaxWidth)}px`;
+    }
+
+    private getLayoutWidth(popover: HTMLElement): number {
+        const offsetWidth = Math.round(popover.offsetWidth);
+
+        if (offsetWidth > 0) {
+            return offsetWidth;
+        }
+
+        return Math.round(popover.getBoundingClientRect().width);
     }
 
     public resetResponsiveWidth(popover: HTMLElement): void {
