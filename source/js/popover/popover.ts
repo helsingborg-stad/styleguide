@@ -4,24 +4,36 @@ import PopoverPlacement from './popoverPlacement';
 import PopoverPositionCalculator from './popoverPositionCalculator';
 
 class Popover {
+    private readonly triggers = new Set<HTMLElement>();
+    private activeTrigger: HTMLElement;
+
     public constructor(
         private readonly config: PopoverConfig,
         private readonly popoverPlacement: PopoverPlacement,
         private readonly positionCalculator: PopoverPositionCalculator,
         private readonly animator: PopoverAnimator,
-    ) {}
+    ) {
+        this.activeTrigger = config.trigger;
+    }
 
     public init(): void {
-        this.bindTrigger();
+        this.addTrigger(this.config.trigger);
         this.bindPopover();
         this.updateExpandedState();
         this.repositionIfOpen();
     }
 
-    public repositionIfOpen(): void {
-        const { popover } = this.config;
+    public addTrigger(trigger: HTMLElement): void {
+        this.triggers.add(trigger);
+        this.bindTrigger(trigger);
+        trigger.setAttribute('aria-expanded', String(this.isOpen(this.config.popover)));
+    }
 
-        if (!this.positionCalculator.hasCustomPositioning(this.config)) {
+    public repositionIfOpen(): void {
+        const config = this.getPositioningConfig();
+        const { popover } = config;
+
+        if (!this.positionCalculator.hasCustomPositioning(config)) {
             return;
         }
 
@@ -35,31 +47,46 @@ class Popover {
         this.position();
     }
 
-    private bindTrigger(): void {
-        const { trigger, popover } = this.config;
+    private bindTrigger(trigger: HTMLElement): void {
+        const { popover } = this.config;
 
         if (trigger.hasAttribute(PopoverSetup.TriggerInitializedAttribute)) {
             return;
         }
 
         trigger.addEventListener('click', (event) => {
-            const hasCustomPositioning = this.positionCalculator.hasCustomPositioning(this.config);
+            const config = this.getPositioningConfig(trigger);
+            const hasCustomPositioning = this.positionCalculator.hasCustomPositioning(config);
 
             if (!hasCustomPositioning) {
                 return;
             }
 
+            const action = this.getTargetAction(trigger);
+            const isOpen = this.isOpen(popover);
+
             event.preventDefault();
             event.stopPropagation();
 
-            if (this.isOpen(popover)) {
-                popover.hidePopover?.();
+            if (action === 'hide') {
+                if (isOpen) {
+                    popover.hidePopover?.();
+                }
                 return;
             }
 
+            if (isOpen) {
+                if (action === 'toggle') {
+                    popover.hidePopover?.();
+                }
+
+                return;
+            }
+
+            this.activeTrigger = trigger;
             popover.setAttribute(PopoverSetup.PendingPositionAttribute, 'true');
             popover.style.visibility = 'hidden';
-            popover.showPopover?.();
+            this.showPopoverFromTrigger(trigger, popover);
 
             window.requestAnimationFrame(() => {
                 this.position();
@@ -71,8 +98,32 @@ class Popover {
         trigger.setAttribute(PopoverSetup.TriggerInitializedAttribute, '');
     }
 
+    private getTargetAction(trigger: HTMLElement): 'toggle' | 'show' | 'hide' {
+        const action = trigger.getAttribute('popovertargetaction')?.trim().toLowerCase();
+
+        if (action === 'show' || action === 'hide') {
+            return action;
+        }
+
+        return 'toggle';
+    }
+
+    private showPopoverFromTrigger(trigger: HTMLElement, popover: HTMLElement): void {
+        const showPopover = popover.showPopover as ((options?: unknown) => void) | undefined;
+
+        if (!showPopover) {
+            return;
+        }
+
+        try {
+            showPopover.call(popover, { source: trigger });
+        } catch {
+            showPopover.call(popover);
+        }
+    }
+
     private bindPopover(): void {
-        const { trigger, popover } = this.config;
+        const { popover } = this.config;
 
         if (popover.hasAttribute(PopoverSetup.InitializedAttribute)) {
             return;
@@ -82,9 +133,10 @@ class Popover {
 
         popover.addEventListener('toggle', () => {
             const isOpen = this.isOpen(popover);
-            const hasCustomPositioning = this.positionCalculator.hasCustomPositioning(this.config);
+            const config = this.getPositioningConfig();
+            const hasCustomPositioning = this.positionCalculator.hasCustomPositioning(config);
 
-            trigger.setAttribute('aria-expanded', String(isOpen));
+            this.updateExpandedState();
 
             if (!isOpen) {
                 if (!hasCustomPositioning) {
@@ -106,16 +158,21 @@ class Popover {
     }
 
     private updateExpandedState(): void {
-        const { trigger, popover } = this.config;
-        trigger.setAttribute('aria-expanded', String(this.isOpen(popover)));
+        const { popover } = this.config;
+        const expandedState = String(this.isOpen(popover));
+
+        this.triggers.forEach((trigger) => {
+            trigger.setAttribute('aria-expanded', expandedState);
+        });
     }
 
     private position(): void {
-        const { popover } = this.config;
+        const config = this.getPositioningConfig();
+        const { popover } = config;
 
         this.popoverPlacement.syncResponsiveWidth(popover);
 
-        const position = this.positionCalculator.calculate(this.config);
+        const position = this.positionCalculator.calculate(config);
 
         if (!position) {
             this.popoverPlacement.resetCustomPosition(popover);
@@ -127,6 +184,13 @@ class Popover {
 
     private isOpen(popover: HTMLElement): boolean {
         return typeof popover.matches === 'function' ? popover.matches(':popover-open') : !popover.hidden;
+    }
+
+    private getPositioningConfig(trigger: HTMLElement = this.activeTrigger): PopoverConfig {
+        return {
+            ...this.config,
+            trigger,
+        };
     }
 }
 
