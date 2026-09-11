@@ -49,17 +49,30 @@ class Popover {
                 return;
             }
 
+            const action = this.getTargetAction(trigger);
+            const isOpen = this.isOpen(popover);
+
             event.preventDefault();
             event.stopPropagation();
 
-            if (this.isOpen(popover)) {
-                popover.hidePopover?.();
+            if (action === 'hide') {
+                if (isOpen) {
+                    popover.hidePopover?.();
+                }
+                return;
+            }
+
+            if (isOpen) {
+                if (action === 'toggle') {
+                    popover.hidePopover?.();
+                }
+
                 return;
             }
 
             popover.setAttribute(PopoverSetup.PendingPositionAttribute, 'true');
             popover.style.visibility = 'hidden';
-            popover.showPopover?.();
+            this.showPopoverFromTrigger(trigger, popover);
 
             window.requestAnimationFrame(() => {
                 this.position();
@@ -69,6 +82,30 @@ class Popover {
         });
 
         trigger.setAttribute(PopoverSetup.TriggerInitializedAttribute, '');
+    }
+
+    private getTargetAction(trigger: HTMLElement): 'toggle' | 'show' | 'hide' {
+        const action = trigger.getAttribute('popovertargetaction')?.trim().toLowerCase();
+
+        if (action === 'show' || action === 'hide') {
+            return action;
+        }
+
+        return 'toggle';
+    }
+
+    private showPopoverFromTrigger(trigger: HTMLElement, popover: HTMLElement): void {
+        const showPopover = popover.showPopover as ((options?: unknown) => void) | undefined;
+
+        if (!showPopover) {
+            return;
+        }
+
+        try {
+            showPopover.call(popover, { source: trigger });
+        } catch {
+            showPopover.call(popover);
+        }
     }
 
     private bindPopover(): void {
