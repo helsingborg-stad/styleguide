@@ -47,19 +47,19 @@ $_: "c-chat";
 
     &.#{$_}--md {
         .#{$_}__message-area {
-            height: min(80vh, calc(var(--base, 8px) * 90));
+            height: min(80vh, calc(var(--base, 8px) * 80));
         }
     }
 
     &.#{$_}--sm {
         .#{$_}__message-area {
-            height: min(75vh, calc(var(--base, 8px) * 75));
+            height: min(75vh, calc(var(--base, 8px) * 65));
         }
     }
 
     &.#{$_}--xs {
         .#{$_}__message-area {
-            height: min(60vh, calc(var(--base, 8px) * 60));
+            height: min(60vh, calc(var(--base, 8px) * 50));
         }
     }
 
