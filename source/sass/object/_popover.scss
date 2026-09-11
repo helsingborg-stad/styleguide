@@ -6,6 +6,7 @@ $token: 'o-popover';
 #{$_} {
     background: unset;
     border: unset;
+    padding: unset;
 
     &::backdrop {
         background: transparent;
