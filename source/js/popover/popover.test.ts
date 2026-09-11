@@ -15,6 +15,7 @@ describe('Popover', () => {
             configurable: true,
             value: jest.fn(() => {
                 isOpen = true;
+                popover.dispatchEvent(new Event('toggle'));
             }),
         });
 
@@ -22,6 +23,7 @@ describe('Popover', () => {
             configurable: true,
             value: jest.fn(() => {
                 isOpen = false;
+                popover.dispatchEvent(new Event('toggle'));
             }),
         });
 
@@ -169,5 +171,155 @@ describe('Popover', () => {
 
         expect(showPopoverMock).toHaveBeenNthCalledWith(1, { source: trigger });
         expect(showPopoverMock).toHaveBeenNthCalledWith(2);
+    });
+
+    it('synchronizes aria-expanded across multiple triggers targeting the same popover', () => {
+        const trigger = document.createElement('button');
+        const secondaryTrigger = document.createElement('button');
+        const popover = document.createElement('div');
+        let isOpen = false;
+
+        Object.defineProperty(popover, 'showPopover', {
+            configurable: true,
+            value: jest.fn(() => {
+                isOpen = true;
+                popover.dispatchEvent(new Event('toggle'));
+            }),
+        });
+
+        Object.defineProperty(popover, 'hidePopover', {
+            configurable: true,
+            value: jest.fn(() => {
+                isOpen = false;
+                popover.dispatchEvent(new Event('toggle'));
+            }),
+        });
+
+        Object.defineProperty(popover, 'matches', {
+            configurable: true,
+            value: jest.fn((selector: string) => selector === ':popover-open' && isOpen),
+        });
+
+        const placement = {
+            syncResponsiveWidth: jest.fn(),
+            setPosition: jest.fn(),
+            resetCustomPosition: jest.fn(),
+        };
+
+        const calculator = {
+            hasCustomPositioning: jest.fn(() => true),
+            calculate: jest.fn(() => ({
+                left: 100,
+                top: 120,
+                horizontal: 'center',
+                vertical: 'bottom',
+                mode: 'relative',
+                placement: 'relative-bottom-center',
+            })),
+        };
+
+        const animator = {
+            bind: jest.fn(),
+        };
+
+        const requestAnimationFrameSpy = jest
+            .spyOn(window, 'requestAnimationFrame')
+            .mockImplementation((callback: FrameRequestCallback): number => {
+                callback(0);
+                return 0;
+            });
+
+        const instance = new Popover(
+            { trigger, popover, mode: 'relative', horizontalPlacement: 'center', verticalPlacement: 'bottom', key: 'test' },
+            placement as any,
+            calculator as any,
+            animator as any,
+        );
+
+        instance.init();
+        instance.addTrigger(secondaryTrigger);
+
+        trigger.click();
+
+        expect(trigger.getAttribute('aria-expanded')).toBe('true');
+        expect(secondaryTrigger.getAttribute('aria-expanded')).toBe('true');
+
+        secondaryTrigger.click();
+
+        expect(trigger.getAttribute('aria-expanded')).toBe('false');
+        expect(secondaryTrigger.getAttribute('aria-expanded')).toBe('false');
+        expect(requestAnimationFrameSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('repositions relative popovers using the active trigger when multiple triggers are registered', () => {
+        const primaryTrigger = document.createElement('button');
+        const secondaryTrigger = document.createElement('button');
+        const popover = document.createElement('div');
+        let isOpen = false;
+
+        Object.defineProperty(popover, 'showPopover', {
+            configurable: true,
+            value: jest.fn(() => {
+                isOpen = true;
+            }),
+        });
+
+        Object.defineProperty(popover, 'hidePopover', {
+            configurable: true,
+            value: jest.fn(() => {
+                isOpen = false;
+            }),
+        });
+
+        Object.defineProperty(popover, 'matches', {
+            configurable: true,
+            value: jest.fn((selector: string) => selector === ':popover-open' && isOpen),
+        });
+
+        const placement = {
+            syncResponsiveWidth: jest.fn(),
+            setPosition: jest.fn(),
+            resetCustomPosition: jest.fn(),
+        };
+
+        const calculator = {
+            hasCustomPositioning: jest.fn(() => true),
+            calculate: jest.fn((config: PopoverConfig) => ({
+                left: config.trigger === secondaryTrigger ? 200 : 100,
+                top: 120,
+                horizontal: 'center',
+                vertical: 'bottom',
+                mode: 'relative',
+                placement: 'relative-bottom-center',
+            })),
+        };
+
+        const animator = {
+            bind: jest.fn(),
+        };
+
+        const requestAnimationFrameSpy = jest
+            .spyOn(window, 'requestAnimationFrame')
+            .mockImplementation((callback: FrameRequestCallback): number => {
+                callback(0);
+                return 0;
+            });
+
+        const instance = new Popover(
+            { trigger: primaryTrigger, popover, mode: 'relative', horizontalPlacement: 'center', verticalPlacement: 'bottom', key: 'test' },
+            placement as any,
+            calculator as any,
+            animator as any,
+        );
+
+        instance.init();
+        instance.addTrigger(secondaryTrigger);
+
+        secondaryTrigger.click();
+        instance.repositionIfOpen();
+
+        expect(calculator.calculate).toHaveBeenLastCalledWith(expect.objectContaining({ trigger: secondaryTrigger }));
+        expect(placement.setPosition).toHaveBeenLastCalledWith(popover, expect.objectContaining({ left: 200 }));
+        expect(requestAnimationFrameSpy).toHaveBeenCalledTimes(1);
     });
 });

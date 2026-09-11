@@ -31,9 +31,11 @@ class PopoverManager {
     }
 
     private registerPopover(trigger: HTMLElement, popover: HTMLElement): void {
-        const key = this.getPairKey(trigger, popover);
+        const key = this.getPopoverKey(popover);
+        const existingPopoverInstance = this.popoverInstances.get(key);
 
-        if (this.popoverInstances.has(key)) {
+        if (existingPopoverInstance) {
+            existingPopoverInstance.addTrigger(trigger);
             return;
         }
 
@@ -63,10 +65,8 @@ class PopoverManager {
         });
     }
 
-    private getPairKey(trigger: HTMLElement, popover: HTMLElement): string {
-        const triggerKey = this.getElementKey(trigger);
-        const popoverKey = this.getElementKey(popover);
-        return `${triggerKey}::${popoverKey}`;
+    private getPopoverKey(popover: HTMLElement): string {
+        return this.getElementKey(popover);
     }
 
     private getElementKey(element: HTMLElement): string {
