@@ -1,0 +1,4 @@
+@use "sass:meta";
+
+@include meta.load-css("../../sass/object/popover");
+@include meta.load-css("../../sass/object/popover-animation");

@@ -2469,6 +2469,25 @@
     "requiredBy": [],
     "icon": "contact_mail"
   },
+  "popover": {
+    "$schema": "../../component-schema.json",
+    "apiVersion": 1,
+    "name": "Popover",
+    "slug": "popover",
+    "tokens": [
+      "color--alpha"
+    ],
+    "description": "The Popover component provides a simple way to add popovers.",
+    "tags": [
+      "popover",
+      "component",
+      "object"
+    ],
+    "similarComponents": [],
+    "requires": [],
+    "requiredBy": [],
+    "icon": "picture_in_picture"
+  },
   "product": {
     "$schema": "../../component-schema.json",
     "apiVersion": 1,
