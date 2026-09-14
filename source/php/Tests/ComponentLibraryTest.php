@@ -276,6 +276,7 @@ class ComponentLibraryTest extends TestCase
         $this->assertCount(2, $rows);
         $this->assertSame('heading', $rows[0]['parameter']);
         $this->assertSame('Legacy heading', $rows[0]['default']);
+        $this->assertSame('string', $rows[0]['type']);
         $this->assertSame('Legacy heading description.', $rows[0]['description']);
         $this->assertSame('legacyOnly', $rows[1]['parameter']);
         $this->assertSame('legacy', $rows[1]['default']);

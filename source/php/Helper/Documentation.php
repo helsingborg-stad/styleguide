@@ -1218,14 +1218,12 @@ class Documentation
 
         $jsonParameters = is_array($jsonConfig['parameters'] ?? null) ? $jsonConfig['parameters'] : [];
         $currentParameters = is_array($merged['parameters'] ?? null) ? $merged['parameters'] : [];
-        if ($jsonParameters !== [] && $currentParameters === []) {
+        if ($jsonParameters !== []) {
             $merged['parameters'] = $jsonParameters;
             return $merged;
         }
 
-        if ($jsonParameters !== [] && $currentParameters !== []) {
-            $merged['parameters'] = self::mergeParameterDefinitions($jsonParameters, $currentParameters);
-        }
+        $merged['parameters'] = $currentParameters;
 
         return $merged;
     }
