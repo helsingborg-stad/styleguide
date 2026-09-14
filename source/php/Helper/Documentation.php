@@ -1018,6 +1018,18 @@ class Documentation
                 continue;
             }
 
+            if ($key === 'parameters') {
+                if (!is_array($config[$key])) {
+                    continue;
+                }
+
+                if ($config[$key] === [] || self::sanitizeParameterDefinitions($config[$key]) !== []) {
+                    return true;
+                }
+
+                continue;
+            }
+
             if (is_array($config[$key]) && $config[$key] !== []) {
                 return true;
             }
@@ -1193,8 +1205,12 @@ class Documentation
             }
         }
 
-        $primaryParameters = is_array($merged['parameters'] ?? null) ? $merged['parameters'] : [];
-        $fallbackParameters = is_array($fallback['parameters'] ?? null) ? $fallback['parameters'] : [];
+        $primaryParameters = self::sanitizeParameterDefinitions(
+            is_array($merged['parameters'] ?? null) ? $merged['parameters'] : []
+        );
+        $fallbackParameters = self::sanitizeParameterDefinitions(
+            is_array($fallback['parameters'] ?? null) ? $fallback['parameters'] : []
+        );
 
         if ($primaryParameters === [] && $fallbackParameters !== []) {
             $merged['parameters'] = $fallbackParameters;

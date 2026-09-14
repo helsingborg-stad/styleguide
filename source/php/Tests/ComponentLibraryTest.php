@@ -44,6 +44,7 @@ class ComponentLibraryTest extends TestCase
         mkdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_imported', 0777, true);
         mkdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_fqcn', 0777, true);
         mkdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_empty_params', 0777, true);
+        mkdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_invalid_params', 0777, true);
 
         file_put_contents(
             $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card/card.json',
@@ -214,6 +215,20 @@ class ComponentLibraryTest extends TestCase
                 'parameters' => [],
             ]),
         );
+
+        file_put_contents(
+            $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_invalid_params/config.php',
+            "<?php\n\nuse ComponentLibrary\\ComponentConfiguration\\ComponentConfig;\n\nreturn new ComponentConfig(\n    slug: 'typed_invalid_params',\n    view: 'typed_invalid_params.blade.php',\n    data: StyleguideTypedCardDataFixture::class,\n);\n",
+        );
+        file_put_contents(
+            $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_invalid_params/typed_invalid_params.json',
+            json_encode([
+                'slug' => 'typed_invalid_params',
+                'parameters' => [
+                    ['invalid' => true],
+                ],
+            ]),
+        );
     }
 
     protected function tearDown(): void
@@ -233,6 +248,8 @@ class ComponentLibraryTest extends TestCase
         @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_fqcn/config.php');
         @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_empty_params/config.php');
         @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_empty_params/typed_empty_params.json');
+        @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_invalid_params/config.php');
+        @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_invalid_params/typed_invalid_params.json');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card__header');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card__body');
@@ -244,6 +261,7 @@ class ComponentLibraryTest extends TestCase
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_imported');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_fqcn');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_empty_params');
+        @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_invalid_params');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source');
@@ -327,6 +345,16 @@ class ComponentLibraryTest extends TestCase
         $rows = Documentation::getComponentApi('typed_empty_params', $this->tempBasePath);
 
         $this->assertSame([], $rows);
+    }
+
+    public function testGetComponentApiIgnoresInvalidJsonParametersAndFallsBackToPhpMetadata(): void
+    {
+        $rows = Documentation::getComponentApi('typed_invalid_params', $this->tempBasePath);
+
+        $this->assertCount(3, $rows);
+        $this->assertSame('heading', $rows[0]['parameter']);
+        $this->assertSame('dismissible', $rows[1]['parameter']);
+        $this->assertSame('icon', $rows[2]['parameter']);
     }
 
     public function testGetSubcomponentsReturnsPurposeAnchorAndParameters(): void
