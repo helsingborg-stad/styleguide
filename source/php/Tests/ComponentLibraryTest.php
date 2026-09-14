@@ -157,7 +157,7 @@ class ComponentLibraryTest extends TestCase
 
         file_put_contents(
             $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_card/config.php',
-            "<?php\n\nuse ComponentLibrary\\ComponentConfiguration\\ComponentConfig;\n\nreturn new ComponentConfig(\n    slug: 'typed_card',\n    view: 'typed_card.blade.php',\n    data: StyleguideTypedCardDataFixture::class,\n);\n",
+            "<?php\n\nuse ComponentLibrary\\ComponentConfiguration\\ComponentConfig;\nuse MunicipioStyleGuide\\Tests\\StyleguideTypedCardDataFixture;\n\nreturn new ComponentConfig(\n    slug: 'typed_card',\n    view: 'typed_card.blade.php',\n    data: StyleguideTypedCardDataFixture::class,\n);\n",
         );
 
         file_put_contents(
@@ -185,14 +185,16 @@ class ComponentLibraryTest extends TestCase
 
         file_put_contents(
             $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_only/config.php',
-            "<?php\n\nuse ComponentLibrary\\ComponentConfiguration\\ComponentConfig;\n\nreturn new ComponentConfig(\n    slug: 'typed_only',\n    view: 'typed_only.blade.php',\n    data: StyleguideTypedCardDataFixture::class,\n);\n",
+            "<?php\n\nuse ComponentLibrary\\ComponentConfiguration\\ComponentConfig;\nuse MunicipioStyleGuide\\Tests\\StyleguideTypedCardDataFixture;\n\nreturn new ComponentConfig(\n    slug: 'typed_only',\n    view: 'typed_only.blade.php',\n    data: StyleguideTypedCardDataFixture::class,\n);\n",
         );
 
         file_put_contents(
             $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_imported/TypedImportedDataFixture.php',
             "<?php\n\ndeclare(strict_types=1);\n\nnamespace Styleguide\\Fixtures;\n\nfinal class TypedImportedDataFixture\n{\n    /**\n     * @param string \$label Imported fixture label.\n     */\n    public function __construct(\n        public string \$label = 'imported',\n    ) {\n    }\n}\n",
         );
-        require_once $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_imported/TypedImportedDataFixture.php';
+        if (!class_exists('Styleguide\\Fixtures\\TypedImportedDataFixture', false)) {
+            require_once $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_imported/TypedImportedDataFixture.php';
+        }
 
         file_put_contents(
             $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_imported/config.php',
@@ -206,7 +208,7 @@ class ComponentLibraryTest extends TestCase
 
         file_put_contents(
             $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_empty_params/config.php',
-            "<?php\n\nuse ComponentLibrary\\ComponentConfiguration\\ComponentConfig;\n\nreturn new ComponentConfig(\n    slug: 'typed_empty_params',\n    view: 'typed_empty_params.blade.php',\n    data: StyleguideTypedCardDataFixture::class,\n);\n",
+            "<?php\n\nuse ComponentLibrary\\ComponentConfiguration\\ComponentConfig;\nuse MunicipioStyleGuide\\Tests\\StyleguideTypedCardDataFixture;\n\nreturn new ComponentConfig(\n    slug: 'typed_empty_params',\n    view: 'typed_empty_params.blade.php',\n    data: StyleguideTypedCardDataFixture::class,\n);\n",
         );
         file_put_contents(
             $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_empty_params/typed_empty_params.json',
@@ -218,7 +220,7 @@ class ComponentLibraryTest extends TestCase
 
         file_put_contents(
             $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_invalid_params/config.php',
-            "<?php\n\nuse ComponentLibrary\\ComponentConfiguration\\ComponentConfig;\n\nreturn new ComponentConfig(\n    slug: 'typed_invalid_params',\n    view: 'typed_invalid_params.blade.php',\n    data: StyleguideTypedCardDataFixture::class,\n);\n",
+            "<?php\n\nuse ComponentLibrary\\ComponentConfiguration\\ComponentConfig;\nuse MunicipioStyleGuide\\Tests\\StyleguideTypedCardDataFixture;\n\nreturn new ComponentConfig(\n    slug: 'typed_invalid_params',\n    view: 'typed_invalid_params.blade.php',\n    data: StyleguideTypedCardDataFixture::class,\n);\n",
         );
         file_put_contents(
             $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_invalid_params/typed_invalid_params.json',
