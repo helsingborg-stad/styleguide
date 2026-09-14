@@ -554,7 +554,7 @@ class Documentation
                     $nonNullableNamedType instanceof \ReflectionNamedType &&
                     self::canUseNullableShorthand($nonNullableNamedType->getName())
                 ) {
-                    return '?' . ltrim($nonNullableNamedType->getName(), '\\');
+                    return '?' . self::normalizeReflectedTypeName($nonNullableNamedType->getName());
                 }
             }
 
@@ -565,7 +565,7 @@ class Documentation
             $normalizedType = self::normalizeReflectedTypeName($type->getName());
             if ($type->allowsNull() && strtolower($type->getName()) !== 'null') {
                 if (self::canUseNullableShorthand($type->getName())) {
-                    return '?' . ltrim($type->getName(), '\\');
+                    return '?' . $normalizedType;
                 }
 
                 return $normalizedType . '|NULL';
@@ -721,7 +721,7 @@ class Documentation
      */
     private static function canUseNullableShorthand(string $typeName): bool
     {
-        return !in_array(strtolower(ltrim($typeName, '\\')), ['bool', 'int', 'mixed', 'null', 'false', 'true'], true);
+        return !in_array(strtolower(ltrim($typeName, '\\')), ['mixed', 'null', 'false', 'true'], true);
     }
 
     /**
