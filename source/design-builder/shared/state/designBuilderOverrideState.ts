@@ -13,6 +13,18 @@ export function createEmptyOverrideState(): DesignBuilderOverrideState {
 	};
 }
 
+function normalizeOverrideValue(value: unknown): string | null {
+	if (typeof value === 'string' && value.trim() !== '') {
+		return value;
+	}
+
+	if (typeof value === 'number' && Number.isFinite(value)) {
+		return value.toString();
+	}
+
+	return null;
+}
+
 export function normalizeTokenOverrides(input: unknown): Record<string, string> {
 	if (!input || typeof input !== 'object' || Array.isArray(input)) {
 		return {};
@@ -20,8 +32,9 @@ export function normalizeTokenOverrides(input: unknown): Record<string, string> 
 
 	const filtered: Record<string, string> = {};
 	for (const [key, value] of Object.entries(input as Record<string, unknown>)) {
-		if (typeof value === 'string' && value.trim() !== '') {
-			filtered[key] = value;
+		const normalizedValue = normalizeOverrideValue(value);
+		if (normalizedValue !== null) {
+			filtered[key] = normalizedValue;
 		}
 	}
 
@@ -40,7 +53,7 @@ function isLegacyComponentOverrides(input: Record<string, unknown>): boolean {
 		}
 
 		const variableValues = Object.values(value as Record<string, unknown>);
-		return variableValues.every((entry) => typeof entry === 'string');
+		return variableValues.every((entry) => normalizeOverrideValue(entry) !== null);
 	});
 }
 
@@ -48,8 +61,9 @@ function normalizeComponentValueMap(input: Record<string, unknown>): Record<stri
 	const filtered: Record<string, string> = {};
 
 	for (const [variable, value] of Object.entries(input)) {
-		if (typeof value === 'string' && value.trim() !== '') {
-			filtered[variable] = value;
+		const normalizedValue = normalizeOverrideValue(value);
+		if (normalizedValue !== null) {
+			filtered[variable] = normalizedValue;
 		}
 	}
 
