@@ -35,6 +35,14 @@
 		"heading": "Low quality image placeholder",
 		"text": "A responsive image with a low quality placeholder shown as a background while the full image loads."
 	},
+	"transparent-lqip-srcset": {
+		"heading": "Transparent background with LQIP (srcset)",
+		"text": "Images with a transparent background don't work well with low quality placeholders: the placeholder is typically encoded without an alpha channel, so it renders with a solid backing colour instead of transparency. Rendered as a single <img> via srcset."
+	},
+	"transparent-lqip-container-query": {
+		"heading": "Transparent background with LQIP (container query)",
+		"text": "Images with a transparent background don't work well with low quality placeholders: the placeholder is typically encoded without an alpha channel, so it renders with a solid backing colour instead of transparency. Rendered as one <img> per candidate size, switched by CSS container queries."
+	},
 	"single-candidate": {
 		"heading": "Single candidate size",
 		"text": "An image contract with only one candidate size. No srcset or sizes attribute should be rendered."

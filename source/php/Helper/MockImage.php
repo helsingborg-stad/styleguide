@@ -23,6 +23,7 @@ class MockImage implements ImageInterface
         private array $focusPoint = ['left' => '50', 'top' => '50'],
         private ?string $altText = 'A photograph used to demonstrate responsive image loading.',
         private bool $withLqip = false,
+        private bool $transparent = false,
     ) {}
 
     /**
@@ -83,6 +84,27 @@ class MockImage implements ImageInterface
         ], $seed);
     }
 
+    /**
+     * Candidates with a transparent background and a low quality placeholder enabled, to demonstrate
+     * that a blurred, opaque LQIP does not composite well with images that rely on transparency.
+     */
+    public static function transparentWithLqip(string $seed = 'styleguide-transparent'): self
+    {
+        return new self(
+            [
+                ['width' => 425, 'height' => 177],
+                ['width' => 768, 'height' => 320],
+                ['width' => 1024, 'height' => 427],
+                ['width' => 1440, 'height' => 600],
+                ['width' => 1920, 'height' => 800],
+            ],
+            $seed,
+            altText: 'A logo with a transparent background, used to demonstrate low quality image placeholders.',
+            withLqip: true,
+            transparent: true,
+        );
+    }
+
     public function getUrl(): ?string
     {
         $largest = end($this->sizes);
@@ -92,7 +114,17 @@ class MockImage implements ImageInterface
 
     public function getLqipUrl(): ?string
     {
-        return $this->withLqip ? $this->urlForSize(32, 32) : null;
+        if (!$this->withLqip) {
+            return null;
+        }
+
+        // Real-world LQIP generation typically encodes the placeholder as JPEG, which
+        // has no alpha channel: transparent areas are filled with a solid backing colour.
+        if ($this->transparent) {
+            return 'https://placehold.co/32x32/2c3e50/2c3e50/jpg';
+        }
+
+        return $this->urlForSize(32, 32);
     }
 
     public function getSrcSet(): ?string
@@ -158,6 +190,10 @@ class MockImage implements ImageInterface
 
     private function urlForSize(int $width, int $height): string
     {
+        if ($this->transparent) {
+            return sprintf('https://placehold.co/%dx%d/transparent/2c3e50/png?text=%s', $width, $height, rawurlencode($this->seed));
+        }
+
         return sprintf('https://picsum.photos/seed/%s/%d/%d', rawurlencode($this->seed), $width, $height);
     }
 }
