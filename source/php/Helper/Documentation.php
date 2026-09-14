@@ -383,27 +383,33 @@ class Documentation
      */
     private static function readJsonConfigFromDirectory(string $directory): ?array
     {
-        $phpConfigPath = rtrim($directory, '/') . '/config.php';
-        if (is_file($phpConfigPath)) {
-            $config = self::readPhpConfigFromFile($phpConfigPath);
-            if ($config !== null) {
-                return $config;
+        $jsonFiles = glob(rtrim($directory, '/') . '/*.json') ?: [];
+        $jsonConfig = null;
+        if (!empty($jsonFiles)) {
+            $content = file_get_contents($jsonFiles[0]);
+            if (is_string($content)) {
+                $parsedJson = json_decode($content, true);
+                if (is_array($parsedJson)) {
+                    $jsonConfig = $parsedJson;
+                }
             }
         }
 
-        $jsonFiles = glob(rtrim($directory, '/') . '/*.json') ?: [];
-        if (empty($jsonFiles)) {
-            return null;
+        $phpConfigPath = rtrim($directory, '/') . '/config.php';
+        $phpConfig = null;
+        if (is_file($phpConfigPath)) {
+            $phpConfig = self::readPhpConfigFromFile($phpConfigPath);
         }
 
-        $content = file_get_contents($jsonFiles[0]);
-        if (!is_string($content)) {
-            return null;
+        if ($jsonConfig !== null && $phpConfig !== null) {
+            return self::mergeConfigWithFallback($jsonConfig, $phpConfig);
         }
 
-        $config = json_decode($content, true);
+        if ($jsonConfig !== null) {
+            return $jsonConfig;
+        }
 
-        return is_array($config) ? $config : null;
+        return $phpConfig;
     }
 
     /**
@@ -533,19 +539,69 @@ class Documentation
                 $types[] = self::normalizeReflectedTypeName($namedType->getName());
             }
 
-            return implode('|', array_values(array_unique($types)));
-        }
+            $types = array_values(array_unique($types));
+            if (count($types) === 2 && in_array('NULL', $types, true)) {
+                $nonNullableType = $types[0] === 'NULL' ? $types[1] : $types[0];
 
-        if ($type instanceof \ReflectionNamedType) {
-            $types = [self::normalizeReflectedTypeName($type->getName())];
-            if ($type->allowsNull() && !in_array('NULL', $types, true)) {
-                $types[] = 'NULL';
+                return '?' . $nonNullableType;
             }
 
             return implode('|', $types);
         }
 
+        if ($type instanceof \ReflectionNamedType) {
+            $normalizedType = self::normalizeReflectedTypeName($type->getName());
+            if ($type->allowsNull() && $normalizedType !== 'NULL') {
+                return '?' . $normalizedType;
+            }
+
+            return $normalizedType;
+        }
+
         return 'mixed';
+    }
+
+    /**
+     * @param array<string, mixed> $primary
+     * @param array<string, mixed> $fallback
+     *
+     * @return array<string, mixed>
+     */
+    private static function mergeConfigWithFallback(array $primary, array $fallback): array
+    {
+        $merged = $primary;
+
+        foreach (['slug', 'view', 'data'] as $key) {
+            if (!isset($merged[$key]) && isset($fallback[$key])) {
+                $merged[$key] = $fallback[$key];
+            }
+        }
+
+        foreach (['default', 'types', 'description'] as $key) {
+            $primaryValues = is_array($merged[$key] ?? null) ? $merged[$key] : [];
+            $fallbackValues = is_array($fallback[$key] ?? null) ? $fallback[$key] : [];
+
+            if ($primaryValues === [] && $fallbackValues !== []) {
+                $merged[$key] = $fallbackValues;
+                continue;
+            }
+
+            foreach ($fallbackValues as $parameter => $value) {
+                if (!array_key_exists($parameter, $primaryValues)) {
+                    $primaryValues[$parameter] = $value;
+                }
+            }
+
+            if ($primaryValues !== []) {
+                $merged[$key] = $primaryValues;
+            }
+        }
+
+        if (!is_array($merged['parameters'] ?? null) && is_array($fallback['parameters'] ?? null)) {
+            $merged['parameters'] = $fallback['parameters'];
+        }
+
+        return $merged;
     }
 
     /**

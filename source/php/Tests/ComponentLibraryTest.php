@@ -199,7 +199,7 @@ class ComponentLibraryTest extends TestCase
 
         $this->assertSame('icon', $rows[2]['parameter']);
         $this->assertSame('null', $rows[2]['default']);
-        $this->assertSame('string|NULL', $rows[2]['type']);
+        $this->assertSame('?string', $rows[2]['type']);
         $this->assertSame('Optional icon name.', $rows[2]['description']);
     }
 
