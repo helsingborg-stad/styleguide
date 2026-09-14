@@ -238,6 +238,31 @@ class Documentation
     private static function buildParameterRows(array $config, ?string $projectRoot = null): array
     {
         $effectiveConfig = self::resolveEffectiveComponentConfig($config, $projectRoot);
+        $typedParameters = is_array($effectiveConfig['parameters'] ?? null) ? $effectiveConfig['parameters'] : [];
+
+        if ($typedParameters !== []) {
+            $rows = [];
+            foreach ($typedParameters as $typedParameter) {
+                if (!is_array($typedParameter) || !is_string($typedParameter['parameter'] ?? null)) {
+                    continue;
+                }
+
+                $rows[] = [
+                    'parameter' => $typedParameter['parameter'],
+                    'default' => ($typedParameter['hasDefault'] ?? false) === true
+                        ? self::stringifyDefaultValue($typedParameter['default'] ?? null)
+                        : '-',
+                    'type' => is_string($typedParameter['type'] ?? null) ? $typedParameter['type'] : 'mixed',
+                    'description' => is_string($typedParameter['description'] ?? null)
+                        && trim($typedParameter['description']) !== ''
+                        ? trim($typedParameter['description'])
+                        : '-',
+                ];
+            }
+
+            return $rows;
+        }
+
         $settings = is_array($effectiveConfig['default'] ?? null) ? $effectiveConfig['default'] : [];
         $descriptions = is_array($effectiveConfig['description'] ?? null) ? $effectiveConfig['description'] : [];
         $types = is_array($effectiveConfig['types'] ?? null) ? $effectiveConfig['types'] : [];
@@ -358,6 +383,14 @@ class Documentation
      */
     private static function readJsonConfigFromDirectory(string $directory): ?array
     {
+        $phpConfigPath = rtrim($directory, '/') . '/config.php';
+        if (is_file($phpConfigPath)) {
+            $config = self::readPhpConfigFromFile($phpConfigPath);
+            if ($config !== null) {
+                return $config;
+            }
+        }
+
         $jsonFiles = glob(rtrim($directory, '/') . '/*.json') ?: [];
         if (empty($jsonFiles)) {
             return null;
@@ -371,6 +404,205 @@ class Documentation
         $config = json_decode($content, true);
 
         return is_array($config) ? $config : null;
+    }
+
+    /**
+     * @param string $path
+     *
+     * @return array<string, mixed>|null
+     */
+    private static function readPhpConfigFromFile(string $path): ?array
+    {
+        try {
+            $config = require $path;
+        } catch (\Throwable) {
+            return null;
+        }
+
+        if (is_object($config)) {
+            $config = get_object_vars($config);
+        }
+
+        if (!is_array($config)) {
+            return null;
+        }
+
+        if (isset($config['data']) && is_object($config['data'])) {
+            $config['data'] = get_class($config['data']);
+        }
+
+        foreach (['default', 'types', 'description'] as $key) {
+            if (isset($config[$key]) && is_object($config[$key])) {
+                $config[$key] = (array) $config[$key];
+            }
+        }
+
+        $typedParameters = self::reflectTypedParameters($config['data'] ?? null);
+        if ($typedParameters !== []) {
+            $defaults = is_array($config['default'] ?? null) ? $config['default'] : [];
+            $types = is_array($config['types'] ?? null) ? $config['types'] : [];
+            $descriptions = is_array($config['description'] ?? null) ? $config['description'] : [];
+
+            foreach ($typedParameters as $typedParameter) {
+                $parameterName = $typedParameter['parameter'];
+                if (!is_string($parameterName) || $parameterName === '') {
+                    continue;
+                }
+
+                if (($typedParameter['hasDefault'] ?? false) === true && !array_key_exists($parameterName, $defaults)) {
+                    $defaults[$parameterName] = $typedParameter['default'] ?? null;
+                }
+
+                if (!isset($types[$parameterName]) && is_string($typedParameter['type'] ?? null)) {
+                    $types[$parameterName] = $typedParameter['type'];
+                }
+
+                if (
+                    !isset($descriptions[$parameterName]) &&
+                    is_string($typedParameter['description'] ?? null) &&
+                    trim($typedParameter['description']) !== ''
+                ) {
+                    $descriptions[$parameterName] = trim($typedParameter['description']);
+                }
+            }
+
+            $config['default'] = $defaults;
+            $config['types'] = $types;
+            $config['description'] = $descriptions;
+            $config['parameters'] = $typedParameters;
+        }
+
+        return $config;
+    }
+
+    /**
+     * @param mixed $dataClass
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    private static function reflectTypedParameters(mixed $dataClass): array
+    {
+        if (!is_string($dataClass) || $dataClass === '' || !class_exists($dataClass)) {
+            return [];
+        }
+
+        try {
+            $reflectionClass = new \ReflectionClass($dataClass);
+            $constructor = $reflectionClass->getConstructor();
+        } catch (\ReflectionException) {
+            return [];
+        }
+
+        if (!$constructor instanceof \ReflectionMethod) {
+            return [];
+        }
+
+        $descriptions = self::extractParameterDescriptions((string) $constructor->getDocComment());
+        $parameters = [];
+
+        foreach ($constructor->getParameters() as $parameter) {
+            $name = $parameter->getName();
+            $hasDefault = $parameter->isDefaultValueAvailable();
+
+            $parameters[] = [
+                'parameter' => $name,
+                'hasDefault' => $hasDefault,
+                'default' => $hasDefault ? $parameter->getDefaultValue() : null,
+                'type' => self::resolveReflectedParameterType($parameter),
+                'description' => isset($descriptions[$name]) && trim($descriptions[$name]) !== ''
+                    ? trim($descriptions[$name])
+                    : '-',
+            ];
+        }
+
+        return $parameters;
+    }
+
+    /**
+     * @param \ReflectionParameter $parameter
+     *
+     * @return string
+     */
+    private static function resolveReflectedParameterType(\ReflectionParameter $parameter): string
+    {
+        $type = $parameter->getType();
+
+        if ($type instanceof \ReflectionUnionType) {
+            $types = [];
+            foreach ($type->getTypes() as $namedType) {
+                $types[] = self::normalizeReflectedTypeName($namedType->getName());
+            }
+
+            return implode('|', array_values(array_unique($types)));
+        }
+
+        if ($type instanceof \ReflectionNamedType) {
+            $types = [self::normalizeReflectedTypeName($type->getName())];
+            if ($type->allowsNull() && !in_array('NULL', $types, true)) {
+                $types[] = 'NULL';
+            }
+
+            return implode('|', $types);
+        }
+
+        return 'mixed';
+    }
+
+    /**
+     * @param string $typeName
+     *
+     * @return string
+     */
+    private static function normalizeReflectedTypeName(string $typeName): string
+    {
+        return match ($typeName) {
+            'bool' => 'boolean',
+            'int' => 'integer',
+            'float' => 'double',
+            'null' => 'NULL',
+            default => ltrim($typeName, '\\'),
+        };
+    }
+
+    /**
+     * @param string $docComment
+     *
+     * @return array<string, string>
+     */
+    private static function extractParameterDescriptions(string $docComment): array
+    {
+        if ($docComment === '') {
+            return [];
+        }
+
+        $descriptions = [];
+        $currentParameter = null;
+
+        foreach (preg_split('/\R/', $docComment) ?: [] as $line) {
+            if (preg_match('/^\s*\*\s*@param\s+\S+\s+\$([a-zA-Z_][a-zA-Z0-9_]*)\s*(.*)$/', $line, $matches) === 1) {
+                $currentParameter = $matches[1];
+                $descriptions[$currentParameter] = trim($matches[2] ?? '');
+                continue;
+            }
+
+            if ($currentParameter === null) {
+                continue;
+            }
+
+            if (preg_match('/^\s*\*\s*@\w+/', $line) === 1) {
+                $currentParameter = null;
+                continue;
+            }
+
+            if (preg_match('/^\s*\*\s?(.*)$/', $line, $matches) === 1) {
+                $continuation = trim($matches[1]);
+                if ($continuation !== '' && $continuation !== '/') {
+                    $descriptions[$currentParameter] = trim(($descriptions[$currentParameter] ?? '') . ' ' . $continuation);
+                }
+            }
+        }
+
+        return $descriptions;
     }
 
     /**
