@@ -1219,7 +1219,7 @@ class Documentation
         $hasJsonParametersKey = array_key_exists('parameters', $jsonConfig);
         $jsonParameters = is_array($jsonConfig['parameters'] ?? null) ? $jsonConfig['parameters'] : [];
         $currentParameters = is_array($merged['parameters'] ?? null) ? $merged['parameters'] : [];
-        if ($hasJsonParametersKey) {
+        if ($hasJsonParametersKey && is_array($jsonConfig['parameters'])) {
             $merged['parameters'] = $jsonParameters;
             return $merged;
         }
@@ -1310,7 +1310,7 @@ class Documentation
         $currentDeclaration = null;
 
         foreach (preg_split('/\R/', $docComment) ?: [] as $line) {
-            if (preg_match('/^\s*\*\s*@param\s+(.+)$/', $line, $matches) === 1) {
+            if (preg_match('/^\s*\*\s*@param\b\s*(.*)$/', $line, $matches) === 1) {
                 if ($currentDeclaration !== null) {
                     $declarations[] = trim($currentDeclaration);
                 }
