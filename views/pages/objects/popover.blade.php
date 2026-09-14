@@ -4,7 +4,8 @@
 <article>
   @markdown([])
     #Popover
-    The popover component is used to display additional information in a small overlay. It can be triggered by a click or hover event on a target element. The popover can contain text, images, or other HTML content, and it can be positioned in various ways relative to the target element.
+    The popover object documents the native HTML element and attribute based API for popovers.
+    The examples below use normal elements and attributes such as `popovertarget`, `popovertargetaction`, `popover`, and the styleguide placement attributes.
   @endmarkdown
     @doc(['viewDoc' => ['type' => 'objects', 'root' => 'popover', 'config' => 'Popover']])
     @enddoc

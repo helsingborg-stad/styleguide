@@ -1,23 +1,11 @@
 <div class="u-display--flex u-flex-direction--column u-gap--2">
-    @typography(['variant' => 'body', 'element' => 'p'])
-        Click on the trigger to show the popover.
-        The default behavior for popover is to position itself in the center of the viewport.
-    @endtypography
+    <p>Click on the trigger to show the popover.</p>
 
-    @button([
-        'text' => 'Popover trigger',
-        'attributeList' => [
-            'popovertarget' => 'abc',
-        ]
-    ])
-    @endbutton
-    @card([
-        'heading' => "I'm a popover!",
-        'attributeList' => [
-            'popover' => 'auto',
+    <button popovertarget="popover-default" type="button">
+        Toggle popover
+    </button>
 
-        ],
-        'id' => 'abc',
-    ])
-    @endcard
+    <div id="popover-default" popover>
+        <p>This is a popover.</p>
+    </div>
 </div>
