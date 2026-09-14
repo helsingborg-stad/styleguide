@@ -72,6 +72,41 @@ describe('resolveStyleguideDesignBuilderRootElements', () => {
 		});
 	});
 
+	it('preserves numeric component overrides when saving hydrated state', () => {
+		document.documentElement.setAttribute(DESIGN_BUILDER_STORAGE_ATTRIBUTE, LOCAL_STORAGE_PERSISTENCE_MODE);
+		document.body.innerHTML = `<design-builder token-data='{"name":"tokens"}'></design-builder>`;
+
+		const [root] = resolveStyleguideDesignBuilderRootElements();
+
+		root.dispatchEvent(
+			new CustomEvent('design-builder:save', {
+				detail: {
+					state: {
+						token: { '--border-radius': 1.5 },
+						component: {
+							__general__: {
+								button: {
+									'--c-button--border-radius': 4,
+								},
+							},
+						},
+					},
+				},
+			}),
+		);
+
+		expect(JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')).toEqual({
+			token: { '--border-radius': '1.5' },
+			component: {
+				__general__: {
+					button: {
+						'--c-button--border-radius': '4',
+					},
+				},
+			},
+		});
+	});
+
 	it('does not hydrate persisted override state or bind save persistence without a localStorage opt-in', () => {
 		localStorage.setItem(
 			STORAGE_KEY,
