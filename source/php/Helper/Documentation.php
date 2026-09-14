@@ -487,19 +487,22 @@ class Documentation
      */
     private static function parsePhpComponentConfig(string $content): ?array
     {
-        $slug = self::parsePhpStringArgument($content, 'slug');
+        $tokens = token_get_all($content);
+        $arguments = self::parsePhpNamedArguments($tokens);
+
+        $slug = self::parsePhpStringArgument($arguments['slug'] ?? []);
         if ($slug === null || $slug === '') {
             return null;
         }
 
         $config = ['slug' => $slug];
 
-        $view = self::parsePhpStringArgument($content, 'view');
+        $view = self::parsePhpStringArgument($arguments['view'] ?? []);
         if ($view !== null && $view !== '') {
             $config['view'] = $view;
         }
 
-        $dataClass = self::parsePhpDataClassArgument($content);
+        $dataClass = self::parsePhpDataClassArgument($arguments['data'] ?? [], $tokens);
         if ($dataClass !== null) {
             $config['data'] = $dataClass;
         }
@@ -508,59 +511,213 @@ class Documentation
     }
 
     /**
-     * @param string $content
-     * @param string $argumentName
+     * @param array<int, mixed> $tokens
      *
-     * @return string|null
+     * @return array<string, array<int, mixed>>
      */
-    private static function parsePhpStringArgument(string $content, string $argumentName): ?string
+    private static function parsePhpNamedArguments(array $tokens): array
     {
-        $pattern = sprintf('/\b%s\s*:\s*[\'"]([^\'"]+)[\'"]/', preg_quote($argumentName, '/'));
-        if (preg_match($pattern, $content, $matches) !== 1) {
-            return null;
+        $openParenthesisIndex = null;
+        $tokenCount = count($tokens);
+
+        for ($index = 0; $index < $tokenCount; $index++) {
+            $token = $tokens[$index];
+            if (!is_array($token) || $token[0] !== T_NEW) {
+                continue;
+            }
+
+            for ($cursor = $index + 1; $cursor < $tokenCount; $cursor++) {
+                $candidate = $tokens[$cursor];
+                if ($candidate === '(') {
+                    $openParenthesisIndex = $cursor;
+                    break 2;
+                }
+            }
         }
 
-        return trim($matches[1]);
+        if (!is_int($openParenthesisIndex)) {
+            return [];
+        }
+
+        $arguments = [];
+        $depth = 1;
+        $currentArgumentTokens = [];
+
+        for ($index = $openParenthesisIndex + 1; $index < $tokenCount; $index++) {
+            $token = $tokens[$index];
+
+            if ($token === '(' || $token === '[' || $token === '{') {
+                $depth++;
+            } elseif ($token === ')' || $token === ']' || $token === '}') {
+                $depth--;
+            }
+
+            if (($token === ',' && $depth === 1) || ($token === ')' && $depth === 0)) {
+                self::storeNamedArgument($arguments, $currentArgumentTokens);
+                $currentArgumentTokens = [];
+
+                if ($token === ')' && $depth === 0) {
+                    break;
+                }
+
+                continue;
+            }
+
+            if ($depth > 0) {
+                $currentArgumentTokens[] = $token;
+            }
+        }
+
+        return $arguments;
     }
 
     /**
-     * @param string $content
+     * @param array<string, array<int, mixed>> $arguments
+     * @param array<int, mixed> $argumentTokens
+     *
+     * @return void
+     */
+    private static function storeNamedArgument(array &$arguments, array $argumentTokens): void
+    {
+        $trimmedTokens = self::trimPhpTokens($argumentTokens);
+        if ($trimmedTokens === []) {
+            return;
+        }
+
+        $colonIndex = null;
+        foreach ($trimmedTokens as $index => $token) {
+            if ($token === ':') {
+                $colonIndex = $index;
+                break;
+            }
+        }
+
+        if (!is_int($colonIndex) || $colonIndex === 0) {
+            return;
+        }
+
+        $nameToken = $trimmedTokens[0];
+        if (!is_array($nameToken) || $nameToken[0] !== T_STRING) {
+            return;
+        }
+
+        $arguments[$nameToken[1]] = self::trimPhpTokens(array_slice($trimmedTokens, $colonIndex + 1));
+    }
+
+    /**
+     * @param array<int, mixed> $argumentTokens
      *
      * @return string|null
      */
-    private static function parsePhpDataClassArgument(string $content): ?string
+    private static function parsePhpStringArgument(array $argumentTokens): ?string
     {
-        if (preg_match('/\bdata\s*:\s*null\b/i', $content) === 1) {
+        $tokens = self::trimPhpTokens($argumentTokens);
+        if (count($tokens) !== 1) {
             return null;
         }
 
-        if (preg_match('/\bdata\s*:\s*([\\\\A-Za-z_][\\\\A-Za-z0-9_]*)::class\b/', $content, $matches) !== 1) {
+        $token = $tokens[0];
+        if (!is_array($token) || $token[0] !== T_CONSTANT_ENCAPSED_STRING) {
             return null;
         }
 
-        return self::resolvePhpClassNameFromSource(trim($matches[1]), $content);
+        $literal = $token[1];
+        $quote = substr($literal, 0, 1);
+        if (($quote !== "'" && $quote !== '"') || substr($literal, -1) !== $quote) {
+            return null;
+        }
+
+        return stripcslashes(substr($literal, 1, -1));
+    }
+
+    /**
+     * @param array<int, mixed> $argumentTokens
+     * @param array<int, mixed> $sourceTokens
+     *
+     * @return string|null
+     */
+    private static function parsePhpDataClassArgument(array $argumentTokens, array $sourceTokens): ?string
+    {
+        $tokens = self::trimPhpTokens($argumentTokens);
+        if ($tokens === []) {
+            return null;
+        }
+
+        while ($tokens !== [] && $tokens[0] === '(' && end($tokens) === ')') {
+            $tokens = self::trimPhpTokens(array_slice($tokens, 1, -1));
+        }
+
+        if (
+            count($tokens) === 1 &&
+            is_array($tokens[0]) &&
+            $tokens[0][0] === T_STRING &&
+            strtolower($tokens[0][1]) === 'null'
+        ) {
+            return null;
+        }
+
+        $doubleColonIndex = null;
+        foreach ($tokens as $index => $token) {
+            if (is_array($token) && $token[0] === T_DOUBLE_COLON) {
+                $doubleColonIndex = $index;
+                break;
+            }
+        }
+
+        if (!is_int($doubleColonIndex)) {
+            return null;
+        }
+
+        $rightSideTokens = self::trimPhpTokens(array_slice($tokens, $doubleColonIndex + 1));
+        if (count($rightSideTokens) !== 1 || !is_array($rightSideTokens[0]) || $rightSideTokens[0][0] !== T_CLASS) {
+            return null;
+        }
+
+        $classNameTokens = self::trimPhpTokens(array_slice($tokens, 0, $doubleColonIndex));
+        if ($classNameTokens === []) {
+            return null;
+        }
+
+        $className = '';
+        foreach ($classNameTokens as $token) {
+            if (!is_array($token)) {
+                return null;
+            }
+
+            if (!in_array($token[0], [T_STRING, T_NS_SEPARATOR, T_NAME_QUALIFIED, T_NAME_FULLY_QUALIFIED], true)) {
+                return null;
+            }
+
+            $className .= $token[1];
+        }
+
+        if ($className === '') {
+            return null;
+        }
+
+        return self::resolvePhpClassNameFromSource($className, $sourceTokens);
     }
 
     /**
      * @param string $className
-     * @param string $content
+     * @param array<int, mixed> $tokens
      *
      * @return string
      */
-    private static function resolvePhpClassNameFromSource(string $className, string $content): string
+    private static function resolvePhpClassNameFromSource(string $className, array $tokens): string
     {
         $className = ltrim($className, '\\');
         if (str_contains($className, '\\')) {
             return $className;
         }
 
-        foreach (self::parsePhpImports($content) as $alias => $importedClass) {
+        foreach (self::parsePhpImports($tokens) as $alias => $importedClass) {
             if ($alias === $className) {
                 return $importedClass;
             }
         }
 
-        $namespace = self::parsePhpNamespace($content);
+        $namespace = self::parsePhpNamespace($tokens);
         if ($namespace === null || $namespace === '') {
             return $className;
         }
@@ -569,39 +726,93 @@ class Documentation
     }
 
     /**
-     * @param string $content
+     * @param array<int, mixed> $tokens
      *
      * @return array<string, string>
      */
-    private static function parsePhpImports(string $content): array
+    private static function parsePhpImports(array $tokens): array
     {
-        preg_match_all('/^\s*use\s+([^;]+);/m', $content, $matches);
+        $imports = [];
+        $tokenCount = count($tokens);
+
+        for ($index = 0; $index < $tokenCount; $index++) {
+            $token = $tokens[$index];
+            if (!is_array($token)) {
+                continue;
+            }
+
+            if (in_array($token[0], [T_CLASS, T_INTERFACE, T_TRAIT, T_ENUM], true)) {
+                break;
+            }
+
+            if ($token[0] !== T_USE) {
+                continue;
+            }
+
+            $statementTokens = [];
+            for ($cursor = $index + 1; $cursor < $tokenCount; $cursor++) {
+                $candidate = $tokens[$cursor];
+                if ($candidate === ';') {
+                    $index = $cursor;
+                    break;
+                }
+                $statementTokens[] = $candidate;
+            }
+
+            $statement = trim(self::stringifyPhpTokens($statementTokens));
+            if ($statement === '' || str_starts_with(strtolower($statement), 'function ') || str_starts_with(strtolower($statement), 'const ')) {
+                continue;
+            }
+
+            foreach (self::parseUseStatement($statement) as $alias => $importedClass) {
+                $imports[$alias] = $importedClass;
+            }
+        }
+
+        return $imports;
+    }
+
+    /**
+     * @param string $statement
+     *
+     * @return array<string, string>
+     */
+    private static function parseUseStatement(string $statement): array
+    {
         $imports = [];
 
-        foreach ($matches[1] ?? [] as $statement) {
-            if (!is_string($statement)) {
-                continue;
+        if (str_contains($statement, '{') && str_contains($statement, '}')) {
+            $prefix = trim(substr($statement, 0, (int) strpos($statement, '{')));
+            $prefix = rtrim(trim($prefix), '\\');
+            $groupBody = trim((string) preg_replace('/^.*\{(.*)\}.*$/', '$1', $statement));
+            $items = array_filter(array_map('trim', explode(',', $groupBody)));
+
+            foreach ($items as $item) {
+                $parts = preg_split('/\s+as\s+/i', $item);
+                if (!is_array($parts) || trim($parts[0]) === '') {
+                    continue;
+                }
+
+                $classPath = ltrim($prefix . '\\' . trim($parts[0]), '\\');
+                $alias = isset($parts[1]) && trim($parts[1]) !== ''
+                    ? trim($parts[1])
+                    : basename(str_replace('\\', '/', trim($parts[0])));
+                $imports[$alias] = $classPath;
             }
 
-            $statement = trim($statement);
-            if ($statement === '') {
-                continue;
-            }
+            return $imports;
+        }
 
-            $parts = preg_split('/\s+as\s+/i', $statement);
-            if (!is_array($parts) || $parts === []) {
+        foreach (array_filter(array_map('trim', explode(',', $statement))) as $item) {
+            $parts = preg_split('/\s+as\s+/i', $item);
+            if (!is_array($parts) || trim($parts[0]) === '') {
                 continue;
             }
 
             $fullyQualifiedClass = ltrim(trim($parts[0]), '\\');
-            if ($fullyQualifiedClass === '') {
-                continue;
-            }
-
             $alias = isset($parts[1]) && trim($parts[1]) !== ''
                 ? trim($parts[1])
                 : basename(str_replace('\\', '/', $fullyQualifiedClass));
-
             $imports[$alias] = $fullyQualifiedClass;
         }
 
@@ -609,17 +820,80 @@ class Documentation
     }
 
     /**
-     * @param string $content
+     * @param array<int, mixed> $tokens
      *
      * @return string|null
      */
-    private static function parsePhpNamespace(string $content): ?string
+    private static function parsePhpNamespace(array $tokens): ?string
     {
-        if (preg_match('/^\s*namespace\s+([^;]+);/m', $content, $matches) !== 1) {
-            return null;
+        $tokenCount = count($tokens);
+        for ($index = 0; $index < $tokenCount; $index++) {
+            $token = $tokens[$index];
+            if (!is_array($token) || $token[0] !== T_NAMESPACE) {
+                continue;
+            }
+
+            $namespace = '';
+            for ($cursor = $index + 1; $cursor < $tokenCount; $cursor++) {
+                $candidate = $tokens[$cursor];
+                if ($candidate === ';' || $candidate === '{') {
+                    return trim($namespace, '\\');
+                }
+
+                if (!is_array($candidate)) {
+                    continue;
+                }
+
+                if (in_array($candidate[0], [T_STRING, T_NS_SEPARATOR, T_NAME_QUALIFIED], true)) {
+                    $namespace .= $candidate[1];
+                }
+            }
         }
 
-        return trim($matches[1]);
+        return null;
+    }
+
+    /**
+     * @param array<int, mixed> $tokens
+     *
+     * @return array<int, mixed>
+     */
+    private static function trimPhpTokens(array $tokens): array
+    {
+        while ($tokens !== [] && self::isIgnorablePhpToken($tokens[0])) {
+            array_shift($tokens);
+        }
+
+        while ($tokens !== [] && self::isIgnorablePhpToken($tokens[count($tokens) - 1])) {
+            array_pop($tokens);
+        }
+
+        return $tokens;
+    }
+
+    /**
+     * @param mixed $token
+     *
+     * @return bool
+     */
+    private static function isIgnorablePhpToken(mixed $token): bool
+    {
+        return is_array($token) && in_array($token[0], [T_WHITESPACE, T_COMMENT, T_DOC_COMMENT], true);
+    }
+
+    /**
+     * @param array<int, mixed> $tokens
+     *
+     * @return string
+     */
+    private static function stringifyPhpTokens(array $tokens): string
+    {
+        $string = '';
+        foreach ($tokens as $token) {
+            $string .= is_array($token) ? $token[1] : (string) $token;
+        }
+
+        return $string;
     }
 
     /**

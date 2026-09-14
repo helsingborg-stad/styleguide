@@ -41,6 +41,8 @@ class ComponentLibraryTest extends TestCase
         mkdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Toast__item', 0777, true);
         mkdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_card', 0777, true);
         mkdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_only', 0777, true);
+        mkdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_imported', 0777, true);
+        mkdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_fqcn', 0777, true);
 
         file_put_contents(
             $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card/card.json',
@@ -183,6 +185,22 @@ class ComponentLibraryTest extends TestCase
             $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_only/config.php',
             "<?php\n\nuse ComponentLibrary\\ComponentConfiguration\\ComponentConfig;\n\nreturn new ComponentConfig(\n    slug: 'typed_only',\n    view: 'typed_only.blade.php',\n    data: StyleguideTypedCardDataFixture::class,\n);\n",
         );
+
+        file_put_contents(
+            $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_imported/TypedImportedDataFixture.php',
+            "<?php\n\ndeclare(strict_types=1);\n\nnamespace Styleguide\\Fixtures;\n\nfinal class TypedImportedDataFixture\n{\n    /**\n     * @param string \$label Imported fixture label.\n     */\n    public function __construct(\n        public string \$label = 'imported',\n    ) {\n    }\n}\n",
+        );
+        require_once $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_imported/TypedImportedDataFixture.php';
+
+        file_put_contents(
+            $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_imported/config.php',
+            "<?php\n\nuse ComponentLibrary\\ComponentConfiguration\\ComponentConfig;\nuse Styleguide\\Fixtures\\TypedImportedDataFixture as ImportedData;\n\nreturn new ComponentConfig(\n    slug: 'typed_imported',\n    view: 'typed_imported.blade.php',\n    data: ImportedData::class,\n);\n",
+        );
+
+        file_put_contents(
+            $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_fqcn/config.php',
+            "<?php\n\nuse ComponentLibrary\\ComponentConfiguration\\ComponentConfig;\n\nreturn new ComponentConfig(\n    slug: 'typed_fqcn',\n    view: 'typed_fqcn.blade.php',\n    data: \\Styleguide\\Fixtures\\TypedImportedDataFixture::class,\n);\n",
+        );
     }
 
     protected function tearDown(): void
@@ -197,6 +215,9 @@ class ComponentLibraryTest extends TestCase
         @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_card/config.php');
         @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_card/typed_card.json');
         @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_only/config.php');
+        @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_imported/config.php');
+        @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_imported/TypedImportedDataFixture.php');
+        @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_fqcn/config.php');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card__header');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card__body');
@@ -205,6 +226,8 @@ class ComponentLibraryTest extends TestCase
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Toast__item');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_card');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_only');
+        @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_imported');
+        @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_fqcn');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source');
@@ -258,6 +281,28 @@ class ComponentLibraryTest extends TestCase
         $this->assertSame('legacy', $rows[1]['default']);
         $this->assertSame('string', $rows[1]['type']);
         $this->assertSame('Legacy only parameter.', $rows[1]['description']);
+    }
+
+    public function testGetComponentApiSupportsImportedDataClassInPhpConfig(): void
+    {
+        $rows = Documentation::getComponentApi('typed_imported', $this->tempBasePath);
+
+        $this->assertCount(1, $rows);
+        $this->assertSame('label', $rows[0]['parameter']);
+        $this->assertSame('imported', $rows[0]['default']);
+        $this->assertSame('string', $rows[0]['type']);
+        $this->assertSame('Imported fixture label.', $rows[0]['description']);
+    }
+
+    public function testGetComponentApiSupportsFullyQualifiedDataClassInPhpConfig(): void
+    {
+        $rows = Documentation::getComponentApi('typed_fqcn', $this->tempBasePath);
+
+        $this->assertCount(1, $rows);
+        $this->assertSame('label', $rows[0]['parameter']);
+        $this->assertSame('imported', $rows[0]['default']);
+        $this->assertSame('string', $rows[0]['type']);
+        $this->assertSame('Imported fixture label.', $rows[0]['description']);
     }
 
     public function testGetSubcomponentsReturnsPurposeAnchorAndParameters(): void
