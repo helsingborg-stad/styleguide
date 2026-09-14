@@ -541,7 +541,7 @@ class Documentation
             }
 
             $types = array_values(array_unique($types));
-            if (count($types) === 2 && in_array('NULL', $types, true)) {
+            if (count($types) === 2 && in_array('null', $types, true)) {
                 $nonNullableNamedType = null;
                 foreach ($namedTypes as $namedType) {
                     if (strtolower($namedType->getName()) !== 'null') {
@@ -564,11 +564,15 @@ class Documentation
         if ($type instanceof \ReflectionNamedType) {
             $normalizedType = self::normalizeReflectedTypeName($type->getName());
             if ($type->allowsNull() && strtolower($type->getName()) !== 'null') {
+                if ($normalizedType === 'mixed') {
+                    return 'mixed';
+                }
+
                 if (self::canUseNullableShorthand($type->getName())) {
                     return '?' . $normalizedType;
                 }
 
-                return $normalizedType . '|NULL';
+                return $normalizedType . '|null';
             }
 
             return $normalizedType;
@@ -709,7 +713,7 @@ class Documentation
             'bool' => 'boolean',
             'int' => 'integer',
             'float' => 'float',
-            'null' => 'NULL',
+            'null' => 'null',
             default => ltrim($typeName, '\\'),
         };
     }
