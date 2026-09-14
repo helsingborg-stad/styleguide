@@ -142,6 +142,29 @@ class ComponentLibraryTest extends TestCase
             $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_card/config.php',
             "<?php\n\nrequire_once __DIR__ . '/TypedCardDataFixture.php';\n\nreturn new class () {\n    public string \$slug = 'typed_card';\n    public string \$view = 'typed_card.blade.php';\n    public string \$data = StyleguideTypedCardDataFixture::class;\n};\n",
         );
+
+        file_put_contents(
+            $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_card/typed_card.json',
+            json_encode([
+                'slug' => 'typed_card',
+                'parameters' => [
+                    [
+                        'parameter' => 'heading',
+                        'hasDefault' => true,
+                        'default' => 'Legacy heading',
+                        'type' => 'string',
+                        'description' => 'Legacy heading description.',
+                    ],
+                    [
+                        'parameter' => 'legacyOnly',
+                        'hasDefault' => true,
+                        'default' => 'legacy',
+                        'type' => 'string',
+                        'description' => 'Legacy only parameter.',
+                    ],
+                ],
+            ]),
+        );
     }
 
     protected function tearDown(): void
@@ -155,6 +178,7 @@ class ComponentLibraryTest extends TestCase
         @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Toast__item/toast__item.blade.php');
         @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_card/config.php');
         @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_card/TypedCardDataFixture.php');
+        @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_card/typed_card.json');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card__header');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card__body');
@@ -186,7 +210,7 @@ class ComponentLibraryTest extends TestCase
     {
         $rows = Documentation::getComponentApi('typed_card', $this->tempBasePath);
 
-        $this->assertCount(3, $rows);
+        $this->assertCount(4, $rows);
         $this->assertSame('heading', $rows[0]['parameter']);
         $this->assertSame('-', $rows[0]['default']);
         $this->assertSame('string', $rows[0]['type']);
@@ -201,6 +225,11 @@ class ComponentLibraryTest extends TestCase
         $this->assertSame('null', $rows[2]['default']);
         $this->assertSame('?string', $rows[2]['type']);
         $this->assertSame('Optional icon name.', $rows[2]['description']);
+
+        $this->assertSame('legacyOnly', $rows[3]['parameter']);
+        $this->assertSame('legacy', $rows[3]['default']);
+        $this->assertSame('string', $rows[3]['type']);
+        $this->assertSame('Legacy only parameter.', $rows[3]['description']);
     }
 
     public function testGetSubcomponentsReturnsPurposeAnchorAndParameters(): void

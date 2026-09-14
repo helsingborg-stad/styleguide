@@ -534,18 +534,27 @@ class Documentation
         $type = $parameter->getType();
 
         if ($type instanceof \ReflectionUnionType) {
+            $namedTypes = $type->getTypes();
             $types = [];
-            foreach ($type->getTypes() as $namedType) {
+            foreach ($namedTypes as $namedType) {
                 $types[] = self::normalizeReflectedTypeName($namedType->getName());
             }
 
             $types = array_values(array_unique($types));
             if (count($types) === 2 && in_array('NULL', $types, true)) {
-                $nonNullableType = $types[0] === 'NULL' ? $types[1] : $types[0];
-                $nullableShorthandUnsupportedTypes = ['NULL', 'false', 'true', 'mixed'];
+                $nonNullableNamedType = null;
+                foreach ($namedTypes as $namedType) {
+                    if (strtolower($namedType->getName()) !== 'null') {
+                        $nonNullableNamedType = $namedType;
+                        break;
+                    }
+                }
 
-                if (!in_array($nonNullableType, $nullableShorthandUnsupportedTypes, true)) {
-                    return '?' . $nonNullableType;
+                if (
+                    $nonNullableNamedType instanceof \ReflectionNamedType &&
+                    self::canUseNullableShorthand($nonNullableNamedType->getName())
+                ) {
+                    return '?' . ltrim($nonNullableNamedType->getName(), '\\');
                 }
             }
 
@@ -554,8 +563,12 @@ class Documentation
 
         if ($type instanceof \ReflectionNamedType) {
             $normalizedType = self::normalizeReflectedTypeName($type->getName());
-            if ($type->allowsNull() && $normalizedType !== 'NULL') {
-                return '?' . $normalizedType;
+            if ($type->allowsNull() && strtolower($type->getName()) !== 'null') {
+                if (self::canUseNullableShorthand($type->getName())) {
+                    return '?' . ltrim($type->getName(), '\\');
+                }
+
+                return $normalizedType . '|NULL';
             }
 
             return $normalizedType;
@@ -648,15 +661,6 @@ class Documentation
     {
         $merged = self::mergeConfigWithFallback($phpConfig, $jsonConfig);
 
-        foreach (['default', 'types', 'description'] as $key) {
-            $jsonValues = is_array($jsonConfig[$key] ?? null) ? $jsonConfig[$key] : [];
-            $currentValues = is_array($merged[$key] ?? null) ? $merged[$key] : [];
-
-            if ($jsonValues !== []) {
-                $merged[$key] = array_merge($currentValues, $jsonValues);
-            }
-        }
-
         $jsonParameters = is_array($jsonConfig['parameters'] ?? null) ? $jsonConfig['parameters'] : [];
         $currentParameters = is_array($merged['parameters'] ?? null) ? $merged['parameters'] : [];
         if ($jsonParameters === [] || $currentParameters === []) {
@@ -685,7 +689,7 @@ class Documentation
             $parameterIndex = $parameterIndexesByName[$parameterName];
             $existingParameter = $currentParameters[$parameterIndex];
             if (is_array($existingParameter)) {
-                $currentParameters[$parameterIndex] = array_merge($existingParameter, $jsonParameter);
+                $currentParameters[$parameterIndex] = array_merge($jsonParameter, $existingParameter);
             }
         }
 
@@ -708,6 +712,16 @@ class Documentation
             'null' => 'NULL',
             default => ltrim($typeName, '\\'),
         };
+    }
+
+    /**
+     * @param string $typeName
+     *
+     * @return bool
+     */
+    private static function canUseNullableShorthand(string $typeName): bool
+    {
+        return !in_array(strtolower(ltrim($typeName, '\\')), ['bool', 'int', 'mixed', 'null', 'false', 'true'], true);
     }
 
     /**
