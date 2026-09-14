@@ -522,20 +522,11 @@ class Documentation
 
         for ($index = 0; $index < $tokenCount; $index++) {
             $token = $tokens[$index];
-            if (!is_array($token) || $token[0] !== T_RETURN) {
+            if (!is_array($token) || $token[0] !== T_NEW) {
                 continue;
             }
 
             $cursor = $index + 1;
-            while ($cursor < $tokenCount && self::isIgnorablePhpToken($tokens[$cursor])) {
-                $cursor++;
-            }
-
-            if ($cursor >= $tokenCount || !is_array($tokens[$cursor]) || $tokens[$cursor][0] !== T_NEW) {
-                continue;
-            }
-
-            $cursor++;
             $className = '';
 
             while ($cursor < $tokenCount) {
@@ -1250,30 +1241,47 @@ class Documentation
         }
 
         $descriptions = [];
-        $currentParameter = null;
+        $declarations = [];
+        $currentDeclaration = null;
 
         foreach (preg_split('/\R/', $docComment) ?: [] as $line) {
-            if (preg_match('/^\s*\*\s*@param\s+\S+\s+\$([a-zA-Z_][a-zA-Z0-9_]*)\s*(.*)$/', $line, $matches) === 1) {
-                $currentParameter = $matches[1];
-                $descriptions[$currentParameter] = trim($matches[2] ?? '');
+            if (preg_match('/^\s*\*\s*@param\s+(.+)$/', $line, $matches) === 1) {
+                if ($currentDeclaration !== null) {
+                    $declarations[] = trim($currentDeclaration);
+                }
+
+                $currentDeclaration = trim($matches[1]);
                 continue;
             }
 
-            if ($currentParameter === null) {
+            if ($currentDeclaration === null) {
                 continue;
             }
 
             if (preg_match('/^\s*\*\s*@\w+/', $line) === 1) {
-                $currentParameter = null;
+                $declarations[] = trim($currentDeclaration);
+                $currentDeclaration = null;
                 continue;
             }
 
             if (preg_match('/^\s*\*\s?(.*)$/', $line, $matches) === 1) {
                 $continuation = trim($matches[1]);
                 if ($continuation !== '' && $continuation !== '/') {
-                    $descriptions[$currentParameter] = trim(($descriptions[$currentParameter] ?? '') . ' ' . $continuation);
+                    $currentDeclaration = trim($currentDeclaration . ' ' . $continuation);
                 }
             }
+        }
+
+        if ($currentDeclaration !== null) {
+            $declarations[] = trim($currentDeclaration);
+        }
+
+        foreach ($declarations as $declaration) {
+            if (preg_match('/^\S+\s+\$([a-zA-Z_][a-zA-Z0-9_]*)(?:\s+(.*))?$/', $declaration, $matches) !== 1) {
+                continue;
+            }
+
+            $descriptions[$matches[1]] = trim($matches[2] ?? '');
         }
 
         return $descriptions;
