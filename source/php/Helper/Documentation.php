@@ -419,11 +419,7 @@ class Documentation
      */
     private static function readPhpConfigFromFile(string $path): ?array
     {
-        try {
-            $config = require $path;
-        } catch (\Throwable) {
-            return null;
-        }
+        $config = require $path;
 
         if (is_object($config)) {
             $config = get_object_vars($config);
@@ -443,6 +439,7 @@ class Documentation
             }
         }
 
+        $existingParameters = is_array($config['parameters'] ?? null) ? $config['parameters'] : [];
         $typedParameters = self::reflectTypedParameters($config['data'] ?? null);
         if ($typedParameters !== []) {
             $defaults = is_array($config['default'] ?? null) ? $config['default'] : [];
@@ -475,7 +472,9 @@ class Documentation
             $config['default'] = $defaults;
             $config['types'] = $types;
             $config['description'] = $descriptions;
-            $config['parameters'] = $typedParameters;
+            $config['parameters'] = $existingParameters === []
+                ? $typedParameters
+                : self::mergeParameterDefinitions($existingParameters, $typedParameters);
         }
 
         return $config;
@@ -667,37 +666,53 @@ class Documentation
 
         $jsonParameters = is_array($jsonConfig['parameters'] ?? null) ? $jsonConfig['parameters'] : [];
         $currentParameters = is_array($merged['parameters'] ?? null) ? $merged['parameters'] : [];
-        if ($jsonParameters === [] || $currentParameters === []) {
+        if ($jsonParameters !== [] && $currentParameters === []) {
+            $merged['parameters'] = $jsonParameters;
             return $merged;
         }
 
+        if ($jsonParameters !== [] && $currentParameters !== []) {
+            $merged['parameters'] = self::mergeParameterDefinitions($currentParameters, $jsonParameters);
+        }
+
+        return $merged;
+    }
+
+    /**
+     * @param array<int, mixed> $primary
+     * @param array<int, mixed> $fallback
+     *
+     * @return array<int, mixed>
+     */
+    private static function mergeParameterDefinitions(array $primary, array $fallback): array
+    {
+        $merged = $primary;
         $parameterIndexesByName = [];
-        foreach ($currentParameters as $index => $parameter) {
+
+        foreach ($merged as $index => $parameter) {
             if (is_array($parameter) && is_string($parameter['parameter'] ?? null)) {
                 $parameterIndexesByName[$parameter['parameter']] = $index;
             }
         }
 
-        foreach ($jsonParameters as $jsonParameter) {
-            if (!is_array($jsonParameter) || !is_string($jsonParameter['parameter'] ?? null)) {
+        foreach ($fallback as $fallbackParameter) {
+            if (!is_array($fallbackParameter) || !is_string($fallbackParameter['parameter'] ?? null)) {
                 continue;
             }
 
-            $parameterName = $jsonParameter['parameter'];
+            $parameterName = $fallbackParameter['parameter'];
             if (!isset($parameterIndexesByName[$parameterName])) {
-                $parameterIndexesByName[$parameterName] = count($currentParameters);
-                $currentParameters[] = $jsonParameter;
+                $parameterIndexesByName[$parameterName] = count($merged);
+                $merged[] = $fallbackParameter;
                 continue;
             }
 
             $parameterIndex = $parameterIndexesByName[$parameterName];
-            $existingParameter = $currentParameters[$parameterIndex];
+            $existingParameter = $merged[$parameterIndex];
             if (is_array($existingParameter)) {
-                $currentParameters[$parameterIndex] = array_merge($jsonParameter, $existingParameter);
+                $merged[$parameterIndex] = array_merge($fallbackParameter, $existingParameter);
             }
         }
-
-        $merged['parameters'] = $currentParameters;
 
         return $merged;
     }
