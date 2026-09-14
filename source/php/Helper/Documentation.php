@@ -402,7 +402,7 @@ class Documentation
         }
 
         if ($jsonConfig !== null && $phpConfig !== null) {
-            return self::mergeConfigWithFallback($jsonConfig, $phpConfig);
+            return self::mergePhpAndJsonConfig($phpConfig, $jsonConfig);
         }
 
         if ($jsonConfig !== null) {
@@ -634,6 +634,62 @@ class Documentation
 
             $merged['parameters'] = $primaryParameters;
         }
+
+        return $merged;
+    }
+
+    /**
+     * @param array<string, mixed> $phpConfig
+     * @param array<string, mixed> $jsonConfig
+     *
+     * @return array<string, mixed>
+     */
+    private static function mergePhpAndJsonConfig(array $phpConfig, array $jsonConfig): array
+    {
+        $merged = self::mergeConfigWithFallback($phpConfig, $jsonConfig);
+
+        foreach (['default', 'types', 'description'] as $key) {
+            $jsonValues = is_array($jsonConfig[$key] ?? null) ? $jsonConfig[$key] : [];
+            $currentValues = is_array($merged[$key] ?? null) ? $merged[$key] : [];
+
+            if ($jsonValues !== []) {
+                $merged[$key] = array_merge($currentValues, $jsonValues);
+            }
+        }
+
+        $jsonParameters = is_array($jsonConfig['parameters'] ?? null) ? $jsonConfig['parameters'] : [];
+        $currentParameters = is_array($merged['parameters'] ?? null) ? $merged['parameters'] : [];
+        if ($jsonParameters === [] || $currentParameters === []) {
+            return $merged;
+        }
+
+        $parameterIndexesByName = [];
+        foreach ($currentParameters as $index => $parameter) {
+            if (is_array($parameter) && is_string($parameter['parameter'] ?? null)) {
+                $parameterIndexesByName[$parameter['parameter']] = $index;
+            }
+        }
+
+        foreach ($jsonParameters as $jsonParameter) {
+            if (!is_array($jsonParameter) || !is_string($jsonParameter['parameter'] ?? null)) {
+                continue;
+            }
+
+            $parameterName = $jsonParameter['parameter'];
+            if (!isset($parameterIndexesByName[$parameterName])) {
+                $parameterIndexesByName[$parameterName] = count($currentParameters);
+                $currentParameters[] = $jsonParameter;
+                continue;
+            }
+
+            $parameterIndex = $parameterIndexesByName[$parameterName];
+            $existingParameter = $currentParameters[$parameterIndex];
+            if (is_array($existingParameter)) {
+                $currentParameters[$parameterIndex] = array_merge($existingParameter, $jsonParameter);
+            }
+        }
+
+        $merged['parameters'] = $currentParameters;
 
         return $merged;
     }
