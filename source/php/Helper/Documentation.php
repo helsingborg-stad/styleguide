@@ -1158,7 +1158,7 @@ class Documentation
         }
 
         if ($jsonParameters !== [] && $currentParameters !== []) {
-            $merged['parameters'] = self::mergeParameterDefinitions($currentParameters, $jsonParameters);
+            $merged['parameters'] = self::mergeParameterDefinitions($jsonParameters, $currentParameters);
         }
 
         return $merged;
