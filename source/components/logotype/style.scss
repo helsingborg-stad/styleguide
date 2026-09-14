@@ -18,7 +18,6 @@ $_: "c-logotype";
     margin-inline-start: 0;
     margin-inline-end: 0;
     display: inline-block;
-    position: relative;
 
     &[data-aspect-ratio] {
         aspect-ratio: var(--#{$_}--aspect-ratio);
