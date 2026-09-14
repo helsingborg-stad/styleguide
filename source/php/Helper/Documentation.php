@@ -542,8 +542,11 @@ class Documentation
             $types = array_values(array_unique($types));
             if (count($types) === 2 && in_array('NULL', $types, true)) {
                 $nonNullableType = $types[0] === 'NULL' ? $types[1] : $types[0];
+                $nullableShorthandUnsupportedTypes = ['NULL', 'false', 'true', 'mixed'];
 
-                return '?' . $nonNullableType;
+                if (!in_array($nonNullableType, $nullableShorthandUnsupportedTypes, true)) {
+                    return '?' . $nonNullableType;
+                }
             }
 
             return implode('|', $types);
@@ -614,7 +617,7 @@ class Documentation
         return match ($typeName) {
             'bool' => 'boolean',
             'int' => 'integer',
-            'float' => 'double',
+            'float' => 'float',
             'null' => 'NULL',
             default => ltrim($typeName, '\\'),
         };
