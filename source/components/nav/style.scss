@@ -144,11 +144,6 @@ $_: "c-nav";
         transition: transform 200ms;
     }
 
-    .c-nav__item:not(.is-open)>.c-nav,
-    .c-nav__item:not(.is-open)>.c-nav__child-container {
-        display: none;
-    }
-
     [data-component="button"].#{$_}__toggle {
         --inherit-active: transparent;
         --inherit-hover: transparent;
@@ -207,28 +202,10 @@ $_: "c-nav";
         }
 
         .c-nav.c-nav--child {
-            z-index: 5;
-            position: absolute;
-            bottom: 0;
             background: var(--#{$_}--item-background-color);
             min-width: calc(#{tokens.getRawValue($_, "base")} * 28);
             border-radius: tokens.getCalculatedValue($_, "border-radius");
             filter: var(--#{$_}--shadow);
-            transform: translateY(100%);
-            animation: c-nav-popout 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-
-            &:after {
-                position: absolute;
-                background: inherit;
-                content: "";
-                height: calc(#{tokens.getRawValue($_, "base")} * 2.5);
-                left: calc(#{tokens.getRawValue($_, "base")} * 2.5);
-                top: calc(#{tokens.getRawValue($_, "base")} * -1);
-                transform: rotate(45deg);
-                width: calc(#{tokens.getRawValue($_, "base")} * 2.5);
-                z-index: 5;
-                border-top-left-radius: max(calc(#{tokens.getRawValue($_, "base")} * .5), #{tokens.getCalculatedValue($_, "border-radius")});
-            }
         }
     }
 
@@ -236,6 +213,11 @@ $_: "c-nav";
 
     &.c-nav--vertical {
         flex-direction: column;
+
+        .c-nav__item:not(.is-open)>.c-nav,
+        .c-nav__item:not(.is-open)>.c-nav__child-container {
+            display: none;
+        }
 
         .c-nav.c-nav--vertical {
             background-color: var(--#{$_}--background-expanded-color);
@@ -521,28 +503,6 @@ $_: "c-nav";
         .c-nav__toggle {
             color: var(--#{$_}--item-color-hover);
         }
-    }
-}
-
-// Dropdown animation
-@keyframes c-nav-popout {
-
-    0% {
-        transform: translateY(120%);
-        opacity: 0;
-    }
-
-    30% {
-        opacity: 1;
-        transform: translateY(100%);
-    }
-
-    55% {
-        transform: translateY(105%);
-    }
-
-    100% {
-        transform: translateY(100%);
     }
 }
 
