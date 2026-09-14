@@ -600,8 +600,39 @@ class Documentation
             }
         }
 
-        if (!is_array($merged['parameters'] ?? null) && is_array($fallback['parameters'] ?? null)) {
-            $merged['parameters'] = $fallback['parameters'];
+        $primaryParameters = is_array($merged['parameters'] ?? null) ? $merged['parameters'] : [];
+        $fallbackParameters = is_array($fallback['parameters'] ?? null) ? $fallback['parameters'] : [];
+
+        if ($primaryParameters === [] && $fallbackParameters !== []) {
+            $merged['parameters'] = $fallbackParameters;
+        } elseif ($primaryParameters !== [] && $fallbackParameters !== []) {
+            $parameterIndexesByName = [];
+            foreach ($primaryParameters as $index => $primaryParameter) {
+                if (is_array($primaryParameter) && is_string($primaryParameter['parameter'] ?? null)) {
+                    $parameterIndexesByName[$primaryParameter['parameter']] = $index;
+                }
+            }
+
+            foreach ($fallbackParameters as $fallbackParameter) {
+                if (!is_array($fallbackParameter) || !is_string($fallbackParameter['parameter'] ?? null)) {
+                    continue;
+                }
+
+                $parameterName = $fallbackParameter['parameter'];
+                if (isset($parameterIndexesByName[$parameterName])) {
+                    $parameterIndex = $parameterIndexesByName[$parameterName];
+                    $existingParameter = $primaryParameters[$parameterIndex];
+                    if (is_array($existingParameter)) {
+                        $primaryParameters[$parameterIndex] = array_merge($fallbackParameter, $existingParameter);
+                    }
+                    continue;
+                }
+
+                $parameterIndexesByName[$parameterName] = count($primaryParameters);
+                $primaryParameters[] = $fallbackParameter;
+            }
+
+            $merged['parameters'] = $primaryParameters;
         }
 
         return $merged;
