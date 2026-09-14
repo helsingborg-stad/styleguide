@@ -395,14 +395,13 @@ class Documentation
             }
         }
 
-        if ($jsonConfig !== null && self::hasParameterMetadata($jsonConfig)) {
-            return $jsonConfig;
-        }
-
         $phpConfigPath = rtrim($directory, '/') . '/config.php';
         $phpConfig = null;
         if (is_file($phpConfigPath)) {
-            $phpConfig = self::readPhpConfigFromFile($phpConfigPath);
+            $phpConfig = self::readPhpConfigFromFile(
+                $phpConfigPath,
+                !($jsonConfig !== null && self::hasParameterMetadata($jsonConfig))
+            );
         }
 
         if ($jsonConfig !== null && $phpConfig !== null) {
@@ -418,10 +417,11 @@ class Documentation
 
     /**
      * @param string $path
+     * @param bool $includeTypedReflection
      *
      * @return array<string, mixed>|null
      */
-    private static function readPhpConfigFromFile(string $path): ?array
+    private static function readPhpConfigFromFile(string $path, bool $includeTypedReflection = true): ?array
     {
         $content = file_get_contents($path);
         if (!is_string($content)) {
@@ -440,7 +440,7 @@ class Documentation
         }
 
         $existingParameters = is_array($config['parameters'] ?? null) ? $config['parameters'] : [];
-        $typedParameters = self::reflectTypedParameters($config['data'] ?? null);
+        $typedParameters = $includeTypedReflection ? self::reflectTypedParameters($config['data'] ?? null) : [];
         if ($typedParameters !== []) {
             $defaults = is_array($config['default'] ?? null) ? $config['default'] : [];
             $types = is_array($config['types'] ?? null) ? $config['types'] : [];
@@ -522,16 +522,48 @@ class Documentation
 
         for ($index = 0; $index < $tokenCount; $index++) {
             $token = $tokens[$index];
-            if (!is_array($token) || $token[0] !== T_NEW) {
+            if (!is_array($token) || $token[0] !== T_RETURN) {
                 continue;
             }
 
-            for ($cursor = $index + 1; $cursor < $tokenCount; $cursor++) {
+            $cursor = $index + 1;
+            while ($cursor < $tokenCount && self::isIgnorablePhpToken($tokens[$cursor])) {
+                $cursor++;
+            }
+
+            if ($cursor >= $tokenCount || !is_array($tokens[$cursor]) || $tokens[$cursor][0] !== T_NEW) {
+                continue;
+            }
+
+            $cursor++;
+            $className = '';
+
+            while ($cursor < $tokenCount) {
                 $candidate = $tokens[$cursor];
-                if ($candidate === '(') {
-                    $openParenthesisIndex = $cursor;
-                    break 2;
+                if (self::isIgnorablePhpToken($candidate)) {
+                    $cursor++;
+                    continue;
                 }
+
+                if ($candidate === '(') {
+                    break;
+                }
+
+                if (is_array($candidate) && in_array($candidate[0], [T_STRING, T_NS_SEPARATOR, T_NAME_QUALIFIED, T_NAME_FULLY_QUALIFIED], true)) {
+                    $className .= $candidate[1];
+                }
+
+                $cursor++;
+            }
+
+            if ($cursor >= $tokenCount || $tokens[$cursor] !== '(') {
+                continue;
+            }
+
+            $normalizedClassName = ltrim($className, '\\');
+            if ($normalizedClassName !== '' && str_ends_with($normalizedClassName, 'ComponentConfig')) {
+                $openParenthesisIndex = $cursor;
+                break;
             }
         }
 
@@ -741,7 +773,10 @@ class Documentation
                 continue;
             }
 
-            if (in_array($token[0], [T_CLASS, T_INTERFACE, T_TRAIT, T_ENUM], true)) {
+            if (
+                ($token[0] === T_CLASS && !self::isClassConstantToken($tokens, $index))
+                || in_array($token[0], [T_INTERFACE, T_TRAIT, T_ENUM], true)
+            ) {
                 break;
             }
 
@@ -770,6 +805,26 @@ class Documentation
         }
 
         return $imports;
+    }
+
+    /**
+     * @param array<int, mixed> $tokens
+     * @param int $index
+     *
+     * @return bool
+     */
+    private static function isClassConstantToken(array $tokens, int $index): bool
+    {
+        for ($cursor = $index - 1; $cursor >= 0; $cursor--) {
+            $candidate = $tokens[$cursor];
+            if (self::isIgnorablePhpToken($candidate)) {
+                continue;
+            }
+
+            return is_array($candidate) && $candidate[0] === T_DOUBLE_COLON;
+        }
+
+        return false;
     }
 
     /**
