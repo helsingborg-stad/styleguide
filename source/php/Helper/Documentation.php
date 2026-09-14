@@ -757,45 +757,84 @@ class Documentation
     {
         $imports = [];
         $tokenCount = count($tokens);
+        $scopeDepth = 0;
 
         for ($index = 0; $index < $tokenCount; $index++) {
             $token = $tokens[$index];
+
+            if ($token === '{' || $token === '(' || $token === '[') {
+                $scopeDepth++;
+                continue;
+            }
+
+            if ($token === '}' || $token === ')' || $token === ']') {
+                $scopeDepth = max(0, $scopeDepth - 1);
+                continue;
+            }
+
             if (!is_array($token)) {
                 continue;
             }
 
             if (
-                ($token[0] === T_CLASS && !self::isClassConstantToken($tokens, $index))
-                || in_array($token[0], [T_INTERFACE, T_TRAIT, T_ENUM], true)
+                $scopeDepth <= 1 &&
+                (
+                    ($token[0] === T_CLASS
+                        && !self::isClassConstantToken($tokens, $index)
+                        && !self::isAnonymousClassToken($tokens, $index)
+                    )
+                    || in_array($token[0], [T_INTERFACE, T_TRAIT, T_ENUM], true)
+                )
             ) {
                 break;
             }
 
-            if ($token[0] !== T_USE) {
-                continue;
-            }
-
-            $statementTokens = [];
-            for ($cursor = $index + 1; $cursor < $tokenCount; $cursor++) {
-                $candidate = $tokens[$cursor];
-                if ($candidate === ';') {
-                    $index = $cursor;
-                    break;
+            if (
+                ($scopeDepth <= 1) &&
+                $token[0] === T_USE
+            ) {
+                $statementTokens = [];
+                for ($cursor = $index + 1; $cursor < $tokenCount; $cursor++) {
+                    $candidate = $tokens[$cursor];
+                    if ($candidate === ';') {
+                        $index = $cursor;
+                        break;
+                    }
+                    $statementTokens[] = $candidate;
                 }
-                $statementTokens[] = $candidate;
-            }
 
-            $statement = trim(self::stringifyPhpTokens($statementTokens));
-            if ($statement === '' || str_starts_with(strtolower($statement), 'function ') || str_starts_with(strtolower($statement), 'const ')) {
-                continue;
-            }
+                $statement = trim(self::stringifyPhpTokens($statementTokens));
+                if ($statement === '' || str_starts_with(strtolower($statement), 'function ') || str_starts_with(strtolower($statement), 'const ')) {
+                    continue;
+                }
 
-            foreach (self::parseUseStatement($statement) as $alias => $importedClass) {
-                $imports[$alias] = $importedClass;
+                foreach (self::parseUseStatement($statement) as $alias => $importedClass) {
+                    $imports[$alias] = $importedClass;
+                }
             }
         }
 
         return $imports;
+    }
+
+    /**
+     * @param array<int, mixed> $tokens
+     * @param int $index
+     *
+     * @return bool
+     */
+    private static function isAnonymousClassToken(array $tokens, int $index): bool
+    {
+        for ($cursor = $index - 1; $cursor >= 0; $cursor--) {
+            $candidate = $tokens[$cursor];
+            if (self::isIgnorablePhpToken($candidate)) {
+                continue;
+            }
+
+            return is_array($candidate) && $candidate[0] === T_NEW;
+        }
+
+        return false;
     }
 
     /**
@@ -1022,14 +1061,21 @@ class Documentation
             $namedTypes = $type->getTypes();
             $types = [];
             foreach ($namedTypes as $namedType) {
-                $types[] = self::normalizeReflectedTypeName($namedType->getName());
+                if ($namedType instanceof \ReflectionNamedType) {
+                    $types[] = self::normalizeReflectedTypeName($namedType->getName());
+                    continue;
+                }
+
+                if ($namedType instanceof \ReflectionIntersectionType) {
+                    $types[] = self::resolveIntersectionTypeName($namedType);
+                }
             }
 
             $types = array_values(array_unique($types));
             if (count($types) === 2 && in_array('null', $types, true)) {
                 $nonNullableNamedType = null;
                 foreach ($namedTypes as $namedType) {
-                    if (strtolower($namedType->getName()) !== 'null') {
+                    if ($namedType instanceof \ReflectionNamedType && strtolower($namedType->getName()) !== 'null') {
                         $nonNullableNamedType = $namedType;
                         break;
                     }
@@ -1063,7 +1109,27 @@ class Documentation
             return $normalizedType;
         }
 
+        if ($type instanceof \ReflectionIntersectionType) {
+            return self::resolveIntersectionTypeName($type);
+        }
+
         return 'mixed';
+    }
+
+    /**
+     * @param \ReflectionIntersectionType $type
+     *
+     * @return string
+     */
+    private static function resolveIntersectionTypeName(\ReflectionIntersectionType $type): string
+    {
+        $segments = [];
+
+        foreach ($type->getTypes() as $namedType) {
+            $segments[] = self::normalizeReflectedTypeName($namedType->getName());
+        }
+
+        return implode('&', $segments);
     }
 
     /**
