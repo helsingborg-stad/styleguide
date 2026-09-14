@@ -42,24 +42,24 @@ $_: "c-chat";
     .#{$_}__message-area {
         overflow: auto;
         padding: calc(tokens.getRawValue($_, "base") * 2.5) calc(tokens.getRawValue($_, "base") * 2 * var(--#{$_}--padding-multiplier));
-        height: min(80vh, calc(var(--base, 8px) * 105));
+        height: min(70vh, calc(var(--base, 8px) * 105));
     }
 
     &.#{$_}--md {
         .#{$_}__message-area {
-            height: min(80vh, calc(var(--base, 8px) * 80));
+            height: min(60vh, calc(var(--base, 8px) * 80));
         }
     }
 
     &.#{$_}--sm {
         .#{$_}__message-area {
-            height: min(75vh, calc(var(--base, 8px) * 65));
+            height: min(50vh, calc(var(--base, 8px) * 65));
         }
     }
 
     &.#{$_}--xs {
         .#{$_}__message-area {
-            height: min(60vh, calc(var(--base, 8px) * 50));
+            height: min(40vh, calc(var(--base, 8px) * 50));
         }
     }
 
