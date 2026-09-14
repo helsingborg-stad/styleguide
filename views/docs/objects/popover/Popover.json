@@ -1,0 +1,87 @@
+{
+	"title": "Popover",
+	"summary": ["The popover object provides a native HTML way to show overlays with plain elements and attributes."],
+	"description": {
+		"main": "Use the popover object to show native HTML overlays with a trigger button and a popover element. The examples below use normal elements together with supported attributes such as `popovertarget`, `popovertargetaction`, `popover`, `data-popover-backdrop`, and the styleguide placement attributes."
+	},
+	"attributes": {
+		"popovertarget": "Connects a trigger button to a popover by id.",
+		"popovertargetaction": "Controls whether the trigger toggles, shows, or hides the popover.",
+		"popover": "Marks the element as a popover.",
+		"data-js-popover-relative-to-trigger": "Optional. Set to `true` to position the popover relative to its trigger instead of the viewport.",
+		"data-js-popover-horizontal-placement": "Optional. Sets horizontal placement to `left`, `center`, or `right`.",
+		"data-js-popover-vertical-placement": "Optional. Sets vertical placement to `top`, `center`, or `bottom`.",
+		"data-popover-backdrop": "Optional. Adds a backdrop behind the popover."
+	},
+	"available": {
+		"selector": "[popover]",
+		"popovertarget": "Any element with a matching id can be used as a popover target"
+	},
+	"examples": {
+		"default": {
+			"description": {
+				"heading": "Basic native popover",
+				"description": "A normal button that toggles a popover element by id."
+			},
+			"component": "docs.objects.popover.examples.default",
+			"html": {
+				"code": "<button popovertarget=\"popover-default\">Toggle popover</button>\n\n<div id=\"popover-default\" popover>\n    <p>This is a popover.</p>\n</div>"
+			},
+			"blade": {
+				"code": "<button popovertarget=\"popover-default\">Toggle popover</button>\n\n<div id=\"popover-default\" popover>\n    <p>This is a popover.</p>\n</div>"
+			}
+		},
+		"actions": {
+			"description": {
+				"heading": "Supported trigger actions",
+				"description": "Buttons can explicitly show, hide, or toggle the same popover using `popovertargetaction`."
+			},
+			"component": "docs.objects.popover.examples.actions",
+			"html": {
+				"code": "<button popovertarget=\"popover-actions\" popovertargetaction=\"show\">Open</button>\n<button popovertarget=\"popover-actions\" popovertargetaction=\"hide\">Close</button>\n<button popovertarget=\"popover-actions\" popovertargetaction=\"toggle\">Toggle</button>\n\n<div id=\"popover-actions\" popover>\n    <p>This popover is controlled by native attributes.</p>\n</div>"
+			},
+			"blade": {
+				"code": "<button popovertarget=\"popover-actions\" popovertargetaction=\"show\">Open</button>\n<button popovertarget=\"popover-actions\" popovertargetaction=\"hide\">Close</button>\n<button popovertarget=\"popover-actions\" popovertargetaction=\"toggle\">Toggle</button>\n\n<div id=\"popover-actions\" popover>\n    <p>This popover is controlled by native attributes.</p>\n</div>"
+			}
+		},
+		"backdrop": {
+			"description": {
+				"heading": "Popover with backdrop",
+				"description": "Adds a backdrop behind the popover content."
+			},
+			"component": "docs.objects.popover.examples.backdrop",
+			"html": {
+				"code": "<button popovertarget=\"popover-backdrop\">Open backdrop popover</button>\n\n<div id=\"popover-backdrop\" popover data-popover-backdrop>\n    <p>This popover has a backdrop.</p>\n</div>"
+			},
+			"blade": {
+				"code": "<button popovertarget=\"popover-backdrop\">Open backdrop popover</button>\n\n<div id=\"popover-backdrop\" popover data-popover-backdrop>\n    <p>This popover has a backdrop.</p>\n</div>"
+			}
+		},
+		"relativePlacement": {
+			"description": {
+				"heading": "Relative placement",
+				"description": "Positions the popover relative to its trigger instead of the viewport."
+			},
+			"component": "docs.objects.popover.examples.relative",
+			"html": {
+				"code": "<button popovertarget=\"popover-relative\">Open relative popover</button>\n\n<div id=\"popover-relative\" popover data-js-popover-relative-to-trigger=\"true\" data-js-popover-horizontal-placement=\"right\" data-js-popover-vertical-placement=\"bottom\">\n    <p>This popover is placed relative to the trigger.</p>\n</div>"
+			},
+			"blade": {
+				"code": "<button popovertarget=\"popover-relative\">Open relative popover</button>\n\n<div id=\"popover-relative\" popover data-js-popover-relative-to-trigger=\"true\" data-js-popover-horizontal-placement=\"right\" data-js-popover-vertical-placement=\"bottom\">\n    <p>This popover is placed relative to the trigger.</p>\n</div>"
+			}
+		},
+		"viewportPlacement": {
+			"description": {
+				"heading": "Viewport placement",
+				"description": "Uses the placement attributes relative to the viewport when `data-js-popover-relative-to-trigger` is not set."
+			},
+			"component": "docs.objects.popover.examples.viewport",
+			"html": {
+				"code": "<button popovertarget=\"popover-viewport\">Open viewport popover</button>\n\n<div id=\"popover-viewport\" popover data-js-popover-horizontal-placement=\"center\" data-js-popover-vertical-placement=\"top\">\n    <p>This popover is placed relative to the viewport.</p>\n</div>"
+			},
+			"blade": {
+				"code": "<button popovertarget=\"popover-viewport\">Open viewport popover</button>\n\n<div id=\"popover-viewport\" popover data-js-popover-horizontal-placement=\"center\" data-js-popover-vertical-placement=\"top\">\n    <p>This popover is placed relative to the viewport.</p>\n</div>"
+			}
+		}
+	}
+}

@@ -1,0 +1,34 @@
+{
+	"default": {
+		"heading": "Popover",
+		"text": "The Popover component allows you to easily add popovers with the correct attributes and positioning. For it to work you will need to create a trigger on your own. It is also possible to create a popover without using the component itself. Note that elements containing a container query item wont work with the default popover width setting. Check out the object documentation for more information about the attributes."
+	},
+	"horizontalViewport": {
+		"heading": "Horizontal Placement (Viewport)",
+		"text": "These examples use horizontal placement anchored to the viewport. Set horizontalPlacement to left, center, or right."
+	},
+	"verticalViewport": {
+		"heading": "Vertical Placement (Viewport)",
+		"text": "These examples use vertical placement anchored to the viewport. Set verticalPlacement to top, center, or bottom."
+	},
+	"combinationViewport": {
+		"heading": "Combination Placement (Viewport)",
+		"text": "These examples combine horizontal and vertical viewport placement values for full 3×3 placement control."
+	},
+	"horizontalRelative": {
+		"heading": "Horizontal Placement (Relative to Trigger)",
+		"text": "These examples use horizontal placement relative to the trigger element. Enable relativeToTrigger and set horizontalPlacement to left, center, or right."
+	},
+	"verticalRelative": {
+		"heading": "Vertical Placement (Relative to Trigger)",
+		"text": "These examples use vertical placement relative to the trigger element. Enable relativeToTrigger and set verticalPlacement to top, center, or bottom."
+	},
+	"combinationRelative": {
+		"heading": "Combination Placement (Relative to Trigger)",
+		"text": "These examples combine horizontal and vertical placement values relative to the trigger element."
+	},
+	"backdrop": {
+		"heading": "Backdrop",
+		"text": "These examples demonstrate the use of the popover backdrop. The backdrop can be styled using the data-popover-backdrop attribute."
+	}
+}

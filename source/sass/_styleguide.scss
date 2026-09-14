@@ -169,6 +169,7 @@
     @include meta.load-css("../components/chat/style");
     @include meta.load-css("../components/product/style");
     @include meta.load-css("../components/collapsiblesearch/style");
+    @include meta.load-css("../components/popover/style");
 }
 
 // ***************************************************************
