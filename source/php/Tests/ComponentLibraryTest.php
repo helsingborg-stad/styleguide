@@ -8,6 +8,23 @@ use MunicipioStyleGuide\Helper\Documentation;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use PHPUnit\Framework\TestCase;
 
+if (!class_exists('StyleguideTypedCardDataFixture', false)) {
+    class StyleguideTypedCardDataFixture
+    {
+        /**
+         * @param string $heading Required heading.
+         * @param bool $dismissible Whether the card can be dismissed.
+         * @param string|null $icon Optional icon name.
+         */
+        public function __construct(
+            public string $heading,
+            public bool $dismissible = false,
+            public ?string $icon = null,
+        ) {
+        }
+    }
+}
+
 class ComponentLibraryTest extends TestCase
 {
     private string $tempBasePath;
@@ -23,6 +40,7 @@ class ComponentLibraryTest extends TestCase
         mkdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Notice', 0777, true);
         mkdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Toast__item', 0777, true);
         mkdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_card', 0777, true);
+        mkdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_only', 0777, true);
 
         file_put_contents(
             $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card/card.json',
@@ -134,13 +152,8 @@ class ComponentLibraryTest extends TestCase
         );
 
         file_put_contents(
-            $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_card/TypedCardDataFixture.php',
-            "<?php\n\nif (!class_exists('StyleguideTypedCardDataFixture', false)) {\n    class StyleguideTypedCardDataFixture\n    {\n        /**\n         * @param string \$heading Required heading.\n         * @param bool \$dismissible Whether the card can be dismissed.\n         * @param string|null \$icon Optional icon name.\n         */\n        public function __construct(\n            public string \$heading,\n            public bool \$dismissible = false,\n            public ?string \$icon = null,\n        ) {\n        }\n    }\n}\n",
-        );
-
-        file_put_contents(
             $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_card/config.php',
-            "<?php\n\nrequire_once __DIR__ . '/TypedCardDataFixture.php';\n\nreturn new class () {\n    public string \$slug = 'typed_card';\n    public string \$view = 'typed_card.blade.php';\n    public string \$data = StyleguideTypedCardDataFixture::class;\n};\n",
+            "<?php\n\nuse ComponentLibrary\\ComponentConfiguration\\ComponentConfig;\n\nreturn new ComponentConfig(\n    slug: 'typed_card',\n    view: 'typed_card.blade.php',\n    data: StyleguideTypedCardDataFixture::class,\n);\n",
         );
 
         file_put_contents(
@@ -165,6 +178,11 @@ class ComponentLibraryTest extends TestCase
                 ],
             ]),
         );
+
+        file_put_contents(
+            $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_only/config.php',
+            "<?php\n\nuse ComponentLibrary\\ComponentConfiguration\\ComponentConfig;\n\nreturn new ComponentConfig(\n    slug: 'typed_only',\n    view: 'typed_only.blade.php',\n    data: StyleguideTypedCardDataFixture::class,\n);\n",
+        );
     }
 
     protected function tearDown(): void
@@ -177,8 +195,8 @@ class ComponentLibraryTest extends TestCase
         @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Toast__item/toast__item.json');
         @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Toast__item/toast__item.blade.php');
         @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_card/config.php');
-        @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_card/TypedCardDataFixture.php');
         @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_card/typed_card.json');
+        @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_only/config.php');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card__header');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card__body');
@@ -186,6 +204,7 @@ class ComponentLibraryTest extends TestCase
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Notice');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Toast__item');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_card');
+        @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_only');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source');
@@ -208,9 +227,9 @@ class ComponentLibraryTest extends TestCase
 
     public function testGetComponentApiSupportsTypedPhpConfigDeclarations(): void
     {
-        $rows = Documentation::getComponentApi('typed_card', $this->tempBasePath);
+        $rows = Documentation::getComponentApi('typed_only', $this->tempBasePath);
 
-        $this->assertCount(4, $rows);
+        $this->assertCount(3, $rows);
         $this->assertSame('heading', $rows[0]['parameter']);
         $this->assertSame('-', $rows[0]['default']);
         $this->assertSame('string', $rows[0]['type']);
@@ -225,11 +244,20 @@ class ComponentLibraryTest extends TestCase
         $this->assertSame('null', $rows[2]['default']);
         $this->assertSame('?string', $rows[2]['type']);
         $this->assertSame('Optional icon name.', $rows[2]['description']);
+    }
 
-        $this->assertSame('legacyOnly', $rows[3]['parameter']);
-        $this->assertSame('legacy', $rows[3]['default']);
-        $this->assertSame('string', $rows[3]['type']);
-        $this->assertSame('Legacy only parameter.', $rows[3]['description']);
+    public function testGetComponentApiPrefersJsonMetadataWhenPresent(): void
+    {
+        $rows = Documentation::getComponentApi('typed_card', $this->tempBasePath);
+
+        $this->assertCount(2, $rows);
+        $this->assertSame('heading', $rows[0]['parameter']);
+        $this->assertSame('Legacy heading', $rows[0]['default']);
+        $this->assertSame('Legacy heading description.', $rows[0]['description']);
+        $this->assertSame('legacyOnly', $rows[1]['parameter']);
+        $this->assertSame('legacy', $rows[1]['default']);
+        $this->assertSame('string', $rows[1]['type']);
+        $this->assertSame('Legacy only parameter.', $rows[1]['description']);
     }
 
     public function testGetSubcomponentsReturnsPurposeAnchorAndParameters(): void

@@ -395,6 +395,10 @@ class Documentation
             }
         }
 
+        if ($jsonConfig !== null && self::hasParameterMetadata($jsonConfig)) {
+            return $jsonConfig;
+        }
+
         $phpConfigPath = rtrim($directory, '/') . '/config.php';
         $phpConfig = null;
         if (is_file($phpConfigPath)) {
@@ -419,18 +423,14 @@ class Documentation
      */
     private static function readPhpConfigFromFile(string $path): ?array
     {
-        $config = require $path;
-
-        if (is_object($config)) {
-            $config = get_object_vars($config);
-        }
-
-        if (!is_array($config)) {
+        $content = file_get_contents($path);
+        if (!is_string($content)) {
             return null;
         }
 
-        if (isset($config['data']) && is_object($config['data'])) {
-            $config['data'] = get_class($config['data']);
+        $config = self::parsePhpComponentConfig($content);
+        if (!is_array($config)) {
+            return null;
         }
 
         foreach (['default', 'types', 'description'] as $key) {
@@ -478,6 +478,172 @@ class Documentation
         }
 
         return $config;
+    }
+
+    /**
+     * @param string $content
+     *
+     * @return array<string, mixed>|null
+     */
+    private static function parsePhpComponentConfig(string $content): ?array
+    {
+        $slug = self::parsePhpStringArgument($content, 'slug');
+        if ($slug === null || $slug === '') {
+            return null;
+        }
+
+        $config = ['slug' => $slug];
+
+        $view = self::parsePhpStringArgument($content, 'view');
+        if ($view !== null && $view !== '') {
+            $config['view'] = $view;
+        }
+
+        $dataClass = self::parsePhpDataClassArgument($content);
+        if ($dataClass !== null) {
+            $config['data'] = $dataClass;
+        }
+
+        return $config;
+    }
+
+    /**
+     * @param string $content
+     * @param string $argumentName
+     *
+     * @return string|null
+     */
+    private static function parsePhpStringArgument(string $content, string $argumentName): ?string
+    {
+        $pattern = sprintf('/\b%s\s*:\s*[\'"]([^\'"]+)[\'"]/', preg_quote($argumentName, '/'));
+        if (preg_match($pattern, $content, $matches) !== 1) {
+            return null;
+        }
+
+        return trim($matches[1]);
+    }
+
+    /**
+     * @param string $content
+     *
+     * @return string|null
+     */
+    private static function parsePhpDataClassArgument(string $content): ?string
+    {
+        if (preg_match('/\bdata\s*:\s*null\b/i', $content) === 1) {
+            return null;
+        }
+
+        if (preg_match('/\bdata\s*:\s*([\\\\A-Za-z_][\\\\A-Za-z0-9_]*)::class\b/', $content, $matches) !== 1) {
+            return null;
+        }
+
+        return self::resolvePhpClassNameFromSource(trim($matches[1]), $content);
+    }
+
+    /**
+     * @param string $className
+     * @param string $content
+     *
+     * @return string
+     */
+    private static function resolvePhpClassNameFromSource(string $className, string $content): string
+    {
+        $className = ltrim($className, '\\');
+        if (str_contains($className, '\\')) {
+            return $className;
+        }
+
+        foreach (self::parsePhpImports($content) as $alias => $importedClass) {
+            if ($alias === $className) {
+                return $importedClass;
+            }
+        }
+
+        $namespace = self::parsePhpNamespace($content);
+        if ($namespace === null || $namespace === '') {
+            return $className;
+        }
+
+        return $namespace . '\\' . $className;
+    }
+
+    /**
+     * @param string $content
+     *
+     * @return array<string, string>
+     */
+    private static function parsePhpImports(string $content): array
+    {
+        preg_match_all('/^\s*use\s+([^;]+);/m', $content, $matches);
+        $imports = [];
+
+        foreach ($matches[1] ?? [] as $statement) {
+            if (!is_string($statement)) {
+                continue;
+            }
+
+            $statement = trim($statement);
+            if ($statement === '') {
+                continue;
+            }
+
+            $parts = preg_split('/\s+as\s+/i', $statement);
+            if (!is_array($parts) || $parts === []) {
+                continue;
+            }
+
+            $fullyQualifiedClass = ltrim(trim($parts[0]), '\\');
+            if ($fullyQualifiedClass === '') {
+                continue;
+            }
+
+            $alias = isset($parts[1]) && trim($parts[1]) !== ''
+                ? trim($parts[1])
+                : basename(str_replace('\\', '/', $fullyQualifiedClass));
+
+            $imports[$alias] = $fullyQualifiedClass;
+        }
+
+        return $imports;
+    }
+
+    /**
+     * @param string $content
+     *
+     * @return string|null
+     */
+    private static function parsePhpNamespace(string $content): ?string
+    {
+        if (preg_match('/^\s*namespace\s+([^;]+);/m', $content, $matches) !== 1) {
+            return null;
+        }
+
+        return trim($matches[1]);
+    }
+
+    /**
+     * @param array<string, mixed> $config
+     *
+     * @return bool
+     */
+    private static function hasParameterMetadata(array $config): bool
+    {
+        foreach (['default', 'types', 'description', 'parameters'] as $key) {
+            if (!isset($config[$key])) {
+                continue;
+            }
+
+            if (is_array($config[$key]) && $config[$key] !== []) {
+                return true;
+            }
+
+            if (is_string($config[$key]) && trim($config[$key]) !== '') {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
