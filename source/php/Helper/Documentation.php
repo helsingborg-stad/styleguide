@@ -1281,6 +1281,9 @@ class Documentation
         $currentParameters = is_array($merged['parameters'] ?? null) ? $merged['parameters'] : [];
         if ($hasJsonParametersKey && is_array($jsonConfig['parameters']) && $jsonParameters === []) {
             $merged['parameters'] = [];
+            $merged['default'] = [];
+            $merged['types'] = [];
+            $merged['description'] = [];
             return $merged;
         }
 
