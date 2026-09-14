@@ -43,6 +43,7 @@ class ComponentLibraryTest extends TestCase
         mkdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_only', 0777, true);
         mkdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_imported', 0777, true);
         mkdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_fqcn', 0777, true);
+        mkdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_empty_params', 0777, true);
 
         file_put_contents(
             $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card/card.json',
@@ -201,6 +202,18 @@ class ComponentLibraryTest extends TestCase
             $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_fqcn/config.php',
             "<?php\n\nuse ComponentLibrary\\ComponentConfiguration\\ComponentConfig;\n\nreturn new ComponentConfig(\n    slug: 'typed_fqcn',\n    view: 'typed_fqcn.blade.php',\n    data: \\Styleguide\\Fixtures\\TypedImportedDataFixture::class,\n);\n",
         );
+
+        file_put_contents(
+            $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_empty_params/config.php',
+            "<?php\n\nuse ComponentLibrary\\ComponentConfiguration\\ComponentConfig;\n\nreturn new ComponentConfig(\n    slug: 'typed_empty_params',\n    view: 'typed_empty_params.blade.php',\n    data: StyleguideTypedCardDataFixture::class,\n);\n",
+        );
+        file_put_contents(
+            $this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_empty_params/typed_empty_params.json',
+            json_encode([
+                'slug' => 'typed_empty_params',
+                'parameters' => [],
+            ]),
+        );
     }
 
     protected function tearDown(): void
@@ -218,6 +231,8 @@ class ComponentLibraryTest extends TestCase
         @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_imported/config.php');
         @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_imported/TypedImportedDataFixture.php');
         @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_fqcn/config.php');
+        @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_empty_params/config.php');
+        @unlink($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_empty_params/typed_empty_params.json');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card__header');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Card__body');
@@ -228,6 +243,7 @@ class ComponentLibraryTest extends TestCase
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_only');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_imported');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_fqcn');
+        @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component/Typed_empty_params');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php/Component');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source/php');
         @rmdir($this->tempBasePath . 'vendor/helsingborg-stad/component-library/source');
@@ -304,6 +320,13 @@ class ComponentLibraryTest extends TestCase
         $this->assertSame('imported', $rows[0]['default']);
         $this->assertSame('string', $rows[0]['type']);
         $this->assertSame('Imported fixture label.', $rows[0]['description']);
+    }
+
+    public function testGetComponentApiUsesEmptyJsonParametersAsAuthoritative(): void
+    {
+        $rows = Documentation::getComponentApi('typed_empty_params', $this->tempBasePath);
+
+        $this->assertSame([], $rows);
     }
 
     public function testGetSubcomponentsReturnsPurposeAnchorAndParameters(): void

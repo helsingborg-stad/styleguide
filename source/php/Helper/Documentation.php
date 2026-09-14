@@ -777,7 +777,7 @@ class Documentation
             }
 
             if (
-                $scopeDepth <= 1 &&
+                $scopeDepth === 0 &&
                 (
                     ($token[0] === T_CLASS
                         && !self::isClassConstantToken($tokens, $index)
@@ -790,7 +790,7 @@ class Documentation
             }
 
             if (
-                ($scopeDepth <= 1) &&
+                ($scopeDepth === 0) &&
                 $token[0] === T_USE
             ) {
                 $statementTokens = [];
@@ -1216,9 +1216,10 @@ class Documentation
     {
         $merged = self::mergeConfigWithFallback($phpConfig, $jsonConfig);
 
+        $hasJsonParametersKey = array_key_exists('parameters', $jsonConfig);
         $jsonParameters = is_array($jsonConfig['parameters'] ?? null) ? $jsonConfig['parameters'] : [];
         $currentParameters = is_array($merged['parameters'] ?? null) ? $merged['parameters'] : [];
-        if ($jsonParameters !== []) {
+        if ($hasJsonParametersKey) {
             $merged['parameters'] = $jsonParameters;
             return $merged;
         }
