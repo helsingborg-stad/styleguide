@@ -260,7 +260,9 @@ class Documentation
                 ];
             }
 
-            return $rows;
+            if ($rows !== []) {
+                return $rows;
+            }
         }
 
         $settings = is_array($effectiveConfig['default'] ?? null) ? $effectiveConfig['default'] : [];
@@ -851,6 +853,29 @@ class Documentation
                 continue;
             }
 
+            if ($candidate === ']') {
+                $attributeDepth = 1;
+                for ($attributeCursor = $cursor - 1; $attributeCursor >= 0; $attributeCursor--) {
+                    $attributeToken = $tokens[$attributeCursor];
+                    if (self::isIgnorablePhpToken($attributeToken)) {
+                        continue;
+                    }
+
+                    if ($attributeToken === ']') {
+                        $attributeDepth++;
+                        continue;
+                    }
+
+                    if ($attributeToken === '[') {
+                        $attributeDepth--;
+                        if ($attributeDepth === 0) {
+                            $cursor = $attributeCursor - 1;
+                            continue 2;
+                        }
+                    }
+                }
+            }
+
             return is_array($candidate) && $candidate[0] === T_DOUBLE_COLON;
         }
 
@@ -1207,6 +1232,24 @@ class Documentation
     }
 
     /**
+     * @param array<int, mixed> $parameters
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    private static function sanitizeParameterDefinitions(array $parameters): array
+    {
+        $validParameters = [];
+
+        foreach ($parameters as $parameter) {
+            if (is_array($parameter) && is_string($parameter['parameter'] ?? null) && $parameter['parameter'] !== '') {
+                $validParameters[] = $parameter;
+            }
+        }
+
+        return $validParameters;
+    }
+
+    /**
      * @param array<string, mixed> $phpConfig
      * @param array<string, mixed> $jsonConfig
      *
@@ -1218,9 +1261,15 @@ class Documentation
 
         $hasJsonParametersKey = array_key_exists('parameters', $jsonConfig);
         $jsonParameters = is_array($jsonConfig['parameters'] ?? null) ? $jsonConfig['parameters'] : [];
+        $validJsonParameters = self::sanitizeParameterDefinitions($jsonParameters);
         $currentParameters = is_array($merged['parameters'] ?? null) ? $merged['parameters'] : [];
-        if ($hasJsonParametersKey && is_array($jsonConfig['parameters'])) {
-            $merged['parameters'] = $jsonParameters;
+        if ($hasJsonParametersKey && is_array($jsonConfig['parameters']) && $jsonParameters === []) {
+            $merged['parameters'] = [];
+            return $merged;
+        }
+
+        if ($validJsonParameters !== []) {
+            $merged['parameters'] = $validJsonParameters;
             return $merged;
         }
 
