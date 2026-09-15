@@ -8,7 +8,7 @@ export enum PopoverSetup {
     SkipCloseAnimationAttribute = 'data-popover-skip-close-animation',
     VerticalPlacementAttribute = 'data-js-popover-vertical-placement',
     HorizontalPlacementAttribute = 'data-js-popover-horizontal-placement',
-    RelativeToTrigger = 'data-js-popover-relative-to-trigger'
+    Relative = 'data-js-popover-relative',
 }
 
 export enum PopoverOffset {

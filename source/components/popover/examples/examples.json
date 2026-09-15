@@ -17,11 +17,11 @@
 	},
 	"horizontalRelative": {
 		"heading": "Horizontal Placement (Relative to Trigger)",
-		"text": "These examples use horizontal placement relative to the trigger element. Enable relativeToTrigger and set horizontalPlacement to left, center, or right."
+		"text": "These examples use horizontal placement relative to the trigger element. Enable relative and set horizontalPlacement to left, center, or right."
 	},
 	"verticalRelative": {
 		"heading": "Vertical Placement (Relative to Trigger)",
-		"text": "These examples use vertical placement relative to the trigger element. Enable relativeToTrigger and set verticalPlacement to top, center, or bottom."
+		"text": "These examples use vertical placement relative to the trigger element. Enable relative and set verticalPlacement to top, center, or bottom."
 	},
 	"combinationRelative": {
 		"heading": "Combination Placement (Relative to Trigger)",

@@ -7,7 +7,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-top-left',
-    'relativeToTrigger' => true,
+    'Relative' => true,
     'horizontalPlacement' => 'left',
     'verticalPlacement' => 'top'
 ])
@@ -33,7 +33,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-top-center',
-    'relativeToTrigger' => true,
+    'Relative' => true,
     'horizontalPlacement' => 'center',
     'verticalPlacement' => 'top'
 ])
@@ -59,7 +59,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-top-right',
-    'relativeToTrigger' => true,
+    'Relative' => true,
     'horizontalPlacement' => 'right',
     'verticalPlacement' => 'top'
 ])
@@ -85,7 +85,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-center-left',
-    'relativeToTrigger' => true,
+    'Relative' => true,
     'horizontalPlacement' => 'left',
     'verticalPlacement' => 'center'
 ])
@@ -111,7 +111,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-center-center',
-    'relativeToTrigger' => true,
+    'Relative' => true,
     'horizontalPlacement' => 'center',
     'verticalPlacement' => 'center'
 ])
@@ -137,7 +137,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-center-right',
-    'relativeToTrigger' => true,
+    'Relative' => true,
     'horizontalPlacement' => 'right',
     'verticalPlacement' => 'center'
 ])
@@ -163,7 +163,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-bottom-left',
-    'relativeToTrigger' => true,
+    'Relative' => true,
     'horizontalPlacement' => 'left',
     'verticalPlacement' => 'bottom'
 ])
@@ -189,7 +189,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-bottom-center',
-    'relativeToTrigger' => true,
+    'Relative' => true,
     'horizontalPlacement' => 'center',
     'verticalPlacement' => 'bottom'
 ])
@@ -215,7 +215,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-bottom-right',
-    'relativeToTrigger' => true,
+    'Relative' => true,
     'horizontalPlacement' => 'right',
     'verticalPlacement' => 'bottom'
 ])

@@ -10,6 +10,7 @@ type PopoverPosition = {
 interface PopoverConfig {
     trigger: HTMLElement;
     popover: HTMLElement;
+    relativeElement?: HTMLElement | null;
     mode?: PopoverPositionMode | null;
     horizontalPlacement?: PopoverHorizontalPlacement;
     verticalPlacement?: PopoverVerticalPlacement;

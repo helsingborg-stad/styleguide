@@ -39,10 +39,13 @@ class PopoverManager {
             return;
         }
 
+        const mode = this.getMode(popover);
+
         const config: PopoverConfig = {
             trigger,
             popover,
-            mode: this.getMode(popover),
+            relativeElement: this.getRelativeElement(popover, mode),
+            mode,
             horizontalPlacement: this.getHorizontalPlacement(popover),
             verticalPlacement: this.getVerticalPlacement(popover),
             key,
@@ -83,9 +86,7 @@ class PopoverManager {
     }
 
     private getMode(popover: HTMLElement): PopoverPositionMode | null {
-        const relativeToTrigger = popover.getAttribute(PopoverSetupEnums.RelativeToTrigger)?.trim().toLowerCase();
-
-        if (relativeToTrigger === 'true' || relativeToTrigger === '1') {
+        if (popover.hasAttribute(PopoverSetupEnums.Relative)) {
             return 'relative';
         }
 
@@ -117,6 +118,20 @@ class PopoverManager {
         }
 
         return undefined;
+    }
+
+    private getRelativeElement(popover: HTMLElement, mode: PopoverPositionMode | null): HTMLElement | null {
+        if (mode !== 'relative') {
+            return null;
+        }
+
+        const popoverId = popover.id?.trim();
+
+        if (!popoverId) {
+            return null;
+        }
+
+        return document.querySelector<HTMLElement>(`[${PopoverSetupEnums.Relative}="${popoverId}"]`);
     }
 }
 
