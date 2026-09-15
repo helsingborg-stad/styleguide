@@ -7,7 +7,7 @@ describe('PopoverPositionCalculator', () => {
         const trigger = document.createElement('button');
         const popover = document.createElement('div');
 
-        popover.setAttribute('data-js-popover-relative-to-trigger', 'true');
+        popover.setAttribute('data-js-popover-relative', 'true');
 
         Object.defineProperty(window, 'innerWidth', {
             configurable: true,
@@ -74,7 +74,7 @@ describe('PopoverPositionCalculator', () => {
         const relativeElement = document.createElement('div');
         const popover = document.createElement('div');
 
-        popover.setAttribute('data-js-popover-relative-to-trigger', 'true');
+        popover.setAttribute('data-js-popover-relative', 'true');
 
         Object.defineProperty(window, 'innerWidth', {
             configurable: true,
