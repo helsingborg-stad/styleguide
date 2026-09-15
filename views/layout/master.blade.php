@@ -114,11 +114,11 @@
                         'type' => 'search',
                         'placeholder' => 'Search components, utilities and scripts',
                         'classList' => ['u-margin--0'],
+                        'autocomplete' => 'off',
                         'attributeList' => [
                             'data-datalist' => '/search',
                             'data-datalist-query-param' => 'q'
                         ],
-                        'autocomplete' => 'off',
                         'size' => 'sm',
                         'icon' => ['icon' => 'search']
                     ])
@@ -185,8 +185,8 @@
                             'type' => 'search',
                             'placeholder' => 'Search components, utilities and scripts',
                             'classList' => ['u-margin--0'],
+                            'autocomplete' => 'off',
                             'attributeList' => [
-                                'autocomplete' => 'off',
                                 'data-datalist' => '/search',
                                 'data-datalist-query-param' => 'q'
                             ],
