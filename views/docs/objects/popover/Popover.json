@@ -8,7 +8,7 @@
 		"popovertarget": "Connects a trigger button to a popover by id.",
 		"popovertargetaction": "Controls whether the trigger toggles, shows, or hides the popover.",
 		"popover": "Marks the element as a popover.",
-		"data-js-popover-relative-to-trigger": "Optional. Set to `true` to position the popover relative to its trigger instead of the viewport.",
+		"data-js-popover-relative": "Optional. Add it to the popover to position the popover relative to the trigger, or set it on another element with the popover id as the value to use that element as the relative anchor instead.",
 		"data-js-popover-horizontal-placement": "Optional. Sets horizontal placement to `left`, `center`, or `right`.",
 		"data-js-popover-vertical-placement": "Optional. Sets vertical placement to `top`, `center`, or `bottom`.",
 		"data-popover-backdrop": "Optional. Adds a backdrop behind the popover."
@@ -64,16 +64,29 @@
 			},
 			"component": "docs.objects.popover.examples.relative",
 			"html": {
-				"code": "<button popovertarget=\"popover-relative\">Open relative popover</button>\n\n<div id=\"popover-relative\" popover data-js-popover-relative-to-trigger=\"true\" data-js-popover-horizontal-placement=\"right\" data-js-popover-vertical-placement=\"bottom\">\n    <p>This popover is placed relative to the trigger.</p>\n</div>"
+				"code": "<button popovertarget=\"popover-relative\">Open relative popover</button>\n\n<div id=\"popover-relative\" popover data-js-popover-relative=\"true\" data-js-popover-horizontal-placement=\"right\" data-js-popover-vertical-placement=\"bottom\">\n    <p>This popover is placed relative to the trigger.</p>\n</div>"
 			},
 			"blade": {
-				"code": "<button popovertarget=\"popover-relative\">Open relative popover</button>\n\n<div id=\"popover-relative\" popover data-js-popover-relative-to-trigger=\"true\" data-js-popover-horizontal-placement=\"right\" data-js-popover-vertical-placement=\"bottom\">\n    <p>This popover is placed relative to the trigger.</p>\n</div>"
+				"code": "<button popovertarget=\"popover-relative\">Open relative popover</button>\n\n<div id=\"popover-relative\" popover data-js-popover-relative=\"true\" data-js-popover-horizontal-placement=\"right\" data-js-popover-vertical-placement=\"bottom\">\n    <p>This popover is placed relative to the trigger.</p>\n</div>"
+			}
+		},
+		"relativeAnchor": {
+			"description": {
+				"heading": "Relative placement with a separate anchor",
+				"description": "Positions the popover relative to another element, using `data-js-popover-relative` on the anchor element."
+			},
+			"component": "docs.objects.popover.examples.relative-anchor",
+			"html": {
+				"code": "<button popovertarget=\"popover-relative-anchor\">Open anchored popover</button>\n\n<div data-js-popover-relative=\"popover-relative-anchor\" class=\"u-display--inline-flex\">\n    <span>Anchor element</span>\n</div>\n\n<div id=\"popover-relative-anchor\" popover data-js-popover-relative=\"true\" data-js-popover-horizontal-placement=\"right\" data-js-popover-vertical-placement=\"bottom\">\n    <p>This popover is placed relative to the anchor element instead of the trigger.</p>\n</div>"
+			},
+			"blade": {
+				"code": "<button popovertarget=\"popover-relative-anchor\">Open anchored popover</button>\n\n<div data-js-popover-relative=\"popover-relative-anchor\" class=\"u-display--inline-flex\">\n    <span>Anchor element</span>\n</div>\n\n<div id=\"popover-relative-anchor\" popover data-js-popover-relative=\"true\" data-js-popover-horizontal-placement=\"right\" data-js-popover-vertical-placement=\"bottom\">\n    <p>This popover is placed relative to the anchor element instead of the trigger.</p>\n</div>"
 			}
 		},
 		"viewportPlacement": {
 			"description": {
 				"heading": "Viewport placement",
-				"description": "Uses the placement attributes relative to the viewport when `data-js-popover-relative-to-trigger` is not set."
+				"description": "Uses the placement attributes relative to the viewport when `data-js-popover-relative` is not set on the popover."
 			},
 			"component": "docs.objects.popover.examples.viewport",
 			"html": {

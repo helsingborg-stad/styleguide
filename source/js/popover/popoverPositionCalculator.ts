@@ -13,13 +13,13 @@ class PopoverPositionCalculator {
         const { popover } = config;
         const hasHorizontalPlacement = popover.hasAttribute(PopoverSetup.HorizontalPlacementAttribute);
         const hasVerticalPlacement = popover.hasAttribute(PopoverSetup.VerticalPlacementAttribute);
-        const isRelativeToTrigger = this.isRelativeToTrigger(popover);
+        const isRelative = this.isRelative(popover);
 
-        if (!isRelativeToTrigger && !hasHorizontalPlacement && !hasVerticalPlacement) {
+        if (!isRelative && !hasHorizontalPlacement && !hasVerticalPlacement) {
             return null;
         }
 
-        return isRelativeToTrigger ? 'relative' : 'viewport';
+        return isRelative ? 'relative' : 'viewport';
     }
 
     public calculate(config: PopoverConfig): PopoverPosition | null {
@@ -30,8 +30,9 @@ class PopoverPositionCalculator {
         }
 
         const { trigger, popover } = config;
+        const positioningTarget = mode === 'relative' ? (config.relativeElement ?? trigger) : trigger;
 
-        const triggerRect = trigger.getBoundingClientRect();
+        const triggerRect = positioningTarget.getBoundingClientRect();
         const { width: popoverWidth, height: popoverHeight } = this.getPopoverLayoutSize(popover);
 
         const horizontalPlacement = this.getHorizontalPlacement(config);
@@ -130,9 +131,8 @@ class PopoverPositionCalculator {
         return Math.min(max, Math.max(min, position));
     }
 
-    private isRelativeToTrigger(popover: HTMLElement): boolean {
-        const relativeToTrigger = popover.getAttribute(PopoverSetup.RelativeToTrigger)?.trim().toLowerCase();
-        return relativeToTrigger === 'true' || relativeToTrigger === '1';
+    private isRelative(popover: HTMLElement): boolean {
+        return popover.hasAttribute(PopoverSetup.Relative);
     }
 
     private getVerticalPlacement(config: PopoverConfig): PopoverVerticalPlacement {
