@@ -50,10 +50,11 @@ $_: "c-logotype";
     &.#{$_}--maskable {
         --#{$_}--mask-opacity: calc(var(--#{$_}--mask-enabled) * 1);
         --#{$_}--image-opacity: calc(1 - var(--#{$_}--mask-enabled));
+        display: grid;
+        grid-template-columns: 1fr;
 
         &::before {
             content: "";
-            position: absolute;
             inset: 0;
             background-color: var(--#{$_}--mask-current-color);
             opacity: var(--#{$_}--mask-opacity);
@@ -67,6 +68,8 @@ $_: "c-logotype";
             mask-position: var(--#{$_}--mask-position, center);
             -webkit-mask-size: var(--#{$_}--mask-size, contain);
             mask-size: var(--#{$_}--mask-size, contain);
+            width: 100%;
+            height: inherit;
         }
 
         .#{$_}__image {
