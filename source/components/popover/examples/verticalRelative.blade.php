@@ -7,7 +7,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-top',
-    'relativeToTrigger' => true,
+    'Relative' => true,
     'verticalPlacement' => 'top'
 ])
     @element([
@@ -32,7 +32,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-center-y',
-    'relativeToTrigger' => true,
+    'Relative' => true,
     'verticalPlacement' => 'center'
 ])
     @element([
@@ -57,7 +57,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-bottom',
-    'relativeToTrigger' => true,
+    'Relative' => true,
     'verticalPlacement' => 'bottom'
 ])
     @element([

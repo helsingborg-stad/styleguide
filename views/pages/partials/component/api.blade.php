@@ -7,9 +7,9 @@
     @endtypography
 
     @table([
-        'headings' => ['Parameter', 'Default', 'Description'],
+        'headings' => ['Parameter', 'Default', 'Type', 'Description'],
         'list'     => array_map(static fn(array $row): array => [
-            'columns' => [$row['parameter'], $row['default'], $row['description']],
+            'columns' => [$row['parameter'], $row['default'], $row['type'], $row['description']],
         ], $api),
     ])
     @endtable

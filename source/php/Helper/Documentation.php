@@ -238,6 +238,33 @@ class Documentation
     private static function buildParameterRows(array $config, ?string $projectRoot = null): array
     {
         $effectiveConfig = self::resolveEffectiveComponentConfig($config, $projectRoot);
+        $typedParameters = is_array($effectiveConfig['parameters'] ?? null) ? $effectiveConfig['parameters'] : [];
+
+        if ($typedParameters !== []) {
+            $rows = [];
+            foreach ($typedParameters as $typedParameter) {
+                if (!is_array($typedParameter) || !is_string($typedParameter['parameter'] ?? null)) {
+                    continue;
+                }
+
+                $rows[] = [
+                    'parameter' => $typedParameter['parameter'],
+                    'default' => ($typedParameter['hasDefault'] ?? false) === true
+                        ? self::stringifyDefaultValue($typedParameter['default'] ?? null)
+                        : '-',
+                    'type' => is_string($typedParameter['type'] ?? null) ? $typedParameter['type'] : 'mixed',
+                    'description' => is_string($typedParameter['description'] ?? null)
+                        && trim($typedParameter['description']) !== ''
+                        ? trim($typedParameter['description'])
+                        : '-',
+                ];
+            }
+
+            if ($rows !== []) {
+                return $rows;
+            }
+        }
+
         $settings = is_array($effectiveConfig['default'] ?? null) ? $effectiveConfig['default'] : [];
         $descriptions = is_array($effectiveConfig['description'] ?? null) ? $effectiveConfig['description'] : [];
         $types = is_array($effectiveConfig['types'] ?? null) ? $effectiveConfig['types'] : [];
@@ -359,18 +386,1038 @@ class Documentation
     private static function readJsonConfigFromDirectory(string $directory): ?array
     {
         $jsonFiles = glob(rtrim($directory, '/') . '/*.json') ?: [];
-        if (empty($jsonFiles)) {
-            return null;
+        $jsonConfig = null;
+        if (!empty($jsonFiles)) {
+            $content = file_get_contents($jsonFiles[0]);
+            if (is_string($content)) {
+                $parsedJson = json_decode($content, true);
+                if (is_array($parsedJson)) {
+                    $jsonConfig = $parsedJson;
+                }
+            }
         }
 
-        $content = file_get_contents($jsonFiles[0]);
+        $phpConfigPath = rtrim($directory, '/') . '/config.php';
+        $phpConfig = null;
+        if (is_file($phpConfigPath)) {
+            $phpConfig = self::readPhpConfigFromFile(
+                $phpConfigPath,
+                !($jsonConfig !== null && self::hasParameterMetadata($jsonConfig))
+            );
+        }
+
+        if ($jsonConfig !== null && $phpConfig !== null) {
+            return self::mergePhpAndJsonConfig($phpConfig, $jsonConfig);
+        }
+
+        if ($jsonConfig !== null) {
+            return $jsonConfig;
+        }
+
+        return $phpConfig;
+    }
+
+    /**
+     * @param string $path
+     * @param bool $includeTypedReflection
+     *
+     * @return array<string, mixed>|null
+     */
+    private static function readPhpConfigFromFile(string $path, bool $includeTypedReflection = true): ?array
+    {
+        $content = file_get_contents($path);
         if (!is_string($content)) {
             return null;
         }
 
-        $config = json_decode($content, true);
+        $config = self::parsePhpComponentConfig($content);
+        if (!is_array($config)) {
+            return null;
+        }
 
-        return is_array($config) ? $config : null;
+        foreach (['default', 'types', 'description'] as $key) {
+            if (isset($config[$key]) && is_object($config[$key])) {
+                $config[$key] = (array) $config[$key];
+            }
+        }
+
+        $existingParameters = is_array($config['parameters'] ?? null) ? $config['parameters'] : [];
+        $typedParameters = $includeTypedReflection ? self::reflectTypedParameters($config['data'] ?? null) : [];
+        if ($typedParameters !== []) {
+            $defaults = is_array($config['default'] ?? null) ? $config['default'] : [];
+            $types = is_array($config['types'] ?? null) ? $config['types'] : [];
+            $descriptions = is_array($config['description'] ?? null) ? $config['description'] : [];
+
+            foreach ($typedParameters as $typedParameter) {
+                $parameterName = $typedParameter['parameter'];
+                if (!is_string($parameterName) || $parameterName === '') {
+                    continue;
+                }
+
+                if (($typedParameter['hasDefault'] ?? false) === true && !array_key_exists($parameterName, $defaults)) {
+                    $defaults[$parameterName] = $typedParameter['default'] ?? null;
+                }
+
+                if (!isset($types[$parameterName]) && is_string($typedParameter['type'] ?? null)) {
+                    $types[$parameterName] = $typedParameter['type'];
+                }
+
+                if (
+                    !isset($descriptions[$parameterName]) &&
+                    is_string($typedParameter['description'] ?? null) &&
+                    trim($typedParameter['description']) !== ''
+                ) {
+                    $descriptions[$parameterName] = trim($typedParameter['description']);
+                }
+            }
+
+            $config['default'] = $defaults;
+            $config['types'] = $types;
+            $config['description'] = $descriptions;
+            $config['parameters'] = $existingParameters === []
+                ? $typedParameters
+                : self::mergeParameterDefinitions($existingParameters, $typedParameters);
+        }
+
+        return $config;
+    }
+
+    /**
+     * @param string $content
+     *
+     * @return array<string, mixed>|null
+     */
+    private static function parsePhpComponentConfig(string $content): ?array
+    {
+        $tokens = token_get_all($content);
+        $arguments = self::parsePhpNamedArguments($tokens);
+
+        $slug = self::parsePhpStringArgument($arguments['slug'] ?? []);
+        if ($slug === null || $slug === '') {
+            return null;
+        }
+
+        $config = ['slug' => $slug];
+
+        $view = self::parsePhpStringArgument($arguments['view'] ?? []);
+        if ($view !== null && $view !== '') {
+            $config['view'] = $view;
+        }
+
+        $dataClass = self::parsePhpDataClassArgument($arguments['data'] ?? [], $tokens);
+        if ($dataClass !== null) {
+            $config['data'] = $dataClass;
+        }
+
+        return $config;
+    }
+
+    /**
+     * @param array<int, mixed> $tokens
+     *
+     * @return array<string, array<int, mixed>>
+     */
+    private static function parsePhpNamedArguments(array $tokens): array
+    {
+        $openParenthesisIndex = null;
+        $tokenCount = count($tokens);
+
+        for ($index = 0; $index < $tokenCount; $index++) {
+            $token = $tokens[$index];
+            if (!is_array($token) || $token[0] !== T_NEW) {
+                continue;
+            }
+
+            $cursor = $index + 1;
+            $className = '';
+
+            while ($cursor < $tokenCount) {
+                $candidate = $tokens[$cursor];
+                if (self::isIgnorablePhpToken($candidate)) {
+                    $cursor++;
+                    continue;
+                }
+
+                if ($candidate === '(') {
+                    break;
+                }
+
+                if (is_array($candidate) && in_array($candidate[0], [T_STRING, T_NS_SEPARATOR, T_NAME_QUALIFIED, T_NAME_FULLY_QUALIFIED], true)) {
+                    $className .= $candidate[1];
+                }
+
+                $cursor++;
+            }
+
+            if ($cursor >= $tokenCount || $tokens[$cursor] !== '(') {
+                continue;
+            }
+
+            $normalizedClassName = ltrim($className, '\\');
+            if ($normalizedClassName !== '' && str_ends_with($normalizedClassName, 'ComponentConfig')) {
+                $openParenthesisIndex = $cursor;
+                break;
+            }
+        }
+
+        if (!is_int($openParenthesisIndex)) {
+            return [];
+        }
+
+        $arguments = [];
+        $depth = 1;
+        $currentArgumentTokens = [];
+
+        for ($index = $openParenthesisIndex + 1; $index < $tokenCount; $index++) {
+            $token = $tokens[$index];
+
+            if ($token === '(' || $token === '[' || $token === '{') {
+                $depth++;
+            } elseif ($token === ')' || $token === ']' || $token === '}') {
+                $depth--;
+            }
+
+            if (($token === ',' && $depth === 1) || ($token === ')' && $depth === 0)) {
+                self::storeNamedArgument($arguments, $currentArgumentTokens);
+                $currentArgumentTokens = [];
+
+                if ($token === ')' && $depth === 0) {
+                    break;
+                }
+
+                continue;
+            }
+
+            if ($depth > 0) {
+                $currentArgumentTokens[] = $token;
+            }
+        }
+
+        return $arguments;
+    }
+
+    /**
+     * @param array<string, array<int, mixed>> $arguments
+     * @param array<int, mixed> $argumentTokens
+     *
+     * @return void
+     */
+    private static function storeNamedArgument(array &$arguments, array $argumentTokens): void
+    {
+        $trimmedTokens = self::trimPhpTokens($argumentTokens);
+        if ($trimmedTokens === []) {
+            return;
+        }
+
+        $colonIndex = null;
+        foreach ($trimmedTokens as $index => $token) {
+            if ($token === ':') {
+                $colonIndex = $index;
+                break;
+            }
+        }
+
+        if (!is_int($colonIndex) || $colonIndex === 0) {
+            return;
+        }
+
+        $nameToken = $trimmedTokens[0];
+        if (!is_array($nameToken) || $nameToken[0] !== T_STRING) {
+            return;
+        }
+
+        $arguments[$nameToken[1]] = self::trimPhpTokens(array_slice($trimmedTokens, $colonIndex + 1));
+    }
+
+    /**
+     * @param array<int, mixed> $argumentTokens
+     *
+     * @return string|null
+     */
+    private static function parsePhpStringArgument(array $argumentTokens): ?string
+    {
+        $tokens = self::trimPhpTokens($argumentTokens);
+        if (count($tokens) !== 1) {
+            return null;
+        }
+
+        $token = $tokens[0];
+        if (!is_array($token) || $token[0] !== T_CONSTANT_ENCAPSED_STRING) {
+            return null;
+        }
+
+        $literal = $token[1];
+        $quote = substr($literal, 0, 1);
+        if (($quote !== "'" && $quote !== '"') || substr($literal, -1) !== $quote) {
+            return null;
+        }
+
+        return stripcslashes(substr($literal, 1, -1));
+    }
+
+    /**
+     * @param array<int, mixed> $argumentTokens
+     * @param array<int, mixed> $sourceTokens
+     *
+     * @return string|null
+     */
+    private static function parsePhpDataClassArgument(array $argumentTokens, array $sourceTokens): ?string
+    {
+        $tokens = self::trimPhpTokens($argumentTokens);
+        if ($tokens === []) {
+            return null;
+        }
+
+        while ($tokens !== [] && $tokens[0] === '(' && end($tokens) === ')') {
+            $tokens = self::trimPhpTokens(array_slice($tokens, 1, -1));
+        }
+
+        if (
+            count($tokens) === 1 &&
+            is_array($tokens[0]) &&
+            $tokens[0][0] === T_STRING &&
+            strtolower($tokens[0][1]) === 'null'
+        ) {
+            return null;
+        }
+
+        $doubleColonIndex = null;
+        foreach ($tokens as $index => $token) {
+            if (is_array($token) && $token[0] === T_DOUBLE_COLON) {
+                $doubleColonIndex = $index;
+                break;
+            }
+        }
+
+        if (!is_int($doubleColonIndex)) {
+            return null;
+        }
+
+        $rightSideTokens = self::trimPhpTokens(array_slice($tokens, $doubleColonIndex + 1));
+        if (count($rightSideTokens) !== 1 || !is_array($rightSideTokens[0]) || $rightSideTokens[0][0] !== T_CLASS) {
+            return null;
+        }
+
+        $classNameTokens = self::trimPhpTokens(array_slice($tokens, 0, $doubleColonIndex));
+        if ($classNameTokens === []) {
+            return null;
+        }
+
+        $className = '';
+        foreach ($classNameTokens as $token) {
+            if (!is_array($token)) {
+                return null;
+            }
+
+            if (!in_array($token[0], [T_STRING, T_NS_SEPARATOR, T_NAME_QUALIFIED, T_NAME_FULLY_QUALIFIED], true)) {
+                return null;
+            }
+
+            $className .= $token[1];
+        }
+
+        if ($className === '') {
+            return null;
+        }
+
+        return self::resolvePhpClassNameFromSource($className, $sourceTokens);
+    }
+
+    /**
+     * @param string $className
+     * @param array<int, mixed> $tokens
+     *
+     * @return string
+     */
+    private static function resolvePhpClassNameFromSource(string $className, array $tokens): string
+    {
+        $className = ltrim($className, '\\');
+        if (str_contains($className, '\\')) {
+            return $className;
+        }
+
+        foreach (self::parsePhpImports($tokens) as $alias => $importedClass) {
+            if ($alias === $className) {
+                return $importedClass;
+            }
+        }
+
+        $namespace = self::parsePhpNamespace($tokens);
+        if ($namespace === null || $namespace === '') {
+            return $className;
+        }
+
+        return $namespace . '\\' . $className;
+    }
+
+    /**
+     * @param array<int, mixed> $tokens
+     *
+     * @return array<string, string>
+     */
+    private static function parsePhpImports(array $tokens): array
+    {
+        $imports = [];
+        $tokenCount = count($tokens);
+        $scopeDepth = 0;
+
+        for ($index = 0; $index < $tokenCount; $index++) {
+            $token = $tokens[$index];
+
+            if ($token === '{' || $token === '(' || $token === '[') {
+                $scopeDepth++;
+                continue;
+            }
+
+            if ($token === '}' || $token === ')' || $token === ']') {
+                $scopeDepth = max(0, $scopeDepth - 1);
+                continue;
+            }
+
+            if (!is_array($token)) {
+                continue;
+            }
+
+            if (
+                $scopeDepth === 0 &&
+                (
+                    ($token[0] === T_CLASS
+                        && !self::isClassConstantToken($tokens, $index)
+                        && !self::isAnonymousClassToken($tokens, $index)
+                    )
+                    || in_array($token[0], [T_INTERFACE, T_TRAIT, T_ENUM], true)
+                )
+            ) {
+                break;
+            }
+
+            if (
+                ($scopeDepth === 0) &&
+                $token[0] === T_USE
+            ) {
+                $statementTokens = [];
+                for ($cursor = $index + 1; $cursor < $tokenCount; $cursor++) {
+                    $candidate = $tokens[$cursor];
+                    if ($candidate === ';') {
+                        $index = $cursor;
+                        break;
+                    }
+                    $statementTokens[] = $candidate;
+                }
+
+                $statement = trim(self::stringifyPhpTokens($statementTokens));
+                if ($statement === '' || str_starts_with(strtolower($statement), 'function ') || str_starts_with(strtolower($statement), 'const ')) {
+                    continue;
+                }
+
+                foreach (self::parseUseStatement($statement) as $alias => $importedClass) {
+                    $imports[$alias] = $importedClass;
+                }
+            }
+        }
+
+        return $imports;
+    }
+
+    /**
+     * @param array<int, mixed> $tokens
+     * @param int $index
+     *
+     * @return bool
+     */
+    private static function isAnonymousClassToken(array $tokens, int $index): bool
+    {
+        for ($cursor = $index - 1; $cursor >= 0; $cursor--) {
+            $candidate = $tokens[$cursor];
+            if (self::isIgnorablePhpToken($candidate)) {
+                continue;
+            }
+
+            return is_array($candidate) && $candidate[0] === T_NEW;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param array<int, mixed> $tokens
+     * @param int $index
+     *
+     * @return bool
+     */
+    private static function isClassConstantToken(array $tokens, int $index): bool
+    {
+        for ($cursor = $index - 1; $cursor >= 0; $cursor--) {
+            $candidate = $tokens[$cursor];
+            if (self::isIgnorablePhpToken($candidate)) {
+                continue;
+            }
+
+            if ($candidate === ']') {
+                $attributeDepth = 1;
+                for ($attributeCursor = $cursor - 1; $attributeCursor >= 0; $attributeCursor--) {
+                    $attributeToken = $tokens[$attributeCursor];
+                    if (self::isIgnorablePhpToken($attributeToken)) {
+                        continue;
+                    }
+
+                    if ($attributeToken === ']') {
+                        $attributeDepth++;
+                        continue;
+                    }
+
+                    if ($attributeToken === '[') {
+                        $attributeDepth--;
+                        if ($attributeDepth === 0) {
+                            $cursor = $attributeCursor - 1;
+                            continue 2;
+                        }
+                    }
+                }
+            }
+
+            return is_array($candidate) && $candidate[0] === T_DOUBLE_COLON;
+        }
+
+        return false;
+    }
+
+    /**
+     * @param string $statement
+     *
+     * @return array<string, string>
+     */
+    private static function parseUseStatement(string $statement): array
+    {
+        $imports = [];
+
+        if (str_contains($statement, '{') && str_contains($statement, '}')) {
+            $prefix = trim(substr($statement, 0, (int) strpos($statement, '{')));
+            $prefix = rtrim(trim($prefix), '\\');
+            $groupBody = trim((string) preg_replace('/^.*\{(.*)\}.*$/', '$1', $statement));
+            $items = array_filter(array_map('trim', explode(',', $groupBody)));
+
+            foreach ($items as $item) {
+                $parts = preg_split('/\s+as\s+/i', $item);
+                if (!is_array($parts) || trim($parts[0]) === '') {
+                    continue;
+                }
+
+                $classPath = ltrim($prefix . '\\' . trim($parts[0]), '\\');
+                $alias = isset($parts[1]) && trim($parts[1]) !== ''
+                    ? trim($parts[1])
+                    : basename(str_replace('\\', '/', trim($parts[0])));
+                $imports[$alias] = $classPath;
+            }
+
+            return $imports;
+        }
+
+        foreach (array_filter(array_map('trim', explode(',', $statement))) as $item) {
+            $parts = preg_split('/\s+as\s+/i', $item);
+            if (!is_array($parts) || trim($parts[0]) === '') {
+                continue;
+            }
+
+            $fullyQualifiedClass = ltrim(trim($parts[0]), '\\');
+            $alias = isset($parts[1]) && trim($parts[1]) !== ''
+                ? trim($parts[1])
+                : basename(str_replace('\\', '/', $fullyQualifiedClass));
+            $imports[$alias] = $fullyQualifiedClass;
+        }
+
+        return $imports;
+    }
+
+    /**
+     * @param array<int, mixed> $tokens
+     *
+     * @return string|null
+     */
+    private static function parsePhpNamespace(array $tokens): ?string
+    {
+        $tokenCount = count($tokens);
+        for ($index = 0; $index < $tokenCount; $index++) {
+            $token = $tokens[$index];
+            if (!is_array($token) || $token[0] !== T_NAMESPACE) {
+                continue;
+            }
+
+            $namespace = '';
+            for ($cursor = $index + 1; $cursor < $tokenCount; $cursor++) {
+                $candidate = $tokens[$cursor];
+                if ($candidate === ';' || $candidate === '{') {
+                    return trim($namespace, '\\');
+                }
+
+                if (!is_array($candidate)) {
+                    continue;
+                }
+
+                if (in_array($candidate[0], [T_STRING, T_NS_SEPARATOR, T_NAME_QUALIFIED], true)) {
+                    $namespace .= $candidate[1];
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param array<int, mixed> $tokens
+     *
+     * @return array<int, mixed>
+     */
+    private static function trimPhpTokens(array $tokens): array
+    {
+        while ($tokens !== [] && self::isIgnorablePhpToken($tokens[0])) {
+            array_shift($tokens);
+        }
+
+        while ($tokens !== [] && self::isIgnorablePhpToken($tokens[count($tokens) - 1])) {
+            array_pop($tokens);
+        }
+
+        return $tokens;
+    }
+
+    /**
+     * @param mixed $token
+     *
+     * @return bool
+     */
+    private static function isIgnorablePhpToken(mixed $token): bool
+    {
+        return is_array($token) && in_array($token[0], [T_WHITESPACE, T_COMMENT, T_DOC_COMMENT], true);
+    }
+
+    /**
+     * @param array<int, mixed> $tokens
+     *
+     * @return string
+     */
+    private static function stringifyPhpTokens(array $tokens): string
+    {
+        $string = '';
+        foreach ($tokens as $token) {
+            $string .= is_array($token) ? $token[1] : (string) $token;
+        }
+
+        return $string;
+    }
+
+    /**
+     * @param array<string, mixed> $config
+     *
+     * @return bool
+     */
+    private static function hasParameterMetadata(array $config): bool
+    {
+        foreach (['default', 'types', 'description', 'parameters'] as $key) {
+            if (!isset($config[$key])) {
+                continue;
+            }
+
+            if ($key === 'parameters') {
+                if (!is_array($config[$key])) {
+                    continue;
+                }
+
+                if ($config[$key] === [] || self::sanitizeParameterDefinitions($config[$key]) !== []) {
+                    return true;
+                }
+
+                continue;
+            }
+
+            if (is_array($config[$key]) && $config[$key] !== []) {
+                return true;
+            }
+
+            if (is_string($config[$key]) && trim($config[$key]) !== '') {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param mixed $dataClass
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    private static function reflectTypedParameters(mixed $dataClass): array
+    {
+        if (!is_string($dataClass) || $dataClass === '' || !class_exists($dataClass)) {
+            return [];
+        }
+
+        try {
+            $reflectionClass = new \ReflectionClass($dataClass);
+            $constructor = $reflectionClass->getConstructor();
+        } catch (\ReflectionException) {
+            return [];
+        }
+
+        if (!$constructor instanceof \ReflectionMethod) {
+            return [];
+        }
+
+        $descriptions = self::extractParameterDescriptions((string) $constructor->getDocComment());
+        $parameters = [];
+
+        foreach ($constructor->getParameters() as $parameter) {
+            $name = $parameter->getName();
+            $hasDefault = $parameter->isDefaultValueAvailable();
+
+            $parameters[] = [
+                'parameter' => $name,
+                'hasDefault' => $hasDefault,
+                'default' => $hasDefault ? $parameter->getDefaultValue() : null,
+                'type' => self::resolveReflectedParameterType($parameter),
+                'description' => isset($descriptions[$name]) && trim($descriptions[$name]) !== ''
+                    ? trim($descriptions[$name])
+                    : '-',
+            ];
+        }
+
+        return $parameters;
+    }
+
+    /**
+     * @param \ReflectionParameter $parameter
+     *
+     * @return string
+     */
+    private static function resolveReflectedParameterType(\ReflectionParameter $parameter): string
+    {
+        $type = $parameter->getType();
+
+        if ($type instanceof \ReflectionUnionType) {
+            $namedTypes = $type->getTypes();
+            $types = [];
+            foreach ($namedTypes as $namedType) {
+                if ($namedType instanceof \ReflectionNamedType) {
+                    $types[] = self::normalizeReflectedTypeName($namedType->getName());
+                    continue;
+                }
+
+                if ($namedType instanceof \ReflectionIntersectionType) {
+                    $types[] = self::resolveIntersectionTypeName($namedType);
+                }
+            }
+
+            $types = array_values(array_unique($types));
+            if (count($types) === 2 && in_array('null', $types, true)) {
+                $nonNullableNamedType = null;
+                foreach ($namedTypes as $namedType) {
+                    if ($namedType instanceof \ReflectionNamedType && strtolower($namedType->getName()) !== 'null') {
+                        $nonNullableNamedType = $namedType;
+                        break;
+                    }
+                }
+
+                if (
+                    $nonNullableNamedType instanceof \ReflectionNamedType &&
+                    self::canUseNullableShorthand($nonNullableNamedType->getName())
+                ) {
+                    return '?' . self::normalizeReflectedTypeName($nonNullableNamedType->getName());
+                }
+            }
+
+            return implode('|', $types);
+        }
+
+        if ($type instanceof \ReflectionNamedType) {
+            $normalizedType = self::normalizeReflectedTypeName($type->getName());
+            if ($type->allowsNull() && strtolower($type->getName()) !== 'null') {
+                if ($normalizedType === 'mixed') {
+                    return 'mixed';
+                }
+
+                if (self::canUseNullableShorthand($type->getName())) {
+                    return '?' . $normalizedType;
+                }
+
+                return $normalizedType . '|null';
+            }
+
+            return $normalizedType;
+        }
+
+        if ($type instanceof \ReflectionIntersectionType) {
+            return self::resolveIntersectionTypeName($type);
+        }
+
+        return 'mixed';
+    }
+
+    /**
+     * @param \ReflectionIntersectionType $type
+     *
+     * @return string
+     */
+    private static function resolveIntersectionTypeName(\ReflectionIntersectionType $type): string
+    {
+        $segments = [];
+
+        foreach ($type->getTypes() as $namedType) {
+            $segments[] = self::normalizeReflectedTypeName($namedType->getName());
+        }
+
+        return implode('&', $segments);
+    }
+
+    /**
+     * @param array<string, mixed> $primary
+     * @param array<string, mixed> $fallback
+     *
+     * @return array<string, mixed>
+     */
+    private static function mergeConfigWithFallback(array $primary, array $fallback): array
+    {
+        $merged = $primary;
+
+        foreach (['slug', 'view', 'data'] as $key) {
+            if (!isset($merged[$key]) && isset($fallback[$key])) {
+                $merged[$key] = $fallback[$key];
+            }
+        }
+
+        foreach (['default', 'types', 'description'] as $key) {
+            $primaryValues = is_array($merged[$key] ?? null) ? $merged[$key] : [];
+            $fallbackValues = is_array($fallback[$key] ?? null) ? $fallback[$key] : [];
+
+            if ($primaryValues === [] && $fallbackValues !== []) {
+                $merged[$key] = $fallbackValues;
+                continue;
+            }
+
+            foreach ($fallbackValues as $parameter => $value) {
+                if (!array_key_exists($parameter, $primaryValues)) {
+                    $primaryValues[$parameter] = $value;
+                }
+            }
+
+            if ($primaryValues !== []) {
+                $merged[$key] = $primaryValues;
+            }
+        }
+
+        $primaryParameters = self::sanitizeParameterDefinitions(
+            is_array($merged['parameters'] ?? null) ? $merged['parameters'] : []
+        );
+        $fallbackParameters = self::sanitizeParameterDefinitions(
+            is_array($fallback['parameters'] ?? null) ? $fallback['parameters'] : []
+        );
+
+        if ($primaryParameters === [] && $fallbackParameters !== []) {
+            $merged['parameters'] = $fallbackParameters;
+        } elseif ($primaryParameters !== [] && $fallbackParameters !== []) {
+            $parameterIndexesByName = [];
+            foreach ($primaryParameters as $index => $primaryParameter) {
+                if (is_array($primaryParameter) && is_string($primaryParameter['parameter'] ?? null)) {
+                    $parameterIndexesByName[$primaryParameter['parameter']] = $index;
+                }
+            }
+
+            foreach ($fallbackParameters as $fallbackParameter) {
+                if (!is_array($fallbackParameter) || !is_string($fallbackParameter['parameter'] ?? null)) {
+                    continue;
+                }
+
+                $parameterName = $fallbackParameter['parameter'];
+                if (isset($parameterIndexesByName[$parameterName])) {
+                    $parameterIndex = $parameterIndexesByName[$parameterName];
+                    $existingParameter = $primaryParameters[$parameterIndex];
+                    if (is_array($existingParameter)) {
+                        $primaryParameters[$parameterIndex] = array_merge($fallbackParameter, $existingParameter);
+                    }
+                    continue;
+                }
+
+                $parameterIndexesByName[$parameterName] = count($primaryParameters);
+                $primaryParameters[] = $fallbackParameter;
+            }
+
+            $merged['parameters'] = $primaryParameters;
+        }
+
+        return $merged;
+    }
+
+    /**
+     * @param array<int, mixed> $parameters
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    private static function sanitizeParameterDefinitions(array $parameters): array
+    {
+        $validParameters = [];
+
+        foreach ($parameters as $parameter) {
+            if (is_array($parameter) && is_string($parameter['parameter'] ?? null) && $parameter['parameter'] !== '') {
+                $validParameters[] = $parameter;
+            }
+        }
+
+        return $validParameters;
+    }
+
+    /**
+     * @param array<string, mixed> $phpConfig
+     * @param array<string, mixed> $jsonConfig
+     *
+     * @return array<string, mixed>
+     */
+    private static function mergePhpAndJsonConfig(array $phpConfig, array $jsonConfig): array
+    {
+        $merged = self::mergeConfigWithFallback($phpConfig, $jsonConfig);
+
+        $hasJsonParametersKey = array_key_exists('parameters', $jsonConfig);
+        $jsonParameters = is_array($jsonConfig['parameters'] ?? null) ? $jsonConfig['parameters'] : [];
+        $validJsonParameters = self::sanitizeParameterDefinitions($jsonParameters);
+        $currentParameters = is_array($merged['parameters'] ?? null) ? $merged['parameters'] : [];
+        if ($hasJsonParametersKey && is_array($jsonConfig['parameters']) && $jsonParameters === []) {
+            $merged['parameters'] = [];
+            $merged['default'] = [];
+            $merged['types'] = [];
+            $merged['description'] = [];
+            return $merged;
+        }
+
+        if ($validJsonParameters !== []) {
+            $merged['parameters'] = $validJsonParameters;
+            return $merged;
+        }
+
+        $merged['parameters'] = $currentParameters;
+
+        return $merged;
+    }
+
+    /**
+     * @param array<int, mixed> $primary
+     * @param array<int, mixed> $fallback
+     *
+     * @return array<int, mixed>
+     */
+    private static function mergeParameterDefinitions(array $primary, array $fallback): array
+    {
+        $merged = $primary;
+        $parameterIndexesByName = [];
+
+        foreach ($merged as $index => $parameter) {
+            if (is_array($parameter) && is_string($parameter['parameter'] ?? null)) {
+                $parameterIndexesByName[$parameter['parameter']] = $index;
+            }
+        }
+
+        foreach ($fallback as $fallbackParameter) {
+            if (!is_array($fallbackParameter) || !is_string($fallbackParameter['parameter'] ?? null)) {
+                continue;
+            }
+
+            $parameterName = $fallbackParameter['parameter'];
+            if (!isset($parameterIndexesByName[$parameterName])) {
+                $parameterIndexesByName[$parameterName] = count($merged);
+                $merged[] = $fallbackParameter;
+                continue;
+            }
+
+            $parameterIndex = $parameterIndexesByName[$parameterName];
+            $existingParameter = $merged[$parameterIndex];
+            if (is_array($existingParameter)) {
+                $merged[$parameterIndex] = array_merge($fallbackParameter, $existingParameter);
+            }
+        }
+
+        return $merged;
+    }
+
+    /**
+     * @param string $typeName
+     *
+     * @return string
+     */
+    private static function normalizeReflectedTypeName(string $typeName): string
+    {
+        return match ($typeName) {
+            'bool' => 'boolean',
+            'int' => 'integer',
+            'float' => 'float',
+            'null' => 'null',
+            default => ltrim($typeName, '\\'),
+        };
+    }
+
+    /**
+     * @param string $typeName
+     *
+     * @return bool
+     */
+    private static function canUseNullableShorthand(string $typeName): bool
+    {
+        return !in_array(strtolower(ltrim($typeName, '\\')), ['mixed', 'null', 'false', 'true'], true);
+    }
+
+    /**
+     * @param string $docComment
+     *
+     * @return array<string, string>
+     */
+    private static function extractParameterDescriptions(string $docComment): array
+    {
+        if ($docComment === '') {
+            return [];
+        }
+
+        $descriptions = [];
+        $declarations = [];
+        $currentDeclaration = null;
+
+        foreach (preg_split('/\R/', $docComment) ?: [] as $line) {
+            if (preg_match('/^\s*\*\s*@param\b\s*(.*)$/', $line, $matches) === 1) {
+                if ($currentDeclaration !== null) {
+                    $declarations[] = trim($currentDeclaration);
+                }
+
+                $currentDeclaration = trim($matches[1]);
+                continue;
+            }
+
+            if ($currentDeclaration === null) {
+                continue;
+            }
+
+            if (preg_match('/^\s*\*\s*@\w+/', $line) === 1) {
+                $declarations[] = trim($currentDeclaration);
+                $currentDeclaration = null;
+                continue;
+            }
+
+            if (preg_match('/^\s*\*\s?(.*)$/', $line, $matches) === 1) {
+                $continuation = trim($matches[1]);
+                if ($continuation !== '' && $continuation !== '/') {
+                    $currentDeclaration = trim($currentDeclaration . ' ' . $continuation);
+                }
+            }
+        }
+
+        if ($currentDeclaration !== null) {
+            $declarations[] = trim($currentDeclaration);
+        }
+
+        foreach ($declarations as $declaration) {
+            if (preg_match('/^\S+\s+\$([a-zA-Z_][a-zA-Z0-9_]*)(?:\s+(.*))?$/', $declaration, $matches) !== 1) {
+                continue;
+            }
+
+            $descriptions[$matches[1]] = trim($matches[2] ?? '');
+        }
+
+        return $descriptions;
     }
 
     /**

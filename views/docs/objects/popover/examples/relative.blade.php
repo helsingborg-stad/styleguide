@@ -8,7 +8,7 @@
     <div
         id="popover-relative"
         popover
-        data-js-popover-relative-to-trigger="true"
+        data-js-popover-relative="true"
         data-js-popover-horizontal-placement="right"
         data-js-popover-vertical-placement="bottom"
     >
