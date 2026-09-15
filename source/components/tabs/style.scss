@@ -15,9 +15,9 @@ $_: "c-tabs";
         height: tokens.getCalculatedValue($_, "base", 7);
     }
 
-    &__button {
+    &__button[data-component="button"] {
         @include button.button-unstyled;
-        min-width: 160px;
+        min-width: tokens.getCalculatedValue($_, "base", 20);
         cursor: pointer;
         text-decoration: none;
         text-align: center;
