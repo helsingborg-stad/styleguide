@@ -12,7 +12,15 @@ $token: 'o-popover';
         background: transparent;
     }
 
+    &:not([data-popover-backdrop])::backdrop {
+        display: none;
+    }
+
     &[data-popover-backdrop]::backdrop {
         background: #{tokens.getRawValue($token, "color--alpha")};
+    }
+
+    &[data-popover-position="absolute"] {
+        position: absolute;
     }
 }
