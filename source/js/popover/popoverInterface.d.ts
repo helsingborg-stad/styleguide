@@ -7,6 +7,11 @@ type PopoverPosition = {
     placement: string;
 }
 
+type ResponsiveWidthState = {
+    preferredWidth: number;
+    viewportWidth: number;
+};
+
 interface PopoverConfig {
     trigger: HTMLElement;
     popover: HTMLElement;
@@ -28,4 +33,15 @@ interface BeforeToggleEvent extends Event {
 interface PopoverSetupCallbacks {
     onSetupPair(trigger: HTMLElement, popover: HTMLElement): void;
     onViewportChange(): void;
+}
+
+interface PopoverPositionCalculatorInterface {
+    calculate(config: PopoverConfig): PopoverPosition | null;
+}
+
+interface PopoverPlacementInterface {
+    syncResponsiveWidth(popover: HTMLElement): void;
+    resetResponsiveWidth(popover: HTMLElement): void;
+    setPosition(popover: HTMLElement, position: PopoverPosition): void;
+    resetCustomPosition(popover: HTMLElement): void;
 }
