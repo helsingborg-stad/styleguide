@@ -1,11 +1,6 @@
 import { PopoverStyleProperty, PopoverSetup } from './popoverEnums';
 
-type ResponsiveWidthState = {
-    preferredWidth: number;
-    viewportWidth: number;
-};
-
-class PopoverPlacement {
+class PopoverPlacement implements PopoverPlacementInterface {
     private readonly responsiveWidths = new WeakMap<HTMLElement, ResponsiveWidthState>();
 
     public syncResponsiveWidth(popover: HTMLElement): void {

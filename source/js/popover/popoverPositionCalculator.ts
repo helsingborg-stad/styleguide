@@ -1,11 +1,11 @@
 import { PopoverOffset, PopoverSetup } from './popoverEnums';
 
-class PopoverPositionCalculator {
-    public hasCustomPositioning(config: PopoverConfig): boolean {
+class PopoverPositionCalculator implements PopoverPositionCalculatorInterface {
+    private hasCustomPositioning(config: PopoverConfig): boolean {
         return this.getPositionMode(config) !== null;
     }
 
-    public getPositionMode(config: PopoverConfig): PopoverPositionMode | null {
+    private getPositionMode(config: PopoverConfig): PopoverPositionMode | null {
         if (config.mode) {
             return config.mode;
         }
