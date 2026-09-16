@@ -41,8 +41,20 @@ class PopoverSetup {
 
         observer.observe(document.body, { childList: true, subtree: true });
 
-        window.addEventListener('resize', () => this.onViewportChange?.(), { passive: true });
-        document.addEventListener('scroll', () => this.onViewportChange?.(), { capture: true, passive: true });
+        window.addEventListener('resize', () => this.handleViewportChange(), { passive: true });
+        document.addEventListener('scroll', () => this.handleViewportChange(), { capture: true, passive: true });
+    }
+
+    private handleViewportChange(): void {
+        if (!this.hasOpenPopover()) {
+            return;
+        }
+
+        this.onViewportChange?.();
+    }
+
+    private hasOpenPopover(): boolean {
+        return document.querySelector(`${PopoverSetupEnums.PopoverSelector}:popover-open`) !== null;
     }
 
     private getTriggers(root: HTMLElement): HTMLElement[] {
