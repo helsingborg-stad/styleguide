@@ -19,8 +19,4 @@ $token: 'o-popover';
     &[data-popover-backdrop]::backdrop {
         background: #{tokens.getRawValue($token, "color--alpha")};
     }
-
-    &[data-popover-position="absolute"] {
-        position: absolute;
-    }
 }

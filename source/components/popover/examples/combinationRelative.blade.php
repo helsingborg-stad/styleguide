@@ -1,13 +1,17 @@
 @button([
     'attributeList' => [
-        'popovertarget' => 'placement-relative-popover-top-left'
+        'popovertarget' => 'placement-relative-popover-top-left',
+        'style' => 'anchor-name:--placement-relative-popover-top-left'
     ]
 ])
     Top Left
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-top-left',
-    'Relative' => true,
+    'attributeList' => [
+        'style' => 'position-anchor:--placement-relative-popover-top-left;left:anchor(right);top:anchor(top);'
+    ],
+    'relative' => true,
     'horizontalPlacement' => 'left',
     'verticalPlacement' => 'top'
 ])
@@ -33,7 +37,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-top-center',
-    'Relative' => true,
+    'relative' => true,
     'horizontalPlacement' => 'center',
     'verticalPlacement' => 'top'
 ])
@@ -59,7 +63,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-top-right',
-    'Relative' => true,
+    'relative' => true,
     'horizontalPlacement' => 'right',
     'verticalPlacement' => 'top'
 ])
@@ -85,7 +89,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-center-left',
-    'Relative' => true,
+    'relative' => true,
     'horizontalPlacement' => 'left',
     'verticalPlacement' => 'center'
 ])
@@ -111,7 +115,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-center-center',
-    'Relative' => true,
+    'relative' => true,
     'horizontalPlacement' => 'center',
     'verticalPlacement' => 'center'
 ])
@@ -137,7 +141,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-center-right',
-    'Relative' => true,
+    'relative' => true,
     'horizontalPlacement' => 'right',
     'verticalPlacement' => 'center'
 ])
@@ -163,7 +167,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-bottom-left',
-    'Relative' => true,
+    'relative' => true,
     'horizontalPlacement' => 'left',
     'verticalPlacement' => 'bottom'
 ])
@@ -189,7 +193,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-bottom-center',
-    'Relative' => true,
+    'relative' => true,
     'horizontalPlacement' => 'center',
     'verticalPlacement' => 'bottom'
 ])
@@ -215,7 +219,7 @@
 @endbutton
 @popover([
     'id' => 'placement-relative-popover-bottom-right',
-    'Relative' => true,
+    'relative' => true,
     'horizontalPlacement' => 'right',
     'verticalPlacement' => 'bottom'
 ])
