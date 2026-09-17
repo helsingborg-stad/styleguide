@@ -10,10 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        new Popover(
+        (new Popover(
             popoverData,
             new PopoverPositioner(popoverData)
-        );
+        )).init();
     });
 });
 

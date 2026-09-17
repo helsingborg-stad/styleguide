@@ -1,9 +1,8 @@
 class PopoverPositioner {
 	constructor(private popoverData: PopoverData) {
-		this.init();
 	}
 
-	private init() {
+	public init() {
 		if (this.popoverData.relativeElement) {
 			this.setRelativeAnchorStyles();
 			this.setRelativePositionStyles();

@@ -6,6 +6,10 @@ class Popover {
         private popoverPositioner: PopoverPositioner
     ) {
     }
+
+    public init() {
+        this.popoverPositioner.init();
+    }
 }
 
 export default Popover;
