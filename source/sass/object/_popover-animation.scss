@@ -1,34 +1,90 @@
+@use "../../sass/mixin/tokens";
+
 $_: "[popover]";
 
 #{$_} {
+    --popover-animation-start-opacity: 0;
+    --popover-animation-end-opacity: 1;
+    --popover-animation-start-transform-x: 0px;
+    --popover-animation-start-transform-y: 0px;
+    --popover-animation-end-transform-x: 0px;
+    --popover-animation-end-transform-y: 0px;
+    --popover-animation-start-scale: 1;
+    --popover-animation-end-scale: 1;
+
+    opacity: var(--popover-animation-end-opacity);
+    transform: translate3d(var(--popover-animation-end-transform-x), var(--popover-animation-end-transform-y), 0) scale(var(--popover-animation-end-scale));
     transform-origin: top left;
+    will-change: transform, opacity;
     transition:
-        opacity 180ms cubic-bezier(0.22, 1, 0.36, 1),
-        transform 180ms cubic-bezier(0.22, 1, 0.36, 1),
-        display 180ms allow-discrete,
-        overlay 180ms allow-discrete;
+        opacity 200ms cubic-bezier(0.22, 1, 0.36, 1),
+        transform 200ms cubic-bezier(0.22, 1, 0.36, 1);
 
     &:popover-open {
-        opacity: 1;
-        transform: translate3d(0, 0, 0) scale(1);
-    }
-
-    &:popover-open[data-popover-pending-position="true"] {
-        opacity: 0;
-        transform: translate3d(0, -6px, 0) scale(0.98);
-        pointer-events: none;
-    }
-
-    &[data-popover-closing="true"] {
-        opacity: 0;
-        transform: translate3d(0, -6px, 0) scale(0.98);
-        pointer-events: none;
+        opacity: var(--popover-animation-end-opacity);
+        transform: translate3d(var(--popover-animation-end-transform-x), var(--popover-animation-end-transform-y), 0) scale(var(--popover-animation-end-scale));
     }
 
     @starting-style {
         &:popover-open {
-            opacity: 0;
-            transform: translate3d(0, -6px, 0) scale(0.98);
+            opacity: var(--popover-animation-start-opacity);
+            transform: translate3d(var(--popover-animation-start-transform-x), var(--popover-animation-start-transform-y), 0) scale(var(--popover-animation-start-scale));
         }
     }
+}
+
+#{$_}[data-popover-animation="fade"] {
+    --popover-animation-start-opacity: 0;
+    --popover-animation-end-opacity: 1;
+    --popover-animation-start-transform-x: 0px;
+    --popover-animation-start-transform-y: 0px;
+    --popover-animation-end-transform-x: 0px;
+    --popover-animation-end-transform-y: 0px;
+    --popover-animation-start-scale: 0.98;
+    --popover-animation-end-scale: 1;
+}
+
+#{$_}[data-popover-animation="slide"],
+#{$_}[data-popover-animation="slide-up"] {
+    --popover-animation-start-opacity: 1;
+    --popover-animation-end-opacity: 1;
+    --popover-animation-start-transform-x: 0px;
+    --popover-animation-start-transform-y: calc(var(--base) * -1);
+    --popover-animation-end-transform-x: 0px;
+    --popover-animation-end-transform-y: 0px;
+    --popover-animation-start-scale: 1;
+    --popover-animation-end-scale: 1;
+}
+
+#{$_}[data-popover-animation="slide-down"] {
+    --popover-animation-start-opacity: 1;
+    --popover-animation-end-opacity: 1;
+    --popover-animation-start-transform-x: 0px;
+    --popover-animation-start-transform-y: calc(var(--base) * 8);
+    --popover-animation-end-transform-x: 0px;
+    --popover-animation-end-transform-y: 0px;
+    --popover-animation-start-scale: 1;
+    --popover-animation-end-scale: 1;
+}
+
+#{$_}[data-popover-animation="slide-left"] {
+    --popover-animation-start-opacity: 1;
+    --popover-animation-end-opacity: 1;
+    --popover-animation-start-transform-x: calc(var(--base) * -8);
+    --popover-animation-start-transform-y: 0px;
+    --popover-animation-end-transform-x: 0px;
+    --popover-animation-end-transform-y: 0px;
+    --popover-animation-start-scale: 1;
+    --popover-animation-end-scale: 1;
+}
+
+#{$_}[data-popover-animation="slide-right"] {
+    --popover-animation-start-opacity: 1;
+    --popover-animation-end-opacity: 1;
+    --popover-animation-start-transform-x: calc(var(--base) * 8);
+    --popover-animation-start-transform-y: 0px;
+    --popover-animation-end-transform-x: 0px;
+    --popover-animation-end-transform-y: 0px;
+    --popover-animation-start-scale: 1;
+    --popover-animation-end-scale: 1;
 }
