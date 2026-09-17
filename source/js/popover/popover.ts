@@ -1,4 +1,4 @@
-import PopoverPositioner from "./popoverPositioner";
+import type PopoverPositioner from "./popoverPositioner";
 
 class Popover {
     constructor(
