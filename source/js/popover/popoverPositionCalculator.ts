@@ -39,8 +39,12 @@ class PopoverPositionCalculator implements PopoverPositionCalculatorInterface {
         const verticalPlacement = this.getVerticalPlacement(config);
         const preferredLeft = this.getPreferredLeft(mode, triggerRect, popoverWidth, horizontalPlacement);
         const preferredTop = this.getPreferredTop(mode, triggerRect, popoverHeight, verticalPlacement);
-        const left = this.clampToViewport(preferredLeft, popoverWidth, window.innerWidth);
-        const top = this.clampToViewport(preferredTop, popoverHeight, window.innerHeight);
+        const left = mode === 'relative'
+            ? preferredLeft
+            : this.clampToViewport(preferredLeft, popoverWidth, window.innerWidth);
+        const top = mode === 'relative'
+            ? preferredTop
+            : this.clampToViewport(preferredTop, popoverHeight, window.innerHeight);
 
         return {
             left: Math.round(left),
