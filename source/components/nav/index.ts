@@ -79,7 +79,7 @@ class Nav {
 
 export function init() {
 	document.addEventListener('DOMContentLoaded', () => {
-		const menus = [...document.querySelectorAll('.c-nav.c-nav--vertical.c-nav--depth-1, .c-nav.c-nav--extended-dropdown')] as HTMLElement[];
+		const menus = [...document.querySelectorAll('.c-nav.c-nav--vertical.c-nav--depth-1')] as HTMLElement[];
 
 		menus.forEach((menu) => {
 			new Nav(menu);
