@@ -8,6 +8,7 @@
 		"popovertarget": "Connects a trigger button to a popover by id.",
 		"popovertargetaction": "Controls whether the trigger toggles, shows, or hides the popover.",
 		"popover": "Marks the element as a popover.",
+		"data-js-popover-cover": "Optional. Makes the popover cover the full viewport and skips the regular placement logic.",
 		"data-js-popover-relative": "Optional. Add it to the popover to position the popover relative to the trigger, or set it on another element with the popover id as the value to use that element as the relative anchor instead.",
 		"data-js-popover-horizontal-placement": "Optional. Sets horizontal placement to `left`, `center`, or `right`.",
 		"data-js-popover-vertical-placement": "Optional. Sets vertical placement to `top`, `center`, or `bottom`.",
@@ -55,6 +56,19 @@
 			},
 			"blade": {
 				"code": "<button popovertarget=\"popover-backdrop\">Open backdrop popover</button>\n\n<div id=\"popover-backdrop\" popover data-popover-backdrop>\n    <p>This popover has a backdrop.</p>\n</div>"
+			}
+		},
+		"cover": {
+			"description": {
+				"heading": "Full-page cover",
+				"description": "Lets the popover fill the whole viewport when `data-js-popover-cover` is set."
+			},
+			"component": "docs.objects.popover.examples.cover",
+			"html": {
+				"code": "<button popovertarget=\"popover-cover\">Open cover popover</button>\n\n<div id=\"popover-cover\" popover data-js-popover-cover>\n    <div style=\"min-height: 100%; display: grid; place-items: center; background: rgba(0, 0, 0, 0.5);\">\n        <div style=\"background: white; padding: 1rem;\">This popover covers the whole page.</div>\n    </div>\n</div>"
+			},
+			"blade": {
+				"code": "<button popovertarget=\"popover-cover\">Open cover popover</button>\n\n<div id=\"popover-cover\" popover data-js-popover-cover>\n    <div style=\"min-height: 100%; display: grid; place-items: center; background: rgba(0, 0, 0, 0.5);\">\n        <div style=\"background: white; padding: 1rem;\">This popover covers the whole page.</div>\n    </div>\n</div>"
 			}
 		},
 		"relativePlacement": {

@@ -1,8 +1,13 @@
+import { PopoverEnums } from './popoverEnums';
+
 class PopoverPositioner {
-	constructor(private popoverData: PopoverData) {
-	}
+	constructor(private popoverData: PopoverData) {}
 
 	public init() {
+		if (this.isCoverPopover()) {
+			return;
+		}
+
 		if (this.popoverData.relativeElement) {
 			this.setRelativeAnchorStyles();
 			this.setRelativePositionStyles();
@@ -18,20 +23,24 @@ class PopoverPositioner {
 		this.popoverData.popoverElement.style.positionAnchor = anchorName;
 	}
 
+	private isCoverPopover(): boolean {
+		return this.popoverData.popoverElement.hasAttribute(PopoverEnums.CoverAttribute);
+	}
+
 	private setRelativePositionStyles() {
 		this.popoverData.popoverElement.style.positionArea = this.popoverData.verticalPlacement;
 
-        if (this.popoverData.verticalPlacement === 'center') {
-            this.popoverData.popoverElement.style.positionArea = `center ${this.popoverData.horizontalPlacement}`;
-        }
+		if (this.popoverData.verticalPlacement === 'center') {
+			this.popoverData.popoverElement.style.positionArea = `center ${this.popoverData.horizontalPlacement}`;
+		}
 
-        if (this.popoverData.horizontalPlacement === 'left') {
-            this.popoverData.popoverElement.style.left = `anchor(left)`;
-        }
+		if (this.popoverData.horizontalPlacement === 'left') {
+			this.popoverData.popoverElement.style.left = `anchor(left)`;
+		}
 
-        if (this.popoverData.horizontalPlacement === 'right') {
-            this.popoverData.popoverElement.style.right = `anchor(right)`;
-        }
+		if (this.popoverData.horizontalPlacement === 'right') {
+			this.popoverData.popoverElement.style.right = `anchor(right)`;
+		}
 	}
 
 	private setViewportPositionStyles() {
