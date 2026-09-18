@@ -1,12 +1,12 @@
 @button([
     'attributeList' => [
-        'popovertarget' => 'backdrop-popover'
+        'popovertarget' => 'popover-viewport-backdrop',
     ]
 ])
-    Click me
+    Backdrop
 @endbutton
 @popover([
-    'id' => 'backdrop-popover',
+    'id' => 'popover-viewport-backdrop',
     'backdrop' => true
 ])
     @element([
@@ -16,7 +16,7 @@
     ])
         @card([
             'heading' => "I'm a popover",
-            'content' => "This is a popover with a backdrop."
+            'content' => "This is a card, inside a popover. I need to make sure there is a set width for my container or it wont work because of how container queries operate."
         ])
         @endcard
     @endelement

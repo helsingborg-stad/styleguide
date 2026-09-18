@@ -1,147 +1,61 @@
 import Popover from './popover';
-import { PopoverSetup as PopoverSetupEnums } from './popoverEnums';
-import PopoverAnimator from './popoverAnimator';
-import PopoverPlacement from './popoverPlacement';
-import PopoverPositionCalculator from './popoverPositionCalculator';
-import PopoverSetup from './popoverSetup';
+import { PopoverEnums } from './popoverEnums';
+import PopoverPositioner from './popoverPositioner';
 
-class PopoverManager {
-    private readonly popoverInstances = new Map<string, Popover>();
-    private readonly elementKeys = new WeakMap<HTMLElement, string>();
-    private nextElementKey = 0;
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll(`[${PopoverEnums.PopoverSelectorAttribute}]`).forEach((popoverElement) => {
+        const popoverData = tryGetPopoverData(popoverElement as HTMLElement);
 
-    public constructor(
-        private readonly setup: PopoverSetup,
-        private readonly popoverPlacement: PopoverPlacement,
-        private readonly positionCalculator: PopoverPositionCalculator,
-        private readonly animator: PopoverAnimator,
-    ) {}
-
-    public init(root: HTMLElement = document.body): void {
-        this.setup.init({
-            onSetupPair: (trigger, popover) => {
-                this.registerPopover(trigger, popover);
-            },
-            onViewportChange: () => {
-                this.repositionOpenPopovers();
-            },
-        }, root);
-
-        this.repositionOpenPopovers();
-    }
-
-    private registerPopover(trigger: HTMLElement, popover: HTMLElement): void {
-        const key = this.getPopoverKey(popover);
-        const existingPopoverInstance = this.popoverInstances.get(key);
-
-        if (existingPopoverInstance) {
-            existingPopoverInstance.addTrigger(trigger);
+        if (!popoverData) {
             return;
         }
 
-        const mode = this.getMode(popover);
+        (new Popover(
+            popoverData,
+            new PopoverPositioner(popoverData)
+        )).init();
+    });
+});
 
-        const config: PopoverConfig = {
-            trigger,
-            popover,
-            relativeElement: this.getRelativeElement(popover, mode),
-            mode,
-            horizontalPlacement: this.getHorizontalPlacement(popover),
-            verticalPlacement: this.getVerticalPlacement(popover),
-            key,
-        };
+function tryGetPopoverData(popoverElement: HTMLElement): PopoverData | null {
+    const id = popoverElement.id;
+    const horizontalPlacement = getHorizontalPlacement(popoverElement);
+    const verticalPlacement = getVerticalPlacement(popoverElement);
+    const relative = popoverElement.hasAttribute(PopoverEnums.RelativeAttribute);
 
-        const popoverInstance = new Popover(
-            config,
-            this.popoverPlacement,
-            this.positionCalculator,
-            this.animator
-        );
+    const popoverTarget = document.querySelector(`[${PopoverEnums.PopoverTargetSelectorAttribute}="${id}"]`) as HTMLElement | null;
 
-        this.popoverInstances.set(key, popoverInstance);
-        popoverInstance.init();
-    }
+    const relativeElement = getRelativeElement(popoverElement, popoverTarget, relative);
 
-    private repositionOpenPopovers(): void {
-        this.popoverInstances.forEach((popoverInstance) => {
-            popoverInstance.repositionIfOpen();
-        });
-    }
-
-    private getPopoverKey(popover: HTMLElement): string {
-        return this.getElementKey(popover);
-    }
-
-    private getElementKey(element: HTMLElement): string {
-        const existingKey = this.elementKeys.get(element);
-
-        if (existingKey) {
-            return existingKey;
-        }
-
-        this.nextElementKey += 1;
-        const generatedKey = `popover-node-${this.nextElementKey}`;
-        this.elementKeys.set(element, generatedKey);
-        return generatedKey;
-    }
-
-    private getMode(popover: HTMLElement): PopoverPositionMode | null {
-        if (popover.hasAttribute(PopoverSetupEnums.Relative)) {
-            return 'relative';
-        }
-
-        const hasHorizontalPlacement = popover.hasAttribute(PopoverSetupEnums.HorizontalPlacementAttribute);
-        const hasVerticalPlacement = popover.hasAttribute(PopoverSetupEnums.VerticalPlacementAttribute);
-
-        if (hasHorizontalPlacement || hasVerticalPlacement) {
-            return 'viewport';
-        }
+    if (!id || !popoverTarget) {
+        console.error(`Popover with id "${id}" or target "${popoverTarget}" is missing.`);
 
         return null;
     }
 
-    private getHorizontalPlacement(popover: HTMLElement): PopoverHorizontalPlacement | undefined {
-        const placement = popover.getAttribute(PopoverSetupEnums.HorizontalPlacementAttribute)?.trim().toLowerCase();
-
-        if (placement === 'left' || placement === 'center' || placement === 'right') {
-            return placement;
-        }
-
-        return undefined;
-    }
-
-    private getVerticalPlacement(popover: HTMLElement): PopoverVerticalPlacement | undefined {
-        const placement = popover.getAttribute(PopoverSetupEnums.VerticalPlacementAttribute)?.trim().toLowerCase();
-
-        if (placement === 'top' || placement === 'center' || placement === 'bottom') {
-            return placement;
-        }
-
-        return undefined;
-    }
-
-    private getRelativeElement(popover: HTMLElement, mode: PopoverPositionMode | null): HTMLElement | null {
-        if (mode !== 'relative') {
-            return null;
-        }
-
-        const popoverId = popover.id?.trim();
-
-        if (!popoverId) {
-            return null;
-        }
-
-        return document.querySelector<HTMLElement>(`[${PopoverSetupEnums.Relative}="${popoverId}"]`);
-    }
+    return { id, popoverElement, popoverTarget, relativeElement, horizontalPlacement, verticalPlacement, relative };
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const manager = new PopoverManager(
-        new PopoverSetup(),
-        new PopoverPlacement(),
-        new PopoverPositionCalculator(),
-        new PopoverAnimator()
-    );
+function getRelativeElement(popoverElement: HTMLElement, popoverTarget: HTMLElement | null, relative: boolean): HTMLElement | null {
+    return (document.querySelector(`[${PopoverEnums.RelativeElementAttribute}="${popoverElement.id}"]`) || (relative ? popoverTarget : null)) as HTMLElement | null;
+}
 
-    manager.init(document.body);
-});
+function getHorizontalPlacement(popoverElement: HTMLElement): PopoverHorizontalPlacement {
+    const horizontalPlacement = popoverElement.getAttribute(PopoverEnums.HorizontalPlacementAttribute) || 'center';
+
+    if (!['left', 'center', 'right'].includes(horizontalPlacement)) {
+        return 'center';
+    }
+
+    return horizontalPlacement as PopoverHorizontalPlacement;
+}
+
+function getVerticalPlacement(popoverElement: HTMLElement): PopoverVerticalPlacement {
+    const verticalPlacement = popoverElement.getAttribute(PopoverEnums.VerticalPlacementAttribute) || 'center';
+
+    if (!['top', 'center', 'bottom'].includes(verticalPlacement)) {
+        return 'center';
+    }
+
+    return verticalPlacement as PopoverVerticalPlacement;
+}
