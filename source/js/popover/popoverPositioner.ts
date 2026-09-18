@@ -1,55 +1,72 @@
 import { PopoverEnums } from './popoverEnums';
+import type { PopoverData } from './popoverInterface';
 
 class PopoverPositioner {
-	constructor(private popoverData: PopoverData) {}
+	public applyPosition(popoverData: PopoverData) {
+		this.resetPositionStyles(popoverData);
 
-	public init() {
-		if (this.isCoverPopover()) {
+		if (this.isCoverPopover(popoverData)) {
 			return;
 		}
 
-		if (this.popoverData.relativeElement) {
-			this.setRelativeAnchorStyles();
-			this.setRelativePositionStyles();
+		if (popoverData.relativeElement) {
+			this.setRelativeAnchorStyles(popoverData);
+			this.setRelativePositionStyles(popoverData);
 			return;
 		}
 
-		this.setViewportPositionStyles();
+		this.setViewportPositionStyles(popoverData);
 	}
 
-	private setRelativeAnchorStyles() {
-		const anchorName = `--${this.popoverData.id}`;
-		this.popoverData.relativeElement!.style.anchorName = anchorName;
-		this.popoverData.popoverElement.style.positionAnchor = anchorName;
-	}
+	private resetPositionStyles(popoverData: PopoverData) {
+		const { popoverElement, relativeElement } = popoverData;
 
-	private isCoverPopover(): boolean {
-		return this.popoverData.popoverElement.hasAttribute(PopoverEnums.CoverAttribute);
-	}
+		popoverElement.style.left = '';
+		popoverElement.style.right = '';
+		popoverElement.style.top = '';
+		popoverElement.style.bottom = '';
+		popoverElement.style.transform = '';
+		popoverElement.style.positionArea = '';
+		popoverElement.style.positionAnchor = '';
 
-	private setRelativePositionStyles() {
-		this.popoverData.popoverElement.style.positionArea = this.popoverData.verticalPlacement;
-
-		if (this.popoverData.verticalPlacement === 'center') {
-			this.popoverData.popoverElement.style.positionArea = `center ${this.popoverData.horizontalPlacement}`;
-		}
-
-		if (this.popoverData.horizontalPlacement === 'left') {
-			this.popoverData.popoverElement.style.left = `anchor(left)`;
-		}
-
-		if (this.popoverData.horizontalPlacement === 'right') {
-			this.popoverData.popoverElement.style.right = `anchor(right)`;
+		if (relativeElement) {
+			relativeElement.style.anchorName = '';
 		}
 	}
 
-	private setViewportPositionStyles() {
-		const popoverElement = this.popoverData.popoverElement;
+	private setRelativeAnchorStyles(popoverData: PopoverData) {
+		const anchorName = `--${popoverData.id}`;
+		popoverData.relativeElement!.style.anchorName = anchorName;
+		popoverData.popoverElement.style.positionAnchor = anchorName;
+	}
 
-		if (this.popoverData.horizontalPlacement === 'left') {
+	private isCoverPopover(popoverData: PopoverData): boolean {
+		return popoverData.popoverElement.hasAttribute(PopoverEnums.CoverAttribute);
+	}
+
+	private setRelativePositionStyles(popoverData: PopoverData) {
+		popoverData.popoverElement.style.positionArea = popoverData.verticalPlacement;
+
+		if (popoverData.verticalPlacement === 'center') {
+			popoverData.popoverElement.style.positionArea = `center ${popoverData.horizontalPlacement}`;
+		}
+
+		if (popoverData.horizontalPlacement === 'left') {
+			popoverData.popoverElement.style.left = `anchor(left)`;
+		}
+
+		if (popoverData.horizontalPlacement === 'right') {
+			popoverData.popoverElement.style.right = `anchor(right)`;
+		}
+	}
+
+	private setViewportPositionStyles(popoverData: PopoverData) {
+		const popoverElement = popoverData.popoverElement;
+
+		if (popoverData.horizontalPlacement === 'left') {
 			popoverElement.style.left = '0';
 			popoverElement.style.transform = 'none';
-		} else if (this.popoverData.horizontalPlacement === 'right') {
+		} else if (popoverData.horizontalPlacement === 'right') {
 			popoverElement.style.right = '0';
 			popoverElement.style.left = 'auto';
 			popoverElement.style.transform = 'none';
@@ -58,11 +75,11 @@ class PopoverPositioner {
 			popoverElement.style.transform = 'translateX(-50%)';
 		}
 
-		if (this.popoverData.verticalPlacement === 'top') {
+		if (popoverData.verticalPlacement === 'top') {
 			popoverElement.style.top = '0';
 			popoverElement.style.bottom = 'auto';
 			popoverElement.style.transform += ' translateY(0)';
-		} else if (this.popoverData.verticalPlacement === 'bottom') {
+		} else if (popoverData.verticalPlacement === 'bottom') {
 			popoverElement.style.bottom = '0';
 			popoverElement.style.top = 'auto';
 			popoverElement.style.transform += ' translateY(0)';

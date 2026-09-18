@@ -1,15 +1,35 @@
-import type PopoverPositioner from "./popoverPositioner";
+import type { PopoverData } from './popoverInterface';
+import type PopoverPositioner from './popoverPositioner';
 
 class Popover {
-    constructor(
-        private popoverData: PopoverData,
-        private popoverPositioner: PopoverPositioner
-    ) {
+	constructor(
+		private popoverData: PopoverData,
+		private popoverPositioner: PopoverPositioner,
+	) {}
+
+	public init() {
+		this.reposition();
+		this.dispatchCustomEvent();
+	}
+
+    public getPopoverData() {
+        return this.popoverData;
     }
 
-    public init() {
-        this.popoverPositioner.init();
+    public setPopoverData(popoverData: PopoverData) {
+        this.popoverData = popoverData;
     }
+
+	public reposition() {
+		this.popoverPositioner.applyPosition(this.popoverData);
+	}
+
+	private dispatchCustomEvent() {
+		const event = new CustomEvent('popoverInitialized', {
+			detail: this,
+		});
+		this.popoverData.popoverElement.dispatchEvent(event);
+	}
 }
 
 export default Popover;
