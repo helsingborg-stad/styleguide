@@ -3,6 +3,10 @@
 $_: "[popover]";
 $token: 'o-popover';
 
+body:has([popover][data-js-popover-cover]:popover-open) {
+    overflow: hidden;
+}
+
 #{$_} {
     background: unset;
     border: unset;
@@ -19,5 +23,15 @@ $token: 'o-popover';
 
     &[data-popover-backdrop]::backdrop {
         background: #{tokens.getRawValue($token, "color--alpha")};
+    }
+
+    &[data-js-popover-cover] {
+        inset: 0;
+        width: 100%;
+        height: 100dvh;
+        max-width: none;
+        max-height: none;
+        margin: 0;
+        overflow: auto;
     }
 }
