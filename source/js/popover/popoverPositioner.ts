@@ -1,7 +1,10 @@
 import { PopoverEnums } from './popoverEnums';
+import type { PopoverData } from './popoverInterface';
 
 class PopoverPositioner {
 	public applyPosition(popoverData: PopoverData) {
+		this.resetPositionStyles(popoverData);
+
 		if (this.isCoverPopover(popoverData)) {
 			return;
 		}
@@ -13,6 +16,22 @@ class PopoverPositioner {
 		}
 
 		this.setViewportPositionStyles(popoverData);
+	}
+
+	private resetPositionStyles(popoverData: PopoverData) {
+		const { popoverElement, relativeElement } = popoverData;
+
+		popoverElement.style.left = '';
+		popoverElement.style.right = '';
+		popoverElement.style.top = '';
+		popoverElement.style.bottom = '';
+		popoverElement.style.transform = '';
+		popoverElement.style.positionArea = '';
+		popoverElement.style.positionAnchor = '';
+
+		if (relativeElement) {
+			relativeElement.style.anchorName = '';
+		}
 	}
 
 	private setRelativeAnchorStyles(popoverData: PopoverData) {
