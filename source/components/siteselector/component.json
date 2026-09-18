@@ -5,6 +5,7 @@
   "slug": "siteselector",
   "tokens": [
     "base",
+    "border-radius",
     "border-width",
     "corner-shape",
     "color--primary",
@@ -24,6 +25,10 @@
         {
           "label": "Border color",
           "token": "color--primary-border"
+        },
+        {
+          "label": "Border radius",
+          "token": "border-radius"
         },
         {
           "label": "Corner shape",

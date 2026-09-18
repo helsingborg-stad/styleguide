@@ -36,10 +36,6 @@
         @enddivider
     @endif
 
-    @if (($slug ?? '') === 'siteselector')
-        @include('pages.partials.component.siteselector-examples')
-    @endif
-
     {{-- Component: Examples --}}
     @include('pages.partials.component.examples')
 
