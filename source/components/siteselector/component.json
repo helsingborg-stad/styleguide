@@ -8,8 +8,7 @@
     "border-radius",
     "color--primary",
     "color--primary-contrast",
-    "color--secondary",
-    "color--secondary-contrast"
+    "color--primary-alt"
   ],
   "description": "The Site selector component provides a compact way to switch between sites or audiences.",
   "tags": [

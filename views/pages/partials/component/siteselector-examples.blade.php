@@ -3,26 +3,19 @@
 @endtypography
 
 @typography(['element' => 'p', 'variant' => 'body'])
-    The site selector can represent the current site, related sites, or different audiences. The current site is highlighted automatically.
-@endtypography
-
-@typography(['element' => 'h3', 'variant' => 'h3', 'classList' => ['u-margin__top--5']])
-    Color schemes
+    The site selector can represent the current site, related sites, or different audiences. Its colors are configured through the design tool, and the current site is highlighted automatically.
 @endtypography
 
 @paper(['padding' => 2, 'classList' => ['u-margin__bottom--4']])
-    @foreach(['primary', 'secondary'] as $color)
-        @siteselector([
-            'color' => $color,
-            'items' => [
-                ['label' => 'This site', 'href' => 'https://' . ($_SERVER['HTTP_HOST'] ?? '')],
-                ['label' => 'Google', 'href' => 'https://google.com'],
-                ['label' => 'Facebook', 'href' => 'https://facebook.com'],
-                ['label' => 'Twitter', 'href' => 'https://twitter.com']
-            ]
-        ])
-        @endsiteselector
-    @endforeach
+    @siteselector([
+        'items' => [
+            ['label' => 'This site', 'href' => 'https://' . ($_SERVER['HTTP_HOST'] ?? '')],
+            ['label' => 'Google', 'href' => 'https://google.com'],
+            ['label' => 'Facebook', 'href' => 'https://facebook.com'],
+            ['label' => 'Twitter', 'href' => 'https://twitter.com']
+        ]
+    ])
+    @endsiteselector
 @endpaper
 
 @typography(['element' => 'h3', 'variant' => 'h3', 'classList' => ['u-margin__top--5']])
