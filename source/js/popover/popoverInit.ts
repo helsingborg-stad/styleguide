@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         (new Popover(
             popoverData,
-            new PopoverPositioner(popoverData)
+            new PopoverPositioner()
         )).init();
     });
 });

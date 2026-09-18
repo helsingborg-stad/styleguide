@@ -1,55 +1,53 @@
 import { PopoverEnums } from './popoverEnums';
 
 class PopoverPositioner {
-	constructor(private popoverData: PopoverData) {}
-
-	public init() {
-		if (this.isCoverPopover()) {
+	public applyPosition(popoverData: PopoverData) {
+		if (this.isCoverPopover(popoverData)) {
 			return;
 		}
 
-		if (this.popoverData.relativeElement) {
-			this.setRelativeAnchorStyles();
-			this.setRelativePositionStyles();
+		if (popoverData.relativeElement) {
+			this.setRelativeAnchorStyles(popoverData);
+			this.setRelativePositionStyles(popoverData);
 			return;
 		}
 
-		this.setViewportPositionStyles();
+		this.setViewportPositionStyles(popoverData);
 	}
 
-	private setRelativeAnchorStyles() {
-		const anchorName = `--${this.popoverData.id}`;
-		this.popoverData.relativeElement!.style.anchorName = anchorName;
-		this.popoverData.popoverElement.style.positionAnchor = anchorName;
+	private setRelativeAnchorStyles(popoverData: PopoverData) {
+		const anchorName = `--${popoverData.id}`;
+		popoverData.relativeElement!.style.anchorName = anchorName;
+		popoverData.popoverElement.style.positionAnchor = anchorName;
 	}
 
-	private isCoverPopover(): boolean {
-		return this.popoverData.popoverElement.hasAttribute(PopoverEnums.CoverAttribute);
+	private isCoverPopover(popoverData: PopoverData): boolean {
+		return popoverData.popoverElement.hasAttribute(PopoverEnums.CoverAttribute);
 	}
 
-	private setRelativePositionStyles() {
-		this.popoverData.popoverElement.style.positionArea = this.popoverData.verticalPlacement;
+	private setRelativePositionStyles(popoverData: PopoverData) {
+		popoverData.popoverElement.style.positionArea = popoverData.verticalPlacement;
 
-		if (this.popoverData.verticalPlacement === 'center') {
-			this.popoverData.popoverElement.style.positionArea = `center ${this.popoverData.horizontalPlacement}`;
+		if (popoverData.verticalPlacement === 'center') {
+			popoverData.popoverElement.style.positionArea = `center ${popoverData.horizontalPlacement}`;
 		}
 
-		if (this.popoverData.horizontalPlacement === 'left') {
-			this.popoverData.popoverElement.style.left = `anchor(left)`;
+		if (popoverData.horizontalPlacement === 'left') {
+			popoverData.popoverElement.style.left = `anchor(left)`;
 		}
 
-		if (this.popoverData.horizontalPlacement === 'right') {
-			this.popoverData.popoverElement.style.right = `anchor(right)`;
+		if (popoverData.horizontalPlacement === 'right') {
+			popoverData.popoverElement.style.right = `anchor(right)`;
 		}
 	}
 
-	private setViewportPositionStyles() {
-		const popoverElement = this.popoverData.popoverElement;
+	private setViewportPositionStyles(popoverData: PopoverData) {
+		const popoverElement = popoverData.popoverElement;
 
-		if (this.popoverData.horizontalPlacement === 'left') {
+		if (popoverData.horizontalPlacement === 'left') {
 			popoverElement.style.left = '0';
 			popoverElement.style.transform = 'none';
-		} else if (this.popoverData.horizontalPlacement === 'right') {
+		} else if (popoverData.horizontalPlacement === 'right') {
 			popoverElement.style.right = '0';
 			popoverElement.style.left = 'auto';
 			popoverElement.style.transform = 'none';
@@ -58,11 +56,11 @@ class PopoverPositioner {
 			popoverElement.style.transform = 'translateX(-50%)';
 		}
 
-		if (this.popoverData.verticalPlacement === 'top') {
+		if (popoverData.verticalPlacement === 'top') {
 			popoverElement.style.top = '0';
 			popoverElement.style.bottom = 'auto';
 			popoverElement.style.transform += ' translateY(0)';
-		} else if (this.popoverData.verticalPlacement === 'bottom') {
+		} else if (popoverData.verticalPlacement === 'bottom') {
 			popoverElement.style.bottom = '0';
 			popoverElement.style.top = 'auto';
 			popoverElement.style.transform += ' translateY(0)';
