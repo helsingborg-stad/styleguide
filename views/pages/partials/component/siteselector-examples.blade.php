@@ -19,25 +19,6 @@
 @endpaper
 
 @typography(['element' => 'h3', 'variant' => 'h3', 'classList' => ['u-margin__top--5']])
-    Border radius
-@endtypography
-
-@paper(['padding' => 2, 'classList' => ['u-margin__bottom--4']])
-    @foreach(['xs', 'sm', 'md', 'lg', 'pill'] as $radius)
-        @siteselector([
-            'radius' => $radius,
-            'items' => [
-                ['label' => 'This site', 'href' => 'https://' . ($_SERVER['HTTP_HOST'] ?? '')],
-                ['label' => 'Google', 'href' => 'https://google.com'],
-                ['label' => 'Facebook', 'href' => 'https://facebook.com'],
-                ['label' => 'Twitter', 'href' => 'https://twitter.com']
-            ]
-        ])
-        @endsiteselector
-    @endforeach
-@endpaper
-
-@typography(['element' => 'h3', 'variant' => 'h3', 'classList' => ['u-margin__top--5']])
     Overflowing items
 @endtypography
 
