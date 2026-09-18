@@ -1,0 +1,29 @@
+{
+  "$schema": "../../component-schema.json",
+  "apiVersion": 1,
+  "name": "Site selector",
+  "slug": "siteselector",
+  "tokens": [
+    "base",
+    "border-radius",
+    "color--primary",
+    "color--primary-contrast",
+    "color--secondary",
+    "color--secondary-contrast"
+  ],
+  "description": "The Site selector component provides a compact way to switch between sites or audiences.",
+  "tags": [
+    "site-selector",
+    "navigation",
+    "component"
+  ],
+  "similarComponents": [
+    "nav",
+    "segment"
+  ],
+  "requires": [
+    "nav"
+  ],
+  "requiredBy": [],
+  "icon": "language"
+}
