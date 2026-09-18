@@ -1,0 +1,113 @@
+@use "../../sass/mixin/tokens";
+
+$_: "c-siteselector";
+
+@include tokens.create($_, getComponentTokens($_), $emitDefaultTokenVariables: true);
+
+.#{$_} {
+    --#{$_}--height-default: #{tokens.getCalculatedValue($_, "base", 5.5)};
+    --#{$_}--height: var(--#{$_}--height-default);
+    --#{$_}--radius-default: #{tokens.getCalculatedValue($_, "border-radius")};
+    --#{$_}--radius: var(--#{$_}--radius-default);
+    --#{$_}--background: #{tokens.getRawValue($_, "color--primary")};
+    --#{$_}--contrast: #{tokens.getRawValue($_, "color--primary-contrast")};
+    --#{$_}--active-background: #{tokens.getRawValue($_, "color--primary-alt")};
+    --#{$_}--height-computed: calc(var(--#{$_}--height) - #{tokens.getRawValue($_, "base")} - #{tokens.getCalculatedValue($_, "border-width", 2)});
+
+    display: inline-flex;
+    cursor: default;
+    height: var(--#{$_}--height);
+    padding: calc(#{tokens.getRawValue($_, "base")} * 0.5);
+    border-radius: var(--#{$_}--radius);
+    border: tokens.getCalculatedValue($_, "border-width") solid #{tokens.getRawValue($_, "color--primary-border")};
+    background-color: var(--#{$_}--background);
+    corner-shape: tokens.getRawValue($_, "corner-shape");
+    user-select: none;
+
+    * {
+        cursor: inherit;
+        user-select: none;
+    }
+
+    a,
+    button {
+        cursor: pointer;
+    }
+
+    .c-nav.c-nav--horizontal .c-nav__item--depth-1 > .c-nav__item-wrapper,
+    .c-nav.c-nav--horizontal .c-nav__item--depth-1 > .c-nav__item-wrapper > * {
+        min-height: unset;
+        height: var(--#{$_}--height-computed);
+    }
+
+    .#{$_}__items.c-nav--depth-1 {
+        gap: 0;
+        --c-nav--item-color: var(--#{$_}--contrast);
+        --c-nav--item-color-hover: var(--#{$_}--contrast);
+        --inherit-color: var(--#{$_}--contrast);
+        --inherit-color-contrast: var(--#{$_}--contrast);
+
+        .c-nav.c-nav--depth-2 {
+            --c-nav--item-color: var(--color--surface-contrast);
+            --c-nav--item-color-hover: var(--color--surface-contrast);
+            --inherit-color: var(--color--surface-contrast);
+            --inherit-color-contrast: var(--color--surface-contrast);
+        }
+    }
+
+    .#{$_}__more > .c-nav__item-wrapper {
+        .c-button.c-nav__toggle {
+            height: unset;
+            width: unset;
+            padding: unset;
+            margin: 0 calc(#{tokens.getRawValue($_, "base")} * 0.5);
+            color: var(--#{$_}--contrast);
+
+            .c-button__label {
+                color: var(--#{$_}--contrast);
+            }
+
+            &:before {
+                left: 2px;
+                bottom: 4px;
+            }
+        }
+
+        + .c-nav--depth-2 {
+            bottom: -4px;
+        }
+    }
+
+    .#{$_}__item.c-nav__item--depth-1 {
+        height: var(--#{$_}--height-computed);
+        padding: 0 calc(#{tokens.getRawValue($_, "base")} * 1.5);
+        border-radius: max(0px, calc(var(--#{$_}--radius) - #{tokens.getCalculatedValue($_, "border-width", 2)}));
+
+        .c-nav__link {
+            padding: 0;
+            color: var(--#{$_}--contrast);
+
+            &:is(a):hover {
+                text-decoration: underline;
+            }
+
+            &:after {
+                display: none !important;
+            }
+        }
+    }
+
+    .is-current.c-nav__item--depth-1 {
+        background-color: var(--#{$_}--active-background);
+    }
+
+    .#{$_}__more .c-nav.c-nav--depth-2 {
+        right: 0;
+        left: auto;
+
+        &:after {
+            right: calc(#{tokens.getRawValue($_, "base")} * 0.75);
+            left: auto;
+        }
+    }
+}

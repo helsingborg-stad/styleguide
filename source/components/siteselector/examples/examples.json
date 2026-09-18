@@ -1,0 +1,10 @@
+{
+  "standard": {
+    "heading": "Standard site selector",
+    "text": "A compact selector for switching between related sites or audiences. The current site is highlighted and cannot be selected again."
+  },
+  "overflow": {
+    "heading": "Overflowing items",
+    "text": "Additional sites are grouped into the popover when the visible item limit is reached."
+  }
+}

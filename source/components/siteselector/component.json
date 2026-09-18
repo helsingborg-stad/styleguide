@@ -1,0 +1,66 @@
+{
+  "$schema": "../../component-schema.json",
+  "apiVersion": 1,
+  "name": "Site selector",
+  "slug": "siteselector",
+  "tokens": [
+    "base",
+    "border-radius",
+    "border-width",
+    "corner-shape",
+    "color--primary",
+    "color--primary-contrast",
+    "color--primary-alt",
+    "color--primary-border"
+  ],
+  "componentSettings": [
+    {
+      "id": "shape",
+      "label": "Shape",
+      "settings": [
+        {
+          "label": "Border width",
+          "token": "border-width"
+        },
+        {
+          "label": "Border color",
+          "token": "color--primary-border"
+        },
+        {
+          "label": "Border radius",
+          "token": "border-radius"
+        },
+        {
+          "label": "Corner shape",
+          "token": "corner-shape"
+        }
+      ]
+    },
+    {
+      "id": "colors",
+      "label": "Colors",
+      "settings": [
+        {
+          "label": "Background color",
+          "token": "color--primary",
+          "includeStateColors": true
+        }
+      ]
+    }
+  ],
+  "description": "The Site selector component provides a compact way to switch between sites or audiences.",
+  "tags": [
+    "site-selector",
+    "navigation",
+    "component"
+  ],
+  "similarComponents": [
+    "nav",
+    "segment"
+  ],
+  "requires": [
+    "nav"
+  ],
+  "requiredBy": [],
+  "icon": "language"
+}
