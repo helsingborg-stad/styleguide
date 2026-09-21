@@ -24,6 +24,7 @@ function tryGetPopoverData(popoverElement: HTMLElement): PopoverData | null {
 	const popoverTarget = document.querySelector(`[${PopoverEnums.PopoverTargetSelectorAttribute}="${id}"]`) as HTMLElement | null;
 
 	const relativeElement = getRelativeElement(popoverElement, popoverTarget, relative);
+    const cover = popoverElement.hasAttribute(PopoverEnums.CoverAttribute);
 
 	if (!id || !popoverTarget) {
 		console.error(`Popover with id "${id}" or target "${popoverTarget}" is missing.`);
@@ -31,7 +32,7 @@ function tryGetPopoverData(popoverElement: HTMLElement): PopoverData | null {
 		return null;
 	}
 
-	return { id, popoverElement, popoverTarget, relativeElement, horizontalPlacement, verticalPlacement, relative };
+	return { id, popoverElement, popoverTarget, relativeElement, horizontalPlacement, verticalPlacement, relative, cover };
 }
 
 function getRelativeElement(popoverElement: HTMLElement, popoverTarget: HTMLElement | null, relative: boolean): HTMLElement | null {

@@ -8,3 +8,15 @@ export enum PopoverEnums {
 	RelativeAttribute = 'data-js-popover-relative',
 	RelativeElementAttribute = 'data-js-popover-relative',
 }
+
+export enum HorizontalPlacement {
+	left = 'left',
+	center = 'center',
+	right = 'right',
+}
+
+export enum VerticalPlacement {
+	top = 'top',
+	center = 'center',
+	bottom = 'bottom',
+}
