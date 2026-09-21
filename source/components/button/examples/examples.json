@@ -14,6 +14,12 @@
 		"heading": "Type filled",
 		"text": "Buttons with type filled and in three different colors."
 	},
+	"inherit": {
+		"grid": "",
+		"heading": "Inherited color on surfaces",
+		"text": "Set color to inherit to use the containing surface's colors. Basic and outlined buttons use the surface contrast color; filled buttons invert the surface colors.",
+		"includePaper": false
+	},
 	"fullWidth": {
 		"grid": "",
 		"heading": "Full width buttons",

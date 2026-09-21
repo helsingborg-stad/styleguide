@@ -41,4 +41,19 @@ $_: "c-button";
         --#{$_}-hover: #{tokens.getRawValue($_, "color--primary-border")};
     }
 
+    // Invert the containing surface: native currentColor fills the Button and
+    // the inherited surface background becomes the label and icon color.
+    &.#{$_}__filled--inherit {
+        --#{$_}-background: currentColor;
+        --#{$_}-border: currentColor;
+        --#{$_}-contrast: var(--inherit-color-background, #{tokens.getRawValue($_, "color--surface")});
+        --#{$_}-hover: color-mix(in srgb, var(--#{$_}-contrast) 18%, var(--#{$_}-background));
+        --#{$_}-active: color-mix(in srgb, var(--#{$_}-contrast) 24%, var(--#{$_}-background));
+        color: inherit;
+
+        .#{$_}__label {
+            color: var(--#{$_}-contrast);
+        }
+    }
+
 }

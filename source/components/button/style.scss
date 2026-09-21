@@ -9,6 +9,11 @@
     inherits: true;
 }
 
+@property --inherit-color-background {
+    syntax: "*";
+    inherits: true;
+}
+
 @property --inherit-filter {
     syntax: "*";
     inherits: true;
