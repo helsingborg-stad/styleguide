@@ -130,6 +130,21 @@ export class ComponentCustomizerRuntime {
 				if (isMissingComponent || !hasContextTarget) {
 					delete this.overrides[scopeKey][componentName];
 					hasChanges = true;
+					continue;
+				}
+
+				const persistableVariables = this.getPersistableOverrideVariables(componentName);
+				if (persistableVariables) {
+					for (const variable of Object.keys(this.overrides[scopeKey][componentName])) {
+						if (!persistableVariables.has(variable)) {
+							delete this.overrides[scopeKey][componentName][variable];
+							hasChanges = true;
+						}
+					}
+
+					if (Object.keys(this.overrides[scopeKey][componentName]).length === 0) {
+						delete this.overrides[scopeKey][componentName];
+					}
 				}
 			}
 
@@ -142,6 +157,42 @@ export class ComponentCustomizerRuntime {
 		if (hasChanges) {
 			this.syncOverrideState();
 		}
+	}
+
+	/**
+	 * Explicit component settings replace the legacy "every token is editable"
+	 * model. Keep only their persisted variables (and their linked outputs) so
+	 * removed controls cannot leave invisible overrides behind. Components still
+	 * using legacy token categories retain their existing persistence behavior.
+	 */
+	private getPersistableOverrideVariables(componentName: string): Set<string> | null {
+		const definition = this.componentData[componentName];
+		const componentSettings = Array.isArray(definition?.componentSettings) ? definition.componentSettings : [];
+		if (componentSettings.length === 0) {
+			return null;
+		}
+
+		const availableTokenNames = new Set((definition?.tokens ?? []).map((token) => token.trim()).filter(Boolean));
+		const persistableVariables = new Set<string>();
+
+		for (const setting of componentSettings.flatMap((category) => category.settings)) {
+			if (this.isTokenReferenceSetting(setting)) {
+				persistableVariables.add(this.toLocalizedComponentVariable(componentName, setting.token));
+				const tokenEntry = this.findTokenLibraryEntry(setting.token);
+				const linkedTokens = this.collectLinkedTargetColorTokens(availableTokenNames, setting.token, tokenEntry?.setting.contrast);
+				for (const linkedToken of linkedTokens) {
+					persistableVariables.add(this.toLocalizedComponentVariable(componentName, linkedToken));
+				}
+				continue;
+			}
+
+			persistableVariables.add(this.toLocalizedComponentVariable(componentName, setting.variable));
+			for (const output of setting.outputs ?? []) {
+				persistableVariables.add(this.toLocalizedComponentVariable(componentName, output));
+			}
+		}
+
+		return persistableVariables;
 	}
 
 	private applySavedOverrides(): void {
