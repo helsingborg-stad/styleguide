@@ -12,6 +12,7 @@ body:has([popover][data-js-popover-cover]:popover-open) {
     border: unset;
     padding: unset;
     margin: unset;
+    overflow: visible;
 
     &::backdrop {
         background: transparent;

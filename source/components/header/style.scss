@@ -102,20 +102,20 @@ $_: "c-header";
         --c-header--border-color: #{tokens.getRawValue($_, "color--secondary-border")};
     }
 
-    .c-nav:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
-        --c-nav--item-color: var(--c-header--color);
-        --c-nav--color--primary-contrast: var(--c-header--color);
-        --inherit-background-color: var(--c-header--background-color);
-        --inherit-color: var(--c-header--color);
+    // A Header supplies the initial Nav surface. Once a Nav enters a child or
+    // extended dropdown, that dropdown is its own surface and owns these
+    // inherited color roles.
+    .c-nav:not(.#{$_} .c-card *, .#{$_} .c-paper *, .#{$_} .c-nav__child-container *, .#{$_} .c-nav__extended-dropdown-container *) {
         --inherit-color-background: var(--c-header--background-color);
         --inherit-color-contrast: var(--c-header--color);
+        --inherit-color-border: var(--c-header--border-color);
     }
 
-    .c-link:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
+    .c-link:not(.#{$_} .c-card *, .#{$_} .c-paper *, .#{$_} .c-nav__child-container *, .#{$_} .c-nav__extended-dropdown-container *) {
         --inherit-color-contrast: var(--c-header--color);
     }
 
-    [data-component="button"]:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
+    [data-component="button"]:not(.#{$_} .c-card *, .#{$_} .c-paper *, .#{$_} .c-nav__child-container *, .#{$_} .c-nav__extended-dropdown-container *) {
         --inherit-color-contrast: var(--c-header--color);
 
         &.c-button__filled {
