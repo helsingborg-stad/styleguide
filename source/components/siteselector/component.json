@@ -15,6 +15,33 @@
   ],
   "componentSettings": [
     {
+      "id": "size",
+      "label": "Size",
+      "settings": [
+        {
+          "variable": "--size",
+          "label": "Size",
+          "description": "Controls the height using the same small, medium, and large steps as filled buttons.",
+          "type": "select",
+          "default": "var(--c-siteselector--size-md)",
+          "options": [
+            {
+              "value": "var(--c-siteselector--size-sm)",
+              "label": "Small"
+            },
+            {
+              "value": "var(--c-siteselector--size-md)",
+              "label": "Medium"
+            },
+            {
+              "value": "var(--c-siteselector--size-lg)",
+              "label": "Large"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "shape",
       "label": "Shape",
       "settings": [
