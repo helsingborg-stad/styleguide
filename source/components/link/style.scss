@@ -3,6 +3,7 @@
 
 @include inherit.property("color-contrast");
 @include inherit.property("color-primary");
+@include inherit.property("link-color");
 
 $_: "c-link";
 
@@ -20,7 +21,7 @@ a:not([class^="c-"]):not([class*=" c-"]),
 .#{$_} {
     text-decoration-style: solid;
     transition: 100ms color;
-    color: var(--#{$_}--link-color-mix);
+    color: var(--inherit-link-color, var(--#{$_}--link-color-mix));
 
     i {
         text-decoration: none;
@@ -38,12 +39,12 @@ a:not([class^="c-"]):not([class*=" c-"]),
 
     &:active,
     &:hover {
-        color: var(--#{$_}--state-link-color-mix);
+        color: var(--inherit-link-color, var(--#{$_}--state-link-color-mix));
     }
 
     &:visited,
     &:visited:hover,
     &:visited:active {
-        color: var(--#{$_}--state-link-color-mix);
+        color: var(--inherit-link-color, var(--#{$_}--state-link-color-mix));
     }
 }

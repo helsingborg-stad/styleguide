@@ -1,19 +1,9 @@
 @use "../../sass/mixin/focus";
 @use "../../sass/mixin/tokens";
 
-@property --inherit-background-color {
-    syntax: "*";
-    inherits: false;
-}
-
 @property --inherit-color-background {
     syntax: "*";
     inherits: true;
-}
-
-@property --inherit-color {
-    syntax: "*";
-    inherits: false;
 }
 
 @property --inherit-color-contrast {
@@ -58,16 +48,18 @@ $_: "c-nav";
     --#{$_}--item-background-color-hover-default: transparent;
     --#{$_}--font-size: var(--base-font-size);
     --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 1)};
-    --#{$_}--item-background-color: #{tokens.getRawValue($_, "color--surface", "color-background")};
-    --#{$_}--item-color: #{tokens.getRawValue($_, "color--surface-contrast", "color-contrast")};
-    --#{$_}--background-expanded-default: color-mix(in srgb, var(--#{$_}--item-color) var(--#{$_}--background-expanded-transparency, 5%), transparent);
+    --#{$_}--item-background-color: var(--inherit-color-background, transparent);
+    --#{$_}--background-expanded-default: color-mix(in srgb, currentColor var(--#{$_}--background-expanded-transparency, 5%), transparent);
     --#{$_}--background-expanded-color: var(--#{$_}--background-expanded, var(--#{$_}--background-expanded-default));
-    --#{$_}--item-background-color-hover: #{tokens.getDerivedAliasValue($_, "item-background-color-hover", "color-background-hover")};
-    --#{$_}--item-color-hover: #{tokens.getRawValue($_, "color--surface-contrast", "color-contrast")};
-    --#{$_}--item-border-color: #{tokens.getRawValue($_, "color--surface-border", "color-border")};
+    --#{$_}--item-background-color-hover: var(--inherit-color-background-hover, transparent);
+    --#{$_}--item-border-color: var(--inherit-color-border, currentColor);
+    // Disables Link's primary-color mixing inside navigation. A Nav link is
+    // part of its containing surface, not an independently styled link.
+    --inherit-link-color: var(--inherit-color-contrast);
     --#{$_}--vertical-link-padding: var(--inherit-padding, calc(#{tokens.getRawValue($_, "base")} * 1) calc(#{tokens.getRawValue($_, "base")} * 2));
     --#{$_}--vertical-button-padding: var(--inherit-button-padding, calc(#{tokens.getRawValue($_, "base")} * 1.5) calc(#{tokens.getRawValue($_, "base")} * 2));
     display: flex;
+    color: inherit;
     width: 100%;
 
     &.c-nav--gap {
@@ -131,11 +123,11 @@ $_: "c-nav";
         &.c-nav__item--separator {
 
             .c-nav__item-wrapper {
-                background-color: #{tokens.getRawValue($_, "color--primary-contrast")};
+                background-color: currentColor;
             }
 
             .c-nav__link .c-nav__text {
-                color: tokens.getRawValue($_, "color--primary");
+                color: var(--#{$_}--item-background-color);
             }
         }
     }
@@ -193,7 +185,7 @@ $_: "c-nav";
             // Only for links without icons
             content: "";
             position: absolute;
-            border-bottom: 3px solid #{tokens.getRawValue($_, "color--primary-contrast")};
+            border-bottom: 3px solid currentColor;
             left: 0;
             width: 0;
             display: none;
@@ -289,7 +281,7 @@ $_: "c-nav";
 
 .c-nav__item.is-current>.c-nav__link,
 .c-nav__item.is-current>.c-nav__item-wrapper>.c-nav__link {
-    color: var(--#{$_}--item-color);
+    color: inherit;
     font-weight: var(--font-weight-bold, 700);
     font-family: var(--font-family-bold);
 }
@@ -309,7 +301,7 @@ $_: "c-nav";
         .c-nav__toggle,
         .c-nav__button.c-button__basic .c-button__label,
         .c-nav__button.c-button__outlined .c-button__label {
-            color: var(--#{$_}--item-color);
+            color: inherit;
         }
 
     }
@@ -427,7 +419,7 @@ $_: "c-nav";
         --inherit-font-size: #{tokens.getRawValue($_, "font-size-300")};
         white-space: nowrap;
         margin-top: calc(#{tokens.getRawValue($_, "base")} * .5);
-        color: tokens.getRawValue($_, "color--primary-contrast");
+        color: inherit;
     }
 
     .c-nav.preloader>li {
@@ -441,7 +433,7 @@ $_: "c-nav";
         grid-auto-flow: column;
         grid-template-rows: repeat(4, max-content) 1fr;
         gap: 0 1px;
-        background-color: var(--#{$_}--item-color);
+        background-color: currentColor;
 
         ul.c-nav.c-nav--child {
             background-color: var(--#{$_}--background-expanded);
@@ -486,11 +478,11 @@ $_: "c-nav";
         .c-nav__text,
         .c-nav__icon,
         .c-nav__toggle {
-            color: var(--#{$_}--item-color);
+            color: inherit;
         }
 
         &.c-nav__item--separator .c-nav__text {
-            color: tokens.getRawValue($_, "color--primary");
+            color: var(--#{$_}--item-background-color);
         }
     }
 
@@ -501,7 +493,7 @@ $_: "c-nav";
         .c-nav__text,
         .c-nav__icon,
         .c-nav__toggle {
-            color: var(--#{$_}--item-color-hover);
+            color: inherit;
         }
     }
 }

@@ -62,6 +62,7 @@ $insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data
     /* switch to surface color tokens for nested components */
 
     [data-component="card"],
+    [data-component="nav"],
     [data-component="comment"],
     [data-component="table"],
     table:not([data-component="table"] *),

@@ -103,12 +103,9 @@ $_: "c-header";
     }
 
     .c-nav:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
-        --c-nav--item-color: var(--c-header--color);
-        --c-nav--color--primary-contrast: var(--c-header--color);
-        --inherit-background-color: var(--c-header--background-color);
-        --inherit-color: var(--c-header--color);
         --inherit-color-background: var(--c-header--background-color);
         --inherit-color-contrast: var(--c-header--color);
+        --inherit-color-border: var(--c-header--border-color);
     }
 
     .c-link:not(.#{$_} .c-card *, .#{$_} .c-paper *) {
