@@ -150,6 +150,37 @@ $_: "c-nav";
     &.c-nav--horizontal {
         flex-direction: row;
 
+        // Dropdowns are separate surfaces. Their color scheme is selected on
+        // the top-level Nav and then inherited by every child Nav.
+
+        &.c-nav--depth-1 {
+            --#{$_}--popover-background: var(--#{$_}--color--surface, var(--#{$_}--color--surface-default, var(--color--surface)));
+            --#{$_}--popover-color: var(--#{$_}--color--surface-contrast, var(--#{$_}--color--surface-contrast-default, var(--color--surface-contrast)));
+            --#{$_}--popover-background-hover: var(--#{$_}--color--surface-alt, var(--#{$_}--color--surface-alt-default, var(--color--surface-alt)));
+            --#{$_}--popover-border: var(--#{$_}--color--surface-border, var(--#{$_}--color--surface-border-default, var(--color--surface-border)));
+
+            &.c-nav--popover-primary {
+                --#{$_}--color--surface: var(--color--primary);
+                --#{$_}--color--surface-contrast: var(--color--primary-contrast);
+                --#{$_}--color--surface-alt: var(--color--primary-alt);
+                --#{$_}--color--surface-border: var(--color--primary-border);
+            }
+
+            &.c-nav--popover-secondary {
+                --#{$_}--color--surface: var(--color--secondary);
+                --#{$_}--color--surface-contrast: var(--color--secondary-contrast);
+                --#{$_}--color--surface-alt: var(--color--secondary-alt);
+                --#{$_}--color--surface-border: var(--color--secondary-border);
+            }
+
+            &.c-nav--popover-background {
+                --#{$_}--color--surface: var(--color--background);
+                --#{$_}--color--surface-contrast: var(--color--background-contrast);
+                --#{$_}--color--surface-alt: var(--color--background-alt);
+                --#{$_}--color--surface-border: var(--color--background-border);
+            }
+        }
+
         .c-nav__item {
             position: relative;
         }
@@ -194,10 +225,31 @@ $_: "c-nav";
         }
 
         .c-nav.c-nav--child {
+            --inherit-color-background: var(--#{$_}--popover-background);
+            --inherit-color-contrast: var(--#{$_}--popover-color);
+            --inherit-color-background-hover: var(--#{$_}--popover-background-hover);
+            --inherit-color-border: var(--#{$_}--popover-border);
+            --#{$_}--item-background-color: var(--#{$_}--popover-background);
+            --#{$_}--item-background-color-hover: var(--#{$_}--popover-background-hover);
+            --#{$_}--item-border-color: var(--#{$_}--popover-border);
             background: var(--#{$_}--item-background-color);
+            color: var(--inherit-color-contrast);
             min-width: calc(#{tokens.getRawValue($_, "base")} * 28);
             border-radius: tokens.getCalculatedValue($_, "border-radius");
+            corner-shape: tokens.getRawValue($_, "corner-shape");
             filter: var(--#{$_}--shadow);
+
+            >.c-nav__item:first-child>.c-nav__item-wrapper {
+                border-start-start-radius: tokens.getCalculatedValue($_, "border-radius");
+                border-start-end-radius: tokens.getCalculatedValue($_, "border-radius");
+                corner-shape: tokens.getRawValue($_, "corner-shape");
+            }
+
+            >.c-nav__item:last-child>.c-nav__item-wrapper {
+                border-end-start-radius: tokens.getCalculatedValue($_, "border-radius");
+                border-end-end-radius: tokens.getCalculatedValue($_, "border-radius");
+                corner-shape: tokens.getRawValue($_, "corner-shape");
+            }
         }
     }
 
@@ -365,6 +417,13 @@ $_: "c-nav";
     /* Container */
 
     .c-nav__extended-dropdown-container {
+        --inherit-color-background: var(--#{$_}--popover-background);
+        --inherit-color-contrast: var(--#{$_}--popover-color);
+        --inherit-color-background-hover: var(--#{$_}--popover-background-hover);
+        --inherit-color-border: var(--#{$_}--popover-border);
+        --#{$_}--item-background-color: var(--#{$_}--popover-background);
+        --#{$_}--item-background-color-hover: var(--#{$_}--popover-background-hover);
+        --#{$_}--item-border-color: var(--#{$_}--popover-border);
         transform-origin: top;
         transform: scaleY(0);
         transition: transform 200ms ease-in-out;
@@ -376,6 +435,8 @@ $_: "c-nav";
         width: 100%;
         z-index: 5;
         background-color: var(--#{$_}--item-background-color);
+        color: var(--inherit-color-contrast);
+        filter: var(--#{$_}--shadow);
         justify-content: center;
     }
 

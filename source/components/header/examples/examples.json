@@ -8,6 +8,14 @@
 	"secondary": {
 		"heading": "Secondary color"
 	},
+	"primary-with-dropdown": {
+		"heading": "Primary color with dropdown navigation",
+		"description": "A nested navigation in a primary header. Expand a menu item to verify that the child panel uses the default surface."
+	},
+	"secondary-with-extended-dropdown": {
+		"heading": "Secondary color with extended dropdown navigation",
+		"description": "A secondary header with a full-width child panel using the primary popover color scheme. It demonstrates a child surface that differs from its trigger."
+	},
 	"accented": {
 		"heading": "Accented"
 	},

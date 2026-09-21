@@ -2244,7 +2244,26 @@
       "border-radius",
       "shadow-color",
       "shadow-amount",
-      "font-size-300"
+      "font-size-300",
+      "color--surface",
+      "color--surface-contrast",
+      "color--surface-alt",
+      "color--surface-border"
+    ],
+    "componentSettings": [
+      {
+        "id": "popover",
+        "label": "Popover",
+        "description": "Color settings for dropdown and extended navigation panels.",
+        "settings": [
+          {
+            "token": "color--surface",
+            "label": "Popover Color Scheme",
+            "description": "Sets the dropdown panel background, contrast, hover, and border colors together.",
+            "includeStateColors": false
+          }
+        ]
+      }
     ],
     "description": "The Nav component provides a reusable pattern for nav in the interface.",
     "tags": [
