@@ -21,6 +21,10 @@ $_: "c-button";
 @include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
 .#{$_} {
+    --#{$_}-height: #{tokens.getCalculatedValue($_, "base", 6)};
+    --#{$_}-min-width: #{tokens.getCalculatedValue($_, "base", 9)};
+    --#{$_}-padding-x: #{tokens.getCalculatedValue($_, "space", 3)};
+    --#{$_}-font-size: #{tokens.getRawValue($_, "font-size-100")};
     border-radius: tokens.getCalculatedValue($_, "border-radius");
     contain: layout;
     corner-shape: tokens.getRawValue($_, "corner-shape");
@@ -29,7 +33,10 @@ $_: "c-button";
     font-family: tokens.getRawValue($_, "font-family-base");
     font-size: var(--#{$_}-font-size);
     font-weight: tokens.getRawValue($_, "font-weight-medium");
+    height: var(--#{$_}-height);
     justify-content: center;
+    min-width: var(--#{$_}-min-width);
+    padding: 0 var(--#{$_}-padding-x);
     position: relative;
     text-decoration: none;
     transition-duration: 100ms;
@@ -42,6 +49,20 @@ $_: "c-button";
     &[disabled] {
         cursor: not-allowed;
         opacity: 0.7;
+    }
+
+    &.#{$_}--sm {
+        --#{$_}-height: #{tokens.getCalculatedValue($_, "base", 4.5)};
+        --#{$_}-min-width: #{tokens.getCalculatedValue($_, "base", 6.75)};
+        --#{$_}-padding-x: #{tokens.getCalculatedValue($_, "space", 2)};
+        --#{$_}-font-size: #{tokens.getRawValue($_, "font-size-90")};
+    }
+
+    &.#{$_}--lg {
+        --#{$_}-height: #{tokens.getCalculatedValue($_, "base", 8)};
+        --#{$_}-min-width: #{tokens.getCalculatedValue($_, "base", 12)};
+        --#{$_}-padding-x: #{tokens.getCalculatedValue($_, "space", 4)};
+        --#{$_}-font-size: #{tokens.getRawValue($_, "font-size-200")};
     }
 
     &__full-width {
@@ -92,6 +113,8 @@ $_: "c-button";
     &.#{$_}--icon-only {
         justify-content: center;
         min-width: initial;
+        padding: 0;
+        width: var(--#{$_}-height);
 
         .#{$_}__label {
             gap: unset;
