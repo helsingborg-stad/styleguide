@@ -33,6 +33,17 @@ $_: "c-button";
         --#{$_}-contrast: #{tokens.getRawValue($_, "color--primary")};
     }
 
+    // Opt out of Button color schemes and use the containing surface instead.
+    &.#{$_}__basic--inherit {
+        --#{$_}-hover: color-mix(in srgb, currentColor 18%, transparent);
+        --#{$_}-active: color-mix(in srgb, currentColor 24%, transparent);
+        color: inherit;
+
+        .#{$_}__label {
+            color: inherit;
+        }
+    }
+
     &.#{$_}--align-visually {
         margin-left: calc(var(--#{$_}-padding-x) * -1);
         margin-right: calc(var(--#{$_}-padding-x) * -1);

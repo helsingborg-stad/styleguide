@@ -21,3 +21,12 @@
     'style' => 'basic'
 ])
 @endbutton
+
+<span style="color: var(--color--secondary);">
+    @button([
+        'text' => 'Inherited color',
+        'color' => 'inherit',
+        'style' => 'basic'
+    ])
+    @endbutton
+</span>

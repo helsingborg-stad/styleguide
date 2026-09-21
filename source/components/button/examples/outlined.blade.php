@@ -19,3 +19,12 @@
     'style' => 'outlined'
 ])
 @endbutton
+
+<span style="color: var(--color--secondary);">
+    @button([
+        'text' => 'Inherited outlined',
+        'color' => 'inherit',
+        'style' => 'outlined'
+    ])
+    @endbutton
+</span>

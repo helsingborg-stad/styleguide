@@ -336,6 +336,8 @@
                 "c-button__filled--primary",
                 "c-button__basic--primary",
                 "c-button__outlined--primary",
+                "c-button__basic--inherit",
+                "c-button__outlined--inherit",
                 "c-button__filled--secondary",
                 "c-button__basic--secondary",
                 "c-button__outlined--secondary"
