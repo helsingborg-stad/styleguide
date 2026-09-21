@@ -17,11 +17,11 @@ import { init as initTabs } from '../components/tabs/index.js';
 
 // initializing components scripts
 initTabs();
-initButton();
 initChat();
 initPagination();
 initNav();
 initBrand();
+initButton();
 initHero();
 initMap();
 initSelect();

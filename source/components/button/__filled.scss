@@ -49,28 +49,15 @@ $_: "c-button";
         --#{$_}-hover: transparent;
         --#{$_}-active: transparent;
         --#{$_}-cutout-fill: currentColor;
-        --#{$_}-cutout-icon-size: #{tokens.getCalculatedValue($_, "base", 3)};
         color: inherit;
 
-        &.#{$_}--sm {
-            --#{$_}-cutout-icon-size: #{tokens.getCalculatedValue($_, "base", 2)};
-        }
-
-        &.#{$_}--lg {
-            --#{$_}-cutout-icon-size: #{tokens.getCalculatedValue($_, "base", 4)};
-        }
-
         .#{$_}__cutout {
-            height: 100%;
-            inset: 0;
+            height: calc(100% + (#{tokens.getCalculatedValue($_, "border-width", 1)} * 2));
+            inset: calc(#{tokens.getCalculatedValue($_, "border-width", 1)} * -1);
             overflow: hidden;
             pointer-events: none;
             position: absolute;
-            width: 100%;
-        }
-
-        .#{$_}__cutout-measure {
-            visibility: hidden;
+            width: calc(100% + (#{tokens.getCalculatedValue($_, "border-width", 1)} * 2));
         }
 
         .#{$_}__cutout-shape {
@@ -82,30 +69,12 @@ $_: "c-button";
             fill: var(--#{$_}-cutout-fill);
         }
 
-        .#{$_}__cutout-text {
-            fill: #000;
-            font-family: inherit;
-            font-size: var(--#{$_}-font-size);
-            font-weight: inherit;
-            letter-spacing: inherit;
-        }
-
-        // The normal flex label has a negative outer icon margin. Mirror half
-        // that margin on the SVG text group so its optical centre follows the
-        // icon toward the matching button edge.
-        .#{$_}__cutout-text--icon-after {
-            transform: translate(calc(var(--#{$_}-icon-offset) * -0.5), 1px);
-        }
-
-        .#{$_}__cutout-text--icon-before {
-            transform: translate(calc(var(--#{$_}-icon-offset) * 0.5), 1px);
-        }
-
-        .#{$_}__cutout-icon {
-            font-family: "Material Symbols Outlined", "Material Symbols Rounded", "Material Symbols Sharp";
-            font-size: var(--#{$_}-cutout-icon-size);
-            font-feature-settings: "liga";
-            font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 48;
+        // Keep the visible label in the native HTML/flex renderer. Its color is
+        // the nearest rendered ancestor surface, resolved without inherit tokens.
+        .#{$_}__cutout-label {
+            color: var(--#{$_}-cutout-surface, #{tokens.getRawValue($_, "color--surface")});
+            position: relative;
+            z-index: 1;
         }
 
         &:hover {
