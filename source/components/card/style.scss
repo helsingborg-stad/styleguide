@@ -62,8 +62,7 @@ $_: "c-card";
     [data-component="collection"],
     [data-component="table"],
     table:not(.c-table *),
-    [data-component="button"].c-button__filled--default,
-    [data-component="button"].c-button__filled--inherit {
+    [data-component="button"].c-button__filled--default {
         --inherit-color-background: var(--#{$_}--surface-color);
         --inherit-color-contrast: var(--#{$_}--surface-contrast-color);
         --inherit-color-background-hover: var(--#{$_}--surface-alt-color);

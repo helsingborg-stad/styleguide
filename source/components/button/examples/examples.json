@@ -17,7 +17,13 @@
 	"inherit": {
 		"grid": "",
 		"heading": "Inherited color on surfaces",
-		"text": "Set color to inherit to use the containing surface's colors. Basic and outlined buttons use the surface contrast color; filled buttons invert the surface colors.",
+		"text": "Set color to inherit to use the containing surface's colors. Basic and outlined buttons use the surface contrast color; filled buttons use currentColor as an SVG surface with their label and icon cut out.",
+		"includePaper": false
+	},
+	"cutoutParity": {
+		"grid": "",
+		"heading": "Inherited filled button parity",
+		"text": "Each pair compares a standard filled button with the SVG cutout version. They share the same label layout, including short and long text plus icons before and after the label.",
 		"includePaper": false
 	},
 	"fullWidth": {

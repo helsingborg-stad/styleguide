@@ -7,7 +7,7 @@
                 @endbutton
                 @button(['text' => 'Outlined', 'color' => 'inherit', 'style' => 'outlined'])
                 @endbutton
-                @button(['text' => 'Filled', 'color' => 'inherit', 'style' => 'filled'])
+                @button(['text' => 'Filled', 'icon' => 'arrow_forward', 'color' => 'inherit', 'style' => 'filled'])
                 @endbutton
             </div>
         </section>

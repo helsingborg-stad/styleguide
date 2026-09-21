@@ -91,9 +91,6 @@ $insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data
             --inherit-color-border: var(--#{$_}--border-color);
         }
 
-        &.c-button__filled--inherit {
-            --inherit-color-background: var(--#{$_}--background-color);
-        }
     }
 
     @for $i from 0 through 8 {
