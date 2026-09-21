@@ -435,7 +435,6 @@ $_: "c-nav";
         width: 100%;
         z-index: 5;
         background-color: var(--#{$_}--item-background-color);
-        color: var(--inherit-color-contrast);
         filter: var(--#{$_}--shadow);
         justify-content: center;
     }
@@ -453,6 +452,23 @@ $_: "c-nav";
         display: flex;
         flex-direction: row;
         position: relative;
+        color: var(--inherit-color-contrast);
+
+        >.c-nav__child-container>.c-nav.c-nav--child {
+            background-color: transparent;
+        }
+
+        // Links in an extended panel are navigation content, not independently
+        // colored Link components. They inherit the panel's popover contrast.
+
+        .c-nav__link {
+            color: inherit;
+            text-decoration: none;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
 
         // Only affect the "main subitems"
 
@@ -494,10 +510,10 @@ $_: "c-nav";
         grid-auto-flow: column;
         grid-template-rows: repeat(4, max-content) 1fr;
         gap: 0 1px;
-        background-color: currentColor;
+        background-color: transparent;
 
         ul.c-nav.c-nav--child {
-            background-color: var(--#{$_}--background-expanded);
+            background-color: transparent;
 
             &:after {
                 content: none;
@@ -507,7 +523,7 @@ $_: "c-nav";
 
         &>li {
             width: calc(#{tokens.getRawValue($_, "base")} * 40);
-            background-color: var(--#{$_}--item-background-color);
+            background-color: transparent;
         }
 
         &>li>.c-nav__item-wrapper .c-nav__text {
@@ -556,6 +572,19 @@ $_: "c-nav";
         .c-nav__toggle {
             color: inherit;
         }
+    }
+}
+
+// The extended dropdown is one continuous popover surface. Its child rows
+// preserve keyboard focus indicators, but never gain a separate fill.
+
+.c-nav.c-nav.c-nav--vertical.c-nav__extended-child-menu {
+
+    .c-nav__item>.c-nav__item-wrapper:hover,
+    .c-nav__item>.c-nav__item-wrapper:focus,
+    .c-nav__item>.c-nav__item-wrapper:focus-within,
+    .c-nav__item.is-active>.c-nav__item-wrapper {
+        background-color: transparent;
     }
 }
 
