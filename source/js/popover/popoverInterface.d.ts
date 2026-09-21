@@ -11,6 +11,7 @@ export type PopoverData = {
 	horizontalPlacement: PopoverHorizontalPlacement;
 	verticalPlacement: PopoverVerticalPlacement;
 	relative: boolean;
+    cover: boolean;
 };
 
 export type PopoverHorizontalPlacement = 'left' | 'center' | 'right';
