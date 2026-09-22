@@ -5,7 +5,4 @@ $_: "c-button";
 .#{$_}.#{$_}--pill {
     border-radius: tokens.getCalculatedValue($_, "base", 6);
 
-    &.#{$_}__filled--inherit {
-        --#{$_}-cutout-radius: #{tokens.getCalculatedValue($_, "base", 6)};
-    }
 }

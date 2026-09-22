@@ -1,4 +1,5 @@
 import { expect, type Locator, test } from '@playwright/test';
+import { PNG } from 'playwright-core/lib/utilsBundle';
 
 const BUTTON_PAGE = '/components/button';
 const CASES = ['short', 'icon-after', 'icon-before', 'icon-sm', 'icon-md', 'icon-lg', 'long', 'ellipsis'];
@@ -14,6 +15,25 @@ async function geometry(locator: Locator) {
 			height: target.height,
 		};
 	});
+}
+
+function cornerMask(screenshot: Buffer) {
+	const image = PNG.sync.read(screenshot);
+	const depth = Math.min(24, Math.floor(image.width / 3), Math.floor(image.height / 2));
+	const corners = [
+		[0, 0],
+		[image.width - depth, 0],
+		[0, image.height - depth],
+		[image.width - depth, image.height - depth],
+	];
+	return corners.flatMap(([left, top]) =>
+		Array.from({ length: depth * depth }, (_, index) => {
+			const x = left + (index % depth);
+			const y = top + Math.floor(index / depth);
+			const offset = (y * image.width + x) * 4;
+			return image.data[offset] < 128 && image.data[offset + 1] < 128 && image.data[offset + 2] < 128;
+		}),
+	);
 }
 
 test.describe('Button – inherited filled SVG cutout', () => {
@@ -98,6 +118,53 @@ test.describe('Button – inherited filled SVG cutout', () => {
 			const cutoutScreenshot = await cutout.locator('.c-button__cutout-label').screenshot({ animations: 'disabled' });
 
 			expect(cutoutScreenshot.equals(standardScreenshot), `${cutoutCase} label and icon must match the native rendering pixel for pixel`).toBe(true);
+		}
+	});
+
+	test('global and local corner shapes clip the SVG fill like a native button', async ({ page }) => {
+		const row = page.locator('[data-cutout-case="short"]');
+		const standard = row.locator('[data-cutout-role="standard"]');
+		const cutout = row.locator('[data-cutout-role="cutout"]');
+		await page.addStyleTag({
+			content: `
+				html { --corner-shape: bevel; --border-radius: 3; }
+				body { background: white !important; }
+				[data-cutout-role="standard"] {
+					--c-button-background: black !important;
+					--c-button-border: black !important;
+				}
+				[data-cutout-role="cutout"] { --c-button-cutout-fill: black !important; }
+				[data-cutout-role] { filter: none !important; }
+			`,
+		});
+
+		let globalShape = '';
+		let globalRadius = '';
+		for (const shape of ['bevel', 'scoop']) {
+			if (shape === 'scoop') {
+				await row.evaluate((element) => {
+					for (const button of element.querySelectorAll<HTMLElement>('[data-cutout-role]')) {
+						button.style.setProperty('--c-button--corner-shape', 'scoop');
+						button.style.setProperty('--c-button--border-radius', '2');
+					}
+				});
+			}
+			const computedShape = await standard.evaluate((element) => getComputedStyle(element).cornerShape);
+			const computedRadius = await standard.evaluate((element) => getComputedStyle(element).borderRadius);
+			expect(computedShape).toMatch(/^superellipse\(/);
+			await expect(cutout).toHaveCSS('corner-shape', computedShape);
+			await expect(cutout).toHaveCSS('border-radius', computedRadius);
+			if (shape === 'bevel') {
+				globalShape = computedShape;
+				globalRadius = computedRadius;
+			} else {
+				expect(computedShape).not.toBe(globalShape);
+				expect(computedRadius).not.toBe(globalRadius);
+			}
+			const referenceMask = cornerMask(await standard.screenshot({ animations: 'disabled' }));
+			const cutoutMask = cornerMask(await cutout.screenshot({ animations: 'disabled' }));
+			const mismatch = referenceMask.filter((pixel, index) => pixel !== cutoutMask[index]).length;
+			expect(mismatch, `${shape} cutout corners must match the native fill`).toBeLessThan(20);
 		}
 	});
 });

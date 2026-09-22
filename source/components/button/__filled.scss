@@ -45,11 +45,14 @@ $_: "c-button";
     // This deliberately does not rely on inherited surface color variables.
     &.#{$_}__filled--inherit {
         --#{$_}-background: transparent;
-        --#{$_}-border: transparent;
+        --#{$_}-border: var(--#{$_}-cutout-fill);
         --#{$_}-hover: transparent;
         --#{$_}-active: transparent;
         --#{$_}-cutout-fill: currentColor;
         color: inherit;
+        // Clip the SVG fill with the native button outline so local and global
+        // border-radius/corner-shape tokens apply to every corner style.
+        overflow: clip;
 
         .#{$_}__cutout {
             height: calc(100% + (#{tokens.getCalculatedValue($_, "border-width", 1)} * 2));
@@ -58,11 +61,6 @@ $_: "c-button";
             pointer-events: none;
             position: absolute;
             width: calc(100% + (#{tokens.getCalculatedValue($_, "border-width", 1)} * 2));
-        }
-
-        .#{$_}__cutout-shape {
-            rx: var(--#{$_}-cutout-radius, #{tokens.getCalculatedValue($_, "border-radius")});
-            ry: var(--#{$_}-cutout-radius, #{tokens.getCalculatedValue($_, "border-radius")});
         }
 
         .#{$_}__cutout-surface {
