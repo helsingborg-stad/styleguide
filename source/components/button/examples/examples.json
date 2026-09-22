@@ -14,6 +14,18 @@
 		"heading": "Type filled",
 		"text": "Buttons with type filled and in three different colors."
 	},
+	"inherit": {
+		"grid": "",
+		"heading": "Inherited color on surfaces",
+		"text": "Set color to inherit to use the containing surface's colors. Basic and outlined buttons use the surface contrast color; filled buttons use currentColor for an inline SVG surface while retaining the native HTML label and icon rendering.",
+		"includePaper": false
+	},
+	"cutoutParity": {
+		"grid": "",
+		"heading": "Inherited filled button parity",
+		"text": "Each pair compares a standard filled button with the inherited filled version. Both use the same native label and icon rendering, including short and long text plus icons before and after the label.",
+		"includePaper": false
+	},
 	"fullWidth": {
 		"grid": "",
 		"heading": "Full width buttons",

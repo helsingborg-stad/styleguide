@@ -4,6 +4,7 @@
 
 /* Other */
 import { init as initBrand } from '../components/brand/index.js';
+import { init as initButton } from '../components/button/index.js';
 import { init as initChat } from '../components/chat/index.js';
 import { init as initHero } from '../components/hero/index.js';
 import { init as initMap } from '../components/map/index.js';
@@ -20,6 +21,7 @@ initChat();
 initPagination();
 initNav();
 initBrand();
+initButton();
 initHero();
 initMap();
 initSelect();

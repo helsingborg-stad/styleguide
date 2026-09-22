@@ -90,6 +90,7 @@ $insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data
             --inherit-color-background: var(--#{$_}--color);
             --inherit-color-border: var(--#{$_}--border-color);
         }
+
     }
 
     @for $i from 0 through 8 {

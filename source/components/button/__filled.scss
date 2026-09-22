@@ -41,4 +41,50 @@ $_: "c-button";
         --#{$_}-hover: #{tokens.getRawValue($_, "color--primary-border")};
     }
 
+    // Use currentColor as the fill and cut the label and icon out of that fill.
+    // This deliberately does not rely on inherited surface color variables.
+    &.#{$_}__filled--inherit {
+        --#{$_}-background: transparent;
+        --#{$_}-border: transparent;
+        --#{$_}-hover: transparent;
+        --#{$_}-active: transparent;
+        --#{$_}-cutout-fill: currentColor;
+        color: inherit;
+
+        .#{$_}__cutout {
+            height: calc(100% + (#{tokens.getCalculatedValue($_, "border-width", 1)} * 2));
+            inset: calc(#{tokens.getCalculatedValue($_, "border-width", 1)} * -1);
+            overflow: hidden;
+            pointer-events: none;
+            position: absolute;
+            width: calc(100% + (#{tokens.getCalculatedValue($_, "border-width", 1)} * 2));
+        }
+
+        .#{$_}__cutout-shape {
+            rx: var(--#{$_}-cutout-radius, #{tokens.getCalculatedValue($_, "border-radius")});
+            ry: var(--#{$_}-cutout-radius, #{tokens.getCalculatedValue($_, "border-radius")});
+        }
+
+        .#{$_}__cutout-surface {
+            fill: var(--#{$_}-cutout-fill);
+        }
+
+        // Keep the visible label in the native HTML/flex renderer. Its color is
+        // the nearest rendered ancestor surface, resolved without inherit tokens.
+        .#{$_}__cutout-label {
+            color: var(--#{$_}-cutout-surface, #{tokens.getRawValue($_, "color--surface")});
+            position: relative;
+            z-index: 1;
+        }
+
+        &:hover {
+            --#{$_}-cutout-fill: color-mix(in srgb, currentColor 82%, transparent);
+        }
+
+        &:active,
+        &[aria-pressed="true"] {
+            --#{$_}-cutout-fill: color-mix(in srgb, currentColor 68%, transparent);
+        }
+    }
+
 }

@@ -122,6 +122,7 @@ $_: "c-header";
             --inherit-color-background: var(--c-header--color);
             --inherit-color-contrast: var(--c-header--background-color);
         }
+
     }
 
     &.#{$_}--accented {
