@@ -771,6 +771,42 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
+	it('prunes overrides for removed explicit component settings while preserving linked color companions', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({
+			component: {
+				[GENERAL_SCOPE_KEY]: {
+					button: {
+						'--c-button--color--primary': 'var(--color--secondary)',
+						'--c-button--color--primary-contrast': 'var(--color--secondary-contrast)',
+						'--c-button--font-size-multiplier': '1.25',
+						'--c-button--space': '9',
+					},
+				},
+			},
+		});
+		document.body.appendChild(hostElement);
+
+		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as RuntimeHostElement });
+
+		expect(hostElement.overrideState.component).toEqual({
+			[GENERAL_SCOPE_KEY]: {
+				button: {
+					'--c-button--color--primary': 'var(--color--secondary)',
+					'--c-button--color--primary-contrast': 'var(--color--secondary-contrast)',
+					'--c-button--font-size-multiplier': '1.25',
+				},
+			},
+		});
+
+		hostElement.remove();
+		mount.remove();
+	});
+
 	it('builds explicit token-backed and component-local settings into localized controls without appending undeclared token controls', () => {
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);
