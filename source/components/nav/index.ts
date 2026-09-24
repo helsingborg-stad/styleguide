@@ -77,8 +77,30 @@ class Nav {
 	}
 }
 
+function enableHashLinkExpansion() {
+	document.addEventListener('click', (event) => {
+		if (!(event.target instanceof Element)) {
+			return;
+		}
+
+		const link = event.target.closest<HTMLAnchorElement>('.c-nav__item-wrapper > a[href="#"]');
+		const itemWrapper = link?.closest<HTMLElement>('.c-nav__item-wrapper');
+		const toggle = itemWrapper?.querySelector<HTMLButtonElement>(':scope > .c-nav__toggle');
+
+		if (!link?.closest('.c-nav') || !toggle) {
+			return;
+		}
+
+		event.preventDefault();
+		event.stopPropagation();
+		toggle.click();
+	});
+}
+
 export function init() {
 	document.addEventListener('DOMContentLoaded', () => {
+		enableHashLinkExpansion();
+
 		const menus = [...document.querySelectorAll('.c-nav.c-nav--vertical.c-nav--depth-1,.c-nav.c-nav--extended-dropdown')] as HTMLElement[];
 
 		menus.forEach((menu) => {
