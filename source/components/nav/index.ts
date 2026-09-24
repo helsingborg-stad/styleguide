@@ -78,22 +78,56 @@ class Nav {
 }
 
 function enableHashLinkExpansion() {
-	document.addEventListener('click', (event) => {
-		if (!(event.target instanceof Element)) {
-			return;
+	let closedByPointerDown: HTMLAnchorElement | null = null;
+
+	const getHashLinkToggle = (target: EventTarget | null) => {
+		if (!(target instanceof Element)) {
+			return null;
 		}
 
-		const link = event.target.closest<HTMLAnchorElement>('.c-nav__item-wrapper > a[href="#"]');
+		const link = target.closest<HTMLAnchorElement>('.c-nav__item-wrapper > a[href="#"]');
 		const itemWrapper = link?.closest<HTMLElement>('.c-nav__item-wrapper');
 		const toggle = itemWrapper?.querySelector<HTMLButtonElement>(':scope > .c-nav__toggle');
 
 		if (!link?.closest('.c-nav') || !toggle) {
+			return null;
+		}
+
+		return { link, toggle };
+	};
+
+	document.addEventListener('pointerdown', (event) => {
+		closedByPointerDown = null;
+		const hashLinkToggle = getHashLinkToggle(event.target);
+
+		if (!hashLinkToggle || hashLinkToggle.toggle.getAttribute('aria-pressed') !== 'true') {
+			return;
+		}
+
+		hashLinkToggle.toggle.click();
+		closedByPointerDown = hashLinkToggle.link;
+	});
+
+	document.addEventListener('click', (event) => {
+		const hashLinkToggle = getHashLinkToggle(event.target);
+
+		if (!hashLinkToggle) {
 			return;
 		}
 
 		event.preventDefault();
 		event.stopPropagation();
-		toggle.click();
+
+		if (closedByPointerDown === hashLinkToggle.link) {
+			closedByPointerDown = null;
+			return;
+		}
+
+		hashLinkToggle.toggle.click();
+	});
+
+	document.addEventListener('pointercancel', () => {
+		closedByPointerDown = null;
 	});
 }
 
