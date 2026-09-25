@@ -112,8 +112,8 @@ describe('Pagination', () => {
 		createPaginationInstance(container);
 
 		expect(readVisibleItemLabels()).toEqual(['Item 8']);
-		expect((document.querySelector('[data-js-pagination-prev]') as HTMLButtonElement).hasAttribute('disabled')).toBe(true);
-		expect((document.querySelector('[data-js-pagination-next]') as HTMLButtonElement).hasAttribute('disabled')).toBe(false);
+		expect((document.querySelector('[data-js-pagination-prev]') as HTMLButtonElement).disabled).toBe(true);
+		expect((document.querySelector('[data-js-pagination-next]') as HTMLButtonElement).disabled).toBe(false);
 	});
 
 	it('moves to selected page and updates URL when page link is clicked', () => {
@@ -143,14 +143,14 @@ describe('Pagination', () => {
 		nextButton.click();
 
 		expect(readVisibleItemLabels()).toEqual(['Item 2']);
-		expect(previousButton.hasAttribute('disabled')).toBe(false);
-		expect(nextButton.hasAttribute('disabled')).toBe(true);
+		expect(previousButton.disabled).toBe(false);
+		expect(nextButton.disabled).toBe(true);
 
 		previousButton.click();
 
 		expect(readVisibleItemLabels()).toEqual(['Item 1']);
-		expect(previousButton.hasAttribute('disabled')).toBe(true);
-		expect(nextButton.hasAttribute('disabled')).toBe(false);
+		expect(previousButton.disabled).toBe(true);
+		expect(nextButton.disabled).toBe(false);
 	});
 
 	it('respects pagesToShow when generating page links', () => {
