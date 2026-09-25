@@ -70,7 +70,7 @@
         "concurrently": "^9.2.1",
         "consola": "^2.15.3",
         "cssnano": "^5.0.17",
-        "esbuild": "0.25.12",
+        "esbuild": "0.28.1",
         "jest": "^30.0.5",
         "jest-environment-jsdom": "^30.0.5",
         "lit-html": "^3.3.2",
