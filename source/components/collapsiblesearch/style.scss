@@ -46,8 +46,8 @@ $_: "c-collapsiblesearch";
     transform: translateX(0) scale(1);
     transform-origin: right center;
     transition: opacity 120ms var(--#{$_}--collapse-easing),
-      transform 180ms var(--#{$_}--collapse-easing),
-      visibility 0s linear 0s;
+    transform 180ms var(--#{$_}--collapse-easing),
+    visibility 0s linear 0s;
   }
 
   &__panel {
@@ -66,8 +66,8 @@ $_: "c-collapsiblesearch";
     visibility: hidden;
     pointer-events: none;
     transition: opacity var(--#{$_}--collapse-duration) var(--#{$_}--collapse-easing),
-      transform var(--#{$_}--collapse-duration) var(--#{$_}--collapse-easing),
-      visibility 0s linear var(--#{$_}--collapse-duration);
+    transform var(--#{$_}--collapse-duration) var(--#{$_}--collapse-easing),
+    visibility 0s linear var(--#{$_}--collapse-duration);
     white-space: nowrap;
     z-index: 10;
 
@@ -125,6 +125,7 @@ $_: "c-collapsiblesearch";
     flex-shrink: 0;
     height: var(--#{$_}--item-size);
     width: var(--#{$_}--item-size);
+    corner-shape: unset;
   }
 
   &__submit[data-component="button"].c-button {
@@ -142,7 +143,7 @@ $_: "c-collapsiblesearch";
     opacity: 0;
     transform: translateX(0.25rem) scale(0.94);
     transition: opacity 100ms var(--#{$_}--collapse-easing),
-      transform var(--#{$_}--collapse-duration) var(--#{$_}--collapse-easing);
+    transform var(--#{$_}--collapse-duration) var(--#{$_}--collapse-easing);
   }
 
   &--expanded {
@@ -160,8 +161,12 @@ $_: "c-collapsiblesearch";
       visibility: visible;
       pointer-events: auto;
       transform: translateY(-50%) translateX(0) scaleX(1);
-      transition-duration: var(--#{$_}--expand-duration), var(--#{$_}--expand-duration), 0s;
-      transition-timing-function: var(--#{$_}--expand-easing), var(--#{$_}--expand-easing), linear;
+      transition-duration: var(--#{$_}--expand-duration),
+      var(--#{$_}--expand-duration),
+      0s;
+      transition-timing-function: var(--#{$_}--expand-easing),
+      var(--#{$_}--expand-easing),
+      linear;
       transition-delay: 35ms, 35ms, 0s;
     }
 
@@ -176,7 +181,8 @@ $_: "c-collapsiblesearch";
       opacity: 1;
       transform: translateX(0) scale(1);
       transition-duration: 140ms, 200ms;
-      transition-timing-function: var(--#{$_}--expand-easing), var(--#{$_}--expand-easing);
+      transition-timing-function: var(--#{$_}--expand-easing),
+      var(--#{$_}--expand-easing);
       transition-delay: 110ms, 110ms;
     }
 
@@ -202,7 +208,11 @@ $_: "c-collapsiblesearch";
   }
 
   @media (prefers-reduced-motion: reduce) {
-    &, & *, & *::before, & *::after {
+
+    &,
+    & *,
+    & *::before,
+    & *::after {
       transition-duration: 0.01ms !important;
       transition-delay: 0ms !important;
     }
