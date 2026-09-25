@@ -39,16 +39,8 @@ class PaginationNavigation {
 	}
 
 	public updateButtonState(currentPage: number, numberOfPages: number): void {
-		this.elements.nextButton?.removeAttribute('disabled');
-		this.elements.prevButton?.removeAttribute('disabled');
-
-		if (currentPage >= numberOfPages) {
-			this.elements.nextButton?.setAttribute('disabled', 'true');
-		}
-
-		if (currentPage <= 1) {
-			this.elements.prevButton?.setAttribute('disabled', 'true');
-		}
+		this.elements.nextButton?.toggleAttribute('disabled', currentPage >= numberOfPages);
+		this.elements.prevButton?.toggleAttribute('disabled', currentPage <= 1);
 	}
 }
 
