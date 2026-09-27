@@ -2,8 +2,28 @@
 
 namespace MunicipioStyleGuide;
 
+use ComponentLibrary\Assets\PhpAssetEnqueuer;
+
 class Asset
 {
+    public static function createEnqueuer(): PhpAssetEnqueuer
+    {
+        $manifest = self::readManifest();
+        $enqueuer = new PhpAssetEnqueuer();
+        foreach ($manifest as $key => $file) {
+            if (!is_string($file)) {
+                continue;
+            }
+            if (preg_match('~^css/components/([^/]+)\\.css$~', $key, $matches)) {
+                $enqueuer->registerComponent($matches[1], '/assets/dist/' . $file);
+            }
+            if (preg_match('~^js/components/([^/]+)\\.js$~', $key, $matches)) {
+                $enqueuer->registerComponent($matches[1], null, '/assets/dist/' . $file);
+            }
+        }
+        return $enqueuer;
+    }
+
     public static function getAll(): array 
     {
         return [
@@ -17,8 +37,7 @@ class Asset
     {
         return array_filter(
             self::readManifest(),
-            fn($item, $key) => str_starts_with($item, 'css/')
-                && !str_contains($key, 'design-builder'),
+            fn($item, $key) => $key === 'css/styleguide-css.css',
             ARRAY_FILTER_USE_BOTH
         );
     }
@@ -27,21 +46,21 @@ class Asset
     {
         return array_filter(
             self::readManifest(),
-            fn($item, $key) => str_starts_with($item, 'js/')
-                && !str_contains($key, 'design-builder'),
+            fn($item, $key) => $key === 'js/styleguide-js.js',
             ARRAY_FILTER_USE_BOTH
         );
     }
 
     private static function readManifest(): array
     {
-        $manifestPath = realpath( __DIR__ . '/../../assets/dist/manifest.json');
+        $manifestPath = __DIR__ . '/../../assets/dist/manifest.json';
 
         if (!file_exists($manifestPath)) {
             return [];
         }
         $contents = file_get_contents($manifestPath);
-        return json_decode($contents, true) ?? [];
+        $decoded = json_decode($contents, true);
+        return is_array($decoded) ? $decoded : [];
     }
 
 }

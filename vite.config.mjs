@@ -9,6 +9,17 @@ const entries = {
 	'css/design-builder-external': './source/design-builder/design-builder-external.css',
 };
 
+for (const component of fs.readdirSync('./source/components', { withFileTypes: true })) {
+    if (!component.isDirectory()) continue;
+    const name = component.name;
+    if (fs.existsSync(`./source/components/${name}/style.scss`)) {
+        entries[`css/components/${name}`] = `./source/components/${name}/entry.scss`;
+    }
+    if (fs.existsSync(`./source/components/${name}/entry.ts`)) {
+        entries[`js/components/${name}`] = `./source/components/${name}/entry.ts`;
+    }
+}
+
 const getComponentConfig = (name) => {
 	// Strip "c-" prefix if present for component lookup
 	const componentName = name.startsWith('c-') ? name.substring(2) : name;

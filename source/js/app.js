@@ -3,7 +3,6 @@ import AnchorMenu from './anchorMenu';
 import ButtonToggleContent from './ButtonToggleContent';
 import ClassToggleInitializer from './classToggle/classToggleInitializer';
 import DynamicSidebar from './dynamicSidebar';
-import { initializeForms } from './fields';
 import Filter from './filter';
 import KeepInViewPort from './keepInViewPort';
 import Notification from './notification';
@@ -20,20 +19,12 @@ import { initializeClickAways } from './ClickAway';
 import { initializeCompressed } from './compressed';
 import { setupCopy } from './copy';
 import { DeviceDetect } from './deviceDetect';
-import { initializeDismissableNotices } from './dismissableNotices';
-import { initializeDrawerAccessibility } from './drawerAccessibility';
 import { initializeExtendedDropdownMenu } from './extendedDropdownMenu';
-import FileInput from './form/fileInput';
 import { initializeGoogleTranslate } from './googleTranslate';
 import { moveElement } from './helpers/moveElement';
 import { moveElements } from './helpers/moveElements';
-import { initializeIframeAcceptance } from './iframeAcceptance';
-import { initializeMegaMenus } from './megaMenu';
-import { initializeModal } from './modal';
 import { initializeResizeMediaQuery } from './resizeMediaQuery';
 import { SimulateClick } from './SimulateClick';
-import { initializeSelectFilter } from './selectFilter';
-import { initializeSelectSort } from './selectSort';
 import { initializeSizeObserver } from './sizeObserver';
 
 // Instances
@@ -56,7 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
 	new Notification();
 	new DynamicSidebar();
 	new Filter();
-	new FileInput();
 
 	new ClassToggleInitializer().init();
 	NotificationInstance.setup();
@@ -67,21 +57,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// Functions
 	initializeResizeMediaQuery();
-	initializeDrawerAccessibility();
-	initializeForms();
 	initializeCompressed();
 	initializeGoogleTranslate();
-	initializeModal();
-	initializeIframeAcceptance();
 	setupCopy();
 	setScrollbarCSS();
 	AnchorMenu();
-	initializeSelectFilter();
-	initializeSelectSort();
-	initializeMegaMenus();
 	initializeExtendedDropdownMenu();
 	initializeSizeObserver();
-	initializeDismissableNotices();
 
 	// Utility functions
 	moveElements(moveElement);
