@@ -10,6 +10,12 @@ class Asset
     {
         $manifest = self::readManifest();
         $enqueuer = new PhpAssetEnqueuer();
+        if (isset($manifest['css/styleguide-css.css'])) {
+            $enqueuer->enqueueStyle('styleguide-base', '/assets/dist/' . $manifest['css/styleguide-css.css']);
+        }
+        if (isset($manifest['js/styleguide-js.js'])) {
+            $enqueuer->enqueueScript('styleguide-base', '/assets/dist/' . $manifest['js/styleguide-js.js']);
+        }
         foreach ($manifest as $key => $file) {
             if (!is_string($file)) {
                 continue;

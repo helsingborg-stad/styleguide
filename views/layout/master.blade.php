@@ -10,15 +10,6 @@
 
     <link href="/assets/prism/prism.css" rel="stylesheet" />
 
-    <!-- Styleguide - css -->
-    @if($assets['styles'])
-        @foreach($assets['styles'] as $style)
-            <link rel="stylesheet" href="/assets/dist/{{ $style }}" type="text/css" media="all">
-        @endforeach
-    @else 
-        <!-- No css found in manifest: Please build -->
-    @endif
-
     <!-- COMPONENT_STYLES -->
 
     @if(isset($customizeAssets['style']) && !empty($customizeAssets['style']))
@@ -315,15 +306,6 @@
                 data-design-builder-storage="local-storage"
             ></design-builder>
         @endfab
-    @endif
-
-    <!-- Styleguide - js -->
-    @if($assets['scripts'])
-        @foreach($assets['scripts'] as $script)
-            <script src="/assets/dist/{{ $script }}" type="module"></script>
-        @endforeach
-    @else 
-        <!-- No js found in manifest: Please build -->
     @endif
 
     @if(isset($customizeAssets['script']) && !empty($customizeAssets['script']))
