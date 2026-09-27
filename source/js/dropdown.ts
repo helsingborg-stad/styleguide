@@ -1,6 +1,6 @@
 const init = () => {
     let elements: Element[] = [];
-  
+
     const toggleDropdownElements = (dropdowns: Element[] = []) =>
       dropdowns.forEach((e) => e.classList.toggle('is-open'));
   
@@ -37,7 +37,8 @@ const init = () => {
     }
   };
   
-  export default (() => {
-    addEventListener('DOMContentLoaded', init);
-  })();
-  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }

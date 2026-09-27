@@ -1,71 +1,84 @@
-import './dropdown';
-import AnchorMenu from './anchorMenu';
 import ButtonToggleContent from './ButtonToggleContent';
 import ClassToggleInitializer from './classToggle/classToggleInitializer';
-import DynamicSidebar from './dynamicSidebar';
-import Filter from './filter';
-import KeepInViewPort from './keepInViewPort';
 import Notification from './notification';
-import NotificationDoc from './notificationDoc';
-import QuickLinksHeader from './quickLinksHeader';
-import ResizeByChildren from './resizeByChildren';
-import Sort from './sort';
-import SplitButton from './splitButton';
-import StickyKeys from './stickyKeys';
 import setScrollbarCSS from './stretch';
 import './helpers/swipe';
 import { AriaPressedToggler } from './AriaPressedToggler';
 import { initializeClickAways } from './ClickAway';
 import { initializeCompressed } from './compressed';
-import { setupCopy } from './copy';
-import { DeviceDetect } from './deviceDetect';
-import { initializeExtendedDropdownMenu } from './extendedDropdownMenu';
 import { initializeGoogleTranslate } from './googleTranslate';
 import { moveElement } from './helpers/moveElement';
 import { moveElements } from './helpers/moveElements';
 import { initializeResizeMediaQuery } from './resizeMediaQuery';
 import { SimulateClick } from './SimulateClick';
-import { initializeSizeObserver } from './sizeObserver';
 
-// Instances
-new DeviceDetect();
-const SortInstance = new Sort();
-const SplitButtonInstance = new SplitButton();
-const NotificationDocInstance = new NotificationDoc();
 const NotificationInstance = new Notification();
-const DynamicSidebarInstance = new DynamicSidebar();
+
+function loadOptionalFeatures() {
+    if (document.querySelector('[data-js-device-detect]')) {
+        void import('./deviceDetect').then(({ DeviceDetect }) => new DeviceDetect());
+    }
+    if (document.querySelector('[js-sort-container]')) {
+        void import('./sort').then(({ default: Sort }) => new Sort().applySort());
+    }
+    if (document.querySelector('[js-split]')) {
+        void import('./splitButton').then(({ default: SplitButton }) => new SplitButton().syncSplitButton());
+    }
+    if (document.querySelector('.notification__button')) {
+        void import('./notificationDoc').then(({ default: NotificationDoc }) => new NotificationDoc().addListener());
+    }
+    if (document.querySelector('.c-sidebar[endpoint-children]')) {
+        void import('./dynamicSidebar').then(({ default: DynamicSidebar }) => new DynamicSidebar().applySidebar());
+    }
+    if (document.querySelector('[js-filter-container]')) {
+        void import('./filter').then(({ default: Filter }) => new Filter());
+    }
+    if (document.querySelector('[data-js-keep-in-viewport], [data-js-keep-in-viewport-after-resize]')) {
+        void import('./keepInViewPort').then(({ default: KeepInViewPort }) => new KeepInViewPort());
+    }
+    if (document.querySelector('[js-resize-by-children]')) {
+        void import('./resizeByChildren').then(({ default: ResizeByChildren }) => new ResizeByChildren());
+    }
+    if (document.querySelector('input[type="checkbox"], input[type="email"], input[type="text"], input[type="date"], input[type="search"], input[type="datetime-local"], input[type="month"], input[type="number"]')) {
+        void import('./stickyKeys').then(({ default: StickyKeys }) => new StickyKeys());
+    }
+    if (document.querySelector('#quicklinks-header.c-header--sticky')) {
+        void import('./quickLinksHeader').then(({ default: QuickLinksHeader }) => new QuickLinksHeader());
+    }
+    if (document.querySelector('[data-js-copy-target]')) {
+        void import('./copy').then(({ setupCopy }) => setupCopy());
+    }
+    if (document.querySelector('[data-js-extended-dropdown-content]')) {
+        void import('./extendedDropdownMenu').then(({ initializeExtendedDropdownMenu }) => initializeExtendedDropdownMenu());
+    }
+    if (document.querySelector('[data-js-sizeobserver]')) {
+        void import('./sizeObserver').then(({ initializeSizeObserver }) => initializeSizeObserver());
+    }
+    if (document.querySelector('#scroll-spy')) {
+        void import('./anchorMenu').then(({ default: AnchorMenu }) => AnchorMenu());
+    }
+    if (document.querySelector('.js-dropdown')) {
+        void import('./dropdown');
+    }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
 	// Instances
 	new ButtonToggleContent();
 	new SimulateClick();
-	new StickyKeys();
-	new KeepInViewPort();
-	new ResizeByChildren();
 	new AriaPressedToggler();
-	new QuickLinksHeader();
-	new Notification();
-	new DynamicSidebar();
-	new Filter();
 
 	new ClassToggleInitializer().init();
 	NotificationInstance.setup();
-	SortInstance.applySort();
-	SplitButtonInstance.syncSplitButton();
-	NotificationDocInstance.addListener();
-	DynamicSidebarInstance.applySidebar();
 
 	// Functions
 	initializeResizeMediaQuery();
 	initializeCompressed();
 	initializeGoogleTranslate();
-	setupCopy();
 	setScrollbarCSS();
-	AnchorMenu();
-	initializeExtendedDropdownMenu();
-	initializeSizeObserver();
 
 	// Utility functions
 	moveElements(moveElement);
 	initializeClickAways();
+	loadOptionalFeatures();
 });

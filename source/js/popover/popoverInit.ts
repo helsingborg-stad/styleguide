@@ -3,7 +3,7 @@ import { PopoverEnums } from './popoverEnums';
 import type { PopoverData, PopoverHorizontalPlacement, PopoverVerticalPlacement } from './popoverInterface';
 import PopoverPositioner from './popoverPositioner';
 
-document.addEventListener('DOMContentLoaded', () => {
+const initializePopovers = () => {
 	document.querySelectorAll(`[${PopoverEnums.PopoverSelectorAttribute}]`).forEach((popoverElement) => {
 		const popoverData = tryGetPopoverData(popoverElement as HTMLElement);
 
@@ -13,7 +13,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		new Popover(popoverData, new PopoverPositioner()).init();
 	});
-});
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializePopovers, { once: true });
+} else {
+    initializePopovers();
+}
 
 function tryGetPopoverData(popoverElement: HTMLElement): PopoverData | null {
 	const id = popoverElement.id;

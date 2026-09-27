@@ -58,8 +58,10 @@ class Tooltip {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => new Tooltip().init(), { once: true });
+} else {
     new Tooltip().init();
-});
+}
 
 export default Tooltip;
