@@ -107,36 +107,3 @@
     @include meta.load-css("object/minimal-slider");
     @include meta.load-css("object/tooltip");
 }
-
-// ***************************************************************
-// *** Utilities
-// ***************************************************************
-@layer utilities {
-    @include meta.load-css("../utilities/shadow/style");
-    @include meta.load-css("../utilities/z-index/style");
-    @include meta.load-css("../utilities/border-radius/style");
-    @include meta.load-css("../utilities/display/style");
-    @include meta.load-css("../utilities/ratio/style");
-    @include meta.load-css("../utilities/disabled/style");
-    @include meta.load-css("../utilities/visibility/style");
-    @include meta.load-css("../utilities/flex/style");
-    @include meta.load-css("../utilities/color/style");
-    @include meta.load-css("../utilities/accessability/style");
-    @include meta.load-css("../utilities/clearfix/style");
-    @include meta.load-css("../utilities/border/style");
-    @include meta.load-css("../utilities/overflow/style");
-    @include meta.load-css("../utilities/sizing/style");
-    /* 100kb */
-    @include meta.load-css("../utilities/spacing/style");
-    @include meta.load-css("../utilities/float/style");
-    @include meta.load-css("../utilities/vertical-align/style");
-    @include meta.load-css("../utilities/position/style");
-    @include meta.load-css("../utilities/text-align/style");
-    @include meta.load-css("../utilities/print/style");
-    @include meta.load-css("../utilities/text/style");
-    @include meta.load-css("../utilities/preloader/style");
-    @include meta.load-css("../utilities/animation/style");
-    @include meta.load-css("../utilities/unlist/style");
-    @include meta.load-css("../utilities/gap/style");
-    @include meta.load-css("../utilities/aspect-ratio/style");
-}

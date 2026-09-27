@@ -1,0 +1,4 @@
+@use "sass:meta";
+@layer utilities {
+    @include meta.load-css("style");
+}

@@ -36,6 +36,9 @@ class View
 
     private function renderAssets(string $html): string
     {
+        if ($this->assetEnqueuer !== null) {
+            Asset::enqueueUtilitiesFromHtml($html, $this->assetEnqueuer);
+        }
         return str_replace(
             ['<!-- COMPONENT_STYLES -->', '<!-- COMPONENT_SCRIPTS -->'],
             [$this->assetEnqueuer?->renderStyles() ?? '', $this->assetEnqueuer?->renderScripts() ?? ''],

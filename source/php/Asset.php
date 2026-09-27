@@ -6,6 +6,8 @@ use ComponentLibrary\Assets\PhpAssetEnqueuer;
 
 class Asset
 {
+    private static ?array $utilityMapCache = null;
+
     public static function createEnqueuer(): PhpAssetEnqueuer
     {
         $manifest = self::readManifest();
@@ -27,7 +29,46 @@ class Asset
                 $enqueuer->registerComponent($matches[1], null, '/assets/dist/' . $file);
             }
         }
+        foreach (self::readUtilityMap()['order'] ?? [] as $order => $name) {
+            $key = 'css/utilities/' . $name . '.css';
+            if (isset($manifest[$key])) {
+                $enqueuer->registerUtility($name, '/assets/dist/' . $manifest[$key], $order);
+            }
+        }
+        // Shared documentation scripts can add display classes after the initial render.
+        $enqueuer->enqueueUtility('display');
         return $enqueuer;
+    }
+
+    public static function enqueueUtilitiesFromHtml(
+        string $html,
+        PhpAssetEnqueuer $enqueuer,
+        ?array $utilityMap = null,
+    ): void {
+        $classes = ($utilityMap ?? self::readUtilityMap())['classes'] ?? [];
+        if (!preg_match_all('/\sclass\s*=\s*(["\'])(.*?)\1/s', $html, $attributes)) {
+            return;
+        }
+        foreach ($attributes[2] as $attribute) {
+            foreach (preg_split('/\s+/', html_entity_decode($attribute, ENT_QUOTES | ENT_HTML5, 'UTF-8')) as $className) {
+                foreach ($classes[$className] ?? [] as $name) {
+                    $enqueuer->enqueueUtility($name);
+                }
+            }
+        }
+    }
+
+    private static function readUtilityMap(): array
+    {
+        if (self::$utilityMapCache !== null) {
+            return self::$utilityMapCache;
+        }
+        $path = __DIR__ . '/../../assets/dist/utility-class-map.json';
+        if (!is_file($path)) {
+            return [];
+        }
+        $map = json_decode((string) file_get_contents($path), true);
+        return self::$utilityMapCache = is_array($map) ? $map : [];
     }
 
     public static function getAll(): array 
