@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "360ef519dd82dd1f5dbf8dbfeb33c55e",
+    "content-hash": "2393aaf127665cb642c56a071270eb10",
     "packages": [
         {
             "name": "brick/math",
@@ -342,7 +342,7 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.43.0",
+            "version": "dev-main",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
@@ -364,6 +364,7 @@
                 "mockery/mockery": "^1.6",
                 "phpunit/phpunit": "^9.6"
             },
+            "default-branch": true,
             "type": "wordpress-muplugin",
             "autoload": {
                 "psr-4": {
@@ -3782,7 +3783,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "helsingborg-stad/component-library": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
