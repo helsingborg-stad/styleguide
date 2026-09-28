@@ -5,6 +5,22 @@ export interface JsConsoleIgnoreRule {
 }
 
 export const jsBuiltOutputConsoleIgnoreList: JsConsoleIgnoreRule[] = [
+	// Diagnostics retained in component entries after splitting the shared bundle.
+	{ bundle: 'js/components/chat.js', method: 'warn', lineIncludes: 'Failed to clear messages from localStorage.' },
+	{ bundle: 'js/components/chat.js', method: 'warn', lineIncludes: 'Failed to save messages to localStorage.' },
+	{ bundle: 'js/components/chat.js', method: 'error', lineIncludes: 'Chat component initialization failed:' },
+	{ bundle: 'js/components/field.js', method: 'error', lineIncludes: 'Form must have a submit button.' },
+	{ bundle: 'js/components/fileinput.js', method: 'error', lineIncludes: 'Notice template not found' },
+	{ bundle: 'js/components/fileinput.js', method: 'error', lineIncludes: 'Notice message element not found.' },
+	{ bundle: 'js/components/fileinput.js', method: 'error', lineIncludes: 'Failed to clone template elements for file preview list.' },
+	{ bundle: 'js/components/fileinput.js', method: 'error', lineIncludes: 'FilePreviewStore: Input element must have an id or name attribute' },
+	{ bundle: 'js/components/fileinput.js', method: 'error', lineIncludes: 'FilePlaceholderCreator: No controller registered' },
+	{ bundle: 'js/components/fileinput.js', method: 'error', lineIncludes: 'FileInput: Missing required elements in dropzone.' },
+	{ bundle: 'js/components/map.js', method: 'warn', lineIncludes: 'Map element is missing required attributes:' },
+	{ bundle: 'js/components/modal.js', method: 'warn', lineIncludes: 'Modal with ID' },
+	{ bundle: 'js/components/slider.js', method: 'warn', lineIncludes: 'No button container found for slider:' },
+	{ bundle: 'js/components/table.js', method: 'warn', lineIncludes: 'Sorting column index is not defined.' },
+	{ bundle: 'js/components/table.js', method: 'error', lineIncludes: 'Table element, table body, or table head is missing.' },
 	{
 		bundle: 'js/styleguide-js.js',
 		method: 'error',

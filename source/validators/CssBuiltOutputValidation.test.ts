@@ -73,7 +73,7 @@ async function validateCssBundle(bundlePath: string): Promise<BundleValidationRe
 	let stderr = '';
 
 	try {
-		const result = await execFileAsync('curl', ['-sS', '-X', 'POST', '-F', `text=<${tempCssPath}`, '-F', 'output=json', validatorUrl.replace('?output=json', '')], {
+		const result = await execFileAsync('curl', ['-sS', '--connect-timeout', '10', '--max-time', '45', '-X', 'POST', '-F', `text=<${tempCssPath}`, '-F', 'output=json', validatorUrl.replace('?output=json', '')], {
 			maxBuffer: 20 * 1024 * 1024,
 		});
 
@@ -112,6 +112,20 @@ async function validateCssBundle(bundlePath: string): Promise<BundleValidationRe
 			warningcount: parsed.cssvalidation?.result?.warningcount,
 		},
 	};
+}
+
+/** Pace requests to avoid overwhelming the public validator. */
+async function validateCssBundles(bundles: string[]): Promise<BundleValidationResult[]> {
+	const results: BundleValidationResult[] = [];
+
+	for (const [index, bundle] of bundles.entries()) {
+		results.push(await validateCssBundle(bundle));
+		if (index < bundles.length - 1) {
+			await new Promise((resolve) => setTimeout(resolve, 500));
+		}
+	}
+
+	return results;
 }
 
 /**
@@ -189,13 +203,13 @@ describe('CssBuiltOutputValidation', () => {
 
 			expect(bundles.length).toBeGreaterThan(0);
 
-			const results = await Promise.all(bundles.map((bundlePath) => validateCssBundle(bundlePath)));
+			const results = await validateCssBundles(bundles);
 			const resultsWithIssues = results.filter((result) => result.issues.length > 0);
 
 			if (resultsWithIssues.length > 0) {
 				throw new Error(formatFailureMessage(resultsWithIssues));
 			}
 		},
-		120000,
+		300000,
 	);
 });
