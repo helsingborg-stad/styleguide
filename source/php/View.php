@@ -2,6 +2,7 @@
 
 namespace MunicipioStyleGuide;
 
+use ComponentLibrary\Assets\PhpAssetEnqueuer;
 use \MunicipioStyleGuide\Helper\Documentation as DocHelper;
 use \MunicipioStyleGuide\Helper\ModifierExample;
 use HelsingborgStad\BladeService\BladeServiceInterface;
@@ -9,6 +10,8 @@ use MunicipioStyleGuide\Helper\ComponentCssParameters;
 
 class View
 {
+    public function __construct(private ?PhpAssetEnqueuer $assetEnqueuer = null) {}
+
     /**
      * @param $view
      * @param array $data
@@ -20,15 +23,27 @@ class View
 
         try {
             $result = $blade->makeView('pages.' . $view, $data)->render();
-            echo preg_replace('/(id|href)=""/', '', $result);
+            echo $this->renderAssets(preg_replace('/(id|href)=""/', '', $result));
         } catch (\Throwable $e) {
             if (!$this->viewExists($view)) {
                 $data = array_merge($data, array('errorMessage' => $e));
-                echo $blade->makeView('pages.404', $data)->render();
+                echo $this->renderAssets($blade->makeView('pages.404', $data)->render());
                 return;
             }
             $blade->errorHandler($e)->print();
         }
+    }
+
+    private function renderAssets(string $html): string
+    {
+        if ($this->assetEnqueuer !== null) {
+            Asset::enqueueUtilitiesFromHtml($html, $this->assetEnqueuer);
+        }
+        return str_replace(
+            ['<!-- COMPONENT_STYLES -->', '<!-- COMPONENT_SCRIPTS -->'],
+            [$this->assetEnqueuer?->renderStyles() ?? '', $this->assetEnqueuer?->renderScripts() ?? ''],
+            $html,
+        );
     }
 
     private function viewExists($view): bool

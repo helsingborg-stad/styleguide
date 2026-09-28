@@ -6,6 +6,31 @@ export interface CssValidatorIgnoreRule {
 }
 
 export const cssValidatorIgnoreList: CssValidatorIgnoreRule[] = [
+	// The remote validator does not yet parse these supported modern CSS constructs.
+	{
+		bundle: 'components/popover.css',
+		messageIncludes: 'Unrecognized at-rule "@starting-style"',
+		type: 'error',
+	},
+	{
+		bundle: 'components/typography.css',
+		messageIncludes: 'is not a "font-size" value',
+		contextIncludes: '.c-typography__variant--',
+		type: 'error',
+	},
+	...[
+		['block.css', 'a.c-block:hover'],
+		['card.css', 'a.c-card:hover'],
+		['fab.css', '.c-fab .c-fab__panel'],
+		['gallery--modal.css', '.c-modal.c-modal--gallery .c-modal__content .c-image'],
+		['table.css', '.c-table__modal'],
+		['timeline.css', '.c-timeline .c-timeline__marker .c-timeline__date'],
+	].map(([bundle, contextIncludes]) => ({
+		bundle: `components/${bundle}`,
+		messageIncludes: 'The types are incompatible',
+		contextIncludes,
+		type: 'error' as const,
+	})),
 	{
 		messageIncludes: '"corner-shape" doesn\'t exist',
 		type: 'error',

@@ -2,6 +2,7 @@
 
 namespace MunicipioStyleGuide;
 
+use ComponentLibrary\Assets\PhpAssetEnqueuer;
 use HelsingborgStad\BladeService\BladeServiceInterface;
 use MunicipioStyleGuide\Controllers\ApiController;
 use MunicipioStyleGuide\Controllers\ComponentPageController;
@@ -37,7 +38,7 @@ class App
     /**
      * @param BladeServiceInterface $bladeService Blade renderer.
      */
-    public function __construct(BladeServiceInterface $bladeService)
+    public function __construct(BladeServiceInterface $bladeService, ?PhpAssetEnqueuer $assetEnqueuer = null)
     {
         $request = Request::fromGlobals();
         $response = new Response();
@@ -63,7 +64,7 @@ class App
         $search = new Search(
             new ComponentsDataSource(BASEPATH . 'source/components'),
         );
-        $view = new View();
+        $view = new View($assetEnqueuer);
 
         $pageController = new PageController(
             $request,

@@ -3,6 +3,7 @@
 //Enable/disable all errors
 use ComponentLibrary\Init as ComponentLibraryInit;
 use MunicipioStyleGuide\App;
+use MunicipioStyleGuide\Asset;
 
 if (isset($_GET['debug'])) {
     ini_set('display_errors', 1);
@@ -27,6 +28,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 require BASEPATH . 'Public.php';
 
 $viewPaths = [BASEPATH . 'views', BASEPATH];
-$bladeService = (new ComponentLibraryInit($viewPaths))->getEngine();
-$app = new App($bladeService);
+$assetEnqueuer = Asset::createEnqueuer();
+$bladeService = (new ComponentLibraryInit($viewPaths, $assetEnqueuer))->getEngine();
+$app = new App($bladeService, $assetEnqueuer);
 $app->run();

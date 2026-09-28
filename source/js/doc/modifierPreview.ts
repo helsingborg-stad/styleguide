@@ -59,4 +59,8 @@ export function initModifierPreviews(): void {
     });
 }
 
-document.addEventListener('DOMContentLoaded', initModifierPreviews);
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initModifierPreviews, { once: true });
+} else {
+    initModifierPreviews();
+}

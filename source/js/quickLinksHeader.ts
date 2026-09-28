@@ -9,9 +9,11 @@ class QuickLinksHeader {
 
     private init() {
         if (!this.stickyQuickLinks) return;
-        document.addEventListener('DOMContentLoaded', () => {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', () => this.observe(), { once: true });
+        } else {
             this.observe();
-        });
+        }
     }
     
     private observe() {
