@@ -32,6 +32,8 @@ class Image {
 				this.image.setAttribute(`${key}`, value);
 			}
 		}
+		this.image.setAttribute('width', '');
+		this.image.setAttribute('height', '');
 	}
 
 	/**
