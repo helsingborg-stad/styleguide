@@ -1,7 +1,7 @@
 /**
  * Component Gallery
  */
-import Image from './image';
+import Image, { setImageDimensions } from './image';
 
 class Gallery {
 	/**
@@ -218,6 +218,7 @@ class Gallery {
 				}
 
 				imageElement.src = imgSrc.image;
+				setImageDimensions(imageElement, imgSrc.image, preloadImage.naturalWidth, preloadImage.naturalHeight);
 				imageElement.setAttribute('data-step', imgSrc.imageStep);
 				imageElement.setAttribute('data-caption', imgSrc.imageCaption || '');
 
