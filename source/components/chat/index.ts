@@ -37,6 +37,7 @@ export function init() {
 
             const chat = new Chat(
                 chatContainer as HTMLElement,
+                messagesScrollContainer as HTMLElement,
                 input,
                 messageFactory,
                 store,
