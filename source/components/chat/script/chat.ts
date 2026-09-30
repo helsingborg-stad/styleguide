@@ -6,6 +6,7 @@ import type PendingMessageManager from "./messages/pendingMessageManager";
 class Chat implements ChatInterface {
     constructor(
         private container: HTMLElement,
+        private messagesScrollContainer: HTMLElement,
         private input: ChatInputInterface,
         private messageFactory: MessageFactory,
         private messageStore: StorageInterface,
@@ -32,6 +33,10 @@ class Chat implements ChatInterface {
 
     public getElement(): HTMLElement {
         return this.container;
+    }
+
+    public getScrollContainer(): HTMLElement {
+        return this.messagesScrollContainer;
     }
 
     public enableSend(): void {
