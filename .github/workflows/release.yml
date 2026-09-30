@@ -1,4 +1,4 @@
-name: Bump version, build and create release
+name: Release
 
 on:
   push:
@@ -6,7 +6,25 @@ on:
       - main-1.x
 
 jobs:
-  release:
+  release-please:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
+
+    steps:
+      - name: Create release PR or release
+        id: release
+        uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071
+        with:
+          target-branch: main-1.x
+
+  build-release:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created == 'true' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -18,32 +36,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Bump version files (no release yet)
-        uses: helsingborg-stad/release-wp-plugin-action@main
+      - name: Create release branch
+        run: git checkout -B release
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          php-version: 8.3
           node-version: 24.3.0
-          skip-release: true  # custom flag you added
 
-      - name: Pull latest main-1.x with bumped version
-        run: |
-          git fetch origin main-1.x
-          git checkout main-1.x
-          git pull origin main-1.x
-          git checkout -B release
-
-      - name: Extract version
-        id: version
-        run: |
-          VERSION=$(jq -r '.version' package.json)
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Detected version: $VERSION"
-
-      # --- PHP Build ---
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.3"
+          tools: composer:v2
 
       - name: Configure npm for GitHub Packages
         run: |
@@ -79,23 +84,10 @@ jobs:
           git commit -m "Release build from $GITHUB_SHA" || echo "No changes to commit"
           git push origin release --force
 
-      # --- Tag and create GitHub Release on release branch ---
-      - name: Create and push tag
+      # --- Move release-please tag to the built release commit ---
+      - name: Move tag to release branch
+        env:
+          TAG: ${{ needs.release-please.outputs.tag_name }}
         run: |
-          TAG="${{ steps.version.outputs.version }}"
-          # skip if tag already exists
-          if git ls-remote --tags origin | grep -q "refs/tags/$TAG$"; then
-            echo "Tag $TAG already exists, skipping tag creation."
-            exit 0
-          fi
-          git tag "$TAG"
-          git push origin "$TAG"
-
-      - name: Wait for tag propagation
-        run: sleep 5
-
-      - name: Create GitHub Release
-        uses: ncipollo/release-action@v1
-        with:
-          tag: ${{ steps.version.outputs.version }}
-          generateReleaseNotes: true
+          git tag -f "$TAG"
+          git push origin "refs/tags/$TAG" --force
