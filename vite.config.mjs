@@ -10,6 +10,41 @@ const entries = {
 	'css/design-builder-external': './source/design-builder/design-builder-external.css',
 };
 
+const backendIconFontPlugin = () => ({
+    name: 'backend-icon-font',
+    apply: 'build',
+    writeBundle() {
+        const source = 'vendor/helsingborg-stad/material-design-icons-json-svg-font/fonts/outlined/material-symbols-variable.woff2';
+        const destination = 'assets/dist/fonts/material-symbols-outlined.woff2';
+        if (!fs.existsSync(source)) {
+            throw new Error(`Missing WordPress backend icon font: ${source}`);
+        }
+        fs.mkdirSync('assets/dist/fonts', { recursive: true });
+        fs.copyFileSync(source, destination);
+    },
+});
+
+const materialIconSpritePlugin = () => ({
+    name: 'material-icon-sprite',
+    apply: 'build',
+    writeBundle() {
+        const directory = 'vendor/helsingborg-stad/material-design-icons-json-svg-font/outlined/400';
+        const symbols = fs.readdirSync(directory)
+            .filter((name) => name.endsWith('.svg'))
+            .sort()
+            .map((name) => {
+                const source = fs.readFileSync(`${directory}/${name}`, 'utf8');
+                const viewBox = source.match(/viewBox="([^"]+)"/)?.[1];
+                const body = source.match(/<svg[^>]*>([\s\S]*?)<\/svg>/)?.[1];
+                if (!viewBox || !body) throw new Error(`Invalid Material Symbol: ${name}`);
+                return `<symbol id="${name.slice(0, -4)}" viewBox="${viewBox}">${body}</symbol>`;
+            });
+        fs.mkdirSync('assets/dist/icons', { recursive: true });
+        fs.writeFileSync('assets/dist/icons/material-symbols-outlined.svg',
+            `<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor">${symbols.join('')}</svg>`);
+    },
+});
+
 for (const component of fs.readdirSync('./source/components', { withFileTypes: true })) {
     if (!component.isDirectory()) continue;
     const name = component.name;
@@ -107,7 +142,7 @@ export default ({ command, mode }) => {
 	})({ command, mode });
 	return {
 		...config,
-		plugins: [...(config.plugins ?? []), utilityClassMapPlugin()],
+		plugins: [...(config.plugins ?? []), utilityClassMapPlugin(), backendIconFontPlugin(), materialIconSpritePlugin()],
 		css: {
 			...config.css,
 			preprocessorOptions: {

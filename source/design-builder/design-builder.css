@@ -759,25 +759,18 @@
 }
 
 .db-material-symbol {
-	font-family: "Material Symbols Outlined", "Material Symbols Rounded", "Material Symbols Sharp", sans-serif;
-	font-style: normal;
-	font-size: 1rem;
-	line-height: 1;
-	letter-spacing: normal;
-	text-transform: none;
+	font-size: 0;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	white-space: nowrap;
-	direction: ltr;
-	font-feature-settings: "liga";
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	font-variation-settings:
-		"FILL" 0,
-		"wght" 500,
-		"GRAD" 0,
-		"opsz" 20;
+}
+
+.db-material-symbol::before {
+	content: "";
+	width: 1rem;
+	height: 1rem;
+	background: currentColor;
+	mask: url("../../vendor/helsingborg-stad/material-design-icons-json-svg-font/outlined/400/close.svg") center / contain no-repeat;
 }
 
 .db-palette-family > db-control-row:last-child .db-control-row,
@@ -1083,26 +1076,19 @@ swatch-select-control {
 .db-swatch-select-chip-contrast {
 	position: relative;
 	z-index: 1;
-	font-family: "Material Symbols Outlined", "Material Symbols Rounded", "Material Symbols Sharp", sans-serif;
-	font-style: normal;
-	font-size: 1rem;
-	line-height: 1;
-	letter-spacing: normal;
-	text-transform: none;
+	font-size: 0;
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	white-space: nowrap;
-	direction: ltr;
-	font-feature-settings: "liga";
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	font-variation-settings:
-		"FILL" 1,
-		"wght" 500,
-		"GRAD" 0,
-		"opsz" 20;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.db-swatch-select-chip-contrast::before {
+	content: "";
+	width: 1rem;
+	height: 1rem;
+	background: currentColor;
+	mask: url("../../vendor/helsingborg-stad/material-design-icons-json-svg-font/outlined/400/text_fields.svg") center / contain no-repeat;
 }
 
 .db-swatch-select-empty {

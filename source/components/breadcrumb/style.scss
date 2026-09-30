@@ -39,8 +39,14 @@ $_: "c-breadcrumb";
 
             &:nth-last-child(2) {
 
-                [data-material-symbol="home"]:after {
-                    content: "chevron_right";
+                .c-icon--home {
+                    svg {
+                        display: none;
+                    }
+
+                    &:after {
+                        content: "›";
+                    }
                 }
             }
         }

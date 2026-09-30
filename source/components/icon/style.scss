@@ -1,4 +1,3 @@
-@use "sass:meta";
 @use "../../sass/mixin/tokens";
 
 /* Component name */
@@ -44,6 +43,13 @@ $sizes: xs, sm, md, lg, xl, xxl;
                 stroke-width: 1;
             }
         }
+    }
+
+    &.#{$_}--svg-material svg {
+        display: block;
+        width: 1em;
+        height: 1em;
+        fill: currentColor;
     }
 
     /* Set baseline to align icon to text */
@@ -99,5 +105,3 @@ $sizes: xs, sm, md, lg, xl, xxl;
     }
 
 }
-
-@include meta.load-css("../../sass/icon/material-symbols");
