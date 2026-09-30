@@ -43,7 +43,8 @@ $_: "c-header";
     --#{$_}--container-max-width-default: var(--container-width);
     --#{$_}--container-max-width-wide: var(--container-width-wide);
     --#{$_}--container-max-width: var(--#{$_}--container-max-width-default);
-    --#{$_}--content-padding-inline: calc(var(--c-header--padding-x-enabled, 1) * max(var(--c-header--padding-x), calc((100% - var(--c-header--content-max-width)) / 2)));
+    --#{$_}--content-inset-inline: max(var(--c-header--padding-x), calc((100% - var(--c-header--content-max-width)) / 2));
+    --#{$_}--content-padding-inline: calc(var(--c-header--padding-x-enabled, 1) * var(--#{$_}--content-inset-inline));
 
     /* Color */
     --#{$_}--background-color: #{tokens.getRawValue($_, "color--surface")};

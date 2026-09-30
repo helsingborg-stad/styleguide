@@ -21,16 +21,6 @@
     }
   ],
   "minimum-stability": "stable",
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://packagist.org"
-    },
-    {
-      "type": "composer",
-      "url": "https://wpackagist.org"
-    }
-  ],
   "autoload": {
     "psr-4": {
       "MunicipioStyleGuide\\": "source/php/",
@@ -54,10 +44,7 @@
     }
   },
   "scripts": {
-    "pre-autoload-dump": [
-      "HelsingborgStad\\MaterialSymbols\\Script\\Composer\\Prune::run",
-      "MunicipioStyleGuide\\Composer\\PruneIconFonts::run"
-    ],
+    "pre-autoload-dump": "HelsingborgStad\\MaterialSymbols\\Script\\Composer\\Prune::run",
     "test": "XDEBUG_MODE=off vendor/bin/phpunit --testdox",
     "test:filter": "XDEBUG_MODE=off vendor/bin/phpunit --filter",
     "lint": "vendor/bin/mago lint",

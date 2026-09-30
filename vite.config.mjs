@@ -10,20 +10,6 @@ const entries = {
 	'css/design-builder-external': './source/design-builder/design-builder-external.css',
 };
 
-const backendIconFontPlugin = () => ({
-    name: 'backend-icon-font',
-    apply: 'build',
-    writeBundle() {
-        const source = 'vendor/helsingborg-stad/material-design-icons-json-svg-font/fonts/outlined/material-symbols-variable.woff2';
-        const destination = 'assets/dist/fonts/material-symbols-outlined.woff2';
-        if (!fs.existsSync(source)) {
-            throw new Error(`Missing WordPress backend icon font: ${source}`);
-        }
-        fs.mkdirSync('assets/dist/fonts', { recursive: true });
-        fs.copyFileSync(source, destination);
-    },
-});
-
 const materialIconSpritePlugin = () => ({
     name: 'material-icon-sprite',
     apply: 'build',
@@ -142,7 +128,7 @@ export default ({ command, mode }) => {
 	})({ command, mode });
 	return {
 		...config,
-		plugins: [...(config.plugins ?? []), utilityClassMapPlugin(), backendIconFontPlugin(), materialIconSpritePlugin()],
+		plugins: [...(config.plugins ?? []), utilityClassMapPlugin(), materialIconSpritePlugin()],
 		css: {
 			...config.css,
 			preprocessorOptions: {
