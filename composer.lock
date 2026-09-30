@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ebf90189e97f5257061ad634221e111",
+    "content-hash": "c92b92648aefdcfcafa11c660ebb5a82",
     "packages": [
         {
             "name": "brick/math",
@@ -389,7 +389,7 @@
         },
         {
             "name": "helsingborg-stad/material-design-icons-json-svg-font",
-            "version": "dev-main",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font.git",
@@ -404,7 +404,6 @@
             "require": {
                 "php": ">=8.1"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -3818,9 +3817,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "helsingborg-stad/material-design-icons-json-svg-font": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
