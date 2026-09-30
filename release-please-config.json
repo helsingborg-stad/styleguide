@@ -1,25 +1,7 @@
 {
-  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
-  "bootstrap-sha": "9fdfe380cf9f354cbd080bf2b6ee29ec4967d212",
-  "include-v-in-tag": false,
-  "include-component-in-tag": false,
-  "packages": {
-    ".": {
-      "release-type": "node",
-      "package-name": "@helsingborg-stad/styleguide",
-      "changelog-sections": [
-        { "type": "feat", "section": "Features" },
-        { "type": "fix", "section": "Bug Fixes" },
-        { "type": "perf", "section": "Performance Improvements" },
-        { "type": "revert", "section": "Reverts" },
-        { "type": "chore", "section": "Miscellaneous Chores" },
-        { "type": "refactor", "section": "Code Refactoring", "hidden": true },
-        { "type": "docs", "section": "Documentation", "hidden": true },
-        { "type": "style", "section": "Styles", "hidden": true },
-        { "type": "test", "section": "Tests", "hidden": true },
-        { "type": "build", "section": "Build System", "hidden": true },
-        { "type": "ci", "section": "Continuous Integration", "hidden": true }
-      ]
-    }
-  }
+	"$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+	"bootstrap-sha": "9fdfe380cf9f354cbd080bf2b6ee29ec4967d212",
+	"include-v-in-tag": false,
+	"include-component-in-tag": false,
+	"packages": {}
 }
