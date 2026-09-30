@@ -3,5 +3,9 @@
         "grid": "grid-s-4 grid-sm-4 grid-md-4",
         "heading": "Size",
         "text": ""
+    },
+    "variants": {
+        "heading": "Styles and weights",
+        "text": "Material Symbols are available in outlined, rounded, and sharp styles at weights 200, 400, and 600."
     }
 }

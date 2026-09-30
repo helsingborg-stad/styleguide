@@ -41,6 +41,7 @@
     "php": "^8.2",
     "erusev/parsedown": "^1.7",
     "helsingborg-stad/component-library": "5.43.2",
+    "helsingborg-stad/material-design-icons-json-svg-font": "dev-main",
     "ramsey/uuid": "4.9.4"
   },
   "require-dev": {
@@ -53,6 +54,10 @@
     }
   },
   "scripts": {
+    "pre-autoload-dump": [
+      "HelsingborgStad\\MaterialSymbols\\Script\\Composer\\Prune::run",
+      "MunicipioStyleGuide\\Composer\\PruneIconFonts::run"
+    ],
     "test": "XDEBUG_MODE=off vendor/bin/phpunit --testdox",
     "test:filter": "XDEBUG_MODE=off vendor/bin/phpunit --filter",
     "lint": "vendor/bin/mago lint",
@@ -65,5 +70,14 @@
       "bash -c 'set -euo pipefail; composer outdated --direct --format=json --ignore-platform-req=ext-imagick | jq -c \".installed[] | select(.latest != null and .latest != \\\"[none matched]\\\" and (.latest | startswith(\\\"dev-\\\") | not)) | {name:.name, version:.latest}\" | while read -r row; do PKG=$(echo \"$row\" | jq -r .name); VER=$(echo \"$row\" | jq -r .version); CURRENT=$(jq -r --arg p \"$PKG\" \".require[\\$p] // \\\"\\\"\" composer.json); if [ -z \"$CURRENT\" ]; then echo \"Skipping $PKG (not in root composer.json)\"; elif [[ \"$CURRENT\" == dev-* ]]; then echo \"Skipping $PKG (current version is dev)\"; else echo \"Updating $PKG to $VER\"; jq --arg p \"$PKG\" --arg v \"$VER\" \".require[\\$p] = \\$v\" composer.json > composer.json.tmp && mv composer.json.tmp composer.json; fi; done'",
       "composer update --lock --ignore-platform-req=ext-imagick -W"
     ]
+  },
+  "extra": {
+    "helsingborg-stad/material-design-icons-json-svg-font": {
+      "variants": ["outlined", "rounded", "sharp"],
+      "weights": [200, 400, 600],
+      "formats": ["svg", "woff2"],
+      "staticFonts": false,
+      "variableFonts": true
+    }
   }
 }

@@ -46,15 +46,12 @@ blockquote {
 
     &:before,
     &:after {
-        font-family: "Material Symbols Outlined", "Material Symbols Rounded", "Material Symbols Sharp";
-        content: "\e244";
+        content: "";
         position: absolute;
-        font-size: tokens.getCalculatedValue($_, "space", 4);
-        font-variation-settings:
-            "FILL" 1,
-            "wght" var(--current-material-symbols-weight, 400),
-            "GRAD" var(--current-material-symbols-grade, 0),
-            "opsz" var(--current-material-symbols-optical-size, 48);
+        width: tokens.getCalculatedValue($_, "space", 4);
+        height: tokens.getCalculatedValue($_, "space", 4);
+        background-color: currentColor;
+        mask: url("../../../vendor/helsingborg-stad/material-design-icons-json-svg-font/outlined/400/format_quote.svg") center / contain no-repeat;
     }
 
     &:before {

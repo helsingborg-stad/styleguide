@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f8bd3bfd382ea65794ea5e4682db4a3e",
+    "content-hash": "36caaf6423a33f5d9a5db34caa6d2aa1",
     "packages": [
         {
             "name": "brick/math",
@@ -386,6 +386,42 @@
                 "source": "https://github.com/helsingborg-stad/component-library/tree/5.43.2"
             },
             "time": "2026-09-29T11:06:56+00:00"
+        },
+        {
+            "name": "helsingborg-stad/material-design-icons-json-svg-font",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font.git",
+                "reference": "57da41fe1e0c7ceb7754171a6556b8ab631b57fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/material-design-icons-json-svg-font/zipball/57da41fe1e0c7ceb7754171a6556b8ab631b57fd",
+                "reference": "57da41fe1e0c7ceb7754171a6556b8ab631b57fd",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HelsingborgStad\\MaterialSymbols\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Material Symbols extracted from Google's variable fonts as SVG, JSON, and fonts",
+            "homepage": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font",
+            "support": {
+                "issues": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font/issues",
+                "source": "https://github.com/helsingborg-stad/material-design-icons-json-svg-font"
+            },
+            "time": "2026-09-30T10:53:47+00:00"
         },
         {
             "name": "helsingborg-stad/wpservice",
@@ -3782,7 +3818,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "helsingborg-stad/material-design-icons-json-svg-font": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

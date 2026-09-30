@@ -75,8 +75,8 @@
         "jest-environment-jsdom": "^30.0.5",
         "lit-html": "^3.3.2",
         "postcss": "^8.5.6",
-        "postcss-scss": "^4.0.9",
         "postcss-object-fit-images": "^1.1.2",
+        "postcss-scss": "^4.0.9",
         "sass": "^1.97.3",
         "storybook": "^8.6.17",
         "stylelint": "^14.4.0",
@@ -88,7 +88,6 @@
     "dependencies": {
         "@helsingborg-stad/openstreetmap": "^0.53.6",
         "@splidejs/splide": "^4.1.4",
-        "material-symbols": "^0.34.1",
         "vite-config-factory": "^1.1.2"
     },
     "jest": {

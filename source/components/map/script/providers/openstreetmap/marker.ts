@@ -2,6 +2,7 @@ import type { CreateMarkerInterface, CreatePopupInterface, IconOptions, MarkerIn
 import type { CreateMarker, MarkerConfig } from './openstreetmapInterface';
 
 class Marker implements CreateMarker {
+	private static readonly iconSprite = new URL(/* @vite-ignore */ './icons/material-symbols-outlined.svg', import.meta.url).href;
 	/**
 	 * @param markerCreator - Factory used to create map marker instances.
 	 * @param popupCreator  - Factory used to create popup instances bound to markers.
@@ -79,7 +80,7 @@ class Marker implements CreateMarker {
 	private getHighlightedMarkerContent(options: MarkerConfig): string {
 		const [color, icon] = this.getColorAndIcon(options);
 
-		return `<span style="background-color: white; border: solid 2px ${color}; color: ${color}; font-size: 20px; padding: 4px; border-radius: 50%;" data-material-symbol="${icon}" class="interactive-map__highlighted-marker material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined material-symbols--filled"></span>`;
+		return `<span style="background-color: white; border: solid 2px ${color}; color: ${color}; font-size: 20px; padding: 4px; border-radius: 50%;" class="interactive-map__highlighted-marker">${this.getSvg(icon)}</span>`;
 	}
 
 	/**
@@ -92,7 +93,12 @@ class Marker implements CreateMarker {
 	private getMarkerContent(options: MarkerConfig): string {
 		const [color, icon] = this.getColorAndIcon(options);
 
-		return `<span style="background-color: ${color}; border: solid 2px ${color}; color: white; font-size: 20px; padding: 4px; border-radius: 50%;" data-material-symbol="${icon}" class="material-symbols material-symbols-rounded material-symbols-sharp material-symbols-outlined material-symbols--filled"></span>`;
+		return `<span style="background-color: ${color}; border: solid 2px ${color}; color: white; font-size: 20px; padding: 4px; border-radius: 50%;">${this.getSvg(icon)}</span>`;
+	}
+
+	private getSvg(icon: string): string {
+		const name = /^[a-z0-9_]+$/.test(icon) ? icon : 'location_on';
+		return `<svg width="20" height="20" viewBox="0 0 960 960" fill="currentColor" aria-hidden="true"><use href="${Marker.iconSprite}#${name}"></use></svg>`;
 	}
 
 	/**

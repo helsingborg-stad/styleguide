@@ -99,7 +99,7 @@ class SwatchSelectControl extends HTMLElement {
 				<span class="db-swatch-select-chip-fill" style=${`background: ${option.swatch ?? option.value}`}></span>
 				${
 					option.contrastSwatch
-						? html`<span class="db-swatch-select-chip-contrast material-symbols" style=${`color: ${option.contrastSwatch}`} aria-hidden="true">text_fields</span>`
+						? html`<span class="db-swatch-select-chip-contrast" style=${`color: ${option.contrastSwatch}`} aria-hidden="true">text_fields</span>`
 						: ''
 				}
 			</span>
