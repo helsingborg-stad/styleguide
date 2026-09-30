@@ -65,6 +65,11 @@ $sizes: xs, sm, md, lg, xl, xxl;
 
     &.#{$_}--size-inherit {
         font-size: inherit;
+
+        svg {
+            width: 1em;
+            height: 1em;
+        }
     }
 
     @each $size in $sizes {
