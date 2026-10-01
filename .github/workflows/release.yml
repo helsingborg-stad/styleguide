@@ -1,16 +1,9 @@
 name: Release
 
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: Release version in semantic-version format (for example, 3.36.0)
-        required: true
-        type: string
-      plugin_header_file:
-        description: Optional path to the main WordPress plugin file whose Version header should be updated
-        required: false
-        type: string
+  push:
+    branches:
+      - main-1.x
 
 jobs:
   release:
@@ -23,73 +16,54 @@ jobs:
       - name: Check out the release source
         uses: actions/checkout@v4
         with:
-          ref: main-1.x
           fetch-depth: 0
 
-      - name: Ensure the tag does not already exist
-        env:
-          VERSION: ${{ inputs.version }}
-        run: |
-          if git ls-remote --exit-code --tags origin "refs/tags/$VERSION"; then
-            echo "Tag $VERSION already exists." >&2
-            exit 1
-          fi
-
-      - name: Set up Node
-        uses: actions/setup-node@v4
+      - name: Calculate and apply the next semantic version
+        id: version
+        uses: helsingborg-stad/release-wp-plugin-action@main
         with:
-          node-version: 24.6
+          node-version: "24.6"
 
       - name: Set up PHP
+        if: steps.version.outputs.release == 'true'
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.3"
           tools: composer:v2
 
       - name: Configure npm for GitHub Packages
+        if: steps.version.outputs.release == 'true'
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
           echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> .npmrc
 
-      - name: Update release versions
-        env:
-          VERSION: ${{ inputs.version }}
-          PLUGIN_HEADER_FILE: ${{ inputs.plugin_header_file }}
-        run: |
-          if [ -n "$PLUGIN_HEADER_FILE" ]; then
-            scripts/prepare-release.sh "$VERSION" --plugin-file "$PLUGIN_HEADER_FILE"
-          else
-            scripts/prepare-release.sh "$VERSION"
-          fi
-
       - name: Commit release metadata to main
+        if: steps.version.outputs.release == 'true'
         env:
-          VERSION: ${{ inputs.version }}
-          PLUGIN_HEADER_FILE: ${{ inputs.plugin_header_file }}
+          VERSION: ${{ steps.version.outputs.version }}
         run: |
           git config user.name "CI Release Bot"
           git config user.email "ci@helsingborg.se"
-          git add composer.json package.json package-lock.json
-          if [ -n "$PLUGIN_HEADER_FILE" ]; then git add "$PLUGIN_HEADER_FILE"; fi
+          git add version.json composer.json package.json package-lock.json ./*.php
           git commit -m "chore(main-1.x): release $VERSION"
           git push origin HEAD:main-1.x
 
       - name: Create the built release branch
+        if: steps.version.outputs.release == 'true'
         env:
-          VERSION: ${{ inputs.version }}
-          PLUGIN_HEADER_FILE: ${{ inputs.plugin_header_file }}
+          VERSION: ${{ steps.version.outputs.version }}
         run: |
           git checkout -B release
-          php build.php --no-composer --cleanup --release
+          php build.php --cleanup --release
           git rm -r --cached .
-          git add -f assets source component-design-tokens.json composer.json composer.lock LICENSE README.md
-          if [ -n "$PLUGIN_HEADER_FILE" ]; then git add -f "$PLUGIN_HEADER_FILE"; fi
+          git add -f assets source component-design-tokens.json version.json composer.json composer.lock LICENSE README.md
           git commit -m "Release build $VERSION"
           git push origin HEAD:release --force
 
       - name: Tag the built release commit
+        if: steps.version.outputs.release == 'true'
         env:
-          VERSION: ${{ inputs.version }}
+          VERSION: ${{ steps.version.outputs.version }}
         run: |
           git tag -a "$VERSION" -m "Release $VERSION"
           git push origin "refs/tags/$VERSION"

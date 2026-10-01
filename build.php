@@ -7,11 +7,19 @@ if (php_sapi_name() !== 'cli') {
 }
 
 // Any command needed to run and build plugin assets when newly cheched out of repo.
+$arguments = array_slice($argv, 1);
+$skipComposer = in_array('--no-composer', $arguments, true);
+$shouldCleanup = in_array('--cleanup', $arguments, true);
+$isReleaseBuild = in_array('--release', $arguments, true);
+
 $buildCommands = [
-    'composer install --prefer-dist --no-progress',
     'npm ci --no-progress --no-audit',
     'npm run build',
 ];
+
+if (!$skipComposer) {
+    array_unshift($buildCommands, 'composer install --prefer-dist --no-progress');
+}
 
 // Files and directories not suitable for prod to be removed.
 $removables = [
@@ -53,8 +61,13 @@ foreach ($buildCommands as $buildCommand) {
 }
 
 // Remove files and directories if '--cleanup' argument is supplied to save local developers from disasters.
-if (isset($argv[1]) && $argv[1] === '--cleanup') {
+if ($shouldCleanup) {
     foreach ($removables as $removable) {
+        // A release branch is consumed as a Composer package, so retain its metadata.
+        if ($isReleaseBuild && in_array($removable, ['composer.json', 'composer.lock'], true)) {
+            continue;
+        }
+
         if (file_exists($removable)) {
             print "Removing $removable from $dirName\n";
             shell_exec("rm -rf $removable");
