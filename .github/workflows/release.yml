@@ -1,50 +1,46 @@
 name: Release
 
 on:
-  push:
-    branches:
-      - main-1.x
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Release version in semantic-version format (for example, 3.36.0)
+        required: true
+        type: string
+      plugin_header_file:
+        description: Optional path to the main WordPress plugin file whose Version header should be updated
+        required: false
+        type: string
 
 jobs:
-  release-please:
+  release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write
-    outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
-      tag_name: ${{ steps.release.outputs.tag_name }}
+      packages: read
 
     steps:
-      - name: Create release PR or release
-        id: release
-        uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071
-        with:
-          target-branch: main-1.x
-
-  build-release:
-    needs: release-please
-    if: ${{ needs.release-please.outputs.release_created == 'true' }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      packages: write
-
-    steps:
-      - name: Checkout
+      - name: Check out the release source
         uses: actions/checkout@v4
         with:
+          ref: main-1.x
           fetch-depth: 0
 
-      - name: Create release branch
-        run: git checkout -B release
+      - name: Ensure the tag does not already exist
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          if git ls-remote --exit-code --tags origin "refs/tags/$VERSION"; then
+            echo "Tag $VERSION already exists." >&2
+            exit 1
+          fi
 
-      - name: Setup Node
+      - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 24.3.0
+          node-version: 24.6
 
-      - name: Setup PHP
+      - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.3"
@@ -55,39 +51,45 @@ jobs:
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
           echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> .npmrc
 
-      - name: Run PHP build script
-        run: php build.php --no-composer --cleanup --release
-
-      - name: Remove cached git files
+      - name: Update release versions
+        env:
+          VERSION: ${{ inputs.version }}
+          PLUGIN_HEADER_FILE: ${{ inputs.plugin_header_file }}
         run: |
-          git rm -r --cached .
+          if [ -n "$PLUGIN_HEADER_FILE" ]; then
+            scripts/prepare-release.sh "$VERSION" --plugin-file "$PLUGIN_HEADER_FILE"
+          else
+            scripts/prepare-release.sh "$VERSION"
+          fi
 
-      - name: Overwrite .gitignore for release branch
-        run: |
-          cat > .gitignore <<'EOF'
-          /*
-          !/assets
-          !/source
-          !/component-design-tokens.json
-          !/composer.json
-          !/composer.lock
-          !/LICENSE
-          !/README.md
-          EOF
-
-      # --- Release Branch Commit ---
-      - name: Commit and push release branch
+      - name: Commit release metadata to main
+        env:
+          VERSION: ${{ inputs.version }}
+          PLUGIN_HEADER_FILE: ${{ inputs.plugin_header_file }}
         run: |
           git config user.name "CI Release Bot"
           git config user.email "ci@helsingborg.se"
-          git add .
-          git commit -m "Release build from $GITHUB_SHA" || echo "No changes to commit"
-          git push origin release --force
+          git add composer.json package.json package-lock.json
+          if [ -n "$PLUGIN_HEADER_FILE" ]; then git add "$PLUGIN_HEADER_FILE"; fi
+          git commit -m "chore(main-1.x): release $VERSION"
+          git push origin HEAD:main-1.x
 
-      # --- Move release-please tag to the built release commit ---
-      - name: Move tag to release branch
+      - name: Create the built release branch
         env:
-          TAG: ${{ needs.release-please.outputs.tag_name }}
+          VERSION: ${{ inputs.version }}
+          PLUGIN_HEADER_FILE: ${{ inputs.plugin_header_file }}
         run: |
-          git tag -f "$TAG"
-          git push origin "refs/tags/$TAG" --force
+          git checkout -B release
+          php build.php --no-composer --cleanup --release
+          git rm -r --cached .
+          git add -f assets source component-design-tokens.json composer.json composer.lock LICENSE README.md
+          if [ -n "$PLUGIN_HEADER_FILE" ]; then git add -f "$PLUGIN_HEADER_FILE"; fi
+          git commit -m "Release build $VERSION"
+          git push origin HEAD:release --force
+
+      - name: Tag the built release commit
+        env:
+          VERSION: ${{ inputs.version }}
+        run: |
+          git tag -a "$VERSION" -m "Release $VERSION"
+          git push origin "refs/tags/$VERSION"
