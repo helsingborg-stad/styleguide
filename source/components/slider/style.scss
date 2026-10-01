@@ -43,7 +43,7 @@ $container-width-md: 640px;
     &.c-slider--shadow {
 
         .c-slider__container {
-            filter: tokens.getCalculatedValue($_, "shadow", 1);
+            box-shadow: tokens.getCalculatedValue($_, "shadow", 1);
         }
     }
 
@@ -200,12 +200,12 @@ $container-width-md: 640px;
         .c-slider__shadow {
 
             .c-slider__container {
-                filter: tokens.getCalculatedValue($_, "shadow", 1);
+                box-shadow: tokens.getCalculatedValue($_, "shadow", 1);
             }
         }
 
         .c-card {
-            filter: none;
+            box-shadow: none;
         }
 
         .c-slider__arrows .splide__arrow.splide__arrow--prev {

@@ -21,7 +21,7 @@ $_: "c-tags";
             padding: tokens.getCalculatedValue($_, "base", 0.5) tokens.getCalculatedValue($_, "base", 1.5);
             border-radius: tokens.getCalculatedValue($_, "base", 3);
             corner-shape: tokens.getRawValue($_, "corner-shape");
-            filter: tokens.getCalculatedValue($_, "shadow");
+            box-shadow: tokens.getCalculatedValue($_, "shadow");
             border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid #{tokens.getRawValue($_, "color--surface-border")};
         }
     }

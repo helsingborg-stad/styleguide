@@ -13,7 +13,7 @@ $_: "c-box";
     contain: layout;
     border-radius: tokens.getCalculatedValue($_, "border-radius");
     corner-shape: tokens.getRawValue($_, "corner-shape");
-    filter: var(--#{$_}--shadow);
+    box-shadow: var(--#{$_}--shadow);
     background-color: tokens.getRawValue($_, "color--primary");
     color: tokens.getRawValue($_, "color--primary-contrast");
     display: flex;
@@ -113,7 +113,8 @@ a.#{$_} {
 
     &:hover {
         transform: translateY(tokens.getCalculatedValue($_, "space", -0.25));
-        filter: brightness(0.9) var(--#{$_}--shadow-hover);
+        filter: brightness(0.9);
+        box-shadow: var(--#{$_}--shadow-hover);
 
         .#{$_}__heading {
             text-decoration: underline;
@@ -125,5 +126,5 @@ a.#{$_} {
 .o-grid--no-gutter>[class*="o-grid-"] .#{$_} [class*="#{$_}"],
 .o-grid--no-gutter>[class*="o-grid-"] .#{$_} [class*="#{$_}"]:after {
     border-radius: unset;
-    filter: none;
+    box-shadow: none;
 }

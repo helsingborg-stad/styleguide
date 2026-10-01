@@ -33,7 +33,7 @@ $_: "c-accordion";
     display: grid;
     color: var(--#{$_}--color);
     background-color: var(--#{$_}--background-color);
-    filter: var(--#{$_}--shadow);
+    box-shadow: var(--#{$_}--shadow);
 
     @include insetMultiplier.responsive-resolve($_, $selector: ".#{$_}__heading");
     @include insetMultiplier.responsive-resolve($_, $selector: ".#{$_}__item");
@@ -80,12 +80,12 @@ $_: "c-accordion";
     &.#{$_}--spaced {
         gap: calc(tokens.getRawValue($_, "space") * 4);
         background-color: unset;
-        filter: none;
+        box-shadow: none;
         contain: layout;
 
         >* {
             background-color: var(--#{$_}--background-color);
-            filter: var(--#{$_}--shadow);
+            box-shadow: var(--#{$_}--shadow);
         }
 
         &.#{$_}--bordered {

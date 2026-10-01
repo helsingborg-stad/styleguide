@@ -17,7 +17,7 @@ $_: "c-group";
     corner-shape: tokens.getRawValue($_, "corner-shape");
 
     & &--shadow {
-        filter: tokens.getCalculatedValue($_, "shadow");
+        box-shadow: tokens.getCalculatedValue($_, "shadow");
     }
 
     &:not(.#{$_}--skip-child-normalization)>* {

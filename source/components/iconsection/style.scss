@@ -10,7 +10,7 @@ $_: "c-iconsection";
     flex-direction: column;
 
     &.#{$_}--gap-0 {
-        filter: var(--#{$_}--shadow);
+        box-shadow: var(--#{$_}--shadow);
         background-color: tokens.getRawValue($_, "color--surface");
         border-radius: tokens.getCalculatedValue($_, "border-radius");
         corner-shape: tokens.getRawValue($_, "corner-shape");
@@ -21,7 +21,7 @@ $_: "c-iconsection";
         }
 
         &>* {
-            filter: unset;
+            box-shadow: unset;
             background-color: unset;
             padding: 0;
         }
@@ -55,7 +55,7 @@ $_: "c-iconsection";
     border: tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--surface-border");
 
     overflow: hidden;
-    filter: var(--#{$_}--shadow);
+    box-shadow: var(--#{$_}--shadow);
     background-color: tokens.getRawValue($_, "color--surface");
     border-radius: tokens.getCalculatedValue($_, "border-radius");
     corner-shape: tokens.getRawValue($_, "corner-shape");

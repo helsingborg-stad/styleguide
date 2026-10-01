@@ -136,7 +136,7 @@ $_: "c-fileinput";
             background-color: tokens.getRawValue($_, "color--surface");
             border-radius: tokens.getCalculatedValue($_, "border-radius");
             margin: 0;
-            filter: var(--#{$_}--shadow);
+            box-shadow: var(--#{$_}--shadow);
             height: tokens.getCalculatedValue($_, "space", 5.5);
         }
 
@@ -332,7 +332,7 @@ $_: "c-fileinput";
             aspect-ratio: 16 / 9;
             border-radius: tokens.getCalculatedValue($_, "border-radius");
             corner-shape: tokens.getCalculatedValue($_, "corner-shape");
-            filter: var(--#{$_}--shadow-preview);
+            box-shadow: var(--#{$_}--shadow-preview);
             overflow: hidden;
             background-color: tokens.getRawValue($_, "color--surface");
             border: var(--#{$_}--border);
@@ -361,12 +361,14 @@ $_: "c-fileinput";
 @keyframes puff-out-center {
 
     0% {
-        filter: var(--#{$_}--shadow) blur(0px);
+        box-shadow: var(--#{$_}--shadow);
+        filter: blur(0px);
         opacity: 1;
     }
 
     100% {
-        filter: var(--#{$_}--shadow) blur(4px);
+        box-shadow: var(--#{$_}--shadow);
+        filter: blur(4px);
         opacity: 0;
     }
 }

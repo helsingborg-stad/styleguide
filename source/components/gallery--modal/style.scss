@@ -66,7 +66,7 @@ $_: "c-modal--gallery";
             display: block;
             width: auto;
             max-width: 100%;
-            filter: tokens.getCalculatedValue($_, "shadow", 3);
+            box-shadow: tokens.getCalculatedValue($_, "shadow", 3);
             opacity: 1;
             visibility: visible;
             transition: opacity 180ms ease, visibility 0s linear 180ms;

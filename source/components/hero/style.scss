@@ -218,7 +218,7 @@ $_: "c-hero";
         }
 
         &.#{$_}--apply-shadows .#{$_}__content {
-            filter: var(--#{$_}--shadow);
+            box-shadow: var(--#{$_}--shadow);
         }
     }
 

@@ -37,8 +37,8 @@ $_: "c-card";
     --#{$_}--surface-contrast-muted-color: #{tokens.getRawValue($_, "color--surface-contrast-muted")};
     contain: layout;
     container-type: inline-size;
-    filter: var(--#{$_}--shadow);
-    will-change: filter;
+    box-shadow: var(--#{$_}--shadow);
+    will-change: box-shadow;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -390,7 +390,7 @@ a.#{$_} {
     }
 
     &:hover {
-        filter: var(--#{$_}--shadow-hover);
+        box-shadow: var(--#{$_}--shadow-hover);
         background-color: tokens.getRawValue($_, "color--surface-alt");
         transform: translateY(calc(0px - #{tokens.getRawValue($_, "base")} * 0.25));
         transition: all 200ms ease-out;
@@ -419,5 +419,5 @@ a.#{$_} {
 .o-grid--no-gutter>[class*="o-grid-"] .#{$_} [class*="#{$_}"],
 .o-grid--no-gutter>[class*="o-grid-"] .#{$_} [class*="#{$_}"]:after {
     border-radius: unset;
-    filter: none;
+    box-shadow: none;
 }

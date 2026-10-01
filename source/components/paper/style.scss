@@ -32,7 +32,7 @@ $insetTargets: "[data-component=\"card\"], [data-component=\"accordion\"], [data
     border: var(--#{$_}--border);
     border-radius: tokens.getCalculatedValue($_, "border-radius");
     corner-shape: tokens.getRawValue($_, "corner-shape");
-    filter: tokens.getCalculatedValue($_, "shadow", 1);
+    box-shadow: tokens.getCalculatedValue($_, "shadow", 1);
 
     >.#{$_}__content {
         @include insetMultiplier.consume($_, insetMultiplier.contextual-multiplier(var(--#{$_}--inset-scale)));

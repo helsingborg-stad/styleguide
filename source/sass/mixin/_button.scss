@@ -50,7 +50,6 @@
     border: 0;
     border-radius: 0;
     box-shadow: none;
-    filter: var_properties.$drop-shadow-0;
     font-weight: normal;
     margin: 0;
     padding: 0;
@@ -60,7 +59,6 @@
     &:active {
         background-color: transparent;
         box-shadow: none;
-        filter: var_properties.$drop-shadow-0;
         text-decoration: underline;
     }
 }

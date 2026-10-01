@@ -283,12 +283,12 @@ $fields: "input, input[type=" color"], input[type=" text"], input[type=" search"
 
     /* Shadow */
     &.#{$_}--shadow {
-        transition: filter 100ms ease-in-out;
-        filter: var(--#{$_}--shadow);
+        transition: box-shadow 100ms ease-in-out;
+        box-shadow: var(--#{$_}--shadow);
     }
 
     &.#{$_}--shadow:hover {
-        filter: var(--#{$_}--shadow-hover);
+        box-shadow: var(--#{$_}--shadow-hover);
     }
 
     /* Customizer modifiers */

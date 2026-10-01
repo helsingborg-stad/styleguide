@@ -237,7 +237,7 @@ $_: "c-nav";
             min-width: calc(#{tokens.getRawValue($_, "base")} * 28);
             border-radius: tokens.getCalculatedValue($_, "border-radius");
             corner-shape: tokens.getRawValue($_, "corner-shape");
-            filter: var(--#{$_}--shadow);
+            box-shadow: var(--#{$_}--shadow);
 
             >.c-nav__item:first-child>.c-nav__item-wrapper {
                 border-start-start-radius: tokens.getCalculatedValue($_, "border-radius");
@@ -387,7 +387,7 @@ $_: "c-nav";
     .c-nav.c-nav--child {
         animation: none;
         position: relative;
-        filter: unset;
+        box-shadow: unset;
         transform: unset;
     }
 
@@ -435,7 +435,7 @@ $_: "c-nav";
         width: 100%;
         z-index: 5;
         background-color: var(--#{$_}--item-background-color);
-        filter: var(--#{$_}--shadow);
+        box-shadow: var(--#{$_}--shadow);
         justify-content: center;
     }
 

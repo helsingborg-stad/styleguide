@@ -223,9 +223,9 @@
         $p: "--#{$p}";
     }
 
-    //If token is shadow, construct the drop-shadow value using the color and amount tokens
+    // If token is shadow, construct the box-shadow value using the color and amount tokens
     @if $token =="shadow" {
-        @return drop-shadow(0 calc((var(--base) * 0.5) * (#{getRawValue($prefix, "shadow-amount", $inheritVariable)})) calc((#{getRawValue($prefix, "shadow-amount", $inheritVariable)}) * var(--base) * #{$multiplier}) #{getRawValue($prefix, "shadow-color", $inheritVariable)});
+        @return 0 calc((var(--base) * 0.5) * (#{getRawValue($prefix, "shadow-amount", $inheritVariable)})) calc((#{getRawValue($prefix, "shadow-amount", $inheritVariable)}) * var(--base) * #{$multiplier}) #{getRawValue($prefix, "shadow-color", $inheritVariable)};
     }
 
     // If base is used as a token, return it directly without multiply with base to avoid circular reference

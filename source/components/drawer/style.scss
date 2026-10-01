@@ -31,7 +31,7 @@ $_: "c-drawer";
         --inherit-color-background-hover: var(--drawer-button-hover);
         --inherit-color-background-active: color-mix(in srgb, var(--drawer-color) 8%, var(--drawer-background));
         --inherit-color-border: var(--drawer-border-color);
-        --inherit-filter: none;
+        --inherit-box-shadow: none;
     }
 
     .c-drawer__header {
@@ -220,7 +220,7 @@ $_: "c-drawer";
     visibility: visible;
     transform: translate(0%);
     opacity: 1;
-    filter: var(--#{$_}--shadow);
+    box-shadow: var(--#{$_}--shadow);
 }
 
 $_overlay: "drawer-overlay";

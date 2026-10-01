@@ -20,7 +20,7 @@ $_: "c-block";
     position: relative;
     border-radius: var(--#{$_}--radius);
     corner-shape: tokens.getRawValue($_, "corner-shape");
-    filter: var(--#{$_}--shadow);
+    box-shadow: var(--#{$_}--shadow);
     display: flex;
     justify-content: flex-end;
     flex-direction: row;
@@ -157,7 +157,7 @@ a.#{$_} {
     }
 
     &:hover {
-        filter: var(--#{$_}--shadow-hover);
+        box-shadow: var(--#{$_}--shadow-hover);
         background-color: var(--#{$_}--color-hover-background);
         color: inherit;
         transform: translateY(calc(0px - tokens.getCalculatedValue($_, "base", 0.25)));
@@ -177,5 +177,5 @@ a.#{$_} {
 .o-grid--no-gutter>[class*="o-grid-"] .#{$_} [class*="c-block"]:after,
 .o-grid--no-gutter>[class*="o-grid-"] .#{$_} .c-image__image {
     border-radius: unset;
-    filter: none;
+    box-shadow: none;
 }

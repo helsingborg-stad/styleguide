@@ -46,7 +46,7 @@ $_: "c-testimonials";
         &.c-card--flat {
 
             .c-testimonial__image {
-                filter: none;
+                box-shadow: none;
             }
         }
     }
@@ -62,7 +62,7 @@ $_: "c-testimonials";
         border-radius: tokens.getCalculatedValue($_, "border-radius", 1);
         corner-shape: tokens.getRawValue($_, "corner-shape");
         overflow: hidden;
-        filter: tokens.getCalculatedValue($_, "shadow", 1);
+        box-shadow: tokens.getCalculatedValue($_, "shadow", 1);
         grid-area: image;
 
         &.c-image .c-image__image {
@@ -101,7 +101,7 @@ $_: "c-testimonials";
                     grid-template-rows: none;
 
                     & .c-testimonial {
-                        filter: none;
+                        box-shadow: none;
                     }
                 }
             }

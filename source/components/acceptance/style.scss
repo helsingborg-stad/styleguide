@@ -109,16 +109,16 @@ $_: "c-acceptance";
             --inherit-color-contrast: #{tokens.getRawValue($_, "color--alpha-contrast")};
             color: #{tokens.getRawValue($_, "color--alpha-contrast")};
             cursor: pointer;
-            filter: var(--#{$_}--shadow);
+            box-shadow: var(--#{$_}--shadow);
             font-size: clamp(#{tokens.getCalculatedValue($_, "base", 8)}, 10vw, #{tokens.getCalculatedValue($_, "base", 10)});
             left: 50%;
             position: absolute;
             top: 50%;
             transform: translate(-50%, -50%);
-            transition: filter 100ms linear;
+            transition: box-shadow 100ms linear;
 
             &:hover {
-                filter: var(--#{$_}--shadow-hover);
+                box-shadow: var(--#{$_}--shadow-hover);
                 color: #{tokens.getRawValue($_, "color--alpha-contrast-alt")};
             }
 

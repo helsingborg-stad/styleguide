@@ -205,7 +205,7 @@ $_: "c-example";
   border-radius: tokens.getCalculatedValue($_, "border-radius");
   background: tokens.getRawValue($_, "color--surface");
   color: tokens.getRawValue($_, "color--surface-contrast");
-  filter: tokens.getCalculatedValue($_, "shadow", 2);
+  box-shadow: tokens.getCalculatedValue($_, "shadow", 2);
   padding: tokens.getCalculatedValue($_, "space", 2);
 }
 ```

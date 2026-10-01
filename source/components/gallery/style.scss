@@ -32,7 +32,7 @@ $_: "c-gallery";
             height: auto;
             display: block;
             transition: transform 0.25s ease;
-            filter: tokens.getCalculatedValue($_, "shadow", 1);
+            box-shadow: tokens.getCalculatedValue($_, "shadow", 1);
         }
 
         .c-image__image-wrapper {

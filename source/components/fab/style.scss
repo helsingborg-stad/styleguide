@@ -73,7 +73,7 @@ $yAxis: (
     border-radius: #{tokens.getCalculatedValue($_, "border-radius")};
     corner-shape: tokens.getRawValue($_, "corner-shape");
     border: var(--#{$_}--border);
-    filter: #{tokens.getCalculatedValue($_, "shadow", 3)};
+    box-shadow: #{tokens.getCalculatedValue($_, "shadow", 3)};
     background: tokens.getRawValue($_, "color--surface");
     margin-bottom: #{tokens.getCalculatedValue($_, "space", 2)};
     min-width: min(calc(#{tokens.getCalculatedValue($_, "base", 30)} * var(--#{$_}--size-multiplier)),

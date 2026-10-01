@@ -18,7 +18,7 @@ $_: "c-modal";
     border: tokens.getCalculatedValue($_, "border", 1);
     border-radius: tokens.getCalculatedValue($_, "border-radius");
     corner-shape: tokens.getCalculatedValue($_, "corner-shape");
-    filter: tokens.getCalculatedValue($_, "shadow", 3);
+    box-shadow: tokens.getCalculatedValue($_, "shadow", 3);
 
     position: fixed;
     margin: auto;
@@ -59,7 +59,7 @@ $_: "c-modal";
 
     &.#{$_}--transparent {
         background-color: transparent;
-        filter: none;
+        box-shadow: none;
 
         .#{$_}__header {
             background-color: transparent;

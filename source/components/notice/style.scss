@@ -13,7 +13,7 @@ $_: "c-notice";
     --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 1)};
     --#{$_}--border: #{tokens.getCalculatedValue($_, "border-width", 1)} solid;
     contain: layout;
-    filter: var(--#{$_}--shadow);
+    box-shadow: var(--#{$_}--shadow);
     border: var(--#{$_}--border);
     padding: tokens.getCalculatedValue($_, "space", 2) tokens.getCalculatedValue($_, "space", 3);
     border-radius: tokens.getCalculatedValue($_, "border-radius");
