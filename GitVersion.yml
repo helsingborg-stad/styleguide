@@ -6,7 +6,9 @@ patch-version-bump-message: "^(build|chore|ci|docs|fix|perf|refactor|revert|styl
 branches:
   main:
     regex: ^main-1\.x$
-    is-develop: false
+    is-release-branch: false
+    is-main-branch: true
   release:
-    regex: ^release\.x$
+    regex: ^release$
     is-release-branch: true
+    is-main-branch: false
