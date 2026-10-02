@@ -19,12 +19,11 @@ jobs:
           fetch-depth: 0
 
       - name: Bump version files (no release yet)
-        uses: helsingborg-stad/release-wp-plugin-action@generateVersion
+        uses: helsingborg-stad/release-wp-plugin-action@main
         with:
           php-version: 8.3
           node-version: 24.3.0
           skip-release: true
-          tag-branch: release
 
       - name: Pull latest main-1.x with bumped version
         run: |
