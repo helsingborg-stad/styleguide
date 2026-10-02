@@ -30,7 +30,7 @@
   "require": {
     "php": "^8.2",
     "erusev/parsedown": "^1.7",
-    "helsingborg-stad/component-library": "5.44.1",
+    "helsingborg-stad/component-library": "5.44.5",
     "ramsey/uuid": "4.9.4"
   },
   "require-dev": {
@@ -58,7 +58,7 @@
     ]
   },
   "extra": {
-    "helsingborg-stad/material-design-icons-json-svg-font": {
+    "helsingborg-stad/material-design-icons-json-svg-font-reduced": {
       "variants": [
         "outlined",
         "rounded",

@@ -51,7 +51,7 @@ blockquote {
         width: tokens.getCalculatedValue($_, "space", 4);
         height: tokens.getCalculatedValue($_, "space", 4);
         background-color: currentColor;
-        mask: url("../../../vendor/helsingborg-stad/material-design-icons-json-svg-font/outlined/400/format_quote.svg") center / contain no-repeat;
+        mask: url("../../../vendor/helsingborg-stad/material-design-icons-json-svg-font-reduced/outlined/400/format_quote.svg") center / contain no-repeat;
     }
 
     &:before {

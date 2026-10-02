@@ -14,7 +14,7 @@ const materialIconSpritePlugin = () => ({
     name: 'material-icon-sprite',
     apply: 'build',
     writeBundle() {
-        const directory = 'vendor/helsingborg-stad/material-design-icons-json-svg-font/outlined/400';
+        const directory = 'vendor/helsingborg-stad/material-design-icons-json-svg-font-reduced/outlined/400';
         const symbols = fs.readdirSync(directory)
             .filter((name) => name.endsWith('.svg'))
             .sort()
