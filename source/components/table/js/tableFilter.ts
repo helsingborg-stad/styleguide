@@ -7,7 +7,7 @@ import Items from "./items";
 class TableFilter {
 	constructor(
 		private readonly tableConfig: TableConfigInterface,
-		private readonly itemsInstance: Items
+		private readonly itemsInstance: ItemsInterface
 	) {
 		this.setupFilterInput();
 	}

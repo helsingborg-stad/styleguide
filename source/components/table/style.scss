@@ -1,5 +1,6 @@
-@use "../../sass/mixin/mq";
+@use "sass:map";
 @use "../../sass/mixin/tokens";
+@use "../../sass/setting/var_default";
 
 @property --inherit-inset-multiplier {
     syntax: "*";
@@ -187,15 +188,11 @@ $_: "c-table";
     &.#{$_}--multidimensional {
 
         &.is-collapsed {
-            .#{$_}__cell-0 {
+            .#{$_}__cell--column-0 {
                 min-width: tokens.getCalculatedValue($_, "space", 10);
 
-                @include mq.mq("xs", "md") {
-                    max-width: min(#{tokens.getCalculatedValue($_, "space", 25)}, 25vw);
-                }
-
-                @include mq.mq("md") {
-                    max-width: tokens.getCalculatedValue($_, "space", 25);
+                @container (min-width: #{map.get(var_default.$container-breakpoints-map, md)}) {
+                    max-width: tokens.getCalculatedValue($_, "space", 13);
                 }
 
                 .#{$_}__cell-content {
@@ -210,17 +207,14 @@ $_: "c-table";
             }
         }
 
-        .#{$_}__cell-0 {
+        .#{$_}__cell--column-0 {
             position: sticky;
             left: 0;
             top: 0;
+            z-index: 1;
 
-            @include mq.mq("md") {
+            @container (min-width: #{map.get(var_default.$container-breakpoints-map, md)}) {
                 max-width: tokens.getCalculatedValue($_, "space", 60);
-            }
-
-            @include mq.mq("xs", "md") {
-                min-width: 20vw;
             }
 
             &:after {
@@ -245,11 +239,11 @@ $_: "c-table";
         }
     }
 
-    @container (min-width: 350px) {
+    @container (min-width: #{map.get(var_default.$container-breakpoints-map, xs)}) {
         --#{$_}--inset-scale: 1.5;
     }
 
-    @container (min-width: 500px) {
+    @container (min-width: #{map.get(var_default.$container-breakpoints-map, sm)}) {
         --#{$_}--inset-scale: 2;
     }
 }
@@ -286,7 +280,10 @@ table:not(.#{$_} *) thead {
     font-weight: var(--font-weight-bold, bold);
     font-family: var(--font-family-bold, var(--font-family-base));
     color: tokens.getRawValue($_, "color--surface-contrast-muted");
-    background-color: tokens.getRawValue($_, "color--surface-alt");
+
+    th {
+        background-color: tokens.getRawValue($_, "color--surface-alt");
+    }
 }
 
 .#{$_}__head .#{$_}__cell,
@@ -319,9 +316,11 @@ table:not(.#{$_} *) tbody tr:nth-child(even):hover td {
     background-color: tokens.getRawValue($_, "color--surface-border");
 }
 
-.#{$_}__body .#{$_}__cell+.#{$_}__cell,
-table:not(.#{$_} *) tbody td+td {
-    border-left: var(--#{$_}--border);
+.#{$_}__head .#{$_}__row .#{$_}__cell:not(:last-child),
+.#{$_}__body .#{$_}__row .#{$_}__cell:not(:last-child),
+table:not(.#{$_} *) thead th:not(:last-child),
+table:not(.#{$_} *) tbody td:not(:last-child) {
+    border-right: var(--#{$_}--border);
 }
 
 /**

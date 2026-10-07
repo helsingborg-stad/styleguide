@@ -7,13 +7,17 @@ import Items from "./items";
 class TableSort {
 	constructor(
 		private readonly tableConfig: TableConfigInterface,
-		private readonly itemsInstance: Items
+		private readonly itemsInstance: ItemsInterface
 	) {
 		this.setupSortingButtons();
 	}
 
 	private setupSortingButtons(): HTMLElement[] {
-		const sortingButtons = this.itemsInstance.getHeadingCells();
+		let sortingButtons = this.itemsInstance.getHeadingCells();
+
+		if (this.tableConfig.isTableMultidimensional()) {
+			sortingButtons = sortingButtons.slice(1);
+		}
 
 		sortingButtons.forEach(sortingButton => {
 			if (!sortingButton.hasAttribute(`${AttributeNames.SortingOrder}`)) {
