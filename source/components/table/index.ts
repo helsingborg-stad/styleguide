@@ -3,6 +3,7 @@ import TableFilter from "./js/tableFilter";
 import TableConfig from "./js/tableConfig";
 import Items from "./js/items";
 import TableScrollIndicator from "./js/tableScrollIndicator";
+import TableMultidimensional from "./js/tableMultidimensional";
 
 class TableFactory {
 	private static factoryInstance: TableFactory | null = null;
@@ -22,6 +23,10 @@ class TableFactory {
 
 		if (config.isTableFilterable()) {
 			new TableFilter(config, itemsInstance);
+		}
+
+		if (config.isTableMultidimensional()) {
+			new TableMultidimensional(config, itemsInstance);
 		}
 
 		if (
