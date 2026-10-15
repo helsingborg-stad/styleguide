@@ -25,6 +25,10 @@ class Chat implements ChatInterface {
                 this.input.clear();
             }
         });
+
+        this.input.subscribeToTyping(() => {
+            this.getElement().dispatchEvent(new CustomEvent('chat:typing'));
+        });
     }
 
     public disableSend(): void {

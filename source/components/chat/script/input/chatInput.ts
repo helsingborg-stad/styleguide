@@ -3,6 +3,7 @@ import { sanitizeMarkup } from "../helper/sanitize";
 class ChatInput implements ChatInputInterface {
     private ACTION_BAR_ATTRIBUTE = 'data-js-chat-actions';
     private EMPTY_CLASS = 'is-empty';
+    private TYPING_DEBOUNCE_INTERVAL_MS = 1000;
 
     constructor(
         private container: HTMLDivElement,
@@ -26,6 +27,21 @@ class ChatInput implements ChatInputInterface {
                 event.preventDefault();
                 callback();
             }
+        });
+    }
+
+    public subscribeToTyping(callback: () => void): void {
+        let lastTypingEventTimestamp = 0;
+
+        this.input.addEventListener('input', () => {
+            const currentTimestamp = Date.now();
+
+            if (currentTimestamp - lastTypingEventTimestamp < this.TYPING_DEBOUNCE_INTERVAL_MS) {
+                return;
+            }
+
+            lastTypingEventTimestamp = currentTimestamp;
+            callback();
         });
     }
     
