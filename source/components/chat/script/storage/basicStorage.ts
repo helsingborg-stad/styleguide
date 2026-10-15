@@ -1,52 +1,74 @@
 class BasicStorage implements StorageInterface {
-    private messages: Map<string, MessageInterface> = new Map();
-    private persistentMessageIds: string[] = [];
+	private items: Map<string, ChatItemInterface> = new Map();
+	private persistentItemIds: string[] = [];
 
-    public getAll(): MessageInterface[] {
-        return Array.from(this.messages.values());
-    }
+	public getAll(): ChatItemInterface[] {
+		return Array.from(this.items.values());
+	}
 
-    public delete(message: MessageInterface): void {
-        this.messages.delete(message.getId());
-        const idx = this.persistentMessageIds.indexOf(message.getId());
-        if (idx !== -1) {
-            this.persistentMessageIds.splice(idx, 1);
-        }
-    }
+	public delete(item: ChatItemInterface): void {
+		this.items.delete(item.getId());
+		const idx = this.persistentItemIds.indexOf(item.getId());
+		if (idx !== -1) {
+			this.persistentItemIds.splice(idx, 1);
+		}
+	}
 
-    public deleteAll(): void {
-        this.messages.clear();
-        this.persistentMessageIds = [];
-    }
+	public deleteAll(): void {
+		this.items.clear();
+		this.persistentItemIds = [];
+	}
 
-    public restore(message: MessageInterface): void {
-        this.messages.set(message.getId(), message);
-        const idx = this.persistentMessageIds.indexOf(message.getId());
-        if (idx !== -1) {
-            this.persistentMessageIds.splice(idx, 1);
-        }
-    }
+	public restore(item: ChatItemInterface): void {
+		this.items.set(item.getId(), item);
+		const idx = this.persistentItemIds.indexOf(item.getId());
+		if (idx !== -1) {
+			this.persistentItemIds.splice(idx, 1);
+		}
+	}
 
-    public save(message: MessageInterface): void {
-        const id = message.getId();
-        this.messages.set(id, message);
-        const idx = this.persistentMessageIds.indexOf(id);
-        if (idx === -1) {
-            this.persistentMessageIds.push(id);
-        }
-    }
+	public save(item: ChatItemInterface): void {
+		const id = item.getId();
+		this.items.set(id, item);
+		const idx = this.persistentItemIds.indexOf(id);
+		if (idx === -1) {
+			this.persistentItemIds.push(id);
+		}
+	}
 
-    public getSavedMessages(): PersistentMessage[] {
-        return this.persistentMessageIds
-            .map((id) => this.messages.get(id))
-            .filter((message): message is MessageInterface => !!message)
-            .map((message) => ({
-                id: message.getId(),
-                content: message.getContent(),
-                isReply: message.getIsReply(),
-                data: message.getData()
-            }));
-    }
+	public getItems(): PersistentChatItem[] {
+		return this.persistentItemIds
+			.map((id) => this.items.get(id))
+			.filter((item): item is ChatItemInterface => !!item)
+			.map((item) => this.toPersistentItem(item))
+			.filter((item): item is PersistentChatItem => item !== null);
+	}
+
+	private toPersistentItem(item: ChatItemInterface): PersistentChatItem | null {
+		if (item.getType() === 'message') {
+			const messageItem = item as MessageInterface;
+
+			return {
+				type: 'message',
+				id: messageItem.getId(),
+				content: messageItem.getContent(),
+				isReply: messageItem.getIsReply(),
+				data: messageItem.getData(),
+			};
+		}
+
+		if (item.getType() === 'info') {
+			const infoItem = item as InfoInterface;
+
+			return {
+				type: 'info',
+				id: infoItem.getId(),
+				content: infoItem.getContent(),
+			};
+		}
+
+		return null;
+	}
 }
 
 export default BasicStorage;

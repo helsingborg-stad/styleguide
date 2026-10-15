@@ -1,96 +1,103 @@
 class LocalStorage implements StorageInterface {
-    private readonly storageKey: string;
+	private readonly storageKey: string;
 
-    constructor(
-        private id: string,
-        private basicStorage: StorageInterface
-    ) {
-        this.storageKey = `styleguide:chat:${this.id}:messages`;
-    }
+	constructor(
+		private id: string,
+		private basicStorage: StorageInterface,
+	) {
+		this.storageKey = `styleguide:chat:${this.id}:items`;
+	}
 
-    public getSavedMessages(): PersistentMessage[] {
-        const localStorageMessages = this.getMessagesFromLocalStorage();
+	public getItems(): PersistentChatItem[] {
+		const localStorageItems = this.getSavedDataFromLocalStorage();
 
-        if (localStorageMessages.length > 0) {
-            return localStorageMessages;
-        }
+		if (localStorageItems.length > 0) {
+			return localStorageItems;
+		}
 
-        return this.basicStorage.getSavedMessages();
-    }
+		return this.basicStorage.getItems();
+	}
 
-    public getAll(): MessageInterface[] {
-        return this.basicStorage.getAll();
-    }
+	public getAll(): ChatItemInterface[] {
+		return this.basicStorage.getAll();
+	}
 
-    public delete(message: MessageInterface): void {
-        this.basicStorage.delete(message);
-        this.syncLocalStorage();
-    }
+	public delete(item: ChatItemInterface): void {
+		this.basicStorage.delete(item);
+		this.syncLocalStorage();
+	}
 
-    public restore(message: MessageInterface): void {
-        this.basicStorage.restore(message);
-    }
+	public restore(item: ChatItemInterface): void {
+		this.basicStorage.restore(item);
+	}
 
-    public deleteAll(): void {
-        this.basicStorage.deleteAll();
+	public deleteAll(): void {
+		this.basicStorage.deleteAll();
 
-        try {
-            window.localStorage.removeItem(this.storageKey);
-        } catch {
-            console.warn('Failed to clear messages from localStorage. Messages may persist across page reloads.');
-        }
-    }
+		try {
+			window.localStorage.removeItem(this.storageKey);
+		} catch {
+			console.warn('Failed to clear chat items from localStorage. Items may persist across page reloads.');
+		}
+	}
 
-    public save(message: MessageInterface): void {
-        this.basicStorage.save(message);
-        this.syncLocalStorage();
-    }
+	public save(item: ChatItemInterface): void {
+		this.basicStorage.save(item);
+		this.syncLocalStorage();
+	}
 
-    private syncLocalStorage(): void {
-        try {
-            const savedMessages = this.basicStorage.getSavedMessages();
+	private syncLocalStorage(): void {
+		try {
+			const savedItems = this.basicStorage.getItems();
 
-            if (savedMessages.length === 0) {
-                window.localStorage.removeItem(this.storageKey);
-                return;
-            }
+			if (savedItems.length === 0) {
+				window.localStorage.removeItem(this.storageKey);
+				return;
+			}
 
-            window.localStorage.setItem(this.storageKey, JSON.stringify(savedMessages));
-        } catch {
-            console.warn('Failed to save messages to localStorage. Messages will not persist across page reloads.');
-        }
-    }
+			window.localStorage.setItem(this.storageKey, JSON.stringify(savedItems));
+		} catch {
+			console.warn('Failed to save chat items to localStorage. Items will not persist across page reloads.');
+		}
+	}
 
-    private getMessagesFromLocalStorage(): PersistentMessage[] {
-        try {
-            const storedMessages = window.localStorage.getItem(this.storageKey);
+	private getSavedDataFromLocalStorage(): PersistentChatItem[] {
+		try {
+			const storedItems = window.localStorage.getItem(this.storageKey);
 
-            if (!storedMessages) {
-                return [];
-            }
+			if (!storedItems) {
+				return [];
+			}
 
-            const parsedMessages = JSON.parse(storedMessages) as unknown;
+			const parsedItems = JSON.parse(storedItems) as unknown;
 
-            if (!Array.isArray(parsedMessages)) {
-                return [];
-            }
+			if (!Array.isArray(parsedItems)) {
+				return [];
+			}
 
-            return parsedMessages.filter(this.isPersistentMessage);
-        } catch {
-            return [];
-        }
-    }
+			return parsedItems.filter(this.isPersistentChatItem);
+		} catch {
+			return [];
+		}
+	}
 
-    private isPersistentMessage(message: unknown): message is PersistentMessage {
-        return typeof message === 'object'
-            && message !== null
-            && typeof (message as PersistentMessage).id === 'string'
-            && typeof (message as PersistentMessage).content === 'string'
-            && typeof (message as PersistentMessage).isReply === 'boolean'
-            && typeof (message as PersistentMessage).data === 'object'
-            && (message as PersistentMessage).data !== null
-            && !Array.isArray((message as PersistentMessage).data);
-    }
+	private isPersistentChatItem(item: unknown): item is PersistentChatItem {
+		if (typeof item !== 'object' || item === null) {
+			return false;
+		}
+
+		const candidate = item as Partial<PersistentChatItem>;
+
+		if (candidate.type === 'info') {
+			return typeof candidate.id === 'string' && typeof candidate.content === 'string';
+		}
+
+		if (candidate.type === 'message') {
+			return typeof candidate.id === 'string' && typeof candidate.content === 'string' && typeof candidate.isReply === 'boolean' && typeof candidate.data === 'object' && candidate.data !== null && !Array.isArray(candidate.data);
+		}
+
+		return false;
+	}
 }
 
 export default LocalStorage;

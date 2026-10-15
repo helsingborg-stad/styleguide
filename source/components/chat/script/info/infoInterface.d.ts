@@ -1,11 +1,8 @@
-interface InfoInterface {
-    getInfo(): HTMLElement;
-    delete(): void;
-    edit(content: string): void;
-    getContent(): string;
-    getId(): string;
+interface InfoInterface extends ChatItemInterface {
+	getInfo(): HTMLElement;
+	edit(content: string): void;
 }
 
 interface InfoFactoryInterface {
-    create(content: string, id?: string): InfoInterface;
+	create(content: string, id?: string): InfoInterface;
 }

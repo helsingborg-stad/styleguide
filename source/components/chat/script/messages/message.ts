@@ -1,59 +1,62 @@
-import { sanitizeMarkup } from "../helper/sanitize";
+import { sanitizeMarkup } from '../helper/sanitize';
 
 class Message implements MessageInterface {
-    constructor(
-        private isReply: boolean,
-        private message: HTMLElement,
-        private messageContainer: HTMLElement,
-        private id: string,
-        private content: string,
-        private data: MessageData = {}
-    ) {
-    }
+	constructor(
+		private isReply: boolean,
+		private message: HTMLElement,
+		private messageContainer: HTMLElement,
+		private id: string,
+		private content: string,
+		private data: MessageData = {},
+	) {}
 
-    public getMessage(): HTMLElement {
-        return this.message;
-    }
+	public getMessage(): HTMLElement {
+		return this.message;
+	}
 
-    public getMessageContainer(): HTMLElement {
-        return this.messageContainer;
-    }
+	public getMessageContainer(): HTMLElement {
+		return this.messageContainer;
+	}
 
-    public delete(): void {
-        this.getMessageContainer().remove();
-    }
+	public getType(): ChatItemType {
+		return 'message';
+	}
 
-    public getId(): string {
-        return this.id;
-    }
+	public delete(): void {
+		this.getMessageContainer().remove();
+	}
 
-    public getContent(): string {
-        return this.content;
-    }
+	public getId(): string {
+		return this.id;
+	}
 
-    public getData(): MessageData {
-        return { ...this.data };
-    }
+	public getContent(): string {
+		return this.content;
+	}
 
-    public setData(data: MessageData): void {
-        this.data = { ...data };
-    }
+	public getData(): MessageData {
+		return { ...this.data };
+	}
 
-    /**
-     * Updates the message content and rendered markup.
-     *
-     * @param content The sanitized message content to display.
-     */
-    public edit(content: string): void {
-        const sanitizedContent = sanitizeMarkup(content);
+	public setData(data: MessageData): void {
+		this.data = { ...data };
+	}
 
-        this.content = sanitizedContent;
-        this.message.innerHTML = sanitizedContent;
-    }
+	/**
+	 * Updates the message content and rendered markup.
+	 *
+	 * @param content The sanitized message content to display.
+	 */
+	public edit(content: string): void {
+		const sanitizedContent = sanitizeMarkup(content);
 
-    public getIsReply(): boolean {
-        return this.isReply;
-    }
+		this.content = sanitizedContent;
+		this.message.innerHTML = sanitizedContent;
+	}
+
+	public getIsReply(): boolean {
+		return this.isReply;
+	}
 }
 
 export default Message;

@@ -1,31 +1,34 @@
 class Info implements InfoInterface {
-    public constructor(
-        private infoElement: HTMLElement,
-        private infoId: string,
-        private content: string
-    ) {
-    }
+	public constructor(
+		private infoElement: HTMLElement,
+		private infoId: string,
+		private content: string,
+	) {}
 
-    public getInfo(): HTMLElement {
-        return this.infoElement;
-    }
+	public getInfo(): HTMLElement {
+		return this.infoElement;
+	}
 
-    public delete(): void {
-        this.getInfo().remove();
-    }
+	public getType(): ChatItemType {
+		return 'info';
+	}
 
-    public edit(content: string): void {
-        this.content = content;
-        this.getInfo().textContent = content;
-    }
+	public delete(): void {
+		this.getInfo().remove();
+	}
 
-    public getContent(): string {
-        return this.content;
-    }
+	public edit(content: string): void {
+		this.content = content;
+		this.getInfo().textContent = content;
+	}
 
-    public getId(): string {
-        return this.infoId;
-    }
+	public getContent(): string {
+		return this.content;
+	}
+
+	public getId(): string {
+		return this.infoId;
+	}
 }
 
 export default Info;
