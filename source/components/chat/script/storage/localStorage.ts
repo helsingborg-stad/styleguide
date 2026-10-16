@@ -1,5 +1,6 @@
 class LocalStorage implements StorageInterface {
 	private readonly storageKey: string;
+	private ttlMs: number | null = null;
 
 	constructor(
 		private id: string,
@@ -46,6 +47,11 @@ class LocalStorage implements StorageInterface {
 		this.syncLocalStorage();
 	}
 
+	public setTtl(ttlMs: number | null): void {
+		this.ttlMs = this.normalizeTtl(ttlMs);
+		this.syncLocalStorage();
+	}
+
 	private syncLocalStorage(): void {
 		try {
 			const savedItems = this.basicStorage.getItems();
@@ -55,7 +61,13 @@ class LocalStorage implements StorageInterface {
 				return;
 			}
 
-			window.localStorage.setItem(this.storageKey, JSON.stringify(savedItems));
+			const now = Date.now();
+			const payload: PersistentChatPayload = {
+				removeAt: this.ttlMs === null ? null : now + this.ttlMs,
+				items: savedItems,
+			};
+
+			window.localStorage.setItem(this.storageKey, JSON.stringify(payload));
 		} catch {
 			console.warn('Failed to save chat items to localStorage. Items will not persist across page reloads.');
 		}
@@ -71,14 +83,49 @@ class LocalStorage implements StorageInterface {
 
 			const parsedItems = JSON.parse(storedItems) as unknown;
 
-			if (!Array.isArray(parsedItems)) {
+			if (!this.isPersistentChatPayload(parsedItems)) {
 				return [];
 			}
 
-			return parsedItems.filter(this.isPersistentChatItem);
+			if (this.isExpired(parsedItems.removeAt)) {
+				window.localStorage.removeItem(this.storageKey);
+				return [];
+			}
+
+			return parsedItems.items.filter(this.isPersistentChatItem);
 		} catch {
 			return [];
 		}
+	}
+
+	private isPersistentChatPayload(payload: unknown): payload is PersistentChatPayload {
+		if (typeof payload !== 'object' || payload === null) {
+			return false;
+		}
+
+		const candidate = payload as Partial<PersistentChatPayload>;
+
+		if (!(candidate.removeAt === null || typeof candidate.removeAt === 'number')) {
+			return false;
+		}
+
+		return Array.isArray(candidate.items);
+	}
+
+	private isExpired(removeAt: number | null): boolean {
+		return removeAt !== null && Date.now() >= removeAt;
+	}
+
+	private normalizeTtl(ttlMs: number | null): number | null {
+		if (ttlMs === null) {
+			return null;
+		}
+
+		if (!Number.isFinite(ttlMs) || ttlMs < 0) {
+			return null;
+		}
+
+		return Math.floor(ttlMs);
 	}
 
 	private isPersistentChatItem(item: unknown): item is PersistentChatItem {

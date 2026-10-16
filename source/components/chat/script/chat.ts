@@ -8,6 +8,7 @@ class Chat implements ChatInterface {
 		private messagesScrollContainer: HTMLElement,
 		private input: ChatInputInterface,
 		private clear: ClearInterface,
+		private storage: StorageInterface,
 		private messageHandler: MessageHandler,
 		private pendingMessageHandler: PendingMessageHandler,
 		private infoHandler: InfoHandler,
@@ -79,6 +80,10 @@ class Chat implements ChatInterface {
 
 	public updateMessage(message: MessageInterface): void {
 		this.messageHandler.update(message);
+	}
+
+	public setTtl(ttlMs: number | null): void {
+		this.storage.setTtl(ttlMs);
 	}
 
 	public getPendingMessage(): MessageInterface | null {

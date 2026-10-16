@@ -44,6 +44,10 @@ class BasicStorage implements StorageInterface {
 			.filter((item): item is PersistentChatItem => item !== null);
 	}
 
+	public setTtl(_ttlMs: number | null): void {
+		// No-op in non-persistent storage mode.
+	}
+
 	private toPersistentItem(item: ChatItemInterface): PersistentChatItem | null {
 		if (item.getType() === 'message') {
 			const messageItem = item as MessageInterface;

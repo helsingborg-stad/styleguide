@@ -48,7 +48,7 @@ export function init() {
 				const pendingMessageHandler = new PendingMessageHandler(chatContainer as HTMLElement, pendingMessageManager, messageRenderer, store);
 				const infoHandler = new InfoHandler(chatContainer as HTMLElement, infoFactory, infoRenderer, store);
 
-				const chat = new Chat(chatContainer as HTMLElement, messagesScrollContainer as HTMLElement, input, clear, messageHandler, pendingMessageHandler, infoHandler);
+				const chat = new Chat(chatContainer as HTMLElement, messagesScrollContainer as HTMLElement, input, clear, store, messageHandler, pendingMessageHandler, infoHandler);
 
 				new Load(chat, store, messagesScrollContainer).load();
 				chat.init();
