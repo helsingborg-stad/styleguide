@@ -25,6 +25,11 @@ type PersistentInfoItem = {
 
 type PersistentChatItem = PersistentMessageItem | PersistentInfoItem;
 
+type PersistentChatPayload = {
+	removeAt: number | null;
+	items: PersistentChatItem[];
+};
+
 interface StorageInterface {
 	getAll(): ChatItemInterface[];
 	delete(item: ChatItemInterface): void;
@@ -32,4 +37,5 @@ interface StorageInterface {
 	restore(item: ChatItemInterface): void;
 	save(item: ChatItemInterface): void;
 	getItems(): PersistentChatItem[];
+	setTtl(ttlMs: number | null): void;
 }

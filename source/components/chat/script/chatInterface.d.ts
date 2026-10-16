@@ -5,6 +5,7 @@ interface ChatInterface {
 	deleteMessage(message: MessageInterface): void;
 	editMessage(newContent: string, message: MessageInterface): void;
 	updateMessage(message: MessageInterface): void;
+	setTtl(ttlMs: number | null): void;
 	getElement(): HTMLElement;
 	getScrollContainer(): HTMLElement;
 	addPendingMessage(): MessageInterface;
