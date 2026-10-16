@@ -59,7 +59,7 @@ class Chat implements ChatInterface {
 		return this.messageHandler.add(messageContent, isReply, shouldPersist, id, data);
 	}
 
-	public addInfo(content: string, shouldPersist: boolean = false, id?: string): InfoInterface {
+	public addInfo(content: string, shouldPersist: boolean = true, id?: string): InfoInterface {
 		return this.infoHandler.add(content, shouldPersist, id);
 	}
 
