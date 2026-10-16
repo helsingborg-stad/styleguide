@@ -3,5 +3,8 @@
 $_: "c-chat__info";
 $token: "c-chat";
 
-#{$_} {
+.#{$_} {
+    &__info {
+        text-align: center;
+    }
 }

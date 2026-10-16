@@ -1,5 +1,8 @@
 import Chat from './script/chat';
 import Clear from './script/clear/clear';
+import InfoHandler from './script/handler/infoHandler';
+import MessageHandler from './script/handler/messageHandler';
+import PendingMessageHandler from './script/handler/pendingMessageHandler';
 import InfoFactory from './script/info/infoFactory';
 import InfoRenderer from './script/info/infoRenderer';
 import ChatInput from './script/input/chatInput';
@@ -41,8 +44,11 @@ export function init() {
 				const messageRenderer = new MessageRenderer(messagesContainer, messagesScrollContainer);
 				const infoRenderer = new InfoRenderer(messagesContainer);
 				const pendingMessageManager = new PendingMessageManager(messageFactory);
+				const messageHandler = new MessageHandler(chatContainer as HTMLElement, messageFactory, store, messageRenderer, pendingMessageManager);
+				const pendingMessageHandler = new PendingMessageHandler(chatContainer as HTMLElement, pendingMessageManager, messageRenderer, store);
+				const infoHandler = new InfoHandler(chatContainer as HTMLElement, infoFactory, infoRenderer, store);
 
-				const chat = new Chat(chatContainer as HTMLElement, messagesScrollContainer as HTMLElement, input, messageFactory, store, clear, messageRenderer, pendingMessageManager, infoFactory, infoRenderer);
+				const chat = new Chat(chatContainer as HTMLElement, messagesScrollContainer as HTMLElement, input, clear, messageHandler, pendingMessageHandler, infoHandler);
 
 				new Load(chat, store, messagesScrollContainer).load();
 				chat.init();
