@@ -1,26 +1,28 @@
 class Load implements LoadInterface {
-    constructor(
-        private chat: ChatInterface,
-        private storage: StorageInterface,
-        private messagesScrollContainer: HTMLElement
-    ) {
-    }
+	constructor(
+		private chat: ChatInterface,
+		private storage: StorageInterface,
+		private messagesScrollContainer: HTMLElement,
+	) {}
 
-    public load(): void {
-        const persistedMessages = this.storage.getSavedMessages();
+	public load(): void {
+		const persistedItems = this.storage.getItems();
 
-        const loadedMessages: MessageInterface[] = [];
-        persistedMessages.forEach((message) => {
-            const loadedMessage = this.chat.addMessage(message.content, message.isReply, true, message.id, message.data);
-            loadedMessages.push(loadedMessage);
-        });
+		persistedItems.forEach((item) => {
+			if (item.type === 'message') {
+				this.chat.addMessage(item.content, item.isReply, true, item.id, item.data);
+				return;
+			}
 
-        this.scrollToBottom();
-    }
+			this.chat.addInfo(item.content, true, item.id);
+		});
 
-    private scrollToBottom(): void {
-        this.messagesScrollContainer.scrollTop = this.messagesScrollContainer.scrollHeight;
-    }
+		this.scrollToBottom();
+	}
+
+	private scrollToBottom(): void {
+		this.messagesScrollContainer.scrollTop = this.messagesScrollContainer.scrollHeight;
+	}
 }
 
 export default Load;

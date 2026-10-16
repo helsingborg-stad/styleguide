@@ -20,7 +20,9 @@
 
     document.addEventListener('chat:initialized', (e) => {
         const chat = e.detail;
+        chat.addInfo("This is an informational message.");
         chat.addMessage("Hello! I'm your friendly chatbot. How can I assist you today?", true);
+
 
         chat.getElement().addEventListener('chat:message-added', (e) => {
 			const message = e.detail;

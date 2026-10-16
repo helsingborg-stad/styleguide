@@ -1,129 +1,93 @@
-import type MessageFactory from "./messages/messageFactory";
-import type MessageRenderer from "./messages/messageRenderer";
-import type PendingMessageManager from "./messages/pendingMessageManager";
-
+import type InfoHandler from './handler/infoHandler';
+import type MessageHandler from './handler/messageHandler';
+import type PendingMessageHandler from './handler/pendingMessageHandler';
 
 class Chat implements ChatInterface {
-    constructor(
-        private container: HTMLElement,
-        private messagesScrollContainer: HTMLElement,
-        private input: ChatInputInterface,
-        private messageFactory: MessageFactory,
-        private messageStore: StorageInterface,
-        private clear: ClearInterface,
-        private messageRenderer: MessageRenderer,
-        private pendingMessageManager: PendingMessageManager
+	constructor(
+		private container: HTMLElement,
+		private messagesScrollContainer: HTMLElement,
+		private input: ChatInputInterface,
+		private clear: ClearInterface,
+		private messageHandler: MessageHandler,
+		private pendingMessageHandler: PendingMessageHandler,
+		private infoHandler: InfoHandler,
+	) {}
 
-    ) {
-    }
+	public init(): void {
+		this.input.subscribeToSend(() => {
+			const messageContent = this.input.get();
+			if (messageContent) {
+				this.addMessage(messageContent, false);
+				this.input.clear();
+			}
+		});
 
-    public init(): void {
-        this.input.subscribeToSend(() => {
-            const messageContent = this.input.get();
-            if (messageContent) {
-                const message = this.addMessage(messageContent, false);
-                this.input.clear();
-            }
-        });
+		this.input.subscribeToTyping(() => {
+			this.getElement().dispatchEvent(new CustomEvent('chat:typing'));
+		});
+	}
 
-        this.input.subscribeToTyping(() => {
-            this.getElement().dispatchEvent(new CustomEvent('chat:typing'));
-        });
-    }
+	public disableSend(): void {
+		this.input.disableSend();
+	}
 
-    public disableSend(): void {
-        this.input.disableSend();
-    }
+	public getElement(): HTMLElement {
+		return this.container;
+	}
 
-    public getElement(): HTMLElement {
-        return this.container;
-    }
+	public getScrollContainer(): HTMLElement {
+		return this.messagesScrollContainer;
+	}
 
-    public getScrollContainer(): HTMLElement {
-        return this.messagesScrollContainer;
-    }
+	public enableSend(): void {
+		this.input.enableSend();
+	}
 
-    public enableSend(): void {
-        this.input.enableSend();
-    }
+	public disable(): void {
+		this.input.disable();
+	}
 
-    public disable(): void {
-        this.input.disable();
-    }
+	public enable(): void {
+		this.input.enable();
+	}
 
-    public enable(): void {
-        this.input.enable();
-    }
+	public addPendingMessage(): MessageInterface {
+		return this.pendingMessageHandler.add();
+	}
 
-    public addPendingMessage(): MessageInterface {
-        const existingPendingMessage = this.pendingMessageManager.get();
+	public addMessage(messageContent: string, isReply: boolean = false, shouldPersist: boolean = true, id?: string, data: MessageData = {}): MessageInterface {
+		return this.messageHandler.add(messageContent, isReply, shouldPersist, id, data);
+	}
 
-        if (existingPendingMessage) {
-            this.messageRenderer.moveToBottom(existingPendingMessage);
-            return existingPendingMessage;
-        }
+	public addInfo(content: string, shouldPersist: boolean = false, id?: string): InfoInterface {
+		return this.infoHandler.add(content, shouldPersist, id);
+	}
 
-        const message = this.pendingMessageManager.getOrCreate();
+	public deleteMessage(message: MessageInterface): void {
+		this.messageHandler.delete(message);
+	}
 
-        this.messageRenderer.moveToBottom(message);
-        this.messageStore.restore(message);
-        this.getElement().dispatchEvent(new CustomEvent('chat:pending-message-added', { detail: message }));
+	public clearMessages(): void {
+		this.clear.clear();
+		this.pendingMessageHandler.clear();
+		this.getElement().dispatchEvent(new CustomEvent('chat:messages-cleared'));
+	}
 
-        return message;
-    }
+	public editMessage(newContent: string, message: MessageInterface): void {
+		this.messageHandler.edit(newContent, message);
+	}
 
-    public addMessage(messageContent: string, isReply: boolean = false, shouldPersist: boolean = true, id?: string, data: MessageData = {}): MessageInterface {
-        return this.createMessage(messageContent, isReply, shouldPersist, id, data);
-    }
+	public updateMessage(message: MessageInterface): void {
+		this.messageHandler.update(message);
+	}
 
-    public deleteMessage(message: MessageInterface): void {
-        this.pendingMessageManager.resolve(message);
-        message.delete();
-        this.messageStore.delete(message);
-        this.getElement().dispatchEvent(new CustomEvent('chat:message-deleted', { detail: message }));
-    }
+	public getPendingMessage(): MessageInterface | null {
+		return this.pendingMessageHandler.get();
+	}
 
-    public clearMessages(): void {
-        this.clear.clear();
-        this.pendingMessageManager.clear();
-        this.getElement().dispatchEvent(new CustomEvent('chat:messages-cleared'));
-    }
-
-    public editMessage(newContent: string, message: MessageInterface): void {
-        message.edit(newContent);
-        this.pendingMessageManager.resolve(message);
-
-        this.messageStore.save(message);
-        this.getElement().dispatchEvent(new CustomEvent('chat:message-edited', { detail: message }));
-    }
-
-    public updateMessage(message: MessageInterface): void {
-        this.messageStore.save(message);
-    }
-
-    public getPendingMessage(): MessageInterface | null {
-        return this.pendingMessageManager.get();
-    }
-
-    public getMessages(): MessageInterface[] {
-        return this.messageStore.getAll();
-    }
-
-    private createMessage(messageContent: string, isReply: boolean, shouldPersist: boolean, id?: string, data: MessageData = {}): MessageInterface {
-        const message = this.messageFactory.create(messageContent, isReply, id, data);
-
-        this.messageRenderer.render(message, this.pendingMessageManager.get());
-
-        this.getElement().dispatchEvent(new CustomEvent('chat:message-added', { detail: message }));
-
-        if (shouldPersist) {
-            this.messageStore.save(message);
-        } else {
-            this.messageStore.restore(message);
-        }
-
-        return message;
-    }
+	public getMessages(): MessageInterface[] {
+		return this.messageHandler.getMessages();
+	}
 }
 
 export default Chat;

@@ -1,0 +1,13 @@
+@use "../../sass/mixin/tokens";
+
+$_: "c-chat__info";
+$token: "c-chat";
+
+.#{$_} {
+    --#{$_}--surface-contrast-muted-color: #{tokens.getRawValue($token, "color--surface-contrast-muted")};
+
+    &__info {
+        text-align: center;
+        color: var(--#{$_}--surface-contrast-muted-color);
+    }
+}

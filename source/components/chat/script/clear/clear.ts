@@ -1,17 +1,15 @@
 class Clear implements ClearInterface {
-    constructor(private storage: StorageInterface) {
+	constructor(private storage: StorageInterface) {}
 
-    }
+	public clear(): void {
+		const items = this.storage.getAll();
 
-    public clear(): void {
-        const messages = this.storage.getAll();
+		items.forEach((item) => {
+			item.delete();
+		});
 
-        messages.forEach((message) => {
-            message.delete();
-        });
-
-        this.storage.deleteAll();
-    }
+		this.storage.deleteAll();
+	}
 }
 
 export default Clear;
