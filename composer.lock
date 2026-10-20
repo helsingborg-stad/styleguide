@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1ddf81c4e56cfb36028da2e97190247f",
+    "content-hash": "ac8fe874392672a104968fe8b12895e2",
     "packages": [
         {
             "name": "brick/math",
@@ -342,16 +342,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.44.5",
+            "version": "5.45.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "1d39c5f9723e3ef93fb99fd647f0dc09d5b2a500"
+                "reference": "13fb0566196086b84602925cb14480c452b1a9cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/1d39c5f9723e3ef93fb99fd647f0dc09d5b2a500",
-                "reference": "1d39c5f9723e3ef93fb99fd647f0dc09d5b2a500",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/13fb0566196086b84602925cb14480c452b1a9cd",
+                "reference": "13fb0566196086b84602925cb14480c452b1a9cd",
                 "shasum": ""
             },
             "require": {
@@ -384,9 +384,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.44.5"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.45.1"
             },
-            "time": "2026-10-02T12:14:09+00:00"
+            "time": "2026-10-20T09:34:22+00:00"
         },
         {
             "name": "helsingborg-stad/material-design-icons-json-svg-font-reduced",
@@ -2658,16 +2658,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.6.37",
+            "version": "9.6.38",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "aceaa623912caf8e80bffea22fc4103a0a01565f"
+                "reference": "8b5f757e8e92071bfdbfa93943f94f84c4e31007"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/aceaa623912caf8e80bffea22fc4103a0a01565f",
-                "reference": "aceaa623912caf8e80bffea22fc4103a0a01565f",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/8b5f757e8e92071bfdbfa93943f94f84c4e31007",
+                "reference": "8b5f757e8e92071bfdbfa93943f94f84c4e31007",
                 "shasum": ""
             },
             "require": {
@@ -2741,7 +2741,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.37"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.38"
             },
             "funding": [
                 {
@@ -2749,7 +2749,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2026-09-23T09:59:59+00:00"
+            "time": "2026-10-05T05:44:26+00:00"
         },
         {
             "name": "sebastian/cli-parser",
