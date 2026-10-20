@@ -7,6 +7,7 @@ import CollapsibleSearch, { init } from '../collapsible-search';
 // ---------------------------------------------------------------------------
 
 interface ICollapsibleSearchData extends IComponentData {
+	id?: string;
 	button?: Record<string, unknown>;
 	placeholder?: string;
 	inputName?: string;
@@ -114,6 +115,30 @@ describe('collapsible-search: rendering', () => {
 	it('search landmark has an accessible name', async () => {
 		await renderSearch({ inputLabel: 'Site search' });
 		expect(getPanel().getAttribute('aria-label')).toBe('Site search');
+	});
+
+	it('uses a consistently prefixed ID for its related ARIA attributes', async () => {
+		await renderSearch();
+		const panelId = getPanel().id;
+
+		expect(panelId).toMatch(/^collapsiblesearch-.+-panel$/);
+		expect(getTrigger().getAttribute('aria-controls')).toBe(panelId);
+		expect(getCloseButton().getAttribute('aria-controls')).toBe(panelId);
+		expect(document.querySelector<HTMLLabelElement>('[data-js-collapsible-search] label')?.htmlFor).toBe(getInput().id);
+	});
+
+	it('keeps IDs unique across multiple components', async () => {
+		await renderSearch();
+		await renderSearch();
+
+		const panels = Array.from(document.querySelectorAll<HTMLFormElement>('[data-js-collapsible-search] form'));
+		expect(panels.map((panel) => panel.id)).toHaveLength(2);
+		expect(new Set(panels.map((panel) => panel.id)).size).toBe(2);
+	});
+
+	it('does not double-prefix an explicitly provided ID', async () => {
+		await renderSearch({ id: 'collapsiblesearch-site-search' });
+		expect(getPanel().id).toBe('collapsiblesearch-site-search-panel');
 	});
 
 	it('renders the placeholder text on the input', async () => {
