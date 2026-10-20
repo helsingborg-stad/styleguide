@@ -13,10 +13,10 @@ class Asset
         $manifest = self::readManifest();
         $enqueuer = new PhpAssetEnqueuer();
         if (isset($manifest['css/styleguide-css.css'])) {
-            $enqueuer->enqueueStyle('styleguide-base', '/assets/dist/' . $manifest['css/styleguide-css.css']);
+            $enqueuer->enqueueStyle('styleguide-base', self::assetPath($manifest['css/styleguide-css.css']));
         }
         if (isset($manifest['js/styleguide-js.js'])) {
-            $enqueuer->enqueueScript('styleguide-base', '/assets/dist/' . $manifest['js/styleguide-js.js']);
+            $enqueuer->enqueueScript('styleguide-base', self::assetPath($manifest['js/styleguide-js.js']));
         }
         foreach ($manifest as $key => $file) {
             if (!is_string($file)) {
@@ -108,6 +108,14 @@ class Asset
         $contents = file_get_contents($manifestPath);
         $decoded = json_decode($contents, true);
         return is_array($decoded) ? $decoded : [];
+    }
+
+    private static function assetPath(string $file): string
+    {
+        $path = __DIR__ . '/../../assets/dist/' . $file;
+        $version = is_file($path) ? filemtime($path) : false;
+
+        return '/assets/dist/' . $file . ($version ? '?v=' . $version : '');
     }
 
 }

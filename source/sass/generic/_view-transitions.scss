@@ -1,0 +1,59 @@
+@keyframes button-toggle-content-out {
+
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes button-toggle-content-in {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.is-toggle-content-entering {
+    animation: 50ms ease-out both button-toggle-content-in;
+}
+
+@supports (view-transition-name: button-toggle-content) {
+
+    ::view-transition-group(*) {
+        animation: none;
+        transform: none;
+    }
+
+    ::view-transition-image-pair(*) {
+        transform: none;
+    }
+
+    ::view-transition-old(*) {
+        animation: 50ms ease-out both button-toggle-content-out;
+        transform: none;
+    }
+
+    ::view-transition-new(*) {
+        animation: 50ms ease-out both button-toggle-content-in;
+        transform: none;
+    }
+
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .is-toggle-content-entering {
+        animation: none;
+    }
+}
