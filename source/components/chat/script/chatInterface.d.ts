@@ -1,6 +1,7 @@
 interface ChatInterface {
 	addMessage(message: string, isReply?: boolean, shouldPersist?: boolean, id?: string, data?: MessageData): MessageInterface;
 	addInfo(content: string, shouldPersist?: boolean, id?: string): InfoInterface;
+	setDefaultShouldPersist(shouldPersist: boolean): void;
 	clearMessages(): void;
 	deleteMessage(message: MessageInterface): void;
 	editMessage(newContent: string, message: MessageInterface): void;
