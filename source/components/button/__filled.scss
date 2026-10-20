@@ -13,8 +13,11 @@ $_: "c-button";
     border: tokens.getCalculatedValue($_, "border-width", 1) solid var(--#{$_}-border);
     filter: var(--inherit-filter, #{tokens.getCalculatedValue($_, "shadow", 1)});
 
-    &:hover {
-        background-color: var(--#{$_}-hover);
+    @media (hover: hover) and (pointer: fine) {
+
+        &:hover {
+            background-color: var(--#{$_}-hover);
+        }
     }
 
     &:active,
@@ -75,8 +78,11 @@ $_: "c-button";
             z-index: 1;
         }
 
-        &:hover {
-            --#{$_}-cutout-fill: color-mix(in srgb, currentColor 82%, transparent);
+        @media (hover: hover) and (pointer: fine) {
+
+            &:hover {
+                --#{$_}-cutout-fill: color-mix(in srgb, currentColor 82%, transparent);
+            }
         }
 
         &:active,

@@ -206,10 +206,16 @@ $_: "c-nav";
             }
         }
 
-        >.c-nav__item.is-current>.c-nav__item-wrapper .c-nav__link:not(:has([data-component="icon"])):after,
-        >.c-nav__item>.c-nav__item-wrapper:hover .c-nav__link:not(:has([data-component="icon"])):after {
+        >.c-nav__item.is-current>.c-nav__item-wrapper .c-nav__link:not(:has([data-component="icon"])):after {
             // Only for links without icons
             display: block;
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+
+            >.c-nav__item>.c-nav__item-wrapper:hover .c-nav__link:not(:has([data-component="icon"])):after {
+                display: block;
+            }
         }
 
         .c-nav__link:not(:has([data-component="icon"])):after {
@@ -220,7 +226,7 @@ $_: "c-nav";
             left: 0;
             width: 0;
             display: none;
-            animation: c-nav-hover-bounce 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            animation: c-nav-hover-bounce 180ms cubic-bezier(0.23, 1, 0.32, 1) both;
             transform: translateY(0.75em);
         }
 
@@ -400,7 +406,7 @@ $_: "c-nav";
     .c-nav.c-nav__extended-child-menu .c-nav__item>.c-nav__child-container {
         display: grid;
         grid-template-rows: 0fr;
-        transition: grid-template-rows 0.3s ease-out;
+        transition: grid-template-rows 180ms cubic-bezier(0.23, 1, 0.32, 1);
 
         &>* {
             overflow: hidden;
@@ -426,7 +432,7 @@ $_: "c-nav";
         --#{$_}--item-border-color: var(--#{$_}--popover-border);
         transform-origin: top;
         transform: scaleY(0);
-        transition: transform 200ms ease-in-out;
+        transition: transform 180ms cubic-bezier(0.23, 1, 0.32, 1);
         display: flex;
         flex-direction: row;
         position: absolute;

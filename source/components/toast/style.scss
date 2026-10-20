@@ -35,49 +35,37 @@ $toastHideTimeoutBase: var(--c-toast-hide-timeout-base, 4s); // Base timeout
 
     .c-toast__item {
         width: fit-content;
-        opacity: 0;
-        transform: translateY(tokens.getCalculatedValue($_, "base", 3));
-        animation: slide-in 0.3s ease-out forwards, fade-out 0.5s ease-in forwards;
-        animation-delay: 0s, $toastHideTimeoutBase; // Default delays
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 180ms ease, transform 180ms cubic-bezier(0.23, 1, 0.32, 1);
+        animation: fade-out 180ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        animation-delay: $toastHideTimeoutBase;
+
+        @starting-style {
+            opacity: 0;
+            transform: translateY(tokens.getCalculatedValue($_, "base", 3));
+        }
 
         &--dismissable {
-            animation: slide-in 0.3s ease-out forwards; // Only slide-in animation
+            animation: none;
         }
 
         &--has-action {
-            animation-delay: 0s,
-                calc(#{$toastHideTimeoutBase} * 2); // Double the fade-out delay
+            animation-delay: calc(#{$toastHideTimeoutBase} * 2);
         }
 
         @for $i from 2 through 10 {
             &:nth-child(#{$i}) {
                 $delay: (
                     $i - 1) * 0.3s; // Calculate staggered delay
-                animation-delay: $delay,
-                    calc(#{$toastHideTimeoutBase} + #{$delay}
-                ); // Fade-out with base timeout
+                animation-delay: calc(#{$toastHideTimeoutBase} + #{$delay});
             }
 
             &--has-action:nth-child(#{$i}) {
                 $delay: (
                     $i - 1) * 0.3s; // Calculate staggered delay
-                animation-delay: $delay,
-                    calc((#{$toastHideTimeoutBase} * 2) + #{$delay}
-                ); // Double base for has-action
+                animation-delay: calc((#{$toastHideTimeoutBase} * 2) + #{$delay});
             }
-        }
-    }
-
-    @keyframes slide-in {
-
-        from {
-            opacity: 0;
-            transform: translateY(tokens.getCalculatedValue($_, "base", 3));
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
         }
     }
 
@@ -90,7 +78,12 @@ $toastHideTimeoutBase: var(--c-toast-hide-timeout-base, 4s); // Base timeout
 
         to {
             opacity: 0;
-            transform: translateY(tokens.getCalculatedValue($_, "base", -3));
+            transform: translateY(tokens.getCalculatedValue($_, "base", -1));
         }
+    }
+
+    &:hover .c-toast__item,
+    &:focus-within .c-toast__item {
+        animation-play-state: paused;
     }
 }

@@ -78,6 +78,7 @@
     @include meta.load-css("generic/layouts");
     @include meta.load-css("generic/load-animation");
     @include meta.load-css("generic/view-transitions");
+    @include meta.load-css("generic/reduced-motion");
     @include meta.load-css("generic/divider");
 }
 

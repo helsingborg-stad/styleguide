@@ -11,8 +11,11 @@ $_: "c-button";
     background-color: transparent;
     border: none;
 
-    &:hover {
-        background-color: var(--#{$_}-hover);
+    @media (hover: hover) and (pointer: fine) {
+
+        &:hover {
+            background-color: var(--#{$_}-hover);
+        }
     }
 
     &:active,

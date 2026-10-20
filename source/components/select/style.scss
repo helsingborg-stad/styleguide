@@ -36,7 +36,7 @@ $_: "c-select";
     }
 
     .#{$_}__search-field {
-        animation: c-select-dropdown-expand 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+        animation: c-select-dropdown-expand 180ms cubic-bezier(0.23, 1, 0.32, 1) both;
         background-color: tokens.getRawValue($_, "color--surface");
         border: var(--border-width-input, 1px) solid tokens.getRawValue($_, "color--surface-border");
         border-left: none;
@@ -127,11 +127,11 @@ $_: "c-select";
         align-items: center;
 
         .#{$_}__expand-more-icon {
-            animation: c-select-expand-rotate 200ms cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+            animation: c-select-expand-rotate 160ms cubic-bezier(0.23, 1, 0.32, 1) both;
         }
 
         .#{$_}__expand-less-icon {
-            animation: c-select-expand-rotate-inverted 200ms cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+            animation: c-select-expand-rotate-inverted 160ms cubic-bezier(0.23, 1, 0.32, 1) both;
         }
 
         .#{$_}__expand-less-icon {
@@ -331,7 +331,7 @@ $_: "c-select";
     }
 
     .#{$_}__dropdown {
-        animation: c-select-dropdown-expand 0.5s cubic-bezier(0.175, 0.885, 0.320, 1.275) both;
+        animation: c-select-dropdown-expand 180ms cubic-bezier(0.23, 1, 0.32, 1) both;
         display: none;
         background-color: tokens.getRawValue($_, "color--surface");
         position: absolute;
@@ -356,8 +356,11 @@ $_: "c-select";
         user-select: none;
         margin-top: 0;
 
-        &:hover {
-            background-color: rgba(#000, .2);
+        @media (hover: hover) and (pointer: fine) {
+
+            &:hover {
+                background-color: rgba(#000, .2);
+            }
         }
 
         .#{$_}__option-icon {
@@ -385,18 +388,20 @@ $_: "c-select";
 
     .#{$_}__option {
         .#{$_}__option-label {
-            transition: transform 400ms;
+            transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         .#{$_}__option-icon {
-            transition: transform 300ms;
+            transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        &:hover {
+        @media (hover: hover) and (pointer: fine) {
 
-            .#{$_}__option-label,
-            .#{$_}__option-icon {
-                transform: translateX(tokens.getCalculatedValue($_, "base", 0.5));
+            &:hover {
+                .#{$_}__option-label,
+                .#{$_}__option-icon {
+                    transform: translateX(tokens.getCalculatedValue($_, "base", 0.5));
+                }
             }
         }
     }

@@ -110,7 +110,7 @@ $_: "c-fileinput";
         corner-shape: tokens.getCalculatedValue($_, "corner-shape");
         background-color: tokens.getRawValue($_, "color--surface");
         border: var(--#{$_}--border);
-        transition: all 0.2s ease-in-out;
+        transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, opacity 180ms ease;
     }
 
     /* List container */
@@ -213,7 +213,7 @@ $_: "c-fileinput";
         top: tokens.getCalculatedValue($_, "space", 2);
         bottom: tokens.getCalculatedValue($_, "space", 1.5);
         font-size: tokens.getRawValue($_, "font-size-80");
-        transition: all 0.2s ease-in-out;
+        transition: color 180ms ease, opacity 180ms ease;
         user-select: none;
     }
 
@@ -226,7 +226,7 @@ $_: "c-fileinput";
     /* File counter */
     .#{$_}__filecounter {
         user-select: none;
-        transition: all 0.2s ease-in-out;
+        transition: color 180ms ease, opacity 180ms ease;
         white-space: nowrap;
 
         &:before {

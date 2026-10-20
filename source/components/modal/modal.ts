@@ -1,6 +1,7 @@
 import Gallery from '../gallery/gallery';
 
 class Modal {
+    private static readonly closeDurationMs = 180;
     modalId: string | null;
     openTrigger: NodeListOf<Element>;
     closeTrigger: NodeListOf<Element>;
@@ -80,7 +81,7 @@ class Modal {
         }
 
         if (this.clickIsOutsideElement(dialogElement, mouseEvent.clientX, mouseEvent.clientY)) {
-            dialogElement.close();
+            this.requestClose(dialogElement);
         }
     }
 
@@ -143,10 +144,15 @@ class Modal {
 
             dialog.addEventListener('close', () => {
                 dialog.classList.remove('c-modal--visible');
+                dialog.classList.remove('c-modal--is-closing');
                 this.unlockScroll();
             });
 
             dialog.addEventListener('click', (event: Event) => this.handleClickOutside(event));
+            dialog.addEventListener('cancel', (event: Event) => {
+                event.preventDefault();
+                this.requestClose(dialog);
+            });
             dialog.dataset.modalBound = 'true';
         }
     }
@@ -169,9 +175,24 @@ class Modal {
             const closestDialog = trigger.closest('dialog') as HTMLDialogElement | null;
             if (closestDialog?.hasAttribute('open')) {
                 event.stopPropagation();
-                closestDialog.close();
+                this.requestClose(closestDialog);
             }
         }
+    }
+
+    private requestClose(dialog: HTMLDialogElement) {
+        if (dialog.classList.contains('c-modal--is-closing')) {
+            return;
+        }
+
+        const shouldReduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+        if (shouldReduceMotion) {
+            dialog.close();
+            return;
+        }
+
+        dialog.classList.add('c-modal--is-closing');
+        window.setTimeout(() => dialog.close(), Modal.closeDurationMs);
     }
 
     private getGalleryInstance(modalId: string): Gallery {
