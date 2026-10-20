@@ -38,8 +38,9 @@ export function init() {
 				const input = new ChatInput(chatInputContainer, chatInput, sendButton);
 				const messageFactory = new MessageFactory(replyMessageTemplate, userMessageTemplate);
 				const infoFactory = new InfoFactory(chatInfoTemplate);
+				const shouldPersistByDefault = chatContainer.hasAttribute('data-js-chat-persistent');
 
-				const store = new StorageFactory().create(id, chatContainer.hasAttribute('data-js-chat-persistent'));
+				const store = new StorageFactory().create(id, shouldPersistByDefault);
 				const clear = new Clear(store);
 				const messageRenderer = new MessageRenderer(messagesContainer, messagesScrollContainer);
 				const infoRenderer = new InfoRenderer(messagesContainer);
@@ -48,7 +49,7 @@ export function init() {
 				const pendingMessageHandler = new PendingMessageHandler(chatContainer as HTMLElement, pendingMessageManager, messageRenderer, store);
 				const infoHandler = new InfoHandler(chatContainer as HTMLElement, infoFactory, infoRenderer, store);
 
-				const chat = new Chat(chatContainer as HTMLElement, messagesScrollContainer as HTMLElement, input, clear, messageHandler, pendingMessageHandler, infoHandler);
+				const chat = new Chat(chatContainer as HTMLElement, messagesScrollContainer as HTMLElement, input, clear, messageHandler, pendingMessageHandler, infoHandler, shouldPersistByDefault);
 
 				new Load(chat, store, messagesScrollContainer).load();
 				chat.init();

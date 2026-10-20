@@ -11,6 +11,7 @@ class Chat implements ChatInterface {
 		private messageHandler: MessageHandler,
 		private pendingMessageHandler: PendingMessageHandler,
 		private infoHandler: InfoHandler,
+		private defaultShouldPersist: boolean = true,
 	) {}
 
 	public init(): void {
@@ -55,12 +56,20 @@ class Chat implements ChatInterface {
 		return this.pendingMessageHandler.add();
 	}
 
-	public addMessage(messageContent: string, isReply: boolean = false, shouldPersist: boolean = true, id?: string, data: MessageData = {}): MessageInterface {
-		return this.messageHandler.add(messageContent, isReply, shouldPersist, id, data);
+	public addMessage(messageContent: string, isReply: boolean = false, shouldPersist?: boolean, id?: string, data: MessageData = {}): MessageInterface {
+		const effectiveShouldPersist = shouldPersist ?? this.defaultShouldPersist;
+
+		return this.messageHandler.add(messageContent, isReply, effectiveShouldPersist, id, data);
 	}
 
-	public addInfo(content: string, shouldPersist: boolean = true, id?: string): InfoInterface {
-		return this.infoHandler.add(content, shouldPersist, id);
+	public addInfo(content: string, shouldPersist?: boolean, id?: string): InfoInterface {
+		const effectiveShouldPersist = shouldPersist ?? this.defaultShouldPersist;
+
+		return this.infoHandler.add(content, effectiveShouldPersist, id);
+	}
+
+	public setDefaultShouldPersist(shouldPersist: boolean): void {
+		this.defaultShouldPersist = shouldPersist;
 	}
 
 	public deleteMessage(message: MessageInterface): void {
