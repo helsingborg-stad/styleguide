@@ -24,7 +24,7 @@ $_: "c-modal";
     margin: auto;
     inset: 0;
     cursor: default;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition: opacity var(--duration-180) var(--ease-out), transform var(--duration-180) var(--ease-out);
     overflow: hidden;
     padding: var(--#{$_}--inset-y) var(--#{$_}--inset-x);
 
@@ -32,6 +32,11 @@ $_: "c-modal";
         display: grid;
         grid-template-rows: auto minmax(0, 1fr);
         gap: var(--#{$_}--inset-y);
+    }
+
+    &.#{$_}--is-closing {
+        opacity: 0;
+        transform: scale(0.97);
     }
 
     &:not(.#{$_}--gallery):not(.#{$_}--is-panel) {
@@ -83,10 +88,9 @@ $_: "c-modal";
         display: none;
     }
 
-    input:focus {
-        outline: none;
-        outline-offset: 0;
-        box-shadow: none;
+    input:focus-visible {
+        outline: 2px solid var(--color-focus-outline);
+        outline-offset: 2px;
     }
 
     &::backdrop {
@@ -189,14 +193,14 @@ $_: "c-modal";
 }
 
 .#{$_}[open] {
-    animation: modalSlideUp 300ms ease normal;
+    animation: modalEnter var(--duration-180) var(--ease-out) normal;
 }
 
-@keyframes modalSlideUp {
+@keyframes modalEnter {
 
     from {
         opacity: 0;
-        transform: translateY(50vh);
+        transform: scale(0.97);
     }
 
     to {

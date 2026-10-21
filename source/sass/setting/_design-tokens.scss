@@ -20,6 +20,18 @@
     --base-font-size: 16px;
 
     // ========================================================================
+    // Motion
+    // Shared durations and easing curves for interface feedback and state changes.
+    // ========================================================================
+    --duration-100: 100ms;
+    --duration-120: 120ms;
+    --duration-160: 160ms;
+    --duration-180: 180ms;
+    --duration-300: 300ms;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-fade-out: cubic-bezier(0.4, 0, 0.8, 0.4);
+
+    // ========================================================================
     // Layout
     // Tokens for layout widths
     // ========================================================================

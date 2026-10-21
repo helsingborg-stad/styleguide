@@ -143,7 +143,7 @@ $_: "c-block";
 }
 
 a.#{$_} {
-    transition: all 200ms ease-out;
+    transition: background-color var(--duration-180) ease, color var(--duration-180) ease, filter var(--duration-180) ease, transform var(--duration-180) var(--ease-out);
     cursor: pointer;
 
     .#{$_}__image-background:before {
@@ -156,20 +156,25 @@ a.#{$_} {
         z-index: 1;
     }
 
-    &:hover {
-        filter: var(--#{$_}--shadow-hover);
-        background-color: var(--#{$_}--color-hover-background);
-        color: inherit;
-        transform: translateY(calc(0px - tokens.getCalculatedValue($_, "base", 0.25)));
+    @media (hover: hover) and (pointer: fine) {
 
-        .#{$_}__heading {
-            text-decoration: underline;
-        }
+        &:hover {
+            filter: var(--#{$_}--shadow-hover);
+            background-color: var(--#{$_}--color-hover-background);
+            color: inherit;
+            transform: translateY(calc(0px - tokens.getCalculatedValue($_, "base", 0.25)));
 
-        .#{$_}__image-background:before {
-            opacity: 0.08;
+            .#{$_}__heading {
+                text-decoration: underline;
+            }
+
+            .#{$_}__image-background:before {
+                opacity: 0.08;
+            }
         }
     }
+
+    &:active { transform: scale(0.98); }
 }
 
 .o-grid--no-gutter>[class*="o-grid-"] .#{$_},

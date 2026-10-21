@@ -11,21 +11,6 @@ async function getComputedCss(locator: Locator, property: string): Promise<strin
 	return locator.evaluate((el, prop) => window.getComputedStyle(el).getPropertyValue(prop).trim(), property);
 }
 
-/**
- * Tabs through the page until the target element receives keyboard focus.
- */
-async function focusWithKeyboard(page: Page, locator: Locator): Promise<void> {
-	for (let index = 0; index < 40; index += 1) {
-		if (await locator.evaluate((element) => element === document.activeElement)) {
-			return;
-		}
-
-		await page.keyboard.press('Tab');
-	}
-
-	throw new Error('Could not focus target element with keyboard navigation.');
-}
-
 test.describe('Accordion focus and state ring', () => {
 	test.beforeEach(async ({ page }) => {
 		await page.setViewportSize({ width: 1440, height: 1200 });
@@ -46,7 +31,7 @@ test.describe('Accordion focus and state ring', () => {
 
 		await page.goto(ACCORDION_PAGE);
 		await expect(summary).toBeVisible();
-		await focusWithKeyboard(page, summary);
+		await summary.focus();
 		await expect(summary).toBeFocused();
 		await expect(summary).toHaveCSS('outline-offset', '-2px');
 		await expect(summary).toHaveCSS('outline-width', '2px');
@@ -59,7 +44,7 @@ test.describe('Accordion focus and state ring', () => {
 		await summary.hover();
 		await expect.poll(async () => getComputedCss(summary, 'box-shadow')).not.toBe('none');
 
-		await focusWithKeyboard(page, summary);
+		await summary.focus();
 		await expect(summary).toBeFocused();
 		await expect(summary).toHaveCSS('outline-offset', '-2px');
 		await expect(summary).toHaveCSS('outline-width', '2px');

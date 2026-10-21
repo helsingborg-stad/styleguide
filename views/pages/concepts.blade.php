@@ -16,6 +16,7 @@
             ['label' => 'Local customization', 'href' => '/concepts/local-customization'],
             ['label' => 'Token system', 'href' => '/concepts/token-system'],
             ['label' => 'Color system', 'href' => '/concepts/color-system'],
+            ['label' => 'Animation', 'href' => '/concepts/animation'],
             ['label' => 'Design builder', 'href' => '/design-builder'],
         ],
     ])
@@ -69,6 +70,15 @@
                 'content' => 'How global tokens become component-safe runtime inputs, plus a reference for the foundational base tokens and what each one is for.',
                 'link' => '/concepts/token-system',
                 'icon' => 'schema',
+            ])
+            @endbox
+        </div>
+        <div class="o-grid-12 o-grid-4@md">
+            @box([
+                'heading' => 'Animation',
+                'content' => 'Guidance and live examples for motion that explains change, acknowledges input, and respects reduced-motion preferences.',
+                'link' => '/concepts/animation',
+                'icon' => 'animation',
             ])
             @endbox
         </div>

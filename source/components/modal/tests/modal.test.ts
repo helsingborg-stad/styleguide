@@ -51,6 +51,7 @@ async function renderModalComponent(partialModalData: Partial<IModalData>) {
 }
 
 const customDialogCloseEvent = new CustomEvent('close');
+const closeDurationMs = 180;
 
 // Mocks required to test dialog element.
 // See: https://github.com/jsdom/jsdom/issues/3294
@@ -114,6 +115,7 @@ describe('modal', () => {
 		modalElement.open = true;
 
 		await userEvent.click(closeTrigger);
+		await new Promise((resolve) => window.setTimeout(resolve, closeDurationMs));
 		expect(modalElement.open).toEqual(false);
 	});
 
@@ -126,6 +128,7 @@ describe('modal', () => {
 		modalElement.classList.add(visibilityClass);
 
 		await userEvent.click(closeTrigger);
+		await new Promise((resolve) => window.setTimeout(resolve, closeDurationMs));
 		expect(modalElement.classList.contains(visibilityClass)).toEqual(false);
 	});
 
@@ -166,7 +169,20 @@ describe('modal', () => {
 		const modalCoordinates = modalElement.getBoundingClientRect();
 
 		await userEvent.pointer({ keys: '[MouseLeft]', target: modalElement, coords: { x: modalCoordinates.left - 20, y: modalCoordinates.top - 20 } });
+		await new Promise((resolve) => window.setTimeout(resolve, closeDurationMs));
 
 		expect(modalElement.open).toEqual(false);
+	});
+
+	it('keeps the dialog open during its closing transition', async () => {
+		await renderModalComponent({});
+		const modalElement = document.querySelector('.c-modal') as HTMLDialogElement;
+		const closeTrigger = document.querySelector('[data-close]') as HTMLButtonElement;
+		modalElement.open = true;
+
+		await userEvent.click(closeTrigger);
+
+		expect(modalElement.open).toEqual(true);
+		expect(modalElement.classList.contains('c-modal--is-closing')).toEqual(true);
 	});
 });

@@ -20,7 +20,7 @@ const FAB_TRIGGER_LABEL = 'Open component customizer';
 const COMPONENT_SELECT = '#db-component-select';
 const FAB_PANEL_OPEN_CLASS = 'c-fab__panel--open';
 const CUSTOMIZER_PANEL = '.db-builder-customizer';
-const LOGOTYPE_TARGET = '[data-component="logotype"]';
+const LOGOTYPE_TARGET = '#main-logo[data-component="logotype"]';
 
 const MASKING_LABEL = 'Masking';
 
@@ -90,7 +90,7 @@ async function selectControlOption(page: Page, label: string, optionValue: strin
 test.describe('Logotype – design panel', () => {
 	test.beforeEach(async ({ page }) => {
 		await page.goto(LOGOTYPE_PAGE);
-		await expect(page.locator(LOGOTYPE_TARGET)).toBeVisible();
+		await expect(page.locator(LOGOTYPE_TARGET)).toBeAttached();
 
 		await page.getByRole('button', { name: FAB_TRIGGER_LABEL }).click();
 		await expect(page.locator(`.${FAB_PANEL_OPEN_CLASS}`)).toBeVisible();

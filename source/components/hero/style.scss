@@ -234,7 +234,7 @@ $_: "c-hero";
     .#{$_}__byline,
     .#{$_}__meta,
     .#{$_}__body {
-        animation: hero-slide-in 1s cubic-bezier(0.23, 1, 0.32, 1) both;
+        animation: hero-slide-in 1s var(--ease-out) both;
     }
 
     &.#{$_}--overlay {

@@ -21,7 +21,7 @@ $_: "c-box";
     justify-content: center;
     container-type: inline-size;
     container-name: box;
-    transition: all 200ms ease-in;
+    transition: background-color var(--duration-180) ease, color var(--duration-180) ease, filter var(--duration-180) ease, transform var(--duration-180) var(--ease-out);
 
     .#{$_}__heading {
         --inherit-font-size: #{tokens.getRawValue($_, "font-size-400")};
@@ -105,20 +105,25 @@ $_: "c-box";
 a.#{$_} {
     text-decoration: none;
     color: tokens.getRawValue($_, "color--primary-contrast");
-    transition: all 200ms ease-out;
+    transition: filter var(--duration-180) ease, transform var(--duration-180) var(--ease-out);
 
     .#{$_}__image {
         position: relative;
     }
 
-    &:hover {
-        transform: translateY(tokens.getCalculatedValue($_, "space", -0.25));
-        filter: brightness(0.9) var(--#{$_}--shadow-hover);
+    @media (hover: hover) and (pointer: fine) {
 
-        .#{$_}__heading {
-            text-decoration: underline;
+        &:hover {
+            transform: translateY(tokens.getCalculatedValue($_, "space", -0.25));
+            filter: brightness(0.9) var(--#{$_}--shadow-hover);
+
+            .#{$_}__heading {
+                text-decoration: underline;
+            }
         }
     }
+
+    &:active { transform: scale(0.98); }
 }
 
 .o-grid--no-gutter>[class*="o-grid-"] .#{$_},

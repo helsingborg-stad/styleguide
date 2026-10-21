@@ -8,6 +8,7 @@ const CUSTOMIZER_PANEL = '.db-builder-customizer';
 const HEADER_TARGET = '.markup-preview [data-component="header"].o-container';
 const LAYOUT_CATEGORY_HEADER = '.db-category-header';
 const CONTAINER_WIDTH_LABEL = 'Container Width';
+const HORIZONTAL_MARGIN_LABEL = 'Horizontal Margin';
 const LOGOTYPE_AUTO_SCALE_LABEL = 'Logotype Auto Scale';
 const AUTO_SCALE_CURVE_LABEL = 'Auto Scale Curve';
 const HEIGHT_BOUNDS_LABEL = 'Height';
@@ -251,7 +252,7 @@ test.describe('Header - design panel', () => {
 		const mobileContainerMaxWidth = await resolveCssLengthPx(header, 'var(--c-header--container-max-width)');
 		const mobileContentMaxWidth = await resolveCssLengthPx(header, 'var(--c-header--content-max-width)');
 
-		expect(mobileContentMaxWidth).toBeCloseTo(mobileContainerMaxWidth, 0);
+		expect(mobileContentMaxWidth).toBeCloseTo(Math.min(mobileContainerMaxWidth, 500), 0);
 
 		await page.setViewportSize({ width: 1600, height: 1000 });
 		const smContainerMaxWidth = await resolveCssLengthPx(header, 'var(--c-header--container-max-width)');

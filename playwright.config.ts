@@ -10,7 +10,7 @@ import { defineConfig, devices } from '@playwright/test';
  * source/components/{slug}/tests/*.spec.ts
  */
 export default defineConfig({
-	testMatch: 'source/components/**/tests/*.spec.ts',
+	testMatch: 'source/**/tests/*.spec.ts',
 	fullyParallel: true,
 	forbidOnly: !!process.env.CI,
 	retries: process.env.CI ? 2 : 0,

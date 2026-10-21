@@ -25,8 +25,11 @@ $_: "c-tabs";
         border-bottom: 3px solid transparent;
         height: 100%;
 
-        &:hover {
-            text-decoration: none;
+        @media (hover: hover) and (pointer: fine) {
+
+            &:hover {
+                text-decoration: none;
+            }
         }
 
         &[aria-expanded="true"] {
@@ -43,8 +46,9 @@ $_: "c-tabs";
         outline: none;
     }
 
-    &__button:focus>&__button-wrapper {
-        outline: 1px dashed tokens.getRawValue($_, "color--surface-contrast-muted");
+    &__button:focus-visible>&__button-wrapper {
+        outline: 2px solid var(--color-focus-outline);
+        outline-offset: -2px;
     }
 
     &__content {
@@ -56,11 +60,11 @@ $_: "c-tabs";
 
         &[aria-hidden="false"] {
             display: block;
-            transition: ease .3s opacity;
+            transition: opacity 160ms ease;
             animation-name: fadeIn;
-            animation-duration: .3s;
+            animation-duration: 160ms;
             animation-fill-mode: both;
-            will-change: transform;
+            will-change: opacity;
         }
     }
 
