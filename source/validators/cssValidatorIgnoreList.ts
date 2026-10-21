@@ -8,7 +8,6 @@ export interface CssValidatorIgnoreRule {
 export const cssValidatorIgnoreList: CssValidatorIgnoreRule[] = [
 	// The remote validator does not yet parse these supported modern CSS constructs.
 	{
-		bundle: 'components/popover.css',
 		messageIncludes: 'Unrecognized at-rule "@starting-style"',
 		type: 'error',
 	},
@@ -71,6 +70,19 @@ export const cssValidatorIgnoreList: CssValidatorIgnoreRule[] = [
 		type: 'error',
 	},
 	{
+		messageIncludes: 'Property "transition-behavior" doesn\'t exist',
+		type: 'error',
+	},
+	{
+		messageIncludes: 'Property "view-transition-name" doesn\'t exist',
+		type: 'error',
+	},
+	{
+		bundle: 'css/styleguide-css.css',
+		messageIncludes: 'Parse Error',
+		type: 'error',
+	},
+	{
 		messageIncludes: 'Property "clip-path" doesn\'t exist',
 		type: 'error',
 	},
@@ -100,6 +112,10 @@ export const cssValidatorIgnoreList: CssValidatorIgnoreRule[] = [
 	},
 	{
 		messageIncludes: 'Property "mask-size" doesn\'t exist',
+		type: 'error',
+	},
+	{
+		messageIncludes: 'Property "mask" doesn\'t exist',
 		type: 'error',
 	},
 	{

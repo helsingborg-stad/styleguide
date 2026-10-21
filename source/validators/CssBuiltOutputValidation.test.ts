@@ -31,12 +31,24 @@ interface ValidatorResponse {
 
 interface BundleValidationResult {
 	bundle: string;
+	sourceBundles: CssSourceBundle[];
 	issues: Array<ValidatorIssue & { severity: 'error' | 'warning' }>;
 	ignoredIssues: Array<ValidatorIssue & { severity: 'error' | 'warning' }>;
 	responseSummary: {
 		errorcount?: number;
 		warningcount?: number;
 	};
+}
+
+interface CssSourceBundle {
+	bundle: string;
+	startLine: number;
+	endLine: number;
+}
+
+interface ConcatenatedCssBundles {
+	cssSource: string;
+	sourceBundles: CssSourceBundle[];
 }
 
 const execFileAsync = promisify(execFile);
@@ -63,8 +75,7 @@ async function getBuiltCssBundles(): Promise<string[]> {
  * Posts CSS to the W3C validator using multipart form input.
  * The validator's x-www-form-urlencoded text endpoint is currently unstable.
  */
-async function validateCssBundle(bundlePath: string): Promise<BundleValidationResult> {
-	const cssSource = await readFile(bundlePath, 'utf8');
+async function validateCssSource(bundlePath: string, sourceBundles: CssSourceBundle[], cssSource: string): Promise<BundleValidationResult> {
 	const tempDirectory = await mkdtemp(path.join(os.tmpdir(), 'styleguide-css-validator-'));
 	const tempCssPath = path.join(tempDirectory, path.basename(bundlePath));
 	await writeFile(tempCssPath, cssSource, 'utf8');
@@ -100,11 +111,12 @@ async function validateCssBundle(bundlePath: string): Promise<BundleValidationRe
 	const warnings = (parsed.cssvalidation?.warnings ?? []).map((issue) => ({ ...issue, severity: 'warning' as const }));
 	const issues = includeValidatorWarnings ? [...errors, ...warnings] : errors;
 	const ignoredWarnings = includeValidatorWarnings ? [] : warnings;
-	const ignoredIssues = issues.filter((issue) => shouldIgnoreIssue(issue, bundlePath, cssValidatorIgnoreList));
-	const remainingIssues = issues.filter((issue) => !shouldIgnoreIssue(issue, bundlePath, cssValidatorIgnoreList));
+	const ignoredIssues = issues.filter((issue) => shouldIgnoreIssue(issue, getSourceBundle(issue, sourceBundles), cssValidatorIgnoreList));
+	const remainingIssues = issues.filter((issue) => !shouldIgnoreIssue(issue, getSourceBundle(issue, sourceBundles), cssValidatorIgnoreList));
 
 	return {
 		bundle: bundlePath,
+		sourceBundles,
 		ignoredIssues: [...ignoredWarnings, ...ignoredIssues],
 		issues: remainingIssues,
 		responseSummary: {
@@ -114,24 +126,41 @@ async function validateCssBundle(bundlePath: string): Promise<BundleValidationRe
 	};
 }
 
-/** Pace requests to avoid overwhelming the public validator. */
-async function validateCssBundles(bundles: string[]): Promise<BundleValidationResult[]> {
-	const results: BundleValidationResult[] = [];
+/** Concatenates CSS entries into one validator payload while retaining their source boundaries. */
+async function concatenateCssBundles(bundles: string[]): Promise<ConcatenatedCssBundles> {
+	const sourceBundles: CssSourceBundle[] = [];
+	const sources: string[] = [];
+	let currentLine = 1;
 
-	for (const [index, bundle] of bundles.entries()) {
-		results.push(await validateCssBundle(bundle));
-		if (index < bundles.length - 1) {
-			await new Promise((resolve) => setTimeout(resolve, 500));
-		}
+	for (const bundle of bundles) {
+		const cssSource = await readFile(bundle, 'utf8');
+		const sourceLineCount = cssSource.split('\n').length;
+
+		sourceBundles.push({
+			bundle,
+			startLine: currentLine + 1,
+			endLine: currentLine + sourceLineCount,
+		});
+		sources.push(`/* Source: ${path.relative(projectRoot, bundle)} */\n${cssSource}`);
+		currentLine += sourceLineCount + 1;
 	}
 
-	return results;
+	return { cssSource: sources.join('\n'), sourceBundles };
+}
+
+/** Resolves a W3C line number back to the generated CSS bundle that supplied it. */
+function getSourceBundle(issue: ValidatorIssue, sourceBundles: CssSourceBundle[]): string | undefined {
+	if (!issue.line) {
+		return undefined;
+	}
+
+	return sourceBundles.find(({ startLine, endLine }) => issue.line! >= startLine && issue.line! <= endLine)?.bundle;
 }
 
 /**
  * Checks whether a validator issue matches one of the configured ignore rules.
  */
-function shouldIgnoreIssue(issue: ValidatorIssue & { severity: 'error' | 'warning' }, bundlePath: string, ignoreRules: CssValidatorIgnoreRule[]): boolean {
+function shouldIgnoreIssue(issue: ValidatorIssue & { severity: 'error' | 'warning' }, bundlePath: string | undefined, ignoreRules: CssValidatorIgnoreRule[]): boolean {
 	const normalizedMessage = issue.message ? normalizeValidatorText(issue.message) : undefined;
 	const normalizedContext = issue.context ? normalizeValidatorText(issue.context) : undefined;
 
@@ -143,7 +172,8 @@ function shouldIgnoreIssue(issue: ValidatorIssue & { severity: 'error' | 'warnin
 			return false;
 		}
 
-		if (rule.bundle && !bundlePath.includes(rule.bundle)) {
+		const ruleBundle = rule.bundle;
+		if (ruleBundle && !bundlePath?.includes(ruleBundle)) {
 			return false;
 		}
 
@@ -203,8 +233,9 @@ describe('CssBuiltOutputValidation', () => {
 
 			expect(bundles.length).toBeGreaterThan(0);
 
-			const results = await validateCssBundles(bundles);
-			const resultsWithIssues = results.filter((result) => result.issues.length > 0);
+			const combinedCss = await concatenateCssBundles(bundles);
+			const result = await validateCssSource(path.join(projectRoot, 'assets', 'dist', 'css', 'combined.css'), combinedCss.sourceBundles, combinedCss.cssSource);
+			const resultsWithIssues = result.issues.length > 0 ? [result] : [];
 
 			if (resultsWithIssues.length > 0) {
 				throw new Error(formatFailureMessage(resultsWithIssues));
