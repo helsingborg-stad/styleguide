@@ -26,6 +26,7 @@ $_: "[popover]";
     }
 
     @starting-style {
+
         &:popover-open {
             opacity: var(--popover-animation-start-opacity);
             transform: translate3d(var(--popover-animation-start-transform-x), var(--popover-animation-start-transform-y), 0) scale(var(--popover-animation-start-scale));

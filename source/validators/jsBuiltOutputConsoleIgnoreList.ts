@@ -6,8 +6,8 @@ export interface JsConsoleIgnoreRule {
 
 export const jsBuiltOutputConsoleIgnoreList: JsConsoleIgnoreRule[] = [
 	// Diagnostics retained in component entries after splitting the shared bundle.
-	{ bundle: 'js/components/chat.js', method: 'warn', lineIncludes: 'Failed to clear messages from localStorage.' },
-	{ bundle: 'js/components/chat.js', method: 'warn', lineIncludes: 'Failed to save messages to localStorage.' },
+	{ bundle: 'js/components/chat.js', method: 'warn', lineIncludes: 'Failed to clear chat items from localStorage.' },
+	{ bundle: 'js/components/chat.js', method: 'warn', lineIncludes: 'Failed to save chat items to localStorage.' },
 	{ bundle: 'js/components/chat.js', method: 'error', lineIncludes: 'Chat component initialization failed:' },
 	{ bundle: 'js/components/field.js', method: 'error', lineIncludes: 'Form must have a submit button.' },
 	{ bundle: 'js/components/fileinput.js', method: 'error', lineIncludes: 'Notice template not found' },
@@ -89,12 +89,12 @@ export const jsBuiltOutputConsoleIgnoreList: JsConsoleIgnoreRule[] = [
 	{
 		bundle: 'js/styleguide-js.js',
 		method: 'warn',
-		lineIncludes: 'Failed to clear messages from localStorage. Messages may persist across page reloads.',
+		lineIncludes: 'Failed to clear chat items from localStorage. Items may persist across page reloads.',
 	},
 	{
 		bundle: 'js/styleguide-js.js',
 		method: 'warn',
-		lineIncludes: 'Failed to save messages to localStorage. Messages will not persist across page reloads.',
+		lineIncludes: 'Failed to save chat items to localStorage. Items will not persist across page reloads.',
 	},
 	{
 		bundle: 'js/styleguide-js.js',

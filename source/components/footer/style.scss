@@ -68,7 +68,7 @@ $_: "c-footer";
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto auto;
 
-    &::before {
+    &:before {
         content: "";
         position: absolute;
         inset: -50%;
@@ -203,8 +203,8 @@ $_: "c-footer";
     &__areas-wrapper>.o-container>.o-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit,
-            minmax(min(100%, max(var(--#{$_}--column-min-width), var(--#{$_}--column-max-width))),
-                1fr));
+        minmax(min(100%, max(var(--#{$_}--column-min-width), var(--#{$_}--column-max-width))),
+        1fr));
         gap: var(--#{$_}--gap);
 
         >[class*="o-grid-"] {
@@ -229,6 +229,7 @@ $_: "c-footer";
     }
 
     &__header-wrapper {
+
         .o-grid-12 {
             display: flex;
             justify-content: var(--#{$_}--logotype-justify-content);
@@ -328,7 +329,7 @@ $_: "c-footer";
             padding-left: 0;
             text-align: left;
 
-            &::before {
+            &:before {
                 content: "";
                 width: tokens.getCalculatedValue($_, "base", 0.75);
                 height: tokens.getCalculatedValue($_, "base", 0.75);

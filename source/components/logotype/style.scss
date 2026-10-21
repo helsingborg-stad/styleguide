@@ -53,7 +53,7 @@ $_: "c-logotype";
         display: grid;
         grid-template-columns: 1fr;
 
-        &::before {
+        &:before {
             content: "";
             inset: 0;
             background-color: var(--#{$_}--mask-current-color);

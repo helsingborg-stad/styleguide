@@ -60,8 +60,8 @@ $_: "c-siteselector";
         cursor: pointer;
     }
 
-    .c-nav.c-nav--horizontal .c-nav__item--depth-1 > .c-nav__item-wrapper,
-    .c-nav.c-nav--horizontal .c-nav__item--depth-1 > .c-nav__item-wrapper > * {
+    .c-nav.c-nav--horizontal .c-nav__item--depth-1>.c-nav__item-wrapper,
+    .c-nav.c-nav--horizontal .c-nav__item--depth-1>.c-nav__item-wrapper>* {
         min-height: unset;
         height: var(--#{$_}--height-computed);
     }
@@ -83,6 +83,7 @@ $_: "c-siteselector";
     }
 
     .#{$_}__more > .c-nav__item-wrapper {
+
         .c-button.c-nav__toggle {
             height: unset;
             width: unset;

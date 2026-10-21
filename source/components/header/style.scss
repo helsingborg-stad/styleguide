@@ -28,13 +28,13 @@ $_: "c-header";
 
     /* Logotype */
     --#{$_}--logotype-height: clamp(var(--#{$_}--logotype-height-min),
-        calc(var(--#{$_}--logotype-height-multiplier, var(--#{$_}--logotype-height-multiplier-default)) * (#{tokens.getCalculatedValue($_, "base", 6)} + var(--#{$_}--logotype-auto-scale, 1) * (calc(var(--#{$_}--logotype-auto-scale-curve-factor, 1) * 4vw) - #{tokens.getCalculatedValue($_, "base", 6)}))),
-        var(--#{$_}--logotype-height-max));
+    calc(var(--#{$_}--logotype-height-multiplier, var(--#{$_}--logotype-height-multiplier-default)) * (#{tokens.getCalculatedValue($_, "base", 6)} + var(--#{$_}--logotype-auto-scale, 1) * (calc(var(--#{$_}--logotype-auto-scale-curve-factor, 1) * 4vw) - #{tokens.getCalculatedValue($_, "base", 6)}))),
+    var(--#{$_}--logotype-height-max));
 
     /* Brand */
     --#{$_}--brand-height: clamp(var(--#{$_}--brand-height-min),
-        calc(var(--#{$_}--brand-height-multiplier, var(--#{$_}--brand-height-multiplier-default)) * (#{tokens.getCalculatedValue($_, "base", 6)} + var(--#{$_}--brand-auto-scale, 1) * (calc(var(--#{$_}--brand-auto-scale-curve-factor, 1) * 4vw) - #{tokens.getCalculatedValue($_, "base", 6)}))),
-        var(--#{$_}--brand-height-max));
+    calc(var(--#{$_}--brand-height-multiplier, var(--#{$_}--brand-height-multiplier-default)) * (#{tokens.getCalculatedValue($_, "base", 6)} + var(--#{$_}--brand-auto-scale, 1) * (calc(var(--#{$_}--brand-auto-scale-curve-factor, 1) * 4vw) - #{tokens.getCalculatedValue($_, "base", 6)}))),
+    var(--#{$_}--brand-height-max));
 
     /* Space */
     --#{$_}--padding-x: calc(var(--#{$_}--padding-x-enabled, 1) * var(--#{$_}--inset-multiplier, 1) * #{tokens.getCalculatedValue($_, "outer-space", 2)});
@@ -72,6 +72,7 @@ $_: "c-header";
     grid-template-columns: 1fr;
 
     // Component examples use the header itself as their content area.
+
     &.o-container {
         inline-size: var(--#{$_}--content-max-width);
     }
@@ -150,6 +151,7 @@ $_: "c-header";
 }
 
 @keyframes blink {
+
     0% {}
 
     25% {

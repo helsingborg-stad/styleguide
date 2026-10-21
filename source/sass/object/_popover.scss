@@ -1,7 +1,7 @@
 @use "../../sass/mixin/tokens";
 
 $_: "[popover]";
-$token: 'o-popover';
+$token: "o-popover";
 
 body:has([popover][data-js-popover-cover]:popover-open) {
     overflow: hidden;
