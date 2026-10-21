@@ -232,8 +232,20 @@ jobs:
           fi
         } >> "$GITHUB_STEP_SUMMARY"
 
-    - name: Fail when CSS validation failed
-      if: ${{ !cancelled() && (steps.build.outcome != 'success' || steps.w3c_css.outcome != 'success') }}
+    - name: Fail when CSS build failed
+      if: ${{ !cancelled() && steps.build.outcome != 'success' }}
       run: |
-        echo "::error title=W3C CSS validation failed::The build or W3C validator failed. See the 'Run W3C CSS validation' step, job summary, or w3c-css-validation-report artifact for the complete output."
+        echo "::error title=CSS build failed::The CSS bundle build failed, so W3C validation was not run. See the 'Build CSS bundles' step for details."
+        exit 1
+
+    - name: Fail when W3C CSS validation failed
+      if: ${{ !cancelled() && steps.build.outcome == 'success' && steps.w3c_css.outcome != 'success' }}
+      run: |
+        if [ -f test-results/w3c-css-validation.log ]; then
+          echo 'W3C validator output:'
+          cat test-results/w3c-css-validation.log
+        else
+          echo 'No W3C validator log was produced.'
+        fi
+        echo "::error title=W3C CSS validation failed::See the validator output above, the job summary, or the w3c-css-validation-report artifact."
         exit 1
