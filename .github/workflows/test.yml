@@ -191,13 +191,25 @@ jobs:
     - name: Build CSS bundles
       id: build
       continue-on-error: true
-      run: npm run build
+      run: |
+        mkdir -p test-results
+        npm run build
 
     - name: Run W3C CSS validation
       id: w3c_css
       if: ${{ !cancelled() && steps.build.outcome == 'success' }}
       continue-on-error: true
-      run: npm run test:css-validator
+      run: |
+        set -o pipefail
+        npm run test:css-validator 2>&1 | tee test-results/w3c-css-validation.log
+
+    - name: Upload CSS validation report
+      if: ${{ !cancelled() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: w3c-css-validation-report
+        path: test-results/w3c-css-validation.log
+        if-no-files-found: warn
 
     - name: Write CSS validation summary
       if: ${{ !cancelled() }}
@@ -209,10 +221,19 @@ jobs:
           echo '| --- | --- |'
           echo '| Build | ${{ steps.build.outcome }} |'
           echo '| W3C CSS validator | ${{ steps.w3c_css.outcome }} |'
+          if [ -f test-results/w3c-css-validation.log ]; then
+            echo ''
+            echo '<details><summary>W3C validator output (last 120 lines)</summary>'
+            echo ''
+            echo '```text'
+            tail -n 120 test-results/w3c-css-validation.log
+            echo '```'
+            echo '</details>'
+          fi
         } >> "$GITHUB_STEP_SUMMARY"
 
     - name: Fail when CSS validation failed
-      if: ${{ !cancelled() }}
+      if: ${{ !cancelled() && (steps.build.outcome != 'success' || steps.w3c_css.outcome != 'success') }}
       run: |
-        test "${{ steps.build.outcome }}" = success
-        test "${{ steps.w3c_css.outcome }}" = success
+        echo "::error title=W3C CSS validation failed::The build or W3C validator failed. See the 'Run W3C CSS validation' step, job summary, or w3c-css-validation-report artifact for the complete output."
+        exit 1
