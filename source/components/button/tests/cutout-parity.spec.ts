@@ -171,7 +171,7 @@ test.describe('Button – inherited filled SVG cutout', () => {
 					}
 				});
 			}
-			const computedShape = await standard.evaluate((element) => getComputedStyle(element).cornerShape);
+			const computedShape = await standard.evaluate((element) => getComputedStyle(element).getPropertyValue('corner-shape'));
 			const computedRadius = await standard.evaluate((element) => getComputedStyle(element).borderRadius);
 			expect(computedShape).toMatch(/^superellipse\(/);
 			await expect(cutout).toHaveCSS('corner-shape', computedShape);

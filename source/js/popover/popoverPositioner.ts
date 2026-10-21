@@ -26,18 +26,18 @@ class PopoverPositioner {
 		popoverElement.style.top = '';
 		popoverElement.style.bottom = '';
 		popoverElement.style.transform = '';
-		popoverElement.style.positionArea = '';
-		popoverElement.style.positionAnchor = '';
+		popoverElement.style.setProperty('position-area', '');
+		popoverElement.style.setProperty('position-anchor', '');
 
 		if (relativeElement) {
-			relativeElement.style.anchorName = '';
+			relativeElement.style.setProperty('anchor-name', '');
 		}
 	}
 
 	private setRelativeAnchorStyles(popoverData: PopoverData) {
 		const anchorName = `--${popoverData.id}`;
-		popoverData.relativeElement!.style.anchorName = anchorName;
-		popoverData.popoverElement.style.positionAnchor = anchorName;
+		popoverData.relativeElement!.style.setProperty('anchor-name', anchorName);
+		popoverData.popoverElement.style.setProperty('position-anchor', anchorName);
 	}
 
 	private isCoverPopover(popoverData: PopoverData): boolean {
@@ -45,10 +45,10 @@ class PopoverPositioner {
 	}
 
 	private setRelativePositionStyles(popoverData: PopoverData) {
-		popoverData.popoverElement.style.positionArea = popoverData.verticalPlacement;
+		popoverData.popoverElement.style.setProperty('position-area', popoverData.verticalPlacement);
 
 		if (popoverData.verticalPlacement === 'center') {
-			popoverData.popoverElement.style.positionArea = `center ${popoverData.horizontalPlacement}`;
+			popoverData.popoverElement.style.setProperty('position-area', `center ${popoverData.horizontalPlacement}`);
 		}
 
 		if (popoverData.horizontalPlacement === 'left') {
