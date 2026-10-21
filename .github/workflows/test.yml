@@ -1,22 +1,25 @@
 name: Test
 
 on:
+  push:
+    branches: [main-1.x]
   pull_request:
+  workflow_dispatch:
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
     permissions:
+      checks: write
       contents: read
       packages: read
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
         node-version: 24.6
-        cache: 'npm'
+        cache: npm
         cache-dependency-path: ./package-lock.json
 
     - name: Setup PHP
@@ -27,52 +30,141 @@ jobs:
 
     - name: Install composer packages
       id: composer_install
-      run: composer i
+      run: composer install --no-interaction --prefer-dist
 
     - name: Configure npm for GitHub Packages
-      if: ${{ !cancelled() }}
       run: |
         echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
         echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> .npmrc
 
     - name: Install npm packages
       id: npm_install
-      if: ${{ !cancelled() }}
       run: npm ci
+
+    - name: Prepare test reports
+      run: mkdir -p test-results
 
     - name: Install Playwright Chromium
       id: playwright_install
-      if: ${{ !cancelled() && steps.npm_install.outcome == 'success' }}
       run: npx playwright install --with-deps chromium
 
     - name: Run tests (Jest)
-      if: ${{ !cancelled() && steps.npm_install.outcome == 'success' }}
-      run: npm test
+      id: jest
+      continue-on-error: true
+      env:
+        JEST_JUNIT_OUTPUT_DIR: test-results
+        JEST_JUNIT_OUTPUT_NAME: jest.xml
+      run: npm test -- --reporters=default --reporters=jest-junit --coverageReporters=html --coverageReporters=lcov --coverageReporters=json-summary
 
     - name: Run typecheck (TypeScript)
-      if: ${{ !cancelled() && steps.npm_install.outcome == 'success' }}
+      id: typecheck
+      continue-on-error: true
       run: npm run typecheck
 
-    - name: Run Tests (PHPUnit)
-      if: ${{ !cancelled() && steps.composer_install.outcome == 'success' }}
-      run: composer test
+    - name: Run tests (PHPUnit)
+      id: phpunit
+      continue-on-error: true
+      run: XDEBUG_MODE=off vendor/bin/phpunit --testdox --log-junit test-results/phpunit.xml
 
-    - name: Build CSS
+    - name: Build CSS and JavaScript
       id: build
-      if: ${{ !cancelled() && steps.npm_install.outcome == 'success' }}
+      continue-on-error: true
       run: npm run build
 
-    - name: Run Playwright e2e tests
-      if: ${{ !cancelled() && steps.build.outcome == 'success' && steps.composer_install.outcome == 'success' && steps.playwright_install.outcome == 'success' }}
-      run: npm run test:e2e
+    - name: Run Playwright end-to-end tests
+      id: playwright
+      if: ${{ !cancelled() && steps.build.outcome == 'success' && steps.playwright_install.outcome == 'success' }}
+      continue-on-error: true
+      env:
+        PLAYWRIGHT_HTML_OPEN: never
+        PLAYWRIGHT_JUNIT_OUTPUT_FILE: test-results/playwright.xml
+      run: npx playwright test --reporter=html,junit
 
-    - name: Run built JS console validation
+    - name: Run built JavaScript console validation
+      id: js_console
       if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+      continue-on-error: true
       run: npm run test:js-console-validator
 
     - name: Run CSS linting (Stylelint)
-      if: ${{ !cancelled() && steps.npm_install.outcome == 'success' }}
+      id: stylelint
+      continue-on-error: true
       run: npm run lint:scss
+
+    - name: Publish Jest report
+      if: ${{ !cancelled() && hashFiles('test-results/jest.xml') != '' }}
+      uses: dorny/test-reporter@v1
+      with:
+        name: Jest results
+        path: test-results/jest.xml
+        reporter: jest-junit
+        fail-on-error: false
+
+    - name: Publish PHPUnit report
+      if: ${{ !cancelled() && hashFiles('test-results/phpunit.xml') != '' }}
+      uses: dorny/test-reporter@v1
+      with:
+        name: PHPUnit results
+        path: test-results/phpunit.xml
+        reporter: java-junit
+        fail-on-error: false
+
+    - name: Publish Playwright report
+      if: ${{ !cancelled() && hashFiles('test-results/playwright.xml') != '' }}
+      uses: dorny/test-reporter@v1
+      with:
+        name: Playwright results
+        path: test-results/playwright.xml
+        reporter: java-junit
+        fail-on-error: false
+
+    - name: Upload test reports and coverage
+      if: ${{ !cancelled() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-reports-and-coverage
+        path: |
+          test-results
+          coverage
+        if-no-files-found: warn
+
+    - name: Upload Playwright HTML report
+      if: ${{ !cancelled() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-html-report
+        path: playwright-report
+        if-no-files-found: warn
+
+    - name: Write test summary
+      if: ${{ !cancelled() }}
+      run: |
+        {
+          echo '## Test report'
+          echo ''
+          echo '| Suite | Status |'
+          echo '| --- | --- |'
+          echo '| Jest | ${{ steps.jest.outcome }} |'
+          echo '| TypeScript | ${{ steps.typecheck.outcome }} |'
+          echo '| PHPUnit | ${{ steps.phpunit.outcome }} |'
+          echo '| Build | ${{ steps.build.outcome }} |'
+          echo '| Playwright | ${{ steps.playwright.outcome }} |'
+          echo '| Built JavaScript console validation | ${{ steps.js_console.outcome }} |'
+          echo '| Stylelint | ${{ steps.stylelint.outcome }} |'
+          echo ''
+          echo 'Download the **test-reports-and-coverage** and **playwright-html-report** artifacts for detailed reports.'
+        } >> "$GITHUB_STEP_SUMMARY"
+
+    - name: Fail when a suite failed
+      if: ${{ !cancelled() }}
+      run: |
+        test "${{ steps.jest.outcome }}" = success
+        test "${{ steps.typecheck.outcome }}" = success
+        test "${{ steps.phpunit.outcome }}" = success
+        test "${{ steps.build.outcome }}" = success
+        test "${{ steps.playwright.outcome }}" = success
+        test "${{ steps.js_console.outcome }}" = success
+        test "${{ steps.stylelint.outcome }}" = success
 
   css-validation:
     runs-on: ubuntu-latest
@@ -81,21 +173,12 @@ jobs:
       packages: read
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
         node-version: 24.6
-        cache: 'npm'
+        cache: npm
         cache-dependency-path: ./package-lock.json
-
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.3'
-        tools: composer:v2
-
-    - name: Install composer packages
-      run: composer i
 
     - name: Configure npm for GitHub Packages
       run: |
@@ -105,8 +188,31 @@ jobs:
     - name: Install npm packages
       run: npm ci
 
-    - name: Build all CSS bundles
+    - name: Build CSS bundles
+      id: build
+      continue-on-error: true
       run: npm run build
 
-    - name: Run CSS validation (W3C)
+    - name: Run W3C CSS validation
+      id: w3c_css
+      if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+      continue-on-error: true
       run: npm run test:css-validator
+
+    - name: Write CSS validation summary
+      if: ${{ !cancelled() }}
+      run: |
+        {
+          echo '## W3C CSS validation'
+          echo ''
+          echo '| Step | Status |'
+          echo '| --- | --- |'
+          echo '| Build | ${{ steps.build.outcome }} |'
+          echo '| W3C CSS validator | ${{ steps.w3c_css.outcome }} |'
+        } >> "$GITHUB_STEP_SUMMARY"
+
+    - name: Fail when CSS validation failed
+      if: ${{ !cancelled() }}
+      run: |
+        test "${{ steps.build.outcome }}" = success
+        test "${{ steps.w3c_css.outcome }}" = success
