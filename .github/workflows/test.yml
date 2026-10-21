@@ -180,6 +180,15 @@ jobs:
         cache: npm
         cache-dependency-path: ./package-lock.json
 
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3'
+        tools: composer:v2
+
+    - name: Install composer packages
+      run: composer install --no-interaction --prefer-dist
+
     - name: Configure npm for GitHub Packages
       run: |
         echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
