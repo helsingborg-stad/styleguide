@@ -3,7 +3,6 @@
 namespace MunicipioStyleGuide\Validators\Tests;
 
 use MunicipioStyleGuide\Validators\Sass\InheritCustomizationPrecedenceValidator;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -77,7 +76,7 @@ class InheritCustomizationPrecedenceTest extends TestCase
      *
      * @return void
      */
-    #[DataProvider('componentFilesProvider')]
+    /** @dataProvider componentFilesProvider */
     public function testTokenBackedComponentSettingsOutrankInheritFallbacks(string $filePath): void
     {
         if ($filePath === '/dev/null') {

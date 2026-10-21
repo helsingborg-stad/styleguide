@@ -3,7 +3,6 @@
 namespace MunicipioStyleGuide\Validators\Tests;
 
 use MunicipioStyleGuide\Validators\Sass\NoSassVariablesValidator;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class NoSassVariablesTest extends TestCase
@@ -72,7 +71,7 @@ class NoSassVariablesTest extends TestCase
         return $cases;
     }
 
-    #[DataProvider('componentFilesProvider')]
+    /** @dataProvider componentFilesProvider */
     public function testNoSassVariablesInComponent(string $filePath): void
     {
         if ($filePath === '/dev/null') {

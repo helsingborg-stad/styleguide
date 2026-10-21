@@ -12,7 +12,6 @@
 		"color--surface-contrast",
 		"color--surface-border",
 		"color--surface-alt",
-		"color--surface-contrast-muted",
 		"color--primary",
 		"color--primary-contrast",
 		"color--primary-border",
@@ -25,7 +24,6 @@
 		"color--background-contrast",
 		"color--background-border",
 		"color--background-alt",
-		"color--background-contrast-muted",
 		"font-size-90",
 		"font-size-200",
 		"font-size-300"

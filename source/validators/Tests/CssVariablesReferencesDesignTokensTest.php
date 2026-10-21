@@ -3,7 +3,6 @@
 namespace MunicipioStyleGuide\Validators\Tests;
 
 use MunicipioStyleGuide\Validators\Sass\CssVariablesReferencesDesignTokensValidator;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class CssVariablesReferencesDesignTokensTest extends TestCase
@@ -62,7 +61,7 @@ class CssVariablesReferencesDesignTokensTest extends TestCase
         return $cases;
     }
 
-    #[DataProvider('componentFilesProvider')]
+    /** @dataProvider componentFilesProvider */
     public function testCssVariableReferencesExistInDesignTokens(string $filePath): void
     {
         if ($filePath === '/dev/null') {

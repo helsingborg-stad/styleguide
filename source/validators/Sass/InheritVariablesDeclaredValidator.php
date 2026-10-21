@@ -61,6 +61,14 @@ class InheritVariablesDeclaredValidator implements ValidatorInterface
             if (preg_match('/^\s*@property\s+(--inherit-[\w-]+)/', $line, $matches)) {
                 $all[$matches[1]] = $index + 1;
             }
+
+            if (preg_match('/@include\s+inherit\.property\(\s*["\']([\w-]+)["\']/', $line, $matches)) {
+                $all['--inherit-' . $matches[1]] = $index + 1;
+            }
+
+            if (preg_match('/@include\s+insetMultiplier\.property\(\s*\)/', $line)) {
+                $all['--inherit-inset-multiplier'] = $index + 1;
+            }
         }
 
         return $all;

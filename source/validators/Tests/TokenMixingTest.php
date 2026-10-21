@@ -3,7 +3,6 @@
 namespace MunicipioStyleGuide\Validators\Tests;
 
 use MunicipioStyleGuide\Validators\Sass\TokenMixingValidator;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class TokenMixingTest extends TestCase
@@ -44,7 +43,10 @@ class TokenMixingTest extends TestCase
     /** @return array<string, array{string}> */
     public static function utilityFilesProvider(): array
     {
-        $files = self::getUtilityFiles();
+        $files = array_values(array_filter(
+            self::getUtilityFiles(),
+            static fn(string $filePath): bool => !in_array(basename($filePath), self::ALLOWED_FILES, true),
+        ));
 
         if (empty($files)) {
             return ['no_files_found' => ['/dev/null']];
@@ -59,15 +61,11 @@ class TokenMixingTest extends TestCase
         return $cases;
     }
 
-    #[DataProvider('utilityFilesProvider')]
+    /** @dataProvider utilityFilesProvider */
     public function testNoTokenMixinInUtility(string $filePath): void
     {
         if ($filePath === '/dev/null') {
             $this->markTestSkipped('No utility SCSS files found in: ' . self::getUtilityPath());
-        }
-
-        if (in_array(basename($filePath), self::ALLOWED_FILES, true)) {
-            $this->markTestSkipped(basename($filePath) . ' is temporarily allowed to use Sass variables.');
         }
 
         $validator = new TokenMixingValidator();

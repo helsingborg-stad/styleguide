@@ -3,7 +3,6 @@
 namespace MunicipioStyleGuide\Validators\Tests;
 
 use MunicipioStyleGuide\Validators\Sass\InheritVariablesDeclaredValidator;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -81,7 +80,7 @@ class InheritVariablesDeclaredTest extends TestCase
      *
      * @return void
      */
-    #[DataProvider('componentFilesProvider')]
+    /** @dataProvider componentFilesProvider */
     public function testInheritVariablesAreDeclaredWithInheritsOff(string $filePath): void
     {
         if ($filePath === '/dev/null') {

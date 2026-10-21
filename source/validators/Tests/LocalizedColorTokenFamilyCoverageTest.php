@@ -3,7 +3,6 @@
 namespace MunicipioStyleGuide\Validators\Tests;
 
 use MunicipioStyleGuide\Validators\Sass\LocalizedColorTokenFamilyCoverageValidator;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -78,7 +77,7 @@ class LocalizedColorTokenFamilyCoverageTest extends TestCase
      *
      * @return void
      */
-    #[DataProvider('componentFilesProvider')]
+    /** @dataProvider componentFilesProvider */
     public function testTokenBackedColorSettingsExposeFullFamilyCoverage(string $filePath): void
     {
         if ($filePath === '/dev/null') {

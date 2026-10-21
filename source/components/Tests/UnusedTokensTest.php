@@ -2,7 +2,6 @@
 
 namespace MunicipioStyleGuide\Components\Tests;
 
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
@@ -13,7 +12,7 @@ class UnusedTokensTest extends TestCase
     private const TOKEN_EXCEPTIONS = self::SHADOW_REQUIRED_TOKENS;
 
     #[TestDox('component "$component" utilizes all tokens declared in component.json')]
-    #[DataProvider('componentFilesProvider')]
+    /** @dataProvider componentFilesProvider */
     public function testComponentUtilizeAllTokens(string $component, string $tokenFile, string $componentDir): void
     {
         $tokens = self::extractTokensFromTokenFile($tokenFile);
@@ -107,8 +106,11 @@ class UnusedTokensTest extends TestCase
         $escapedToken = preg_quote($token, '/');
         $positionalPattern = '/tokens\.\w+\s*\([^,]+,\s*[\'\"]' . $escapedToken . '[\'\"]/m';
         $namedPattern = '/tokens\.\w+\s*\([^)]*\$token\s*:\s*[\'\"]' . $escapedToken . '[\'\"]/m';
+        $componentVariablePattern = '/--(?:#\{\$_\}|[\w-]+)--' . $escapedToken . '(?:\b|--)/m';
 
-        return preg_match($positionalPattern, $scssContents) === 1 || preg_match($namedPattern, $scssContents) === 1;
+        return preg_match($positionalPattern, $scssContents) === 1
+            || preg_match($namedPattern, $scssContents) === 1
+            || preg_match($componentVariablePattern, $scssContents) === 1;
     }
 
     private static function extractTokensFromTokenFile(string $tokenFile): array

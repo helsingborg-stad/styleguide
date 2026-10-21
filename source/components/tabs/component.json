@@ -7,8 +7,7 @@
     "base",
     "border-width",
     "color--primary",
-    "color--surface-border",
-    "color--surface-contrast-muted"
+    "color--surface-border"
   ],
   "description": "The Tabs component provides a reusable pattern for tabs in the interface.",
   "tags": [

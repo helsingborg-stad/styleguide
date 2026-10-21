@@ -1033,7 +1033,6 @@
       "color--surface-contrast",
       "color--surface-border",
       "color--surface-alt",
-      "color--surface-contrast-muted",
       "color--primary",
       "color--primary-contrast",
       "color--primary-border",
@@ -1046,7 +1045,6 @@
       "color--background-contrast",
       "color--background-border",
       "color--background-alt",
-      "color--background-contrast-muted",
       "font-size-90",
       "font-size-200",
       "font-size-300"
@@ -2088,10 +2086,7 @@
     "apiVersion": 1,
     "name": "Logotype",
     "slug": "logotype",
-    "tokens": [
-      "color--surface-contrast",
-      "color--primary"
-    ],
+    "tokens": [],
     "componentSettings": [
       {
         "id": "appearance",
@@ -2491,9 +2486,7 @@
     "apiVersion": 1,
     "name": "Popover",
     "slug": "popover",
-    "tokens": [
-      "color--alpha"
-    ],
+    "tokens": [],
     "description": "The Popover component provides a simple way to add popovers.",
     "tags": [
       "popover",
@@ -2839,8 +2832,7 @@
       "base",
       "border-width",
       "color--primary",
-      "color--surface-border",
-      "color--surface-contrast-muted"
+      "color--surface-border"
     ],
     "description": "The Tabs component provides a reusable pattern for tabs in the interface.",
     "tags": [

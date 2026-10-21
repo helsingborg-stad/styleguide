@@ -2,7 +2,6 @@
 
 namespace MunicipioStyleGuide\Components\Tests;
 
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +14,7 @@ class ComponentSettingsTokenReferencesTest extends TestCase
      * Verifies that every setting token is present in the component token list.
      */
     #[TestDox('component "$component" only references declared tokens in componentSettings')]
-    #[DataProvider('componentFilesProvider')]
+    /** @dataProvider componentFilesProvider */
     public function testComponentSettingsOnlyReferenceDeclaredTokens(string $component, string $componentFile): void
     {
         $componentData = self::readComponentFile($componentFile);
