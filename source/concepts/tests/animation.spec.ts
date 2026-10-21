@@ -11,7 +11,8 @@ test.describe('Animation guideline', () => {
 	test('is available from Concepts and exposes the guidance structure', async ({ page }) => {
 		await expect(page.getByRole('heading', { name: 'Animation', level: 1 })).toBeVisible();
 		await expect(page.getByRole('link', { name: 'Animation', exact: true }).first()).toHaveAttribute('href', /\/concepts\/animation$/);
-		await expect(page.getByRole('table')).toContainText('Press feedback');
+		await expect(page.getByRole('table').first()).toContainText('Press feedback');
+		await expect(page.getByRole('heading', { name: 'Motion tokens', level: 2 })).toBeVisible();
 		await expect(page.getByRole('heading', { name: 'Live patterns', level: 2 })).toBeVisible();
 		await expect(page.getByRole('heading', { name: 'Reduced motion is the baseline fallback', level: 2 })).toBeVisible();
 	});

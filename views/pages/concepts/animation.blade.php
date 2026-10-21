@@ -24,6 +24,13 @@
     to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 CSS;
+        $motionTokensCode = <<<'CSS'
+/* Entering or settling into place */
+transition: transform var(--duration-180) var(--ease-out);
+
+/* A deliberate exit */
+animation: fade-out var(--duration-180) var(--ease-fade-out) forwards;
+CSS;
         $reducedMotionCode = <<<'CSS'
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -95,17 +102,51 @@ CSS;
             ['columns' => ['Popover or tooltip', '125–200ms', 'A compact layer appearing near the control that opened it.']],
             ['columns' => ['Menu or select', '150–250ms', 'A spatial relationship that should be noticed but not hold up selection.']],
             ['columns' => ['Dialog or drawer', '200–300ms', 'A larger context shift; keep the path short and the final focus ready.']],
+            ['columns' => ['Shared token rule', '<code>--duration-100</code>, <code>--duration-120</code>, <code>--duration-160</code>, <code>--duration-180</code>, <code>--duration-300</code><br>Use these instead of one-off values.', '<code>--ease-out</code> for entering or settling.<br><code>--ease-fade-out</code> for a deliberate fade-out.']],
         ], 'includePaper' => false])
         @endtable
-
-    @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__top--3', 'u-margin__bottom--0']])
-        Use the shared duration tokens (<code>--duration-100</code>, <code>--duration-120</code>, <code>--duration-160</code>, <code>--duration-180</code>, and <code>--duration-300</code>) instead of one-off values. Use <code>--ease-out</code> when an element enters or settles, and <code>--ease-fade-out</code> for a deliberate fade-out.
-    @endtypography
     @endpaper
 
-    @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--6']])
+    @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--4']])
         Prefer a quick ease-out curve for elements entering their resting state: <code>{{ $motionCurve }}</code>. It feels responsive because most of the distance is covered early. Use linear timing only when something is intentionally continuous, such as a progress indicator.
     @endtypography
+
+    @typography(['element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__bottom--2']])
+        Motion tokens
+    @endtypography
+    @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--3']])
+        Motion tokens are global design-system values. Use them directly in components rather than introducing local durations, duplicated curves, or fallback values. This keeps feedback consistent and lets one decision change the whole interface.
+    @endtypography
+
+    @paper(['padding' => 0, 'classList' => ['u-margin__bottom--3']])
+        @table(['headings' => ['Token', 'Value', 'Use'], 'list' => [
+            ['columns' => ['<code>--duration-100</code>', '100ms', 'Very small selected-state or icon feedback.']],
+            ['columns' => ['<code>--duration-120</code>', '120ms', 'Press feedback on controls.']],
+            ['columns' => ['<code>--duration-160</code>', '160ms', 'Compact controls, icons, and content details.']],
+            ['columns' => ['<code>--duration-180</code>', '180ms', 'Default component transition and nearby layer motion.']],
+            ['columns' => ['<code>--duration-300</code>', '300ms', 'Larger context shifts such as drawers.']],
+        ], 'includePaper' => false])
+        @endtable
+    @endpaper
+
+    @paper(['padding' => 0, 'classList' => ['u-margin__bottom--3']])
+        @table(['headings' => ['Token', 'Curve', 'Use'], 'list' => [
+            ['columns' => ['<code>--ease-out</code>', '<code>cubic-bezier(0.23, 1, 0.32, 1)</code>', 'Elements entering or settling into their final state.']],
+            ['columns' => ['<code>--ease-fade-out</code>', '<code>cubic-bezier(0.4, 0, 0.8, 0.4)</code>', 'Intentional exits and fade-outs.']],
+        ], 'includePaper' => false])
+        @endtable
+    @endpaper
+
+    @paper(['padding' => 4, 'classList' => ['u-margin__bottom--6']])
+        @typography(['element' => 'h3', 'variant' => 'h3', 'classList' => ['u-margin__bottom--1']])
+            Use tokens in component motion
+        @endtypography
+        @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--2']])
+            Choose the duration based on the size of the context change. Use the enter curve to settle a visible element; use the exit curve only when an element is leaving.
+        @endtypography
+        @code(['language' => 'css', 'content' => $motionTokensCode])
+        @endcode
+    @endpaper
 
     @typography(['element' => 'h2', 'variant' => 'h2', 'classList' => ['u-margin__bottom--2']])
         Live patterns
