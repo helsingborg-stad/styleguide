@@ -254,7 +254,7 @@ test.describe('Footer - design panel', () => {
 
 		const subfooter = page.locator(`${FOOTER_TARGET} .c-footer__subfooter`).first();
 		const initialFilter = await getComputedCss(subfooter, 'backdrop-filter');
-		await selectControlOption(page, SUBFOOTER_BACKDROP_BLUR_LABEL, 'blur(8px)');
+		await selectControlOption(page, SUBFOOTER_BACKDROP_BLUR_LABEL, 'blur(2px)');
 
 		const updatedFilters = await subfooter.evaluate((el) => {
 			const styles = window.getComputedStyle(el);
