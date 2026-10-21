@@ -27,6 +27,31 @@ test.describe('Animation guideline', () => {
 		await expect(trigger.locator('xpath=..')).toHaveAttribute('open', '');
 	});
 
+	test('publishes the shared timing and easing tokens', async ({ page }) => {
+		const tokens = await page.evaluate(() => {
+			const styles = window.getComputedStyle(document.documentElement);
+			return {
+				duration100: styles.getPropertyValue('--duration-100').trim(),
+				duration120: styles.getPropertyValue('--duration-120').trim(),
+				duration160: styles.getPropertyValue('--duration-160').trim(),
+				duration180: styles.getPropertyValue('--duration-180').trim(),
+				duration300: styles.getPropertyValue('--duration-300').trim(),
+				easeOut: styles.getPropertyValue('--ease-out').trim(),
+				easeFadeOut: styles.getPropertyValue('--ease-fade-out').trim(),
+			};
+		});
+
+		expect(tokens).toEqual({
+			duration100: '100ms',
+			duration120: '120ms',
+			duration160: '160ms',
+			duration180: '180ms',
+			duration300: '300ms',
+		easeOut: 'cubic-bezier(0.23,1,0.32,1)',
+		easeFadeOut: 'cubic-bezier(0.4,0,0.8,0.4)',
+		});
+	});
+
 	test('removes travel and transition time for reduced-motion users', async ({ page }) => {
 		await page.emulateMedia({ reducedMotion: 'reduce' });
 		await page.reload();

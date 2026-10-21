@@ -143,7 +143,7 @@ $_: "c-block";
 }
 
 a.#{$_} {
-    transition: background-color 180ms ease, color 180ms ease, filter 180ms ease, transform 180ms cubic-bezier(0.23, 1, 0.32, 1);
+    transition: background-color var(--duration-180) ease, color var(--duration-180) ease, filter var(--duration-180) ease, transform var(--duration-180) var(--ease-out);
     cursor: pointer;
 
     .#{$_}__image-background:before {

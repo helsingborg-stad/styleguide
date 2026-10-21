@@ -37,8 +37,8 @@ $toastHideTimeoutBase: var(--c-toast-hide-timeout-base, 4s); // Base timeout
         width: fit-content;
         opacity: 1;
         transform: translateY(0);
-        transition: opacity 180ms ease, transform 180ms cubic-bezier(0.23, 1, 0.32, 1);
-        animation: fade-out 180ms cubic-bezier(0.23, 1, 0.32, 1) forwards;
+        transition: opacity var(--duration-180) ease, transform var(--duration-180) var(--ease-out);
+        animation: fade-out var(--duration-180) var(--ease-fade-out) forwards;
         animation-delay: $toastHideTimeoutBase;
 
         @starting-style {

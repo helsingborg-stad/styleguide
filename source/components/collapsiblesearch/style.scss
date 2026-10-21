@@ -10,10 +10,10 @@ $_: "c-collapsiblesearch";
 
 .#{$_} {
   --#{$_}--motion-duration-multiplier: 1;
-  --#{$_}--expand-duration: calc(300ms * var(--#{$_}--motion-duration-multiplier));
-  --#{$_}--collapse-duration: calc(180ms * var(--#{$_}--motion-duration-multiplier));
-  --#{$_}--expand-easing: cubic-bezier(0.16, 1, 0.3, 1);
-  --#{$_}--collapse-easing: cubic-bezier(0.4, 0, 0.8, 0.4);
+  --#{$_}--expand-duration: calc(var(--duration-300) * var(--#{$_}--motion-duration-multiplier));
+  --#{$_}--collapse-duration: calc(var(--duration-180) * var(--#{$_}--motion-duration-multiplier));
+  --#{$_}--expand-easing: var(--ease-out);
+  --#{$_}--collapse-easing: var(--ease-fade-out);
   --#{$_}--input-min-width-multiplier: 20;
   --#{$_}--input-max-width-multiplier: 40;
   --#{$_}--item-size-multiplier: 6;

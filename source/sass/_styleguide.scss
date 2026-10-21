@@ -30,6 +30,7 @@
 // ***************************************************************
 @layer generic {
     @include meta.load-css("setting/variables");
+    @include meta.load-css("setting/design-tokens");
     @include meta.load-css("setting/var_export");
 }
 

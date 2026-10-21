@@ -130,14 +130,14 @@ $_: "c-slider";
         &--hero {
 
             .#{$_}__item__heading {
-                animation: hero-slider-slide-in 320ms cubic-bezier(0.23, 1, 0.32, 1) both;
+                animation: hero-slider-slide-in 320ms var(--ease-out) both;
                 animation-delay: 40ms;
             }
 
             .#{$_}__item__body {
                 font-family: tokens.getRawValue($_, "font-family");
                 font-size: tokens.getRawValue($_, "font-size");
-                animation: hero-slider-slide-in 320ms cubic-bezier(0.23, 1, 0.32, 1) both;
+                animation: hero-slider-slide-in 320ms var(--ease-out) both;
                 animation-delay: 100ms;
             }
         }

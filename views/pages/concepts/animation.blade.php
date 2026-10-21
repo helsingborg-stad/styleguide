@@ -12,11 +12,11 @@
     @endbreadcrumb
 
     @php
-        $motionCurve = 'cubic-bezier(0.23, 1, 0.32, 1)';
+        $motionCurve = 'var(--ease-out)';
         $motionCode = <<<'CSS'
 .c-popover {
     transform-origin: top center;
-    animation: popover-enter 180ms cubic-bezier(0.23, 1, 0.32, 1) both;
+    animation: popover-enter var(--duration-180) var(--ease-out) both;
 }
 
 @keyframes popover-enter {
@@ -97,6 +97,10 @@ CSS;
             ['columns' => ['Dialog or drawer', '200–300ms', 'A larger context shift; keep the path short and the final focus ready.']],
         ], 'includePaper' => false])
         @endtable
+
+    @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__top--3', 'u-margin__bottom--0']])
+        Use the shared duration tokens (<code>--duration-100</code>, <code>--duration-120</code>, <code>--duration-160</code>, <code>--duration-180</code>, and <code>--duration-300</code>) instead of one-off values. Use <code>--ease-out</code> when an element enters or settles, and <code>--ease-fade-out</code> for a deliberate fade-out.
+    @endtypography
     @endpaper
 
     @typography(['element' => 'p', 'variant' => 'body', 'classList' => ['u-margin__bottom--6']])

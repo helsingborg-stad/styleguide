@@ -38,6 +38,74 @@
 			]
 		},
 		{
+			"id": "motion",
+			"label": "Motion",
+			"description": "Shared durations and easing curves for interface feedback and state changes.",
+			"settings": [
+				{
+					"variable": "--duration-100",
+					"label": "100ms Duration",
+					"description": "For the most immediate feedback, such as a small selected-state change.",
+					"type": "range",
+					"default": "100ms",
+					"unit": "ms",
+					"locked": true
+				},
+				{
+					"variable": "--duration-120",
+					"label": "120ms Duration",
+					"description": "For press feedback that should feel immediate.",
+					"type": "range",
+					"default": "120ms",
+					"unit": "ms",
+					"locked": true
+				},
+				{
+					"variable": "--duration-160",
+					"label": "160ms Duration",
+					"description": "For compact controls and icon changes.",
+					"type": "range",
+					"default": "160ms",
+					"unit": "ms",
+					"locked": true
+				},
+				{
+					"variable": "--duration-180",
+					"label": "180ms Duration",
+					"description": "Default duration for nearby layers and component state changes.",
+					"type": "range",
+					"default": "180ms",
+					"unit": "ms",
+					"locked": true
+				},
+				{
+					"variable": "--duration-300",
+					"label": "300ms Duration",
+					"description": "For larger context shifts such as drawers.",
+					"type": "range",
+					"default": "300ms",
+					"unit": "ms",
+					"locked": true
+				},
+				{
+					"variable": "--ease-out",
+					"label": "Enter Easing",
+					"description": "Default deceleration curve for entering and settling interface elements.",
+					"type": "select",
+					"default": "cubic-bezier(0.23, 1, 0.32, 1)",
+					"locked": true
+				},
+				{
+					"variable": "--ease-fade-out",
+					"label": "Exit Easing",
+					"description": "A quicker exit curve for elements fading away after an intentional action.",
+					"type": "select",
+					"default": "cubic-bezier(0.4, 0, 0.8, 0.4)",
+					"locked": true
+				}
+			]
+		},
+		{
 			"id": "layout",
 			"label": "Layout",
 			"description": "Tokens for layout widths",

@@ -24,7 +24,7 @@ $_: "c-modal";
     margin: auto;
     inset: 0;
     cursor: default;
-    transition: opacity 180ms cubic-bezier(0.23, 1, 0.32, 1), transform 180ms cubic-bezier(0.23, 1, 0.32, 1);
+    transition: opacity var(--duration-180) var(--ease-out), transform var(--duration-180) var(--ease-out);
     overflow: hidden;
     padding: var(--#{$_}--inset-y) var(--#{$_}--inset-x);
 
@@ -193,7 +193,7 @@ $_: "c-modal";
 }
 
 .#{$_}[open] {
-    animation: modalEnter 180ms cubic-bezier(0.23, 1, 0.32, 1) normal;
+    animation: modalEnter var(--duration-180) var(--ease-out) normal;
 }
 
 @keyframes modalEnter {
