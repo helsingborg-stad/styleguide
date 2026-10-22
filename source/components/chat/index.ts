@@ -1,3 +1,4 @@
+import Banner from './script/banner/banner';
 import Chat from './script/chat';
 import Clear from './script/clear/clear';
 import InfoHandler from './script/handler/infoHandler';
@@ -29,8 +30,9 @@ export function init() {
 				const chatInput = chatContainer.querySelector('[data-js-chat-editable]') as HTMLElement | null;
 				const sendButton = chatContainer.querySelector('[data-js-chat-send]') as HTMLInputElement | null;
 				const chatInfoTemplate = chatContainer.querySelector('[data-js-info-template]') as HTMLTemplateElement | null;
+				const bannerElement = chatContainer.querySelector('[data-js-chat-banner]') as HTMLElement | null;
 
-				if (!id || !messagesContainer || !messagesScrollContainer || !replyMessageTemplate || !userMessageTemplate || !chatInput || !sendButton || !chatInputContainer || !chatInfoTemplate) {
+				if (!id || !messagesContainer || !messagesScrollContainer || !replyMessageTemplate || !userMessageTemplate || !chatInput || !sendButton || !chatInputContainer || !chatInfoTemplate || !bannerElement) {
 					console.error('Chat component initialization failed: Missing required attributes or elements.');
 					return;
 				}
@@ -48,8 +50,9 @@ export function init() {
 				const messageHandler = new MessageHandler(chatContainer as HTMLElement, messageFactory, store, messageRenderer, pendingMessageManager);
 				const pendingMessageHandler = new PendingMessageHandler(chatContainer as HTMLElement, pendingMessageManager, messageRenderer, store);
 				const infoHandler = new InfoHandler(chatContainer as HTMLElement, infoFactory, infoRenderer, store);
+				const banner = new Banner(bannerElement);
 
-				const chat = new Chat(chatContainer as HTMLElement, messagesScrollContainer as HTMLElement, input, clear, messageHandler, pendingMessageHandler, infoHandler, shouldPersistByDefault);
+				const chat = new Chat(chatContainer as HTMLElement, messagesScrollContainer as HTMLElement, input, clear, banner, messageHandler, pendingMessageHandler, infoHandler, shouldPersistByDefault);
 
 				new Load(chat, store, messagesScrollContainer).load();
 				chat.init();

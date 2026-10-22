@@ -8,6 +8,7 @@ class Chat implements ChatInterface {
 		private messagesScrollContainer: HTMLElement,
 		private input: ChatInputInterface,
 		private clear: ClearInterface,
+		private banner: BannerInterface,
 		private messageHandler: MessageHandler,
 		private pendingMessageHandler: PendingMessageHandler,
 		private infoHandler: InfoHandler,
