@@ -13,6 +13,8 @@ $_: "c-chat";
     --#{$_}--background: #{tokens.getRawValue($_, "color--surface-alt")};
     --#{$_}--border: 1px solid #{tokens.getRawValue($_, "color--surface-border")};
     --#{$_}--padding-multiplier: 1;
+    --#{$_}--section-padding-inline: calc(#{tokens.getRawValue($_, "base")} * 2 * var(--#{$_}--padding-multiplier));
+    --#{$_}--section-padding-block: calc(#{tokens.getRawValue($_, "base")} * 1);
 
     &.#{$_}--flat {
         --#{$_}--background: unset;
@@ -30,8 +32,7 @@ $_: "c-chat";
         display: flex;
         gap: calc(tokens.getRawValue($_, "base") * 1.5);
         z-index: 1;
-        padding: calc(tokens.getRawValue($_, "base") * 1) calc(tokens.getRawValue($_, "base") * 2 * var(--#{$_}--padding-multiplier));
-        padding-bottom: calc(tokens.getRawValue($_, "base") * 1);
+        padding: var(--#{$_}--section-padding-block) var(--#{$_}--section-padding-inline);
         background-color: var(--#{$_}--background);
         border-bottom: var(--#{$_}--border);
 

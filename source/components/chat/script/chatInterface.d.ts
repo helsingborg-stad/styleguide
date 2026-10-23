@@ -10,6 +10,10 @@ interface ChatInterface {
 	getScrollContainer(): HTMLElement;
 	addPendingMessage(): MessageInterface;
 	getPendingMessage(): MessageInterface | null;
+	showBanner(): void;
+	hideBanner(): void;
+	setBannerContent(content: string): void;
+	getBannerContent(): string;
 	disable(): void;
 	enable(): void;
 	disableSend(): void;

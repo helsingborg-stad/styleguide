@@ -53,6 +53,22 @@ class Chat implements ChatInterface {
 		this.input.enable();
 	}
 
+	public showBanner(): void {
+		this.banner.show();
+	}
+
+	public hideBanner(): void {
+		this.banner.hide();
+	}
+
+	public setBannerContent(content: string): void {
+		this.banner.setContent(content);
+	}
+
+	public getBannerContent(): string {
+		return this.banner.getContent();
+	}
+
 	public addPendingMessage(): MessageInterface {
 		return this.pendingMessageHandler.add();
 	}
