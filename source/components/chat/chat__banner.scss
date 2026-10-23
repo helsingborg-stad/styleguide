@@ -11,7 +11,7 @@ $token: "c-chat";
     max-height: 0;
     overflow: hidden;
     color: var(--#{$_}--color);
-    background-color: var(--#{$token}--background);
+    background-color: tokens.getRawValue($token, "color--surface");
     border-bottom: var(--#{$token}--border);
     border-bottom-width: 0;
     padding-block: 0;
