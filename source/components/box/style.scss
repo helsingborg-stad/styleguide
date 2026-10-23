@@ -25,6 +25,9 @@ $_: "c-box";
 
     .#{$_}__heading {
         --inherit-font-size: #{tokens.getRawValue($_, "font-size-400")};
+        min-width: 0;
+        max-width: 100%;
+        hyphens: auto;
     }
 
     .#{$_}__body {
