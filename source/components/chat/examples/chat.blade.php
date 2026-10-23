@@ -20,6 +20,13 @@
 
     document.addEventListener('chat:initialized', (e) => {
         const chat = e.detail;
+        chat.setBannerContent("I'm a banner and will be removed in 5 seconds.");
+        chat.showBanner();
+
+        setTimeout(() => {
+            chat.hideBanner();
+        }, 5000);
+        
         chat.addInfo("This is an informational message.");
         chat.addMessage("Hello! I'm your friendly chatbot. How can I assist you today?", true);
 
@@ -46,5 +53,6 @@
 
 @chat([
     'id' => 'example-chat',
+    'title' => 'Chat Example'
 ])
 @endchat
