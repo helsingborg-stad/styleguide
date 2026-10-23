@@ -1,0 +1,33 @@
+@use "../../sass/mixin/tokens";
+
+$_: "c-chat__banner";
+$token: "c-chat";
+
+.#{$_} {
+    --#{$_}--color: #{tokens.getRawValue($token, "color--surface-contrast")};
+    --#{$_}--max-height: calc(#{tokens.getRawValue($token, "base")} * 20);
+
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    color: var(--#{$_}--color);
+    background-color: var(--#{$token}--background);
+    border-bottom: var(--#{$token}--border);
+    border-bottom-width: 0;
+    padding-block: 0;
+    padding-inline: var(--#{$token}--section-padding-inline);
+    opacity: 0;
+    pointer-events: none;
+    transition: max-height var(--duration-300) var(--ease-out),
+        padding-block var(--duration-300) var(--ease-out),
+        border-bottom-width var(--duration-300) var(--ease-out),
+        opacity var(--duration-300) var(--ease-out);
+
+    &.is-visible {
+        max-height: var(--#{$_}--max-height);
+        border-bottom-width: tokens.getCalculatedValue($token, "border-width", 1);
+        padding-block: var(--#{$token}--section-padding-block);
+        opacity: 1;
+        pointer-events: auto;
+    }
+}

@@ -8,6 +8,7 @@ class Chat implements ChatInterface {
 		private messagesScrollContainer: HTMLElement,
 		private input: ChatInputInterface,
 		private clear: ClearInterface,
+		private banner: BannerInterface,
 		private messageHandler: MessageHandler,
 		private pendingMessageHandler: PendingMessageHandler,
 		private infoHandler: InfoHandler,
@@ -50,6 +51,22 @@ class Chat implements ChatInterface {
 
 	public enable(): void {
 		this.input.enable();
+	}
+
+	public showBanner(): void {
+		this.banner.show();
+	}
+
+	public hideBanner(): void {
+		this.banner.hide();
+	}
+
+	public setBannerContent(content: string): void {
+		this.banner.setContent(content);
+	}
+
+	public getBannerContent(): string {
+		return this.banner.getContent();
 	}
 
 	public addPendingMessage(): MessageInterface {
