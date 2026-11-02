@@ -1,8 +1,8 @@
 {
 	"title": "Minimal Slider",
-	"summary": ["A lightweight slider pattern that uses native scroll snapping and a tiny enhancement script."],
+	"summary": ["A lightweight slider pattern that uses native scroll snapping and a tiny enhancement script. The production Slider component uses the same dependency-free approach."],
 	"description": {
-		"main": "Use the minimal slider object for touch-first, keyboard-friendly horizontal galleries. The example keeps structure and controls minimal while including a subtle fade animation tied to scroll progress."
+		"main": "Use the minimal slider object for touch-first, keyboard-friendly horizontal galleries. The example keeps structure and controls minimal while including a subtle fade animation tied to scroll progress. Like the production Slider component, it uses native scrolling rather than cloned slides, so navigation stops at the first and last item."
 	},
 	"attributes": {
 		"class": "Base class and element classes for viewport, track, slide, controls and toolbar."

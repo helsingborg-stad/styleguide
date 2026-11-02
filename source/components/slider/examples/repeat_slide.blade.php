@@ -1,6 +1,6 @@
 @slider([
     'autoSlide' => false,
-    'repeatSlide' => true,
+    // Native scroll-snap intentionally does not clone slides for an infinite loop.
 ])
     @slider__item([
         'title' => 'Base Layout',

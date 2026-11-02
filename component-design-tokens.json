@@ -2777,7 +2777,7 @@
       "shadow-color",
       "shadow-amount"
     ],
-    "description": "The Slider component provides a reusable pattern for slider in the interface.",
+    "description": "A dependency-free, scroll-snap slider with native touch scrolling, keyboard navigation, autoplay and accessible controls.",
     "tags": [
       "slider",
       "component"
