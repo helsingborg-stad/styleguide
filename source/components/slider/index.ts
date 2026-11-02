@@ -21,6 +21,7 @@ export default class Slider {
     private readonly autoplayDelay: number;
     private readonly resizeObserver: ResizeObserver;
     private autoplayTimer: number | undefined;
+    private scrollAnimationFrame: number | undefined;
     private slidesPerPage = 1;
 
     constructor(slider: Element) {
@@ -74,44 +75,80 @@ export default class Slider {
         this.sliderElement.style.setProperty('--c-slider--slides-per-page', String(this.slidesPerPage));
         this.sliderElement.style.setProperty('--c-slider--gap', `${this.getConfiguredGap()}px`);
         this.sliderElement.style.setProperty('--c-slider--padding', `${this.getConfiguredPadding()}px`);
+        this.updateSlideMotionFromScroll();
         this.updateNavigation();
     }
 
     private setupNavigation(): void {
         const buttons = this.getNavigationButtons();
-        buttons.previous?.addEventListener('click', () => this.goBy(-this.slidesPerPage));
-        buttons.next?.addEventListener('click', () => this.goBy(this.slidesPerPage));
-        this.track?.addEventListener('scroll', () => this.updateNavigation(), { passive: true });
+        buttons.previous?.addEventListener('click', () => this.goBy(-this.slidesPerPage, true));
+        buttons.next?.addEventListener('click', () => this.goBy(this.slidesPerPage, true));
+        this.track?.addEventListener('scroll', () => this.handleScroll(), { passive: true });
         this.track?.addEventListener('keydown', (event) => this.handleKeydown(event));
+    }
+
+    private handleScroll(): void {
+        if (this.scrollAnimationFrame !== undefined) return;
+
+        this.scrollAnimationFrame = window.requestAnimationFrame(() => {
+            this.updateSlideMotionFromScroll();
+            this.updateNavigation();
+            this.scrollAnimationFrame = undefined;
+        });
+    }
+
+    /**
+     * Mirrors Minimal Slider's scroll-driven fade: a slide's opacity reflects
+     * the proportion currently visible in the viewport.
+     */
+    private updateSlideMotionFromScroll(): void {
+        if (!this.track || this.prefersReducedMotion.matches) {
+            this.slides.forEach((slide) => slide.style.removeProperty('--c-slider--slide-progress'));
+            return;
+        }
+
+        const viewportLeft = this.track.scrollLeft;
+        const viewportRight = viewportLeft + this.track.clientWidth;
+
+        this.slides.forEach((slide) => {
+            const slideLeft = slide.offsetLeft;
+            const slideWidth = Math.max(1, slide.offsetWidth);
+            const slideRight = slideLeft + slideWidth;
+            const visibleWidth = Math.max(0, Math.min(slideRight, viewportRight) - Math.max(slideLeft, viewportLeft));
+
+            slide.style.setProperty('--c-slider--slide-progress', (visibleWidth / slideWidth).toFixed(3));
+        });
     }
 
     private handleKeydown(event: KeyboardEvent): void {
         switch (event.key) {
             case 'ArrowLeft':
                 event.preventDefault();
-                this.goBy(-this.slidesPerPage);
+                this.goBy(-this.slidesPerPage, true);
                 break;
             case 'ArrowRight':
                 event.preventDefault();
-                this.goBy(this.slidesPerPage);
+                this.goBy(this.slidesPerPage, true);
                 break;
             case 'Home':
                 event.preventDefault();
-                this.goTo(0);
+                this.goTo(0, true);
                 break;
             case 'End':
                 event.preventDefault();
-                this.goTo(this.slides.length - this.slidesPerPage);
+                this.goTo(this.slides.length - this.slidesPerPage, true);
                 break;
         }
     }
 
-    private goBy(offset: number): void {
-        this.goTo(this.getCurrentIndex() + offset);
+    private goBy(offset: number, announce = false): void {
+        this.goTo(this.getCurrentIndex() + offset, announce);
     }
 
-    private goTo(index: number): void {
-        const target = this.slides[Math.max(0, Math.min(index, this.slides.length - this.slidesPerPage))];
+    private goTo(index: number, announce = false): void {
+        const targetIndex = Math.max(0, Math.min(index, this.slides.length - this.slidesPerPage));
+        const target = this.slides[targetIndex];
+        if (announce) this.announceSlide(targetIndex);
         target?.scrollIntoView({
             behavior: this.prefersReducedMotion.matches ? 'auto' : 'smooth',
             block: 'nearest',
@@ -152,6 +189,16 @@ export default class Slider {
         this.track.setAttribute('aria-label', `Slider, slide ${currentSlide} of ${this.slides.length}`);
     }
 
+    private announceSlide(startIndex: number): void {
+        const status = this.sliderElement.querySelector<HTMLElement>('[data-js-slider-status]');
+        if (!status) return;
+
+        const endIndex = Math.min(this.slides.length - 1, startIndex + this.slidesPerPage - 1);
+        status.textContent = startIndex === endIndex
+            ? `Slide ${startIndex + 1} of ${this.slides.length}`
+            : `Slides ${startIndex + 1} to ${endIndex + 1} of ${this.slides.length}`;
+    }
+
     private setButtonState(button: HTMLButtonElement | null, disabled: boolean): void {
         if (!button) return;
         button.disabled = disabled;
@@ -162,16 +209,9 @@ export default class Slider {
         const toggle = this.sliderElement.querySelector<HTMLElement>(`.${PAUSE_TOGGLE}`);
         if (!this.autoplayDelay || !toggle) return;
 
-        toggle.setAttribute('role', 'button');
-        toggle.setAttribute('tabindex', '0');
         toggle.setAttribute('aria-label', 'Pause slider');
+        toggle.setAttribute('aria-pressed', 'false');
         toggle.addEventListener('click', () => this.toggleAutoplay());
-        toggle.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter' || event.key === ' ') {
-                event.preventDefault();
-                this.toggleAutoplay();
-            }
-        });
         this.sliderElement.addEventListener('mouseenter', () => this.stopAutoplay());
         this.sliderElement.addEventListener('mouseleave', () => this.startAutoplay());
         this.sliderElement.addEventListener('focusin', () => this.stopAutoplay());
@@ -185,7 +225,9 @@ export default class Slider {
     private toggleAutoplay(): void {
         const paused = !this.sliderElement.classList.contains(IS_PAUSED);
         this.sliderElement.classList.toggle(IS_PAUSED, paused);
-        this.sliderElement.querySelector(`.${PAUSE_TOGGLE}`)?.setAttribute('aria-label', paused ? 'Play slider' : 'Pause slider');
+        const toggle = this.sliderElement.querySelector(`.${PAUSE_TOGGLE}`);
+        toggle?.setAttribute('aria-label', paused ? 'Play slider' : 'Pause slider');
+        toggle?.setAttribute('aria-pressed', String(paused));
         this.sliderElement.querySelectorAll<HTMLVideoElement>('video').forEach((video) => paused ? video.pause() : video.play());
         paused ? this.stopAutoplay() : this.startAutoplay();
     }
