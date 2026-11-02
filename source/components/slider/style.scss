@@ -6,6 +6,18 @@
 $_: "c-slider";
 $container-width-md: 640px;
 
+@property --c-slider--peek-fade-left-opacity {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 1;
+}
+
+@property --c-slider--peek-fade-right-opacity {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 0;
+}
+
 @include tokens.create($_, getComponentTokens($_));
 
 .c-slider {
@@ -238,32 +250,31 @@ $container-width-md: 640px;
 
         &.c-slider__peek .c-slider__container {
             --#{$_}--peek-fade-width: 24px;
+            --#{$_}--peek-fade-left-opacity: 1;
+            --#{$_}--peek-fade-right-opacity: 0;
+            transition:
+                --#{$_}--peek-fade-left-opacity 180ms ease,
+                --#{$_}--peek-fade-right-opacity 180ms ease;
             mask-image: linear-gradient(
                 to right,
-                #000 0 calc(100% - var(--#{$_}--peek-fade-width)),
-                transparent 100%
+                rgb(0 0 0 / var(--#{$_}--peek-fade-left-opacity)) 0,
+                #000 var(--#{$_}--peek-fade-width) calc(100% - var(--#{$_}--peek-fade-width)),
+                rgb(0 0 0 / var(--#{$_}--peek-fade-right-opacity)) 100%
             );
             -webkit-mask-image: linear-gradient(
                 to right,
-                #000 0 calc(100% - var(--#{$_}--peek-fade-width)),
-                transparent 100%
+                rgb(0 0 0 / var(--#{$_}--peek-fade-left-opacity)) 0,
+                #000 var(--#{$_}--peek-fade-width) calc(100% - var(--#{$_}--peek-fade-width)),
+                rgb(0 0 0 / var(--#{$_}--peek-fade-right-opacity)) 100%
             );
         }
 
-        // At the end, the partial slide is on the left. Mirror the viewport
-        // mask so it stays at the edge instead of travelling with the track.
+        // Crossfade the viewport mask at the end. The right fade recedes as
+        // the left fade appears, so the cue changes sides without a jump.
 
         &.c-slider__peek:has(.c-slider__arrow--next:disabled) .c-slider__container {
-            mask-image: linear-gradient(
-                to left,
-                #000 0 calc(100% - var(--#{$_}--peek-fade-width)),
-                transparent 100%
-            );
-            -webkit-mask-image: linear-gradient(
-                to left,
-                #000 0 calc(100% - var(--#{$_}--peek-fade-width)),
-                transparent 100%
-            );
+            --#{$_}--peek-fade-left-opacity: 0;
+            --#{$_}--peek-fade-right-opacity: 1;
         }
     }
 
@@ -459,6 +470,10 @@ $container-width-md: 640px;
     }
 
     .c-slider .c-slider__autoslide-toggle {
+        transition: none;
+    }
+
+    .c-slider.c-slider__peek .c-slider__container {
         transition: none;
     }
 }
