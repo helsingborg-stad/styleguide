@@ -25,6 +25,7 @@ $token: "c-chat";
 
     &.is-visible {
         max-height: var(--#{$_}--max-height);
+        height: max-content;
         border-bottom-width: tokens.getCalculatedValue($token, "border-width", 1);
         padding-block: var(--#{$token}--section-padding-block);
         opacity: 1;
