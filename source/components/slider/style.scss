@@ -26,7 +26,7 @@ $container-width-md: 640px;
     container-type: inline-size;
 
     .c-slider__container {
-        padding-top: Min(100%, 80vh);
+        height: min(100cqi, 80vh);
         min-height: 0;
         position: relative;
         overflow-x: auto;
@@ -50,6 +50,7 @@ $container-width-md: 640px;
             min-width: 100%;
             padding-inline: var(--#{$_}--padding);
             position: absolute;
+            inset: 0;
             width: 100%;
 
             .#{segment.$c}.#{segment.$c}--card {
@@ -189,7 +190,7 @@ $container-width-md: 640px;
     &.c-slider--36-7 {
 
         .c-slider__container {
-            padding-top: 0;
+            height: auto;
 
             .c-slider__item__container {
                 max-height: unset;
@@ -199,6 +200,10 @@ $container-width-md: 640px;
 
     /** Aspect ratio */
     @each $modifier, $ratio in ("16-9": "16/9", "4-3": "4/3", "10-3": "10/3", "36-7": "36/7") {
+        &.c-slider--#{$modifier} .c-slider__container {
+            aspect-ratio: string.unquote($ratio);
+        }
+
         &.c-slider--#{$modifier} .c-slider__item:not(.c-slider__item--post) {
             aspect-ratio: string.unquote($ratio);
         }
