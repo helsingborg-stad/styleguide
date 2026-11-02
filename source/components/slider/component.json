@@ -16,7 +16,7 @@
 		"shadow-color",
 		"shadow-amount"
 	],
-	"description": "A dependency-free, scroll-snap slider with native touch scrolling, keyboard navigation, autoplay, accessible controls and a scroll-driven visibility fade.",
+	"description": "A dependency-free, container-aware scroll-snap slider with native touch scrolling, keyboard navigation, autoplay, accessible controls and a scroll-driven visibility fade.",
 	"tags": ["slider", "component"],
 	"similarComponents": ["sidebar", "loader", "divider"],
 	"requires": [],

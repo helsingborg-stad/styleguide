@@ -4,7 +4,7 @@ const AUTOSLIDE = 'data-js-slider__autoslide';
 const PAUSE_TOGGLE = 'c-slider__autoslide-toggle';
 const IS_PAUSED = 'c-slider--is-paused';
 const SLIDER_ITEM = 'c-slider__item';
-const MOBILE_BREAKPOINT = 896;
+const SLIDE_BY_PAGE = 'data-js-slider-slide-by-page';
 
 export const SLIDER_READY_EVENT = 'slider:ready';
 
@@ -19,18 +19,14 @@ export default class Slider {
     private readonly slides: HTMLElement[];
     private readonly prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     private readonly autoplayDelay: number;
-    private readonly resizeObserver: ResizeObserver;
     private autoplayTimer: number | undefined;
     private scrollAnimationFrame: number | undefined;
-    private slidesPerPage = 1;
 
     constructor(slider: Element) {
         this.sliderElement = slider as HTMLElement;
         this.track = this.sliderElement.querySelector<HTMLElement>('[data-js-slider-track]');
         this.slides = Array.from(this.sliderElement.querySelectorAll<HTMLElement>(`[data-js-slider-slide], .${SLIDER_ITEM}`));
         this.autoplayDelay = this.getAutoplayDelay();
-        this.resizeObserver = new ResizeObserver(() => this.updateLayout());
-
         this.setTrackLabel();
         this.lazyloadVideo();
         this.addVideoControls();
@@ -41,10 +37,10 @@ export default class Slider {
             return;
         }
 
-        this.updateLayout();
+        this.updateSlideMotionFromScroll();
+        this.updateNavigation();
         this.setupNavigation();
         this.setupAutoplay();
-        this.resizeObserver.observe(this.sliderElement);
         this.dispatchReadyEvent();
     }
 
@@ -53,36 +49,10 @@ export default class Slider {
         return Number.isFinite(delay) && delay > 0 ? delay * 1000 : 0;
     }
 
-    private getConfiguredSlidesPerPage(): number {
-        const value = Number.parseInt(this.sliderElement.getAttribute('data-slides-per-page') ?? '1', 10);
-        return Number.isFinite(value) && value > 0 ? value : 1;
-    }
-
-    private getConfiguredPadding(): number {
-        const value = Number.parseInt(this.sliderElement.getAttribute('data-slider-padding') ?? '0', 10);
-        return Number.isFinite(value) && value > 0 ? value * 8 : 0;
-    }
-
-    private getConfiguredGap(): number {
-        const value = Number.parseInt(this.sliderElement.getAttribute('data-slider-gap') ?? '2', 10);
-        return Number.isFinite(value) && value >= 0 ? value * 8 : 16;
-    }
-
-    private updateLayout(): void {
-        if (!this.track) return;
-
-        this.slidesPerPage = window.innerWidth < MOBILE_BREAKPOINT ? 1 : Math.min(this.getConfiguredSlidesPerPage(), this.slides.length);
-        this.sliderElement.style.setProperty('--c-slider--slides-per-page', String(this.slidesPerPage));
-        this.sliderElement.style.setProperty('--c-slider--gap', `${this.getConfiguredGap()}px`);
-        this.sliderElement.style.setProperty('--c-slider--padding', `${this.getConfiguredPadding()}px`);
-        this.updateSlideMotionFromScroll();
-        this.updateNavigation();
-    }
-
     private setupNavigation(): void {
         const buttons = this.getNavigationButtons();
-        buttons.previous?.addEventListener('click', () => this.goBy(-this.slidesPerPage, true));
-        buttons.next?.addEventListener('click', () => this.goBy(this.slidesPerPage, true));
+        buttons.previous?.addEventListener('click', () => this.goBy(-this.getNavigationStep(), true));
+        buttons.next?.addEventListener('click', () => this.goBy(this.getNavigationStep(), true));
         this.track?.addEventListener('scroll', () => this.handleScroll(), { passive: true });
         this.track?.addEventListener('keydown', (event) => this.handleKeydown(event));
     }
@@ -103,7 +73,9 @@ export default class Slider {
      */
     private updateSlideMotionFromScroll(): void {
         if (!this.track || this.prefersReducedMotion.matches) {
-            this.slides.forEach((slide) => slide.style.removeProperty('--c-slider--slide-progress'));
+            this.slides.forEach((slide) => {
+                slide.style.removeProperty('--c-slider--slide-progress');
+            });
             return;
         }
 
@@ -124,11 +96,11 @@ export default class Slider {
         switch (event.key) {
             case 'ArrowLeft':
                 event.preventDefault();
-                this.goBy(-this.slidesPerPage, true);
+                this.goBy(-this.getNavigationStep(), true);
                 break;
             case 'ArrowRight':
                 event.preventDefault();
-                this.goBy(this.slidesPerPage, true);
+                this.goBy(this.getNavigationStep(), true);
                 break;
             case 'Home':
                 event.preventDefault();
@@ -136,7 +108,7 @@ export default class Slider {
                 break;
             case 'End':
                 event.preventDefault();
-                this.goTo(this.slides.length - this.slidesPerPage, true);
+                this.goTo(this.getLastStartIndex(), true);
                 break;
         }
     }
@@ -146,13 +118,15 @@ export default class Slider {
     }
 
     private goTo(index: number, announce = false): void {
-        const targetIndex = Math.max(0, Math.min(index, this.slides.length - this.slidesPerPage));
+        const targetIndex = Math.max(0, Math.min(index, this.getLastStartIndex()));
         const target = this.slides[targetIndex];
         if (announce) this.announceSlide(targetIndex);
-        target?.scrollIntoView({
+
+        if (!this.track || !target) return;
+
+        this.track.scrollTo({
+            left: target.offsetLeft,
             behavior: this.prefersReducedMotion.matches ? 'auto' : 'smooth',
-            block: 'nearest',
-            inline: 'start',
         });
     }
 
@@ -164,6 +138,22 @@ export default class Slider {
             const nextDistance = Math.abs(slide.offsetLeft - this.track!.scrollLeft);
             return nextDistance < currentDistance ? index : currentIndex;
         }, 0);
+    }
+
+    private getNavigationStep(): number {
+        if (this.sliderElement.getAttribute(SLIDE_BY_PAGE) !== 'true') return 1;
+
+        const inner = this.sliderElement.querySelector<HTMLElement>('[data-js-slider-inner]');
+        const firstSlide = this.slides[0];
+        if (!this.track || !inner || !firstSlide) return 1;
+
+        const gap = Number.parseFloat(getComputedStyle(inner).columnGap) || 0;
+        const columns = Math.round((this.track.clientWidth + gap) / (firstSlide.offsetWidth + gap));
+        return Math.max(1, columns);
+    }
+
+    private getLastStartIndex(): number {
+        return this.slides.length - (this.sliderElement.getAttribute(SLIDE_BY_PAGE) === 'true' ? this.getNavigationStep() : 1);
     }
 
     private getNavigationButtons(): { previous: HTMLButtonElement | null; next: HTMLButtonElement | null } {
@@ -185,7 +175,9 @@ export default class Slider {
         this.setButtonState(next, atEnd);
 
         const currentSlide = this.getCurrentIndex() + 1;
-        this.slides.forEach((slide, index) => slide.setAttribute('aria-label', `${index + 1} of ${this.slides.length}`));
+        this.slides.forEach((slide, index) => {
+            slide.setAttribute('aria-label', `${index + 1} of ${this.slides.length}`);
+        });
         this.track.setAttribute('aria-label', `Slider, slide ${currentSlide} of ${this.slides.length}`);
     }
 
@@ -193,7 +185,7 @@ export default class Slider {
         const status = this.sliderElement.querySelector<HTMLElement>('[data-js-slider-status]');
         if (!status) return;
 
-        const endIndex = Math.min(this.slides.length - 1, startIndex + this.slidesPerPage - 1);
+        const endIndex = Math.min(this.slides.length - 1, startIndex + this.getNavigationStep() - 1);
         status.textContent = startIndex === endIndex
             ? `Slide ${startIndex + 1} of ${this.slides.length}`
             : `Slides ${startIndex + 1} to ${endIndex + 1} of ${this.slides.length}`;
@@ -227,7 +219,13 @@ export default class Slider {
         const toggle = this.sliderElement.querySelector(`.${PAUSE_TOGGLE}`);
         toggle?.setAttribute('aria-label', paused ? 'Play slider' : 'Pause slider');
         this.announceAutoplay(paused);
-        this.sliderElement.querySelectorAll<HTMLVideoElement>('video').forEach((video) => paused ? video.pause() : video.play());
+        this.sliderElement.querySelectorAll<HTMLVideoElement>('video').forEach((video) => {
+            if (paused) {
+                video.pause();
+            } else {
+                void video.play();
+            }
+        });
         paused ? this.stopAutoplay() : this.startAutoplay();
     }
 
@@ -239,8 +237,8 @@ export default class Slider {
     private startAutoplay(): void {
         if (!this.autoplayDelay || this.prefersReducedMotion.matches || this.sliderElement.classList.contains(IS_PAUSED) || this.autoplayTimer) return;
         this.autoplayTimer = window.setInterval(() => {
-            const atEnd = this.getCurrentIndex() >= this.slides.length - this.slidesPerPage;
-            this.goTo(atEnd ? 0 : this.getCurrentIndex() + this.slidesPerPage);
+            const atEnd = this.track && this.track.scrollLeft >= this.track.scrollWidth - this.track.clientWidth - 1;
+            this.goTo(atEnd ? 0 : this.getCurrentIndex() + this.getNavigationStep());
         }, this.autoplayDelay);
     }
 
@@ -281,6 +279,8 @@ export default class Slider {
 
 export function init(): void {
     document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.c-slider').forEach((slider) => new Slider(slider));
+        document.querySelectorAll('.c-slider').forEach((slider) => {
+            new Slider(slider);
+        });
     });
 }

@@ -1,9 +1,7 @@
 @slider([
     'autoSlide' => false,
     'repeatSlide' => false,
-    'attributeList' => [
-        'data-slides-per-page' => 1
-    ],
+    'slidesPerPage' => 1,
     'classList' => ['c-slider--post']
 ])
 

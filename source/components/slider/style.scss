@@ -11,7 +11,7 @@ $container-width-md: 640px;
 .c-slider {
     --#{$_}--gap: #{tokens.getCalculatedValue($_, "base", 2)};
     --#{$_}--inset: #{tokens.getCalculatedValue($_, "base", 7)};
-    --#{$_}--slides-per-page: 1;
+    --#{$_}--configured-columns: 1;
     --#{$_}--padding: 0px;
     --#{$_}--font-family-heading: #{tokens.getRawValue($_, "font-family-heading")};
     --#{$_}--font-size-heading: #{tokens.getRawValue("", "font-size-400")};
@@ -25,6 +25,19 @@ $container-width-md: 640px;
     container-name: slider;
     container-type: inline-size;
 
+    &.c-slider--compact-navigation {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__header {
+        display: block;
+    }
+
+    &__title {
+        margin: 0 0 tokens.getCalculatedValue($_, "base", 2);
+    }
+
     .c-slider__container {
         min-height: 0;
         position: relative;
@@ -34,16 +47,17 @@ $container-width-md: 640px;
         scroll-behavior: smooth;
         scroll-snap-type: x mandatory;
         scrollbar-width: none;
-        touch-action: pan-x;
+        order: 1;
 
         &::-webkit-scrollbar {
             display: none;
         }
 
         .c-slider__inner {
+            --#{$_}--columns: 1;
             display: grid;
             gap: var(--#{$_}--gap);
-            grid-auto-columns: calc((100% - (var(--#{$_}--slides-per-page) - 1) * var(--#{$_}--gap)) / var(--#{$_}--slides-per-page));
+            grid-auto-columns: calc((100% - (var(--#{$_}--columns) - 1) * var(--#{$_}--gap)) / var(--#{$_}--columns));
             grid-auto-flow: column;
             height: 100%;
             min-width: 100%;
@@ -61,6 +75,27 @@ $container-width-md: 640px;
                 transition: opacity 100ms linear;
                 will-change: opacity;
             }
+        }
+    }
+
+    @container slider (min-width: 40rem) {
+
+        .c-slider__inner {
+            --#{$_}--columns: min(var(--#{$_}--configured-columns), 2);
+        }
+    }
+
+    @container slider (min-width: 56rem) {
+
+        .c-slider__inner {
+            --#{$_}--columns: min(var(--#{$_}--configured-columns), 3);
+        }
+    }
+
+    @container slider (min-width: 72rem) {
+
+        .c-slider__inner {
+            --#{$_}--columns: min(var(--#{$_}--configured-columns), 4);
         }
     }
 
@@ -108,6 +143,127 @@ $container-width-md: 640px;
                     right: tokens.getCalculatedValue($_, "base", 2.5);
                 }
             }
+        }
+    }
+
+    // A titled slider has an explicit navigation context. Keep its controls
+    // in the title row at every container width instead of overlaying content.
+
+    &.c-slider--has-title {
+
+        .c-slider__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: tokens.getCalculatedValue($_, "base", 2);
+            margin-bottom: tokens.getCalculatedValue($_, "base", 2);
+        }
+
+        .c-slider__title {
+            min-width: 0;
+            margin: 0;
+        }
+
+        .c-slider__arrows {
+            position: relative;
+            top: auto;
+            left: auto;
+            width: auto;
+            flex: 0 0 auto;
+            transform: none;
+
+            .c-slider__arrow {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                transform: none;
+
+                &.c-slider__arrow--prev,
+                &.c-slider__arrow--next {
+                    left: auto;
+                    right: auto;
+                    transform: none;
+                }
+            }
+        }
+    }
+
+    @container slider (max-width: #{$container-width-md - 1px}) {
+
+        &.c-slider--compact-navigation:not(.c-slider--has-title) .c-slider__arrows {
+            position: relative;
+            top: auto;
+            left: auto;
+            transform: none;
+            display: flex;
+            justify-content: flex-end;
+            gap: tokens.getCalculatedValue($_, "base", 1);
+            margin-top: tokens.getCalculatedValue($_, "base", 2);
+            order: 2;
+
+            .c-slider__arrow {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                transform: none;
+                flex: 0 0 auto;
+                min-width: 44px;
+                min-height: 44px;
+
+                &.c-slider__arrow--prev,
+                &.c-slider__arrow--next {
+                    left: auto;
+                    right: auto;
+                    transform: none;
+                }
+            }
+        }
+
+        &.c-slider--has-title .c-slider__arrow {
+            min-width: 44px;
+            min-height: 44px;
+        }
+
+    }
+
+    // Peek is an explicit small-container navigation cue. It keeps the next
+    // slide visible without compromising the full-width layout elsewhere.
+    @container slider (max-width: #{$container-width-md - 1px}) {
+
+        &.c-slider__peek .c-slider__inner {
+            grid-auto-columns: calc((100% - var(--#{$_}--gap)) * 0.82);
+        }
+
+        &.c-slider__peek .c-slider__container {
+            --#{$_}--peek-fade-width: 24px;
+            mask-image: linear-gradient(
+                to right,
+                #000 0 calc(100% - var(--#{$_}--peek-fade-width)),
+                transparent 100%
+            );
+            -webkit-mask-image: linear-gradient(
+                to right,
+                #000 0 calc(100% - var(--#{$_}--peek-fade-width)),
+                transparent 100%
+            );
+        }
+
+        // At the end, the partial slide is on the left. Mirror the viewport
+        // mask so it stays at the edge instead of travelling with the track.
+
+        &.c-slider__peek:has(.c-slider__arrow--next:disabled) .c-slider__container {
+            mask-image: linear-gradient(
+                to left,
+                #000 0 calc(100% - var(--#{$_}--peek-fade-width)),
+                transparent 100%
+            );
+            -webkit-mask-image: linear-gradient(
+                to left,
+                #000 0 calc(100% - var(--#{$_}--peek-fade-width)),
+                transparent 100%
+            );
         }
     }
 

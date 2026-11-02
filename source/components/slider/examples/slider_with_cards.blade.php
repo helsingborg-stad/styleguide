@@ -1,8 +1,7 @@
 @slider([
     'autoSlide' => false,
-    'attributeList' => [
-        'data-slides-per-page' => 4
-    ],
+    'slidesPerPage' => 4,
+    'slideByPage' => true,
 ])
 
     @for ($i = 0; $i < 4; $i++)
