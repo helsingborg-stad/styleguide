@@ -210,7 +210,6 @@ export default class Slider {
         if (!this.autoplayDelay || !toggle) return;
 
         toggle.setAttribute('aria-label', 'Pause slider');
-        toggle.setAttribute('aria-pressed', 'false');
         toggle.addEventListener('click', () => this.toggleAutoplay());
         this.sliderElement.addEventListener('mouseenter', () => this.stopAutoplay());
         this.sliderElement.addEventListener('mouseleave', () => this.startAutoplay());
@@ -227,9 +226,14 @@ export default class Slider {
         this.sliderElement.classList.toggle(IS_PAUSED, paused);
         const toggle = this.sliderElement.querySelector(`.${PAUSE_TOGGLE}`);
         toggle?.setAttribute('aria-label', paused ? 'Play slider' : 'Pause slider');
-        toggle?.setAttribute('aria-pressed', String(paused));
+        this.announceAutoplay(paused);
         this.sliderElement.querySelectorAll<HTMLVideoElement>('video').forEach((video) => paused ? video.pause() : video.play());
         paused ? this.stopAutoplay() : this.startAutoplay();
+    }
+
+    private announceAutoplay(paused: boolean): void {
+        const status = this.sliderElement.querySelector<HTMLElement>('[data-js-slider-status]');
+        if (status) status.textContent = paused ? 'Autoplay paused' : 'Autoplay playing';
     }
 
     private startAutoplay(): void {

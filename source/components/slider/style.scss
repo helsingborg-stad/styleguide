@@ -112,19 +112,12 @@ $container-width-md: 640px;
     }
 
     &__controls {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
+        display: inline-flex;
         position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
+        top: tokens.getCalculatedValue($_, "base", 1.5);
+        right: tokens.getCalculatedValue($_, "base", 1.5);
         pointer-events: none;
-
-        @container slider (min-width: #{$container-width-md}) {
-            width: calc(100% - calc(var(--#{$_}--inset) + var(--#{$_}--gap)));
-        }
+        z-index: 2;
     }
 
     &--hero {
@@ -135,15 +128,22 @@ $container-width-md: 640px;
     }
 
     &__autoslide-toggle {
-        pointer-events: unset;
+        pointer-events: none;
         position: relative;
-        display: block;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 0;
+        background: transparent;
         cursor: pointer;
         width: tokens.getCalculatedValue($_, "base", 5);
         height: tokens.getCalculatedValue($_, "base", 5);
         color: tokens.getRawValue($_, "color--primary");
         z-index: 1;
         margin: tokens.getCalculatedValue($_, "base", 1);
+        opacity: 0;
+        transition: opacity 150ms ease;
 
         @container slider (min-width: #{$container-width-md}) {
             margin: tokens.getCalculatedValue($_, "base", 3);
@@ -151,6 +151,12 @@ $container-width-md: 640px;
 
         .c-slider__autoslide-play {
             display: none;
+            color: tokens.getRawValue($_, "color--primary");
+        }
+
+        .c-slider__autoslide-pause {
+            display: inline-flex;
+            color: tokens.getRawValue($_, "color--primary");
         }
 
         &:before {
@@ -168,12 +174,33 @@ $container-width-md: 640px;
         }
     }
 
+    &:focus-within .c-slider__autoslide-toggle {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+
+        &:hover .c-slider__autoslide-toggle {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+
+    @media (hover: none) {
+
+        .c-slider__autoslide-toggle {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+
     /** Modifiers */
 
     &--is-paused {
 
         .c-slider__autoslide-play {
-            display: block;
+            display: inline-flex;
         }
 
         .c-slider__autoslide-pause {
@@ -272,6 +299,10 @@ $container-width-md: 640px;
 
     .c-slider .c-slider__container .c-slider__inner .c-slider__item {
         opacity: 1;
+        transition: none;
+    }
+
+    .c-slider .c-slider__autoslide-toggle {
         transition: none;
     }
 }
