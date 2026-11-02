@@ -4,10 +4,6 @@ $_: "u-rounded*";
 
 @include tokens.create($_, ("border-radius", "corner-shape"));
 
-.u-rounded {
-    border-radius: tokens.getCalculatedValue($_, "border-radius");
-}
-
 [class*="u-rounded"]:not(.u-rounded--full):not(.u-rounded--0):not(.u-rounded--none) {
     corner-shape: tokens.getRawValue($_, "corner-shape");
 }
