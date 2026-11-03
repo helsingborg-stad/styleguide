@@ -14,7 +14,6 @@
 			['label' => 'Grid', 'href' => '/objects/grid'],
 			['label' => 'Container', 'href' => '/objects/container'],
 			['label' => 'Tooltip', 'href' => '/objects/tooltip'],
-			['label' => 'Minimal Slider', 'href' => '/objects/minimal-slider'],
 		],
 	])
 @endsection

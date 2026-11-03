@@ -1,239 +1,286 @@
-import Splide, { type Options } from '@splidejs/splide';
 import VideoControls from '../../js/helpers/video';
 
-const SLIDER_ITEM = 'c-slider__item';
 const AUTOSLIDE = 'data-js-slider__autoslide';
 const PAUSE_TOGGLE = 'c-slider__autoslide-toggle';
 const IS_PAUSED = 'c-slider--is-paused';
+const SLIDER_ITEM = 'c-slider__item';
+const SLIDE_BY_PAGE = 'data-js-slider-slide-by-page';
+
 export const SLIDER_READY_EVENT = 'slider:ready';
 
 type SliderReadyEventDetail = {
     sliderElement: Element;
-    splide: Splide;
+    slider: Slider;
 };
 
 export default class Slider {
-    sliderElement: Element;
-    autoslideToggleButton: any;
-    splide: Splide;
-    sliderAttributes: Options;
+    private readonly sliderElement: HTMLElement;
+    private readonly track: HTMLElement | null;
+    private readonly slides: HTMLElement[];
+    private readonly prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    private readonly autoplayDelay: number;
+    private autoplayTimer: number | undefined;
+    private scrollAnimationFrame: number | undefined;
 
     constructor(slider: Element) {
-        this.sliderElement = slider;
-        this.autoslideToggleButton = this.sliderElement.querySelector(`.${PAUSE_TOGGLE}`);
-        const autoPlay = parseInt(slider.getAttribute(AUTOSLIDE) ?? '0');
-        const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-        const ariaLabels = slider.hasAttribute('data-aria-labels') ? JSON.parse(slider.getAttribute('data-aria-labels') as string) : false;
-        this.sliderAttributes = this.getAttributes();
-
-        const buttonContainer = document.querySelector(`#${slider.getAttribute('data-js-slider-buttons')}`);
-
-        if (buttonContainer) {
-            this.setupClickNavigation(buttonContainer);
-        } else {
-            console.warn('No button container found for slider: ' + slider);
-        }
-
-        this.splide = new Splide(slider as HTMLElement, {
-            type: this.sliderAttributes.sliderType,
-            start: 0,
-            autoWidth: this.sliderAttributes.perPage == 1 ? true : false,
-            perPage: this.sliderAttributes.perPage,
-            perMove: this.sliderAttributes.perMove,
-            focus: slider.hasAttribute('data-slider-focus-center') ? 'center' : 0,
-            gap: this.sliderAttributes.gap,
-            padding: this.sliderAttributes.padding,
-            autoplay: Boolean(autoPlay) && (!mediaQuery || !mediaQuery.matches),
-            interval: autoPlay ? autoPlay * 1000 : 5000,
-            pagination: slider.classList.contains('c-slider--has-stepper'),
-            pauseOnHover: true,
-            pauseOnFocus: true,
-            lazyLoad: "nearby",
-            slideFocus: false,
-            classes: {
-                arrows: 'c-slider__arrows',
-                page: 'c-slider__dot',
-            },
-            arrows: false,
-
-            i18n: {
-                prev: ariaLabels ? ariaLabels.prev : 'Previous slider item',
-                next: ariaLabels ? ariaLabels.next : 'Next slider item',
-                first: ariaLabels ? ariaLabels.first : 'First slider item',
-                last: ariaLabels ? ariaLabels.last : 'Last slider item',
-                slideX: ariaLabels ? ariaLabels.slideX : 'Go to slide %s',
-            },
-            breakpoints: {
-                896: {
-                    perPage: 1,
-                    perMove: 1,
-                    padding: 0,
-                }
-            }
-        });
-
-        this.changeNavigationButtonsToSpans();
-
-        this.splide.on('mounted', () => {
-            this.lazyloadVideo();
-        });
-
-        if (this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).length > 1) {
-            this.splide.mount();
-        } else {
-            this.sliderElement.querySelector('.c-slider__arrows')?.remove();
-        }
-
-        this.dispatchSliderReadyEvent();
-
-        if (this.sliderElement.classList.contains(IS_PAUSED)) {
-            this.splide.Components.Autoplay.pause();
-        }
-
-        if (this.autoslideToggleButton) {
-            this.autoslideToggleButton.addEventListener('click', this.autoslideToggle.bind(this));
-        }
-
-        slider.hasAttribute('data-observe-resizes') && this.observe(slider);
+        this.sliderElement = slider as HTMLElement;
+        this.track = this.sliderElement.querySelector<HTMLElement>('[data-js-slider-track]');
+        this.slides = Array.from(this.sliderElement.querySelectorAll<HTMLElement>(`[data-js-slider-slide], .${SLIDER_ITEM}`));
+        this.autoplayDelay = this.getAutoplayDelay();
+        this.setTrackLabel();
+        this.lazyloadVideo();
         this.addVideoControls();
-    }
 
-    private dispatchSliderReadyEvent() {
-        const event: CustomEvent<SliderReadyEventDetail> = new CustomEvent(SLIDER_READY_EVENT, {
-            bubbles: true,
-            detail: {
-                sliderElement: this.sliderElement,
-                splide: this.splide,
-            }
-        });
-
-        document.dispatchEvent(event);
-    }
-
-    observe(slider: Element) {
-        const observer = new MutationObserver((mutations) => {
-            mutations.forEach((mutation) => {
-                if (mutation.attributeName === 'class') {
-                    if (!slider.classList.contains('c-slider--size-md') && this.splide.options.perPage !== 1) {
-                        this.splide.options.perPage = 1;
-                        this.splide.options.perMove = 1;
-                        handleObserver();
-                    }
-
-                    if (slider.classList.contains('c-slider--size-lg') && !(this.splide.options.perPage === 2 || this.splide.options.perPage === 3)) {
-                        this.splide.options.perPage = this.sliderAttributes.perPage;
-                        this.splide.options.perMove = this.sliderAttributes.perMove;
-                        handleObserver();
-                    }
-                }
-            });
-        });
-
-        const handleObserver = () => {
-            observer.disconnect();
-            this.splide.refresh();
-            observer.observe(slider, { subtree: false, attributes: true, attributeFilter: ['class'] });
-        }
-
-        observer.observe(slider, { subtree: false, attributes: true, attributeFilter: ['class'] });
-    }
-
-    getAttributes(): Options {
-        const padding = parseInt(this.sliderElement.getAttribute('data-slider-padding') || '0', 10);
-        const gap = parseInt(this.sliderElement.getAttribute('data-slider-gap') || '2', 10);
-        const slidesPerPage = parseInt(this.sliderElement.getAttribute('data-slides-per-page') || '1', 10);
-        const slidesPerMove = parseInt(this.sliderElement.getAttribute('data-slides-per-move') || '1', 10);
-        const sliderType = this.sliderElement.getAttribute('data-slider-type') || 'slide';
-
-        return { gap: gap * 8, padding: padding * 8, perPage: slidesPerPage, perMove: slidesPerMove, sliderType: sliderType };
-    }
-
-    private changeNavigationButtonsToSpans() {
-        this.splide.on('pagination:mounted', (data) => {
-            data.items.forEach((item) => {
-                const span = document.createElement('span');
-
-                span.className = item.button.className;
-                span.classList.add('c-slider__dot');
-                span.textContent = item.button.textContent;
-
-                item.button.replaceWith(span);
-                item.button = span as HTMLButtonElement;
-            });
-        });
-    }
-
-    private setupClickNavigation(buttonContainer: Element) {
-        buttonContainer.querySelector('[data-js-slider-prev]')?.addEventListener('click', () => {
-            this.splide.go('<');
-        });
-
-        buttonContainer.querySelector('[data-js-slider-next]')?.addEventListener('click', () => {
-            this.splide.go('>');
-        })
-    }
-
-    /**
-     * Lazyloads videos within the slider by setting their source attributes and loading them.
-     * 
-     * @returns void
-     */
-    private lazyloadVideo() {
-        const originalSlides = this.splide.Components.Slides.get(true);
-
-        if (!originalSlides || originalSlides.length === 0) {
+        if (!this.track || this.slides.length < 2) {
+            this.sliderElement.querySelector('.c-slider__arrows')?.remove();
+            this.dispatchReadyEvent();
             return;
         }
 
-        originalSlides.forEach(slideComponent => {
-            const videoAttribute = slideComponent.slide.getAttribute('data-js-slider-video');
+        this.updateSlideMotionFromScroll();
+        this.updateNavigation();
+        this.setupNavigation();
+        this.setupAutoplay();
+        this.dispatchReadyEvent();
+    }
 
-            if (!videoAttribute) {
-                return;
-            }
+    private getAutoplayDelay(): number {
+        const delay = Number.parseInt(this.sliderElement.getAttribute(AUTOSLIDE) ?? '0', 10);
+        return Number.isFinite(delay) && delay > 0 ? delay * 1000 : 0;
+    }
 
-            const video = slideComponent.slide.querySelector('video');
-            const source = video?.querySelector('source');
-            source?.setAttribute('src', videoAttribute);
-            video?.load();
+    private setupNavigation(): void {
+        const buttons = this.getNavigationButtons();
+        buttons.previous?.addEventListener('click', () => this.goBy(-this.getNavigationStep(), true));
+        buttons.next?.addEventListener('click', () => this.goBy(this.getNavigationStep(), true));
+        this.track?.addEventListener('scroll', () => this.handleScroll(), { passive: true });
+        this.track?.addEventListener('keydown', (event) => this.handleKeydown(event));
+    }
+
+    private handleScroll(): void {
+        if (this.scrollAnimationFrame !== undefined) return;
+
+        this.scrollAnimationFrame = window.requestAnimationFrame(() => {
+            this.updateSlideMotionFromScroll();
+            this.updateNavigation();
+            this.scrollAnimationFrame = undefined;
         });
     }
 
-    autoslideToggle() {
-        const { Autoplay } = this.splide.Components;
-        const videos = this.sliderElement.querySelectorAll('video');
-        if (this.sliderElement.classList.contains(IS_PAUSED)) {
-            if (videos && videos.length > 0) {
-                videos.forEach(video => {
-                    video.play();
-                });
-            }
-            Autoplay.play();
-            this.sliderElement.classList.remove(IS_PAUSED);
-        } else {
-            if (videos && videos.length > 0) {
-                videos.forEach(video => {
-                    video.pause();
-                });
-            }
-            Autoplay.pause();
-            this.sliderElement.classList.add(IS_PAUSED);
+    /**
+     * Mirrors Minimal Slider's scroll-driven fade: a slide's opacity reflects
+     * the proportion currently visible in the viewport.
+     */
+    private updateSlideMotionFromScroll(): void {
+        if (!this.track || this.prefersReducedMotion.matches) {
+            this.slides.forEach((slide) => {
+                slide.style.removeProperty('--c-slider--slide-progress');
+            });
+            return;
+        }
+
+        const viewportLeft = this.track.scrollLeft;
+        const viewportRight = viewportLeft + this.track.clientWidth;
+
+        this.slides.forEach((slide) => {
+            const slideLeft = slide.offsetLeft;
+            const slideWidth = Math.max(1, slide.offsetWidth);
+            const slideRight = slideLeft + slideWidth;
+            const visibleWidth = Math.max(0, Math.min(slideRight, viewportRight) - Math.max(slideLeft, viewportLeft));
+
+            slide.style.setProperty('--c-slider--slide-progress', (visibleWidth / slideWidth).toFixed(3));
+        });
+    }
+
+    private handleKeydown(event: KeyboardEvent): void {
+        switch (event.key) {
+            case 'ArrowLeft':
+                event.preventDefault();
+                this.goBy(-this.getNavigationStep(), true);
+                break;
+            case 'ArrowRight':
+                event.preventDefault();
+                this.goBy(this.getNavigationStep(), true);
+                break;
+            case 'Home':
+                event.preventDefault();
+                this.goTo(0, true);
+                break;
+            case 'End':
+                event.preventDefault();
+                this.goTo(this.getLastStartIndex(), true);
+                break;
         }
     }
 
-    addVideoControls() {
-        this.sliderElement.querySelectorAll(`.${SLIDER_ITEM}`).forEach((slide) => {
-            if (slide.querySelectorAll('video').length > 0) {
-                new VideoControls(slide);
+    private goBy(offset: number, announce = false): void {
+        this.goTo(this.getCurrentIndex() + offset, announce);
+    }
+
+    private goTo(index: number, announce = false): void {
+        const targetIndex = Math.max(0, Math.min(index, this.getLastStartIndex()));
+        const target = this.slides[targetIndex];
+        if (announce) this.announceSlide(targetIndex);
+
+        if (!this.track || !target) return;
+
+        this.track.scrollTo({
+            left: target.offsetLeft,
+            behavior: this.prefersReducedMotion.matches ? 'auto' : 'smooth',
+        });
+    }
+
+    private getCurrentIndex(): number {
+        if (!this.track) return 0;
+
+        return this.slides.reduce((currentIndex, slide, index) => {
+            const currentDistance = Math.abs(this.slides[currentIndex].offsetLeft - this.track!.scrollLeft);
+            const nextDistance = Math.abs(slide.offsetLeft - this.track!.scrollLeft);
+            return nextDistance < currentDistance ? index : currentIndex;
+        }, 0);
+    }
+
+    private getNavigationStep(): number {
+        if (this.sliderElement.getAttribute(SLIDE_BY_PAGE) !== 'true') return 1;
+
+        const inner = this.sliderElement.querySelector<HTMLElement>('[data-js-slider-inner]');
+        const firstSlide = this.slides[0];
+        if (!this.track || !inner || !firstSlide) return 1;
+
+        const gap = Number.parseFloat(getComputedStyle(inner).columnGap) || 0;
+        const columns = Math.round((this.track.clientWidth + gap) / (firstSlide.offsetWidth + gap));
+        return Math.max(1, columns);
+    }
+
+    private getLastStartIndex(): number {
+        return this.slides.length - (this.sliderElement.getAttribute(SLIDE_BY_PAGE) === 'true' ? this.getNavigationStep() : 1);
+    }
+
+    private getNavigationButtons(): { previous: HTMLButtonElement | null; next: HTMLButtonElement | null } {
+        const selector = this.sliderElement.getAttribute('data-js-slider-buttons');
+        const container = selector ? document.getElementById(selector) : this.sliderElement;
+        return {
+            previous: container?.querySelector<HTMLButtonElement>('[data-js-slider-prev]') ?? null,
+            next: container?.querySelector<HTMLButtonElement>('[data-js-slider-next]') ?? null,
+        };
+    }
+
+    private updateNavigation(): void {
+        if (!this.track) return;
+
+        const { previous, next } = this.getNavigationButtons();
+        const atStart = this.track.scrollLeft <= 1;
+        const atEnd = this.track.scrollLeft >= this.track.scrollWidth - this.track.clientWidth - 1;
+        this.setButtonState(previous, atStart);
+        this.setButtonState(next, atEnd);
+
+        const currentSlide = this.getCurrentIndex() + 1;
+        this.slides.forEach((slide, index) => {
+            slide.setAttribute('aria-label', `${index + 1} of ${this.slides.length}`);
+        });
+        this.track.setAttribute('aria-label', `Slider, slide ${currentSlide} of ${this.slides.length}`);
+    }
+
+    private announceSlide(startIndex: number): void {
+        const status = this.sliderElement.querySelector<HTMLElement>('[data-js-slider-status]');
+        if (!status) return;
+
+        const endIndex = Math.min(this.slides.length - 1, startIndex + this.getNavigationStep() - 1);
+        status.textContent = startIndex === endIndex
+            ? `Slide ${startIndex + 1} of ${this.slides.length}`
+            : `Slides ${startIndex + 1} to ${endIndex + 1} of ${this.slides.length}`;
+    }
+
+    private setButtonState(button: HTMLButtonElement | null, disabled: boolean): void {
+        if (!button) return;
+        button.disabled = disabled;
+        button.setAttribute('aria-disabled', String(disabled));
+    }
+
+    private setupAutoplay(): void {
+        const toggle = this.sliderElement.querySelector<HTMLElement>(`.${PAUSE_TOGGLE}`);
+        if (!this.autoplayDelay || !toggle) return;
+
+        toggle.setAttribute('aria-label', 'Pause slider');
+        toggle.addEventListener('click', () => this.toggleAutoplay());
+        this.sliderElement.addEventListener('mouseenter', () => this.stopAutoplay());
+        this.sliderElement.addEventListener('mouseleave', () => this.startAutoplay());
+        this.sliderElement.addEventListener('focusin', () => this.stopAutoplay());
+        this.sliderElement.addEventListener('focusout', () => this.startAutoplay());
+
+        if (!this.prefersReducedMotion.matches && !this.sliderElement.classList.contains(IS_PAUSED)) {
+            this.startAutoplay();
+        }
+    }
+
+    private toggleAutoplay(): void {
+        const paused = !this.sliderElement.classList.contains(IS_PAUSED);
+        this.sliderElement.classList.toggle(IS_PAUSED, paused);
+        const toggle = this.sliderElement.querySelector(`.${PAUSE_TOGGLE}`);
+        toggle?.setAttribute('aria-label', paused ? 'Play slider' : 'Pause slider');
+        this.announceAutoplay(paused);
+        this.sliderElement.querySelectorAll<HTMLVideoElement>('video').forEach((video) => {
+            if (paused) {
+                video.pause();
+            } else {
+                void video.play();
+            }
+        });
+        paused ? this.stopAutoplay() : this.startAutoplay();
+    }
+
+    private announceAutoplay(paused: boolean): void {
+        const status = this.sliderElement.querySelector<HTMLElement>('[data-js-slider-status]');
+        if (status) status.textContent = paused ? 'Autoplay paused' : 'Autoplay playing';
+    }
+
+    private startAutoplay(): void {
+        if (!this.autoplayDelay || this.prefersReducedMotion.matches || this.sliderElement.classList.contains(IS_PAUSED) || this.autoplayTimer) return;
+        this.autoplayTimer = window.setInterval(() => {
+            const atEnd = this.track && this.track.scrollLeft >= this.track.scrollWidth - this.track.clientWidth - 1;
+            this.goTo(atEnd ? 0 : this.getCurrentIndex() + this.getNavigationStep());
+        }, this.autoplayDelay);
+    }
+
+    private stopAutoplay(): void {
+        if (this.autoplayTimer === undefined) return;
+        window.clearInterval(this.autoplayTimer);
+        this.autoplayTimer = undefined;
+    }
+
+    private lazyloadVideo(): void {
+        this.slides.forEach((slide) => {
+            const sourceUrl = slide.getAttribute('data-js-slider-video');
+            const source = slide.querySelector<HTMLSourceElement>('video source');
+            if (sourceUrl && source) {
+                source.src = sourceUrl;
+                source.closest('video')?.load();
             }
         });
     }
+
+    private addVideoControls(): void {
+        this.slides.forEach((slide) => {
+            if (slide.querySelector('video')) new VideoControls(slide);
+        });
+    }
+
+    private setTrackLabel(): void {
+        this.track?.setAttribute('aria-label', this.sliderElement.getAttribute('aria-label') ?? 'Slider');
+    }
+
+    private dispatchReadyEvent(): void {
+        document.dispatchEvent(new CustomEvent<SliderReadyEventDetail>(SLIDER_READY_EVENT, {
+            bubbles: true,
+            detail: { sliderElement: this.sliderElement, slider: this },
+        }));
+    }
 }
 
-export function init() {
-	document.addEventListener('DOMContentLoaded', () => {
-		document.querySelectorAll('.c-slider').forEach((slider) => {
-			new Slider(slider);
-		});
-	});
+export function init(): void {
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.c-slider').forEach((slider) => {
+            new Slider(slider);
+        });
+    });
 }

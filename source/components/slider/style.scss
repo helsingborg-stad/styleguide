@@ -6,37 +6,142 @@
 $_: "c-slider";
 $container-width-md: 640px;
 
+@property --c-slider--peek-fade-left-opacity {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 1;
+}
+
+@property --c-slider--peek-fade-right-opacity {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 0;
+}
+
 @include tokens.create($_, getComponentTokens($_));
 
 .c-slider {
-    --#{$_}--gap: #{tokens.getCalculatedValue($_, "base", 2)};
-    --#{$_}--inset: #{tokens.getCalculatedValue($_, "base", 7)};
+    --#{$_}--gap-multiplier: 2;
+    --#{$_}--padding-multiplier: 0;
+    --#{$_}--shadow-clearance-multiplier: 1.5;
+    --#{$_}--peek-width-multiplier: 6;
+    --#{$_}--peek-fade-width-multiplier: 3;
+    --#{$_}--header-column-gap-multiplier: 4;
+    --#{$_}--header-row-gap-multiplier: 1;
+    --#{$_}--header-bottom-gap-multiplier: 2;
+    --#{$_}--preamble-max-width: 75ch;
+    --#{$_}--item-container-max-width-multiplier: 118;
+    --#{$_}--segment-card-min-height-multiplier: 70;
+    --#{$_}--overlay-opacity: 0.8;
+    --#{$_}--control-offset-multiplier: -1.5;
+    --#{$_}--control-inset-multiplier: 2.5;
+    --#{$_}--control-gap-multiplier: 1;
+    --#{$_}--autoplay-control-size-multiplier: 5;
+    --#{$_}--autoplay-icon-background-size-multiplier: 3;
+    --#{$_}--autoplay-control-inset-multiplier: 1.5;
+    --#{$_}--autoplay-control-margin-multiplier: 1;
+    --#{$_}--autoplay-control-margin-large-multiplier: 3;
+    --#{$_}--slide-fade-duration: var(--duration-100);
+    --#{$_}--peek-fade-duration: var(--duration-180);
+    --#{$_}--autoplay-control-fade-duration: var(--duration-180);
+    --#{$_}--gap: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--gap-multiplier));
+    --#{$_}--padding: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--padding-multiplier));
+    --#{$_}--shadow-clearance: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--shadow-clearance-multiplier));
+    --#{$_}--configured-columns: 1;
     --#{$_}--font-family-heading: #{tokens.getRawValue($_, "font-family-heading")};
     --#{$_}--font-size-heading: #{tokens.getRawValue("", "font-size-400")};
     --#{$_}--font-family: #{tokens.getRawValue($_, "font-family-base")};
     --#{$_}--font-size: #{tokens.getRawValue($_, "font-size-100")};
-    --#{$_}--item-container-max-width: #{tokens.getCalculatedValue($_, "base", 118)};
-    --#{$_}--color--overlay: rgba(from #{tokens.getRawValue($_, "color--alpha")} r g b / 0.8); // Ensures text is background is dark enough for text to be readable.
+    --#{$_}--item-container-max-width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--item-container-max-width-multiplier));
+    --#{$_}--color--overlay: rgba(from #{tokens.getRawValue($_, "color--alpha")} r g b / var(--#{$_}--overlay-opacity)); // Ensures text is background is dark enough for text to be readable.
     --#{$_}--color--overlay-contrast: #{tokens.getRawValue($_, "color--alpha-contrast")};
     position: relative;
     border-radius: tokens.getCalculatedValue($_, "border-radius", 1);
     container-name: slider;
     container-type: inline-size;
 
+    &.c-slider--compact-navigation {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__header {
+        display: block;
+    }
+
+    &__title {
+        margin: 0 0 calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--header-bottom-gap-multiplier));
+    }
+
+    &__preamble {
+        margin: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--header-bottom-gap-multiplier)) 0 0;
+        max-width: var(--#{$_}--preamble-max-width);
+    }
+
     .c-slider__container {
-        padding-top: Min(100%, 80vh);
         min-height: 0;
         position: relative;
-        overflow: hidden;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding-block: var(--#{$_}--shadow-clearance);
+        overscroll-behavior-x: contain;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        order: 1;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
 
         .c-slider__inner {
-            display: flex;
+            --#{$_}--columns: 1;
+            --#{$_}--slide-width: calc((100% - (var(--#{$_}--columns) - 1) * var(--#{$_}--gap)) / var(--#{$_}--columns));
+            display: grid;
+            gap: var(--#{$_}--gap);
+            grid-auto-columns: var(--#{$_}--slide-width);
+            grid-auto-flow: column;
+            grid-template-rows: minmax(0, 1fr);
             height: 100%;
+            min-width: 100%;
+            padding-inline: var(--#{$_}--padding);
+            position: relative;
+            width: 100%;
 
             .#{segment.$c}.#{segment.$c}--card {
-                --c-segment--min-height-card: 560px;
+                --c-segment--min-height-card: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--segment-card-min-height-multiplier));
                 width: 100%;
             }
+
+            .c-slider__item {
+                inline-size: 100%;
+                min-width: 0;
+                width: 100%;
+                opacity: var(--#{$_}--slide-progress, 1);
+                transition: opacity var(--#{$_}--slide-fade-duration) linear;
+                will-change: opacity;
+            }
+        }
+    }
+
+    @container slider (min-width: 24rem) {
+
+        .c-slider__inner {
+            --#{$_}--columns: var(--#{$_}--columns-2, 1);
+        }
+    }
+
+    @container slider (min-width: 36rem) {
+
+        .c-slider__inner {
+            --#{$_}--columns: var(--#{$_}--columns-3, 1);
+        }
+    }
+
+    @container slider (min-width: 48rem) {
+
+        .c-slider__inner {
+            --#{$_}--columns: var(--#{$_}--columns-4, 1);
         }
     }
 
@@ -59,48 +164,149 @@ $container-width-md: 640px;
             position: absolute;
             top: 50%;
             z-index: 1;
-            width: tokens.getCalculatedValue($_, "base", 4);
-            height: tokens.getCalculatedValue($_, "base", 4);
 
             &.c-slider__arrow--prev {
-                left: tokens.getCalculatedValue($_, "base", -1.5);
+                left: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-offset-multiplier));
                 transform: translateY(-50%);
             }
 
             &.c-slider__arrow--next {
-                right: tokens.getCalculatedValue($_, "base", -1.5);
+                right: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-offset-multiplier));
                 transform: translateY(-50%);
             }
 
             @container slider (min-width: #{$container-width-md}) {
-                width: tokens.getCalculatedValue($_, "base", 6);
-                height: tokens.getCalculatedValue($_, "base", 6);
 
                 &.c-slider__arrow--prev {
-                    left: tokens.getCalculatedValue($_, "base", 2.5);
+                    left: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-inset-multiplier));
                 }
 
                 &.c-slider__arrow--next {
-                    right: tokens.getCalculatedValue($_, "base", 2.5);
+                    right: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-inset-multiplier));
                 }
             }
         }
     }
 
-    &__controls {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        pointer-events: none;
+    &.c-slider--has-header {
 
-        @container slider (min-width: #{$container-width-md}) {
-            width: calc(100% - calc(var(--#{$_}--inset) + var(--#{$_}--gap)));
+        .c-slider__header {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            column-gap: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--header-column-gap-multiplier));
+            row-gap: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--header-row-gap-multiplier));
+            margin-bottom: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--header-bottom-gap-multiplier));
         }
+
+        .c-slider__title {
+            grid-column: 1;
+            grid-row: 1;
+            min-width: 0;
+            margin: 0;
+        }
+
+        .c-slider__preamble {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        .c-slider__arrows {
+            align-self: start;
+            grid-column: 2;
+            grid-row: 1 / span 2;
+            position: relative;
+            top: auto;
+            left: auto;
+            width: auto;
+            flex: 0 0 auto;
+            transform: none;
+
+            .c-slider__arrow {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                transform: none;
+
+                &.c-slider__arrow--prev,
+                &.c-slider__arrow--next {
+                    left: auto;
+                    right: auto;
+                    transform: none;
+                }
+            }
+        }
+    }
+
+    @container slider (max-width: #{$container-width-md - 1px}) {
+
+        &.c-slider--compact-navigation:not(.c-slider--has-title) .c-slider__arrows {
+            position: relative;
+            top: auto;
+            left: auto;
+            transform: none;
+            display: flex;
+            justify-content: flex-end;
+            gap: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-gap-multiplier));
+            margin-top: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--header-bottom-gap-multiplier));
+            order: 2;
+
+            .c-slider__arrow {
+                position: relative;
+                top: auto;
+                left: auto;
+                right: auto;
+                transform: none;
+                flex: 0 0 auto;
+
+                &.c-slider__arrow--prev,
+                &.c-slider__arrow--next {
+                    left: auto;
+                    right: auto;
+                    transform: none;
+                }
+            }
+        }
+
+    }
+
+    @container slider (max-width: #{$container-width-md - 1px}) {
+
+        &.c-slider__peek .c-slider__inner {
+            --#{$_}--peek-width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--peek-width-multiplier));
+            --#{$_}--slide-width: calc(100% - var(--#{$_}--gap) - var(--#{$_}--peek-width));
+        }
+
+        &.c-slider__peek .c-slider__container .c-slider__inner .c-slider__item {
+            opacity: 1;
+            transition: none;
+        }
+
+        &.c-slider__peek .c-slider__container {
+            --#{$_}--peek-fade-width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--peek-fade-width-multiplier));
+            --#{$_}--peek-fade-left-opacity: 1;
+            --#{$_}--peek-fade-right-opacity: 0;
+            transition: --#{$_}--peek-fade-left-opacity var(--#{$_}--peek-fade-duration) ease,
+            --#{$_}--peek-fade-right-opacity var(--#{$_}--peek-fade-duration) ease;
+            mask-image: linear-gradient(to right,
+                rgb(0 0 0 / var(--#{$_}--peek-fade-left-opacity)) 0,
+                #000 var(--#{$_}--peek-fade-width) calc(100% - var(--#{$_}--peek-fade-width)),
+                rgb(0 0 0 / var(--#{$_}--peek-fade-right-opacity)) 100%);
+        }
+
+        &.c-slider__peek:has(.c-slider__arrow--next:disabled) .c-slider__container {
+            --#{$_}--peek-fade-left-opacity: 0;
+            --#{$_}--peek-fade-right-opacity: 1;
+        }
+    }
+
+    &__controls {
+        display: inline-flex;
+        position: absolute;
+        top: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--autoplay-control-inset-multiplier));
+        right: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--autoplay-control-inset-multiplier));
+        pointer-events: none;
+        z-index: 2;
     }
 
     &--hero {
@@ -111,30 +317,43 @@ $container-width-md: 640px;
     }
 
     &__autoslide-toggle {
-        pointer-events: unset;
+        pointer-events: none;
         position: relative;
-        display: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: 0;
+        background: transparent;
         cursor: pointer;
-        width: tokens.getCalculatedValue($_, "base", 5);
-        height: tokens.getCalculatedValue($_, "base", 5);
+        width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--autoplay-control-size-multiplier));
+        height: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--autoplay-control-size-multiplier));
         color: tokens.getRawValue($_, "color--primary");
         z-index: 1;
-        margin: tokens.getCalculatedValue($_, "base", 1);
+        margin: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--autoplay-control-margin-multiplier));
+        opacity: 0;
+        transition: opacity var(--#{$_}--autoplay-control-fade-duration) ease;
 
         @container slider (min-width: #{$container-width-md}) {
-            margin: tokens.getCalculatedValue($_, "base", 3);
+            margin: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--autoplay-control-margin-large-multiplier));
         }
 
         .c-slider__autoslide-play {
             display: none;
+            color: tokens.getRawValue($_, "color--primary");
+        }
+
+        .c-slider__autoslide-pause {
+            display: inline-flex;
+            color: tokens.getRawValue($_, "color--primary");
         }
 
         &:before {
             content: "";
             display: block;
-            background: #fff;
-            width: tokens.getCalculatedValue($_, "base", 3);
-            height: tokens.getCalculatedValue($_, "base", 3);
+            background: #{tokens.getRawValue($_, "color--surface")};
+            width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--autoplay-icon-background-size-multiplier));
+            height: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--autoplay-icon-background-size-multiplier));
             border-radius: 50%;
             position: absolute;
             z-index: -1;
@@ -144,10 +363,24 @@ $container-width-md: 640px;
         }
     }
 
-    &[js-slider__autoslide]:hover {
+    &:focus-within .c-slider__autoslide-toggle {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+
+        &:hover .c-slider__autoslide-toggle {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+
+    @media (hover: none) {
 
         .c-slider__autoslide-toggle {
-            display: block;
+            opacity: 1;
+            pointer-events: auto;
         }
     }
 
@@ -156,7 +389,7 @@ $container-width-md: 640px;
     &--is-paused {
 
         .c-slider__autoslide-play {
-            display: block;
+            display: inline-flex;
         }
 
         .c-slider__autoslide-pause {
@@ -170,7 +403,6 @@ $container-width-md: 640px;
     &.c-slider--36-7 {
 
         .c-slider__container {
-            padding-top: 0;
 
             .c-slider__item__container {
                 max-height: unset;
@@ -208,11 +440,11 @@ $container-width-md: 640px;
             filter: none;
         }
 
-        .c-slider__arrows .splide__arrow.splide__arrow--prev {
+        .c-slider__arrows .c-slider__arrow--prev {
             left: tokens.getCalculatedValue($_, "base", -1);
         }
 
-        .c-slider__arrows .splide__arrow.splide__arrow--next {
+        .c-slider__arrows .c-slider__arrow--next {
             right: tokens.getCalculatedValue($_, "base", -1);
         }
 
@@ -252,6 +484,22 @@ $container-width-md: 640px;
     }
 }
 
+@media (prefers-reduced-motion: reduce) {
+
+    .c-slider .c-slider__container .c-slider__inner .c-slider__item {
+        opacity: 1;
+        transition: none;
+    }
+
+    .c-slider .c-slider__autoslide-toggle {
+        transition: none;
+    }
+
+    .c-slider.c-slider__peek .c-slider__container {
+        transition: none;
+    }
+}
+
 // Printing
 @media print {
 
@@ -261,7 +509,10 @@ $container-width-md: 640px;
 }
 
 @include meta.load-css("./slider-item");
-// Use Splide's Sass source instead of its precompiled legacy stylesheet. The
-// distributed CSS includes obsolete IE `-ms-` display values, which strict CSS
-// validators reject as unknown values.
-@include meta.load-css("@splidejs/splide/src/css/template/default/index");
+
+@media (prefers-reduced-motion: reduce) {
+
+    .c-slider__container {
+        scroll-behavior: auto;
+    }
+}
