@@ -157,9 +157,19 @@ $_: "c-slider";
             margin: 0;
 
             .#{$_}__item__container {
+                align-self: stretch;
+                margin: 0;
+                max-width: none;
                 position: relative;
                 min-height: 100%;
                 padding: 0;
+                width: 100%;
+
+                > .c-card {
+                    inline-size: 100%;
+                    max-inline-size: none;
+                    width: 100%;
+                }
             }
         }
     }

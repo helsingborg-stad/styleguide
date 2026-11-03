@@ -1,6 +1,7 @@
 @slider([
     'autoSlide' => false,
     'title' => 'Explore services',
+    'preamble' => 'Find guidance and support for the next step in your everyday life.',
     'slidesPerPage' => 3,
     'peekSlides' => true,
     'attributeList' => [
