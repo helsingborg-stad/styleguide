@@ -256,11 +256,6 @@ $container-width-md: 640px;
             }
         }
 
-        &.c-slider--has-header .c-slider__arrow {
-            min-width: 44px;
-            min-height: 44px;
-        }
-
     }
 
     // Peek is an explicit small-container navigation cue. It keeps the next
@@ -287,15 +282,15 @@ $container-width-md: 640px;
             --#{$_}--peek-fade-left-opacity: 1;
             --#{$_}--peek-fade-right-opacity: 0;
             transition: --#{$_}--peek-fade-left-opacity 180ms ease,
-                --#{$_}--peek-fade-right-opacity 180ms ease;
+            --#{$_}--peek-fade-right-opacity 180ms ease;
             mask-image: linear-gradient(to right,
-            rgb(0 0 0 / var(--#{$_}--peek-fade-left-opacity)) 0,
-            #000 var(--#{$_}--peek-fade-width) calc(100% - var(--#{$_}--peek-fade-width)),
-            rgb(0 0 0 / var(--#{$_}--peek-fade-right-opacity)) 100%);
+                rgb(0 0 0 / var(--#{$_}--peek-fade-left-opacity)) 0,
+                #000 var(--#{$_}--peek-fade-width) calc(100% - var(--#{$_}--peek-fade-width)),
+                rgb(0 0 0 / var(--#{$_}--peek-fade-right-opacity)) 100%);
             -webkit-mask-image: linear-gradient(to right,
-            rgb(0 0 0 / var(--#{$_}--peek-fade-left-opacity)) 0,
-            #000 var(--#{$_}--peek-fade-width) calc(100% - var(--#{$_}--peek-fade-width)),
-            rgb(0 0 0 / var(--#{$_}--peek-fade-right-opacity)) 100%);
+                rgb(0 0 0 / var(--#{$_}--peek-fade-left-opacity)) 0,
+                #000 var(--#{$_}--peek-fade-width) calc(100% - var(--#{$_}--peek-fade-width)),
+                rgb(0 0 0 / var(--#{$_}--peek-fade-right-opacity)) 100%);
         }
 
         // Crossfade the viewport mask at the end. The right fade recedes as
