@@ -1,7 +1,7 @@
 {
     "name": "@helsingborg-stad/styleguide",
     "appname": "styleguide",
-    "version": "3.42.7",
+    "version": "3.42.13",
     "description": "",
     "scripts": {
         "test": "jest --watchman=false --coverage --maxWorkers=$(node -e \"console.log(Math.max(1, Math.floor(require('os').cpus().length / 2)))\")",
@@ -82,7 +82,6 @@
     },
     "dependencies": {
         "@helsingborg-stad/openstreetmap": "^0.53.6",
-        "@splidejs/splide": "^4.1.4",
         "vite-config-factory": "^1.1.2"
     },
     "jest": {

@@ -8,9 +8,7 @@ class DrawerAccessibility {
     lastItem: HTMLElement;
 
     constructor(private button: HTMLElement, private drawer: HTMLElement) {
-
-        //Assume drawer is hidden initially
-        this.drawer.setAttribute('aria-hidden', 'true');
+        this.syncDrawerVisibilityState();
 
         this.closeButton    = drawer.querySelector('.c-drawer__close') as HTMLElement;
         this.firstMenuItem  = this.getFirstMenuItem();
@@ -25,7 +23,10 @@ class DrawerAccessibility {
      * Watches drawer state and size-affecting changes so global view offsets stay current.
      */
     private setupViewOffsetListeners() {
-        const observer = new MutationObserver(() => updateDrawerViewOffsets());
+        const observer = new MutationObserver(() => {
+            updateDrawerViewOffsets();
+            this.syncDrawerVisibilityState();
+        });
         observer.observe(this.drawer, {
             attributes: true,
             attributeFilter: ['class', 'style']
@@ -55,9 +56,13 @@ class DrawerAccessibility {
      */
     private setupAccessibilityListeners() {
 
-        //Focus on open
+        // Focus the first interactive menu item after click only when drawer is open.
         this.button.addEventListener('click', () => {
-            (this.firstMenuItem || this.closeButton).focus();
+            window.setTimeout(() => {
+                if (this.drawer.classList.contains('is-open')) {
+                    (this.firstMenuItem || this.closeButton).focus();
+                }
+            }, 0);
         });
 
         //Close by tabbing
@@ -81,21 +86,9 @@ class DrawerAccessibility {
             }
         });
 
-        //When the drawer is being opened
+        // Keep visibility state in sync after CSS transitions complete.
         this.drawer.addEventListener('transitionend', () => {
-            if (this.drawer.classList.contains('is-open')) {
-                this.drawer.removeAttribute('aria-hidden');
-                this.drawer.querySelectorAll('a').forEach((element) => {
-                    element.setAttribute('tabindex', '0');
-                });
-            }
-        });
-
-        //When the drawer is being closed
-        this.drawer.addEventListener('transitionend', () => {
-            if (!this.drawer.classList.contains('is-open')) {
-                this.drawer.setAttribute('aria-hidden', 'true');
-            }
+            this.syncDrawerVisibilityState();
         });
 
         //When items is being added to the drawer, add tabindex
@@ -127,6 +120,25 @@ class DrawerAccessibility {
         const drawerItems = ([...this.drawer.querySelectorAll('button, a, input')] as Array<HTMLElement>);
         
         return drawerItems[drawerItems.length - 1];
+    }
+
+    /**
+     * Synchronizes aria-hidden with drawer open/closed state and restores
+     * focus to the trigger when focus remains inside a closed drawer.
+     */
+    private syncDrawerVisibilityState() {
+        const drawerIsOpen = this.drawer.classList.contains('is-open');
+
+        if (drawerIsOpen) {
+            this.drawer.setAttribute('aria-hidden', 'false');
+            return;
+        }
+
+        if (this.drawer.contains(document.activeElement)) {
+            this.button.focus();
+        }
+
+        this.drawer.setAttribute('aria-hidden', 'true');
     }
 }
 

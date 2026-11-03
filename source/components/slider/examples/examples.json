@@ -11,8 +11,13 @@
     },
     "repeat_slide": {
         "grid": "",
-        "heading": "Repeat slide",
-        "text": ""
+        "heading": "Native scroll slider",
+        "text": "Uses native scrolling and scroll snapping. The slider stops at the first and last slide rather than cloning slides for an infinite loop."
+    },
+    "autoplay": {
+        "grid": "",
+        "heading": "Autoplay slider",
+        "text": "Advances every five seconds. Use the Pause button to stop movement; it becomes Play when paused."
     },
     "button_styling": {
         "grid": "",
@@ -21,8 +26,13 @@
     },
     "slider_with_cards": {
         "grid": "",
-        "heading": "Slider with Cards",
-        "text": ""
+        "heading": "Responsive columns",
+        "text": "The maximum is four cards per page. CSS container queries set one, two, three or four columns based on the slider's own width, so a slider in a narrow column adapts independently of the viewport. This example uses slideByPage, so each control moves every visible card at once."
+    },
+    "compact_navigation": {
+        "grid": "",
+        "heading": "Compact navigation with a next-slide peek",
+        "text": "This example is deliberately constrained to a 32 rem container, so the next-card peek is visible here too. Below a 640 px slider container, the arrows move below the content for 44 px touch targets. When a title is supplied, the arrows instead share its row."
     },
     "slider_with_segment": {
         "grid": "",

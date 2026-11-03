@@ -111,19 +111,15 @@ $_: "c-testimonials";
             }
         }
 
-        .c-slider.is-active .c-slider__container {
-            padding-top: 0;
-        }
-
         .c-slider__arrows {
 
-            .splide__arrow {
+            .c-slider__arrow {
 
-                &.splide__arrow--prev {
+                &.c-slider__arrow--prev {
                     left: tokens.getCalculatedValue($_, "base", -2.5);
                 }
 
-                &.splide__arrow--next {
+                &.c-slider__arrow--next {
                     right: tokens.getCalculatedValue($_, "base", -2.5);
                 }
             }

@@ -23,20 +23,35 @@ class View
 
         try {
             $result = $blade->makeView('pages.' . $view, $data)->render();
-            echo $this->renderAssets(preg_replace('/(id|href)=""/', '', $result));
+            echo $this->renderAssets(preg_replace('/(id|href)=""/', '', $result), is_array($data) ? $data : []);
         } catch (\Throwable $e) {
             if (!$this->viewExists($view)) {
                 $data = array_merge($data, array('errorMessage' => $e));
-                echo $this->renderAssets($blade->makeView('pages.404', $data)->render());
+                echo $this->renderAssets($blade->makeView('pages.404', $data)->render(), is_array($data) ? $data : []);
                 return;
             }
             $blade->errorHandler($e)->print();
         }
     }
 
-    private function renderAssets(string $html): string
+    /**
+     * Render queued assets and inject them into the HTML.
+     *
+     * @param string $html Fully rendered HTML markup.
+     * @param array<string, mixed> $data View data used for the current render.
+     *
+     * @return string
+     */
+    private function renderAssets(string $html, array $data = []): string
     {
         if ($this->assetEnqueuer !== null) {
+            $pageNow = isset($data['pageNow']) && is_string($data['pageNow']) ? $data['pageNow'] : '';
+            $slug = isset($data['slug']) && is_string($data['slug']) ? trim($data['slug']) : '';
+
+            if ($slug !== '' && str_starts_with($pageNow, 'utilities/')) {
+                $this->assetEnqueuer->enqueueUtility($slug);
+            }
+
             Asset::enqueueUtilitiesFromHtml($html, $this->assetEnqueuer);
         }
         return str_replace(
