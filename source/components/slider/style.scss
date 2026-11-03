@@ -21,10 +21,9 @@ $container-width-md: 640px;
 @include tokens.create($_, getComponentTokens($_));
 
 .c-slider {
-    // Design-center controls. Per-instance API values use the `instance-*`
-    // variables so a component configuration can still define the default.
     --#{$_}--gap-multiplier: 2;
     --#{$_}--padding-multiplier: 0;
+    --#{$_}--shadow-clearance-multiplier: 1.5;
     --#{$_}--peek-width-multiplier: 6;
     --#{$_}--peek-fade-width-multiplier: 3;
     --#{$_}--header-column-gap-multiplier: 4;
@@ -34,11 +33,8 @@ $container-width-md: 640px;
     --#{$_}--item-container-max-width-multiplier: 118;
     --#{$_}--segment-card-min-height-multiplier: 70;
     --#{$_}--overlay-opacity: 0.8;
-    --#{$_}--control-size-multiplier: 4;
-    --#{$_}--control-size-large-multiplier: 6;
     --#{$_}--control-offset-multiplier: -1.5;
     --#{$_}--control-inset-multiplier: 2.5;
-    --#{$_}--touch-target-size-multiplier: 5.5;
     --#{$_}--control-gap-multiplier: 1;
     --#{$_}--autoplay-control-size-multiplier: 5;
     --#{$_}--autoplay-icon-background-size-multiplier: 3;
@@ -50,6 +46,7 @@ $container-width-md: 640px;
     --#{$_}--autoplay-control-fade-duration: var(--duration-180);
     --#{$_}--gap: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--gap-multiplier));
     --#{$_}--padding: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--padding-multiplier));
+    --#{$_}--shadow-clearance: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--shadow-clearance-multiplier));
     --#{$_}--configured-columns: 1;
     --#{$_}--font-family-heading: #{tokens.getRawValue($_, "font-family-heading")};
     --#{$_}--font-size-heading: #{tokens.getRawValue("", "font-size-400")};
@@ -86,6 +83,7 @@ $container-width-md: 640px;
         position: relative;
         overflow-x: auto;
         overflow-y: hidden;
+        padding-block: var(--#{$_}--shadow-clearance);
         overscroll-behavior-x: contain;
         scroll-behavior: smooth;
         scroll-snap-type: x mandatory;
@@ -116,9 +114,6 @@ $container-width-md: 640px;
             }
 
             .c-slider__item {
-                // The grid track owns the calculated slide width. Filling that
-                // track avoids resolving the percentage-based variable a
-                // second time from inside the item.
                 inline-size: 100%;
                 min-width: 0;
                 width: 100%;
@@ -169,8 +164,6 @@ $container-width-md: 640px;
             position: absolute;
             top: 50%;
             z-index: 1;
-            width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-size-multiplier));
-            height: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-size-multiplier));
 
             &.c-slider__arrow--prev {
                 left: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-offset-multiplier));
@@ -183,8 +176,6 @@ $container-width-md: 640px;
             }
 
             @container slider (min-width: #{$container-width-md}) {
-                width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-size-large-multiplier));
-                height: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-size-large-multiplier));
 
                 &.c-slider__arrow--prev {
                     left: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-inset-multiplier));
@@ -196,9 +187,6 @@ $container-width-md: 640px;
             }
         }
     }
-
-    // A titled slider has an explicit navigation context. Keep its controls
-    // in the title row at every container width instead of overlaying content.
 
     &.c-slider--has-header {
 
@@ -270,8 +258,6 @@ $container-width-md: 640px;
                 right: auto;
                 transform: none;
                 flex: 0 0 auto;
-                min-width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--touch-target-size-multiplier));
-                min-height: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--touch-target-size-multiplier));
 
                 &.c-slider__arrow--prev,
                 &.c-slider__arrow--next {
@@ -284,19 +270,12 @@ $container-width-md: 640px;
 
     }
 
-    // Peek is an explicit small-container navigation cue. It keeps the next
-    // slide visible without compromising the full-width layout elsewhere.
     @container slider (max-width: #{$container-width-md - 1px}) {
 
         &.c-slider__peek .c-slider__inner {
-            // Reserve only a deliberate, fixed glimpse of the next card. A
-            // percentage made the apparent empty area grow with the container.
             --#{$_}--peek-width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--peek-width-multiplier));
             --#{$_}--slide-width: calc(100% - var(--#{$_}--gap) - var(--#{$_}--peek-width));
         }
-
-        // A peek is a navigation cue, not a partially hidden slide state. The
-        // viewport mask below owns its edge fade; keep the exposed card solid.
 
         &.c-slider__peek .c-slider__container .c-slider__inner .c-slider__item {
             opacity: 1;
@@ -307,25 +286,13 @@ $container-width-md: 640px;
             --#{$_}--peek-fade-width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--peek-fade-width-multiplier));
             --#{$_}--peek-fade-left-opacity: 1;
             --#{$_}--peek-fade-right-opacity: 0;
-            transition:
-                --#{$_}--peek-fade-left-opacity var(--#{$_}--peek-fade-duration) ease,
-                --#{$_}--peek-fade-right-opacity var(--#{$_}--peek-fade-duration) ease;
-            mask-image: linear-gradient(
-                to right,
+            transition: --#{$_}--peek-fade-left-opacity var(--#{$_}--peek-fade-duration) ease,
+            --#{$_}--peek-fade-right-opacity var(--#{$_}--peek-fade-duration) ease;
+            mask-image: linear-gradient(to right,
                 rgb(0 0 0 / var(--#{$_}--peek-fade-left-opacity)) 0,
                 #000 var(--#{$_}--peek-fade-width) calc(100% - var(--#{$_}--peek-fade-width)),
-                rgb(0 0 0 / var(--#{$_}--peek-fade-right-opacity)) 100%
-            );
-            -webkit-mask-image: linear-gradient(
-                to right,
-                rgb(0 0 0 / var(--#{$_}--peek-fade-left-opacity)) 0,
-                #000 var(--#{$_}--peek-fade-width) calc(100% - var(--#{$_}--peek-fade-width)),
-                rgb(0 0 0 / var(--#{$_}--peek-fade-right-opacity)) 100%
-            );
+                rgb(0 0 0 / var(--#{$_}--peek-fade-right-opacity)) 100%);
         }
-
-        // Crossfade the viewport mask at the end. The right fade recedes as
-        // the left fade appears, so the cue changes sides without a jump.
 
         &.c-slider__peek:has(.c-slider__arrow--next:disabled) .c-slider__container {
             --#{$_}--peek-fade-left-opacity: 0;

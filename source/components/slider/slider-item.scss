@@ -28,7 +28,6 @@ $_: "c-slider";
     }
 
     .#{$_}__item__container:not(figure + .#{$_}__item__container) {
-        // If the container is not preceded by a figure, we assume it's not a common text container and remove the background to avoid background color conflicts.
         background-color: unset;
     }
 
@@ -46,7 +45,7 @@ $_: "c-slider";
     .#{$_}__item__body {
         margin-top: 0;
         overflow-wrap: break-word;
-        max-width: 100%; // p has a max width we need to override
+        max-width: 100%;
     }
 
     .#{$_}__item__image,
@@ -165,7 +164,7 @@ $_: "c-slider";
                 padding: 0;
                 width: 100%;
 
-                > .c-card {
+                >.c-card {
                     inline-size: 100%;
                     max-inline-size: none;
                     width: 100%;

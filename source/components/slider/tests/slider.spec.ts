@@ -48,10 +48,9 @@ test.describe('Slider – Design Center controls', () => {
 		const controls = [
 			['Layout', 'Slide Gap', '--c-slider--gap-multiplier'],
 			['Layout', 'Track Insets', '--c-slider--padding-multiplier'],
+			['Layout', 'Card Shadow Clearance', '--c-slider--shadow-clearance-multiplier'],
 			['Layout', 'Next-slide Peek', '--c-slider--peek-width-multiplier'],
 			['Layout', 'Peek Edge Fade', '--c-slider--peek-fade-width-multiplier'],
-			['Layout', 'Navigation Control Size', '--c-slider--control-size-multiplier'],
-			['Layout', 'Large Navigation Control Size', '--c-slider--control-size-large-multiplier'],
 			['Layout', 'Preamble Measure', '--c-slider--preamble-max-width'],
 			['Layout', 'Slide Content Maximum Width', '--c-slider--item-container-max-width-multiplier'],
 			['Layout', 'Segment Card Minimum Height', '--c-slider--segment-card-min-height-multiplier'],
@@ -60,7 +59,6 @@ test.describe('Slider – Design Center controls', () => {
 			['Header and Controls', 'Header Bottom Gap', '--c-slider--header-bottom-gap-multiplier'],
 			['Header and Controls', 'Floating Control Offset', '--c-slider--control-offset-multiplier'],
 			['Header and Controls', 'Large Control Inset', '--c-slider--control-inset-multiplier'],
-			['Header and Controls', 'Touch Target Size', '--c-slider--touch-target-size-multiplier'],
 			['Header and Controls', 'Autoplay Control Size', '--c-slider--autoplay-control-size-multiplier'],
 			['Header and Controls', 'Autoplay Control Inset', '--c-slider--autoplay-control-inset-multiplier'],
 			['Motion', 'Slide Fade Duration', '--c-slider--slide-fade-duration'],
@@ -96,21 +94,27 @@ test.describe('Slider – Design Center controls', () => {
 		await setRangeValue(await rangeControl(page, 'Layout', 'Track Insets'), '4');
 		expect(await computedNumber(inner, 'padding-left')).toBeGreaterThan(paddingBefore);
 
+		const shadowClearanceBefore = await computedNumber(track, 'padding-top');
+		await setRangeValue(await rangeControl(page, 'Layout', 'Card Shadow Clearance'), '3');
+		expect(await computedNumber(track, 'padding-top')).toBeGreaterThan(shadowClearanceBefore);
+
 		const peekBefore = (await track.boundingBox())!.width - (await item.boundingBox())!.width - await computedNumber(inner, 'column-gap');
 		await setRangeValue(await rangeControl(page, 'Layout', 'Next-slide Peek'), '8');
 		const peekAfter = (await track.boundingBox())!.width - (await item.boundingBox())!.width - await computedNumber(inner, 'column-gap');
 		expect(peekAfter).toBeGreaterThan(peekBefore);
 	});
 
-	test('control and motion controls change their computed styles', async ({ page }) => {
+	test('navigation uses standard button sizing while autoplay and motion controls update computed styles', async ({ page }) => {
 		const peekSlider = page.locator(PEEK_SLIDER).first();
 		const arrow = peekSlider.locator('.c-slider__arrow').first();
 		const ordinarySlide = page.locator(`${SLIDER}:not(.c-slider__peek) .c-slider__item`).first();
 		const autoplayToggle = page.locator(`${AUTOPLAY_SLIDER} .c-slider__autoslide-toggle`).first();
 
-		const arrowBefore = await computedNumber(arrow, 'width');
-		await setRangeValue(await rangeControl(page, 'Layout', 'Navigation Control Size'), '7');
-		expect(await computedNumber(arrow, 'width')).toBeGreaterThan(arrowBefore);
+		const arrowHeight = await computedNumber(arrow, 'height');
+		const standardButtonHeight = await arrow.evaluate((element) =>
+			Number.parseFloat(getComputedStyle(element).getPropertyValue('--c-button-height'))
+		);
+		expect(arrowHeight).toBeCloseTo(standardButtonHeight, 1);
 
 		const autoplaySizeBefore = await computedNumber(autoplayToggle, 'width');
 		await setRangeValue(await rangeControl(page, 'Header and Controls', 'Autoplay Control Size'), '7');
