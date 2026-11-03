@@ -2775,9 +2775,291 @@
       "font-size-100",
       "color--alpha-contrast",
       "shadow-color",
-      "shadow-amount"
+      "shadow-amount",
+      "color--surface",
+      "duration-100",
+      "duration-180"
     ],
-    "description": "A dependency-free, container-aware scroll-snap slider with native touch scrolling, keyboard navigation, autoplay, accessible controls and a scroll-driven visibility fade.",
+    "componentSettings": [
+      {
+        "id": "layout",
+        "label": "Layout",
+        "description": "Component-local sizing for slide spacing, headings, controls and the mobile next-slide cue.",
+        "settings": [
+          {
+            "variable": "--gap-multiplier",
+            "label": "Slide Gap",
+            "description": "Space between slides, measured in base units. A slider instance can override this through its gap parameter.",
+            "type": "range",
+            "default": "2",
+            "min": 0,
+            "max": 8,
+            "step": 0.25,
+            "unit": ""
+          },
+          {
+            "variable": "--padding-multiplier",
+            "label": "Track Insets",
+            "description": "Horizontal inset inside the scroll track, measured in base units. A slider instance can override this through its padding parameter.",
+            "type": "range",
+            "default": "0",
+            "min": 0,
+            "max": 8,
+            "step": 0.25,
+            "unit": ""
+          },
+          {
+            "variable": "--peek-width-multiplier",
+            "label": "Next-slide Peek",
+            "description": "Visible width of the next card on compact sliders, measured in base units.",
+            "type": "range",
+            "default": "6",
+            "min": 0,
+            "max": 12,
+            "step": 0.25,
+            "unit": ""
+          },
+          {
+            "variable": "--peek-fade-width-multiplier",
+            "label": "Peek Edge Fade",
+            "description": "Width of the soft fade at the viewport edge, measured in base units.",
+            "type": "range",
+            "default": "3",
+            "min": 0,
+            "max": 8,
+            "step": 0.25,
+            "unit": ""
+          },
+          {
+            "variable": "--control-size-multiplier",
+            "label": "Navigation Control Size",
+            "description": "Size of navigation controls on compact containers, measured in base units.",
+            "type": "range",
+            "default": "4",
+            "min": 3,
+            "max": 8,
+            "step": 0.25,
+            "unit": ""
+          },
+          {
+            "variable": "--control-size-large-multiplier",
+            "label": "Large Navigation Control Size",
+            "description": "Size of navigation controls in larger containers, measured in base units.",
+            "type": "range",
+            "default": "6",
+            "min": 4,
+            "max": 10,
+            "step": 0.25,
+            "unit": ""
+          },
+          {
+            "variable": "--preamble-max-width",
+            "label": "Preamble Measure",
+            "description": "Maximum readable line length for the slider preamble.",
+            "type": "range",
+            "default": "75",
+            "min": 45,
+            "max": 90,
+            "step": 1,
+            "unit": "ch"
+          },
+          {
+            "variable": "--item-container-max-width-multiplier",
+            "label": "Slide Content Maximum Width",
+            "description": "Maximum width of centered slide content, measured in base units.",
+            "type": "range",
+            "default": "118",
+            "min": 32,
+            "max": 200,
+            "step": 1,
+            "unit": ""
+          },
+          {
+            "variable": "--segment-card-min-height-multiplier",
+            "label": "Segment Card Minimum Height",
+            "description": "Minimum height for card-layout segments inside a slider, measured in base units.",
+            "type": "range",
+            "default": "70",
+            "min": 32,
+            "max": 120,
+            "step": 1,
+            "unit": ""
+          }
+        ]
+      },
+      {
+        "id": "spacing",
+        "label": "Header and Controls",
+        "description": "Fine-tune the title row, touch target and autoplay control without changing global spacing tokens.",
+        "settings": [
+          {
+            "variable": "--header-column-gap-multiplier",
+            "label": "Header Column Gap",
+            "description": "Space between title content and its navigation controls, measured in base units.",
+            "type": "range",
+            "default": "4",
+            "min": 0,
+            "max": 8,
+            "step": 0.25,
+            "unit": ""
+          },
+          {
+            "variable": "--header-row-gap-multiplier",
+            "label": "Header Row Gap",
+            "description": "Space between title and preamble rows, measured in base units.",
+            "type": "range",
+            "default": "1",
+            "min": 0,
+            "max": 4,
+            "step": 0.25,
+            "unit": ""
+          },
+          {
+            "variable": "--header-bottom-gap-multiplier",
+            "label": "Header Bottom Gap",
+            "description": "Space below the title area and above the slider track, measured in base units.",
+            "type": "range",
+            "default": "2",
+            "min": 0,
+            "max": 8,
+            "step": 0.25,
+            "unit": ""
+          },
+          {
+            "variable": "--control-offset-multiplier",
+            "label": "Floating Control Offset",
+            "description": "Offset for floating navigation controls, measured in base units.",
+            "type": "range",
+            "default": "-1.5",
+            "min": -4,
+            "max": 0,
+            "step": 0.25,
+            "unit": ""
+          },
+          {
+            "variable": "--control-inset-multiplier",
+            "label": "Large Control Inset",
+            "description": "Inset for floating navigation controls in larger containers, measured in base units.",
+            "type": "range",
+            "default": "2.5",
+            "min": 0,
+            "max": 8,
+            "step": 0.25,
+            "unit": ""
+          },
+          {
+            "variable": "--touch-target-size-multiplier",
+            "label": "Touch Target Size",
+            "description": "Minimum compact navigation target, measured in base units.",
+            "type": "range",
+            "default": "5.5",
+            "min": 5.5,
+            "max": 8,
+            "step": 0.25,
+            "unit": ""
+          },
+          {
+            "variable": "--autoplay-control-size-multiplier",
+            "label": "Autoplay Control Size",
+            "description": "Size of the play/pause control, measured in base units.",
+            "type": "range",
+            "default": "5",
+            "min": 4,
+            "max": 8,
+            "step": 0.25,
+            "unit": ""
+          },
+          {
+            "variable": "--autoplay-control-inset-multiplier",
+            "label": "Autoplay Control Inset",
+            "description": "Inset for the play/pause control, measured in base units.",
+            "type": "range",
+            "default": "1.5",
+            "min": 0,
+            "max": 8,
+            "step": 0.25,
+            "unit": ""
+          }
+        ]
+      },
+      {
+        "id": "motion",
+        "label": "Motion",
+        "description": "Controls local fade timing while preserving reduced-motion behavior.",
+        "settings": [
+          {
+            "variable": "--slide-fade-duration",
+            "label": "Slide Fade Duration",
+            "description": "Duration of the visibility fade used by ordinary slides.",
+            "type": "range",
+            "default": "100",
+            "min": 0,
+            "max": 500,
+            "step": 10,
+            "unit": "ms"
+          },
+          {
+            "variable": "--peek-fade-duration",
+            "label": "Peek Edge Fade Duration",
+            "description": "Duration of the edge-fade handoff when the final slide is reached.",
+            "type": "range",
+            "default": "180",
+            "min": 0,
+            "max": 500,
+            "step": 10,
+            "unit": "ms"
+          },
+          {
+            "variable": "--autoplay-control-fade-duration",
+            "label": "Autoplay Control Fade Duration",
+            "description": "Duration of the play/pause control reveal.",
+            "type": "range",
+            "default": "180",
+            "min": 0,
+            "max": 500,
+            "step": 10,
+            "unit": "ms"
+          }
+        ]
+      },
+      {
+        "id": "colors",
+        "label": "Colors",
+        "description": "Component-local colors for navigation and the autoplay control.",
+        "settings": [
+          {
+            "label": "Navigation Color",
+            "description": "Controls the navigation icon color.",
+            "token": "color--primary",
+            "includeStateColors": false
+          },
+          {
+            "label": "Autoplay Control Background",
+            "description": "Controls the circular surface behind the play/pause icon.",
+            "token": "color--surface",
+            "includeStateColors": false
+          },
+          {
+            "label": "Overlay Color",
+            "description": "Controls the overlay tone for content slides.",
+            "token": "color--alpha",
+            "includeStateColors": false
+          },
+          {
+            "variable": "--overlay-opacity",
+            "label": "Overlay Opacity",
+            "description": "Controls the opacity of the slide content overlay.",
+            "type": "range",
+            "default": "0.8",
+            "min": 0,
+            "max": 1,
+            "step": 0.05,
+            "unit": ""
+          }
+        ]
+      }
+    ],
+    "description": "A dependency-free, container-aware scroll-snap slider with native touch scrolling, keyboard navigation, autoplay, accessible controls, and component-local Design Center controls.",
     "tags": [
       "slider",
       "component"

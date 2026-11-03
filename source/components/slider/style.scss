@@ -21,16 +21,42 @@ $container-width-md: 640px;
 @include tokens.create($_, getComponentTokens($_));
 
 .c-slider {
-    --#{$_}--gap: #{tokens.getCalculatedValue($_, "base", 2)};
-    --#{$_}--inset: #{tokens.getCalculatedValue($_, "base", 7)};
+    // Design-center controls. Per-instance API values use the `instance-*`
+    // variables so a component configuration can still define the default.
+    --#{$_}--gap-multiplier: 2;
+    --#{$_}--padding-multiplier: 0;
+    --#{$_}--peek-width-multiplier: 6;
+    --#{$_}--peek-fade-width-multiplier: 3;
+    --#{$_}--header-column-gap-multiplier: 4;
+    --#{$_}--header-row-gap-multiplier: 1;
+    --#{$_}--header-bottom-gap-multiplier: 2;
+    --#{$_}--preamble-max-width: 75ch;
+    --#{$_}--item-container-max-width-multiplier: 118;
+    --#{$_}--segment-card-min-height-multiplier: 70;
+    --#{$_}--overlay-opacity: 0.8;
+    --#{$_}--control-size-multiplier: 4;
+    --#{$_}--control-size-large-multiplier: 6;
+    --#{$_}--control-offset-multiplier: -1.5;
+    --#{$_}--control-inset-multiplier: 2.5;
+    --#{$_}--touch-target-size-multiplier: 5.5;
+    --#{$_}--control-gap-multiplier: 1;
+    --#{$_}--autoplay-control-size-multiplier: 5;
+    --#{$_}--autoplay-icon-background-size-multiplier: 3;
+    --#{$_}--autoplay-control-inset-multiplier: 1.5;
+    --#{$_}--autoplay-control-margin-multiplier: 1;
+    --#{$_}--autoplay-control-margin-large-multiplier: 3;
+    --#{$_}--slide-fade-duration: var(--duration-100);
+    --#{$_}--peek-fade-duration: var(--duration-180);
+    --#{$_}--autoplay-control-fade-duration: var(--duration-180);
+    --#{$_}--gap: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--gap-multiplier));
+    --#{$_}--padding: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--padding-multiplier));
     --#{$_}--configured-columns: 1;
-    --#{$_}--padding: 0px;
     --#{$_}--font-family-heading: #{tokens.getRawValue($_, "font-family-heading")};
     --#{$_}--font-size-heading: #{tokens.getRawValue("", "font-size-400")};
     --#{$_}--font-family: #{tokens.getRawValue($_, "font-family-base")};
     --#{$_}--font-size: #{tokens.getRawValue($_, "font-size-100")};
-    --#{$_}--item-container-max-width: #{tokens.getCalculatedValue($_, "base", 118)};
-    --#{$_}--color--overlay: rgba(from #{tokens.getRawValue($_, "color--alpha")} r g b / 0.8); // Ensures text is background is dark enough for text to be readable.
+    --#{$_}--item-container-max-width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--item-container-max-width-multiplier));
+    --#{$_}--color--overlay: rgba(from #{tokens.getRawValue($_, "color--alpha")} r g b / var(--#{$_}--overlay-opacity)); // Ensures text is background is dark enough for text to be readable.
     --#{$_}--color--overlay-contrast: #{tokens.getRawValue($_, "color--alpha-contrast")};
     position: relative;
     border-radius: tokens.getCalculatedValue($_, "border-radius", 1);
@@ -47,12 +73,12 @@ $container-width-md: 640px;
     }
 
     &__title {
-        margin: 0 0 tokens.getCalculatedValue($_, "base", 2);
+        margin: 0 0 calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--header-bottom-gap-multiplier));
     }
 
     &__preamble {
-        margin: tokens.getCalculatedValue($_, "base", 2) 0 0;
-        max-width: 75ch;
+        margin: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--header-bottom-gap-multiplier)) 0 0;
+        max-width: var(--#{$_}--preamble-max-width);
     }
 
     .c-slider__container {
@@ -85,7 +111,7 @@ $container-width-md: 640px;
             width: 100%;
 
             .#{segment.$c}.#{segment.$c}--card {
-                --c-segment--min-height-card: 560px;
+                --c-segment--min-height-card: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--segment-card-min-height-multiplier));
                 width: 100%;
             }
 
@@ -97,7 +123,7 @@ $container-width-md: 640px;
                 min-width: 0;
                 width: 100%;
                 opacity: var(--#{$_}--slide-progress, 1);
-                transition: opacity 100ms linear;
+                transition: opacity var(--#{$_}--slide-fade-duration) linear;
                 will-change: opacity;
             }
         }
@@ -143,29 +169,29 @@ $container-width-md: 640px;
             position: absolute;
             top: 50%;
             z-index: 1;
-            width: tokens.getCalculatedValue($_, "base", 4);
-            height: tokens.getCalculatedValue($_, "base", 4);
+            width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-size-multiplier));
+            height: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-size-multiplier));
 
             &.c-slider__arrow--prev {
-                left: tokens.getCalculatedValue($_, "base", -1.5);
+                left: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-offset-multiplier));
                 transform: translateY(-50%);
             }
 
             &.c-slider__arrow--next {
-                right: tokens.getCalculatedValue($_, "base", -1.5);
+                right: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-offset-multiplier));
                 transform: translateY(-50%);
             }
 
             @container slider (min-width: #{$container-width-md}) {
-                width: tokens.getCalculatedValue($_, "base", 6);
-                height: tokens.getCalculatedValue($_, "base", 6);
+                width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-size-large-multiplier));
+                height: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-size-large-multiplier));
 
                 &.c-slider__arrow--prev {
-                    left: tokens.getCalculatedValue($_, "base", 2.5);
+                    left: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-inset-multiplier));
                 }
 
                 &.c-slider__arrow--next {
-                    right: tokens.getCalculatedValue($_, "base", 2.5);
+                    right: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-inset-multiplier));
                 }
             }
         }
@@ -179,9 +205,9 @@ $container-width-md: 640px;
         .c-slider__header {
             display: grid;
             grid-template-columns: minmax(0, 1fr) auto;
-            column-gap: tokens.getCalculatedValue($_, "base", 4);
-            row-gap: tokens.getCalculatedValue($_, "base", 1);
-            margin-bottom: tokens.getCalculatedValue($_, "base", 2);
+            column-gap: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--header-column-gap-multiplier));
+            row-gap: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--header-row-gap-multiplier));
+            margin-bottom: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--header-bottom-gap-multiplier));
         }
 
         .c-slider__title {
@@ -233,8 +259,8 @@ $container-width-md: 640px;
             transform: none;
             display: flex;
             justify-content: flex-end;
-            gap: tokens.getCalculatedValue($_, "base", 1);
-            margin-top: tokens.getCalculatedValue($_, "base", 2);
+            gap: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--control-gap-multiplier));
+            margin-top: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--header-bottom-gap-multiplier));
             order: 2;
 
             .c-slider__arrow {
@@ -244,8 +270,8 @@ $container-width-md: 640px;
                 right: auto;
                 transform: none;
                 flex: 0 0 auto;
-                min-width: 44px;
-                min-height: 44px;
+                min-width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--touch-target-size-multiplier));
+                min-height: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--touch-target-size-multiplier));
 
                 &.c-slider__arrow--prev,
                 &.c-slider__arrow--next {
@@ -265,7 +291,7 @@ $container-width-md: 640px;
         &.c-slider__peek .c-slider__inner {
             // Reserve only a deliberate, fixed glimpse of the next card. A
             // percentage made the apparent empty area grow with the container.
-            --#{$_}--peek-width: 3rem;
+            --#{$_}--peek-width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--peek-width-multiplier));
             --#{$_}--slide-width: calc(100% - var(--#{$_}--gap) - var(--#{$_}--peek-width));
         }
 
@@ -278,19 +304,24 @@ $container-width-md: 640px;
         }
 
         &.c-slider__peek .c-slider__container {
-            --#{$_}--peek-fade-width: 24px;
+            --#{$_}--peek-fade-width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--peek-fade-width-multiplier));
             --#{$_}--peek-fade-left-opacity: 1;
             --#{$_}--peek-fade-right-opacity: 0;
-            transition: --#{$_}--peek-fade-left-opacity 180ms ease,
-            --#{$_}--peek-fade-right-opacity 180ms ease;
-            mask-image: linear-gradient(to right,
+            transition:
+                --#{$_}--peek-fade-left-opacity var(--#{$_}--peek-fade-duration) ease,
+                --#{$_}--peek-fade-right-opacity var(--#{$_}--peek-fade-duration) ease;
+            mask-image: linear-gradient(
+                to right,
                 rgb(0 0 0 / var(--#{$_}--peek-fade-left-opacity)) 0,
                 #000 var(--#{$_}--peek-fade-width) calc(100% - var(--#{$_}--peek-fade-width)),
-                rgb(0 0 0 / var(--#{$_}--peek-fade-right-opacity)) 100%);
-            -webkit-mask-image: linear-gradient(to right,
+                rgb(0 0 0 / var(--#{$_}--peek-fade-right-opacity)) 100%
+            );
+            -webkit-mask-image: linear-gradient(
+                to right,
                 rgb(0 0 0 / var(--#{$_}--peek-fade-left-opacity)) 0,
                 #000 var(--#{$_}--peek-fade-width) calc(100% - var(--#{$_}--peek-fade-width)),
-                rgb(0 0 0 / var(--#{$_}--peek-fade-right-opacity)) 100%);
+                rgb(0 0 0 / var(--#{$_}--peek-fade-right-opacity)) 100%
+            );
         }
 
         // Crossfade the viewport mask at the end. The right fade recedes as
@@ -305,8 +336,8 @@ $container-width-md: 640px;
     &__controls {
         display: inline-flex;
         position: absolute;
-        top: tokens.getCalculatedValue($_, "base", 1.5);
-        right: tokens.getCalculatedValue($_, "base", 1.5);
+        top: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--autoplay-control-inset-multiplier));
+        right: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--autoplay-control-inset-multiplier));
         pointer-events: none;
         z-index: 2;
     }
@@ -328,16 +359,16 @@ $container-width-md: 640px;
         border: 0;
         background: transparent;
         cursor: pointer;
-        width: tokens.getCalculatedValue($_, "base", 5);
-        height: tokens.getCalculatedValue($_, "base", 5);
+        width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--autoplay-control-size-multiplier));
+        height: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--autoplay-control-size-multiplier));
         color: tokens.getRawValue($_, "color--primary");
         z-index: 1;
-        margin: tokens.getCalculatedValue($_, "base", 1);
+        margin: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--autoplay-control-margin-multiplier));
         opacity: 0;
-        transition: opacity 150ms ease;
+        transition: opacity var(--#{$_}--autoplay-control-fade-duration) ease;
 
         @container slider (min-width: #{$container-width-md}) {
-            margin: tokens.getCalculatedValue($_, "base", 3);
+            margin: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--autoplay-control-margin-large-multiplier));
         }
 
         .c-slider__autoslide-play {
@@ -353,9 +384,9 @@ $container-width-md: 640px;
         &:before {
             content: "";
             display: block;
-            background: #fff;
-            width: tokens.getCalculatedValue($_, "base", 3);
-            height: tokens.getCalculatedValue($_, "base", 3);
+            background: #{tokens.getRawValue($_, "color--surface")};
+            width: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--autoplay-icon-background-size-multiplier));
+            height: calc(#{tokens.getCalculatedValue($_, "base")} * var(--#{$_}--autoplay-icon-background-size-multiplier));
             border-radius: 50%;
             position: absolute;
             z-index: -1;
