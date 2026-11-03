@@ -48,6 +48,43 @@ describe('DrawerAccessibility', () => {
         expect(document.documentElement.style.getPropertyValue('--view-offset-left')).toBe('32');
         expect(document.documentElement.style.getPropertyValue('--view-offset-right')).toBe('0');
     });
+
+    it('sets aria-hidden to false when initialized with an open drawer', () => {
+        const button = document.createElement('button');
+        const drawer = createDrawer(['is-open'], 256);
+        document.body.append(button, drawer);
+
+        new DrawerAccessibility(button, drawer);
+
+        expect(drawer.getAttribute('aria-hidden')).toBe('false');
+    });
+
+    it('does not move focus into drawer when clicking trigger closes it', () => {
+        jest.useFakeTimers();
+
+        const button = document.createElement('button');
+        const drawer = createDrawer(['is-open'], 256);
+
+        button.setAttribute('data-js-toggle-trigger', 'mobile');
+        drawer.setAttribute('data-js-toggle-item', 'mobile');
+
+        button.addEventListener('click', () => {
+            drawer.classList.toggle('is-open');
+        });
+
+        document.body.append(button, drawer);
+
+        new DrawerAccessibility(button, drawer);
+
+        button.focus();
+        button.click();
+        jest.runAllTimers();
+
+        expect(drawer.classList.contains('is-open')).toBe(false);
+        expect(document.activeElement).toBe(button);
+
+        jest.useRealTimers();
+    });
 });
 
 /**
