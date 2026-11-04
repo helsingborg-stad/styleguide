@@ -121,7 +121,6 @@ const utilityClassMapPlugin = () => ({
 });
 
 export default ({ command, mode }) => {
-	mode = 'development';
 	const config = createViteConfig(entries, {
 		outDir: 'assets/dist',
 		manifestFile: 'manifest.json',
