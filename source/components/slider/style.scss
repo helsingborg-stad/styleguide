@@ -126,21 +126,21 @@ $container-width-md: 640px;
 
     @container slider (min-width: 24rem) {
 
-        .c-slider__inner {
+        .c-slider__container .c-slider__inner {
             --#{$_}--columns: var(--#{$_}--columns-2, 1);
         }
     }
 
     @container slider (min-width: 36rem) {
 
-        .c-slider__inner {
+        .c-slider__container .c-slider__inner {
             --#{$_}--columns: var(--#{$_}--columns-3, 1);
         }
     }
 
     @container slider (min-width: 48rem) {
 
-        .c-slider__inner {
+        .c-slider__container .c-slider__inner {
             --#{$_}--columns: var(--#{$_}--columns-4, 1);
         }
     }
