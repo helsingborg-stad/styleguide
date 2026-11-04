@@ -104,6 +104,16 @@ test.describe('Slider – Design Center controls', () => {
 		expect(peekAfter).toBeGreaterThan(peekBefore);
 	});
 
+	test('uses its configured desktop column count', async ({ page }) => {
+		await page.setViewportSize({ width: 1280, height: 720 });
+		await page.goto(SLIDER_PAGE);
+
+		const cardsSlider = page.locator(`${SLIDER}.c-slider--post`).filter({ hasText: 'Card #0' });
+		const inner = cardsSlider.locator('.c-slider__inner');
+
+		await expect(inner).toHaveCSS('--c-slider--columns', '4');
+	});
+
 	test('navigation uses standard button sizing while autoplay and motion controls update computed styles', async ({ page }) => {
 		const peekSlider = page.locator(PEEK_SLIDER).first();
 		const arrow = peekSlider.locator('.c-slider__arrow').first();
