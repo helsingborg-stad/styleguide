@@ -70,6 +70,27 @@ $_modal: "c-modal--gallery";
         border-radius: var(--#{$_}--border-radius);
         background-size: cover;
 
+        &[style*="background-image"] {
+            position: relative;
+            overflow: hidden;
+
+            &:before {
+                content: "";
+                position: absolute;
+                inset: -16px;
+                background-image: inherit;
+                background-position: inherit;
+                background-size: cover;
+                filter: blur(8px);
+                pointer-events: none;
+            }
+
+            .#{$_}__image {
+                position: relative;
+                z-index: 1;
+            }
+        }
+
         @container c-image (min-width: 100vw) {
             border-radius: 0;
         }
