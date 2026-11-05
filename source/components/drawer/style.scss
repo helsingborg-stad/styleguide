@@ -107,6 +107,7 @@ $_: "c-drawer";
         --inherit-color-border: color-mix(in srgb, var(--drawer-duotone-color) 20%, transparent);
         --inherit-hover: color-mix(in srgb, var(--drawer-duotone-color) 18%, transparent);
         --inherit-active: color-mix(in srgb, var(--drawer-duotone-color) 24%, transparent);
+        color: var(--drawer-duotone-color);
     }
 
     .c-drawer__header {
