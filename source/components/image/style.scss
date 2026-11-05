@@ -87,6 +87,8 @@ $_modal: "c-modal--gallery";
 
             .#{$_}__image {
                 grid-area: stack;
+                order: 1;
+                isolation: isolate;
             }
         }
 
