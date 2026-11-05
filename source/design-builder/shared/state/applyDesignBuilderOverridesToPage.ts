@@ -1,6 +1,8 @@
 import { normalizeComponentName } from '../../features/component-customizer/componentTokenDefinitions';
 import { GENERAL_SCOPE_KEY, NON_CUSTOMIZABLE_COMPONENTS } from '../constants/designBuilderRuntimeConstants';
 import type { ScopedComponentOverrides } from '../types/designBuilderDataTypes';
+
+const THEME_STYLE_ID = 'design-builder-theme-overrides';
 import { getComponentOverrideTargets } from './componentOverrideTargets';
 import { getNamedScopeKeysForElement } from './designBuilderScope';
 
@@ -56,6 +58,37 @@ export function clearTokenOverridesFromRootDocument(overrides: Record<string, st
 	for (const variable of Object.keys(overrides)) {
 		document.documentElement.style.removeProperty(variable);
 	}
+}
+
+function serializeThemeDeclarations(overrides: Record<string, string> | null): string {
+	if (!overrides) {
+		return '';
+	}
+
+	return Object.entries(overrides)
+		.map(([variable, value]) => `${variable}: ${value};`)
+		.join('');
+}
+
+/** Applies persisted mode variants without changing the base inline overrides. */
+export function applyThemeOverridesToPage(dark: Record<string, string> | null, contrast: Record<string, string> | null): void {
+	const darkDeclarations = serializeThemeDeclarations(dark);
+	const contrastDeclarations = serializeThemeDeclarations(contrast);
+	const css = `${darkDeclarations ? `@media (prefers-color-scheme: dark) { :root { ${darkDeclarations} } }` : ''}${contrastDeclarations ? `@media (prefers-contrast: more), (forced-colors: active) { :root { ${contrastDeclarations} } }` : ''}`;
+	let style = document.getElementById(THEME_STYLE_ID) as HTMLStyleElement | null;
+
+	if (!css) {
+		style?.remove();
+		return;
+	}
+
+	if (!style) {
+		style = document.createElement('style');
+		style.id = THEME_STYLE_ID;
+		document.head.appendChild(style);
+	}
+
+	style.textContent = css;
 }
 
 export function applyComponentOverridesToPage(overrides: ScopedComponentOverrides): void {
