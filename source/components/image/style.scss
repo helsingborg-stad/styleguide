@@ -78,6 +78,8 @@ $_modal: "c-modal--gallery";
             &:before {
                 content: "";
                 grid-area: stack;
+                aspect-ratio: inherit;
+                width: 100%;
                 background-image: inherit;
                 background-position: inherit;
                 background-size: cover;
@@ -134,6 +136,10 @@ $_modal: "c-modal--gallery";
     &--cover {
         inset: 0;
         position: absolute;
+
+        .#{$_}__image-wrapper {
+            height: 100%;
+        }
 
         .#{$_}__image {
             position: absolute;
