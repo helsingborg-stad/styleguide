@@ -163,8 +163,8 @@ class MockImage implements ImageInterface
                 'uuid' => $uniqueId . '-' . $size['width'],
                 'url' => $this->urlForSize($size['width'], $size['height']),
                 'media' => [
-                    'landscape' => $this->createMediaQuery($previousWidth, $size['width'], $index !== $totalSizes - 1),
-                    'portrait' => $this->createMediaQuery($previousWidth, $size['width'], $index !== $totalSizes - 1),
+                    'landscape' => $this->createMediaQuery($previousWidth, $size['width'], $index !== ($totalSizes - 1)),
+                    'portrait' => $this->createMediaQuery($previousWidth, $size['width'], $index !== ($totalSizes - 1)),
                 ],
                 'aspectRatio' => sprintf('%d/%d', $size['width'], $size['height']),
             ];
@@ -191,7 +191,7 @@ class MockImage implements ImageInterface
     private function urlForSize(int $width, int $height): string
     {
         if ($this->transparent) {
-            return sprintf('https://placehold.co/%dx%d/transparent/2c3e50/png?text=%s', $width, $height, rawurlencode($this->seed));
+            return sprintf('https://placehold.co/%dx%d/transparent/000/png?text=%s', $width, $height, rawurlencode($this->seed));
         }
 
         return sprintf('https://picsum.photos/seed/%s/%d/%d', rawurlencode($this->seed), $width, $height);
