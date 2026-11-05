@@ -71,13 +71,13 @@ $_modal: "c-modal--gallery";
         background-size: cover;
 
         &[style*="background-image"] {
-            position: relative;
+            display: grid;
+            grid-template-areas: "stack";
             overflow: hidden;
 
             &:before {
                 content: "";
-                position: absolute;
-                inset: -16px;
+                grid-area: stack;
                 background-image: inherit;
                 background-position: inherit;
                 background-size: cover;
@@ -86,8 +86,7 @@ $_modal: "c-modal--gallery";
             }
 
             .#{$_}__image {
-                position: relative;
-                z-index: 1;
+                grid-area: stack;
             }
         }
 
