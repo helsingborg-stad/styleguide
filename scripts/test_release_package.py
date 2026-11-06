@@ -1,6 +1,7 @@
 """Focused release archive checks using isolated ZIP fixtures."""
 
 import json
+import os
 import subprocess
 import tempfile
 import unittest
@@ -87,6 +88,79 @@ class ReleasePackageTest(unittest.TestCase):
         with zipfile.ZipFile(self.archive) as archive:
             self.assertNotIn("source/.env", archive.namelist())
             self.assertEqual(archive.read("assets/dist/main.js"), b"built")
+
+
+class GitHubRetryTest(unittest.TestCase):
+    """Retry transient GitHub API failures without retrying permanent errors."""
+
+    def setUp(self):
+        """Create fake GitHub CLI and sleep commands."""
+        self.directory = tempfile.TemporaryDirectory()
+        self.addCleanup(self.directory.cleanup)
+        self.bin_directory = Path(self.directory.name) / "bin"
+        self.bin_directory.mkdir()
+        self.calls = Path(self.directory.name) / "calls"
+
+        gh = self.bin_directory / "gh"
+        gh.write_text(
+            "#!/usr/bin/env bash\n"
+            "count=0\n"
+            "[[ ! -f \"$GH_CALLS\" ]] || count=$(cat \"$GH_CALLS\")\n"
+            "count=$((count + 1))\n"
+            "echo \"$count\" > \"$GH_CALLS\"\n"
+            "if (( count <= ${GH_FAIL_COUNT:-0} )); then\n"
+            "  echo \"$GH_ERROR\" >&2\n"
+            "  exit 1\n"
+            "fi\n"
+            "echo success\n"
+        )
+        gh.chmod(0o755)
+        sleep = self.bin_directory / "sleep"
+        sleep.write_text("#!/usr/bin/env bash\nexit 0\n")
+        sleep.chmod(0o755)
+
+    def run_gh_retry(self, fail_count, error):
+        """Invoke the retry function with a controlled fake CLI response."""
+        env = os.environ.copy()
+        env.update({
+            "PATH": f"{self.bin_directory}:{env['PATH']}",
+            "GH_CALLS": str(self.calls),
+            "GH_FAIL_COUNT": str(fail_count),
+            "GH_ERROR": error,
+        })
+        return subprocess.run(
+            [
+                "bash",
+                "-c",
+                f"source '{Path(__file__).with_name('gh_retry.sh')}'; gh_retry api /test",
+            ],
+            env=env,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+
+    def test_retries_server_errors_until_command_succeeds(self):
+        """Retry transient 5xx failures and preserve successful output."""
+        result = self.run_gh_retry(2, "HTTP 502: Server Error")
+
+        self.assertEqual(result.returncode, 0)
+        self.assertEqual(result.stdout.strip(), "success")
+        self.assertEqual(self.calls.read_text().strip(), "3")
+
+    def test_does_not_retry_permanent_errors(self):
+        """Return immediately when the command fails for a non-transient reason."""
+        result = self.run_gh_retry(5, "HTTP 404: Not Found")
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(self.calls.read_text().strip(), "1")
+
+    def test_stops_after_bounded_transient_retries(self):
+        """Return a distinct failure after exhausting transient retries."""
+        result = self.run_gh_retry(5, "HTTP 502: Server Error")
+
+        self.assertEqual(result.returncode, 75)
+        self.assertEqual(self.calls.read_text().strip(), "5")
 
 
 if __name__ == "__main__":
