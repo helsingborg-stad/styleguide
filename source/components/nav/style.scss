@@ -339,7 +339,9 @@ $_: "c-nav";
 
 .c-nav__item.is-current>.c-nav__link,
 .c-nav__item.is-current>.c-nav__item-wrapper>.c-nav__link {
-    color: inherit;
+    // Use the surface's link color, like the other links in the nav, instead of
+    // inheriting the text color of an ancestor that may sit on another surface.
+    color: var(--inherit-link-color, inherit);
     font-weight: var(--font-weight-bold, 700);
     font-family: var(--font-family-bold);
 }
