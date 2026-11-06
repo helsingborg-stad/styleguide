@@ -58,7 +58,7 @@ jobs:
         run: |
           composer config --global github-oauth.github.com "$GH_TOKEN"
           composer install --no-interaction --prefer-dist
-          npm ci
+          npm ci --ignore-scripts
 
       - name: Check the exact source commit
         run: |
