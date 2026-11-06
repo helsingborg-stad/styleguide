@@ -487,16 +487,25 @@ export class FullPageEditorRuntime {
 		return this.getBaseValue(variable, defaultValue);
 	}
 
-	private collectThemeDefaults(): Record<string, string> {
+	private collectThemeDefaults(mode: ThemeMode = 'base'): Record<string, string> {
+		const themeTemplate = this.getThemeTemplate(mode);
 		const theme: Record<string, string> = {};
 		for (const category of this.tokens.categories) {
 			for (const setting of category.settings) {
 				if (isThemeEditableVariable(setting.variable) && (!this.parsePaletteVariable(setting.variable) || this.activePaletteFamilies.has(this.parsePaletteVariable(setting.variable)!.family))) {
-					theme[setting.variable] = this.getBaseValue(setting.variable, setting.default);
+					theme[setting.variable] = themeTemplate?.[setting.variable] ?? this.getBaseValue(setting.variable, setting.default);
 				}
 			}
 		}
 		return theme;
+	}
+
+	private getThemeTemplate(mode: ThemeMode): Record<string, string> | null {
+		if (mode === 'base') return null;
+
+		const defaultPreset = this.getProvidedPresets().find((preset) => preset.id === 'default');
+		const defaultVariant = mode === 'dark' ? defaultPreset?.state._dark : defaultPreset?.state._contrast;
+		return defaultVariant ?? null;
 	}
 
 	private normalizeThemeForAvailableTokens(theme: Record<string, string> | null): Record<string, string> | null {
@@ -531,7 +540,7 @@ export class FullPageEditorRuntime {
 	}
 
 	private enableActiveTheme = (): void => {
-		const theme = this.collectThemeDefaults();
+		const theme = this.collectThemeDefaults(this.activeThemeMode);
 		if (this.activeThemeMode === 'dark') this.darkOverrides = theme;
 		if (this.activeThemeMode === 'contrast') this.contrastOverrides = theme;
 		this.syncOverrideState();

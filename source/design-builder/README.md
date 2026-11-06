@@ -497,7 +497,7 @@ Example:
 
 ### Colour-scheme variants
 
-The full-page editor has **Base**, **Dark**, and **High contrast** modes. Base remains the normal token slice. Dark and high contrast are optional: if either mode is not created, its value is `null` (or omitted in older documents) and visitors continue to use Base.
+The full-page editor has **Default**, **Dark**, and **Contrast** modes. Default remains the normal token slice. Dark and contrast are optional: if either mode is not created, its value is `null` (or omitted in older documents) and visitors continue to use Default.
 
 ```json
 {
@@ -518,9 +518,11 @@ The full-page editor has **Base**, **Dark**, and **High contrast** modes. Base r
 
 The variant maps are deliberately top-level underscore keys. Existing consumers can keep reading `token` and `component` unchanged, while newer consumers can opt into the additional modes.
 
+The Styleguide's built-in **Default / Dark / Contrast** preset is defined in `source/themes/default.json`. Its dark and contrast slices are intentionally limited to colour, border-mix, and shadow values, using Dark Ember and High Contrast A11y as visual references rather than importing their unrelated layout and typography tokens.
+
 When a variant is created, Design Builder seeds every allowed colour role from Base. The editor only exposes direct colour roles (including primary, secondary, active palette colours, layout/UI/state colours), border-mix amount, and shadow values. Derived `-border`, `-alt`, and muted contrast tokens stay derived. This guarantees that a defined variant has a value for every permitted role and cannot add arbitrary new token keys.
 
-While editing, choosing Base, Dark, or High contrast forces that mode in the live preview. In a consuming site, `_dark` is emitted under `prefers-color-scheme: dark`; `_contrast` is emitted under `prefers-contrast: more` and `forced-colors: active`.
+While editing, choosing Default, Dark, or Contrast forces that mode in the live preview. In a consuming site, `_dark` is emitted under `prefers-color-scheme: dark`; `_contrast` is emitted under `prefers-contrast: more` and `forced-colors: active`.
 
 ### token-library (legacy)
 

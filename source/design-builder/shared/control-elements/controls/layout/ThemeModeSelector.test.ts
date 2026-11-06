@@ -38,9 +38,9 @@ describe('db-theme-mode-selector', () => {
 		control.addEventListener('theme-mode-change', modeChange);
 		control.addEventListener('theme-disable', disable);
 
-		expect(control.textContent).toContain('High contrast scheme enabled');
-		Array.from(control.querySelectorAll('button')).find((button) => button.textContent === 'Base')?.click();
-		Array.from(control.querySelectorAll('button')).find((button) => button.textContent === 'Use base only')?.click();
+		expect(control.textContent).toContain('Contrast scheme enabled');
+		Array.from(control.querySelectorAll('button')).find((button) => button.textContent === 'Default')?.click();
+		Array.from(control.querySelectorAll('button')).find((button) => button.textContent === 'Use Default only')?.click();
 
 		expect(modeChange.mock.calls[0][0].detail).toEqual({ mode: 'base' });
 		expect(disable).toHaveBeenCalledTimes(1);

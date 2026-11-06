@@ -36,18 +36,18 @@ class DbThemeModeSelector extends HTMLElement {
 
 	private render(): void {
 		const themeEnabled = this._activeMode === 'dark' ? this._darkEnabled : this._contrastEnabled;
-		const themeName = this._activeMode === 'dark' ? 'dark scheme' : 'high contrast scheme';
+		const themeName = this._activeMode === 'dark' ? 'dark scheme' : 'contrast scheme';
 		render(
 			html`
 				<section class="db-theme-mode" aria-label="Colour schemes">
 					<div class="db-theme-mode-heading">
 						<div>
 							<h2>Colour schemes</h2>
-							<p>Base is used by default. Dark and high contrast only change available colour roles; layout and typography stay shared.</p>
+							<p>Default is used by default. Dark and Contrast only change available colour roles; layout and typography stay shared.</p>
 						</div>
 						<div class="db-theme-mode-switch" role="group" aria-label="Edit colour scheme">
 							${(['base', 'dark', 'contrast'] as const).map(
-								(mode) => html`<button type="button" class="db-theme-mode-button ${this._activeMode === mode ? 'db-theme-mode-button-active' : ''}" aria-pressed=${this._activeMode === mode ? 'true' : 'false'} @click=${() => this.dispatch('theme-mode-change', { mode })}>${mode === 'base' ? 'Base' : mode === 'dark' ? 'Dark' : 'High contrast'}</button>`,
+								(mode) => html`<button type="button" class="db-theme-mode-button ${this._activeMode === mode ? 'db-theme-mode-button-active' : ''}" aria-pressed=${this._activeMode === mode ? 'true' : 'false'} @click=${() => this.dispatch('theme-mode-change', { mode })}>${mode === 'base' ? 'Default' : mode === 'dark' ? 'Dark' : 'Contrast'}</button>`,
 							)}
 						</div>
 					</div>
@@ -55,8 +55,8 @@ class DbThemeModeSelector extends HTMLElement {
 						this._activeMode === 'base'
 							? html`<p class="db-theme-mode-status">The source of truth for the colour roles below. Adding or removing a palette colour updates every enabled variant.</p>`
 							: themeEnabled
-								? html`<div class="db-theme-mode-status"><span>${this._activeMode === 'dark' ? 'Dark' : 'High contrast'} scheme enabled. It contains the same editable colour roles as Base.</span><button type="button" class="db-btn" @click=${() => this.dispatch('theme-disable')}>Use base only</button></div>`
-								: html`<div class="db-theme-mode-status"><span>No ${themeName} has been created. Visitors will use Base for this preference.</span><button type="button" class="db-btn db-btn-primary" @click=${() => this.dispatch('theme-enable')}>Create ${themeName}</button></div>`
+								? html`<div class="db-theme-mode-status"><span>${this._activeMode === 'dark' ? 'Dark' : 'Contrast'} scheme enabled. It contains the same editable colour roles as Default.</span><button type="button" class="db-btn" @click=${() => this.dispatch('theme-disable')}>Use Default only</button></div>`
+								: html`<div class="db-theme-mode-status"><span>No ${themeName} has been created. Visitors will use Default for this preference.</span><button type="button" class="db-btn db-btn-primary" @click=${() => this.dispatch('theme-enable')}>Create ${themeName}</button></div>`
 					}
 				</section>
 			`,

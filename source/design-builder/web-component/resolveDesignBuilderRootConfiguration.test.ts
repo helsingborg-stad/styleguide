@@ -136,7 +136,7 @@ describe('resolveDesignBuilderRootConfiguration', () => {
 		]);
 	});
 
-	it('normalizes an empty token preset as a default appearance option', () => {
+	it('normalizes a default preset with dark and contrast variants', () => {
 		const root = createRoot();
 		root.setAttribute('token-data', JSON.stringify({ name: 'Tokens' }));
 		root.setAttribute(
@@ -144,8 +144,10 @@ describe('resolveDesignBuilderRootConfiguration', () => {
 			JSON.stringify([
 				{
 					id: 'default',
-					label: 'Default appearance',
+					label: 'Default / Dark / Contrast',
 					token: {},
+					_dark: { '--color--primary': '#9cc2ff' },
+					_contrast: { '--color--primary': '#ffffff' },
 				},
 			]),
 		);
@@ -161,9 +163,11 @@ describe('resolveDesignBuilderRootConfiguration', () => {
 		expect(configuration.presets).toEqual([
 			{
 				id: 'default',
-				label: 'Default appearance',
+				label: 'Default / Dark / Contrast',
 				state: {
 					token: {},
+					_dark: { '--color--primary': '#9cc2ff' },
+					_contrast: { '--color--primary': '#ffffff' },
 					component: {},
 				},
 				targets: {
