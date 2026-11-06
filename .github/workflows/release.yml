@@ -1,100 +1,85 @@
-name: Bump version, build and create release
+name: Publish source-tagged Composer release
 
 on:
   push:
-    branches:
-      - main-1.x
+    branches: [main-1.x]
+  workflow_dispatch:
+    inputs:
+      pilot:
+        description: "Publish the first pilot release before enabling automatic publication"
+        required: true
+        type: boolean
+        default: false
+
+concurrency:
+  group: styleguide-release-main-1.x
+  cancel-in-progress: false
 
 jobs:
   release:
+    if: github.ref == 'refs/heads/main-1.x' && (vars.DIST_RELEASE_VERIFIED == 'true' || inputs.pilot == true)
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      packages: write
-
+      packages: read
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Bump version files (no release yet)
-        uses: helsingborg-stad/release-wp-plugin-action@main
+      - name: Bump version files on main-1.x
+        uses: helsingborg-stad/release-wp-plugin-action@616213a13c430f4fa7cf1c066630aa17f04eb692
         with:
           php-version: 8.3
           node-version: 24.3.0
           skip-release: true
 
-      - name: Pull latest main-1.x with bumped version
+      - name: Capture the versioned source commit
+        id: source
         run: |
-          git fetch origin main-1.x
-          git checkout main-1.x
-          git pull origin main-1.x
-          git checkout -B release
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          echo "version=$(jq -r .version package.json)" >> "$GITHUB_OUTPUT"
+          git diff --exit-code
+          test "$(git ls-remote origin refs/heads/main-1.x | cut -f1)" = "$(git rev-parse HEAD)"
 
-      - name: Extract version
-        id: version
-        run: |
-          VERSION=$(jq -r '.version' package.json)
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Detected version: $VERSION"
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - uses: shivammathur/setup-php@v2
         with:
           php-version: "8.3"
+          tools: composer:v2
 
       - name: Configure npm for GitHub Packages
         run: |
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
           echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> .npmrc
 
-      - name: Run PHP build script
-        run: php build.php --no-composer --cleanup --release
-
-      - name: Remove cached git files
+      - name: Install build dependencies
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git rm -r --cached .
+          composer config --global github-oauth.github.com "$GH_TOKEN"
+          composer install --no-interaction --prefer-dist
+          npm ci
 
-      - name: Overwrite .gitignore for release branch
+      - name: Check the exact source commit
         run: |
-          cat > .gitignore <<'EOF'
-          /*
-          !/assets
-          !/source
-          !/component-design-tokens.json
-          !/composer.json
-          !/composer.lock
-          !/LICENSE
-          !/README.md
-          EOF
+          composer test
+          npm run typecheck
+          npm test -- --watch=false
 
-      # --- Release Branch Commit ---
-      - name: Commit and push release branch
+      - name: Build and verify the Composer ZIP
+        env:
+          VERSION: ${{ steps.source.outputs.version }}
         run: |
-          git config user.name "CI Release Bot"
-          git config user.email "ci@helsingborg.se"
-          git add .
-          git commit -m "Release build from $GITHUB_SHA" || echo "No changes to commit"
-          git push origin release --force
+          npm run build
+          python3 -m unittest discover -s scripts -p 'test_release_package.py'
+          python3 scripts/release_package.py create "$RUNNER_TEMP/styleguide-$VERSION.zip"
+          python3 scripts/release_package.py check "$RUNNER_TEMP/styleguide-$VERSION.zip"
+          bash scripts/test_composer_dist.sh "$RUNNER_TEMP/styleguide-$VERSION.zip" "$VERSION"
+          test "$(git rev-parse HEAD)" = "${{ steps.source.outputs.sha }}"
 
-      # --- Tag and create GitHub Release on release branch ---
-      - name: Create and push tag
-        run: |
-          TAG="${{ steps.version.outputs.version }}"
-          # skip if tag already exists
-          if git ls-remote --tags origin | grep -q "refs/tags/$TAG$"; then
-            echo "Tag $TAG already exists, skipping tag creation."
-            exit 0
-          fi
-          git tag "$TAG"
-          git push origin "$TAG"
-
-      - name: Wait for tag propagation
-        run: sleep 5
-
-      - name: Create GitHub Release
-        uses: ncipollo/release-action@v1
-        with:
-          tag: ${{ steps.version.outputs.version }}
-          generateReleaseNotes: true
+      - name: Publish immutable release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ steps.source.outputs.version }}
+          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+        run: bash scripts/publish_release.sh "$VERSION" "$SOURCE_SHA" "$RUNNER_TEMP/styleguide-$VERSION.zip" "$GITHUB_REPOSITORY"
