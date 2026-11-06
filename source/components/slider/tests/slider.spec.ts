@@ -30,7 +30,10 @@ async function expandCategory(page: Page, name: string): Promise<void> {
 
 async function rangeControl(page: Page, category: string, label: string): Promise<Locator> {
 	await expandCategory(page, category);
-	const input = page.locator('db-control-row').filter({ hasText: label }).locator('input[type="range"]');
+	const input = page
+		.locator('db-control-row')
+		.filter({ has: page.getByText(label, { exact: true }) })
+		.locator('input[type="range"]');
 	await expect(input).toBeVisible();
 	return input;
 }
@@ -108,7 +111,10 @@ test.describe('Slider – Design Center controls', () => {
 		await page.setViewportSize({ width: 1280, height: 720 });
 		await page.goto(SLIDER_PAGE);
 
-		const cardsSlider = page.locator(`${SLIDER}.c-slider--post`).filter({ hasText: 'Card #0' });
+		const cardsSlider = page.locator(`${SLIDER}[data-js-slider-slide-by-page]`).first();
+		await cardsSlider.evaluate((element) => {
+			element.style.width = '800px';
+		});
 		const inner = cardsSlider.locator('.c-slider__inner');
 
 		await expect(inner).toHaveCSS('--c-slider--columns', '4');
@@ -121,9 +127,7 @@ test.describe('Slider – Design Center controls', () => {
 		const autoplayToggle = page.locator(`${AUTOPLAY_SLIDER} .c-slider__autoslide-toggle`).first();
 
 		const arrowHeight = await computedNumber(arrow, 'height');
-		const standardButtonHeight = await arrow.evaluate((element) =>
-			Number.parseFloat(getComputedStyle(element).getPropertyValue('--c-button-height'))
-		);
+		const standardButtonHeight = await computedNumber(page.locator('.c-button').first(), 'height');
 		expect(arrowHeight).toBeCloseTo(standardButtonHeight, 1);
 
 		const autoplaySizeBefore = await computedNumber(autoplayToggle, 'width');

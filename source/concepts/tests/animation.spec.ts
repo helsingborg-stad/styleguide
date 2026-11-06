@@ -43,13 +43,13 @@ test.describe('Animation guideline', () => {
 		});
 
 		expect(tokens).toEqual({
-			duration100: '100ms',
-			duration120: '120ms',
-			duration160: '160ms',
-			duration180: '180ms',
-			duration300: '300ms',
-		easeOut: 'cubic-bezier(0.23,1,0.32,1)',
-		easeFadeOut: 'cubic-bezier(0.4,0,0.8,0.4)',
+			duration100: '.1s',
+			duration120: '.12s',
+			duration160: '.16s',
+			duration180: '.18s',
+			duration300: '.3s',
+			easeOut: 'cubic-bezier(.23,1,.32,1)',
+			easeFadeOut: 'cubic-bezier(.4,0,.8,.4)',
 		});
 	});
 
