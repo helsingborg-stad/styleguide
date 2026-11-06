@@ -614,6 +614,22 @@ versions (Municipio currently specifies `composer:v2`, not an exact minimum)
 before relying on the 2.1+ contract. A local artifact test is not a substitute
 for this Packagist pilot.
 
+After Packagist indexes the pilot, run
+`bash scripts/check_packagist_release.sh <version> <composer-binary>` twice:
+once with a Composer 2.1.0 executable and once with a current Composer 2.x
+executable. The script asserts the Packagist metadata, real dist install
+without source fallback, and source checkout. Separately install
+`dev-main-1.x` using `--prefer-source` in a clean consumer and check its Git
+checkout; repeat with `dev-release` only if supporting a legacy consumer.
+Composer 2.0 is unsupported for the placeholder URL. The publicly indexed
+release history skips patches (for example 3.44.0 → 3.44.4); the failed
+November 5 release job calculated 3.44.2 before a 502, while the subsequent
+published release was 3.44.4. This is consistent with version bumps being
+committed before publication and a later attempt allocating another patch,
+not evidence that the GitVersion conventional-commit regex needs changing.
+Keep that policy unchanged; retry a failed publication promptly on its
+original versioned commit, before later version bumps.
+
 Release runs are serialized, and the pinned version action writes version
 files to `main-1.x`. The workflow captures that exact SHA, runs checks and
 builds the ZIP before publication, and refuses to publish if the branch
