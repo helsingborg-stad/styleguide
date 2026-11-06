@@ -40,4 +40,4 @@ runs:
     - name: Install npm dependencies
       if: inputs.node == 'true'
       shell: bash
-      run: npm ci
+      run: npm ci --ignore-scripts

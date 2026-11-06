@@ -27,6 +27,7 @@ jobs:
       - uses: ./.github/actions/test-dependencies
         with:
           node: 'true'
+          php: 'true'
       - name: Run Jest
         id: jest
         env:
