@@ -247,7 +247,7 @@
     @php
         $currentPath = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
         $themePresetDefinitions = [
-            ['id' => 'default', 'label' => 'Default appearance', 'token' => []],
+            ['id' => 'default', 'label' => 'Default / Dark / Contrast', 'path' => 'source/themes/default.json'],
             ['id' => 'dark', 'label' => 'Dark Ember', 'path' => 'source/themes/dark.json'],
             ['id' => 'nordic-dawn', 'label' => 'Nordic Dawn', 'path' => 'source/themes/nordic-dawn.json'],
             ['id' => 'forest-mist', 'label' => 'Forest Mist', 'path' => 'source/themes/forest-mist.json'],
@@ -258,7 +258,8 @@
         ];
         $designBuilderPresets = [];
         foreach ($themePresetDefinitions as $themePresetDefinition) {
-            $tokenOverrides = $themePresetDefinition['token'] ?? json_decode(file_get_contents(BASEPATH . $themePresetDefinition['path']), true);
+            $themePresetPayload = $themePresetDefinition['token'] ?? json_decode(file_get_contents(BASEPATH . $themePresetDefinition['path']), true);
+            $tokenOverrides = is_array($themePresetPayload) && array_key_exists('token', $themePresetPayload) ? $themePresetPayload['token'] : $themePresetPayload;
             if (!is_array($tokenOverrides)) {
                 continue;
             }
@@ -267,6 +268,8 @@
                 'id' => $themePresetDefinition['id'],
                 'label' => $themePresetDefinition['label'],
                 'token' => $tokenOverrides,
+                '_dark' => $themePresetDefinition['_dark'] ?? ($themePresetPayload['_dark'] ?? null),
+                '_contrast' => $themePresetDefinition['_contrast'] ?? ($themePresetPayload['_contrast'] ?? null),
             ];
         }
     @endphp

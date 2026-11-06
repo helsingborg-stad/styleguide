@@ -57,9 +57,11 @@ function normalizePresetDefinition(input: unknown, fallbackId?: string): DesignB
 	const rawState =
 		record.state ??
 		record.overrides ??
-		('token' in record || 'component' in record
+		('token' in record || 'component' in record || '_dark' in record || '_contrast' in record
 			? {
 					...('token' in record ? { token: record.token } : {}),
+					...('_dark' in record ? { _dark: record._dark } : {}),
+					...('_contrast' in record ? { _contrast: record._contrast } : {}),
 					...('component' in record ? { component: record.component } : {}),
 				}
 			: undefined);

@@ -21,8 +21,12 @@ function hydratePersistedOverrideState(rootElement: DesignBuilderRootElement): v
 		return;
 	}
 
+	const tokenStore = new TokenOverrideLocalStorageStore();
+	const persistedTokenState = tokenStore.loadState();
 	const overrideState = normalizeDesignBuilderOverrideState({
-		token: new TokenOverrideLocalStorageStore().load(),
+		token: persistedTokenState.token,
+		...(persistedTokenState._dark !== undefined ? { _dark: persistedTokenState._dark } : {}),
+		...(persistedTokenState._contrast !== undefined ? { _contrast: persistedTokenState._contrast } : {}),
 		component: new ComponentOverrideLocalStorageStore().load(),
 	});
 
@@ -45,7 +49,7 @@ function bindStyleguideSaveAdapter(rootElement: DesignBuilderRootElement): void 
 	rootElement.addEventListener('design-builder:save', (event) => {
 		const detail = (event as CustomEvent<{ state?: unknown }>).detail;
 		const state = normalizeDesignBuilderOverrideState(detail?.state);
-		new TokenOverrideLocalStorageStore().save(state.token);
+		new TokenOverrideLocalStorageStore().saveState(state);
 		new ComponentOverrideLocalStorageStore().save(state.component);
 	});
 }

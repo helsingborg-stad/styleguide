@@ -3,6 +3,13 @@ import type { ScopedComponentOverrides } from '../types/designBuilderDataTypes';
 
 export interface DesignBuilderOverrideState {
 	token: Record<string, string>;
+	/**
+	 * Optional colour-mode overrides. The underscored names are deliberately
+	 * kept in the serialized document so older consumers can continue to read
+	 * the `token` and `component` slices unchanged.
+	 */
+	_dark?: Record<string, string> | null;
+	_contrast?: Record<string, string> | null;
 	component: ScopedComponentOverrides;
 }
 
@@ -39,6 +46,14 @@ export function normalizeTokenOverrides(input: unknown): Record<string, string> 
 	}
 
 	return filtered;
+}
+
+function normalizeThemeOverrides(input: unknown): Record<string, string> | null {
+	if (input === null || input === undefined) {
+		return null;
+	}
+
+	return normalizeTokenOverrides(input);
 }
 
 function isLegacyComponentOverrides(input: Record<string, unknown>): boolean {
@@ -126,9 +141,11 @@ export function normalizeDesignBuilderOverrideState(input: unknown): DesignBuild
 	}
 
 	const record = input as Record<string, unknown>;
-	if ('token' in record || 'component' in record) {
+	if ('token' in record || 'component' in record || '_dark' in record || '_contrast' in record) {
 		return {
 			token: normalizeTokenOverrides(record.token),
+			...('_dark' in record ? { _dark: normalizeThemeOverrides(record._dark) } : {}),
+			...('_contrast' in record ? { _contrast: normalizeThemeOverrides(record._contrast) } : {}),
 			component: normalizeComponentOverrides(record.component),
 		};
 	}
@@ -148,5 +165,5 @@ export function normalizeDesignBuilderOverrideState(input: unknown): DesignBuild
 }
 
 export function hasOverrideStateData(state: DesignBuilderOverrideState): boolean {
-	return Object.keys(state.token).length > 0 || Object.keys(state.component).length > 0;
+	return Object.keys(state.token).length > 0 || state._dark !== null && state._dark !== undefined || state._contrast !== null && state._contrast !== undefined || Object.keys(state.component).length > 0;
 }

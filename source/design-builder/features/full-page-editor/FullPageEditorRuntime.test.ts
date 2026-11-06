@@ -201,6 +201,48 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 		container.remove();
 	});
 
+	it('seeds a new contrast scheme from the Default preset variant only', () => {
+		const container = document.createElement('div');
+		document.body.appendChild(container);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+			presets?: unknown;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
+		hostElement.presets = [
+			{
+				id: 'default',
+				label: 'Default / Dark / Contrast',
+				state: { token: {}, _contrast: { '--color--primary': '#ffd400' }, component: {} },
+				targets: { token: true, component: false },
+			},
+		];
+		document.body.appendChild(hostElement);
+		const themeTokens: TokenData = {
+			name: 'Theme tokens',
+			version: '1.0.0',
+			categories: [
+				{
+					id: 'colors-brand',
+					label: 'Brand colours',
+					settings: [{ variable: '--color--primary', label: 'Primary', type: 'color', default: '#0055aa' }],
+				},
+			],
+		};
+		const runtime = new FullPageEditorRuntime(container, themeTokens, hostElement as RuntimeHostElement) as unknown as {
+			activeThemeMode: 'contrast';
+			enableActiveTheme(): void;
+		};
+
+		runtime.activeThemeMode = 'contrast';
+		runtime.enableActiveTheme();
+
+		expect(hostElement.overrideState._contrast).toEqual({ '--color--primary': '#ffd400' });
+
+		hostElement.remove();
+		container.remove();
+	});
+
 	it('keeps component overrides when loading a token-only provided preset', () => {
 		document.body.innerHTML = '<div data-component="button"></div>';
 		const target = document.querySelector<HTMLElement>('[data-component="button"]');

@@ -771,6 +771,44 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
+	it('keeps dark and contrast variants when loading a provided token preset', () => {
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+		const hostElement = document.createElement('design-builder') as HTMLElement & {
+			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
+			presets?: unknown;
+		};
+		hostElement.overrideState = normalizeDesignBuilderOverrideState({ component: {} });
+		hostElement.presets = [
+			{
+				id: 'default',
+				label: 'Default / Dark / Contrast',
+				state: {
+					token: {},
+					_dark: { '--color--primary': '#9cc2ff' },
+					_contrast: { '--color--primary': '#ffffff' },
+					component: {},
+				},
+				targets: { token: true, component: false },
+			},
+		];
+		document.body.appendChild(hostElement);
+
+		new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: hostElement as RuntimeHostElement });
+		const presetSelect = mount.querySelector<HTMLSelectElement>('[data-action="select-preset"]');
+		if (presetSelect) {
+			presetSelect.value = 'provided:default';
+			presetSelect.dispatchEvent(new Event('change'));
+		}
+
+		expect(hostElement.overrideState._dark).toEqual({ '--color--primary': '#9cc2ff' });
+		expect(hostElement.overrideState._contrast).toEqual({ '--color--primary': '#ffffff' });
+		expect(document.getElementById('design-builder-theme-overrides')?.textContent).toContain('@media (prefers-color-scheme: dark)');
+
+		hostElement.remove();
+		mount.remove();
+	});
+
 	it('prunes overrides for removed explicit component settings while preserving linked color companions', () => {
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);
