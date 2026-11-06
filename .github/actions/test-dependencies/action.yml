@@ -1,0 +1,43 @@
+name: Install test dependencies
+description: Set up the runtimes and dependencies needed by a test job.
+inputs:
+  node:
+    description: Install Node.js and npm dependencies.
+    default: 'false'
+  php:
+    description: Install PHP and Composer dependencies.
+    default: 'false'
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-node@v4
+      if: inputs.node == 'true'
+      with:
+        node-version: 24.6
+        cache: npm
+        cache-dependency-path: ./package-lock.json
+
+    - uses: shivammathur/setup-php@v2
+      if: inputs.php == 'true'
+      with:
+        php-version: '8.3'
+        tools: composer:v2
+
+    - name: Install Composer dependencies
+      if: inputs.php == 'true'
+      shell: bash
+      run: composer install --no-interaction --prefer-dist
+
+    - name: Configure npm for GitHub Packages
+      if: inputs.node == 'true'
+      shell: bash
+      env:
+        GH_PACKAGES_TOKEN: ${{ github.token }}
+      run: |
+        echo "//npm.pkg.github.com/:_authToken=$GH_PACKAGES_TOKEN" > .npmrc
+        echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> .npmrc
+
+    - name: Install npm dependencies
+      if: inputs.node == 'true'
+      shell: bash
+      run: npm ci --ignore-scripts

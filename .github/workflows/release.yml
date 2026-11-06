@@ -10,12 +10,15 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  release:
+  version:
     if: github.ref == 'refs/heads/main-1.x'
     runs-on: ubuntu-latest
     permissions:
       contents: write
       packages: read
+    outputs:
+      sha: ${{ steps.source.outputs.sha }}
+      version: ${{ steps.source.outputs.version }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -36,6 +39,33 @@ jobs:
           git diff --exit-code
           test "$(git ls-remote origin refs/heads/main-1.x | cut -f1)" = "$(git rev-parse HEAD)"
 
+  test:
+    needs: version
+    permissions:
+      checks: write
+      contents: read
+      packages: read
+    uses: ./.github/workflows/test.yml
+    with:
+      ref: ${{ needs.version.outputs.sha }}
+
+  release:
+    needs: [version, test]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.version.outputs.sha }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.3.0
+          cache: npm
+
       - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
         with:
           php-version: "8.3"
@@ -54,26 +84,21 @@ jobs:
           composer install --no-interaction --prefer-dist
           npm ci --ignore-scripts
 
-      - name: Check the exact source commit
-        run: |
-          composer test
-          npm run typecheck
-          npm test -- --watch=false
-
       - name: Build and verify the Composer ZIP
         env:
-          VERSION: ${{ steps.source.outputs.version }}
+          VERSION: ${{ needs.version.outputs.version }}
+          SOURCE_SHA: ${{ needs.version.outputs.sha }}
         run: |
           npm run build
           python3 -m unittest discover -s scripts -p 'test_release_package.py'
           python3 scripts/release_package.py create "$RUNNER_TEMP/styleguide-$VERSION.zip"
           python3 scripts/release_package.py check "$RUNNER_TEMP/styleguide-$VERSION.zip"
           bash scripts/test_composer_dist.sh "$RUNNER_TEMP/styleguide-$VERSION.zip" "$VERSION"
-          test "$(git rev-parse HEAD)" = "${{ steps.source.outputs.sha }}"
+          test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
 
       - name: Publish immutable release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERSION: ${{ steps.source.outputs.version }}
-          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+          VERSION: ${{ needs.version.outputs.version }}
+          SOURCE_SHA: ${{ needs.version.outputs.sha }}
         run: bash scripts/publish_release.sh "$VERSION" "$SOURCE_SHA" "$RUNNER_TEMP/styleguide-$VERSION.zip" "$GITHUB_REPOSITORY"
