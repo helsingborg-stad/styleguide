@@ -108,9 +108,10 @@ async function findConsoleIssues(bundlePath: string): Promise<ConsoleIssue[]> {
 
 function shouldIgnoreIssue(issue: ConsoleIssue, ignoreRules: JsConsoleIgnoreRule[]): boolean {
 	const relativeBundlePath = path.relative(path.join(projectRoot, 'assets', 'dist'), issue.bundle).replace(/\\/g, '/');
+	const stableBundlePath = relativeBundlePath.replace(/\.[A-Za-z0-9_-]+\.js$/, '.js');
 
 	return ignoreRules.some((rule) => {
-		if (rule.bundle && rule.bundle !== relativeBundlePath) {
+		if (rule.bundle && rule.bundle !== relativeBundlePath && rule.bundle !== stableBundlePath) {
 			return false;
 		}
 
