@@ -64,6 +64,22 @@ describe('designBuilderOverrideState normalization', () => {
 		});
 	});
 
+	it('keeps optional dark and high-contrast maps while accepting null themes', () => {
+		expect(
+			normalizeDesignBuilderOverrideState({
+				token: { '--color--primary': '#0055aa' },
+				_dark: null,
+				_contrast: { '--color--primary': '#ffffff', '--color--primary-border': 1 },
+				component: {},
+			}),
+		).toEqual({
+			token: { '--color--primary': '#0055aa' },
+			_dark: null,
+			_contrast: { '--color--primary': '#ffffff', '--color--primary-border': '1' },
+			component: {},
+		});
+	});
+
 	it('treats legacy unscoped numeric component overrides as general scoped overrides', () => {
 		expect(
 			normalizeComponentOverrides({

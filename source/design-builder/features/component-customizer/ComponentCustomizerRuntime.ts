@@ -7,7 +7,7 @@ import { createDetailsMenuDismissController, type DetailsMenuDismissController }
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
 import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPresetManager';
 import { type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset, designBuilderPresetMatchesState } from '../../shared/presets/designBuilderPresetDefinitions';
-import { applyTokenOverridesToRootDocument, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
+import { applyThemeOverridesToPage, applyTokenOverridesToRootDocument, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
 import { getComponentOverrideTargets } from '../../shared/state/componentOverrideTargets';
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import { getNamedScopeKeysForElement, getResolvedScopeKeyForElement } from '../../shared/state/designBuilderScope';
@@ -737,11 +737,16 @@ export class ComponentCustomizerRuntime {
 	}
 
 	private loadPreset(option: RuntimePresetOption): void {
-		const currentTokenOverrides = this.hostElement?.overrideState.token ?? {};
+		const currentState = this.hostElement?.overrideState ?? normalizeDesignBuilderOverrideState({});
+		const currentTokenOverrides = currentState.token;
 		const nextTokenOverrides = option.targets.token ? option.state.token : currentTokenOverrides;
+		const nextThemeOverrides = option.targets.token
+			? { _dark: option.state._dark ?? null, _contrast: option.state._contrast ?? null }
+			: { _dark: currentState._dark ?? null, _contrast: currentState._contrast ?? null };
 		if (option.targets.token) {
 			clearTokenOverridesFromRootDocument(currentTokenOverrides);
 			applyTokenOverridesToRootDocument(option.state.token);
+			applyThemeOverridesToPage(nextThemeOverrides._dark, nextThemeOverrides._contrast);
 		}
 
 		if (option.targets.component) {
@@ -750,7 +755,7 @@ export class ComponentCustomizerRuntime {
 			this.applySavedOverrides();
 		}
 
-		this.syncOverrideState(nextTokenOverrides);
+		this.syncOverrideState(nextTokenOverrides, nextThemeOverrides);
 		if (option.source === 'saved') {
 			this.presetManager.setActive(option.id);
 		} else {
@@ -846,8 +851,11 @@ export class ComponentCustomizerRuntime {
 	}
 
 	private exportJson(): void {
+		const currentState = this.hostElement?.overrideState ?? normalizeDesignBuilderOverrideState({});
 		const state = normalizeDesignBuilderOverrideState({
-			token: this.hostElement?.overrideState.token ?? {},
+			token: currentState.token,
+			...(currentState._dark !== undefined ? { _dark: currentState._dark } : {}),
+			...(currentState._contrast !== undefined ? { _contrast: currentState._contrast } : {}),
 			component: this.overrides,
 		});
 		const data = JSON.stringify(state, null, 2);
@@ -894,7 +902,10 @@ export class ComponentCustomizerRuntime {
 		this.clearAppliedOverrides();
 		this.overrides = importedOverrides;
 		this.applySavedOverrides();
-		this.syncOverrideState(importedState.token);
+		this.syncOverrideState(importedState.token, {
+			_dark: importedState._dark ?? null,
+			_contrast: importedState._contrast ?? null,
+		});
 		this.presetManager.clearActive();
 		this.refreshPresetBar();
 		this.renderControls();
@@ -1943,15 +1954,22 @@ export class ComponentCustomizerRuntime {
 		this.presetBarHost = null;
 	}
 
-	private syncOverrideState(tokenOverrides: Record<string, string> | null = null): void {
+	private syncOverrideState(tokenOverrides: Record<string, string> | null = null, themeOverrides?: { _dark: Record<string, string> | null; _contrast: Record<string, string> | null }): void {
 		if (!this.hostElement) {
 			return;
 		}
+		const currentState = this.hostElement.overrideState;
+		const themes = themeOverrides ?? {
+			_dark: currentState._dark ?? null,
+			_contrast: currentState._contrast ?? null,
+		};
 
 		this.hostElement.overrideState = normalizeDesignBuilderOverrideState({
-			token: tokenOverrides ?? this.hostElement.overrideState.token,
+			token: tokenOverrides ?? currentState.token,
+			...(themes._dark !== null || themes._contrast !== null ? themes : {}),
 			component: this.overrides,
 		});
+		applyThemeOverridesToPage(themes._dark, themes._contrast);
 	}
 
 	private emitAction(action: 'change' | 'save' | 'reset-all' | 'reset-component' | 'import' | 'export' | 'preset-save' | 'preset-load' | 'preset-delete', metadata?: Record<string, unknown>): void {

@@ -16,7 +16,9 @@ export const ACTIVE_PRESET_KEY = 'design-tokens-active-preset';
 
 export interface TokenOverrideStore {
 	load(): Record<string, string>;
-	save(overrides: Record<string, string>): void;
+	save(overrides: Record<string, string> | DesignBuilderOverrideState): void;
+	loadState(): DesignBuilderOverrideState;
+	saveState(state: DesignBuilderOverrideState): void;
 	clear(): void;
 }
 
@@ -47,10 +49,12 @@ export class TokenOverrideLocalStorageStore implements TokenOverrideStore {
 		}
 	}
 
-	save(overrides: Record<string, string>): void {
-		const filtered = normalizeDesignBuilderOverrideState({ token: overrides }).token;
+	save(overrides: Record<string, string> | DesignBuilderOverrideState): void {
 		const nextState = this.loadState();
-		nextState.token = filtered;
+		const normalized = normalizeDesignBuilderOverrideState(overrides);
+		nextState.token = normalized.token;
+		if ('_dark' in overrides) nextState._dark = normalized._dark;
+		if ('_contrast' in overrides) nextState._contrast = normalized._contrast;
 		this.saveState(nextState);
 	}
 
@@ -60,7 +64,7 @@ export class TokenOverrideLocalStorageStore implements TokenOverrideStore {
 		this.saveState(nextState);
 	}
 
-	private loadState(): DesignBuilderOverrideState {
+	public loadState(): DesignBuilderOverrideState {
 		const fallbackState = createEmptyOverrideState();
 
 		try {
@@ -93,7 +97,7 @@ export class TokenOverrideLocalStorageStore implements TokenOverrideStore {
 		return fallbackState;
 	}
 
-	private saveState(state: DesignBuilderOverrideState): void {
+	public saveState(state: DesignBuilderOverrideState): void {
 		if (!hasOverrideStateData(state)) {
 			this.storage.removeItem(this.key);
 			return;

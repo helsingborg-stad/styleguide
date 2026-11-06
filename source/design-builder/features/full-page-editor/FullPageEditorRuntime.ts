@@ -1,11 +1,12 @@
 import { html, nothing, render as renderTemplate, type TemplateResult } from 'lit-html';
 import { createDesignBuilderCategory, createDesignBuilderControl, createDesignBuilderSwatchBand, createReadOnlyDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
+import type { DesignBuilderThemeMode } from '../../shared/control-elements/controls/layout/ThemeModeSelector';
 import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
 import { createDetailsMenuDismissController, type DetailsMenuDismissController } from '../../shared/menus/createDetailsMenuDismissController';
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
 import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPresetManager';
 import { type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset, designBuilderPresetMatchesState } from '../../shared/presets/designBuilderPresetDefinitions';
-import { applyComponentOverridesToPage, clearComponentOverridesFromPage, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
+import { applyComponentOverridesToPage, applyThemeOverridesToPage, clearComponentOverridesFromPage, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import { registerControlInfoTooltips } from '../../shared/tooltips/registerControlInfoTooltips';
 import type { TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
@@ -31,6 +32,15 @@ interface PaletteFamilyGroup {
 
 const BRAND_PALETTE_CATEGORY_ID = 'colors-brand-palette';
 const PALETTE_VARIABLE_PATTERN = /^--color--(palette-(\d+))(?:-(contrast))?$/;
+type ThemeMode = DesignBuilderThemeMode;
+
+function isThemeEditableVariable(variable: string): boolean {
+	if (variable === '--color--border-mix-amount' || variable === '--shadow-color' || variable === '--shadow-amount') {
+		return true;
+	}
+
+	return variable.startsWith('--color--') && !variable.endsWith('-border') && !variable.endsWith('-alt') && !variable.endsWith('-contrast-muted');
+}
 
 export class FullPageEditorRuntime {
 	private container: HTMLElement;
@@ -45,6 +55,9 @@ export class FullPageEditorRuntime {
 	private modeSwitch?: DesignBuilderModeSwitch;
 	private showSaveButton: boolean;
 	private activePaletteFamilies = new Set<string>();
+	private activeThemeMode: ThemeMode = 'base';
+	private darkOverrides: Record<string, string> | null;
+	private contrastOverrides: Record<string, string> | null;
 
 	constructor(container: HTMLElement, tokens: TokenData, hostElement: DesignBuilderRootElement, modeSwitch?: DesignBuilderModeSwitch, showSaveButton = true) {
 		this.container = container;
@@ -52,11 +65,15 @@ export class FullPageEditorRuntime {
 		this.tokens = tokens;
 		this.presetManager = new DesignBuilderPresetManager();
 		this.overrides = { ...hostElement.overrideState.token };
+		this.darkOverrides = hostElement.overrideState._dark ? { ...hostElement.overrideState._dark } : null;
+		this.contrastOverrides = hostElement.overrideState._contrast ? { ...hostElement.overrideState._contrast } : null;
 		this.showLockedFields = hostElement.showLockedFields;
 		this.modeSwitch = modeSwitch;
 		this.showSaveButton = showSaveButton;
 		this.removeLockedOverrides();
 		this.syncPaletteFamiliesFromOverrides();
+		this.darkOverrides = this.normalizeThemeForAvailableTokens(this.darkOverrides);
+		this.contrastOverrides = this.normalizeThemeForAvailableTokens(this.contrastOverrides);
 		this.syncOverrideState();
 
 		this.render();
@@ -183,10 +200,36 @@ export class FullPageEditorRuntime {
 				</div>
 			</div>
 			<div data-preset-bar></div>
+			${this.renderThemeModeTemplate()}
 			<div class="db-categories">
-				${this.tokens.categories.map((category) => this.renderCategoryElement(category))}
+				${this.getVisibleCategories().map((category) => this.renderCategoryElement(category))}
 			</div>
 		`;
+	}
+
+	private renderThemeModeTemplate(): TemplateResult {
+		return html`<db-theme-mode-selector
+			.activeMode=${this.activeThemeMode}
+			.darkEnabled=${this.darkOverrides !== null}
+			.contrastEnabled=${this.contrastOverrides !== null}
+			@theme-mode-change=${(event: CustomEvent<{ mode: ThemeMode }>) => this.setActiveThemeMode(event.detail.mode)}
+			@theme-enable=${this.enableActiveTheme}
+			@theme-disable=${this.disableActiveTheme}
+		></db-theme-mode-selector>`;
+	}
+
+	private getVisibleCategories(): TokenCategory[] {
+		if (this.activeThemeMode === 'base') {
+			return this.tokens.categories;
+		}
+
+		if (this.getThemeOverrides(this.activeThemeMode) === null) {
+			return [];
+		}
+
+		return this.tokens.categories
+			.map((category) => ({ ...category, settings: category.settings.filter((setting) => isThemeEditableVariable(setting.variable)) }))
+			.filter((category) => category.settings.length > 0);
 	}
 
 	private renderCategoryElement(category: TokenCategory): HTMLElement {
@@ -214,7 +257,7 @@ export class FullPageEditorRuntime {
 				continue;
 			}
 
-			const currentValue = this.overrides[setting.variable] || setting.default;
+			const currentValue = this.getCurrentValue(setting.variable, setting.default);
 			items.push(
 				createDesignBuilderControl(setting, currentValue, (variable, value) => {
 					this.handleChange(variable, value, setting.default);
@@ -299,7 +342,9 @@ export class FullPageEditorRuntime {
 			<span class="db-material-symbol" aria-hidden="true">close</span>
 		`;
 		removeButton.addEventListener('click', () => this.removePaletteFamily(group));
-		header.appendChild(removeButton);
+		if (this.activeThemeMode === 'base') {
+			header.appendChild(removeButton);
+		}
 
 		wrapper.appendChild(header);
 
@@ -312,7 +357,7 @@ export class FullPageEditorRuntime {
 				...setting,
 				label: setting === group.baseSetting ? 'Color' : 'Contrast',
 			};
-			const currentValue = this.overrides[setting.variable] || setting.default;
+			const currentValue = this.getCurrentValue(setting.variable, setting.default);
 			wrapper.appendChild(
 				createDesignBuilderControl(paletteSetting, currentValue, (variable, value) => {
 					this.handleChange(variable, value, setting.default);
@@ -327,7 +372,7 @@ export class FullPageEditorRuntime {
 		const groups = this.getPaletteFamilyGroups(category);
 		const items = groups.filter((group) => this.activePaletteFamilies.has(group.family)).map((group) => this.createPaletteFamilyElement(group));
 
-		const nextGroup = groups.find((group) => !this.activePaletteFamilies.has(group.family));
+		const nextGroup = this.activeThemeMode === 'base' ? groups.find((group) => !this.activePaletteFamilies.has(group.family)) : undefined;
 		if (nextGroup) {
 			const addButton = document.createElement('button');
 			addButton.type = 'button';
@@ -349,6 +394,13 @@ export class FullPageEditorRuntime {
 				}
 
 				this.activePaletteFamilies.add(nextGroup.family);
+				for (const setting of [nextGroup.baseSetting, nextGroup.contrastSetting]) {
+					if (!setting) continue;
+					const value = this.getBaseValue(setting.variable, setting.default);
+					if (this.darkOverrides) this.darkOverrides[setting.variable] = value;
+					if (this.contrastOverrides) this.contrastOverrides[setting.variable] = value;
+				}
+				this.syncOverrideState();
 				this.render();
 			});
 			items.push(addButton);
@@ -365,6 +417,8 @@ export class FullPageEditorRuntime {
 			}
 
 			delete this.overrides[setting.variable];
+			delete this.darkOverrides?.[setting.variable];
+			delete this.contrastOverrides?.[setting.variable];
 			document.documentElement.style.removeProperty(setting.variable);
 		}
 
@@ -377,6 +431,21 @@ export class FullPageEditorRuntime {
 	}
 
 	private handleChange(variable: string, value: string, defaultValue: string): void {
+		const activeOverrides = this.getThemeOverrides(this.activeThemeMode);
+		if (this.activeThemeMode !== 'base' && !activeOverrides) {
+			return;
+		}
+
+		if (this.activeThemeMode !== 'base') {
+			activeOverrides![variable] = value || this.getBaseValue(variable, defaultValue);
+			this.applyThemePreview();
+			this.syncOverrideState();
+			this.presetManager.clearActive();
+			this.refreshPresetBar();
+			this.emitAction('change', { variable, value, theme: this.activeThemeMode });
+			return;
+		}
+
 		if (!value || value === defaultValue) {
 			delete this.overrides[variable];
 		} else {
@@ -399,12 +468,120 @@ export class FullPageEditorRuntime {
 		});
 	}
 
+	private getThemeOverrides(mode: ThemeMode): Record<string, string> | null {
+		if (mode === 'dark') return this.darkOverrides;
+		if (mode === 'contrast') return this.contrastOverrides;
+		return this.overrides;
+	}
+
+	private getBaseValue(variable: string, defaultValue: string): string {
+		return this.overrides[variable] || defaultValue;
+	}
+
+	private getCurrentValue(variable: string, defaultValue: string): string {
+		const themeOverrides = this.getThemeOverrides(this.activeThemeMode);
+		if (this.activeThemeMode !== 'base' && themeOverrides) {
+			return themeOverrides[variable] || this.getBaseValue(variable, defaultValue);
+		}
+
+		return this.getBaseValue(variable, defaultValue);
+	}
+
+	private collectThemeDefaults(mode: ThemeMode = 'base'): Record<string, string> {
+		const themeTemplate = this.getThemeTemplate(mode);
+		const theme: Record<string, string> = {};
+		for (const category of this.tokens.categories) {
+			for (const setting of category.settings) {
+				if (isThemeEditableVariable(setting.variable) && (!this.parsePaletteVariable(setting.variable) || this.activePaletteFamilies.has(this.parsePaletteVariable(setting.variable)!.family))) {
+					theme[setting.variable] = themeTemplate?.[setting.variable] ?? this.getBaseValue(setting.variable, setting.default);
+				}
+			}
+		}
+		return theme;
+	}
+
+	private getThemeTemplate(mode: ThemeMode): Record<string, string> | null {
+		if (mode === 'base') return null;
+
+		const defaultPreset = this.getProvidedPresets().find((preset) => preset.id === 'default');
+		const defaultVariant = mode === 'dark' ? defaultPreset?.state._dark : defaultPreset?.state._contrast;
+		return defaultVariant ?? null;
+	}
+
+	private normalizeThemeForAvailableTokens(theme: Record<string, string> | null): Record<string, string> | null {
+		if (theme === null) return null;
+
+		const allowed = new Set<string>();
+		for (const category of this.tokens.categories) {
+			for (const setting of category.settings) {
+				const palette = this.parsePaletteVariable(setting.variable);
+				if (isThemeEditableVariable(setting.variable) && (!palette || this.activePaletteFamilies.has(palette.family))) {
+					allowed.add(setting.variable);
+				}
+			}
+		}
+
+		const normalized = Object.fromEntries(Object.entries(theme).filter(([variable]) => allowed.has(variable))) as Record<string, string>;
+		for (const category of this.tokens.categories) {
+			for (const setting of category.settings) {
+				if (allowed.has(setting.variable) && !(setting.variable in normalized)) {
+					normalized[setting.variable] = this.getBaseValue(setting.variable, setting.default);
+				}
+			}
+		}
+
+		return normalized;
+	}
+
+	private setActiveThemeMode(mode: ThemeMode): void {
+		this.activeThemeMode = mode;
+		this.applyThemePreview();
+		this.render();
+	}
+
+	private enableActiveTheme = (): void => {
+		const theme = this.collectThemeDefaults(this.activeThemeMode);
+		if (this.activeThemeMode === 'dark') this.darkOverrides = theme;
+		if (this.activeThemeMode === 'contrast') this.contrastOverrides = theme;
+		this.syncOverrideState();
+		this.applyThemePreview();
+		this.render();
+	};
+
+	private disableActiveTheme = (): void => {
+		if (this.activeThemeMode === 'dark') this.darkOverrides = null;
+		if (this.activeThemeMode === 'contrast') this.contrastOverrides = null;
+		this.syncOverrideState();
+		this.applyThemePreview();
+		this.render();
+	};
+
+	private applyThemePreview(): void {
+		for (const category of this.tokens.categories) {
+			for (const setting of category.settings) {
+				if (this.activeThemeMode !== 'base' && isThemeEditableVariable(setting.variable)) {
+					document.documentElement.style.removeProperty(setting.variable);
+				}
+			}
+		}
+
+		if (this.activeThemeMode === 'base') {
+			for (const [variable, value] of Object.entries(this.collectThemeDefaults())) document.documentElement.style.setProperty(variable, value);
+			return;
+		}
+
+		for (const [variable, value] of Object.entries(this.getThemeOverrides(this.activeThemeMode) || {})) {
+			document.documentElement.style.setProperty(variable, value);
+		}
+	}
+
 	private applyAll(): void {
 		for (const [prop, value] of Object.entries(this.overrides)) {
 			document.documentElement.style.setProperty(prop, value);
 		}
 
 		applyComponentOverridesToPage(this.hostElement.overrideState.component);
+		applyThemeOverridesToPage(this.darkOverrides, this.contrastOverrides);
 	}
 
 	private resetAll(): void {
@@ -417,6 +594,8 @@ export class FullPageEditorRuntime {
 		}
 
 		this.overrides = {};
+		this.darkOverrides = null;
+		this.contrastOverrides = null;
 		this.syncPaletteFamiliesFromOverrides();
 		this.syncOverrideState();
 		this.presetManager.clearActive();
@@ -427,6 +606,7 @@ export class FullPageEditorRuntime {
 	private exportJson(): void {
 		const state = normalizeDesignBuilderOverrideState({
 			token: this.overrides,
+			...this.getThemeStateFields(),
 			component: this.hostElement.overrideState.component,
 		});
 		const data = JSON.stringify(state, null, 2);
@@ -493,10 +673,13 @@ export class FullPageEditorRuntime {
 		applyComponentOverridesToPage(importedState.component);
 
 		this.overrides = importedOverrides;
+		this.darkOverrides = this.normalizeThemeForAvailableTokens(importedState._dark ?? null);
+		this.contrastOverrides = this.normalizeThemeForAvailableTokens(importedState._contrast ?? null);
 		this.syncPaletteFamiliesFromOverrides();
 		this.applyAll();
 		this.hostElement.overrideState = normalizeDesignBuilderOverrideState({
 			token: importedOverrides,
+			...this.getThemeStateFields(),
 			component: importedState.component,
 		});
 		this.presetManager.clearActive();
@@ -614,6 +797,8 @@ export class FullPageEditorRuntime {
 		if (option.targets.token) {
 			clearTokenOverridesFromRootDocument(this.overrides);
 			this.overrides = { ...option.state.token };
+			this.darkOverrides = this.normalizeThemeForAvailableTokens(option.state._dark ? { ...option.state._dark } : null);
+			this.contrastOverrides = this.normalizeThemeForAvailableTokens(option.state._contrast ? { ...option.state._contrast } : null);
 			this.removeLockedOverrides();
 			this.syncPaletteFamiliesFromOverrides();
 		}
@@ -719,6 +904,7 @@ export class FullPageEditorRuntime {
 	private getCurrentPresetState(): DesignBuilderOverrideState {
 		return {
 			token: { ...this.overrides },
+			...this.getThemeStateFields(),
 			component: this.hostElement.overrideState.component,
 		};
 	}
@@ -726,8 +912,21 @@ export class FullPageEditorRuntime {
 	private syncOverrideState(): void {
 		this.hostElement.overrideState = normalizeDesignBuilderOverrideState({
 			token: this.overrides,
+			...this.getThemeStateFields(),
 			component: this.hostElement.overrideState.component,
 		});
+		applyThemeOverridesToPage(this.darkOverrides, this.contrastOverrides);
+	}
+
+	private getThemeStateFields(): Pick<DesignBuilderOverrideState, '_dark' | '_contrast'> | Record<string, never> {
+		if (this.darkOverrides === null && this.contrastOverrides === null) {
+			return {};
+		}
+
+		return {
+			_dark: this.darkOverrides ? { ...this.darkOverrides } : null,
+			_contrast: this.contrastOverrides ? { ...this.contrastOverrides } : null,
+		};
 	}
 
 	private emitAction(action: 'change' | 'save' | 'reset-all' | 'import' | 'export' | 'preset-save' | 'preset-load' | 'preset-delete', metadata?: Record<string, unknown>): void {
