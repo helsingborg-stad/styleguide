@@ -6,6 +6,7 @@ import './controls/layout/ControlRow';
 import './controls/layout/ReadOnlyControlRow';
 import './controls/layout/Category';
 import './controls/layout/SwatchBand';
+import './controls/layout/ThemeModeSelector';
 import type { TokenCategory } from '../types/designBuilderDataTypes';
 import type { ChangeCallback, ControlChangeOptions, TokenSetting } from './controls/types';
 

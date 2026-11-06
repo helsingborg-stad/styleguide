@@ -1,5 +1,6 @@
 import { html, nothing, render as renderTemplate, type TemplateResult } from 'lit-html';
 import { createDesignBuilderCategory, createDesignBuilderControl, createDesignBuilderSwatchBand, createReadOnlyDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
+import type { DesignBuilderThemeMode } from '../../shared/control-elements/controls/layout/ThemeModeSelector';
 import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
 import { createDetailsMenuDismissController, type DetailsMenuDismissController } from '../../shared/menus/createDetailsMenuDismissController';
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
@@ -31,8 +32,7 @@ interface PaletteFamilyGroup {
 
 const BRAND_PALETTE_CATEGORY_ID = 'colors-brand-palette';
 const PALETTE_VARIABLE_PATTERN = /^--color--(palette-(\d+))(?:-(contrast))?$/;
-const THEME_MODES = ['base', 'dark', 'contrast'] as const;
-type ThemeMode = (typeof THEME_MODES)[number];
+type ThemeMode = DesignBuilderThemeMode;
 
 function isThemeEditableVariable(variable: string): boolean {
 	if (variable === '--color--border-mix-amount' || variable === '--shadow-color' || variable === '--shadow-amount') {
@@ -208,28 +208,14 @@ export class FullPageEditorRuntime {
 	}
 
 	private renderThemeModeTemplate(): TemplateResult {
-		const hasActiveTheme = this.getThemeOverrides(this.activeThemeMode) !== null;
-		const themeLabel = this.activeThemeMode === 'dark' ? 'dark colour scheme' : 'high contrast colour scheme';
-		return html`
-			<section class="db-theme-mode" aria-label="Colour schemes">
-				<div class="db-theme-mode-heading">
-					<div>
-						<h2>Colour schemes</h2>
-						<p>Base is used by default. Dark and high contrast only change the available colour roles; layout and typography stay shared.</p>
-					</div>
-					<div class="db-theme-mode-switch" role="group" aria-label="Edit colour scheme">
-						${THEME_MODES.map((mode) => html`<button type="button" class="db-theme-mode-button ${this.activeThemeMode === mode ? 'db-theme-mode-button-active' : ''}" aria-pressed=${this.activeThemeMode === mode ? 'true' : 'false'} @click=${() => this.setActiveThemeMode(mode)}>${mode === 'base' ? 'Base' : mode === 'dark' ? 'Dark' : 'High contrast'}</button>`)}
-					</div>
-				</div>
-				${
-					this.activeThemeMode === 'base'
-						? html`<p class="db-theme-mode-status">The source of truth for the colour roles below. Adding or removing a palette colour here updates each enabled variant.</p>`
-						: hasActiveTheme
-							? html`<div class="db-theme-mode-status"><span>${this.activeThemeMode === 'dark' ? 'Dark' : 'High contrast'} scheme enabled. It contains the same editable colour roles as Base.</span><button type="button" class="db-btn" @click=${this.disableActiveTheme}>Use base only</button></div>`
-							: html`<div class="db-theme-mode-status"><span>No ${themeLabel} has been created. Visitors will use Base for this preference.</span><button type="button" class="db-btn db-btn-primary" @click=${this.enableActiveTheme}>Create ${this.activeThemeMode === 'dark' ? 'dark scheme' : 'high contrast scheme'}</button></div>`
-				}
-			</section>
-		`;
+		return html`<db-theme-mode-selector
+			.activeMode=${this.activeThemeMode}
+			.darkEnabled=${this.darkOverrides !== null}
+			.contrastEnabled=${this.contrastOverrides !== null}
+			@theme-mode-change=${(event: CustomEvent<{ mode: ThemeMode }>) => this.setActiveThemeMode(event.detail.mode)}
+			@theme-enable=${this.enableActiveTheme}
+			@theme-disable=${this.disableActiveTheme}
+		></db-theme-mode-selector>`;
 	}
 
 	private getVisibleCategories(): TokenCategory[] {

@@ -389,6 +389,8 @@ Initial draft state is passed in through `override-state` / `rootElement.overrid
 `override-state` is the input you use when you want Design Builder to start with preloaded draft values instead of an empty state. On startup, the runtime normalizes that payload and reapplies both slices:
 
 - `token` for global token overrides
+- `_dark` for optional dark-scheme colour overrides
+- `_contrast` for optional high-contrast colour overrides
 - `component` for component-level overrides
 
 Current shape:
@@ -492,6 +494,33 @@ Example:
   }
 }
 ```
+
+### Colour-scheme variants
+
+The full-page editor has **Base**, **Dark**, and **High contrast** modes. Base remains the normal token slice. Dark and high contrast are optional: if either mode is not created, its value is `null` (or omitted in older documents) and visitors continue to use Base.
+
+```json
+{
+  "token": {
+    "--color--primary": "#0055aa"
+  },
+  "_dark": {
+    "--color--primary": "#9cc2ff",
+    "--color--primary-contrast": "#08111f",
+    "--color--border-mix-amount": "18%",
+    "--shadow-color": "rgba(0, 0, 0, 0.5)",
+    "--shadow-amount": "0.3"
+  },
+  "_contrast": null,
+  "component": {}
+}
+```
+
+The variant maps are deliberately top-level underscore keys. Existing consumers can keep reading `token` and `component` unchanged, while newer consumers can opt into the additional modes.
+
+When a variant is created, Design Builder seeds every allowed colour role from Base. The editor only exposes direct colour roles (including primary, secondary, active palette colours, layout/UI/state colours), border-mix amount, and shadow values. Derived `-border`, `-alt`, and muted contrast tokens stay derived. This guarantees that a defined variant has a value for every permitted role and cannot add arbitrary new token keys.
+
+While editing, choosing Base, Dark, or High contrast forces that mode in the live preview. In a consuming site, `_dark` is emitted under `prefers-color-scheme: dark`; `_contrast` is emitted under `prefers-contrast: more` and `forced-colors: active`.
 
 ### token-library (legacy)
 
