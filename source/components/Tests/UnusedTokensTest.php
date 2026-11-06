@@ -107,10 +107,12 @@ class UnusedTokensTest extends TestCase
         $positionalPattern = '/tokens\.\w+\s*\([^,]+,\s*[\'\"]' . $escapedToken . '[\'\"]/m';
         $namedPattern = '/tokens\.\w+\s*\([^)]*\$token\s*:\s*[\'\"]' . $escapedToken . '[\'\"]/m';
         $componentVariablePattern = '/--(?:#\{\$_\}|[\w-]+)--' . $escapedToken . '(?:\b|--)/m';
+        $globalVariablePattern = '/var\(\s*--' . $escapedToken . '\s*(?:,|\))/m';
 
         return preg_match($positionalPattern, $scssContents) === 1
             || preg_match($namedPattern, $scssContents) === 1
-            || preg_match($componentVariablePattern, $scssContents) === 1;
+            || preg_match($componentVariablePattern, $scssContents) === 1
+            || preg_match($globalVariablePattern, $scssContents) === 1;
     }
 
     private static function extractTokensFromTokenFile(string $tokenFile): array
