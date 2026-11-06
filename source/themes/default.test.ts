@@ -15,7 +15,8 @@ describe('default theme variants', () => {
 		expect(theme.component).toEqual({});
 		expect(theme._dark['--color--surface']).toBe('#1f1f1f');
 		expect(theme._contrast['--color--background']).toBe('#000000');
-		expect(theme._dark['--c-link--color-mix-amount']).toBe('90%');
+    expect(theme._dark['--c-link--color-mix-amount']).toBe('87%');
+    expect(theme._dark['--c-link--state-color-mix-amount']).toBe('74%');
 		expect(theme._contrast['--c-link--state-color-mix-amount']).toBe('100%');
 
 		for (const variant of [theme._dark, theme._contrast]) {
