@@ -645,3 +645,11 @@ the release job itself tests the versioned SHA before publishing. The same
 pattern can be reused elsewhere by replacing the repository-specific version
 action, allowlist, build command and publication adapter while retaining local
 archive validation and immutable tag/asset checks.
+
+GitVersion ignores base-version candidates whose source commits predate
+2026-11-05 UTC to avoid repeatedly evaluating the older release history. The
+cutoff retains the source-tagged 3.44.14 release and later releases; it does not
+delete tags or exclude commits from the increment calculation. Version
+calculations on older history, or after removing the retained release tags, may
+therefore differ. Revalidate the cutoff before changing it or rewriting release
+history.
