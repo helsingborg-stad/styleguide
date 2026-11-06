@@ -19,7 +19,8 @@ Municipio should continue to persist and consume the existing `token` and `compo
 
 - Missing `_dark` / `_contrast` means no variant, for full compatibility with existing saved site settings.
 - `null` explicitly means the variant is disabled.
-- A non-null variant must be limited to the Design Builder allow-list: direct colour roles, `--color--border-mix-amount`, `--shadow-color`, and `--shadow-amount`.
+- A non-null variant must be limited to the Design Builder allow-list: direct colour roles, `--color--border-mix-amount`, `--shadow-color`, `--shadow-amount`, and component variables whose component-setting definition explicitly sets `themeable: true`.
+- Themeable component settings are serialized as their existing global component custom-property name (for example, `--c-link--color-mix-amount`), so a variant applies to all component instances unless a more-local component override is present.
 - Do not store derived `-border`, `-alt`, or `-contrast-muted` values. They continue to derive from their parent roles.
 
 ## Delivery steps

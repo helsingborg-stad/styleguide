@@ -19,6 +19,7 @@ export interface TokenSetting {
 	step?: number;
 	options?: TokenSettingOption[];
 	locked?: boolean;
+	themeable?: boolean;
 	contrast?: string | string[];
 	notes?: string;
 	linkedDefaults?: Record<string, string>;

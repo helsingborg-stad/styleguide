@@ -107,6 +107,10 @@ function normalizeComponentVariableSetting(setting: unknown): TokenSetting | nul
 		normalized.locked = setting.locked;
 	}
 
+	if (typeof setting.themeable === 'boolean') {
+		normalized.themeable = setting.themeable;
+	}
+
 	if (typeof setting.min === 'number') {
 		normalized.min = setting.min;
 	}

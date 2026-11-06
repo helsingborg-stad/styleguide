@@ -9,7 +9,9 @@ import { type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset, desi
 import { applyComponentOverridesToPage, applyThemeOverridesToPage, clearComponentOverridesFromPage, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import { registerControlInfoTooltips } from '../../shared/tooltips/registerControlInfoTooltips';
+import { parseComponentTokenData } from '../../features/component-customizer/componentTokenDefinitions';
 import type { TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
+import type { TokenSetting } from '../../shared/control-elements/controls/types';
 import type { DesignBuilderModeSwitch, DesignBuilderRootElement } from '../../web-component/designBuilderRootContracts';
 import { translations } from '../translations';
 
@@ -42,10 +44,41 @@ function isThemeEditableVariable(variable: string): boolean {
 	return variable.startsWith('--color--') && !variable.endsWith('-border') && !variable.endsWith('-alt') && !variable.endsWith('-contrast-muted');
 }
 
+function createThemeComponentCategories(componentData: unknown): TokenCategory[] {
+	const categories: TokenCategory[] = [];
+
+	for (const [componentName, component] of Object.entries(parseComponentTokenData(componentData)).sort(([left], [right]) => left.localeCompare(right))) {
+		const componentSlug = component.slug || componentName;
+		const componentLabel = component.name || componentSlug;
+
+		for (const category of component.componentSettings || []) {
+			const settings = category.settings
+				.filter((setting): setting is TokenSetting => 'variable' in setting && setting.themeable === true)
+				.map((setting) => ({
+					...setting,
+					variable: `--c-${componentSlug}--${setting.variable.slice(2)}`,
+					default: setting.unit && !setting.default.endsWith(setting.unit) ? `${setting.default}${setting.unit}` : setting.default,
+				}));
+
+			if (settings.length > 0) {
+				categories.push({
+					id: `component-${componentSlug}-${category.id}`,
+					label: `${componentLabel}: ${category.label}`,
+					...(category.description ? { description: category.description } : {}),
+					settings,
+				});
+			}
+		}
+	}
+
+	return categories;
+}
+
 export class FullPageEditorRuntime {
 	private container: HTMLElement;
 	private hostElement: DesignBuilderRootElement;
 	private tokens: TokenData;
+	private themeComponentCategories: TokenCategory[];
 	private overrides: Record<string, string>;
 	private presetManager: DesignBuilderPresetManager;
 	private root: HTMLElement | null = null;
@@ -63,6 +96,7 @@ export class FullPageEditorRuntime {
 		this.container = container;
 		this.hostElement = hostElement;
 		this.tokens = tokens;
+		this.themeComponentCategories = createThemeComponentCategories(hostElement.componentData);
 		this.presetManager = new DesignBuilderPresetManager();
 		this.overrides = { ...hostElement.overrideState.token };
 		this.darkOverrides = hostElement.overrideState._dark ? { ...hostElement.overrideState._dark } : null;
@@ -227,9 +261,19 @@ export class FullPageEditorRuntime {
 			return [];
 		}
 
-		return this.tokens.categories
+		return [
+			...this.tokens.categories
 			.map((category) => ({ ...category, settings: category.settings.filter((setting) => isThemeEditableVariable(setting.variable)) }))
-			.filter((category) => category.settings.length > 0);
+			.filter((category) => category.settings.length > 0),
+			...this.themeComponentCategories,
+		];
+	}
+
+	private getThemeEditableSettings(): TokenSetting[] {
+		return [
+			...this.tokens.categories.flatMap((category) => category.settings.filter((setting) => isThemeEditableVariable(setting.variable))),
+			...this.themeComponentCategories.flatMap((category) => category.settings),
+		];
 	}
 
 	private renderCategoryElement(category: TokenCategory): HTMLElement {
@@ -490,11 +534,9 @@ export class FullPageEditorRuntime {
 	private collectThemeDefaults(mode: ThemeMode = 'base'): Record<string, string> {
 		const themeTemplate = this.getThemeTemplate(mode);
 		const theme: Record<string, string> = {};
-		for (const category of this.tokens.categories) {
-			for (const setting of category.settings) {
-				if (isThemeEditableVariable(setting.variable) && (!this.parsePaletteVariable(setting.variable) || this.activePaletteFamilies.has(this.parsePaletteVariable(setting.variable)!.family))) {
-					theme[setting.variable] = themeTemplate?.[setting.variable] ?? this.getBaseValue(setting.variable, setting.default);
-				}
+		for (const setting of this.getThemeEditableSettings()) {
+			if (!this.parsePaletteVariable(setting.variable) || this.activePaletteFamilies.has(this.parsePaletteVariable(setting.variable)!.family)) {
+				theme[setting.variable] = themeTemplate?.[setting.variable] ?? this.getBaseValue(setting.variable, setting.default);
 			}
 		}
 		return theme;
@@ -511,22 +553,19 @@ export class FullPageEditorRuntime {
 	private normalizeThemeForAvailableTokens(theme: Record<string, string> | null): Record<string, string> | null {
 		if (theme === null) return null;
 
-		const allowed = new Set<string>();
-		for (const category of this.tokens.categories) {
-			for (const setting of category.settings) {
-				const palette = this.parsePaletteVariable(setting.variable);
-				if (isThemeEditableVariable(setting.variable) && (!palette || this.activePaletteFamilies.has(palette.family))) {
-					allowed.add(setting.variable);
-				}
-			}
-		}
+		const allowed = new Set(
+			this.getThemeEditableSettings()
+				.filter((setting) => {
+					const palette = this.parsePaletteVariable(setting.variable);
+					return !palette || this.activePaletteFamilies.has(palette.family);
+				})
+				.map((setting) => setting.variable),
+		);
 
 		const normalized = Object.fromEntries(Object.entries(theme).filter(([variable]) => allowed.has(variable))) as Record<string, string>;
-		for (const category of this.tokens.categories) {
-			for (const setting of category.settings) {
-				if (allowed.has(setting.variable) && !(setting.variable in normalized)) {
-					normalized[setting.variable] = this.getBaseValue(setting.variable, setting.default);
-				}
+		for (const setting of this.getThemeEditableSettings()) {
+			if (allowed.has(setting.variable) && !(setting.variable in normalized)) {
+				normalized[setting.variable] = this.getBaseValue(setting.variable, setting.default);
 			}
 		}
 
@@ -557,11 +596,9 @@ export class FullPageEditorRuntime {
 	};
 
 	private applyThemePreview(): void {
-		for (const category of this.tokens.categories) {
-			for (const setting of category.settings) {
-				if (this.activeThemeMode !== 'base' && isThemeEditableVariable(setting.variable)) {
-					document.documentElement.style.removeProperty(setting.variable);
-				}
+		for (const setting of this.getThemeEditableSettings()) {
+			if (this.activeThemeMode !== 'base') {
+				document.documentElement.style.removeProperty(setting.variable);
 			}
 		}
 

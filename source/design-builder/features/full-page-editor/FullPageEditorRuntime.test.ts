@@ -175,6 +175,7 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 		const hostElement = document.createElement('design-builder') as HTMLElement & {
 			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
 			presets?: unknown;
+			componentData?: unknown;
 		};
 		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
 		document.body.appendChild(hostElement);
@@ -207,13 +208,22 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 		const hostElement = document.createElement('design-builder') as HTMLElement & {
 			overrideState: ReturnType<typeof normalizeDesignBuilderOverrideState>;
 			presets?: unknown;
+			componentData?: unknown;
 		};
 		hostElement.overrideState = normalizeDesignBuilderOverrideState({});
 		hostElement.presets = [
 			{
 				id: 'default',
 				label: 'Default / Dark / Contrast',
-				state: { token: {}, _contrast: { '--color--primary': '#ffd400' }, component: {} },
+				state: {
+					token: {},
+					_contrast: {
+						'--color--primary': '#ffd400',
+						'--c-link--color-mix-amount': '100%',
+						'--c-link--state-color-mix-amount': '100%',
+					},
+					component: {},
+				},
 				targets: { token: true, component: false },
 			},
 		];
@@ -225,9 +235,27 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 				{
 					id: 'colors-brand',
 					label: 'Brand colours',
-					settings: [{ variable: '--color--primary', label: 'Primary', type: 'color', default: '#0055aa' }],
+					settings: [
+						{ variable: '--color--primary', label: 'Primary', type: 'color', default: '#0055aa' },
+					],
 				},
 			],
+		};
+		hostElement.componentData = {
+			link: {
+				name: 'Link',
+				slug: 'link',
+				componentSettings: [
+					{
+						id: 'settings',
+						label: 'Settings',
+						settings: [
+							{ variable: '--color-mix-amount', label: 'Link Color Mix Amount', type: 'range', default: 90, unit: '%', themeable: true },
+							{ variable: '--state-color-mix-amount', label: 'Link State Color Mix Amount', type: 'range', default: 50, unit: '%', themeable: true },
+						],
+					},
+				],
+			},
 		};
 		const runtime = new FullPageEditorRuntime(container, themeTokens, hostElement as RuntimeHostElement) as unknown as {
 			activeThemeMode: 'contrast';
@@ -237,7 +265,13 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 		runtime.activeThemeMode = 'contrast';
 		runtime.enableActiveTheme();
 
-		expect(hostElement.overrideState._contrast).toEqual({ '--color--primary': '#ffd400' });
+		expect(hostElement.overrideState._contrast).toEqual({
+			'--color--primary': '#ffd400',
+			'--c-link--color-mix-amount': '100%',
+			'--c-link--state-color-mix-amount': '100%',
+		});
+		expect(container.querySelector('[data-tip-variable="--c-link--color-mix-amount"]')).toBeTruthy();
+		expect(container.querySelector('[data-tip-variable="--c-link--state-color-mix-amount"]')).toBeTruthy();
 
 		hostElement.remove();
 		container.remove();

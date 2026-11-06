@@ -158,6 +158,10 @@
 				"locked": {
 					"type": "boolean"
 				},
+				"themeable": {
+					"description": "Makes this component setting available in Dark and High Contrast theme variants.",
+					"type": "boolean"
+				},
 				"min": {
 					"type": "number"
 				},
