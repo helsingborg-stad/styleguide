@@ -28,6 +28,9 @@ if [[ -n "$remote_tag" ]]; then
     [[ $(git rev-parse "FETCH_HEAD^{}") == "$source_sha" ]] || {
         echo "Existing tag points at a different source commit" >&2; exit 1;
     }
+else
+    git tag "$version" "$source_sha"
+    git push origin "$tag_ref"
 fi
 
 if gh_retry release view "$version" --repo "$repository" --json isDraft,assets >/dev/null 2>&1; then
