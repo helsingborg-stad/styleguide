@@ -587,6 +587,11 @@ composer test
 npm run typecheck
 npm test -- --watch=false
 npm run build
+npm run lint:scss
+npm run test:js-console-validator
+npm run test:css-validator
+npx playwright install chromium
+npx playwright test
 python3 -m unittest discover -s scripts -p 'test_release_package.py'
 python3 scripts/release_package.py create /tmp/styleguide-<version>.zip
 python3 scripts/release_package.py check /tmp/styleguide-<version>.zip
@@ -631,17 +636,23 @@ Keep that policy unchanged; retry a failed publication promptly on its
 original versioned commit, before later version bumps.
 
 Release runs are serialized, and the pinned version action writes version
-files to `main-1.x`. The workflow captures that exact SHA, runs checks and
-builds the ZIP before publication, and refuses to publish if the branch
-advanced. The publication script checks existing tags and compares existing
+files to `main-1.x`. The workflow captures that exact SHA, calls the reusable
+test workflow on that commit, and builds the ZIP only after all checks pass.
+The test workflow runs Jest, TypeScript, Stylelint, PHPUnit, built-asset
+validation and four Playwright shards in parallel. Each suite publishes its
+own results, with a final summary; Playwright HTML reports are per shard.
+The release refuses to publish if the branch advanced. The publication script
+checks existing tags and compares existing
 asset bytes; rerun the same commit/version after a failed upload rather than
 moving a tag or replacing a release asset. GitHub may expose a new tag before
 its draft release asset is available, so Packagist can briefly index a URL
 that returns 404. Treat this as a publication window: do not update consumer
 locks until the published asset downloads successfully; rerun a failed
 publication promptly and investigate any published release missing an asset.
-Commits pushed by `GITHUB_TOKEN` do not start a new test workflow, which is why
-the release job itself tests the versioned SHA before publishing. The same
+Commits pushed by `GITHUB_TOKEN` do not start a new test workflow, so the release
+explicitly calls the reusable test workflow for the versioned SHA. Reports for
+that call are available as artifacts in the release run rather than as
+separate check runs on the triggering commit. The same
 pattern can be reused elsewhere by replacing the repository-specific version
 action, allowlist, build command and publication adapter while retaining local
 archive validation and immutable tag/asset checks.
