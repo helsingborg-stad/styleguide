@@ -42,7 +42,7 @@ jobs:
           git diff --exit-code
           test "$(git ls-remote origin refs/heads/main-1.x | cut -f1)" = "$(git rev-parse HEAD)"
 
-      - uses: shivammathur/setup-php@v2
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
         with:
           php-version: "8.3"
           tools: composer:v2
