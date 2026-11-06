@@ -163,5 +163,127 @@ class GitHubRetryTest(unittest.TestCase):
         self.assertEqual(self.calls.read_text().strip(), "5")
 
 
+class ReleasePublicationTest(unittest.TestCase):
+    """Ensure GitHub releases are created only after publishing their source tag."""
+
+    def setUp(self):
+        """Create an isolated source repository and a valid release archive."""
+        self.directory = tempfile.TemporaryDirectory()
+        self.addCleanup(self.directory.cleanup)
+        root = Path(self.directory.name)
+        self.checkout = root / "checkout"
+        self.origin = root / "origin.git"
+        self.bin_directory = root / "bin"
+        self.bin_directory.mkdir()
+        self.calls = root / "gh-calls"
+        self.archive = root / "styleguide-1.2.3.zip"
+        self.version = "1.2.3"
+
+        scripts = Path(__file__).parent
+        (self.checkout / "scripts").mkdir(parents=True)
+        for name in ("publish_release.sh", "gh_retry.sh", "release_package.py"):
+            (self.checkout / "scripts" / name).write_bytes((scripts / name).read_bytes())
+
+        subprocess.run(["git", "init", "--bare", "-q", str(self.origin)], check=True)
+        subprocess.run(["git", "init", "-q", str(self.checkout)], check=True)
+        subprocess.run(["git", "-C", str(self.checkout), "config", "user.name", "Release Test"], check=True)
+        subprocess.run(
+            ["git", "-C", str(self.checkout), "config", "user.email", "release-test@example.test"],
+            check=True,
+        )
+        (self.checkout / "source.txt").write_text("source")
+        subprocess.run(["git", "-C", str(self.checkout), "add", "source.txt"], check=True)
+        subprocess.run(["git", "-C", str(self.checkout), "commit", "-qm", "source"], check=True)
+        subprocess.run(
+            ["git", "-C", str(self.checkout), "branch", "-M", "main-1.x"],
+            check=True,
+        )
+        subprocess.run(
+            ["git", "-C", str(self.checkout), "remote", "add", "origin", str(self.origin)],
+            check=True,
+        )
+        subprocess.run(
+            ["git", "-C", str(self.checkout), "push", "-q", "-u", "origin", "main-1.x"],
+            check=True,
+        )
+        self.source_sha = subprocess.check_output(
+            ["git", "-C", str(self.checkout), "rev-parse", "HEAD"], text=True
+        ).strip()
+
+        files = {name: b"{}" for name in REQUIRED}
+        files.update({
+            "assets/dist/main.css": b".example { color: red }",
+            "assets/dist/main.js": b"console.log('ok')",
+            "assets/dist/manifest.json": json.dumps({
+                "css/styleguide-css.css": "main.css",
+                "js/styleguide-js.js": "main.js",
+            }).encode(),
+        })
+        with zipfile.ZipFile(self.archive, "w") as archive:
+            for name, content in files.items():
+                archive.writestr(name, content)
+
+        fake_gh = self.bin_directory / "gh"
+        fake_gh.write_text(
+            "#!/usr/bin/env bash\n"
+            "set -euo pipefail\n"
+            "printf '%s\\n' \"$*\" >> \"$GH_CALLS\"\n"
+            "if [[ \"$1 $2\" == 'release view' ]]; then exit 1; fi\n"
+            "if [[ \"$1 $2\" == 'release create' ]]; then\n"
+            "  tag=$(git ls-remote \"$TEST_ORIGIN\" \"refs/tags/$TEST_VERSION\" | cut -f1)\n"
+            "  [[ \"$tag\" == \"$TEST_SOURCE_SHA\" ]] || { echo 'source tag missing' >&2; exit 1; }\n"
+            "  exit 0\n"
+            "fi\n"
+            "if [[ \"$1 $2\" == 'release download' ]]; then\n"
+            "  while [[ $# -gt 0 ]]; do\n"
+            "    case \"$1\" in\n"
+            "      --pattern) asset=$2; shift 2 ;;\n"
+            "      --dir) destination=$2; shift 2 ;;\n"
+            "      *) shift ;;\n"
+            "    esac\n"
+            "  done\n"
+            "  cp \"$TEST_ARCHIVE\" \"$destination/$asset\"\n"
+            "fi\n"
+        )
+        fake_gh.chmod(0o755)
+
+    def test_pushes_source_tag_before_creating_release(self):
+        """Create the version tag at the source commit before calling GitHub."""
+        env = os.environ.copy()
+        env.update({
+            "PATH": f"{self.bin_directory}:{env['PATH']}",
+            "GH_CALLS": str(self.calls),
+            "TEST_ORIGIN": str(self.origin),
+            "TEST_SOURCE_SHA": self.source_sha,
+            "TEST_VERSION": self.version,
+            "TEST_ARCHIVE": str(self.archive),
+        })
+
+        result = subprocess.run(
+            [
+                "bash",
+                "scripts/publish_release.sh",
+                self.version,
+                self.source_sha,
+                str(self.archive),
+                "example/styleguide",
+            ],
+            cwd=self.checkout,
+            env=env,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(
+            subprocess.check_output(
+                ["git", "ls-remote", str(self.origin), f"refs/tags/{self.version}"], text=True
+            ).split()[0],
+            self.source_sha,
+        )
+        self.assertIn(f"release create {self.version}", self.calls.read_text())
+
+
 if __name__ == "__main__":
     unittest.main()
