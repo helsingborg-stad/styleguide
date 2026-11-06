@@ -2,6 +2,10 @@
   "name": "helsingborg-stad/styleguide",
   "license": "MIT",
   "type": "library",
+  "dist": {
+    "type": "zip",
+    "url": "https://github.com/helsingborg-stad/styleguide/releases/download/%prettyVersion%/styleguide-%prettyVersion%.zip"
+  },
   "authors": [
     {
       "name": "Sebastian Thulin",

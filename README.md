@@ -547,3 +547,101 @@ Distributed under the [MIT License][license-url].
 [issues-url]: https://github.com/helsingborg-stad/styleguide/issues
 [license-shield]: https://img.shields.io/github/license/helsingborg-stad/styleguide.svg?style=flat-square
 [license-url]: https://raw.githubusercontent.com/helsingborg-stad/styleguide/master/LICENSE
+
+# Composer release distribution (main-1.x)
+
+Stable Styleguide tags are unprefixed (`3.44.6`, not `v3.44.6`). New tags
+point to the versioned **source** commit on `main-1.x`. Their GitHub Releases
+include `styleguide-<version>.zip`, whose root contains `assets/` (including
+the Vite manifest, CSS/JS, utility class map and Material Symbols sprite),
+`source/`, both design-token JSON files, `composer.json`, `composer.lock`,
+`LICENSE` and `README.md`. Composer dependencies are installed during the
+build, but neither `vendor/` nor `node_modules/` belongs in the ZIP.
+The deployment workflow still uses `php ./build.php --cleanup` independently;
+that mode removes Composer manifests and is **not** used to make this ZIP.
+
+For stable versions, use `composer require helsingborg-stad/styleguide:<version>
+--prefer-dist` with Composer **2.1.0 or newer**. The version placeholder in
+`composer.json` is expanded by the installing client, not Packagist; Composer
+2.0.0 does not support it. Existing locks retain their previous GitHub archive
+URL until updated; existing tags and release assets are not modified.
+`--prefer-source` checks out the source tag and installs its declared PHP
+dependencies, but does not contain generated assets. From that checkout, run
+`composer install`, `npm ci` (with access to the org's npm registry), then
+`npm run build`. Development branches (`dev-main-1.x`, legacy `dev-release`)
+have no matching release ZIP; install them explicitly with `--prefer-source`
+and build locally. **Do not use `--prefer-dist` for development versions**:
+Composer may try a nonexistent URL and silently fall back to source. Keep
+the frozen `release` branch for existing consumers until private use of
+`dev-release` is inventoried; public indexed searches alone cannot prove
+there are none.
+
+To reproduce a release locally on a clean, versioned source checkout, set up
+PHP 8.3, Composer 2.1+ and Node 24, configure npm access to GitHub Packages,
+then run:
+
+```sh
+composer install --no-interaction --prefer-dist
+npm ci
+composer test
+npm run typecheck
+npm test -- --watch=false
+npm run build
+python3 -m unittest discover -s scripts -p 'test_release_package.py'
+python3 scripts/release_package.py create /tmp/styleguide-<version>.zip
+python3 scripts/release_package.py check /tmp/styleguide-<version>.zip
+bash scripts/test_composer_dist.sh /tmp/styleguide-<version>.zip <version>
+```
+
+The Python script uses only the standard library and archives the tracked
+runtime allowlist plus all generated `assets/dist/` files. It checks actual ZIP
+contents, manifest targets, token data, forbidden paths and unresolved
+`vendor/` CSS URLs. The Composer smoke test installs the ZIP through a local test-only package
+repository into an isolated consumer, checks package-root placement
+and resolves PHP dependencies. No GitHub tooling is needed to build or test.
+
+**Publication gate and pilot:** Automatic publishing requires repository
+variable `DIST_RELEASE_VERIFIED=true`; until then, an authorized maintainer
+can run `workflow_dispatch` on `main-1.x` with `pilot=true` for a new version.
+Before enabling automatic publication, verify the pilot's live
+`https://repo.packagist.org/p2/helsingborg-stad/styleguide.json` entry exposes
+the expected dist URL, and perform clean Packagist installs using **both**
+Composer 2.1.0 and the current 2.x client. Inspect installed
+`vendor/helsingborg-stad/styleguide/assets/dist/manifest.json` to distinguish
+dist from source fallback; also test `--prefer-source` and a `dev-main-1.x`
+source install. Confirm Municipio and other consumers' developer/CI Composer
+versions (Municipio currently specifies `composer:v2`, not an exact minimum)
+before relying on the 2.1+ contract. A local artifact test is not a substitute
+for this Packagist pilot.
+
+After Packagist indexes the pilot, run
+`bash scripts/check_packagist_release.sh <version> <composer-binary>` twice:
+once with a Composer 2.1.0 executable and once with a current Composer 2.x
+executable. The script asserts the Packagist metadata, real dist install
+without source fallback, and source checkout. Separately install
+`dev-main-1.x` using `--prefer-source` in a clean consumer and check its Git
+checkout; repeat with `dev-release` only if supporting a legacy consumer.
+Composer 2.0 is unsupported for the placeholder URL. The publicly indexed
+release history skips patches (for example 3.44.0 → 3.44.4); the failed
+November 5 release job calculated 3.44.2 before a 502, while the subsequent
+published release was 3.44.4. This is consistent with version bumps being
+committed before publication and a later attempt allocating another patch,
+not evidence that the GitVersion conventional-commit regex needs changing.
+Keep that policy unchanged; retry a failed publication promptly on its
+original versioned commit, before later version bumps.
+
+Release runs are serialized, and the pinned version action writes version
+files to `main-1.x`. The workflow captures that exact SHA, runs checks and
+builds the ZIP before publication, and refuses to publish if the branch
+advanced. The publication script checks existing tags and compares existing
+asset bytes; rerun the same commit/version after a failed upload rather than
+moving a tag or replacing a release asset. GitHub may expose a new tag before
+its draft release asset is available, so Packagist can briefly index a URL
+that returns 404. Treat this as a publication window: do not update consumer
+locks until the published asset downloads successfully; rerun a failed
+publication promptly and investigate any published release missing an asset.
+Commits pushed by `GITHUB_TOKEN` do not start a new test workflow, which is why
+the release job itself tests the versioned SHA before publishing. The same
+pattern can be reused elsewhere by replacing the repository-specific version
+action, allowlist, build command and publication adapter while retaining local
+archive validation and immutable tag/asset checks.
