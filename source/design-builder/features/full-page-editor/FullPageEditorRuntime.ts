@@ -56,7 +56,7 @@ function createThemeComponentCategories(componentData: unknown): TokenCategory[]
 				.filter((setting): setting is TokenSetting => 'variable' in setting && setting.themeable === true)
 				.map((setting) => ({
 					...setting,
-					variable: `--c-${componentSlug}--${setting.variable.slice(2)}`,
+					variable: `--c-${componentSlug}--${setting.variable.slice(2)}-default`,
 					default: setting.unit && !setting.default.endsWith(setting.unit) ? `${setting.default}${setting.unit}` : setting.default,
 				}));
 

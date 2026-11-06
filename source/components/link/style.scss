@@ -13,8 +13,8 @@ a,
 .#{$_} {
     @include inherit.consume($_, "color-contrast", tokens.getRawValue($_, "color--background-contrast"), "mixable-color");
     @include inherit.consume($_, "color-primary", tokens.getRawValue($_, "color--primary"), "mixable-color-saturated");
-    --#{$_}--link-color-mix: color-mix(in srgb, var(--#{$_}--mixable-color) var(--#{$_}--color-mix-amount, 90%), var(--#{$_}--mixable-color-saturated));
-    --#{$_}--state-link-color-mix: color-mix(in srgb, var(--#{$_}--mixable-color) var(--#{$_}--state-color-mix-amount, 50%), var(--#{$_}--mixable-color-saturated));
+    --#{$_}--link-color-mix: color-mix(in srgb, var(--#{$_}--mixable-color) var(--#{$_}--color-mix-amount, var(--#{$_}--color-mix-amount-default, 90%)), var(--#{$_}--mixable-color-saturated));
+    --#{$_}--state-link-color-mix: color-mix(in srgb, var(--#{$_}--mixable-color) var(--#{$_}--state-color-mix-amount, var(--#{$_}--state-color-mix-amount-default, 50%)), var(--#{$_}--mixable-color-saturated));
 }
 
 a:not([class^="c-"]):not([class*=" c-"]),

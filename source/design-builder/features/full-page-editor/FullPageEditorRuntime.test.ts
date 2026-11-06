@@ -219,8 +219,8 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 					token: {},
 					_contrast: {
 						'--color--primary': '#ffd400',
-						'--c-link--color-mix-amount': '100%',
-						'--c-link--state-color-mix-amount': '100%',
+						'--c-link--color-mix-amount-default': '100%',
+						'--c-link--state-color-mix-amount-default': '100%',
 					},
 					component: {},
 				},
@@ -267,11 +267,11 @@ describe('FullPageEditorRuntime preset compatibility', () => {
 
 		expect(hostElement.overrideState._contrast).toEqual({
 			'--color--primary': '#ffd400',
-			'--c-link--color-mix-amount': '100%',
-			'--c-link--state-color-mix-amount': '100%',
+			'--c-link--color-mix-amount-default': '100%',
+			'--c-link--state-color-mix-amount-default': '100%',
 		});
-		expect(container.querySelector('[data-tip-variable="--c-link--color-mix-amount"]')).toBeTruthy();
-		expect(container.querySelector('[data-tip-variable="--c-link--state-color-mix-amount"]')).toBeTruthy();
+		expect(container.querySelector('[data-tip-variable="--c-link--color-mix-amount-default"]')).toBeTruthy();
+		expect(container.querySelector('[data-tip-variable="--c-link--state-color-mix-amount-default"]')).toBeTruthy();
 
 		hostElement.remove();
 		container.remove();
