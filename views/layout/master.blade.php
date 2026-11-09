@@ -12,6 +12,21 @@
 
     <!-- COMPONENT_STYLES -->
 
+    @if($defaultDarkThemeDeclarations !== '' || $defaultContrastThemeDeclarations !== '')
+        <style id="default-theme-variants">
+            @if($defaultDarkThemeDeclarations !== '')
+                @media (prefers-color-scheme: dark) {
+                    :root { {!! $defaultDarkThemeDeclarations !!} }
+                }
+            @endif
+            @if($defaultContrastThemeDeclarations !== '')
+                @media (prefers-contrast: more), (forced-colors: active) {
+                    :root { {!! $defaultContrastThemeDeclarations !!} }
+                }
+            @endif
+        </style>
+    @endif
+
     @if(isset($customizeAssets['style']) && !empty($customizeAssets['style']))
         <link rel="stylesheet" href="{{ $customizeAssets['style'] }}" type="text/css" media="all">
     @endif

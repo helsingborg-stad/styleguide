@@ -86,10 +86,35 @@ class PageController extends BaseController implements ControllerInterface
         return [
             'assets' => Asset::getAll(),
             'customizeAssets' => CustomizeAssets::get(),
+            'defaultDarkThemeDeclarations' => $this->getDefaultThemeDeclarations('_dark'),
+            'defaultContrastThemeDeclarations' => $this->getDefaultThemeDeclarations('_contrast'),
             'topNavigation' => $this->navigation->buildItems('pages/', [], false),
             'sideNavigation' => $this->navigation->buildSidebarNavigation(),
             'pageNow' => $page,
         ];
+    }
+
+    /**
+     * Returns valid CSS custom property declarations for a default theme variant.
+     */
+    private function getDefaultThemeDeclarations(string $variant): string
+    {
+        $themePath = BASEPATH . 'source/themes/default.json';
+        $contents = is_file($themePath) ? file_get_contents($themePath) : false;
+        $theme = is_string($contents) ? json_decode($contents, true) : null;
+        $overrides = is_array($theme) && isset($theme[$variant]) && is_array($theme[$variant])
+            ? $theme[$variant]
+            : [];
+
+        $declarations = [];
+        foreach ($overrides as $variable => $value) {
+            if (!is_string($variable) || !str_starts_with($variable, '--') || !is_scalar($value)) {
+                continue;
+            }
+            $declarations[] = $variable . ': ' . $value . ';';
+        }
+
+        return implode('', $declarations);
     }
 
     /**
