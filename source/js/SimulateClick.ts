@@ -25,14 +25,17 @@ export class SimulateClick {
     this.triggers.push(element)
 
     element.addEventListener('click', (event:MouseEvent) => {
-
-      if (event.target instanceof HTMLElement) {
-        const targetElements = document.querySelectorAll<HTMLElement>(target);
-  
-        targetElements.forEach((targetElement) => {
-          targetElement.click();
-        });
+      // Clicks may originate from SVG child nodes (for example icon paths),
+      // which are Elements but not HTMLElements.
+      if (!(event.target instanceof Element)) {
+        return;
       }
+
+      const targetElements = document.querySelectorAll<HTMLElement>(target);
+
+      targetElements.forEach((targetElement) => {
+        targetElement.click();
+      });
     });
   }
   
