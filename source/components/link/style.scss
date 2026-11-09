@@ -31,20 +31,20 @@ a:not([class^="c-"]):not([class*=" c-"]),
         text-decoration-style: solid;
     }
 
-    &:active:not(.c-nav *),
+    &:active:not([data-component="nav"] *),
     &:focus {
         text-decoration: underline;
         text-decoration-style: dotted;
     }
 
-    &:active:not(.c-nav *),
+    &:active:not([data-component="nav"] *),
     &:hover {
         color: var(--#{$_}--state-link-color-mix, var(--inherit-link-color));
     }
 
-    &:visited:not(.c-nav *),
-    &:visited:hover:not(.c-nav *),
-    &:visited:active:not(.c-nav *) {
+    &:visited:not([data-component="nav"] *),
+    &:visited:hover:not([data-component="nav"] *),
+    &:visited:active:not([data-component="nav"] *) {
         color: var(--#{$_}--state-link-color-mix, var(--inherit-link-color));
     }
 }
