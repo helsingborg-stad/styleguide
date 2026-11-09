@@ -31,20 +31,20 @@ a:not([class^="c-"]):not([class*=" c-"]),
         text-decoration-style: solid;
     }
 
-    &:active,
+    &:active:not(.c-nav *),
     &:focus {
         text-decoration: underline;
         text-decoration-style: dotted;
     }
 
-    &:active,
+    &:active:not(.c-nav *),
     &:hover {
         color: var(--#{$_}--state-link-color-mix, var(--inherit-link-color));
     }
 
-    &:visited,
-    &:visited:hover,
-    &:visited:active {
+    &:visited:not(.c-nav *),
+    &:visited:hover:not(.c-nav *),
+    &:visited:active:not(.c-nav *) {
         color: var(--#{$_}--state-link-color-mix, var(--inherit-link-color));
     }
 }
