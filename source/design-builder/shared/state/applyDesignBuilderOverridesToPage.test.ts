@@ -1,8 +1,19 @@
-import { applyThemeOverridesToPage } from './applyDesignBuilderOverridesToPage';
+import { applyDefaultThemeVariantsToPage, applyThemeOverridesToPage } from './applyDesignBuilderOverridesToPage';
 
 describe('applyThemeOverridesToPage', () => {
 	afterEach(() => {
 		document.getElementById('design-builder-theme-overrides')?.remove();
+		document.getElementById('default-theme-variants')?.remove();
+	});
+
+	it('replaces the server-rendered variants when a preset has its own theme slices', () => {
+		document.head.insertAdjacentHTML('beforeend', '<style id="default-theme-variants">:root { --color--primary: #000000; }</style>');
+
+		applyDefaultThemeVariantsToPage({ '--color--primary': '#9cc2ff' }, null);
+		expect(document.getElementById('default-theme-variants')?.textContent).toContain('--color--primary: #9cc2ff;');
+
+		applyDefaultThemeVariantsToPage(null, null);
+		expect(document.getElementById('default-theme-variants')).toBeNull();
 	});
 
 	it('writes separate dark and high-contrast media rules without changing base variables', () => {

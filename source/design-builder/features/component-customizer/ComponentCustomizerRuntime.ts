@@ -7,7 +7,7 @@ import { createDetailsMenuDismissController, type DetailsMenuDismissController }
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
 import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPresetManager';
 import { type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset, designBuilderPresetMatchesState } from '../../shared/presets/designBuilderPresetDefinitions';
-import { applyThemeOverridesToPage, applyTokenOverridesToRootDocument, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
+import { applyDefaultThemeVariantsToPage, applyThemeOverridesToPage, applyTokenOverridesToRootDocument, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
 import { getComponentOverrideTargets } from '../../shared/state/componentOverrideTargets';
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import { getNamedScopeKeysForElement, getResolvedScopeKeyForElement } from '../../shared/state/designBuilderScope';
@@ -746,6 +746,7 @@ export class ComponentCustomizerRuntime {
 		if (option.targets.token) {
 			clearTokenOverridesFromRootDocument(currentTokenOverrides);
 			applyTokenOverridesToRootDocument(option.state.token);
+			applyDefaultThemeVariantsToPage(nextThemeOverrides._dark, nextThemeOverrides._contrast);
 			applyThemeOverridesToPage(nextThemeOverrides._dark, nextThemeOverrides._contrast);
 		}
 
@@ -898,6 +899,7 @@ export class ComponentCustomizerRuntime {
 		const currentTokenOverrides = this.hostElement?.overrideState.token ?? {};
 		clearTokenOverridesFromRootDocument(currentTokenOverrides);
 		applyTokenOverridesToRootDocument(importedState.token);
+		applyDefaultThemeVariantsToPage(importedState._dark ?? null, importedState._contrast ?? null);
 
 		this.clearAppliedOverrides();
 		this.overrides = importedOverrides;

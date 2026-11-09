@@ -6,7 +6,7 @@ import { createDetailsMenuDismissController, type DetailsMenuDismissController }
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
 import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPresetManager';
 import { type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset, designBuilderPresetMatchesState } from '../../shared/presets/designBuilderPresetDefinitions';
-import { applyComponentOverridesToPage, applyThemeOverridesToPage, clearComponentOverridesFromPage, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
+import { applyComponentOverridesToPage, applyDefaultThemeVariantsToPage, applyThemeOverridesToPage, clearComponentOverridesFromPage, clearTokenOverridesFromRootDocument, restoreDefaultThemeVariantsToPage } from '../../shared/state/applyDesignBuilderOverridesToPage';
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import { registerControlInfoTooltips } from '../../shared/tooltips/registerControlInfoTooltips';
 import { parseComponentTokenData } from '../../features/component-customizer/componentTokenDefinitions';
@@ -633,6 +633,8 @@ export class FullPageEditorRuntime {
 		this.overrides = {};
 		this.darkOverrides = null;
 		this.contrastOverrides = null;
+		restoreDefaultThemeVariantsToPage();
+		applyThemeOverridesToPage(null, null);
 		this.syncPaletteFamiliesFromOverrides();
 		this.syncOverrideState();
 		this.presetManager.clearActive();
@@ -712,6 +714,7 @@ export class FullPageEditorRuntime {
 		this.overrides = importedOverrides;
 		this.darkOverrides = this.normalizeThemeForAvailableTokens(importedState._dark ?? null);
 		this.contrastOverrides = this.normalizeThemeForAvailableTokens(importedState._contrast ?? null);
+		applyDefaultThemeVariantsToPage(this.darkOverrides, this.contrastOverrides);
 		this.syncPaletteFamiliesFromOverrides();
 		this.applyAll();
 		this.hostElement.overrideState = normalizeDesignBuilderOverrideState({
@@ -836,6 +839,7 @@ export class FullPageEditorRuntime {
 			this.overrides = { ...option.state.token };
 			this.darkOverrides = this.normalizeThemeForAvailableTokens(option.state._dark ? { ...option.state._dark } : null);
 			this.contrastOverrides = this.normalizeThemeForAvailableTokens(option.state._contrast ? { ...option.state._contrast } : null);
+			applyDefaultThemeVariantsToPage(this.darkOverrides, this.contrastOverrides);
 			this.removeLockedOverrides();
 			this.syncPaletteFamiliesFromOverrides();
 		}

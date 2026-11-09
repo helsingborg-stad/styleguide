@@ -3,6 +3,8 @@ import { GENERAL_SCOPE_KEY, NON_CUSTOMIZABLE_COMPONENTS } from '../constants/des
 import type { ScopedComponentOverrides } from '../types/designBuilderDataTypes';
 
 const THEME_STYLE_ID = 'design-builder-theme-overrides';
+const DEFAULT_THEME_VARIANTS_STYLE_ID = 'default-theme-variants';
+let initialDefaultThemeVariantsCss: string | null = null;
 import { getComponentOverrideTargets } from './componentOverrideTargets';
 import { getNamedScopeKeysForElement } from './designBuilderScope';
 
@@ -70,11 +72,59 @@ function serializeThemeDeclarations(overrides: Record<string, string> | null): s
 		.join('');
 }
 
-/** Applies persisted mode variants without changing the base inline overrides. */
-export function applyThemeOverridesToPage(dark: Record<string, string> | null, contrast: Record<string, string> | null): void {
+function serializeThemeCss(dark: Record<string, string> | null, contrast: Record<string, string> | null): string {
 	const darkDeclarations = serializeThemeDeclarations(dark);
 	const contrastDeclarations = serializeThemeDeclarations(contrast);
-	const css = `${darkDeclarations ? `@media (prefers-color-scheme: dark) { :root { ${darkDeclarations} } }` : ''}${contrastDeclarations ? `@media (prefers-contrast: more), (forced-colors: active) { :root { ${contrastDeclarations} } }` : ''}`;
+	return `${darkDeclarations ? `@media (prefers-color-scheme: dark) { :root { ${darkDeclarations} } }` : ''}${contrastDeclarations ? `@media (prefers-contrast: more), (forced-colors: active) { :root { ${contrastDeclarations} } }` : ''}`;
+}
+
+/** Replaces the server-rendered default variants when a token preset is loaded. */
+export function applyDefaultThemeVariantsToPage(dark: Record<string, string> | null, contrast: Record<string, string> | null): void {
+	const css = serializeThemeCss(dark, contrast);
+	let style = document.getElementById(DEFAULT_THEME_VARIANTS_STYLE_ID) as HTMLStyleElement | null;
+
+	if (style && initialDefaultThemeVariantsCss === null) {
+		initialDefaultThemeVariantsCss = style.textContent;
+	}
+
+	if (!css) {
+		style?.remove();
+		return;
+	}
+
+	if (!style) {
+		style = document.createElement('style');
+		style.id = DEFAULT_THEME_VARIANTS_STYLE_ID;
+		document.head.appendChild(style);
+	}
+
+	style.textContent = css;
+}
+
+/** Restores the server-rendered variants after resetting token customizations. */
+export function restoreDefaultThemeVariantsToPage(): void {
+	if (initialDefaultThemeVariantsCss === null) {
+		return;
+	}
+
+	let style = document.getElementById(DEFAULT_THEME_VARIANTS_STYLE_ID) as HTMLStyleElement | null;
+	if (initialDefaultThemeVariantsCss === '') {
+		style?.remove();
+		return;
+	}
+
+	if (!style) {
+		style = document.createElement('style');
+		style.id = DEFAULT_THEME_VARIANTS_STYLE_ID;
+		document.head.appendChild(style);
+	}
+
+	style.textContent = initialDefaultThemeVariantsCss;
+}
+
+/** Applies persisted mode variants without changing the base inline overrides. */
+export function applyThemeOverridesToPage(dark: Record<string, string> | null, contrast: Record<string, string> | null): void {
+	const css = serializeThemeCss(dark, contrast);
 	let style = document.getElementById(THEME_STYLE_ID) as HTMLStyleElement | null;
 
 	if (!css) {
