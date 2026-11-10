@@ -25,7 +25,7 @@ COPY source ./source
 COPY build-design-tokens.mjs component-design-tokens.json postcss.config.js vite.config.mjs ./
 RUN npm run build
 
-FROM ghcr.io/helsingborg-stad/ols-docker-hbg:0.1.2-php8.3@sha256:e963638097f058dc5e480e86b9d1c2f0a26b9ef74cb0e98593c14b682cfebd86
+FROM ghcr.io/helsingborg-stad/ols-docker-hbg@sha256:e963638097f058dc5e480e86b9d1c2f0a26b9ef74cb0e98593c14b682cfebd86
 LABEL org.opencontainers.image.source="https://github.com/helsingborg-stad/styleguide"
 WORKDIR /var/www/vhosts/localhost/html
 COPY --from=dependencies /app/vendor ./vendor

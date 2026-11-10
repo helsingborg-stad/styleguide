@@ -43,11 +43,11 @@ if [[ "$version" == *-* ]]; then
     done
 fi
 
-test "$(git show "$source_sha:package.json" | jq -r .version)" = "${version#v}" || {
+[[ "$(git show "$source_sha:package.json" | jq -r .version)" == "${version#v}" ]] || {
     echo "Tag $version does not match package.json version" >&2
     exit 1
 }
-test "$(git rev-parse "refs/tags/$version^{}")" = "$source_sha" || {
+[[ "$(git rev-parse "refs/tags/$version^{}")" == "$source_sha" ]] || {
     echo "Tag $version does not point at the release source" >&2
     exit 1
 }

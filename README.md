@@ -87,14 +87,17 @@ build.
 
 The image uses the
 [Helsingborg OpenLiteSpeed base](https://github.com/helsingborg-stad/ols-docker-hbg)
-with PHP 8.3 and serves HTTP on port 80. For Kubernetes, set the container image to
+version 0.1.2 with PHP 8.3, pinned by digest, and serves HTTP on port 80.
+The base image's entrypoint requires root to initialize OpenLiteSpeed, then
+starts its web workers as `nobody`; don't override the container user without
+replacing that startup contract. For Kubernetes, set the container image to
 the release tag or digest, expose container port 80, and configure an HTTP
 readiness probe on `/`. Terminate TLS and handle ingress at the cluster ingress
 controller, not in this container. The image writes compiled Blade templates
 to `/var/www/vhosts/localhost/html/cache`; keep that directory writable by UID
 1000. Only `/var/www/vhosts/localhost/html/public` is served as the web root.
-If the
-GHCR package is private, configure an `imagePullSecret` with read access to it.
+If the GHCR package is private, configure an `imagePullSecret` with read access
+to it.
 
 To build locally, use Docker BuildKit and a GitHub token with access to the
 repository's Composer and private npm packages. Set `GH_TOKEN` in your shell
