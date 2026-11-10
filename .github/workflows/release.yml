@@ -3,6 +3,7 @@ name: Publish source-tagged Composer release
 on:
   push:
     branches: [main-1.x]
+    tags: ['*']
   workflow_dispatch:
 
 concurrency:
@@ -13,6 +14,9 @@ jobs:
   release:
     if: github.ref == 'refs/heads/main-1.x'
     runs-on: ubuntu-latest
+    outputs:
+      sha: ${{ steps.source.outputs.sha }}
+      version: ${{ steps.source.outputs.version }}
     permissions:
       contents: write
       packages: read
@@ -59,6 +63,7 @@ jobs:
           composer test
           npm run typecheck
           npm test -- --watch=false
+          python3 -m unittest discover -s scripts -p 'test_image_release.py'
 
       - name: Build and verify the Composer ZIP
         env:
@@ -77,3 +82,43 @@ jobs:
           VERSION: ${{ steps.source.outputs.version }}
           SOURCE_SHA: ${{ steps.source.outputs.sha }}
         run: bash scripts/publish_release.sh "$VERSION" "$SOURCE_SHA" "$RUNNER_TEMP/styleguide-$VERSION.zip" "$GITHUB_REPOSITORY"
+
+  image:
+    needs: release
+    if: always() && ((github.ref == 'refs/heads/main-1.x' && needs.release.result == 'success') || startsWith(github.ref, 'refs/tags/'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ needs.release.outputs.sha || github.ref }}
+          fetch-depth: 0
+
+      - name: Verify the semver tag and source
+        id: image
+        env:
+          RELEASE_VERSION: ${{ needs.release.outputs.version }}
+        run: bash scripts/image_release.sh
+
+      - uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3
+        if: steps.image.outputs.publish == 'true'
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+        if: steps.image.outputs.publish == 'true'
+      - uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+        if: steps.image.outputs.publish == 'true'
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
+        if: steps.image.outputs.publish == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          context: .
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ steps.image.outputs.image }}:${{ steps.image.outputs.tag }}
+          secret-envs: github_token=GH_TOKEN
