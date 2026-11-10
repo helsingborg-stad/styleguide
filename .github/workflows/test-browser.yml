@@ -46,7 +46,8 @@ jobs:
           trap 'rm -f "$NPM_CONFIG_USERCONFIG"' EXIT
           printf '%s\n' '//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}' '@helsingborg-stad:registry=https://npm.pkg.github.com' > "$NPM_CONFIG_USERCONFIG"
           npm ci --ignore-scripts
-      - run: ./node_modules/.bin/playwright install --with-deps chromium
+      # The hosted Ubuntu image already includes Chromium's system libraries.
+      - run: ./node_modules/.bin/playwright install --only-shell chromium
       - name: Build CSS and JavaScript
         run: npm run build
       - name: Run Playwright
