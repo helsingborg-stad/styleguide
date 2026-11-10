@@ -15,19 +15,27 @@ jobs:
       contents: read
       packages: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           ref: ${{ inputs.source_sha }}
-      - uses: actions/setup-node@v4
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 24.6
-          cache: npm
-          cache-dependency-path: ./package-lock.json
-      - name: Configure npm for GitHub Packages
+      - name: Setup PHP
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+      - run: composer install --no-interaction --prefer-dist
+      - name: Install npm packages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_USERCONFIG: ${{ runner.temp }}/styleguide-npmrc
         run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
-          echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> .npmrc
-      - run: npm ci
+          trap 'rm -f "$NPM_CONFIG_USERCONFIG"' EXIT
+          printf '%s\n' '//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}' '@helsingborg-stad:registry=https://npm.pkg.github.com' > "$NPM_CONFIG_USERCONFIG"
+          npm ci --ignore-scripts
       - name: Run Jest
         id: jest
         continue-on-error: true
@@ -37,7 +45,7 @@ jobs:
         run: npm test -- --reporters=default --reporters=jest-junit --coverageReporters=html --coverageReporters=lcov --coverageReporters=json-summary
       - name: Publish Jest report
         if: ${{ !cancelled() && inputs.source_sha == '' && hashFiles('test-results/jest.xml') != '' }}
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@3eeb9fc888e82e8be2fb356bbeec2750231672bc # v1
         with:
           name: Jest results
           path: test-results/jest.xml
@@ -45,7 +53,7 @@ jobs:
           fail-on-error: false
       - name: Upload Jest report and coverage
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: jest-report-and-coverage
           path: |
@@ -62,19 +70,21 @@ jobs:
       contents: read
       packages: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           ref: ${{ inputs.source_sha }}
-      - uses: actions/setup-node@v4
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 24.6
-          cache: npm
-          cache-dependency-path: ./package-lock.json
-      - name: Configure npm for GitHub Packages
+      - name: Install npm packages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_USERCONFIG: ${{ runner.temp }}/styleguide-npmrc
         run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
-          echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> .npmrc
-      - run: npm ci
+          trap 'rm -f "$NPM_CONFIG_USERCONFIG"' EXIT
+          printf '%s\n' '//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}' '@helsingborg-stad:registry=https://npm.pkg.github.com' > "$NPM_CONFIG_USERCONFIG"
+          npm ci --ignore-scripts
       - name: Run TypeScript typecheck
         id: typecheck
         continue-on-error: true

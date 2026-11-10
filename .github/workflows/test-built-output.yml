@@ -14,25 +14,27 @@ jobs:
       contents: read
       packages: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           ref: ${{ inputs.source_sha }}
-      - uses: actions/setup-node@v4
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 24.6
-          cache: npm
-          cache-dependency-path: ./package-lock.json
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
         with:
           php-version: '8.3'
           tools: composer:v2
       - run: composer install --no-interaction --prefer-dist
-      - name: Configure npm for GitHub Packages
+      - name: Install npm packages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_USERCONFIG: ${{ runner.temp }}/styleguide-npmrc
         run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
-          echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> .npmrc
-      - run: npm ci
+          trap 'rm -f "$NPM_CONFIG_USERCONFIG"' EXIT
+          printf '%s\n' '//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}' '@helsingborg-stad:registry=https://npm.pkg.github.com' > "$NPM_CONFIG_USERCONFIG"
+          npm ci --ignore-scripts
       - name: Build CSS and JavaScript
         run: npm run build
       - name: Run built JavaScript console validation
@@ -48,7 +50,7 @@ jobs:
           npm run test:css-validator 2>&1 | tee test-results/w3c-css-validation.log
       - name: Upload CSS validation report
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: w3c-css-validation-report
           path: test-results/w3c-css-validation.log

@@ -15,11 +15,12 @@ jobs:
       contents: read
       packages: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           ref: ${{ inputs.source_sha }}
+          persist-credentials: false
       - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
         with:
           php-version: '8.3'
           tools: composer:v2
@@ -32,7 +33,7 @@ jobs:
           XDEBUG_MODE=off vendor/bin/phpunit --testdox --log-junit test-results/phpunit.xml
       - name: Publish PHPUnit report
         if: ${{ !cancelled() && inputs.source_sha == '' && hashFiles('test-results/phpunit.xml') != '' }}
-        uses: dorny/test-reporter@v1
+        uses: dorny/test-reporter@3eeb9fc888e82e8be2fb356bbeec2750231672bc # v1
         with:
           name: PHPUnit results
           path: test-results/phpunit.xml
@@ -40,7 +41,7 @@ jobs:
           fail-on-error: false
       - name: Upload PHPUnit report
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: phpunit-report
           path: test-results
