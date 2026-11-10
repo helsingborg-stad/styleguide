@@ -1,0 +1,6 @@
+RewriteEngine On
+RewriteRule ^(vendor|source|views|cache)(/|$) - [F,L]
+RewriteRule ^(config\.php|Public\.php|composer\.(json|lock))$ - [F,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]

@@ -74,6 +74,47 @@ STORYBOOK_BLADE_BASE_URL=http://your-host:port npm run storybook:ui
 
 ## Deployment
 
+### Production Docker image
+
+The [Docker image workflow](.github/workflows/docker-image.yml) publishes
+`ghcr.io/helsingborg-stad/styleguide:<version>` after the source-tagged release
+workflow completes successfully. It also builds the same image for independently
+pushed semver tags (including `v` prefixes and prereleases) when the tag matches
+`package.json`'s version. Build metadata `+` is mapped to `_` in the Docker tag.
+Other tags do not publish an image. The image supports `linux/amd64` and
+`linux/arm64`; use the published digest to pin a deployment to an immutable
+build.
+
+The image build, context rules, tag verification, and runtime entrypoint live in
+[`docker/`](docker/). GitHub requires the workflow entrypoint to remain in
+`.github/workflows/`, so the Composer release workflow remains independent.
+The image uses the
+[Helsingborg OpenLiteSpeed base](https://github.com/helsingborg-stad/ols-docker-hbg)
+version 0.1.2 with PHP 8.3, pinned by digest, and serves HTTP on port 80.
+The base image's entrypoint requires root to initialize OpenLiteSpeed, then
+starts its web workers as `nobody`; don't override the container user without
+replacing that startup contract. For Kubernetes, set the container image to
+the release tag or digest, expose container port 80, and configure an HTTP
+readiness probe on `/`. Terminate TLS and handle ingress at the cluster ingress
+controller, not in this container. The image writes compiled Blade templates
+to `/var/www/vhosts/localhost/html/cache`; keep that directory writable by UID
+1000. Only `/var/www/vhosts/localhost/html/public` is served as the web root.
+If the GHCR package is private, configure an `imagePullSecret` with read access
+to it.
+
+To build locally, use Docker BuildKit and a GitHub token with access to the
+repository's Composer and private npm packages. Set `GH_TOKEN` in your shell
+before running:
+
+```sh
+docker build -f docker/Dockerfile --secret id=github_token,env=GH_TOKEN -t styleguide:local .
+docker run --rm -p 8080:80 styleguide:local
+```
+
+GitHub Actions uses `GITHUB_TOKEN` as a build secret rather than storing package
+credentials in the image. Ensure this repository's Actions have read access to
+`@helsingborg-stad/openstreetmap` and permission to publish to GHCR.
+
 The GitHub workflow `.github/workflows/build-and-deploy.yml` supports deployments to different stages using GitHub Environments.
 
 ### Configure deploy stages
