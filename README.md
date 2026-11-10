@@ -96,9 +96,11 @@ starts its web workers as `nobody`; don't override the container user without
 replacing that startup contract. For Kubernetes, set the container image to
 the release tag or digest, expose container port 80, and configure an HTTP
 readiness probe on `/`. Terminate TLS and handle ingress at the cluster ingress
-controller, not in this container. The image writes compiled Blade templates
-to `/var/www/vhosts/localhost/html/cache`; keep that directory writable by UID
-1000. Only `/var/www/vhosts/localhost/html/public` is served as the web root.
+controller, not in this container. Application files, including Composer
+dependencies, are owned by `ubuntu` (UID 1000). The image writes compiled Blade
+templates to `/var/www/vhosts/localhost/html/cache`; keep that directory
+writable by `ubuntu`. Only `/var/www/vhosts/localhost/html/public` is served as
+the web root.
 If the GHCR package is private, configure an `imagePullSecret` with read access
 to it.
 
