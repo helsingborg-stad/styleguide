@@ -120,6 +120,43 @@ class ViewTest extends TestCase
         parent::tearDown();
     }
 
+    public function testVendorPackagePathUsesBasePathInsteadOfWorkingDirectory(): void
+    {
+        $packagePath = $this->tempComponentLibraryPath . '/vendor/helsingborg-stad/component-library';
+        mkdir($packagePath, 0777, true);
+        define('BASEPATH', $this->tempComponentLibraryPath . '/');
+        $workingDirectory = getcwd();
+
+        try {
+            chdir(sys_get_temp_dir());
+            $method = (new \ReflectionClass(View::class))->getMethod('getVendorPackagePath');
+            $method->setAccessible(true);
+
+            $this->assertSame(
+                $packagePath,
+                $method->invoke(new View(), 'helsingborg-stad/component-library'),
+            );
+        } finally {
+            chdir($workingDirectory);
+            rmdir($packagePath);
+            rmdir(dirname($packagePath));
+            rmdir(dirname(dirname($packagePath)));
+        }
+    }
+
+    public function testVendorPackagePathReportsMissingPackageAtBasePath(): void
+    {
+        define('BASEPATH', $this->tempComponentLibraryPath . '/');
+        $method = (new \ReflectionClass(View::class))->getMethod('getVendorPackagePath');
+        $method->setAccessible(true);
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage(
+            'Package not found at ' . $this->tempComponentLibraryPath . '/vendor/missing/package',
+        );
+        $method->invoke(new View(), 'missing/package');
+    }
+
     /**
      * Ensure lowercase slug resolves to PascalCase component directory.
      *

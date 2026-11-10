@@ -241,7 +241,7 @@ class View
 
     private function getVendorPackagePath($package): string
     {
-        $path = getcwd() . '/vendor/' . $package;
+        $path = rtrim(BASEPATH, '/') . '/vendor/' . $package;
         if (!is_dir($path)) {
             throw new \Exception('Package not found at ' . $path);
         }
