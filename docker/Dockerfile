@@ -28,18 +28,19 @@ RUN npm run build
 FROM ghcr.io/helsingborg-stad/ols-docker-hbg@sha256:e963638097f058dc5e480e86b9d1c2f0a26b9ef74cb0e98593c14b682cfebd86
 LABEL org.opencontainers.image.source="https://github.com/helsingborg-stad/styleguide"
 WORKDIR /var/www/vhosts/localhost/html
-COPY --from=dependencies /app/vendor ./vendor
-COPY --from=frontend /app/source ./source
-COPY --from=frontend /app/assets ./public/assets
-COPY views ./views
-COPY component-design-tokens.json config.php index.php Public.php ./
-COPY favicon.ico ./public/
-COPY docker/public/ ./public/
+COPY --chown=ubuntu:ubuntu --from=dependencies /app/vendor ./vendor
+COPY --chown=ubuntu:ubuntu --from=frontend /app/source ./source
+COPY --chown=ubuntu:ubuntu --from=frontend /app/assets ./public/assets
+COPY --chown=ubuntu:ubuntu views ./views
+COPY --chown=ubuntu:ubuntu component-design-tokens.json config.php index.php Public.php ./
+COPY --chown=ubuntu:ubuntu favicon.ico ./public/
+COPY --chown=ubuntu:ubuntu docker/public/ ./public/
 RUN sed -i 's|docRoot                 $VH_ROOT/html/|docRoot                 $VH_ROOT/html/public/|' \
         /usr/local/lsws/conf/templates/docker.conf \
     && cp /usr/local/lsws/conf/templates/docker.conf \
         /usr/local/lsws/.conf/templates/docker.conf \
     && ln -s public/assets assets \
     && mkdir -p cache \
-    && chown -R 1000:1000 cache
+    && chown ubuntu:ubuntu public cache \
+    && chown -h ubuntu:ubuntu assets
 EXPOSE 80
