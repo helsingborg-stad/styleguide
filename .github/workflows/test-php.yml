@@ -1,0 +1,61 @@
+name: Test PHP
+
+on:
+  workflow_call:
+    inputs:
+      source_sha:
+        type: string
+        default: ''
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        if: ${{ inputs.source_sha == '' }}
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        if: ${{ inputs.source_sha != '' }}
+        with:
+          ref: refs/heads/main-1.x
+          persist-credentials: false
+      - name: Verify release source
+        if: ${{ inputs.source_sha != '' }}
+        env:
+          SOURCE_SHA: ${{ inputs.source_sha }}
+        run: test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
+      - name: Setup PHP
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+      - run: composer install --no-interaction --prefer-dist
+      - name: Run PHPUnit
+        id: phpunit
+        continue-on-error: true
+        run: |
+          mkdir -p test-results
+          XDEBUG_MODE=off vendor/bin/phpunit --testdox --log-junit test-results/phpunit.xml
+      - name: Publish PHPUnit report
+        if: ${{ !cancelled() && inputs.source_sha == '' && hashFiles('test-results/phpunit.xml') != '' }}
+        uses: dorny/test-reporter@3eeb9fc888e82e8be2fb356bbeec2750231672bc # v1
+        with:
+          name: PHPUnit results
+          path: test-results/phpunit.xml
+          reporter: java-junit
+          fail-on-error: false
+      - name: Upload PHPUnit report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: phpunit-report
+          path: test-results
+          if-no-files-found: warn
+      - name: Fail when PHPUnit failed
+        if: ${{ !cancelled() && steps.phpunit.outcome != 'success' }}
+        run: exit 1

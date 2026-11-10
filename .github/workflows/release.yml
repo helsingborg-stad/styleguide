@@ -10,16 +10,26 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  release:
+  prepare:
     if: github.ref == 'refs/heads/main-1.x'
     runs-on: ubuntu-latest
     permissions:
       contents: write
       packages: read
+    outputs:
+      sha: ${{ steps.source.outputs.sha }}
+      version: ${{ steps.source.outputs.version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
+
+      - name: Check release trigger is the branch tip
+        run: |
+          test "$(git ls-remote origin refs/heads/main-1.x | cut -f1)" = "$GITHUB_SHA" || {
+            echo "::error::main-1.x advanced before this release started; use a run for the current branch tip."
+            exit 1
+          }
 
       - name: Bump version files on main-1.x
         uses: helsingborg-stad/release-wp-plugin-action@616213a13c430f4fa7cf1c066630aa17f04eb692
@@ -31,10 +41,41 @@ jobs:
       - name: Capture the versioned source commit
         id: source
         run: |
-          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          source_sha=$(git rev-parse HEAD)
+          if [ "$source_sha" != "$GITHUB_SHA" ] && [ "$(git rev-parse HEAD^)" != "$GITHUB_SHA" ]; then
+            echo "::error::main-1.x advanced before the version bump; retry with workflows from the current branch tip."
+            exit 1
+          fi
+          echo "sha=$source_sha" >> "$GITHUB_OUTPUT"
           echo "version=$(jq -r .version package.json)" >> "$GITHUB_OUTPUT"
           git diff --exit-code
           test "$(git ls-remote origin refs/heads/main-1.x | cut -f1)" = "$(git rev-parse HEAD)"
+
+  test:
+    needs: prepare
+    permissions:
+      checks: write
+      contents: read
+      packages: read
+    uses: ./.github/workflows/test.yml
+    with:
+      source_sha: ${{ needs.prepare.outputs.sha }}
+
+  release:
+    needs: [prepare, test]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ needs.prepare.outputs.sha }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24.3.0
 
       - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962
         with:
@@ -54,26 +95,20 @@ jobs:
           composer install --no-interaction --prefer-dist
           npm ci --ignore-scripts
 
-      - name: Check the exact source commit
-        run: |
-          composer test
-          npm run typecheck
-          npm test -- --watch=false
-
       - name: Build and verify the Composer ZIP
         env:
-          VERSION: ${{ steps.source.outputs.version }}
+          VERSION: ${{ needs.prepare.outputs.version }}
         run: |
           npm run build
           python3 -m unittest discover -s scripts -p 'test_release_package.py'
           python3 scripts/release_package.py create "$RUNNER_TEMP/styleguide-$VERSION.zip"
           python3 scripts/release_package.py check "$RUNNER_TEMP/styleguide-$VERSION.zip"
           bash scripts/test_composer_dist.sh "$RUNNER_TEMP/styleguide-$VERSION.zip" "$VERSION"
-          test "$(git rev-parse HEAD)" = "${{ steps.source.outputs.sha }}"
+          test "$(git rev-parse HEAD)" = "${{ needs.prepare.outputs.sha }}"
 
       - name: Publish immutable release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VERSION: ${{ steps.source.outputs.version }}
-          SOURCE_SHA: ${{ steps.source.outputs.sha }}
+          VERSION: ${{ needs.prepare.outputs.version }}
+          SOURCE_SHA: ${{ needs.prepare.outputs.sha }}
         run: bash scripts/publish_release.sh "$VERSION" "$SOURCE_SHA" "$RUNNER_TEMP/styleguide-$VERSION.zip" "$GITHUB_REPOSITORY"

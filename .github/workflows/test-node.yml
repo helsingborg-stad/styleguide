@@ -1,0 +1,130 @@
+name: Test Node
+
+on:
+  workflow_call:
+    inputs:
+      source_sha:
+        type: string
+        default: ''
+
+jobs:
+  jest:
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        if: ${{ inputs.source_sha == '' }}
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        if: ${{ inputs.source_sha != '' }}
+        with:
+          ref: refs/heads/main-1.x
+          persist-credentials: false
+      - name: Verify release source
+        if: ${{ inputs.source_sha != '' }}
+        env:
+          SOURCE_SHA: ${{ inputs.source_sha }}
+        run: test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24.6
+      - name: Setup PHP
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+      - run: composer install --no-interaction --prefer-dist
+      - name: Install npm packages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_USERCONFIG: ${{ runner.temp }}/styleguide-npmrc
+        run: |
+          trap 'rm -f "$NPM_CONFIG_USERCONFIG"' EXIT
+          printf '%s\n' '//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}' '@helsingborg-stad:registry=https://npm.pkg.github.com' > "$NPM_CONFIG_USERCONFIG"
+          npm ci --ignore-scripts
+      - name: Run Jest
+        id: jest
+        continue-on-error: true
+        env:
+          JEST_JUNIT_OUTPUT_DIR: test-results
+          JEST_JUNIT_OUTPUT_NAME: jest.xml
+        run: npm test -- --reporters=default --reporters=jest-junit --coverageReporters=html --coverageReporters=lcov --coverageReporters=json-summary
+      - name: Publish Jest report
+        if: ${{ !cancelled() && inputs.source_sha == '' && hashFiles('test-results/jest.xml') != '' }}
+        uses: dorny/test-reporter@3eeb9fc888e82e8be2fb356bbeec2750231672bc # v1
+        with:
+          name: Jest results
+          path: test-results/jest.xml
+          reporter: jest-junit
+          fail-on-error: false
+      - name: Upload Jest report and coverage
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: jest-report-and-coverage
+          path: |
+            test-results
+            coverage
+          if-no-files-found: warn
+      - name: Fail when Jest failed
+        if: ${{ !cancelled() && steps.jest.outcome != 'success' }}
+        run: exit 1
+
+  static-checks:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        if: ${{ inputs.source_sha == '' }}
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        if: ${{ inputs.source_sha != '' }}
+        with:
+          ref: refs/heads/main-1.x
+          persist-credentials: false
+      - name: Verify release source
+        if: ${{ inputs.source_sha != '' }}
+        env:
+          SOURCE_SHA: ${{ inputs.source_sha }}
+        run: test "$(git rev-parse HEAD)" = "$SOURCE_SHA"
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24.6
+      - name: Install npm packages
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_USERCONFIG: ${{ runner.temp }}/styleguide-npmrc
+        run: |
+          trap 'rm -f "$NPM_CONFIG_USERCONFIG"' EXIT
+          printf '%s\n' '//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}' '@helsingborg-stad:registry=https://npm.pkg.github.com' > "$NPM_CONFIG_USERCONFIG"
+          npm ci --ignore-scripts
+      - name: Run TypeScript typecheck
+        id: typecheck
+        continue-on-error: true
+        run: npm run typecheck
+      - name: Run Stylelint
+        id: stylelint
+        continue-on-error: true
+        run: npm run lint:scss
+      - name: Write static checks summary
+        if: ${{ !cancelled() }}
+        run: |
+          {
+            echo '## Static checks'
+            echo '| Suite | Status |'
+            echo '| --- | --- |'
+            echo '| TypeScript | ${{ steps.typecheck.outcome }} |'
+            echo '| Stylelint | ${{ steps.stylelint.outcome }} |'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Fail when a static check failed
+        if: ${{ !cancelled() }}
+        run: |
+          test "${{ steps.typecheck.outcome }}" = success
+          test "${{ steps.stylelint.outcome }}" = success
