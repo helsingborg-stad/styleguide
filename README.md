@@ -672,9 +672,17 @@ Keep that policy unchanged; retry a failed publication promptly on its
 original versioned commit, before later version bumps.
 
 Release runs are serialized, and the pinned version action writes version
-files to `main-1.x`. The workflow captures that exact SHA, runs checks and
-builds the ZIP before publication, and refuses to publish if the branch
-advanced. The publication script checks existing tags and compares existing
+files to `main-1.x`. The workflow captures that exact SHA, runs the shared test
+workflow against it, and builds the ZIP only after every suite passes. The test
+workflow runs Node checks, PHPUnit, Playwright and built-output validation in
+parallel, with suite-specific reports and artifacts. Pushes and pull requests
+also run the same tests independently; release tests are a separate invocation.
+Release tests upload reports as artifacts rather than creating report checks on
+the triggering commit, which can differ from the versioned commit under test.
+The workflow rejects a version bump based on a newer branch tip than the
+triggering commit, so the reused workflow definitions match the tested source.
+It also refuses to publish if the branch advanced. The publication script
+checks existing tags and compares existing
 asset bytes; rerun the same commit/version after a failed upload rather than
 moving a tag or replacing a release asset. GitHub may expose a new tag before
 its draft release asset is available, so Packagist can briefly index a URL
@@ -682,7 +690,8 @@ that returns 404. Treat this as a publication window: do not update consumer
 locks until the published asset downloads successfully; rerun a failed
 publication promptly and investigate any published release missing an asset.
 Commits pushed by `GITHUB_TOKEN` do not start a new test workflow, which is why
-the release job itself tests the versioned SHA before publishing. The same
+the release workflow explicitly invokes the reusable test workflow for the
+versioned SHA before publishing. The same
 pattern can be reused elsewhere by replacing the repository-specific version
 action, allowlist, build command and publication adapter while retaining local
 archive validation and immutable tag/asset checks.

@@ -1,0 +1,73 @@
+name: Test browser
+
+on:
+  workflow_call:
+    inputs:
+      source_sha:
+        type: string
+        default: ''
+
+jobs:
+  playwright:
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.6
+          cache: npm
+          cache-dependency-path: ./package-lock.json
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          tools: composer:v2
+      - run: composer install --no-interaction --prefer-dist
+      - name: Configure npm for GitHub Packages
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
+          echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> .npmrc
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Build CSS and JavaScript
+        run: npm run build
+      - name: Run Playwright
+        id: playwright
+        continue-on-error: true
+        env:
+          PLAYWRIGHT_HTML_OPEN: never
+          PLAYWRIGHT_JUNIT_OUTPUT_FILE: test-results/playwright.xml
+        run: |
+          mkdir -p test-results
+          npx playwright test --reporter=html,junit
+      - name: Publish Playwright report
+        if: ${{ !cancelled() && inputs.source_sha == '' && hashFiles('test-results/playwright.xml') != '' }}
+        uses: dorny/test-reporter@v1
+        with:
+          name: Playwright results
+          path: test-results/playwright.xml
+          reporter: java-junit
+          fail-on-error: false
+      - name: Upload Playwright results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results
+          path: test-results
+          if-no-files-found: warn
+      - name: Upload Playwright HTML report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-html-report
+          path: playwright-report
+          if-no-files-found: warn
+      - name: Fail when Playwright failed
+        if: ${{ !cancelled() && steps.playwright.outcome != 'success' }}
+        run: exit 1

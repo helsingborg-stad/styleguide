@@ -1,0 +1,100 @@
+name: Test Node
+
+on:
+  workflow_call:
+    inputs:
+      source_sha:
+        type: string
+        default: ''
+
+jobs:
+  jest:
+    runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.6
+          cache: npm
+          cache-dependency-path: ./package-lock.json
+      - name: Configure npm for GitHub Packages
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
+          echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> .npmrc
+      - run: npm ci
+      - name: Run Jest
+        id: jest
+        continue-on-error: true
+        env:
+          JEST_JUNIT_OUTPUT_DIR: test-results
+          JEST_JUNIT_OUTPUT_NAME: jest.xml
+        run: npm test -- --reporters=default --reporters=jest-junit --coverageReporters=html --coverageReporters=lcov --coverageReporters=json-summary
+      - name: Publish Jest report
+        if: ${{ !cancelled() && inputs.source_sha == '' && hashFiles('test-results/jest.xml') != '' }}
+        uses: dorny/test-reporter@v1
+        with:
+          name: Jest results
+          path: test-results/jest.xml
+          reporter: jest-junit
+          fail-on-error: false
+      - name: Upload Jest report and coverage
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: jest-report-and-coverage
+          path: |
+            test-results
+            coverage
+          if-no-files-found: warn
+      - name: Fail when Jest failed
+        if: ${{ !cancelled() && steps.jest.outcome != 'success' }}
+        run: exit 1
+
+  static-checks:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.6
+          cache: npm
+          cache-dependency-path: ./package-lock.json
+      - name: Configure npm for GitHub Packages
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > .npmrc
+          echo "@helsingborg-stad:registry=https://npm.pkg.github.com" >> .npmrc
+      - run: npm ci
+      - name: Run TypeScript typecheck
+        id: typecheck
+        continue-on-error: true
+        run: npm run typecheck
+      - name: Run Stylelint
+        id: stylelint
+        continue-on-error: true
+        run: npm run lint:scss
+      - name: Write static checks summary
+        if: ${{ !cancelled() }}
+        run: |
+          {
+            echo '## Static checks'
+            echo '| Suite | Status |'
+            echo '| --- | --- |'
+            echo '| TypeScript | ${{ steps.typecheck.outcome }} |'
+            echo '| Stylelint | ${{ steps.stylelint.outcome }} |'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Fail when a static check failed
+        if: ${{ !cancelled() }}
+        run: |
+          test "${{ steps.typecheck.outcome }}" = success
+          test "${{ steps.stylelint.outcome }}" = success
