@@ -76,20 +76,24 @@ STORYBOOK_BLADE_BASE_URL=http://your-host:port npm run storybook:ui
 
 ### Production Docker image
 
-The [release workflow](.github/workflows/release.yml) publishes
+The [image workflow](.github/workflows/image.yml) publishes
 `ghcr.io/helsingborg-stad/styleguide:<version>` after the source-tagged release
-passes its checks. It also builds the same image for independently pushed semver
-tags (including `v` prefixes and prereleases) when the tag matches
+workflow completes successfully. It also builds the same image for independently
+pushed semver tags (including `v` prefixes and prereleases) when the tag matches
 `package.json`'s version. Build metadata `+` is mapped to `_` in the Docker tag.
 Other tags do not publish an image. The image supports `linux/amd64` and
 `linux/arm64`; use the published digest to pin a deployment to an immutable
 build.
 
-The image serves HTTP on port 80. For Kubernetes, set the container image to
+The image uses the
+[Helsingborg OpenLiteSpeed base](https://github.com/helsingborg-stad/ols-docker-hbg)
+with PHP 8.3 and serves HTTP on port 80. For Kubernetes, set the container image to
 the release tag or digest, expose container port 80, and configure an HTTP
 readiness probe on `/`. Terminate TLS and handle ingress at the cluster ingress
 controller, not in this container. The image writes compiled Blade templates
-to `/var/www/html/cache`; keep that directory writable by `www-data`. If the
+to `/var/www/vhosts/localhost/html/cache`; keep that directory writable by UID
+1000. Only `/var/www/vhosts/localhost/html/public` is served as the web root.
+If the
 GHCR package is private, configure an `imagePullSecret` with read access to it.
 
 To build locally, use Docker BuildKit and a GitHub token with access to the
