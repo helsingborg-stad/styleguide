@@ -76,7 +76,7 @@ STORYBOOK_BLADE_BASE_URL=http://your-host:port npm run storybook:ui
 
 ### Production Docker image
 
-The [image workflow](.github/workflows/image.yml) publishes
+The [Docker image workflow](.github/workflows/docker-image.yml) publishes
 `ghcr.io/helsingborg-stad/styleguide:<version>` after the source-tagged release
 workflow completes successfully. It also builds the same image for independently
 pushed semver tags (including `v` prefixes and prereleases) when the tag matches
@@ -85,6 +85,9 @@ Other tags do not publish an image. The image supports `linux/amd64` and
 `linux/arm64`; use the published digest to pin a deployment to an immutable
 build.
 
+The image build, context rules, tag verification, and runtime entrypoint live in
+[`docker/`](docker/). GitHub requires the workflow entrypoint to remain in
+`.github/workflows/`, so the Composer release workflow remains independent.
 The image uses the
 [Helsingborg OpenLiteSpeed base](https://github.com/helsingborg-stad/ols-docker-hbg)
 version 0.1.2 with PHP 8.3, pinned by digest, and serves HTTP on port 80.
@@ -104,7 +107,7 @@ repository's Composer and private npm packages. Set `GH_TOKEN` in your shell
 before running:
 
 ```sh
-docker build --secret id=github_token,env=GH_TOKEN -t styleguide:local .
+docker build -f docker/Dockerfile --secret id=github_token,env=GH_TOKEN -t styleguide:local .
 docker run --rm -p 8080:80 styleguide:local
 ```
 

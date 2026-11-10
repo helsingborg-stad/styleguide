@@ -1,6 +1,10 @@
 name: Publish production image
 
 on:
+  pull_request:
+    paths:
+      - 'docker/**'
+      - '.github/workflows/docker-image.yml'
   push:
     tags: ['*']
   workflow_run:
@@ -8,6 +12,15 @@ on:
     types: [completed]
 
 jobs:
+  test:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - run: python3 -m unittest discover -s docker -p 'test_image_release.py'
+
   image:
     if: github.event_name == 'push' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main-1.x')
     runs-on: ubuntu-latest
@@ -23,7 +36,7 @@ jobs:
         id: image
         env:
           RELEASE_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
-        run: bash scripts/image_release.sh
+        run: bash docker/image_release.sh
 
       - uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3
         if: steps.image.outputs.publish == 'true'
@@ -41,6 +54,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           context: .
+          file: docker/Dockerfile
           push: true
           platforms: linux/amd64,linux/arm64
           tags: ${{ steps.image.outputs.image }}:${{ steps.image.outputs.tag }}
