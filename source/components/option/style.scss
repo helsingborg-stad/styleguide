@@ -243,3 +243,144 @@ $_: "c-option";
         }
     }
 }
+
+// Card appearance: the whole option is a clickable card with a border,
+// hover, checked state and focus ring. Enable with classList ['c-option--card'].
+//
+// Optional label content (passed as label HTML):
+// - .c-option__description – secondary text below the label.
+// - .c-option__aside – short tag shown to the right of the text, or below it
+//   when the card is narrow (container query). Color with
+//   .c-option__aside--success | --danger | --warning.
+.#{$_}.#{$_}--card {
+    container: c-option-card / inline-size;
+    display: block;
+    width: 100%;
+    max-width: none;
+    margin: 0 0 tokens.getCalculatedValue($_, "space", 1);
+    border: tokens.getCalculatedValue($_, "border-width", 1) solid tokens.getRawValue($_, "color--surface-border");
+    border-radius: tokens.getCalculatedValue($_, "border-radius", 1);
+    corner-shape: tokens.getRawValue($_, "corner-shape");
+    background-color: tokens.getRawValue($_, "color--surface");
+    transition:
+        border-color tokens.getRawValue($_, "duration-160") tokens.getRawValue($_, "ease-out"),
+        background-color tokens.getRawValue($_, "duration-160") tokens.getRawValue($_, "ease-out");
+
+    &:hover {
+        background-color: tokens.getRawValue($_, "color--surface-alt");
+    }
+
+    &:has(input:checked) {
+        border-color: tokens.getRawValue($_, "color--primary");
+        box-shadow: 0 0 0 tokens.getCalculatedValue($_, "border-width", 1) tokens.getRawValue($_, "color--primary");
+        background-color: tokens.getRawValue($_, "color--surface-alt");
+    }
+
+    &:has(input:focus-visible) {
+        outline: tokens.getCalculatedValue($_, "border-width", 3) solid tokens.getRawValue($_, "color--focus");
+        outline-offset: tokens.getCalculatedValue($_, "base", 0.75);
+    }
+
+    :focus-visible+label {
+        // The card carries the focus ring instead of the label.
+        outline: none;
+    }
+
+    .#{$_}__checkbox--label,
+    .#{$_}__radio--label {
+        display: flex;
+        align-items: center;
+        gap: tokens.getCalculatedValue($_, "space", 1.5);
+        width: 100%;
+        margin: 0;
+        padding: tokens.getCalculatedValue($_, "space", 2);
+        cursor: pointer;
+    }
+
+    .#{$_}__checkbox--label-box,
+    .#{$_}__radio--label-box {
+        flex-shrink: 0;
+    }
+
+    .#{$_}__checkbox--label-text,
+    .#{$_}__radio--label-text,
+    .#{$_}__checkbox--hidden-box:checked + .#{$_}__checkbox--label .#{$_}__checkbox--label-text,
+    .#{$_}__radio--hidden-box:checked + .#{$_}__radio--label .#{$_}__radio--label-text {
+        min-width: 0;
+        padding: 0;
+        font-style: normal;
+        font-weight: tokens.getRawValue($_, "font-weight-bold");
+        line-height: tokens.getRawValue($_, "line-height-heading");
+        overflow-wrap: anywhere;
+    }
+
+    // Text, description and aside are laid out in a grid when an aside is present.
+    .#{$_}__checkbox--label-text:has(> .#{$_}__aside),
+    .#{$_}__radio--label-text:has(> .#{$_}__aside) {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        align-items: center;
+        column-gap: tokens.getCalculatedValue($_, "space", 1.5);
+
+        @container c-option-card (min-width: 32.5em) {
+            grid-template-columns: minmax(0, 1fr) auto;
+        }
+    }
+
+    .#{$_}__input-invalid-message {
+        border-radius: 0 0 tokens.getCalculatedValue($_, "border-radius", 1) tokens.getCalculatedValue($_, "border-radius", 1);
+    }
+}
+
+.#{$_}__description {
+    display: block;
+    grid-column: 1;
+    margin-top: tokens.getCalculatedValue($_, "space", 0.5);
+    font-size: tokens.getRawValue($_, "font-size-90");
+    font-weight: tokens.getRawValue($_, "font-weight-normal");
+    color: tokens.getRawValue($_, "color--surface-contrast-muted");
+}
+
+.#{$_}__aside {
+    grid-column: 1;
+    justify-self: start;
+    margin-top: tokens.getCalculatedValue($_, "space", 1);
+    padding: tokens.getCalculatedValue($_, "space", 0.5) tokens.getCalculatedValue($_, "space", 0.75);
+    border-radius: tokens.getCalculatedValue($_, "border-radius", 0.5);
+    background-color: tokens.getRawValue($_, "color--surface-alt");
+    color: tokens.getRawValue($_, "color--surface-contrast");
+    font-size: tokens.getRawValue($_, "font-size-80");
+    font-weight: tokens.getRawValue($_, "font-weight-bold");
+    letter-spacing: 0.05em;
+    line-height: tokens.getRawValue($_, "line-height-heading");
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    @container c-option-card (min-width: 32.5em) {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        justify-self: end;
+        margin-top: 0;
+    }
+
+    &--success {
+        background-color: tokens.getRawValue($_, "color--success");
+        color: tokens.getRawValue($_, "color--success-contrast");
+    }
+
+    &--danger {
+        background-color: tokens.getRawValue($_, "color--danger");
+        color: tokens.getRawValue($_, "color--danger-contrast");
+    }
+
+    &--warning {
+        background-color: tokens.getRawValue($_, "color--warning");
+        color: tokens.getRawValue($_, "color--warning-contrast");
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .#{$_}.#{$_}--card {
+        transition: none;
+    }
+}
