@@ -87,6 +87,52 @@ Global token/preset storage helpers (global tokens mode):
 
 ## Attribute-first usage examples
 
+### Colour schemes and component assignments
+
+The sticky **Colour schemes** selector is shared by General and Components.
+Its selected Default, Dark or Contrast mode remains visible when changing views
+or scrolling. The `colorScheme` property (`base`, `dark`, `contrast`) represents
+this editing preference only; it is not saved as visitor-facing design data.
+On creation, the editor matches the browser preference: Contrast for increased
+contrast or forced colours, otherwise Dark when preferred, otherwise Default.
+Manual selections remain active when switching between General and Components.
+
+`component` remains the Default assignment map. Optional `componentSchemes.dark`
+and `componentSchemes.contrast` contain sparse maps with the same scope/component/
+variable shape. Missing values inherit Default; layout and typography stay shared.
+Component colour controls offer Primary, Secondary and configured Brand Palette
+families, and store CSS variable references, including paired contrast outputs.
+
+```json
+{
+  "token": {},
+  "_dark": {},
+  "component": {
+    "scope:footer": {
+      "footer": { "--c-footer--color--surface": "var(--color--primary)" }
+    }
+  },
+  "componentSchemes": {
+    "dark": {
+      "scope:footer": {
+        "footer": {
+          "--c-footer--color--surface": "var(--color--palette-1)",
+          "--c-footer--color--surface-contrast": "var(--color--palette-1-contrast)"
+        }
+      }
+    }
+  }
+}
+```
+
+Hosts must preserve `componentSchemes` when saving/loading state and serialize the
+merged Default + variant component maps in their corresponding preference media
+queries. Emit Dark before Contrast, so Contrast wins when both preferences match.
+`_dark: null` / `_contrast: null` disable a variant; an empty object enables a
+variant without changing the global palette. `getSchemeComponentOverrides` is the
+shared merge helper, and `previewDesignBuilderScheme` applies the selected scheme
+to the preview without depending on the browser's current preference.
+
 ### Example 1: Global tokens root
 
 ```html

@@ -45,5 +45,7 @@ export interface DesignBuilderRootElement extends HTMLElement {
 	overrideState: DesignBuilderOverrideState;
 	presets: DesignBuilderProvidedPreset[];
 	showLockedFields: boolean;
+	/** Preview preference, shared across General and Components; not saved as design data. */
+	colorScheme?: 'base' | 'dark' | 'contrast';
 	getRenderContainer(): ShadowRoot;
 }

@@ -23,6 +23,17 @@ describe('resolveStyleguideDesignBuilderRootElements', () => {
 		expect(roots[1].getAttribute('show-save-button')).toBe('false');
 	});
 
+	it('hydrates and saves scheme-specific component assignments', () => {
+		document.documentElement.setAttribute(DESIGN_BUILDER_STORAGE_ATTRIBUTE, LOCAL_STORAGE_PERSISTENCE_MODE);
+		const state = { token: {}, component: {}, _dark: {}, componentSchemes: { dark: { 'scope:footer': { footer: { '--c-footer--color--surface': 'var(--color--secondary)' } } } } };
+		localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+		document.body.innerHTML = '<design-builder></design-builder>';
+		const [root] = resolveStyleguideDesignBuilderRootElements();
+		expect(JSON.parse(root.getAttribute('override-state')!)).toEqual(state);
+		root.dispatchEvent(new CustomEvent('design-builder:save', { detail: { state } }));
+		expect(JSON.parse(localStorage.getItem(STORAGE_KEY)!)).toEqual(state);
+	});
+
 	it('hydrates persisted override state and binds the default save adapter when localStorage is enabled', () => {
 		document.documentElement.setAttribute(DESIGN_BUILDER_STORAGE_ATTRIBUTE, LOCAL_STORAGE_PERSISTENCE_MODE);
 		localStorage.setItem(

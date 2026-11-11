@@ -25,6 +25,7 @@ jest.mock('../../shared/control-elements/createDesignBuilderControls', () => ({
 import { GENERAL_SCOPE_KEY } from '../../shared/constants/designBuilderRuntimeConstants';
 import type { DesignBuilderActionEventDetail } from '../../shared/events/designBuilderActionEvents';
 import { normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
+import * as colorSchemes from '../../shared/state/designBuilderColorSchemes';
 import type { ComponentTokenData, TokenData } from '../../shared/types/designBuilderDataTypes';
 import { ComponentCustomizerRuntime } from './ComponentCustomizerRuntime';
 
@@ -216,6 +217,61 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		document.body.innerHTML = '';
 		document.documentElement.style.removeProperty('--color--primary');
 		localStorage.clear();
+	});
+
+	it.each(['dark', 'contrast'] as const)('initializes component assignments and the selector in the preferred %s scheme', (mode) => {
+		const preference = jest.spyOn(colorSchemes, 'getPreferredDesignBuilderColorScheme').mockReturnValue(mode);
+		const host = document.createElement('div') as unknown as RuntimeHostElement;
+		host.overrideState = normalizeDesignBuilderOverrideState({
+			token: {}, _dark: {}, _contrast: {},
+			component: { [GENERAL_SCOPE_KEY]: { button: { '--c-button--color--primary': 'var(--color--primary)' } } },
+			componentSchemes: { [mode]: { [GENERAL_SCOPE_KEY]: { button: { '--c-button--color--primary': 'var(--color--secondary)' } } } },
+		});
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+		let runtime: ComponentCustomizerRuntime | undefined;
+		try {
+			runtime = new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: host });
+			expect(mount.querySelector('.db-theme-mode-button-active')?.textContent).toBe(mode === 'dark' ? 'Dark' : 'Contrast');
+			expect(document.querySelector<HTMLElement>('[data-component="button"]')?.style.getPropertyValue('--c-button--color--primary')).toBe('var(--color--secondary)');
+		} finally {
+			runtime?.dispose();
+			preference.mockRestore();
+		}
+	});
+
+	it('edits paired colours per scheme and scope, preserving Default and shared layout', () => {
+		document.body.innerHTML = '<footer data-scope="footer;"><button data-component="button">Button</button></footer>';
+		const host = document.createElement('div') as unknown as RuntimeHostElement;
+		host.overrideState = normalizeDesignBuilderOverrideState({ token: {}, _dark: { '--color--primary': '#111111' }, _contrast: {}, component: { 'scope:footer': { button: { '--c-button--color--primary': 'var(--color--primary)', '--c-button--font-size-multiplier': '2' } } } });
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+		const runtime = new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: host });
+		const selector = () => mount.querySelector('db-theme-mode-selector')!;
+		selector().dispatchEvent(new CustomEvent('theme-mode-change', { detail: { mode: 'dark' } }));
+		const internals = runtime as unknown as { handleChange(component: string, scope: string, variable: string, value: string, fallback: string, linked: Record<string, string>, extra: Record<string, string>, options: { preserveMatchingDefault: boolean }): void };
+		internals.handleChange(
+			'button',
+			'scope:footer',
+			'--c-button--color--primary',
+			'var(--color--secondary)',
+			'var(--color--primary)',
+			{ '--c-button--color--primary-contrast': 'var(--color--primary-contrast)' },
+			{ '--c-button--color--primary-contrast': 'var(--color--secondary-contrast)' },
+			{ preserveMatchingDefault: true },
+		);
+		expect(host.colorScheme).toBe('dark');
+		expect(host.overrideState.component['scope:footer'].button['--c-button--color--primary']).toBe('var(--color--primary)');
+		expect(host.overrideState.componentSchemes?.dark?.['scope:footer'].button['--c-button--color--primary-contrast']).toBe('var(--color--secondary-contrast)');
+		const button = document.querySelector<HTMLElement>('[data-component="button"]')!;
+		expect(button.style.getPropertyValue('--c-button--color--primary')).toBe('var(--color--secondary)');
+		expect(button.style.getPropertyValue('--c-button--font-size-multiplier')).toBe('2');
+		selector().dispatchEvent(new CustomEvent('theme-mode-change', { detail: { mode: 'base' } }));
+		expect(button.style.getPropertyValue('--c-button--color--primary')).toBe('var(--color--primary)');
+		selector().dispatchEvent(new CustomEvent('theme-mode-change', { detail: { mode: 'contrast' } }));
+		expect(button.style.getPropertyValue('--c-button--color--primary')).toBe('var(--color--primary)');
+		expect(mount.querySelectorAll('db-theme-mode-selector')).toHaveLength(1);
+		runtime.dispose();
 	});
 
 	it('keeps page target picking disabled until manually activated', () => {
@@ -1434,8 +1490,8 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 
 		expect(overlaySetting).toMatchObject({
 			label: 'Overlay Color',
-			type: 'rgba',
-			default: 'rgba(0, 0, 0, 0.4)',
+			type: 'token-color',
+			default: 'var(--color--alpha)',
 		});
 
 		runtimeInternals.handleChange('drawer', GENERAL_SCOPE_KEY, '--c-drawer--color--alpha', 'rgba(0, 0, 0, 0.75)', 'var(--color--alpha)');

@@ -63,6 +63,7 @@ function normalizePresetDefinition(input: unknown, fallbackId?: string): DesignB
 					...('_dark' in record ? { _dark: record._dark } : {}),
 					...('_contrast' in record ? { _contrast: record._contrast } : {}),
 					...('component' in record ? { component: record.component } : {}),
+					...('componentSchemes' in record ? { componentSchemes: record.componentSchemes } : {}),
 				}
 			: undefined);
 	const id = hasStringValue(record.id) ? record.id.trim() : fallbackId?.trim();
@@ -144,6 +145,8 @@ export function designBuilderPresetMatchesState(preset: DesignBuilderProvidedPre
 	if (preset.targets.component && !areScopedComponentOverridesEqual(preset.state.component, normalizedState.component)) {
 		return false;
 	}
+	if (preset.targets.component && (['dark', 'contrast'] as const).some((mode) => !areScopedComponentOverridesEqual(preset.state.componentSchemes?.[mode] ?? {}, normalizedState.componentSchemes?.[mode] ?? {}))) return false;
+	if (preset.targets.token && (['_dark', '_contrast'] as const).some((mode) => !areStringMapsEqual(preset.state[mode] ?? {}, normalizedState[mode] ?? {}))) return false;
 
 	return preset.targets.token || preset.targets.component;
 }

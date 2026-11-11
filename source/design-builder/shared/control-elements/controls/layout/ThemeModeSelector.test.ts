@@ -38,7 +38,7 @@ describe('db-theme-mode-selector', () => {
 		control.addEventListener('theme-mode-change', modeChange);
 		control.addEventListener('theme-disable', disable);
 
-		expect(control.textContent).toContain('Contrast scheme enabled');
+		expect(control.textContent).toContain('Editing Contrast');
 		Array.from(control.querySelectorAll('button')).find((button) => button.textContent === 'Default')?.click();
 		Array.from(control.querySelectorAll('button')).find((button) => button.textContent === 'Use Default only')?.click();
 

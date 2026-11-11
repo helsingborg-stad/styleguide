@@ -1,6 +1,8 @@
 import { html, nothing, render as renderTemplate, type TemplateResult } from 'lit-html';
 import { createDesignBuilderCategory, createDesignBuilderControl, createDesignBuilderSwatchBand, createReadOnlyDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
 import type { DesignBuilderThemeMode } from '../../shared/control-elements/controls/layout/ThemeModeSelector';
+import { previewDesignBuilderScheme } from '../../shared/state/previewDesignBuilderScheme';
+import { getPreferredDesignBuilderColorScheme, isThemeEditableVariable } from '../../shared/state/designBuilderColorSchemes';
 import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
 import { createDetailsMenuDismissController, type DetailsMenuDismissController } from '../../shared/menus/createDetailsMenuDismissController';
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
@@ -35,14 +37,6 @@ interface PaletteFamilyGroup {
 const BRAND_PALETTE_CATEGORY_ID = 'colors-brand-palette';
 const PALETTE_VARIABLE_PATTERN = /^--color--(palette-(\d+))(?:-(contrast))?$/;
 type ThemeMode = DesignBuilderThemeMode;
-
-function isThemeEditableVariable(variable: string): boolean {
-	if (variable === '--color--border-mix-amount' || variable === '--shadow-color' || variable === '--shadow-amount') {
-		return true;
-	}
-
-	return variable.startsWith('--color--') && !variable.endsWith('-border') && !variable.endsWith('-alt') && !variable.endsWith('-contrast-muted');
-}
 
 function createThemeComponentCategories(componentData: unknown): TokenCategory[] {
 	const categories: TokenCategory[] = [];
@@ -95,6 +89,7 @@ export class FullPageEditorRuntime {
 	constructor(container: HTMLElement, tokens: TokenData, hostElement: DesignBuilderRootElement, modeSwitch?: DesignBuilderModeSwitch, showSaveButton = true) {
 		this.container = container;
 		this.hostElement = hostElement;
+		this.activeThemeMode = hostElement.colorScheme ?? getPreferredDesignBuilderColorScheme();
 		this.tokens = tokens;
 		this.themeComponentCategories = createThemeComponentCategories(hostElement.componentData);
 		this.presetManager = new DesignBuilderPresetManager();
@@ -168,6 +163,7 @@ export class FullPageEditorRuntime {
 
 		return html`
 			<div class="db-header">
+				${this.renderThemeModeTemplate()}
 				<div class="db-header-actions">
 					${modeSwitcher ?? nothing}
 					<button
@@ -234,7 +230,6 @@ export class FullPageEditorRuntime {
 				</div>
 			</div>
 			<div data-preset-bar></div>
-			${this.renderThemeModeTemplate()}
 			<div class="db-categories">
 				${this.getVisibleCategories().map((category) => this.renderCategoryElement(category))}
 			</div>
@@ -261,19 +256,11 @@ export class FullPageEditorRuntime {
 			return [];
 		}
 
-		return [
-			...this.tokens.categories
-			.map((category) => ({ ...category, settings: category.settings.filter((setting) => isThemeEditableVariable(setting.variable)) }))
-			.filter((category) => category.settings.length > 0),
-			...this.themeComponentCategories,
-		];
+		return [...this.tokens.categories.map((category) => ({ ...category, settings: category.settings.filter((setting) => isThemeEditableVariable(setting.variable)) })).filter((category) => category.settings.length > 0), ...this.themeComponentCategories];
 	}
 
 	private getThemeEditableSettings(): TokenSetting[] {
-		return [
-			...this.tokens.categories.flatMap((category) => category.settings.filter((setting) => isThemeEditableVariable(setting.variable))),
-			...this.themeComponentCategories.flatMap((category) => category.settings),
-		];
+		return [...this.tokens.categories.flatMap((category) => category.settings.filter((setting) => isThemeEditableVariable(setting.variable))), ...this.themeComponentCategories.flatMap((category) => category.settings)];
 	}
 
 	private renderCategoryElement(category: TokenCategory): HTMLElement {
@@ -574,6 +561,7 @@ export class FullPageEditorRuntime {
 
 	private setActiveThemeMode(mode: ThemeMode): void {
 		this.activeThemeMode = mode;
+		this.hostElement.colorScheme = mode;
 		this.applyThemePreview();
 		this.render();
 	}
@@ -585,17 +573,23 @@ export class FullPageEditorRuntime {
 		this.syncOverrideState();
 		this.applyThemePreview();
 		this.render();
+		this.emitAction('change', { theme: this.activeThemeMode, enabled: true });
 	};
 
 	private disableActiveTheme = (): void => {
 		if (this.activeThemeMode === 'dark') this.darkOverrides = null;
 		if (this.activeThemeMode === 'contrast') this.contrastOverrides = null;
+		if (this.activeThemeMode !== 'base') {
+			this.hostElement.overrideState = { ...this.hostElement.overrideState, componentSchemes: { ...this.hostElement.overrideState.componentSchemes, [this.activeThemeMode]: {} } };
+		}
 		this.syncOverrideState();
 		this.applyThemePreview();
 		this.render();
+		this.emitAction('change', { theme: this.activeThemeMode, enabled: false });
 	};
 
 	private applyThemePreview(): void {
+		previewDesignBuilderScheme(this.hostElement.overrideState, this.activeThemeMode, this.tokens);
 		for (const setting of this.getThemeEditableSettings()) {
 			if (this.activeThemeMode !== 'base') {
 				document.documentElement.style.removeProperty(setting.variable);
@@ -619,6 +613,7 @@ export class FullPageEditorRuntime {
 
 		applyComponentOverridesToPage(this.hostElement.overrideState.component);
 		applyThemeOverridesToPage(this.darkOverrides, this.contrastOverrides);
+		this.applyThemePreview();
 	}
 
 	private resetAll(): void {
@@ -639,11 +634,13 @@ export class FullPageEditorRuntime {
 		this.syncOverrideState();
 		this.presetManager.clearActive();
 		this.render();
+		this.applyThemePreview();
 		this.emitAction('reset-all');
 	}
 
 	private exportJson(): void {
 		const state = normalizeDesignBuilderOverrideState({
+			...this.hostElement.overrideState,
 			token: this.overrides,
 			...this.getThemeStateFields(),
 			component: this.hostElement.overrideState.component,
@@ -716,12 +713,13 @@ export class FullPageEditorRuntime {
 		this.contrastOverrides = this.normalizeThemeForAvailableTokens(importedState._contrast ?? null);
 		applyDefaultThemeVariantsToPage(this.darkOverrides, this.contrastOverrides);
 		this.syncPaletteFamiliesFromOverrides();
-		this.applyAll();
 		this.hostElement.overrideState = normalizeDesignBuilderOverrideState({
+			...importedState,
 			token: importedOverrides,
 			...this.getThemeStateFields(),
 			component: importedState.component,
 		});
+		this.applyAll();
 		this.presetManager.clearActive();
 
 		this.render();
@@ -850,9 +848,13 @@ export class FullPageEditorRuntime {
 		}
 
 		this.hostElement.overrideState = normalizeDesignBuilderOverrideState({
+			...this.hostElement.overrideState,
 			token: this.overrides,
+			...this.getThemeStateFields(),
 			component: nextComponentOverrides,
+			componentSchemes: option.targets.component ? option.state.componentSchemes : this.hostElement.overrideState.componentSchemes,
 		});
+		this.syncOverrideState();
 		this.removeLockedOverrides();
 		this.applyAll();
 
@@ -944,6 +946,7 @@ export class FullPageEditorRuntime {
 
 	private getCurrentPresetState(): DesignBuilderOverrideState {
 		return {
+			...this.hostElement.overrideState,
 			token: { ...this.overrides },
 			...this.getThemeStateFields(),
 			component: this.hostElement.overrideState.component,
@@ -951,7 +954,9 @@ export class FullPageEditorRuntime {
 	}
 
 	private syncOverrideState(): void {
+		const { _dark, _contrast, ...sharedState } = this.hostElement.overrideState;
 		this.hostElement.overrideState = normalizeDesignBuilderOverrideState({
+			...sharedState,
 			token: this.overrides,
 			...this.getThemeStateFields(),
 			component: this.hostElement.overrideState.component,

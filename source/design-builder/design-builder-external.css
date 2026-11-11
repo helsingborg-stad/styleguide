@@ -1,3 +1,8 @@
+.c-fab:has(design-builder) {
+	/* Keep editing controls above the drawer (11) and its backdrop (10). */
+	z-index: 12;
+}
+
 .db-layout {
 	display: grid;
 	grid-template-columns: var(--db-split, 50%) 0px 1fr;

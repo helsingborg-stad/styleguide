@@ -23,14 +23,39 @@ jest.mock('../../shared/control-elements/createDesignBuilderControls', () => ({
 }));
 
 import { GENERAL_SCOPE_KEY } from '../../shared/constants/designBuilderRuntimeConstants';
+import '../../shared/control-elements/controls/layout/ThemeModeSelector';
 import type { DesignBuilderActionEventDetail } from '../../shared/events/designBuilderActionEvents';
 import { normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
+import * as colorSchemes from '../../shared/state/designBuilderColorSchemes';
 import type { TokenData } from '../../shared/types/designBuilderDataTypes';
 import { FullPageEditorRuntime } from './FullPageEditorRuntime';
 
 type RuntimeHostElement = ConstructorParameters<typeof FullPageEditorRuntime>[2];
 
 describe('FullPageEditorRuntime preset compatibility', () => {
+	it.each(['dark', 'contrast'] as const)('initializes the selector and preview in the preferred %s scheme', (mode) => {
+		const preference = jest.spyOn(colorSchemes, 'getPreferredDesignBuilderColorScheme').mockReturnValue(mode);
+		const container = document.createElement('div');
+		const host = document.createElement('div') as unknown as RuntimeHostElement;
+		host.overrideState = normalizeDesignBuilderOverrideState({
+			token: { '--color--surface': '#ffffff' },
+			_dark: { '--color--surface': '#111111' },
+			_contrast: { '--color--surface': '#000000' },
+		});
+		host.showLockedFields = false;
+		const tokens: TokenData = { name: 'Test', version: '1', categories: [{ id: 'colors', label: 'Colors', settings: [{ variable: '--color--surface', label: 'Surface', type: 'color', default: '#ffffff' }] }] };
+		let runtime: FullPageEditorRuntime | undefined;
+		try {
+			runtime = new FullPageEditorRuntime(container, tokens, host);
+			expect(container.querySelector('.db-theme-mode-button-active')?.textContent).toBe(mode === 'dark' ? 'Dark' : 'Contrast');
+			expect(document.documentElement.style.getPropertyValue('--color--surface')).toBe(mode === 'dark' ? '#111111' : '#000000');
+		} finally {
+			runtime?.destroy();
+			preference.mockRestore();
+			document.documentElement.style.removeProperty('--color--surface');
+		}
+	});
+
 	const tokenData: TokenData = {
 		name: 'Test Tokens',
 		version: '1.0.0',

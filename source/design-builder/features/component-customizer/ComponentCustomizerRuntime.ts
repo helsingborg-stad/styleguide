@@ -1,4 +1,8 @@
 import { html, nothing, render as renderTemplate, type TemplateResult } from 'lit-html';
+import '../../shared/control-elements/controls/layout/ThemeModeSelector';
+import type { DesignBuilderThemeMode } from '../../shared/control-elements/controls/layout/ThemeModeSelector';
+import { previewDesignBuilderScheme } from '../../shared/state/previewDesignBuilderScheme';
+import { getPreferredDesignBuilderColorScheme, isThemeEditableVariable } from '../../shared/state/designBuilderColorSchemes';
 import { GENERAL_SCOPE_KEY, GLOBAL_SCOPE_KEY, NON_CUSTOMIZABLE_COMPONENTS } from '../../shared/constants/designBuilderRuntimeConstants';
 import type { ControlChangeOptions } from '../../shared/control-elements/controls/types';
 import { createDesignBuilderCategory, createDesignBuilderControl, createReadOnlyDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
@@ -9,7 +13,7 @@ import { DesignBuilderPresetManager } from '../../shared/presets/DesignBuilderPr
 import { type DesignBuilderPresetTargets, type DesignBuilderProvidedPreset, designBuilderPresetMatchesState } from '../../shared/presets/designBuilderPresetDefinitions';
 import { applyDefaultThemeVariantsToPage, applyThemeOverridesToPage, applyTokenOverridesToRootDocument, clearTokenOverridesFromRootDocument } from '../../shared/state/applyDesignBuilderOverridesToPage';
 import { getComponentOverrideTargets } from '../../shared/state/componentOverrideTargets';
-import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
+import { getSchemeComponentOverrides, type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
 import { getNamedScopeKeysForElement, getResolvedScopeKeyForElement } from '../../shared/state/designBuilderScope';
 import { registerControlInfoTooltips } from '../../shared/tooltips/registerControlInfoTooltips';
 import type { ComponentSettingDefinition, ComponentSettingVisibilityCondition, ComponentTokenData, ComponentTokenReferenceSetting, ScopedComponentOverrides, TokenCategory, TokenData } from '../../shared/types/designBuilderDataTypes';
@@ -56,6 +60,7 @@ export class ComponentCustomizerRuntime {
 	private componentData: ComponentTokenData;
 	private tokenLibrary: TokenData;
 	private overrides: ScopedComponentOverrides;
+	private activeThemeMode: DesignBuilderThemeMode = 'base';
 	private hostElement: DesignBuilderRootElement | null;
 	private presetManager: DesignBuilderPresetManager;
 	private elementsByComponent = new Map<string, HTMLElement[]>();
@@ -84,7 +89,9 @@ export class ComponentCustomizerRuntime {
 		this.tokenLibrary = tokenLibrary;
 		this.mountElement = mountElement;
 		this.hostElement = options.hostElement ?? null;
-		this.overrides = normalizeDesignBuilderOverrideState(this.hostElement?.overrideState).component;
+		this.activeThemeMode = this.hostElement?.colorScheme ?? getPreferredDesignBuilderColorScheme();
+		const state = normalizeDesignBuilderOverrideState(this.hostElement?.overrideState);
+		this.overrides = this.activeThemeMode === 'base' ? state.component : (state.componentSchemes?.[this.activeThemeMode] ?? {});
 		this.presetManager = new DesignBuilderPresetManager();
 		this.modeSwitch = options.modeSwitch;
 		this.showSaveButton = options.showSaveButton ?? true;
@@ -351,11 +358,13 @@ export class ComponentCustomizerRuntime {
 
 		registerControlInfoTooltips();
 
-		const root = document.createElement('div');
-		root.className = 'db-builder db-builder-customizer';
-		this.mountElement.appendChild(root);
-		this.root = root;
-		this.menuDismissController = createDetailsMenuDismissController(root);
+		const root = this.root ?? document.createElement('div');
+		if (!this.root) {
+			root.className = 'db-builder db-builder-customizer';
+			this.mountElement.appendChild(root);
+			this.root = root;
+			this.menuDismissController = createDetailsMenuDismissController(root);
+		}
 
 		renderTemplate(this.renderShellTemplate(), root);
 
@@ -378,6 +387,14 @@ export class ComponentCustomizerRuntime {
 
 		return html`
 			<div class="db-header">
+				<db-theme-mode-selector
+					.activeMode=${this.activeThemeMode}
+					.darkEnabled=${this.hostElement?.overrideState._dark != null}
+					.contrastEnabled=${this.hostElement?.overrideState._contrast != null}
+					@theme-mode-change=${(event: CustomEvent<{ mode: DesignBuilderThemeMode }>) => this.setActiveThemeMode(event.detail.mode)}
+					@theme-enable=${() => this.setThemeEnabled(true)}
+					@theme-disable=${() => this.setThemeEnabled(false)}
+				></db-theme-mode-selector>
 				<div class="db-header-actions" data-header-actions>
 					${modeSwitcher ?? nothing}
 					<button
@@ -740,9 +757,7 @@ export class ComponentCustomizerRuntime {
 		const currentState = this.hostElement?.overrideState ?? normalizeDesignBuilderOverrideState({});
 		const currentTokenOverrides = currentState.token;
 		const nextTokenOverrides = option.targets.token ? option.state.token : currentTokenOverrides;
-		const nextThemeOverrides = option.targets.token
-			? { _dark: option.state._dark ?? null, _contrast: option.state._contrast ?? null }
-			: { _dark: currentState._dark ?? null, _contrast: currentState._contrast ?? null };
+		const nextThemeOverrides = option.targets.token ? { _dark: option.state._dark ?? null, _contrast: option.state._contrast ?? null } : { _dark: currentState._dark ?? null, _contrast: currentState._contrast ?? null };
 		if (option.targets.token) {
 			clearTokenOverridesFromRootDocument(currentTokenOverrides);
 			applyTokenOverridesToRootDocument(option.state.token);
@@ -752,7 +767,8 @@ export class ComponentCustomizerRuntime {
 
 		if (option.targets.component) {
 			this.clearAppliedOverrides();
-			this.overrides = normalizeDesignBuilderOverrideState({ component: option.state.component }).component;
+			if (this.hostElement) this.hostElement.overrideState = { ...currentState, component: option.state.component, componentSchemes: option.state.componentSchemes };
+			this.overrides = this.activeThemeMode === 'base' ? option.state.component : (option.state.componentSchemes?.[this.activeThemeMode] ?? {});
 			this.applySavedOverrides();
 		}
 
@@ -845,19 +861,22 @@ export class ComponentCustomizerRuntime {
 	}
 
 	private getCurrentPresetState(): DesignBuilderOverrideState {
-		return {
-			token: this.hostElement?.overrideState.token ?? {},
-			component: normalizeDesignBuilderOverrideState({ component: this.overrides }).component,
-		};
+		return (
+			this.hostElement?.overrideState ?? {
+				token: this.hostElement?.overrideState.token ?? {},
+				component: normalizeDesignBuilderOverrideState({ component: this.overrides }).component,
+			}
+		);
 	}
 
 	private exportJson(): void {
-		const currentState = this.hostElement?.overrideState ?? normalizeDesignBuilderOverrideState({});
+		const currentState = this.getCurrentPresetState();
 		const state = normalizeDesignBuilderOverrideState({
+			...currentState,
 			token: currentState.token,
 			...(currentState._dark !== undefined ? { _dark: currentState._dark } : {}),
 			...(currentState._contrast !== undefined ? { _contrast: currentState._contrast } : {}),
-			component: this.overrides,
+			component: currentState.component,
 		});
 		const data = JSON.stringify(state, null, 2);
 		const blob = new Blob([data], { type: 'application/json' });
@@ -890,8 +909,8 @@ export class ComponentCustomizerRuntime {
 		}
 
 		const importedState = normalizeDesignBuilderOverrideState(parsed);
-		const importedOverrides = importedState.component;
-		if (Object.keys(importedOverrides).length === 0) {
+		const importedOverrides = this.activeThemeMode === 'base' ? importedState.component : (importedState.componentSchemes?.[this.activeThemeMode] ?? {});
+		if (Object.keys(importedState.component).length === 0 && !Object.values(importedState.componentSchemes ?? {}).some((scheme) => Object.keys(scheme).length > 0)) {
 			alert('Error: No recognized component overrides were found in the selected file.');
 			return;
 		}
@@ -902,6 +921,7 @@ export class ComponentCustomizerRuntime {
 		applyDefaultThemeVariantsToPage(importedState._dark ?? null, importedState._contrast ?? null);
 
 		this.clearAppliedOverrides();
+		if (this.hostElement) this.hostElement.overrideState = importedState;
 		this.overrides = importedOverrides;
 		this.applySavedOverrides();
 		this.syncOverrideState(importedState.token, {
@@ -928,7 +948,10 @@ export class ComponentCustomizerRuntime {
 			return;
 		}
 
-		const categories = this.getVisibleCategoriesForComponent(this.activeComponent);
+		const schemeEnabled = this.activeThemeMode === 'base' || this.hostElement?.overrideState[this.activeThemeMode === 'dark' ? '_dark' : '_contrast'] != null;
+		const categories = this.getVisibleCategoriesForComponent(this.activeComponent)
+			.map((category) => ({ ...category, settings: category.settings.filter((setting) => this.activeThemeMode === 'base' || (schemeEnabled && (setting.type === 'token-color' || setting.type === 'color'))) }))
+			.filter((category) => category.settings.length > 0);
 		if (categories.length === 0) {
 			renderTemplate(html`No token customization options were found for this component.`, this.controlsContainer);
 			return;
@@ -1064,7 +1087,7 @@ export class ComponentCustomizerRuntime {
 
 	private renderControl(setting: TokenCategory['settings'][number]): HTMLElement {
 		const componentName = this.activeComponent as string;
-		const currentValue = this.overrides[this.activeScopeKey]?.[componentName]?.[setting.variable] || setting.default;
+		const currentValue = this.getEffectiveComponentVariableValue(componentName, this.activeScopeKey, setting.variable, setting.default);
 
 		if (setting.type === 'range-bounds' && setting.rangeBounds) {
 			const maxCurrentValue = this.overrides[this.activeScopeKey]?.[componentName]?.[setting.rangeBounds.maxVariable] || setting.rangeBounds.maxDefault;
@@ -1217,7 +1240,7 @@ export class ComponentCustomizerRuntime {
 			return false;
 		}
 
-		if (setting.type !== 'color') {
+		if (setting.type !== 'color' && setting.type !== 'rgba') {
 			return false;
 		}
 
@@ -1263,7 +1286,7 @@ export class ComponentCustomizerRuntime {
 	}
 
 	private isSelectableSwatchFamily(sourceFamily: ColorTokenSourceFamily): boolean {
-		return !EXCLUDED_SWATCH_COLOR_FAMILIES.has(sourceFamily.family) && this.isPaletteFamilyConfigured(sourceFamily);
+		return (sourceFamily.family === 'primary' || sourceFamily.family === 'secondary' || sourceFamily.categoryId === BRAND_PALETTE_CATEGORY_ID) && !EXCLUDED_SWATCH_COLOR_FAMILIES.has(sourceFamily.family) && this.isPaletteFamilyConfigured(sourceFamily);
 	}
 
 	private buildSelectableColorFamilies(includeStateColors: boolean): ColorTokenSourceFamily[] {
@@ -1360,9 +1383,7 @@ export class ComponentCustomizerRuntime {
 			}
 
 			const sourceToken = this.resolveSourceTokenForVariant(sourceFamily, descriptor.variant);
-			const mutedFallback = descriptor.variant === 'contrast-muted' && !sourceFamily.variants['contrast-muted'] && sourceFamily.variants.contrast && sourceFamily.variants.base
-				? `color-mix(in srgb, var(--${sourceFamily.variants.contrast}) 67.5%, var(--${sourceFamily.variants.base}))`
-				: null;
+			const mutedFallback = descriptor.variant === 'contrast-muted' && !sourceFamily.variants['contrast-muted'] && sourceFamily.variants.contrast && sourceFamily.variants.base ? `color-mix(in srgb, var(--${sourceFamily.variants.contrast}) 67.5%, var(--${sourceFamily.variants.base}))` : null;
 			extraValues[this.toLocalizedComponentVariable(componentName, targetContrastToken)] = mutedFallback ?? (sourceToken ? `var(--${sourceToken})` : '');
 		}
 
@@ -1583,6 +1604,19 @@ export class ComponentCustomizerRuntime {
 		}
 
 		const localizedVariable = this.toLocalizedComponentVariable(componentName, setting.variable);
+		if ((setting.type === 'color' || setting.type === 'rgba') && !this.describeColorToken(setting.variable)) {
+			return {
+				...setting,
+				variable: localizedVariable,
+				type: 'token-color',
+				options: this.buildSelectableColorFamilies(false).map((family) => ({
+					value: `var(--${family.variants.base})`,
+					label: family.label,
+					swatch: `var(--${family.variants.base})`,
+					contrastSwatch: family.variants.contrast ? `var(--${family.variants.contrast})` : undefined,
+				})),
+			};
+		}
 		const tokenEntry = this.findTokenLibraryEntry(setting.variable.replace(/^--/, ''));
 		if (tokenEntry && this.isSelectableLocalColorSetting(tokenEntry.category.id, tokenEntry.setting)) {
 			return this.createLocalizedColorSelectionSetting(componentName, availableTokenNames, setting.variable.replace(/^--/, ''), tokenEntry.setting, setting.label, setting.description, false);
@@ -1785,7 +1819,7 @@ export class ComponentCustomizerRuntime {
 
 		for (const [currentVariable, currentDefaultValue] of Object.entries(defaultValues)) {
 			const nextValue = nextValues[currentVariable] ?? '';
-			const shouldRemoveOverride = !nextValue || (!options.preserveMatchingDefault && nextValue === currentDefaultValue);
+			const shouldRemoveOverride = !nextValue || (this.activeThemeMode === 'base' && !options.preserveMatchingDefault && nextValue === currentDefaultValue);
 			if (shouldRemoveOverride) {
 				delete this.overrides[scopeKey][componentName][currentVariable];
 				this.removeVariable(componentName, scopeKey, currentVariable);
@@ -1807,7 +1841,7 @@ export class ComponentCustomizerRuntime {
 		this.syncOverrideState();
 		this.presetManager.clearActive();
 		this.refreshPresetBar();
-		if (shouldRenderControls) {
+		if (shouldRenderControls || !value) {
 			this.renderControls();
 		}
 		this.emitAction('change', {
@@ -1821,13 +1855,14 @@ export class ComponentCustomizerRuntime {
 	}
 
 	private getEffectiveComponentVariableValue(componentName: string, scopeKey: string, variable: string, fallback: string): string {
-		const scopeValue = this.overrides[scopeKey]?.[componentName]?.[variable];
+		const effective = this.hostElement ? getSchemeComponentOverrides(this.hostElement.overrideState, this.activeThemeMode) : this.overrides;
+		const scopeValue = effective[scopeKey]?.[componentName]?.[variable];
 		if (typeof scopeValue === 'string' && scopeValue.trim() !== '') {
 			return scopeValue;
 		}
 
 		if (scopeKey !== GENERAL_SCOPE_KEY) {
-			const generalValue = this.overrides[GENERAL_SCOPE_KEY]?.[componentName]?.[variable];
+			const generalValue = effective[GENERAL_SCOPE_KEY]?.[componentName]?.[variable];
 			if (typeof generalValue === 'string' && generalValue.trim() !== '') {
 				return generalValue;
 			}
@@ -1961,17 +1996,50 @@ export class ComponentCustomizerRuntime {
 			return;
 		}
 		const currentState = this.hostElement.overrideState;
+		const { _dark, _contrast, ...sharedState } = currentState;
 		const themes = themeOverrides ?? {
 			_dark: currentState._dark ?? null,
 			_contrast: currentState._contrast ?? null,
 		};
 
 		this.hostElement.overrideState = normalizeDesignBuilderOverrideState({
+			...sharedState,
 			token: tokenOverrides ?? currentState.token,
 			...(themes._dark !== null || themes._contrast !== null ? themes : {}),
-			component: this.overrides,
+			component: this.activeThemeMode === 'base' ? this.overrides : currentState.component,
+			...(this.activeThemeMode !== 'base' ? { componentSchemes: { ...currentState.componentSchemes, [this.activeThemeMode]: this.overrides } } : {}),
 		});
 		applyThemeOverridesToPage(themes._dark, themes._contrast);
+		previewDesignBuilderScheme(this.hostElement.overrideState, this.activeThemeMode, this.tokenLibrary);
+	}
+
+	private setActiveThemeMode(mode: DesignBuilderThemeMode): void {
+		if (!this.hostElement) return;
+		this.activeThemeMode = mode;
+		this.hostElement.colorScheme = mode;
+		const state = this.hostElement.overrideState;
+		this.overrides = mode === 'base' ? state.component : (state.componentSchemes?.[mode] ?? {});
+		previewDesignBuilderScheme(state, mode, this.tokenLibrary);
+		this.render();
+	}
+
+	private setThemeEnabled(enabled: boolean): void {
+		if (!this.hostElement || this.activeThemeMode === 'base') return;
+		const state = this.hostElement.overrideState;
+		const key = this.activeThemeMode === 'dark' ? '_dark' : '_contrast';
+		const template = this.hostElement.presets?.find((preset) => preset.id === 'default')?.state[key];
+		const defaults = Object.fromEntries(
+			this.tokenLibrary.categories.flatMap((category) =>
+				category.settings.filter((setting) => isThemeEditableVariable(setting.variable) && (!setting.variable.startsWith('--color--palette-') || state.token[setting.variable] !== undefined)).map((setting) => [setting.variable, template?.[setting.variable] ?? state.token[setting.variable] ?? setting.default]),
+			),
+		);
+		this.hostElement.overrideState = { ...state, [key]: enabled ? defaults : null };
+		if (!enabled) {
+			this.overrides = {};
+		}
+		this.syncOverrideState();
+		this.render();
+		this.emitAction('change', { theme: this.activeThemeMode, enabled });
 	}
 
 	private emitAction(action: 'change' | 'save' | 'reset-all' | 'reset-component' | 'import' | 'export' | 'preset-save' | 'preset-load' | 'preset-delete', metadata?: Record<string, unknown>): void {

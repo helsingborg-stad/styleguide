@@ -1,7 +1,29 @@
 import { GENERAL_SCOPE_KEY } from '../constants/designBuilderRuntimeConstants';
-import { normalizeComponentOverrides, normalizeDesignBuilderOverrideState, normalizeTokenOverrides } from './designBuilderOverrideState';
+import { getSchemeComponentOverrides, normalizeComponentOverrides, normalizeDesignBuilderOverrideState, normalizeTokenOverrides } from './designBuilderOverrideState';
 
 describe('designBuilderOverrideState normalization', () => {
+	it('masks other schemes during forced previews without persisting reset values', () => {
+		const state = normalizeDesignBuilderOverrideState({
+			token: {},
+			component: { __general__: { footer: { '--c-footer--color--surface': 'var(--color--primary)' } } },
+			componentSchemes: { dark: { 'scope:footer': { footer: { '--c-footer--color--surface': 'var(--color--secondary)', '--c-footer--color': 'var(--color--secondary-contrast)' } } } },
+		});
+		expect(getSchemeComponentOverrides(state, 'contrast', true)['scope:footer'].footer).toEqual({ '--c-footer--color--surface': 'var(--color--primary)', '--c-footer--color': 'initial' });
+		expect(getSchemeComponentOverrides(state, 'base')).toEqual(state.component);
+		expect(JSON.stringify(state)).not.toContain('initial');
+	});
+	it('round trips sparse scoped scheme assignments without changing Default', () => {
+		const state = normalizeDesignBuilderOverrideState({
+			token: {},
+			component: { 'scope:footer': { button: { '--c-button--color--primary': 'var(--color--primary)', '--c-button--space': '2rem' } } },
+			componentSchemes: { dark: { 'scope:footer': { button: { '--c-button--color--primary': 'var(--color--palette-1)' } } }, contrast: {}, unknown: { bad: {} } },
+		});
+		expect(normalizeDesignBuilderOverrideState(JSON.parse(JSON.stringify(state)))).toEqual(state);
+		expect(state.componentSchemes).not.toHaveProperty('unknown');
+		expect(getSchemeComponentOverrides(state, 'base')['scope:footer'].button['--c-button--color--primary']).toBe('var(--color--primary)');
+		expect(getSchemeComponentOverrides(state, 'dark')['scope:footer'].button).toEqual({ '--c-button--color--primary': 'var(--color--palette-1)', '--c-button--space': '2rem' });
+		expect(getSchemeComponentOverrides(state, 'contrast')).toEqual(state.component);
+	});
 	it('preserves numeric token overrides by stringifying them', () => {
 		expect(
 			normalizeTokenOverrides({
