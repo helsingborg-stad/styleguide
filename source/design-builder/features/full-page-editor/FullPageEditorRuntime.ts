@@ -2,7 +2,7 @@ import { html, nothing, render as renderTemplate, type TemplateResult } from 'li
 import { createDesignBuilderCategory, createDesignBuilderControl, createDesignBuilderSwatchBand, createReadOnlyDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
 import type { DesignBuilderThemeMode } from '../../shared/control-elements/controls/layout/ThemeModeSelector';
 import { previewDesignBuilderScheme } from '../../shared/state/previewDesignBuilderScheme';
-import { isThemeEditableVariable } from '../../shared/state/designBuilderColorSchemes';
+import { getPreferredDesignBuilderColorScheme, isThemeEditableVariable } from '../../shared/state/designBuilderColorSchemes';
 import { emitDesignBuilderActionEvent } from '../../shared/events/designBuilderActionEvents';
 import { createDetailsMenuDismissController, type DetailsMenuDismissController } from '../../shared/menus/createDetailsMenuDismissController';
 import { createDesignBuilderModeSwitcher } from '../../shared/mode-switch/createDesignBuilderModeSwitcher';
@@ -89,7 +89,7 @@ export class FullPageEditorRuntime {
 	constructor(container: HTMLElement, tokens: TokenData, hostElement: DesignBuilderRootElement, modeSwitch?: DesignBuilderModeSwitch, showSaveButton = true) {
 		this.container = container;
 		this.hostElement = hostElement;
-		this.activeThemeMode = hostElement.colorScheme ?? 'base';
+		this.activeThemeMode = hostElement.colorScheme ?? getPreferredDesignBuilderColorScheme();
 		this.tokens = tokens;
 		this.themeComponentCategories = createThemeComponentCategories(hostElement.componentData);
 		this.presetManager = new DesignBuilderPresetManager();

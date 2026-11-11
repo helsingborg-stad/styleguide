@@ -25,6 +25,7 @@ jest.mock('../../shared/control-elements/createDesignBuilderControls', () => ({
 import { GENERAL_SCOPE_KEY } from '../../shared/constants/designBuilderRuntimeConstants';
 import type { DesignBuilderActionEventDetail } from '../../shared/events/designBuilderActionEvents';
 import { normalizeDesignBuilderOverrideState } from '../../shared/state/designBuilderOverrideState';
+import * as colorSchemes from '../../shared/state/designBuilderColorSchemes';
 import type { ComponentTokenData, TokenData } from '../../shared/types/designBuilderDataTypes';
 import { ComponentCustomizerRuntime } from './ComponentCustomizerRuntime';
 
@@ -216,6 +217,27 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		document.body.innerHTML = '';
 		document.documentElement.style.removeProperty('--color--primary');
 		localStorage.clear();
+	});
+
+	it.each(['dark', 'contrast'] as const)('initializes component assignments and the selector in the preferred %s scheme', (mode) => {
+		const preference = jest.spyOn(colorSchemes, 'getPreferredDesignBuilderColorScheme').mockReturnValue(mode);
+		const host = document.createElement('div') as unknown as RuntimeHostElement;
+		host.overrideState = normalizeDesignBuilderOverrideState({
+			token: {}, _dark: {}, _contrast: {},
+			component: { [GENERAL_SCOPE_KEY]: { button: { '--c-button--color--primary': 'var(--color--primary)' } } },
+			componentSchemes: { [mode]: { [GENERAL_SCOPE_KEY]: { button: { '--c-button--color--primary': 'var(--color--secondary)' } } } },
+		});
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+		let runtime: ComponentCustomizerRuntime | undefined;
+		try {
+			runtime = new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: host });
+			expect(mount.querySelector('.db-theme-mode-button-active')?.textContent).toBe(mode === 'dark' ? 'Dark' : 'Contrast');
+			expect(document.querySelector<HTMLElement>('[data-component="button"]')?.style.getPropertyValue('--c-button--color--primary')).toBe('var(--color--secondary)');
+		} finally {
+			runtime?.dispose();
+			preference.mockRestore();
+		}
 	});
 
 	it('edits paired colours per scheme and scope, preserving Default and shared layout', () => {

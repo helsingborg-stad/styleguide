@@ -93,6 +93,9 @@ The sticky **Colour schemes** selector is shared by General and Components.
 Its selected Default, Dark or Contrast mode remains visible when changing views
 or scrolling. The `colorScheme` property (`base`, `dark`, `contrast`) represents
 this editing preference only; it is not saved as visitor-facing design data.
+On creation, the editor matches the browser preference: Contrast for increased
+contrast or forced colours, otherwise Dark when preferred, otherwise Default.
+Manual selections remain active when switching between General and Components.
 
 `component` remains the Default assignment map. Optional `componentSchemes.dark`
 and `componentSchemes.contrast` contain sparse maps with the same scope/component/

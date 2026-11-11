@@ -4,7 +4,7 @@ jest.mock('../shared/styling/designBuilderStyleText', () => ({
 
 import { normalizeDesignBuilderOverrideState } from '../shared/state/designBuilderOverrideState';
 import { registerDesignBuilderCustomElement, registerDesignBuilderModeAdapter } from './DesignBuilderCustomElement';
-import { DESIGN_BUILDER_MODE_FULL_PAGE, type DesignBuilderRootConfiguration } from './designBuilderRootContracts';
+import { DESIGN_BUILDER_MODE_FULL_PAGE, type DesignBuilderRootConfiguration, type DesignBuilderRootElement } from './designBuilderRootContracts';
 
 describe('DesignBuilderCustomElement root attribute hydration', () => {
 	const configurations: DesignBuilderRootConfiguration[] = [];
@@ -26,6 +26,31 @@ describe('DesignBuilderCustomElement root attribute hydration', () => {
 			rootElement.addEventListener('design-builder:initialized', () => resolve(), { once: true });
 		});
 	}
+
+	it('starts in the preferred scheme and preserves a manual choice across renders', async () => {
+		const originalMatchMedia = Object.getOwnPropertyDescriptor(window, 'matchMedia');
+		Object.defineProperty(window, 'matchMedia', {
+			configurable: true,
+			value: (query: string) => ({ matches: query === '(prefers-color-scheme: dark)' }),
+		});
+		try {
+			const rootElement = document.createElement('design-builder') as DesignBuilderRootElement;
+			rootElement.setAttribute('token-data', JSON.stringify({ name: 'Tokens', version: '1.0.0', categories: [] }));
+			let initialized = waitForInitialization(rootElement);
+			document.body.appendChild(rootElement);
+			await initialized;
+			expect(rootElement.colorScheme).toBe('dark');
+
+			rootElement.colorScheme = 'base';
+			initialized = waitForInitialization(rootElement);
+			rootElement.setAttribute('show-save-button', 'false');
+			await initialized;
+			expect(rootElement.colorScheme).toBe('base');
+		} finally {
+			if (originalMatchMedia) Object.defineProperty(window, 'matchMedia', originalMatchMedia);
+			else Reflect.deleteProperty(window, 'matchMedia');
+		}
+	});
 
 	it('hydrates override-state from the root attribute on first render', async () => {
 		const rootElement = document.createElement('design-builder');

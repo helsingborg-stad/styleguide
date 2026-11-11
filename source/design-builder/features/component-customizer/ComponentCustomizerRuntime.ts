@@ -2,7 +2,7 @@ import { html, nothing, render as renderTemplate, type TemplateResult } from 'li
 import '../../shared/control-elements/controls/layout/ThemeModeSelector';
 import type { DesignBuilderThemeMode } from '../../shared/control-elements/controls/layout/ThemeModeSelector';
 import { previewDesignBuilderScheme } from '../../shared/state/previewDesignBuilderScheme';
-import { isThemeEditableVariable } from '../../shared/state/designBuilderColorSchemes';
+import { getPreferredDesignBuilderColorScheme, isThemeEditableVariable } from '../../shared/state/designBuilderColorSchemes';
 import { GENERAL_SCOPE_KEY, GLOBAL_SCOPE_KEY, NON_CUSTOMIZABLE_COMPONENTS } from '../../shared/constants/designBuilderRuntimeConstants';
 import type { ControlChangeOptions } from '../../shared/control-elements/controls/types';
 import { createDesignBuilderCategory, createDesignBuilderControl, createReadOnlyDesignBuilderControl } from '../../shared/control-elements/createDesignBuilderControls';
@@ -89,7 +89,7 @@ export class ComponentCustomizerRuntime {
 		this.tokenLibrary = tokenLibrary;
 		this.mountElement = mountElement;
 		this.hostElement = options.hostElement ?? null;
-		this.activeThemeMode = this.hostElement?.colorScheme ?? 'base';
+		this.activeThemeMode = this.hostElement?.colorScheme ?? getPreferredDesignBuilderColorScheme();
 		const state = normalizeDesignBuilderOverrideState(this.hostElement?.overrideState);
 		this.overrides = this.activeThemeMode === 'base' ? state.component : (state.componentSchemes?.[this.activeThemeMode] ?? {});
 		this.presetManager = new DesignBuilderPresetManager();

@@ -1,4 +1,5 @@
 import { emitDesignBuilderActionEvent } from '../shared/events/designBuilderActionEvents';
+import { getPreferredDesignBuilderColorScheme } from '../shared/state/designBuilderColorSchemes';
 import { type DesignBuilderOverrideState, normalizeDesignBuilderOverrideState } from '../shared/state/designBuilderOverrideState';
 import { designBuilderStyles } from '../shared/styling/designBuilderStyleText';
 import { DESIGN_BUILDER_MODE_FULL_PAGE, type DesignBuilderMode, type DesignBuilderModeAdapter, type DesignBuilderRootElement } from './designBuilderRootContracts';
@@ -8,7 +9,7 @@ const ROOT_ELEMENT_TAG_NAME = 'design-builder';
 const SHADOW_STYLE_ID = 'design-builder-shadow-style';
 
 class DesignBuilderCustomElement extends HTMLElement implements DesignBuilderRootElement {
-	public colorScheme: 'base' | 'dark' | 'contrast' = 'base';
+	public colorScheme: 'base' | 'dark' | 'contrast' = getPreferredDesignBuilderColorScheme();
 	public static observedAttributes = ['mode', 'token-data', 'token-library', 'component-data', 'override-state', 'presets', 'show-save-button', 'data-show-save-button'];
 
 	private static modeAdapters = new Map<DesignBuilderMode, DesignBuilderModeAdapter>();
