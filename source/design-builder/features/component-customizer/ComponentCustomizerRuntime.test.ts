@@ -218,6 +218,40 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		localStorage.clear();
 	});
 
+	it('edits paired colours per scheme and scope, preserving Default and shared layout', () => {
+		document.body.innerHTML = '<footer data-scope="footer;"><button data-component="button">Button</button></footer>';
+		const host = document.createElement('div') as unknown as RuntimeHostElement;
+		host.overrideState = normalizeDesignBuilderOverrideState({ token: {}, _dark: { '--color--primary': '#111111' }, _contrast: {}, component: { 'scope:footer': { button: { '--c-button--color--primary': 'var(--color--primary)', '--c-button--font-size-multiplier': '2' } } } });
+		const mount = document.createElement('div');
+		document.body.appendChild(mount);
+		const runtime = new ComponentCustomizerRuntime(componentData, tokenLibrary, mount, { hostElement: host });
+		const selector = () => mount.querySelector('db-theme-mode-selector')!;
+		selector().dispatchEvent(new CustomEvent('theme-mode-change', { detail: { mode: 'dark' } }));
+		const internals = runtime as unknown as { handleChange(component: string, scope: string, variable: string, value: string, fallback: string, linked: Record<string, string>, extra: Record<string, string>, options: { preserveMatchingDefault: boolean }): void };
+		internals.handleChange(
+			'button',
+			'scope:footer',
+			'--c-button--color--primary',
+			'var(--color--secondary)',
+			'var(--color--primary)',
+			{ '--c-button--color--primary-contrast': 'var(--color--primary-contrast)' },
+			{ '--c-button--color--primary-contrast': 'var(--color--secondary-contrast)' },
+			{ preserveMatchingDefault: true },
+		);
+		expect(host.colorScheme).toBe('dark');
+		expect(host.overrideState.component['scope:footer'].button['--c-button--color--primary']).toBe('var(--color--primary)');
+		expect(host.overrideState.componentSchemes?.dark?.['scope:footer'].button['--c-button--color--primary-contrast']).toBe('var(--color--secondary-contrast)');
+		const button = document.querySelector<HTMLElement>('[data-component="button"]')!;
+		expect(button.style.getPropertyValue('--c-button--color--primary')).toBe('var(--color--secondary)');
+		expect(button.style.getPropertyValue('--c-button--font-size-multiplier')).toBe('2');
+		selector().dispatchEvent(new CustomEvent('theme-mode-change', { detail: { mode: 'base' } }));
+		expect(button.style.getPropertyValue('--c-button--color--primary')).toBe('var(--color--primary)');
+		selector().dispatchEvent(new CustomEvent('theme-mode-change', { detail: { mode: 'contrast' } }));
+		expect(button.style.getPropertyValue('--c-button--color--primary')).toBe('var(--color--primary)');
+		expect(mount.querySelectorAll('db-theme-mode-selector')).toHaveLength(1);
+		runtime.dispose();
+	});
+
 	it('keeps page target picking disabled until manually activated', () => {
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);
@@ -1434,8 +1468,8 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 
 		expect(overlaySetting).toMatchObject({
 			label: 'Overlay Color',
-			type: 'rgba',
-			default: 'rgba(0, 0, 0, 0.4)',
+			type: 'token-color',
+			default: 'var(--color--alpha)',
 		});
 
 		runtimeInternals.handleChange('drawer', GENERAL_SCOPE_KEY, '--c-drawer--color--alpha', 'rgba(0, 0, 0, 0.75)', 'var(--color--alpha)');

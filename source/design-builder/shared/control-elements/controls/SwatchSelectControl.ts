@@ -65,7 +65,7 @@ class SwatchSelectControl extends HTMLElement {
 
 	private getSelectedOption(options: TokenSettingOption[]): TokenSettingOption | undefined {
 		const value = this.getAttribute('value') || '';
-		return options.find((option) => option.value === value) ?? options[0];
+		return options.find((option) => option.value === value);
 	}
 
 	private selectOption(option: TokenSettingOption) {

@@ -157,10 +157,8 @@
 .db-theme-mode {
 	display: grid;
 	gap: 0.75rem;
-	margin: 0 0 1rem;
-	padding: 1rem;
-	border: 1px solid var(--db-border);
-	border-radius: var(--db-radius-m);
+	margin: 0;
+	padding: 0;
 	background: var(--db-surface);
 }
 
@@ -233,6 +231,10 @@
 }
 
 .db-header {
+	position: sticky;
+	top: 0;
+	z-index: 5;
+	background: var(--db-surface);
 	display: flex;
 	flex-wrap: wrap;
 	align-items: baseline;
@@ -240,6 +242,10 @@
 	margin-bottom: 0.75rem;
 	padding: 0 0 1.25rem;
 	border-bottom: 1px solid var(--db-border);
+}
+
+.db-header > db-theme-mode-selector {
+	width: 100%;
 }
 
 .db-header-actions {

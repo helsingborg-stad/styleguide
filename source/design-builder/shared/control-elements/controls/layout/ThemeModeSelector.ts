@@ -43,7 +43,6 @@ class DbThemeModeSelector extends HTMLElement {
 					<div class="db-theme-mode-heading">
 						<div>
 							<h2>Colour schemes</h2>
-							<p>Default is used by default. Dark and Contrast only change available colour roles; layout and typography stay shared.</p>
 						</div>
 						<div class="db-theme-mode-switch" role="group" aria-label="Edit colour scheme">
 							${(['base', 'dark', 'contrast'] as const).map(
@@ -53,9 +52,9 @@ class DbThemeModeSelector extends HTMLElement {
 					</div>
 					${
 						this._activeMode === 'base'
-							? html`<p class="db-theme-mode-status">The source of truth for the colour roles below. Adding or removing a palette colour updates every enabled variant.</p>`
+							? html`<p class="db-theme-mode-status">Editing Default. Layout is shared; palette assignments can differ in Dark and Contrast.</p>`
 							: themeEnabled
-								? html`<div class="db-theme-mode-status"><span>${this._activeMode === 'dark' ? 'Dark' : 'Contrast'} scheme enabled. It contains the same editable colour roles as Default.</span><button type="button" class="db-btn" @click=${() => this.dispatch('theme-disable')}>Use Default only</button></div>`
+								? html`<div class="db-theme-mode-status"><span>Editing ${this._activeMode === 'dark' ? 'Dark' : 'Contrast'}. Unchanged component colours inherit Default.</span><button type="button" class="db-btn" @click=${() => this.dispatch('theme-disable')}>Use Default only</button></div>`
 								: html`<div class="db-theme-mode-status"><span>No ${themeName} has been created. Visitors will use Default for this preference.</span><button type="button" class="db-btn db-btn-primary" @click=${() => this.dispatch('theme-enable')}>Create ${themeName}</button></div>`
 					}
 				</section>

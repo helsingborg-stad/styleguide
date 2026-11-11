@@ -11,6 +11,8 @@ export interface DesignBuilderOverrideState {
 	_dark?: Record<string, string> | null;
 	_contrast?: Record<string, string> | null;
 	component: ScopedComponentOverrides;
+	/** Sparse component/scope assignments; omitted values inherit Default. */
+	componentSchemes?: Partial<Record<'dark' | 'contrast', ScopedComponentOverrides>>;
 }
 
 export function createEmptyOverrideState(): DesignBuilderOverrideState {
@@ -141,12 +143,21 @@ export function normalizeDesignBuilderOverrideState(input: unknown): DesignBuild
 	}
 
 	const record = input as Record<string, unknown>;
-	if ('token' in record || 'component' in record || '_dark' in record || '_contrast' in record) {
+	if ('token' in record || 'component' in record || '_dark' in record || '_contrast' in record || 'componentSchemes' in record) {
+		const schemes = record.componentSchemes as Record<string, unknown> | undefined;
 		return {
 			token: normalizeTokenOverrides(record.token),
 			...('_dark' in record ? { _dark: normalizeThemeOverrides(record._dark) } : {}),
 			...('_contrast' in record ? { _contrast: normalizeThemeOverrides(record._contrast) } : {}),
 			component: normalizeComponentOverrides(record.component),
+			...(schemes && typeof schemes === 'object' && !Array.isArray(schemes)
+				? {
+						componentSchemes: {
+							...('dark' in schemes ? { dark: normalizeComponentOverrides(schemes.dark) } : {}),
+							...('contrast' in schemes ? { contrast: normalizeComponentOverrides(schemes.contrast) } : {}),
+						},
+					}
+				: {}),
 		};
 	}
 
@@ -165,5 +176,31 @@ export function normalizeDesignBuilderOverrideState(input: unknown): DesignBuild
 }
 
 export function hasOverrideStateData(state: DesignBuilderOverrideState): boolean {
-	return Object.keys(state.token).length > 0 || state._dark !== null && state._dark !== undefined || state._contrast !== null && state._contrast !== undefined || Object.keys(state.component).length > 0;
+	return Object.keys(state.token).length > 0 || (state._dark !== null && state._dark !== undefined) || (state._contrast !== null && state._contrast !== undefined) || Object.keys(state.component).length > 0 || Object.values(state.componentSchemes ?? {}).some((scheme) => Object.keys(scheme).length > 0);
+}
+
+/** Merge at variable level so a scheme changes colours, not shared layout. */
+export function getSchemeComponentOverrides(state: DesignBuilderOverrideState, mode: 'base' | 'dark' | 'contrast', maskOtherSchemes = false): ScopedComponentOverrides {
+	const result = normalizeComponentOverrides(state.component);
+	for (const [scope, components] of Object.entries(mode === 'base' ? {} : (state.componentSchemes?.[mode] ?? {}))) {
+		result[scope] ??= {};
+		for (const [component, variables] of Object.entries(components)) {
+			result[scope][component] = { ...result[scope][component], ...variables };
+		}
+	}
+	if (!maskOtherSchemes) return result;
+	// Mask assignments from other preference media queries during a forced
+	// preview. CSS initial restores the component stylesheet's fallback chain.
+	for (const scheme of Object.values(state.componentSchemes ?? {})) {
+		for (const [scope, components] of Object.entries(scheme)) {
+			result[scope] ??= {};
+			for (const [component, variables] of Object.entries(components)) {
+				result[scope][component] ??= {};
+				for (const variable of Object.keys(variables)) {
+					result[scope][component][variable] ??= result[GENERAL_SCOPE_KEY]?.[component]?.[variable] ?? 'initial';
+				}
+			}
+		}
+	}
+	return result;
 }

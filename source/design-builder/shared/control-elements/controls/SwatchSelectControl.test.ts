@@ -1,6 +1,13 @@
 import './SwatchSelectControl';
 
 describe('SwatchSelectControl', () => {
+	it('does not label an inherited or unavailable role as the first palette option', () => {
+		const control = document.createElement('swatch-select-control');
+		control.setAttribute('options', JSON.stringify([{ value: 'var(--color--primary)', label: 'Primary' }]));
+		control.setAttribute('value', 'var(--color--surface)');
+		document.body.appendChild(control);
+		expect(control.querySelector('[aria-selected="true"]')).toBeNull();
+	});
 	afterEach(() => {
 		document.body.innerHTML = '';
 	});

@@ -24,6 +24,7 @@ function hydratePersistedOverrideState(rootElement: DesignBuilderRootElement): v
 	const tokenStore = new TokenOverrideLocalStorageStore();
 	const persistedTokenState = tokenStore.loadState();
 	const overrideState = normalizeDesignBuilderOverrideState({
+		...persistedTokenState,
 		token: persistedTokenState.token,
 		...(persistedTokenState._dark !== undefined ? { _dark: persistedTokenState._dark } : {}),
 		...(persistedTokenState._contrast !== undefined ? { _contrast: persistedTokenState._contrast } : {}),
