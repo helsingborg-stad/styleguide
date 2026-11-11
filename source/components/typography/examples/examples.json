@@ -29,6 +29,11 @@
         "text": "Smaller text variants including caption, byline, and meta. These are used for secondary information and annotations.",
         "grid": "grid-s-12"
     },
+    "eyebrow": {
+        "heading": "Eyebrow",
+        "text": "The eyebrow variant is a short, uppercase label in the primary color, placed above a heading to give context such as a step or category. Override the color with --c-typography--color-eyebrow and the tracking with --c-typography--letter-spacing-eyebrow.",
+        "grid": "grid-s-12"
+    },
     "specialized": {
         "heading": "Specialized Variants",
         "text": "Specialized text variants for specific use cases such as marketing and email content.",
