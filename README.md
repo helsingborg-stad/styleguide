@@ -185,6 +185,44 @@ This project uses design tokens as the single source of truth for visual values 
 - `tokens.getDerivedAliasValue($prefix, $variable, $inheritVariable)`
   - Use this for derived component aliases such as `--c-typography--h2-font-size`, where precedence must be explicit alias override -> inherit hook -> alias default.
 
+### Short-hand Token Helpers (`design-tokens`)
+
+`source/sass/mixin/_design-tokens.scss` wraps the token API above in short functions that compute values the same way the components do. Use them in components and in plugins or themes that depend on `@helsingborg-stad/styleguide`, instead of copying the arithmetic.
+
+| Helper | Output (no prefix) |
+| --- | --- |
+| `token("line-height-heading")` | `var(--line-height-heading)` |
+| `color("primary")` | `var(--color--primary)` |
+| `space(2)` | `calc((var(--space)) * var(--base) * 2)` |
+| `radius()` / `radius(0.5)` | `calc((var(--border-radius)) * var(--base) * 1)` |
+| `border-width()` | `calc((var(--border-width)) * var(--base) * 1)` |
+| `size(5)` | `calc((var(--base)) * 5)` (not affected by `--space`) |
+| `font-size(90)` | `var(--font-size-90)` |
+| `font-weight("bold")` | `var(--font-weight-bold)` |
+| `@include focus-ring($offset: 2)` | Outline in `--color--focus`, `border-width(3)` wide, offset `size($offset * 0.25)` |
+
+Every helper takes an optional `$prefix`. With a prefix, each value can be overridden locally through `--{prefix}--{token}` and falls back to the global token, like component tokens. Surface colors also honour the `--inherit-*` hooks, exactly as `tokens.getRawValue()` does.
+
+Usage from a plugin that has `@helsingborg-stad/styleguide` as an npm dependency (Sass `NodePackageImporter`, e.g. `css.preprocessorOptions.scss.importers: [new NodePackageImporter()]` in Vite):
+
+```scss
+@use "pkg:@helsingborg-stad/styleguide/source/sass/mixin/design-tokens" as dt with (
+    $prefix: "mod-guide-wizard"
+);
+
+.mod-guide-wizard__panel {
+    padding: dt.space(3);          // calc((var(--mod-guide-wizard--space, var(--space))) * var(--base) * 3)
+    color: dt.color("primary");    // var(--mod-guide-wizard--color--primary, var(--color--primary))
+    border-radius: dt.radius();
+
+    &:focus-visible {
+        @include dt.focus-ring;
+    }
+}
+```
+
+Without the package importer, add `node_modules` to the Sass load paths and use `@use "@helsingborg-stad/styleguide/source/sass/mixin/design-tokens" as dt`. A module can only be configured with `with (...)` once per compilation; pass `$prefix` per call (`dt.space(2, "my-prefix")`) when a stylesheet needs several prefixes, as the components in this repository do.
+
 ### Intended Usage
 
 #### 1) Define or update global tokens
@@ -476,6 +514,7 @@ In the tables below, `Can the user manipulate it?` means the supported direct cu
 - `build-design-tokens.mjs` (JSON -> generated Sass compiler)
 - `source/sass/setting/_design-tokens.scss` (generated root CSS vars)
 - `source/sass/mixin/_tokens.scss` (token API for components)
+- `source/sass/mixin/_design-tokens.scss` (short-hand token helpers for components, plugins and themes)
 - `source/components/*/component.json` (component token whitelists)
 - `source/design-tokens-schema.json`, `source/component-schema.json`, and `source/utility-schema.json` (validation/contracts)
 

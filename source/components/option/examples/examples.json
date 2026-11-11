@@ -38,5 +38,13 @@
     "value": {
         "heading": "Value",
         "text": "The value parameter sets the data submitted with the form when the option is checked, allowing multiple checkboxes to share a name while returning distinct values."
+    },
+    "card": {
+        "heading": "Card appearance",
+        "text": "Adding c-option--card via classList renders the option as a clickable card with border, hover, checked and focus states. Put c-option__description and c-option__aside (with --success, --danger or --warning) in the label HTML for a secondary line and a tag. The tag sits to the right of the text and moves below it when the card is narrower than 32.5em (container query). Wrap label text containing other markup in one element when using an aside."
+    },
+    "card-checkbox": {
+        "heading": "Card appearance with checkboxes",
+        "text": "The card appearance works for checkboxes too, with or without description and aside."
     }
 }

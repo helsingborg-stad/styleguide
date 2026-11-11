@@ -15,6 +15,7 @@
 		"letter-spacing-base",
 		"letter-spacing-heading",
 		"space",
+		"font-size-80",
 		"font-size-90",
 		"font-size-200",
 		"font-size-300",
@@ -22,7 +23,8 @@
 		"font-size-500",
 		"font-size-600",
 		"font-size-700",
-		"font-size-800"
+		"font-size-800",
+		"color--primary"
 	],
 	"componentSettings": [
 		{
@@ -78,7 +80,7 @@
 					"label": "Bold Font Weight",
 					"description": "Controls the heavier emphasis used by bold and marketing variants.",
 					"visibleWhen": {
-						"hasAnyClass": ["c-typography__variant--bold"]
+						"hasAnyClass": ["c-typography__variant--bold", "c-typography__variant--eyebrow"]
 					}
 				},
 				{
@@ -180,6 +182,14 @@
 			"label": "Type Scale",
 			"description": "Shared token-based font sizes used by typography variants.",
 			"settings": [
+				{
+					"token": "font-size-80",
+					"label": "Eyebrow Text Size",
+					"description": "Controls the size of the eyebrow variant.",
+					"visibleWhen": {
+						"hasClass": ["c-typography__variant--eyebrow"]
+					}
+				},
 				{
 					"token": "font-size-90",
 					"label": "Small Text Size",
@@ -333,6 +343,20 @@
 					"unit": "",
 					"visibleWhen": {
 						"hasClass": ["c-typography__variant--meta"]
+					}
+				},
+				{
+					"variable": "--eyebrow-font-size-multiplier",
+					"label": "Eyebrow Size Multiplier",
+					"description": "Scales eyebrow text locally without changing the shared small-text token.",
+					"type": "range",
+					"default": "1",
+					"min": 0.5,
+					"max": 3,
+					"step": 0.05,
+					"unit": "",
+					"visibleWhen": {
+						"hasClass": ["c-typography__variant--eyebrow"]
 					}
 				},
 				{

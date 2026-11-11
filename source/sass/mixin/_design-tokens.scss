@@ -1,0 +1,83 @@
+@use "tokens";
+
+/// Short-hand design token helpers.
+///
+/// Thin wrappers around the `tokens` module that compute values the same way
+/// the components do, e.g. `calc((var(--space)) * var(--base) * 2)`. Intended
+/// for both components in this repository and for plugins/themes that depend
+/// on `@helsingborg-stad/styleguide` and want to stay on the design system
+/// without copying its arithmetic.
+///
+/// Every helper accepts an optional `$prefix`. With a prefix, the value can be
+/// overridden locally through `--{prefix}--{token}` and falls back to the
+/// global token, exactly like component tokens (`--c-option--space`).
+///
+/// Set a module-wide default prefix when loading the module:
+///
+///     @use "pkg:@helsingborg-stad/styleguide/source/sass/mixin/design-tokens" as dt with (
+///         $prefix: "mod-guide-wizard"
+///     );
+///
+///     .mod-guide-wizard__panel {
+///         padding: dt.space(3);              // calc((var(--mod-guide-wizard--space, var(--space))) * var(--base) * 3)
+///         color: dt.color("primary");        // var(--mod-guide-wizard--color--primary, var(--color--primary))
+///         border-radius: dt.radius();
+///
+///         &:focus-visible {
+///             @include dt.focus-ring;
+///         }
+///     }
+///
+/// Or pass `$prefix` per call when one stylesheet needs several prefixes.
+
+/// Default prefix for all helpers. Empty string means global tokens only.
+/// Do not include leading dashes: "mod-guide-wizard", not "--mod-guide-wizard--".
+$prefix: "" !default;
+
+/// Raw token reference: `var(--{prefix}--{name}, var(--{name}))`.
+/// @param {String} $name - Global token name without dashes, e.g. "space", "color--primary"
+@function token($name, $prefix: $prefix) {
+    @return tokens.getRawValue($prefix, $name);
+}
+
+/// Color token: `color("primary")` → `var(--color--primary)`.
+@function color($name, $prefix: $prefix) {
+    @return token("color--#{$name}", $prefix);
+}
+
+/// Spacing: `space(2)` → `calc((var(--space)) * var(--base) * 2)`.
+@function space($n: 1, $prefix: $prefix) {
+    @return tokens.getCalculatedValue($prefix, "space", $n);
+}
+
+/// Border radius: `radius(0.5)` → `calc((var(--border-radius)) * var(--base) * 0.5)`.
+@function radius($n: 1, $prefix: $prefix) {
+    @return tokens.getCalculatedValue($prefix, "border-radius", $n);
+}
+
+/// Border width: `border-width()` → `calc((var(--border-width)) * var(--base) * 1)`.
+@function border-width($n: 1, $prefix: $prefix) {
+    @return tokens.getCalculatedValue($prefix, "border-width", $n);
+}
+
+/// Size on the base grid, unaffected by --space: `size(5)` → `calc((var(--base)) * 5)`.
+@function size($n: 1, $prefix: $prefix) {
+    @return tokens.getCalculatedValue($prefix, "base", $n);
+}
+
+/// Font size step: `font-size(90)` → `var(--font-size-90)`.
+@function font-size($step, $prefix: $prefix) {
+    @return token("font-size-#{$step}", $prefix);
+}
+
+/// Font weight: `font-weight("bold")` → `var(--font-weight-bold)`.
+@function font-weight($name, $prefix: $prefix) {
+    @return token("font-weight-#{$name}", $prefix);
+}
+
+/// Token based focus ring, scaling with --border-width and --base.
+/// @param {Number} $offset [2] - Outline offset in quarters of the base unit.
+@mixin focus-ring($offset: 2, $prefix: $prefix) {
+    outline: border-width(3, $prefix) solid color("focus", $prefix);
+    outline-offset: size($offset * 0.25, $prefix);
+}
