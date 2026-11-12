@@ -34,7 +34,7 @@
   "require": {
     "php": "^8.2",
     "erusev/parsedown": "^1.7",
-    "helsingborg-stad/component-library": "5.47.5",
+    "helsingborg-stad/component-library": "5.47.6",
     "ramsey/uuid": "4.9.4"
   },
   "require-dev": {
