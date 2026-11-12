@@ -2,7 +2,7 @@
 
 $_: "c-drawer";
 
-@include tokens.create($_, getComponentTokens($_));
+@include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
 /* Colors */
 
@@ -13,9 +13,17 @@ $_: "c-drawer";
     --#{$_}--padding-x: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--padding-multiplier));
     --#{$_}--padding-y: calc(#{tokens.getCalculatedValue($_, "space", 1)} + calc(var(--#{$_}--padding-multiplier) * #{tokens.getCalculatedValue($_, "space", 0.5)}));
     --#{$_}--button-padding-y: calc(#{tokens.getCalculatedValue($_, "space", 2)} + calc(var(--#{$_}--padding-multiplier) * #{tokens.getCalculatedValue($_, "space", 0.5)}));
-    --drawer-background: #{tokens.getRawValue($_, "color--surface")};
-    --drawer-color: #{tokens.getRawValue($_, "color--surface-contrast")};
-    --drawer-border-color: #{tokens.getRawValue($_, "color--surface-border")};
+    // Color scheme hooks, set by the modifiers below. The design builder's
+    // component colors win over these, see getRawValue().
+    --drawer-scheme-background: var(--color--surface);
+    --drawer-scheme-color: var(--color--surface-contrast);
+    --drawer-scheme-border-color: var(--color--surface-border);
+    --drawer-duotone-scheme-background: var(--color--surface);
+    --drawer-duotone-scheme-color: var(--color--surface-contrast);
+    // Main panel: "Main Panel Color" (color--surface) in the design builder.
+    --drawer-background: #{tokens.getRawValue($_, "color--surface", "--drawer-scheme-background")};
+    --drawer-color: #{tokens.getRawValue($_, "color--surface-contrast", "--drawer-scheme-color")};
+    --drawer-border-color: #{tokens.getRawValue($_, "color--surface-border", "--drawer-scheme-border-color")};
     --drawer-button-hover: color-mix(in srgb, var(--drawer-color) 18%, transparent);
     --drawer-button-active: color-mix(in srgb, var(--drawer-color) 24%, transparent);
 
@@ -39,49 +47,44 @@ $_: "c-drawer";
     }
 }
 
+// Color schemes
+
 .c-drawer.c-drawer--primary {
-    --drawer-background: #{tokens.getRawValue($_, "color--primary")};
-    --drawer-color: #{tokens.getRawValue($_, "color--primary-contrast")};
-    --drawer-border-color: color-mix(in srgb, var(--drawer-color) 20%, transparent);
+    --drawer-scheme-background: var(--color--primary);
+    --drawer-scheme-color: var(--color--primary-contrast);
+    --drawer-scheme-border-color: color-mix(in srgb, var(--drawer-color) 20%, transparent);
 }
 
 .c-drawer.c-drawer--secondary {
-    --drawer-background: #{tokens.getRawValue($_, "color--secondary")};
-    --drawer-color: #{tokens.getRawValue($_, "color--secondary-contrast")};
-    --drawer-border-color: color-mix(in srgb, var(--drawer-color) 20%, transparent);
+    --drawer-scheme-background: var(--color--secondary);
+    --drawer-scheme-color: var(--color--secondary-contrast);
+    --drawer-scheme-border-color: color-mix(in srgb, var(--drawer-color) 20%, transparent);
 }
 
-// Duotone drawer colors needing to target the main list items for better flexibility
+.c-drawer.c-drawer--duotone-primary {
+    --drawer-duotone-scheme-background: var(--color--primary);
+    --drawer-duotone-scheme-color: var(--color--primary-contrast);
+}
+
+.c-drawer.c-drawer--duotone-secondary {
+    --drawer-duotone-scheme-background: var(--color--secondary);
+    --drawer-duotone-scheme-color: var(--color--secondary-contrast);
+}
+
+// Duotone drawer colors needing to target the main list items for better flexibility.
+// The top area follows "Main Panel Color" (color--primary) and the bottom area
+// follows "Secondary Navigation Color" (color--secondary), regardless of scheme.
 
 .c-drawer.c-drawer--duotone {
-    --drawer-background: #{tokens.getRawValue($_, "color--surface")};
-    --drawer-color: #{tokens.getRawValue($_, "color--surface-contrast")};
-    --drawer-border-color: #{tokens.getRawValue($_, "color--surface-border")};
-    --drawer-duotone-background: #{tokens.getRawValue($_, "color--surface")};
+    --drawer-background: #{tokens.getRawValue($_, "color--primary", "--drawer-scheme-background")};
+    --drawer-color: #{tokens.getRawValue($_, "color--primary-contrast", "--drawer-scheme-color")};
+    --drawer-border-color: var(--drawer-scheme-border-color);
 }
 
-.c-drawer.c-drawer--duotone.c-drawer--primary {
-    --drawer-background: #{tokens.getRawValue($_, "color--primary")};
-    --drawer-color: #{tokens.getRawValue($_, "color--primary-contrast")};
-    --drawer-border-color: color-mix(in srgb, var(--drawer-color) 20%, transparent);
-}
-
-.c-drawer.c-drawer--duotone.c-drawer--secondary {
-    --drawer-background: #{tokens.getRawValue($_, "color--secondary")};
-    --drawer-color: #{tokens.getRawValue($_, "color--secondary-contrast")};
-    --drawer-border-color: color-mix(in srgb, var(--drawer-color) 20%, transparent);
-}
-
-.c-drawer.c-drawer--duotone.c-drawer--duotone-primary,
-.c-drawer.c-drawer--duotone.c-drawer--duotone-primary .site-nav-mobile__secondary>.c-nav__item {
-    --drawer-duotone-background: #{tokens.getRawValue($_, "color--primary")};
-    --drawer-duotone-color: #{tokens.getRawValue($_, "color--primary-contrast")};
-}
-
-.c-drawer.c-drawer--duotone.c-drawer--duotone-secondary,
-.c-drawer.c-drawer--duotone.c-drawer--duotone-secondary .site-nav-mobile__secondary>.c-nav__item {
-    --drawer-duotone-background: #{tokens.getRawValue($_, "color--secondary")};
-    --drawer-duotone-color: #{tokens.getRawValue($_, "color--secondary-contrast")};
+.c-drawer.c-drawer--duotone,
+.c-drawer.c-drawer--duotone .site-nav-mobile__secondary>.c-nav__item {
+    --drawer-duotone-background: #{tokens.getRawValue($_, "color--secondary", "--drawer-duotone-scheme-background")};
+    --drawer-duotone-color: #{tokens.getRawValue($_, "color--secondary-contrast", "--drawer-duotone-scheme-color")};
 }
 
 // Actual css
