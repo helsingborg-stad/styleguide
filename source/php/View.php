@@ -5,6 +5,7 @@ namespace MunicipioStyleGuide;
 use ComponentLibrary\Assets\PhpAssetEnqueuer;
 use \MunicipioStyleGuide\Helper\Documentation as DocHelper;
 use \MunicipioStyleGuide\Helper\ModifierExample;
+use \MunicipioStyleGuide\Helper\ImageProvider;
 use HelsingborgStad\BladeService\BladeServiceInterface;
 use MunicipioStyleGuide\Helper\ComponentCssParameters;
 
@@ -44,6 +45,8 @@ class View
      */
     private function renderAssets(string $html, array $data = []): string
     {
+        $html = ImageProvider::replaceExternalUrls($html);
+
         if ($this->assetEnqueuer !== null) {
             $pageNow = isset($data['pageNow']) && is_string($data['pageNow']) ? $data['pageNow'] : '';
             $slug = isset($data['slug']) && is_string($data['slug']) ? trim($data['slug']) : '';

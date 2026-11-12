@@ -24,6 +24,7 @@ class MockImage implements ImageInterface
         private ?string $altText = 'A photograph used to demonstrate responsive image loading.',
         private bool $withLqip = false,
         private bool $transparent = false,
+        private ?string $localPhoto = null,
     ) {}
 
     /**
@@ -41,20 +42,18 @@ class MockImage implements ImageInterface
     }
 
     /**
-     * Same candidates as {@see responsive()}, but with a low quality image placeholder enabled.
+     * Local copies of one photograph, including a tiny preview, for the LQIP demo.
      */
-    public static function responsiveWithLqip(string $seed = 'styleguide-lqip'): self
+    public static function responsiveWithLqip(): self
     {
         return new self(
             [
-                ['width' => 425, 'height' => 177],
-                ['width' => 768, 'height' => 320],
-                ['width' => 1024, 'height' => 427],
-                ['width' => 1440, 'height' => 600],
-                ['width' => 1920, 'height' => 800],
+                ['width' => 300, 'height' => 200],
+                ['width' => 900, 'height' => 600],
             ],
-            $seed,
+            focusPoint: ['left' => '80', 'top' => '60'],
             withLqip: true,
+            localPhoto: '1026',
         );
     }
 
@@ -121,10 +120,10 @@ class MockImage implements ImageInterface
         // Real-world LQIP generation typically encodes the placeholder as JPEG, which
         // has no alpha channel: transparent areas are filled with a solid backing colour.
         if ($this->transparent) {
-            return 'https://placehold.co/32x32/2c3e50/2c3e50/jpg';
+            return self::placeholderSvg(32, 32, '#2c3e50');
         }
 
-        return $this->urlForSize(32, 32);
+        return $this->localPhoto === null ? $this->urlForSize(32, 32) : $this->urlForSize(36, 24);
     }
 
     public function getSrcSet(): ?string
@@ -191,9 +190,30 @@ class MockImage implements ImageInterface
     private function urlForSize(int $width, int $height): string
     {
         if ($this->transparent) {
-            return sprintf('https://placehold.co/%dx%d/transparent/2c3e50/png?text=%s', $width, $height, rawurlencode($this->seed));
+            return self::placeholderSvg($width, $height, 'transparent', $this->seed, '#2c3e50');
         }
 
-        return sprintf('https://picsum.photos/seed/%s/%d/%d', rawurlencode($this->seed), $width, $height);
+        if ($this->localPhoto !== null) {
+            return sprintf('/assets/img/%s-%dx%d.jpg', $this->localPhoto, $width, $height);
+        }
+
+        return ImageProvider::url($width, $height, $this->seed);
+    }
+
+    private static function placeholderSvg(int $width, int $height, string $background, string $text = '', string $textColor = '#2c3e50'): string
+    {
+        $label = htmlspecialchars($text, ENT_XML1 | ENT_QUOTES, 'UTF-8');
+        $svg = sprintf(
+            '<svg xmlns="http://www.w3.org/2000/svg" width="%d" height="%d" viewBox="0 0 %d %d"><rect width="100%%" height="100%%" fill="%s"/><text x="50%%" y="50%%" fill="%s" text-anchor="middle" dominant-baseline="middle">%s</text></svg>',
+            $width,
+            $height,
+            $width,
+            $height,
+            $background,
+            $textColor,
+            $label,
+        );
+
+        return 'data:image/svg+xml,' . rawurlencode($svg);
     }
 }

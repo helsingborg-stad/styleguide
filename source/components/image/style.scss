@@ -73,6 +73,8 @@ $_modal: "c-modal--gallery";
         &[style*="background-image"] {
             display: grid;
             grid-template-areas: "stack";
+            grid-template-columns: minmax(0, 1fr);
+            grid-template-rows: minmax(0, 1fr);
             overflow: hidden;
 
             &:before {
@@ -91,6 +93,12 @@ $_modal: "c-modal--gallery";
                 grid-area: stack;
                 order: 1;
                 isolation: isolate;
+                // The LQIP background defines the visible frame. The final
+                // image must fill that same frame so object-position and
+                // background-position crop from the same focal point.
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
             }
         }
 
@@ -139,6 +147,9 @@ $_modal: "c-modal--gallery";
 
         .#{$_}__image-wrapper {
             height: 100%;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
         }
 
         .#{$_}__image {
