@@ -175,6 +175,13 @@ $_modal: "c-modal--gallery";
         height: 100%;
     }
 
+    // Keep the caption inside the figure: the image wrapper takes the space
+    // left after the caption instead of 100% of the figure height.
+    .#{$_}.#{$_}--container-query:has(> figcaption) {
+        display: grid;
+        grid-template-rows: minmax(0, 1fr) auto;
+    }
+
     .#{$_}.#{$_}--container-query .#{$_}__image {
         display: none;
     }
