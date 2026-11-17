@@ -1,179 +1,97 @@
 /**
- * Represents a drawer toggle button that controls the opening and closing of a drawer.
- */
-class DrawerAccessibility {
-    private static hasGlobalViewOffsetListeners = false;
-    closeButton: HTMLElement;
-    firstMenuItem: HTMLElement|null;
-    lastItem: HTMLElement;
-
-    constructor(private button: HTMLElement, private drawer: HTMLElement) {
-        this.syncDrawerVisibilityState();
-
-        this.closeButton    = drawer.querySelector('.c-drawer__close') as HTMLElement;
-        this.firstMenuItem  = this.getFirstMenuItem();
-        this.lastItem       = this.getLastItem();
-
-        this.setupViewOffsetListeners();
-
-        (this.lastItem && this.closeButton) && this.setupAccessibilityListeners();
-    }
-
-    /**
-     * Watches drawer state and size-affecting changes so global view offsets stay current.
-     */
-    private setupViewOffsetListeners() {
-        const observer = new MutationObserver(() => {
-            updateDrawerViewOffsets();
-            this.syncDrawerVisibilityState();
-        });
-        observer.observe(this.drawer, {
-            attributes: true,
-            attributeFilter: ['class', 'style']
-        });
-
-        DrawerAccessibility.setupGlobalViewOffsetListeners();
-        updateDrawerViewOffsets();
-    }
-
-    /**
-     * Adds viewport listeners once, shared by all drawer instances.
-     */
-    private static setupGlobalViewOffsetListeners() {
-        if (DrawerAccessibility.hasGlobalViewOffsetListeners) {
-            return;
-        }
-
-        window.addEventListener('resize', updateDrawerViewOffsets);
-        window.visualViewport?.addEventListener('resize', updateDrawerViewOffsets);
-        DrawerAccessibility.hasGlobalViewOffsetListeners = true;
-    }
-
-    /**
-     * Focuses on the first menu item (or the close button if there are no menu items)
-     * Loop the focus back to the close button when tabbing past the last item.
-     * Sets the focus back on the "open" button when the close button is clicked.
-     */
-    private setupAccessibilityListeners() {
-
-        // Focus the first interactive menu item after click only when drawer is open.
-        this.button.addEventListener('click', () => {
-            window.setTimeout(() => {
-                if (this.drawer.classList.contains('is-open')) {
-                    (this.firstMenuItem || this.closeButton).focus();
-                }
-            }, 0);
-        });
-
-        //Close by tabbing
-        this.lastItem.addEventListener('keydown', (e) => {
-            if (e.key === 'Tab') {
-                e.preventDefault();
-                this.closeButton.focus();
-            }
-        });
-
-        //When the close button is clicked, focus
-        this.closeButton.addEventListener('click', () => {
-            this.button.focus();
-        });
-
-        //Close by escape
-        document.addEventListener('keydown', (e) => {
-            if (this.drawer.classList.contains('is-open') && e.key === 'Escape') {
-                this.closeButton.click();
-                this.button.focus();
-            }
-        });
-
-        // Keep visibility state in sync after CSS transitions complete.
-        this.drawer.addEventListener('transitionend', () => {
-            this.syncDrawerVisibilityState();
-        });
-
-        //When items is being added to the drawer, add tabindex
-        this.drawer.addEventListener('DOMNodeInserted', (event) => {
-            const target = event.target as HTMLElement;
-            if (target.matches('a')) {
-                target.setAttribute('tabindex', '0');
-            }
-        });
-    }
-
-    /**
-     * Retrieves the first menu item element within the drawer.
-     * 
-     * @param drawer - The drawer element.
-     * @returns The first menu item element, or null if not found.
-     */
-    private getFirstMenuItem() {
-        return this.drawer.querySelector('.c-drawer__body a, .c-drawer__body button') as HTMLElement|null;
-    }
-
-    /**
-     * Retrieves the last item in the drawer.
-     * 
-     * @param drawer - The HTML element representing the drawer.
-     * @returns The last item in the drawer.
-     */
-    private getLastItem() {
-        const drawerItems = ([...this.drawer.querySelectorAll('button, a, input')] as Array<HTMLElement>);
-        
-        return drawerItems[drawerItems.length - 1];
-    }
-
-    /**
-     * Synchronizes aria-hidden with drawer open/closed state and restores
-     * focus to the trigger when focus remains inside a closed drawer.
-     */
-    private syncDrawerVisibilityState() {
-        const drawerIsOpen = this.drawer.classList.contains('is-open');
-
-        if (drawerIsOpen) {
-            this.drawer.setAttribute('aria-hidden', 'false');
-            return;
-        }
-
-        if (this.drawer.contains(document.activeElement)) {
-            this.button.focus();
-        }
-
-        this.drawer.setAttribute('aria-hidden', 'true');
-    }
-}
-
-/**
- * Initializes the drawer toggle buttons.
- * This function finds all elements with the class 'c-drawer__toggle' and attaches a click event listener to each button.
- * If a button has a 'data-js-toggle-trigger' attribute and there is a corresponding element with a 'data-js-toggle-item' attribute,
- * a new instance of the DrawerToggleButton class is created and associated with the button and the corresponding drawer element.
+ * Connects drawer close buttons and viewport offsets to their native popovers.
  */
 export function initializeDrawerAccessibility() {
-    const drawerToggleButtons = document.querySelectorAll('.c-drawer__toggle');
-    drawerToggleButtons.forEach((button) => {
-        if (
-            button.hasAttribute('data-js-toggle-trigger') && 
-            document.querySelector(`[data-js-toggle-item="${button.getAttribute('data-js-toggle-trigger')}"]`)
-        ) {
-            const drawer = document.querySelector(`[data-js-toggle-item="${button.getAttribute('data-js-toggle-trigger')}"]`);
+    const drawers = document.querySelectorAll<HTMLElement>('[popover] > .c-drawer');
+    const resizeObserver = new ResizeObserver(() => updateDrawerViewOffsets());
 
-            new DrawerAccessibility((button as HTMLElement), (drawer as HTMLElement));
+    drawers.forEach((drawer) => {
+        const popover = drawer.parentElement;
+        const closeButton = drawer.querySelector<HTMLButtonElement>('.c-drawer__close');
+        if (!popover?.id || !closeButton) {
+            console.error('A drawer popover requires an id and a close button.', drawer);
+            return;
         }
+
+        closeButton.removeAttribute('data-simulate-click');
+        closeButton.setAttribute('popovertarget', popover.id);
+        closeButton.setAttribute('popovertargetaction', 'hide');
+        closeButton.setAttribute('aria-controls', popover.id);
+        popover.addEventListener('toggle', updateDrawerViewOffsets);
+        drawer.addEventListener('keydown', (event) => wrapDrawerFocus(event, drawer));
+        resizeObserver.observe(drawer);
     });
+
+    window.addEventListener('resize', updateDrawerViewOffsets);
+    window.visualViewport?.addEventListener('resize', updateDrawerViewOffsets);
+    updateDrawerViewOffsets();
 }
 
 /**
- * Updates global view offsets based on currently open drawers.
+ * Wraps Tab navigation between the drawer's first and last available controls.
+ *
+ * @param event - The keyboard event originating inside the drawer.
+ * @param drawer - The drawer containing the controls.
+ */
+function wrapDrawerFocus(event: KeyboardEvent, drawer: HTMLElement) {
+    if (event.key !== 'Tab' || event.altKey || event.ctrlKey || event.metaKey) {
+        return;
+    }
+
+    const root = drawer.getRootNode();
+    const radios = root instanceof Document || root instanceof ShadowRoot
+        ? [...root.querySelectorAll<HTMLInputElement>('input[type="radio"][name]')]
+        : [];
+    const controls = [...drawer.querySelectorAll<HTMLElement>(
+        'a[href], area[href], button, input, select, textarea, iframe, [tabindex], [contenteditable]:not([contenteditable="false"]), audio[controls], video[controls], summary'
+    )]
+        .filter(isAvailableControl)
+        .filter((element) => {
+            if (!(element instanceof HTMLInputElement) || element.type !== 'radio' || !element.name) {
+                return true;
+            }
+
+            const group = radios.filter((radio) =>
+                radio.name === element.name && radio.form === element.form && isAvailableControl(radio)
+            );
+            return element === (group.find((radio) => radio.checked) ?? group[0]);
+        })
+        .sort((first, second) => (first.tabIndex || Infinity) - (second.tabIndex || Infinity));
+
+    const first = controls[0];
+    const last = controls[controls.length - 1];
+    if (first && last && (event.shiftKey ? document.activeElement === first : document.activeElement === last)) {
+        event.preventDefault();
+        (event.shiftKey ? last : first).focus();
+    }
+}
+
+/**
+ * Checks whether a control is available for sequential keyboard navigation.
+ *
+ * @param element - The control to check.
+ * @returns Whether the control can participate in Tab navigation.
+ */
+function isAvailableControl(element: HTMLElement): boolean {
+    return element.tabIndex >= 0 &&
+        !element.matches(':disabled') &&
+        !element.closest('[inert]') &&
+        element.getClientRects().length > 0 &&
+        getComputedStyle(element).visibility === 'visible';
+}
+
+/**
+ * Updates global view offsets based on currently open drawer popovers.
  */
 export function updateDrawerViewOffsets() {
-    const openDrawers = [...document.querySelectorAll<HTMLElement>('.c-drawer.is-open')];
+    const openDrawers = [...document.querySelectorAll<HTMLElement>('[popover]:popover-open > .c-drawer')];
     const baseUnit = getBaseUnitInPixels();
     const leftOffset = getMaxDrawerOffsetInBaseUnits(
-        openDrawers.filter((drawer) => !drawer.classList.contains('c-drawer--right')),
+        openDrawers.filter((drawer) => drawer.parentElement?.getAttribute('data-js-popover-horizontal-placement') === 'left'),
         baseUnit
     );
     const rightOffset = getMaxDrawerOffsetInBaseUnits(
-        openDrawers.filter((drawer) => drawer.classList.contains('c-drawer--right')),
+        openDrawers.filter((drawer) => drawer.parentElement?.getAttribute('data-js-popover-horizontal-placement') === 'right'),
         baseUnit
     );
 
@@ -237,6 +155,3 @@ function getBaseUnitInPixels() {
 
     return measuredBaseValue || 8;
 }
-
-export default DrawerAccessibility;
-

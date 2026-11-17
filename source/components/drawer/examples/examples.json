@@ -1,6 +1,6 @@
 {
     "drawer": {
         "heading": "Drawer",
-        "text": "Note: We've removed the placement of the buttons to prevent issues with documentation. Remove the values from the classList to get the intended layout."
+        "text": "Place the drawer directly inside a popover and connect a button to the popover's unique ID. Set placement, animation and backdrop on the popover; the drawer's legacy toggleButtonData and is-open behavior are no longer used. Tab and Shift+Tab wrap between the drawer's available controls."
     }
 }

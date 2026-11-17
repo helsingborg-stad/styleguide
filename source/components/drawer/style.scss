@@ -8,7 +8,6 @@ $_: "c-drawer";
 
 .c-drawer {
     --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 5)};
-    --#{$_}--drawer-transition-ms: var(--duration-300);
     --#{$_}--padding-multiplier: 2;
     --#{$_}--padding-x: calc(#{tokens.getCalculatedValue($_, "space", 2)} * var(--#{$_}--padding-multiplier));
     --#{$_}--padding-y: calc(#{tokens.getCalculatedValue($_, "space", 1)} + calc(var(--#{$_}--padding-multiplier) * #{tokens.getCalculatedValue($_, "space", 0.5)}));
@@ -123,19 +122,10 @@ $_: "c-drawer";
 
 .c-drawer {
     --#{$_}--width-multiplier: 1;
-    position: fixed;
-    left: 0;
-    top: 0;
-    height: 100%;
+    height: 100dvh;
     max-width: calc(var(--#{$_}--width-multiplier, 1) * #{tokens.getCalculatedValue($_, "base", 64)});
-    width: 90%;
-    z-index: 11;
-    transform: translate(-100%);
-    transition: visibility 0s linear var(--#{$_}--drawer-transition-ms),
-        var(--#{$_}--drawer-transition-ms) var(--ease-out) transform,
-        var(--#{$_}--drawer-transition-ms) var(--ease-out) opacity;
-    visibility: hidden;
-    opacity: 0;
+    width: 90vw;
+    filter: var(--#{$_}--shadow);
     display: flex;
     flex-direction: column;
 
@@ -176,12 +166,6 @@ $_: "c-drawer";
 
 // Drawer Modifiers
 
-.c-drawer.c-drawer--right {
-    transform: translate(100%);
-    right: 0;
-    left: initial;
-}
-
 .c-drawer.c-drawer--duotone {
 
     .c-drawer__header,
@@ -214,42 +198,10 @@ $_: "c-drawer";
     }
 }
 
-// Drawer States
-
-.c-drawer.is-open {
-    transition: visibility 0s linear 0s,
-        var(--#{$_}--drawer-transition-ms) var(--ease-out) transform,
-        var(--#{$_}--drawer-transition-ms) var(--ease-out) opacity;
-    visibility: visible;
-    transform: translate(0%);
-    opacity: 1;
-    filter: var(--#{$_}--shadow);
-}
-
-$_overlay: "drawer-overlay";
-
-// Overlay
-.#{$_overlay} {
-    --#{$_overlay}--drawer-transition-ms: var(--duration-300);
+[popover]:has(> .c-drawer)[data-popover-backdrop]::backdrop {
     background-color: tokens.getRawValue($_, "color--alpha");
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
-    transition: visibility 0s linear var(--#{$_overlay}--drawer-transition-ms),
-        var(--#{$_overlay}--drawer-transition-ms) var(--ease-out) opacity;
-    visibility: hidden;
-    opacity: 0;
-    backdrop-filter: blur(1px);
 }
 
-// Overlay states
-
-.c-drawer.is-open+.drawer-overlay {
-    opacity: 1;
-    transition: visibility 0s linear 0s,
-        var(--#{$_}--drawer-transition-ms) var(--ease-out) opacity;
-    visibility: visible;
+[popover] > .c-drawer + .drawer-overlay {
+    display: none;
 }

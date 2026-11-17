@@ -1449,10 +1449,9 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		mount.remove();
 	});
 
-	it('applies drawer overlay color overrides to the adjacent overlay element', () => {
+	it('applies drawer overlay color overrides to the popover', () => {
 		document.body.innerHTML = `
-			<nav data-component="drawer"></nav>
-			<div class="drawer-overlay"></div>
+			<div popover><nav data-component="drawer"></nav></div>
 		`;
 		const mount = document.createElement('div');
 		document.body.appendChild(mount);
@@ -1497,7 +1496,7 @@ describe('ComponentCustomizerRuntime pick mode', () => {
 		runtimeInternals.handleChange('drawer', GENERAL_SCOPE_KEY, '--c-drawer--color--alpha', 'rgba(0, 0, 0, 0.75)', 'var(--color--alpha)');
 
 		const drawer = document.querySelector<HTMLElement>('[data-component="drawer"]');
-		const overlay = document.querySelector<HTMLElement>('.drawer-overlay');
+		const overlay = document.querySelector<HTMLElement>('[popover]');
 		expect(drawer?.style.getPropertyValue('--c-drawer--color--alpha')).toBe('rgba(0, 0, 0, 0.75)');
 		expect(overlay?.style.getPropertyValue('--c-drawer--color--alpha')).toBe('rgba(0, 0, 0, 0.75)');
 
