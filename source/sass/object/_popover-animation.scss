@@ -89,3 +89,47 @@ $_: "[popover]";
     --popover-animation-start-scale: 1;
     --popover-animation-end-scale: 1;
 }
+
+#{$_}[data-popover-animation="slide-in-left"] {
+    --popover-animation-start-opacity: 1;
+    --popover-animation-end-opacity: 1;
+    --popover-animation-start-transform-x: -100%;
+    --popover-animation-start-transform-y: 0px;
+    --popover-animation-end-transform-x: 0px;
+    --popover-animation-end-transform-y: 0px;
+    --popover-animation-start-scale: 1;
+    --popover-animation-end-scale: 1;
+}
+
+#{$_}[data-popover-animation="slide-in-right"] {
+    --popover-animation-start-opacity: 1;
+    --popover-animation-end-opacity: 1;
+    --popover-animation-start-transform-x: 100%;
+    --popover-animation-start-transform-y: 0px;
+    --popover-animation-end-transform-x: 0px;
+    --popover-animation-end-transform-y: 0px;
+    --popover-animation-start-scale: 1;
+    --popover-animation-end-scale: 1;
+}
+
+#{$_}[data-popover-animation="slide-in-up"] {
+    --popover-animation-start-opacity: 1;
+    --popover-animation-end-opacity: 1;
+    --popover-animation-start-transform-x: 0px;
+    --popover-animation-start-transform-y: -100%;
+    --popover-animation-end-transform-x: 0px;
+    --popover-animation-end-transform-y: 0px;
+    --popover-animation-start-scale: 1;
+    --popover-animation-end-scale: 1;
+}
+
+#{$_}[data-popover-animation="slide-in-down"] {
+    --popover-animation-start-opacity: 1;
+    --popover-animation-end-opacity: 1;
+    --popover-animation-start-transform-x: 0px;
+    --popover-animation-start-transform-y: 100%;
+    --popover-animation-end-transform-x: 0px;
+    --popover-animation-end-transform-y: 0px;
+    --popover-animation-start-scale: 1;
+    --popover-animation-end-scale: 1;
+}
