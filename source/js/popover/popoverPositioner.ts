@@ -26,6 +26,7 @@ class PopoverPositioner {
 		popoverElement.style.top = '';
 		popoverElement.style.bottom = '';
 		popoverElement.style.transform = '';
+		popoverElement.style.translate = '';
 		popoverElement.style.setProperty('position-area', '');
 		popoverElement.style.setProperty('position-anchor', '');
 
@@ -65,27 +66,25 @@ class PopoverPositioner {
 
 		if (popoverData.horizontalPlacement === 'left') {
 			popoverElement.style.left = '0';
-			popoverElement.style.transform = 'none';
 		} else if (popoverData.horizontalPlacement === 'right') {
 			popoverElement.style.right = '0';
 			popoverElement.style.left = 'auto';
-			popoverElement.style.transform = 'none';
 		} else {
 			popoverElement.style.left = '50%';
-			popoverElement.style.transform = 'translateX(-50%)';
 		}
 
 		if (popoverData.verticalPlacement === 'top') {
 			popoverElement.style.top = '0';
 			popoverElement.style.bottom = 'auto';
-			popoverElement.style.transform += ' translateY(0)';
 		} else if (popoverData.verticalPlacement === 'bottom') {
 			popoverElement.style.bottom = '0';
 			popoverElement.style.top = 'auto';
-			popoverElement.style.transform += ' translateY(0)';
 		} else {
 			popoverElement.style.top = '50%';
-			popoverElement.style.transform += `translateY(-50%)`;
+		}
+
+		if (popoverData.horizontalPlacement === 'center' || popoverData.verticalPlacement === 'center') {
+			popoverElement.style.translate = `${popoverData.horizontalPlacement === 'center' ? '-50%' : '0'} ${popoverData.verticalPlacement === 'center' ? '-50%' : '0'}`;
 		}
 	}
 }
