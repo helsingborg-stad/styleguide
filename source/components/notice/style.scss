@@ -18,6 +18,7 @@ $_: "c-notice";
     padding: tokens.getCalculatedValue($_, "space", 2) tokens.getCalculatedValue($_, "space", 3);
     border-radius: tokens.getCalculatedValue($_, "border-radius");
     corner-shape: tokens.getRawValue($_, "corner-shape");
+    background-color: var(--#{$_}--background);
 
     display: grid;
     grid-template-areas:
@@ -92,7 +93,8 @@ $_: "c-notice";
     }
 
     &--success {
-        background-color: tokens.getRawValue($_, "color--success");
+        --#{$_}--background: #{tokens.getRawValue($_, "color--success")};
+        --#{$_}--background-alt: #{tokens.getRawValue($_, "color--success-alt")};
         color: tokens.getRawValue($_, "color--success-contrast");
         border-color: tokens.getRawValue($_, "color--success-border");
 
@@ -103,14 +105,11 @@ $_: "c-notice";
             color: tokens.getRawValue($_, "color--success-contrast");
             text-decoration: underline;
         }
-
-        &.#{$_}--alt {
-            background-color: tokens.getRawValue($_, "color--success-alt");
-        }
     }
 
     &--danger {
-        background-color: tokens.getRawValue($_, "color--danger");
+        --#{$_}--background: #{tokens.getRawValue($_, "color--danger")};
+        --#{$_}--background-alt: #{tokens.getRawValue($_, "color--danger-alt")};
         color: tokens.getRawValue($_, "color--danger-contrast");
         border-color: tokens.getRawValue($_, "color--danger-border");
 
@@ -121,14 +120,11 @@ $_: "c-notice";
             color: tokens.getRawValue($_, "color--danger-contrast");
             text-decoration: underline;
         }
-
-        &.#{$_}--alt {
-            background-color: tokens.getRawValue($_, "color--danger-alt");
-        }
     }
 
     &--info {
-        background-color: tokens.getRawValue($_, "color--info");
+        --#{$_}--background: #{tokens.getRawValue($_, "color--info")};
+        --#{$_}--background-alt: #{tokens.getRawValue($_, "color--info-alt")};
         color: tokens.getRawValue($_, "color--info-contrast");
         border-color: tokens.getRawValue($_, "color--info-border");
 
@@ -139,14 +135,11 @@ $_: "c-notice";
             color: tokens.getRawValue($_, "color--info-contrast");
             text-decoration: underline;
         }
-
-        &.#{$_}--alt {
-            background-color: tokens.getRawValue($_, "color--info-alt");
-        }
     }
 
     &--warning {
-        background-color: tokens.getRawValue($_, "color--warning");
+        --#{$_}--background: #{tokens.getRawValue($_, "color--warning")};
+        --#{$_}--background-alt: #{tokens.getRawValue($_, "color--warning-alt")};
         color: tokens.getRawValue($_, "color--warning-contrast");
         border-color: tokens.getRawValue($_, "color--warning-border");
 
@@ -157,10 +150,10 @@ $_: "c-notice";
             color: tokens.getRawValue($_, "color--warning-contrast");
             text-decoration: underline;
         }
+    }
 
-        &.#{$_}--alt {
-            background-color: tokens.getRawValue($_, "color--warning-alt");
-        }
+    &--alt {
+        background-color: var(--#{$_}--background-alt);
     }
 
     .#{$_}.#{$_}--stretch {
