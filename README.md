@@ -498,15 +498,19 @@ In the tables below, `Can the user manipulate it?` means the supported direct cu
 | `--color--success` | Success state background/accent color. | Direct color token. Default `#4caf50`. | Yes. |
 | `--color--success-contrast` | Foreground color for success surfaces. | Direct color token. Default `#ffffff`. | Yes. |
 | `--color--success-border` | Border/emphasis companion for success surfaces. | Derived as `color-mix(in srgb, var(--color--success-contrast) var(--color--border-mix-amount), var(--color--success))`. | No. Change `--color--success`, `--color--success-contrast`, or `--color--border-mix-amount` instead. |
+| `--color--success-alt` | Alternate success surface, e.g. `c-notice--success c-notice--alt`. | Derived as `color-mix(in srgb, var(--color--success-contrast) var(--color--alt-mix-amount), var(--color--success))`. | No. Change `--color--success`, `--color--success-contrast`, or `--color--alt-mix-amount` instead. |
 | `--color--warning` | Warning state background/accent color. | Direct color token. Default `#ffb300`. | Yes. |
 | `--color--warning-contrast` | Foreground color for warning surfaces. | Direct color token. Default `#2d2d2d`. | Yes. |
 | `--color--warning-border` | Border/emphasis companion for warning surfaces. | Derived as `color-mix(in srgb, var(--color--warning-contrast) var(--color--border-mix-amount), var(--color--warning))`. | No. Change `--color--warning`, `--color--warning-contrast`, or `--color--border-mix-amount` instead. |
+| `--color--warning-alt` | Alternate warning surface, e.g. `c-notice--warning c-notice--alt`. | Derived as `color-mix(in srgb, var(--color--warning-contrast) var(--color--alt-mix-amount), var(--color--warning))`. | No. Change `--color--warning`, `--color--warning-contrast`, or `--color--alt-mix-amount` instead. |
 | `--color--danger` | Danger/error state background/accent color. | Direct color token. Default `#e53935`. | Yes. |
 | `--color--danger-contrast` | Foreground color for danger surfaces. | Direct color token. Default `#ffffff`. | Yes. |
 | `--color--danger-border` | Border/emphasis companion for danger surfaces. | Derived as `color-mix(in srgb, var(--color--danger-contrast) var(--color--border-mix-amount), var(--color--danger))`. | No. Change `--color--danger`, `--color--danger-contrast`, or `--color--border-mix-amount` instead. |
+| `--color--danger-alt` | Alternate danger surface, e.g. `c-notice--danger c-notice--alt`. | Derived as `color-mix(in srgb, var(--color--danger-contrast) var(--color--alt-mix-amount), var(--color--danger))`. | No. Change `--color--danger`, `--color--danger-contrast`, or `--color--alt-mix-amount` instead. |
 | `--color--info` | Informational state background/accent color. | Direct color token. Default `#039be5`. | Yes. |
 | `--color--info-contrast` | Foreground color for info surfaces. | Direct color token. Default `#ffffff`. | Yes. |
 | `--color--info-border` | Border/emphasis companion for info surfaces. | Derived as `color-mix(in srgb, var(--color--info-contrast) var(--color--border-mix-amount), var(--color--info))`. | No. Change `--color--info`, `--color--info-contrast`, or `--color--border-mix-amount` instead. |
+| `--color--info-alt` | Alternate info surface, e.g. `c-notice--info c-notice--alt`. | Derived as `color-mix(in srgb, var(--color--info-contrast) var(--color--alt-mix-amount), var(--color--info))`. | No. Change `--color--info`, `--color--info-contrast`, or `--color--alt-mix-amount` instead. |
 
 ### Related Files
 

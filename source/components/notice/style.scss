@@ -103,6 +103,10 @@ $_: "c-notice";
             color: tokens.getRawValue($_, "color--success-contrast");
             text-decoration: underline;
         }
+
+        &.#{$_}--alt {
+            background-color: tokens.getRawValue($_, "color--success-alt");
+        }
     }
 
     &--danger {
@@ -116,6 +120,10 @@ $_: "c-notice";
         a:visited {
             color: tokens.getRawValue($_, "color--danger-contrast");
             text-decoration: underline;
+        }
+
+        &.#{$_}--alt {
+            background-color: tokens.getRawValue($_, "color--danger-alt");
         }
     }
 
@@ -131,6 +139,10 @@ $_: "c-notice";
             color: tokens.getRawValue($_, "color--info-contrast");
             text-decoration: underline;
         }
+
+        &.#{$_}--alt {
+            background-color: tokens.getRawValue($_, "color--info-alt");
+        }
     }
 
     &--warning {
@@ -144,6 +156,10 @@ $_: "c-notice";
         a:visited {
             color: tokens.getRawValue($_, "color--warning-contrast");
             text-decoration: underline;
+        }
+
+        &.#{$_}--alt {
+            background-color: tokens.getRawValue($_, "color--warning-alt");
         }
     }
 
