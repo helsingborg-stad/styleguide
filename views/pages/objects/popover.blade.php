@@ -22,20 +22,37 @@
       const firstAnchor = document.getElementById('first-anchor');
       const secondAnchor = document.getElementById('second-anchor');
       const switchAnchorButton = document.getElementById('switch-anchor');
-      let currentAnchor = firstAnchor;
 
-      switchAnchorButton?.addEventListener('click', () => {
-        if (!firstAnchor || !secondAnchor) {
+      if (!firstAnchor || !secondAnchor || !switchAnchorButton) {
+        return;
+      }
+
+      let currentAnchor = firstAnchor;
+      const popoverData = popover.getPopoverData();
+      const popoverElement = popoverData.popoverElement;
+
+      const syncSwitchButtonInvoker = () => {
+        if (popoverElement.matches(':popover-open')) {
+          switchAnchorButton.setAttribute('popovertarget', popoverData.id);
+          switchAnchorButton.setAttribute('popovertargetaction', 'show');
           return;
         }
 
+        switchAnchorButton.removeAttribute('popovertarget');
+        switchAnchorButton.removeAttribute('popovertargetaction');
+      };
+
+      popoverElement.addEventListener('toggle', syncSwitchButtonInvoker);
+      syncSwitchButtonInvoker();
+
+      switchAnchorButton.addEventListener('click', () => {
         currentAnchor = currentAnchor === firstAnchor ? secondAnchor : firstAnchor;
         popover.setRelativeElement(currentAnchor);
       });
     });
     ```
 
-    Register the event listener before the popover is initialized. The positioner assigns the generated anchor name (`--<popover id>`) to the selected element; it does not select an existing CSS anchor name. `setRelativeElement()` clears that generated name from the previously selected element, updates the reference, and repositions, so the example can switch between both anchors without extra cleanup.
+    Register the event listener before the popover is initialized. The positioner assigns the generated anchor name (`--<popover id>`) to the selected element; it does not select an existing CSS anchor name. `setRelativeElement()` clears that generated name from the previously selected element, updates the reference, and repositions. The switch button has no popover action while closed, so switching does not open it. While open, it temporarily acts as a `show` invoker so switching does not light-dismiss it.
   @endmarkdown
     @doc(['viewDoc' => ['type' => 'objects', 'root' => 'popover', 'config' => 'Popover']])
     @enddoc

@@ -42,13 +42,30 @@ document.addEventListener('popover:initialized', (event) => {
     const firstAnchor = document.getElementById('first-anchor');
     const secondAnchor = document.getElementById('second-anchor');
     const switchAnchorButton = document.getElementById('switch-anchor');
-    let currentAnchor = firstAnchor;
 
-    switchAnchorButton?.addEventListener('click', () => {
-        if (!firstAnchor || !secondAnchor) {
+    if (!firstAnchor || !secondAnchor || !switchAnchorButton) {
+        return;
+    }
+
+    let currentAnchor = firstAnchor;
+    const popoverData = popover.getPopoverData();
+    const popoverElement = popoverData.popoverElement;
+
+    const syncSwitchButtonInvoker = () => {
+        if (popoverElement.matches(':popover-open')) {
+            switchAnchorButton.setAttribute('popovertarget', popoverData.id);
+            switchAnchorButton.setAttribute('popovertargetaction', 'show');
             return;
         }
 
+        switchAnchorButton.removeAttribute('popovertarget');
+        switchAnchorButton.removeAttribute('popovertargetaction');
+    };
+
+    popoverElement.addEventListener('toggle', syncSwitchButtonInvoker);
+    syncSwitchButtonInvoker();
+
+    switchAnchorButton.addEventListener('click', () => {
         currentAnchor = currentAnchor === firstAnchor ? secondAnchor : firstAnchor;
         popover.setRelativeElement(currentAnchor);
     });
