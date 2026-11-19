@@ -28,6 +28,22 @@ class Popover {
         this.popoverData.popoverElement.toggleAttribute(PopoverEnums.CoverAttribute, isCover);
     }
 
+    public setRelativeElement(relativeElement: HTMLElement | null) {
+        const previousRelativeElement = this.popoverData.relativeElement;
+        const generatedAnchorName = `--${this.popoverData.id}`;
+
+        if (
+            previousRelativeElement &&
+            previousRelativeElement !== relativeElement &&
+            previousRelativeElement.style.getPropertyValue('anchor-name') === generatedAnchorName
+        ) {
+            previousRelativeElement.style.setProperty('anchor-name', '');
+        }
+
+        this.popoverData.relativeElement = relativeElement;
+        this.reposition();
+    }
+
 	public reposition() {
 		this.popoverPositioner.applyPosition(this.popoverData);
 	}
