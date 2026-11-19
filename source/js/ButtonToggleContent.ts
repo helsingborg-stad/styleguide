@@ -72,9 +72,14 @@ export default class ButtonToggleContent {
                 toggle.setAttribute(this.iconAttr, iconAttrVal);
             }
         };
-        const targetWidth = this.measureTargetWidth(toggleElement, updateContent, restoreContent);
+        const { targetWidth, contentDimensionsMatch } = this.measureTargetWidth(
+            toggleElement,
+            contentElements,
+            updateContent,
+            restoreContent
+        );
         const updateWithTransition = (update: () => void): void => {
-            if (contentElements.length === 0 || !this.canUseViewTransitions()) {
+            if (contentElements.length === 0 || !contentDimensionsMatch || !this.canUseViewTransitions()) {
                 update();
                 this.playFallbackTransition(contentElements);
                 return;
@@ -133,14 +138,24 @@ export default class ButtonToggleContent {
 
     private measureTargetWidth(
         element: HTMLElement,
+        contentElements: Element[],
         updateContent: () => void,
         restoreContent: () => void
-    ): number {
+    ): { targetWidth: number; contentDimensionsMatch: boolean } {
+        const initialDimensions = contentElements.map((contentElement) => {
+            const { width, height } = contentElement.getBoundingClientRect();
+            return { width, height };
+        });
         updateContent();
         const targetWidth = element.getBoundingClientRect().width;
+        const contentDimensionsMatch = contentElements.every((contentElement, index) => {
+            const { width, height } = contentElement.getBoundingClientRect();
+            return Math.abs(width - initialDimensions[index].width) < 1 &&
+                Math.abs(height - initialDimensions[index].height) < 1;
+        });
         restoreContent();
 
-        return targetWidth;
+        return { targetWidth, contentDimensionsMatch };
     }
 
     private animateWidth(

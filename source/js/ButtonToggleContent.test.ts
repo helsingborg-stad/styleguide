@@ -74,6 +74,54 @@ describe('ButtonToggleContent', () => {
         expect(button.querySelector('.c-icon > span')?.getAttribute('style')).toBe('');
     });
 
+    it('uses the fallback transition when the toggled content changes dimensions', () => {
+        jest.useFakeTimers();
+        const label = document.querySelector('.c-button__label-text')!;
+        jest.spyOn(label, 'getBoundingClientRect').mockImplementation(() => ({
+            width: label.textContent?.trim() === 'Open' ? 32 : 48,
+            height: 20,
+        } as DOMRect));
+        const startViewTransition = jest.fn((update: () => void): ViewTransitionMock => {
+            update();
+            return { finished: Promise.resolve() };
+        });
+        Object.defineProperty(document, 'startViewTransition', {
+            configurable: true,
+            value: startViewTransition,
+        });
+        new ButtonToggleContent();
+
+        document.querySelector('button')!.click();
+
+        expect(startViewTransition).not.toHaveBeenCalled();
+        expect(label.innerHTML).toBe('Close');
+        expect(label.classList).toContain('is-toggle-content-entering');
+
+        jest.runAllTimers();
+    });
+
+    it('uses a view transition when the toggled content keeps its dimensions', () => {
+        const label = document.querySelector('.c-button__label-text')!;
+        jest.spyOn(label, 'getBoundingClientRect').mockReturnValue({
+            width: 40,
+            height: 20,
+        } as DOMRect);
+        const startViewTransition = jest.fn((update: () => void): ViewTransitionMock => {
+            update();
+            return { finished: Promise.resolve() };
+        });
+        Object.defineProperty(document, 'startViewTransition', {
+            configurable: true,
+            value: startViewTransition,
+        });
+        new ButtonToggleContent();
+
+        document.querySelector('button')!.click();
+
+        expect(startViewTransition).toHaveBeenCalledTimes(1);
+        expect(label.innerHTML).toBe('Close');
+    });
+
     it('interpolates the button width between label states', () => {
         const button = document.querySelector('button')!;
         jest.spyOn(button, 'getBoundingClientRect').mockImplementation(() => ({
