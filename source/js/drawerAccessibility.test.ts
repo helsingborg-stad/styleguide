@@ -1,121 +1,138 @@
-import DrawerAccessibility, { updateDrawerViewOffsets } from './drawerAccessibility';
+import { initializeDrawerAccessibility, updateDrawerViewOffsets } from './drawerAccessibility';
 
-describe('DrawerAccessibility', () => {
+describe('drawer popover integration', () => {
     beforeEach(() => {
         document.body.innerHTML = '';
         document.documentElement.removeAttribute('style');
         document.documentElement.style.setProperty('--base', '8px');
+        const querySelectorAll = document.querySelectorAll.bind(document);
+        jest.spyOn(document, 'querySelectorAll').mockImplementation((selector) =>
+            querySelectorAll(selector === '[popover]:popover-open > .c-drawer'
+                ? '[popover][data-open] > .c-drawer'
+                : selector)
+        );
+        global.ResizeObserver = class {
+            observe() {}
+            unobserve() {}
+            disconnect() {}
+        };
     });
 
-    it('sets the right view offset from an open right drawer width in base units', () => {
-        const button = document.createElement('button');
-        const drawer = createDrawer(['c-drawer--right', 'is-open'], 320);
-        document.body.append(button, drawer);
+    afterEach(() => {
+        jest.restoreAllMocks();
+        document.body.innerHTML = '';
+    });
 
-        new DrawerAccessibility(button, drawer);
+    it('connects each close button to its own popover', () => {
+        document.body.innerHTML = `
+            <div id="first" popover><nav class="c-drawer">
+                <button class="c-drawer__close" data-simulate-click=".legacy"></button>
+            </nav></div>
+            <div id="second" popover><nav class="c-drawer">
+                <button class="c-drawer__close"></button>
+            </nav></div>
+        `;
 
+        initializeDrawerAccessibility();
+
+        const buttons = document.querySelectorAll<HTMLButtonElement>('.c-drawer__close');
+        expect(buttons[0].getAttribute('popovertarget')).toBe('first');
+        expect(buttons[0].getAttribute('popovertargetaction')).toBe('hide');
+        expect(buttons[0].getAttribute('aria-controls')).toBe('first');
+        expect(buttons[0].hasAttribute('data-simulate-click')).toBe(false);
+        expect(buttons[1].getAttribute('popovertarget')).toBe('second');
+    });
+
+    it('tracks open drawer widths by popover placement and resets them on close', () => {
+        document.body.innerHTML = `
+            <div id="left" popover data-open data-js-popover-horizontal-placement="left"><nav class="c-drawer">
+                <button class="c-drawer__close"></button>
+            </nav></div>
+            <div id="right" popover data-open data-js-popover-horizontal-placement="right"><nav class="c-drawer">
+                <button class="c-drawer__close"></button>
+            </nav></div>
+        `;
+        const drawers = document.querySelectorAll<HTMLElement>('.c-drawer');
+        Object.defineProperty(drawers[0], 'offsetWidth', { value: 256 });
+        Object.defineProperty(drawers[1], 'offsetWidth', { value: 320 });
+
+        initializeDrawerAccessibility();
+
+        expect(document.documentElement.style.getPropertyValue('--view-offset-left')).toBe('32');
         expect(document.documentElement.style.getPropertyValue('--view-offset-right')).toBe('40');
-        expect(document.documentElement.style.getPropertyValue('--view-offset-right-transition-easing')).toBe('ease-out');
-        expect(document.documentElement.style.getPropertyValue('--view-offset-left')).toBe('0');
-    });
 
-    it('resets the right view offset when no right drawer is open', () => {
-        const drawer = createDrawer(['c-drawer--right'], 320);
-        document.body.appendChild(drawer);
-
-        updateDrawerViewOffsets();
-
-        expect(document.documentElement.style.getPropertyValue('--view-offset-right')).toBe('0');
-    });
-
-    it('sets closing easing when a right drawer offset contracts', () => {
-        document.documentElement.style.setProperty('--view-offset-right', '40');
-        const drawer = createDrawer(['c-drawer--right'], 320);
-        document.body.appendChild(drawer);
-
-        updateDrawerViewOffsets();
+        const rightPopover = document.getElementById('right')!;
+        rightPopover.removeAttribute('data-open');
+        rightPopover.dispatchEvent(new Event('toggle'));
 
         expect(document.documentElement.style.getPropertyValue('--view-offset-right')).toBe('0');
         expect(document.documentElement.style.getPropertyValue('--view-offset-right-transition-easing')).toBe('ease-in');
     });
 
-    it('sets the left view offset from an open left drawer width in base units', () => {
-        const drawer = createDrawer(['is-open'], 256);
-        document.body.appendChild(drawer);
+    it('does not offset the viewport for a centered or closed drawer', () => {
+        document.body.innerHTML = `
+            <div popover data-open data-js-popover-horizontal-placement="center"><nav class="c-drawer"></nav></div>
+            <div popover data-js-popover-horizontal-placement="right"><nav class="c-drawer"></nav></div>
+        `;
 
         updateDrawerViewOffsets();
 
-        expect(document.documentElement.style.getPropertyValue('--view-offset-left')).toBe('32');
+        expect(document.documentElement.style.getPropertyValue('--view-offset-left')).toBe('0');
         expect(document.documentElement.style.getPropertyValue('--view-offset-right')).toBe('0');
     });
 
-    it('sets aria-hidden to false when initialized with an open drawer', () => {
-        const button = document.createElement('button');
-        const drawer = createDrawer(['is-open'], 256);
-        document.body.append(button, drawer);
+    it('wraps focus in both directions, excluding unavailable controls', () => {
+        document.body.innerHTML = `
+            <div id="drawer" popover><nav class="c-drawer">
+                <button class="c-drawer__close">Close</button>
+                <a href="#">Menu item</a>
+                <button disabled>Disabled</button>
+                <button hidden>Hidden</button>
+                <div inert><button>Inert</button></div>
+            </nav></div>
+        `;
+        const drawer = document.querySelector<HTMLElement>('.c-drawer')!;
+        const first = drawer.querySelector<HTMLButtonElement>('.c-drawer__close')!;
+        const last = drawer.querySelector<HTMLAnchorElement>('a')!;
+        drawer.querySelectorAll<HTMLElement>('button, a').forEach((element) => {
+            Object.defineProperty(element, 'getClientRects', { value: () => element.hidden ? [] : [{}] });
+        });
+        initializeDrawerAccessibility();
 
-        new DrawerAccessibility(button, drawer);
+        last.focus();
+        const forward = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true });
+        last.dispatchEvent(forward);
+        expect(forward.defaultPrevented).toBe(true);
+        expect(document.activeElement).toBe(first);
 
-        expect(drawer.getAttribute('aria-hidden')).toBe('false');
+        const backward = new KeyboardEvent('keydown', { key: 'Tab', shiftKey: true, bubbles: true, cancelable: true });
+        first.dispatchEvent(backward);
+        expect(backward.defaultPrevented).toBe(true);
+        expect(document.activeElement).toBe(last);
     });
 
-    it('does not move focus into drawer when clicking trigger closes it', () => {
-        jest.useFakeTimers();
-
-        const button = document.createElement('button');
-        const drawer = createDrawer(['is-open'], 256);
-
-        button.setAttribute('data-js-toggle-trigger', 'mobile');
-        drawer.setAttribute('data-js-toggle-item', 'mobile');
-
-        button.addEventListener('click', () => {
-            drawer.classList.toggle('is-open');
+    it('leaves normal navigation and modified keystrokes to the browser', () => {
+        document.body.innerHTML = `
+            <div id="drawer" popover><nav class="c-drawer">
+                <button class="c-drawer__close">Close</button>
+                <a href="#">Menu item</a>
+            </nav></div>
+        `;
+        const drawer = document.querySelector<HTMLElement>('.c-drawer')!;
+        const first = drawer.querySelector<HTMLButtonElement>('button')!;
+        drawer.querySelectorAll<HTMLElement>('button, a').forEach((element) => {
+            Object.defineProperty(element, 'getClientRects', { value: () => [{}] });
         });
+        initializeDrawerAccessibility();
+        first.focus();
 
-        document.body.append(button, drawer);
+        const tab = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true });
+        const modifiedTab = new KeyboardEvent('keydown', { key: 'Tab', ctrlKey: true, shiftKey: true, bubbles: true, cancelable: true });
+        first.dispatchEvent(tab);
+        first.dispatchEvent(modifiedTab);
 
-        new DrawerAccessibility(button, drawer);
-
-        button.focus();
-        button.click();
-        jest.runAllTimers();
-
-        expect(drawer.classList.contains('is-open')).toBe(false);
-        expect(document.activeElement).toBe(button);
-
-        jest.useRealTimers();
+        expect(tab.defaultPrevented).toBe(false);
+        expect(modifiedTab.defaultPrevented).toBe(false);
+        expect(document.activeElement).toBe(first);
     });
 });
-
-/**
- * Creates a drawer fixture with a deterministic layout width.
- *
- * @param classList - Additional drawer classes.
- * @param width - Drawer width in pixels.
- * @returns A drawer element for tests.
- */
-function createDrawer(classList: string[], width: number) {
-    const drawer = document.createElement('nav');
-    drawer.classList.add('c-drawer', ...classList);
-    drawer.innerHTML = [
-        '<button class="c-drawer__close"></button>',
-        '<div class="c-drawer__body"><a href="#">Item</a></div>'
-    ].join('');
-    Object.defineProperty(drawer, 'offsetWidth', {
-        configurable: true,
-        value: width
-    });
-    drawer.getBoundingClientRect = () => ({
-        bottom: 0,
-        height: 0,
-        left: 0,
-        right: width,
-        top: 0,
-        width,
-        x: 0,
-        y: 0,
-        toJSON: () => null
-    });
-
-    return drawer;
-}
