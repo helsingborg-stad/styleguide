@@ -1,4 +1,5 @@
 export default class ButtonToggleContent {
+    private static registeredToggles: WeakSet<Element> = new WeakSet();
     private labelAttr: string;
     private iconAttr: string;
     private toggles: Element[];
@@ -11,7 +12,7 @@ export default class ButtonToggleContent {
         this.toggles = [];
         this.viewTransitionId = 0;
         this.widthAnimations = new WeakMap();
-
+        
         this.init();
         this.setupMutationObserver();
     } 
@@ -20,11 +21,39 @@ export default class ButtonToggleContent {
         this.toggles = Array.from(document.querySelectorAll(`[${this.labelAttr}], [${this.iconAttr}]`));
 
         this.toggles.forEach((toggle: Element) => {
-            toggle.addEventListener(
-                'click',
-                () => this.handleToggleClick(toggle)
-            );
+            this.registerToggle(toggle);
         });
+    }
+
+    private registerToggle(toggle: Element): void {
+        if (ButtonToggleContent.registeredToggles.has(toggle)) {
+            return;
+        }
+
+        ButtonToggleContent.registeredToggles.add(toggle);
+        const popoverId = toggle.getAttribute('popovertarget');
+        const popover = popoverId ? document.getElementById(popoverId) : null;
+
+        if (popover?.hasAttribute('popover')) {
+            let isOpen = false;
+            popover.addEventListener('toggle', (event: Event) => {
+                const newState = (event as ToggleEvent).newState;
+                if (newState !== 'open' && newState !== 'closed') {
+                    return;
+                }
+
+                const shouldBeOpen = newState === 'open';
+                if (shouldBeOpen === isOpen) {
+                    return;
+                }
+
+                this.handleToggleClick(toggle);
+                isOpen = shouldBeOpen;
+            });
+            return;
+        }
+
+        toggle.addEventListener('click', () => this.handleToggleClick(toggle));
     }
 
     private handleToggleClick = (toggle: Element): void => {
@@ -234,16 +263,17 @@ export default class ButtonToggleContent {
                     const addedNodes: Node[] = Array.from(mutation.addedNodes);
                     const toggles: Element[] = addedNodes.reduce((acc: Element[], node: Node) => {
                         if (node instanceof HTMLElement) {
+                            if (node.matches(`[${this.labelAttr}], [${this.iconAttr}]`)) {
+                                acc.push(node);
+                            }
+
                             acc.push(...Array.from(node.querySelectorAll(`[${this.labelAttr}], [${this.iconAttr}]`)));
                         }
 
                         return acc;
                     }, []);
                     toggles.forEach((toggle: Element) => {
-                        toggle.addEventListener(
-                            'click',
-                            () => this.handleToggleClick(toggle)
-                        );
+                        this.registerToggle(toggle);
                     });
                     this.toggles = [...this.toggles, ...toggles];
                 }

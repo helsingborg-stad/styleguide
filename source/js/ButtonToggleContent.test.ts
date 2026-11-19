@@ -43,6 +43,39 @@ describe('ButtonToggleContent', () => {
         expect(button.querySelector('.c-button__label-text')?.classList).not.toContain('is-toggle-content-entering');
     });
 
+    it('updates a popover trigger when the popover opens and closes', () => {
+        document.body.innerHTML = `
+            <button popovertarget="details" data-toggle-label="Close" data-toggle-icon="close">
+                <span class="c-button__label-text">Open</span>
+                <span class="c-icon"><span>menu</span></span>
+            </button>
+            <div id="details" popover></div>
+        `;
+        new ButtonToggleContent();
+
+        const button = document.querySelector('button')!;
+        const popover = document.getElementById('details')!;
+        const dispatchToggle = (newState: 'open' | 'closed'): void => {
+            const event = new Event('toggle') as ToggleEvent;
+            Object.defineProperty(event, 'newState', { value: newState });
+            popover.dispatchEvent(event);
+        };
+
+        button.click();
+        expect(button.querySelector('.c-button__label-text')?.textContent?.trim()).toBe('Open');
+
+        dispatchToggle('open');
+        expect(button.querySelector('.c-button__label-text')?.textContent?.trim()).toBe('Close');
+        expect(button.querySelector('.c-icon > span')?.textContent?.trim()).toBe('close');
+
+        dispatchToggle('open');
+        expect(button.querySelector('.c-button__label-text')?.textContent?.trim()).toBe('Close');
+
+        dispatchToggle('closed');
+        expect(button.querySelector('.c-button__label-text')?.textContent?.trim()).toBe('Open');
+        expect(button.querySelector('.c-icon > span')?.textContent?.trim()).toBe('menu');
+    });
+
     it('uses a view transition for the content swap when supported', async () => {
         let resolveFinished: (() => void) | undefined;
         const finished = new Promise<void>((resolve) => {
