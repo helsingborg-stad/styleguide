@@ -124,15 +124,19 @@
 				"color--success",
 				"color--success-contrast",
 				"color--success-border",
+				"color--success-alt",
 				"color--warning",
 				"color--warning-contrast",
 				"color--warning-border",
+				"color--warning-alt",
 				"color--danger",
 				"color--danger-contrast",
 				"color--danger-border",
+				"color--danger-alt",
 				"color--info",
 				"color--info-contrast",
-				"color--info-border"
+				"color--info-border",
+				"color--info-alt"
 			]
 		},
 		"category": {
