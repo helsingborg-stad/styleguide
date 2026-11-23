@@ -25,22 +25,37 @@ COPY source ./source
 COPY build-design-tokens.mjs component-design-tokens.json postcss.config.js vite.config.mjs ./
 RUN npm run build
 
-FROM ghcr.io/helsingborg-stad/ols-docker-hbg@sha256:e963638097f058dc5e480e86b9d1c2f0a26b9ef74cb0e98593c14b682cfebd86
+# dunglas/frankenphp 1.13.4, PHP 8.3, Debian bookworm.
+FROM dunglas/frankenphp:1.13.4-php8.3-bookworm@sha256:12e0098404972ba606b3f8a15540ef2fe91e38a3cf4ef2ed0def1ba58205a796
 LABEL org.opencontainers.image.source="https://github.com/helsingborg-stad/styleguide"
-WORKDIR /var/www/vhosts/localhost/html
-COPY --chown=ubuntu:ubuntu --from=dependencies /app/vendor ./vendor
-COPY --chown=ubuntu:ubuntu --from=frontend /app/source ./source
-COPY --chown=ubuntu:ubuntu --from=frontend /app/assets ./public/assets
-COPY --chown=ubuntu:ubuntu views ./views
-COPY --chown=ubuntu:ubuntu component-design-tokens.json config.php index.php Public.php ./
-COPY --chown=ubuntu:ubuntu favicon.ico ./public/
-COPY --chown=ubuntu:ubuntu docker/public/ ./public/
-RUN sed -i 's|docRoot                 $VH_ROOT/html/|docRoot                 $VH_ROOT/html/public/|' \
-        /usr/local/lsws/conf/templates/docker.conf \
-    && cp /usr/local/lsws/conf/templates/docker.conf \
-        /usr/local/lsws/.conf/templates/docker.conf \
+WORKDIR /app
+
+# Application files are owned by root and read-only to the server user. Only
+# public/ is served (see Caddyfile); everything else sits outside the web root.
+COPY --from=dependencies /app/vendor ./vendor
+COPY --from=frontend /app/source ./source
+COPY --from=frontend /app/assets ./public/assets
+COPY views ./views
+COPY component-design-tokens.json config.php index.php Public.php ./
+COPY favicon.ico ./public/
+COPY docker/public/ ./public/
+COPY docker/Caddyfile /etc/frankenphp/Caddyfile
+COPY --chmod=755 docker/docker-entrypoint.sh /usr/local/bin/styleguide-entrypoint
+
+# The app resolves assets from BASEPATH/assets, so point it at the served copy.
+# Run unprivileged: drop the binary's bind capability (we listen on 8080), and
+# give www-data write access only to cache/ and Caddy's own state directories.
+RUN cp "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
     && ln -s public/assets assets \
     && mkdir -p cache \
-    && chown ubuntu:ubuntu public cache \
-    && chown -h ubuntu:ubuntu assets
-EXPOSE 80
+    && chown www-data:www-data cache \
+    && chown -R www-data:www-data /config/caddy /data/caddy \
+    && setcap -r /usr/local/bin/frankenphp
+
+USER www-data
+
+# TLS terminates at the cluster ingress; bind an unprivileged HTTP port.
+EXPOSE 8080
+
+ENTRYPOINT ["/usr/local/bin/styleguide-entrypoint"]
+CMD ["frankenphp", "run", "--config", "/etc/frankenphp/Caddyfile", "--adapter", "caddyfile"]
