@@ -1,0 +1,17 @@
+{
+	"megamenu": {
+		"heading": "Mega menu",
+		"text": "A full-width menu panel listing top-level sections with an optional icon, description and child links. The menu is hidden by default and toggled by any element with a data-js-mega-menu-trigger attribute matching the menu id. Clicking outside or pressing Escape closes it. Items marked active get the is-current class.",
+		"includePaper": false
+	},
+	"buttons": {
+		"heading": "Button-style items",
+		"text": "Set parentType and/or childType to 'button' to render items as buttons. Style and color are controlled with parentStyle/parentStyleColor and childStyle/childStyleColor. Child buttons fall back to a chevron_right icon when no icon is set.",
+		"includePaper": false
+	},
+	"primary": {
+		"heading": "Colored background",
+		"text": "Add c-megamenu--primary or c-megamenu--secondary to the classList to use a colored background with contrasting link colors. c-megamenu--font-heading switches to the heading font.",
+		"includePaper": false
+	}
+}
