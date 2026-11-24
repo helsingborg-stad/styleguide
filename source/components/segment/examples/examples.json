@@ -43,10 +43,6 @@
         "heading": "Large Text Segment",
         "text": "Shows the textSize large variant which increases the content font size on medium and larger screens."
     },
-    "light-overlay": {
-        "heading": "Full Width with Light Overlay",
-        "text": "Demonstrates the light overlay variant which applies a subtle brightness filter to the background image."
-    },
     "no-padding": {
         "heading": "Segment Without Padding",
         "text": "Shows paddingTop and paddingBottom set to false, removing vertical spacing from a split segment."

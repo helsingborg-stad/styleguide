@@ -4,8 +4,6 @@
     'layout'            => 'full-width',
     'image'             => 'https://picsum.photos/id/308/1536/1024',
     'background'        => 'primary',
-    'textColor'         => 'light',
-    'overlay'           => 'dark'
 ])
 
     <div class="o-grid">
