@@ -32,6 +32,15 @@ $token: "c-chat";
         }
     }
 
+    &.is-disabled {
+        cursor: not-allowed;
+
+        .#{$_}__editable,
+        .#{$_}__actions {
+            cursor: not-allowed;
+        }
+    }
+
     &.is-empty {
         .#{$_}__editable::before {
             display: block;
