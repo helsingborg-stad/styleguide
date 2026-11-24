@@ -43,6 +43,39 @@ describe('ButtonToggleContent', () => {
         expect(button.querySelector('.c-button__label-text')?.classList).not.toContain('is-toggle-content-entering');
     });
 
+    it('updates a popover trigger when the popover opens and closes', () => {
+        document.body.innerHTML = `
+            <button popovertarget="details" data-toggle-label="Close" data-toggle-icon="close">
+                <span class="c-button__label-text">Open</span>
+                <span class="c-icon"><span>menu</span></span>
+            </button>
+            <div id="details" popover></div>
+        `;
+        new ButtonToggleContent();
+
+        const button = document.querySelector('button')!;
+        const popover = document.getElementById('details')!;
+        const dispatchToggle = (newState: 'open' | 'closed'): void => {
+            const event = new Event('toggle') as ToggleEvent;
+            Object.defineProperty(event, 'newState', { value: newState });
+            popover.dispatchEvent(event);
+        };
+
+        button.click();
+        expect(button.querySelector('.c-button__label-text')?.textContent?.trim()).toBe('Open');
+
+        dispatchToggle('open');
+        expect(button.querySelector('.c-button__label-text')?.textContent?.trim()).toBe('Close');
+        expect(button.querySelector('.c-icon > span')?.textContent?.trim()).toBe('close');
+
+        dispatchToggle('open');
+        expect(button.querySelector('.c-button__label-text')?.textContent?.trim()).toBe('Close');
+
+        dispatchToggle('closed');
+        expect(button.querySelector('.c-button__label-text')?.textContent?.trim()).toBe('Open');
+        expect(button.querySelector('.c-icon > span')?.textContent?.trim()).toBe('menu');
+    });
+
     it('uses a view transition for the content swap when supported', async () => {
         let resolveFinished: (() => void) | undefined;
         const finished = new Promise<void>((resolve) => {
@@ -72,6 +105,54 @@ describe('ButtonToggleContent', () => {
 
         expect(button.querySelector('.c-button__label-text')?.getAttribute('style')).toBe('');
         expect(button.querySelector('.c-icon > span')?.getAttribute('style')).toBe('');
+    });
+
+    it('uses the fallback transition when the toggled content changes dimensions', () => {
+        jest.useFakeTimers();
+        const label = document.querySelector('.c-button__label-text')!;
+        jest.spyOn(label, 'getBoundingClientRect').mockImplementation(() => ({
+            width: label.textContent?.trim() === 'Open' ? 32 : 48,
+            height: 20,
+        } as DOMRect));
+        const startViewTransition = jest.fn((update: () => void): ViewTransitionMock => {
+            update();
+            return { finished: Promise.resolve() };
+        });
+        Object.defineProperty(document, 'startViewTransition', {
+            configurable: true,
+            value: startViewTransition,
+        });
+        new ButtonToggleContent();
+
+        document.querySelector('button')!.click();
+
+        expect(startViewTransition).not.toHaveBeenCalled();
+        expect(label.innerHTML).toBe('Close');
+        expect(label.classList).toContain('is-toggle-content-entering');
+
+        jest.runAllTimers();
+    });
+
+    it('uses a view transition when the toggled content keeps its dimensions', () => {
+        const label = document.querySelector('.c-button__label-text')!;
+        jest.spyOn(label, 'getBoundingClientRect').mockReturnValue({
+            width: 40,
+            height: 20,
+        } as DOMRect);
+        const startViewTransition = jest.fn((update: () => void): ViewTransitionMock => {
+            update();
+            return { finished: Promise.resolve() };
+        });
+        Object.defineProperty(document, 'startViewTransition', {
+            configurable: true,
+            value: startViewTransition,
+        });
+        new ButtonToggleContent();
+
+        document.querySelector('button')!.click();
+
+        expect(startViewTransition).toHaveBeenCalledTimes(1);
+        expect(label.innerHTML).toBe('Close');
     });
 
     it('interpolates the button width between label states', () => {
