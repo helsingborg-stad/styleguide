@@ -141,11 +141,21 @@ $_observe-breakpoint-md: 768px;
     }
 }
 
-.#{$c}.#{$c}--has-overlay .#{$c}__image::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-color: tokens.getRawValue($c, "color--alpha");
+.#{$c}.#{$c}--has-overlay {
+    .#{$c}__image {
+        z-index: 0;
+    }
+
+    .#{$c}__content {
+        z-index: 1;
+    }
+
+    .#{$c}__image::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: tokens.getRawValue($c, "color--alpha");
+    }
 }
 
 .#{$c}.#{$c}--has-overlay .#{$c}__title,
