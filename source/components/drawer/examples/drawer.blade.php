@@ -12,7 +12,7 @@
     'horizontalPlacement' => 'right',
     'verticalPlacement' => 'top',
     'backdrop' => true,
-    'animation' => 'slide-in-right',
+    'animation' => 'slide-right',
 ])
     @drawer([
         'label' => 'Close',

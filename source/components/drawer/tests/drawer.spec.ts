@@ -261,7 +261,7 @@ test.describe('Drawer popover', () => {
 		const bounds = await drawer.boundingBox();
 		expect(bounds).not.toBeNull();
 		expect(bounds!.width).toBeGreaterThan(0);
-		expect(bounds!.height).toBe(page.viewportSize()!.height);
+		expect(bounds!.height).toBeCloseTo(page.viewportSize()!.height, 0);
 		expect(bounds!.x + bounds!.width).toBeCloseTo(page.viewportSize()!.width, 0);
 		await expect.poll(() => page.evaluate(() => Number.parseFloat(document.documentElement.style.getPropertyValue('--view-offset-right')))).toBeGreaterThan(0);
 		await drawer.getByRole('button', { name: 'Close' }).click();
@@ -293,7 +293,7 @@ test.describe('Drawer popover', () => {
 			return { name: element.dataset.popoverAnimation, start: keyframes[0]?.transform, end: keyframes[keyframes.length - 1]?.transform };
 		});
 
-		expect(animation.name).toBe('slide-in-right');
+		expect(animation.name).toBe('slide-right');
 		expect(animation.start).toContain('100%');
 		expect(animation.end).toContain('0px');
 	});

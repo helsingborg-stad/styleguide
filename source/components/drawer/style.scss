@@ -202,6 +202,10 @@ $_: "c-drawer";
     background-color: tokens.getRawValue($_, "color--alpha");
 }
 
-[popover] > .c-drawer + .drawer-overlay {
+[popover][data-popover-animation="slide-right"]:has(>.c-drawer) {
+    --popover-animation-start-transform-x: 100%;
+}
+
+[popover]>.c-drawer+.drawer-overlay {
     display: none;
 }
