@@ -26,6 +26,11 @@
     inherits: true;
 }
 
+@property --inherit-link-color {
+    syntax: "*";
+    inherits: true;
+}
+
 @property --inherit-padding {
     syntax: "*";
     inherits: false;
