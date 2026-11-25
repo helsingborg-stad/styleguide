@@ -61,7 +61,6 @@
                     'title' => 'Welcome to the City',
                     'content' => 'A modern, accessible and inclusive digital experience built for everyone.',
                     'background' => 'primary',
-                    'textColor' => 'light',
                     'height' => 'sm',
                     'hasPlaceholder' => false
                 ])

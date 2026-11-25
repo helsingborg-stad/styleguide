@@ -116,19 +116,6 @@ $_observe-breakpoint-md: 768px;
     }
 }
 
-.#{$c}.#{$c}--text-light {
-    color: #fff; // TODO: remove hardcoded color in favor of tokens.
-
-    .c-button {
-        --inherit-color-background: #fff;
-        --inherit-color-contrast: #000;
-    }
-}
-
-.#{$c}.#{$c}--text-dark {
-    color: #000; // TODO: remove hardcoded color in favor of tokens.
-}
-
 .#{$c}.#{$c}--height {
 
     &-full-screen {
@@ -142,6 +129,8 @@ $_observe-breakpoint-md: 768px;
 }
 
 .#{$c}.#{$c}--has-overlay {
+    color: tokens.getRawValue($c, "color--alpha-contrast");
+
     .#{$c}__image {
         z-index: 0;
     }
@@ -161,6 +150,16 @@ $_observe-breakpoint-md: 768px;
 .#{$c}.#{$c}--has-overlay .#{$c}__title,
 .#{$c}.#{$c}--has-overlay .#{$c}__text {
     color: tokens.getRawValue($c, "color--alpha-contrast");
+}
+
+.#{$c}.#{$c}--has-overlay .#{$c}__title a {
+    color: inherit;
+
+    &:hover,
+    &:focus,
+    &:active {
+        color: inherit;
+    }
 }
 
 .#{$c}.#{$c}--highlight {

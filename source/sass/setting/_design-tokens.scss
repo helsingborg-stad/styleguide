@@ -37,7 +37,6 @@
     // ========================================================================
     --container-width-multiplier: 160;
     --container-width: calc(var(--base) * var(--container-width-multiplier));
-
     --container-width-wide-multiplier: 1.25;
     --container-width-wide: calc(var(--container-width) * var(--container-width-wide-multiplier));
 

@@ -900,7 +900,7 @@
         ]
       }
     ],
-    "description": "Wrap the drawer in a popover and connect a trigger button to the popover ID. The popover controls placement, animation, backdrop and visibility.",
+    "description": "A drawer includes its own popover. Connect an external trigger to its generated ID using popovertarget.",
     "tags": [
       "drawer",
       "component"

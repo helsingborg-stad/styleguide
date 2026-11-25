@@ -5,7 +5,6 @@
         'layout'        => 'split',
         'image'         => 'https://picsum.photos/id/1040/1080/720',
         'stretch'       => true,
-        'textColor'     => 'dark',
         'textAlignment' => 'top'
     ])
         @card([

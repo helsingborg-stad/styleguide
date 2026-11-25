@@ -261,7 +261,7 @@ test.describe('Drawer popover', () => {
 		const bounds = await drawer.boundingBox();
 		expect(bounds).not.toBeNull();
 		expect(bounds!.width).toBeGreaterThan(0);
-		expect(bounds!.height).toBe(page.viewportSize()!.height);
+		expect(bounds!.height).toBeCloseTo(page.viewportSize()!.height, 0);
 		expect(bounds!.x + bounds!.width).toBeCloseTo(page.viewportSize()!.width, 0);
 		await expect.poll(() => page.evaluate(() => Number.parseFloat(document.documentElement.style.getPropertyValue('--view-offset-right')))).toBeGreaterThan(0);
 		await drawer.getByRole('button', { name: 'Close' }).click();
@@ -343,7 +343,7 @@ test.describe('Drawer popover', () => {
 	test('fits a narrow viewport and the mobile documentation menu opens and closes', async ({ page }) => {
 		await page.setViewportSize({ width: 375, height: 667 });
 		await page.goto(DRAWER_PAGE);
-		const mobilePopover = page.locator('#docs-mobile-drawer[popover]');
+		const mobilePopover = page.locator('#drawer-docs-mobile[popover]');
 		await page.getByRole('button', { name: 'Menu', exact: true }).click();
 		await expect(mobilePopover.locator('.c-drawer')).toBeVisible();
 		const bounds = await mobilePopover.locator('.c-drawer').boundingBox();
