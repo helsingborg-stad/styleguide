@@ -2,7 +2,7 @@ import type { CreateMarkerInterface, CreatePopupInterface, IconOptions, MarkerIn
 import type { CreateMarker, MarkerConfig } from './openstreetmapInterface';
 
 class Marker implements CreateMarker {
-	private static readonly iconSprite = new URL(/* @vite-ignore */ './icons/material-symbols-outlined.svg', import.meta.url).href;
+	private static readonly iconSprite = '/assets/dist/icons/material-symbols-outlined.svg';
 	/**
 	 * @param markerCreator - Factory used to create map marker instances.
 	 * @param popupCreator  - Factory used to create popup instances bound to markers.

@@ -900,7 +900,7 @@
         ]
       }
     ],
-    "description": "The Drawer component provides a reusable pattern for drawer in the interface.",
+    "description": "A drawer includes its own popover. Connect an external trigger to its generated ID using popovertarget.",
     "tags": [
       "drawer",
       "component"

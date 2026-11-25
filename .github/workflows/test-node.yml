@@ -61,6 +61,9 @@ jobs:
           path: test-results/jest.xml
           reporter: jest-junit
           fail-on-error: false
+      - name: Summarize Jest results
+        if: ${{ !cancelled() }}
+        run: php .github/scripts/junit-summary.php 'Jest results' test-results/jest.xml
       - name: Upload Jest report and coverage
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -108,7 +111,9 @@ jobs:
       - name: Run TypeScript typecheck
         id: typecheck
         continue-on-error: true
-        run: npm run typecheck
+        run: |
+          set -o pipefail
+          npm run typecheck 2>&1 | tee /tmp/typecheck-output.log
       - name: Run Stylelint
         id: stylelint
         continue-on-error: true
@@ -123,6 +128,16 @@ jobs:
             echo '| TypeScript | ${{ steps.typecheck.outcome }} |'
             echo '| Stylelint | ${{ steps.stylelint.outcome }} |'
           } >> "$GITHUB_STEP_SUMMARY"
+          for file in /tmp/typecheck-output.log stylelint.log; do
+            if [ -s "$file" ]; then
+              echo "<details><summary>$(basename "$file")</summary>" >> "$GITHUB_STEP_SUMMARY"
+              echo '' >> "$GITHUB_STEP_SUMMARY"
+              echo '```text' >> "$GITHUB_STEP_SUMMARY"
+              tail -n 120 "$file" >> "$GITHUB_STEP_SUMMARY"
+              echo '```' >> "$GITHUB_STEP_SUMMARY"
+              echo '</details>' >> "$GITHUB_STEP_SUMMARY"
+            fi
+          done
       - name: Fail when a static check failed
         if: ${{ !cancelled() }}
         run: |

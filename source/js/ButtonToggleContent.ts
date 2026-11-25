@@ -1,4 +1,5 @@
 export default class ButtonToggleContent {
+    private static registeredToggles: WeakSet<Element> = new WeakSet();
     private labelAttr: string;
     private iconAttr: string;
     private toggles: Element[];
@@ -11,7 +12,7 @@ export default class ButtonToggleContent {
         this.toggles = [];
         this.viewTransitionId = 0;
         this.widthAnimations = new WeakMap();
-
+        
         this.init();
         this.setupMutationObserver();
     } 
@@ -20,11 +21,39 @@ export default class ButtonToggleContent {
         this.toggles = Array.from(document.querySelectorAll(`[${this.labelAttr}], [${this.iconAttr}]`));
 
         this.toggles.forEach((toggle: Element) => {
-            toggle.addEventListener(
-                'click',
-                () => this.handleToggleClick(toggle)
-            );
+            this.registerToggle(toggle);
         });
+    }
+
+    private registerToggle(toggle: Element): void {
+        if (ButtonToggleContent.registeredToggles.has(toggle)) {
+            return;
+        }
+
+        ButtonToggleContent.registeredToggles.add(toggle);
+        const popoverId = toggle.getAttribute('popovertarget');
+        const popover = popoverId ? document.getElementById(popoverId) : null;
+
+        if (popover?.hasAttribute('popover')) {
+            let isOpen = false;
+            popover.addEventListener('toggle', (event: Event) => {
+                const newState = (event as ToggleEvent).newState;
+                if (newState !== 'open' && newState !== 'closed') {
+                    return;
+                }
+
+                const shouldBeOpen = newState === 'open';
+                if (shouldBeOpen === isOpen) {
+                    return;
+                }
+
+                this.handleToggleClick(toggle);
+                isOpen = shouldBeOpen;
+            });
+            return;
+        }
+
+        toggle.addEventListener('click', () => this.handleToggleClick(toggle));
     }
 
     private handleToggleClick = (toggle: Element): void => {
@@ -72,9 +101,14 @@ export default class ButtonToggleContent {
                 toggle.setAttribute(this.iconAttr, iconAttrVal);
             }
         };
-        const targetWidth = this.measureTargetWidth(toggleElement, updateContent, restoreContent);
+        const { targetWidth, contentDimensionsMatch } = this.measureTargetWidth(
+            toggleElement,
+            contentElements,
+            updateContent,
+            restoreContent
+        );
         const updateWithTransition = (update: () => void): void => {
-            if (contentElements.length === 0 || !this.canUseViewTransitions()) {
+            if (contentElements.length === 0 || !contentDimensionsMatch || !this.canUseViewTransitions()) {
                 update();
                 this.playFallbackTransition(contentElements);
                 return;
@@ -133,14 +167,24 @@ export default class ButtonToggleContent {
 
     private measureTargetWidth(
         element: HTMLElement,
+        contentElements: Element[],
         updateContent: () => void,
         restoreContent: () => void
-    ): number {
+    ): { targetWidth: number; contentDimensionsMatch: boolean } {
+        const initialDimensions = contentElements.map((contentElement) => {
+            const { width, height } = contentElement.getBoundingClientRect();
+            return { width, height };
+        });
         updateContent();
         const targetWidth = element.getBoundingClientRect().width;
+        const contentDimensionsMatch = contentElements.every((contentElement, index) => {
+            const { width, height } = contentElement.getBoundingClientRect();
+            return Math.abs(width - initialDimensions[index].width) < 1 &&
+                Math.abs(height - initialDimensions[index].height) < 1;
+        });
         restoreContent();
 
-        return targetWidth;
+        return { targetWidth, contentDimensionsMatch };
     }
 
     private animateWidth(
@@ -219,16 +263,17 @@ export default class ButtonToggleContent {
                     const addedNodes: Node[] = Array.from(mutation.addedNodes);
                     const toggles: Element[] = addedNodes.reduce((acc: Element[], node: Node) => {
                         if (node instanceof HTMLElement) {
+                            if (node.matches(`[${this.labelAttr}], [${this.iconAttr}]`)) {
+                                acc.push(node);
+                            }
+
                             acc.push(...Array.from(node.querySelectorAll(`[${this.labelAttr}], [${this.iconAttr}]`)));
                         }
 
                         return acc;
                     }, []);
                     toggles.forEach((toggle: Element) => {
-                        toggle.addEventListener(
-                            'click',
-                            () => this.handleToggleClick(toggle)
-                        );
+                        this.registerToggle(toggle);
                     });
                     this.toggles = [...this.toggles, ...toggles];
                 }

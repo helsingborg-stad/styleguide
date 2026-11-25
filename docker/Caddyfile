@@ -1,0 +1,33 @@
+{
+	# TLS terminates at the cluster ingress before requests reach this container.
+	auto_https off
+	admin off
+
+	# Do not size PHP workers from the Kubernetes node's CPU count. Keep a
+	# small, fixed classic-mode pool that matches the pod allocation; override
+	# with environment variables if the deployment is given more CPU.
+	frankenphp {
+		num_threads {$FRANKENPHP_NUM_THREADS:4}
+		max_threads {$FRANKENPHP_MAX_THREADS:4}
+
+		# Keep diagnostic details in the container log, never in HTTP responses.
+		php_ini display_errors Off
+		php_ini display_startup_errors Off
+		php_ini html_errors Off
+		php_ini log_errors On
+		php_ini error_log /proc/self/fd/2
+		php_ini error_reporting E_ALL
+	}
+}
+
+:8080 {
+	# Only public/ is web-accessible. vendor/, source/, views/, cache/ and the
+	# PHP bootstrap files live one level up and are never served.
+	root * /app/public
+	encode zstd gzip
+
+	# php_server serves existing files and falls back to the front controller.
+	# This replaces the Apache/OpenLiteSpeed .htaccess rewrite rules, which
+	# Caddy does not read.
+	php_server
+}

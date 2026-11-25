@@ -4,8 +4,6 @@
     'layout'    => 'full-width',
     'image'     => 'https://picsum.photos/id/28/1920/1080',
     'background' => 'primary',
-    'textColor' => 'light',
-    'overlay'   => 'dark',
     'buttons'   => [
         [
             'href' => 'https://getmunicipio.com',

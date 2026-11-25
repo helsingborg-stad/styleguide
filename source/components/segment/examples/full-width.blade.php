@@ -4,8 +4,6 @@
     'layout'            => 'full-width',
     'image'             => 'https://picsum.photos/id/342/2896/1944',
     'background'        => 'primary',
-    'textColor'         => 'light',
-    'overlay'           => 'dark',
     'textAlignment'     => 'center',
 ])
 @endsegment

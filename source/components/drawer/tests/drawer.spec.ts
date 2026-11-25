@@ -17,8 +17,8 @@ const FAB_TRIGGER_LABEL = 'Open component customizer';
 const COMPONENT_SELECT = '#db-component-select';
 const FAB_PANEL_OPEN_CLASS = 'c-fab__panel--open';
 const CUSTOMIZER_PANEL = '.db-builder-customizer';
-const DRAWER_TARGET = '[data-component="drawer"]';
-const OVERLAY_TARGET = '.drawer-overlay';
+const DRAWER_POPOVER = '#drawer-123[popover]';
+const DRAWER_TARGET = `${DRAWER_POPOVER} > [data-component="drawer"]`;
 const LAYOUT_CATEGORY_HEADER = '.db-category-header';
 const COLORS_CATEGORY_HEADER = '.db-category-header';
 const ELEVATION_CATEGORY_HEADER = '.db-category-header';
@@ -95,6 +95,16 @@ async function getContrastRatio(locator: Locator): Promise<number> {
 			const normalized = normalizeColor(candidate).trim().toLowerCase();
 			if (!normalized) {
 				return null;
+			}
+
+			const srgbMatch = normalized.match(/^color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:\s*\/\s*([\d.]+))?\)$/);
+			if (srgbMatch) {
+				return {
+					r: Number(srgbMatch[1]) * 255,
+					g: Number(srgbMatch[2]) * 255,
+					b: Number(srgbMatch[3]) * 255,
+					a: srgbMatch[4] === undefined ? 1 : Number(srgbMatch[4]),
+				};
 			}
 
 			const rgbaMatch = normalized.match(/^rgba?\(([^)]+)\)$/);
@@ -227,18 +237,163 @@ async function changeControlValue(controlRow: Locator): Promise<void> {
 }
 
 /**
- * Opens the drawer so overlay and elevation visuals are active.
+ * Opens the example drawer using its native popover trigger.
  */
 async function openDrawer(page: Page): Promise<void> {
-	const drawerElement = page.locator(DRAWER_TARGET).first();
-	await drawerElement.evaluate((el) => {
-		el.classList.add('is-open');
-		el.setAttribute('aria-hidden', 'false');
+	await page.getByRole('button', { name: 'Toggle drawer' }).click();
+	await expect(page.locator(DRAWER_POPOVER)).toBeVisible();
+}
+
+test.describe('Drawer popover', () => {
+	test('opens at the viewport edge and closes using the close button, Escape, and light dismiss', async ({ page }) => {
+		await page.goto(DRAWER_PAGE);
+		const popover = page.locator(DRAWER_POPOVER);
+		const drawer = page.locator(DRAWER_TARGET);
+		const trigger = page.getByRole('button', { name: 'Toggle drawer' });
+
+		await expect(popover).toBeHidden();
+		await trigger.click();
+		await expect(drawer).toBeVisible();
+		await expect.poll(async () => {
+			const bounds = await drawer.boundingBox();
+			return bounds ? Math.abs(bounds.x + bounds.width - page.viewportSize()!.width) : Infinity;
+		}).toBeLessThan(1);
+		const bounds = await drawer.boundingBox();
+		expect(bounds).not.toBeNull();
+		expect(bounds!.width).toBeGreaterThan(0);
+		expect(bounds!.height).toBeCloseTo(page.viewportSize()!.height, 0);
+		expect(bounds!.x + bounds!.width).toBeCloseTo(page.viewportSize()!.width, 0);
+		await expect.poll(() => page.evaluate(() => Number.parseFloat(document.documentElement.style.getPropertyValue('--view-offset-right')))).toBeGreaterThan(0);
+		await drawer.getByRole('button', { name: 'Close' }).click();
+		await expect(popover).toBeHidden();
+		await expect.poll(() => page.evaluate(() => Number.parseFloat(document.documentElement.style.getPropertyValue('--view-offset-right')))).toBe(0);
+
+		await trigger.click();
+		await page.keyboard.press('Escape');
+		await expect(popover).toBeHidden();
+		await expect(trigger).toBeFocused();
+
+		await trigger.click();
+		await page.mouse.click(1, 1);
+		await expect(popover).toBeHidden();
 	});
 
-	await expect(drawerElement).toHaveClass(/is-open/);
-	await expect(page.locator(OVERLAY_TARGET).first()).toBeVisible();
-}
+	test('slides in from outside the viewport when opened', async ({ page }) => {
+		await page.goto(DRAWER_PAGE);
+		const popover = page.locator(DRAWER_POPOVER);
+		const animation = await popover.evaluate(async (element) => {
+			if (!(element instanceof HTMLElement)) throw new Error('Drawer popover must be an HTML element');
+			const trigger = document.querySelector<HTMLButtonElement>(`[popovertarget="${element.id}"]`)!;
+			trigger.click();
+			await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+			const transition = element.getAnimations().find((item) =>
+				item instanceof CSSTransition && item.transitionProperty === 'transform'
+			);
+			const keyframes = (transition?.effect as KeyframeEffect | null)?.getKeyframes() ?? [];
+			return { name: element.dataset.popoverAnimation, start: keyframes[0]?.transform, end: keyframes[keyframes.length - 1]?.transform };
+		});
+
+		expect(animation.name).toBe('slide-in-right');
+		expect(animation.start).toContain('100%');
+		expect(animation.end).toContain('0px');
+	});
+
+	test('preserves centered viewport popover placement', async ({ page }) => {
+		await page.goto('/components/popover');
+		const popover = page.locator('#popover-viewport-center-center');
+		await popover.evaluate((element) => {
+			if (!(element instanceof HTMLElement)) throw new Error('Popover must be an HTML element');
+			element.showPopover();
+		});
+
+		await expect.poll(async () => {
+			const bounds = await popover.boundingBox();
+			if (!bounds) return Infinity;
+			const viewport = page.viewportSize()!;
+			return Math.max(
+				Math.abs(bounds.x + bounds.width / 2 - viewport.width / 2),
+				Math.abs(bounds.y + bounds.height / 2 - viewport.height / 2),
+			);
+		}).toBeLessThan(1);
+	});
+
+	for (const { direction, start } of [
+		{ direction: 'up', start: 'translate3d(0px, -100%, 0px)' },
+		{ direction: 'down', start: 'translate3d(0px, 100%, 0px)' },
+	]) {
+		test(`slides a popover in from ${direction} by its full height`, async ({ page }) => {
+			await page.goto('/components/popover');
+			const popover = page.locator('#popover-viewport-center-center');
+			const keyframes = await popover.evaluate(async (element, animation) => {
+				if (!(element instanceof HTMLElement)) throw new Error('Popover must be an HTML element');
+				element.dataset.popoverAnimation = animation;
+				element.showPopover();
+				await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+				const transition = element.getAnimations().find((item) =>
+					item instanceof CSSTransition && item.transitionProperty === 'transform'
+				);
+				return (transition?.effect as KeyframeEffect | null)?.getKeyframes().map((frame) => frame.transform) ?? [];
+			}, `slide-in-${direction}`);
+
+			expect(keyframes[0]).toContain(start);
+			expect(keyframes[1]).toContain('translate3d(0px, 0px, 0px)');
+		});
+	}
+
+	test('fits a narrow viewport and the mobile documentation menu opens and closes', async ({ page }) => {
+		await page.setViewportSize({ width: 375, height: 667 });
+		await page.goto(DRAWER_PAGE);
+		const mobilePopover = page.locator('#drawer-docs-mobile[popover]');
+		await page.getByRole('button', { name: 'Menu', exact: true }).click();
+		await expect(mobilePopover.locator('.c-drawer')).toBeVisible();
+		const bounds = await mobilePopover.locator('.c-drawer').boundingBox();
+		expect(bounds!.width).toBeLessThanOrEqual(375);
+		expect(bounds!.height).toBe(667);
+		await mobilePopover.getByRole('button', { name: 'Close' }).click();
+		await expect(mobilePopover).toBeHidden();
+	});
+
+	test('wraps keyboard focus between available drawer controls in both directions', async ({ page }) => {
+		await page.goto(DRAWER_PAGE);
+		await openDrawer(page);
+		const drawer = page.locator(DRAWER_TARGET);
+		const first = drawer.getByRole('button', { name: 'Close' });
+		await drawer.evaluate((element) => {
+			element.insertAdjacentHTML('beforeend', `
+				<button id="drawer-last-control">Last control</button>
+				<button disabled>Disabled control</button>
+				<button hidden>Hidden control</button>
+				<div inert><button>Inert control</button></div>
+			`);
+		});
+		const last = drawer.locator('#drawer-last-control');
+
+		await last.focus();
+		await page.keyboard.press('Tab');
+		await expect(first).toBeFocused();
+		await page.keyboard.press('Shift+Tab');
+		await expect(last).toBeFocused();
+
+		await last.evaluate((element) => element.remove());
+		const search = drawer.locator('input[type="search"]');
+		await first.focus();
+		await page.keyboard.press('Tab');
+		await expect(search).toBeFocused();
+
+		await drawer.evaluate((element) => {
+			element.insertAdjacentHTML('beforeend', `
+				<input type="radio" name="drawer-choice" id="drawer-choice-first" checked>
+				<input type="radio" name="drawer-choice" id="drawer-choice-second">
+			`);
+		});
+		const selectedRadio = drawer.locator('#drawer-choice-first');
+		await selectedRadio.focus();
+		await page.keyboard.press('Tab');
+		await expect(first).toBeFocused();
+		await page.keyboard.press('Shift+Tab');
+		await expect(selectedRadio).toBeFocused();
+	});
+});
 
 test.describe('Drawer – design panel', () => {
 	/**
@@ -324,7 +479,7 @@ test.describe('Drawer – design panel', () => {
 		const colorsHeader = page.locator(COLORS_CATEGORY_HEADER).filter({ hasText: 'Colors' });
 		await expandCategory(colorsHeader);
 
-		const mainPanelColorRow = page.locator('db-control-row').filter({ hasText: MAIN_PANEL_COLOR_LABEL });
+		const mainPanelColorRow = page.locator('db-control-row[data-variable="--c-drawer--color--primary"]');
 		const drawerHeader = page.locator(`${DRAWER_TARGET} .c-drawer__header`).first();
 
 		const initialBackground = await getComputedCss(drawerHeader, 'background-color');
@@ -355,11 +510,11 @@ test.describe('Drawer – design panel', () => {
 		await expandCategory(colorsHeader);
 
 		const overlayColorRow = page.locator('db-control-row').filter({ hasText: OVERLAY_COLOR_LABEL });
-		const overlay = page.locator(OVERLAY_TARGET).first();
+		const overlay = page.locator(DRAWER_POPOVER);
 
-		const initialOverlayBackground = await getComputedCss(overlay, 'background-color');
+		const initialOverlayBackground = await overlay.evaluate((el) => getComputedStyle(el, '::backdrop').backgroundColor);
 		await changeControlValue(overlayColorRow);
-		const updatedOverlayBackground = await getComputedCss(overlay, 'background-color');
+		const updatedOverlayBackground = await overlay.evaluate((el) => getComputedStyle(el, '::backdrop').backgroundColor);
 
 		expect(updatedOverlayBackground).not.toBe(initialOverlayBackground);
 	});

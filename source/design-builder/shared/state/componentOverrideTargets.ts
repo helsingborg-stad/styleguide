@@ -10,9 +10,9 @@ export function getComponentOverrideTargets(element: HTMLElement, componentName:
 	}
 
 	const targets = [element];
-	const overlayElement = element.nextElementSibling;
-	if (overlayElement instanceof HTMLElement && overlayElement.classList.contains('drawer-overlay')) {
-		targets.push(overlayElement);
+	const popover = element.parentElement;
+	if (popover?.hasAttribute('popover')) {
+		targets.push(popover);
 	}
 
 	return targets;

@@ -171,18 +171,19 @@
                 @endlogotype
             @endlink
 
+            @button([
+                'text' => 'Menu',
+                'icon' => 'menu',
+                'style' => 'basic',
+                'color' => 'default',
+                'size' => 'md',
+                'attributeList' => ['popovertarget' => 'drawer-docs-mobile']
+            ])
+            @endbutton
             @drawer([
+                'id' => 'docs-mobile',
                 'label' => 'Close',
-                'attributeList' => [
-                    'data-move-to' => 'body'
-                ],
-                'toggleButtonData' => [
-                    'text' => 'Menu',
-                    'icon' => 'menu',
-                    'style' => 'basic',
-                    'color' => 'default',
-                    'size' => 'md'
-                ]
+                'attributeList' => ['data-component' => 'drawer'],
             ])
                 @slot('search')
                     @form(['action' => '/', 'method' => 'get', 'classList' => ['u-width--100']])

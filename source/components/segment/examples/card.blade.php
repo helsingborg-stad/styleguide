@@ -62,7 +62,6 @@
             'content'           => 'Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
             'layout'            => 'card',
             'image'             => 'https://picsum.photos/id/342/2896/1944',
-            'textColor'         => 'dark',
             'textAlignment'     => 'center'
         ])
         @endsegment
@@ -72,7 +71,6 @@
             'title'             => 'Fusce Amet Parturient Etiam (no image, placeholder enabled)',
             'content'           => 'Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
             'layout'            => 'card',
-            'textColor'         => 'dark',
             'textAlignment'     => 'center',
         ])
         @endsegment
@@ -82,7 +80,6 @@
             'title'             => 'Linked: Fusce Amet Parturient Etiam (no image, placeholder disabled)',
             'content'           => 'Curabitur blandit tempus porttitor. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.',
             'layout'            => 'card',
-            'textColor'         => 'dark',
             'textAlignment'     => 'center',
             'link'              => 'https://getmunicipio.com',
             'hasPlaceholder'    => false

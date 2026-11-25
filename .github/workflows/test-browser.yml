@@ -67,6 +67,9 @@ jobs:
           path: test-results/playwright.xml
           reporter: java-junit
           fail-on-error: false
+      - name: Summarize Playwright results
+        if: ${{ !cancelled() }}
+        run: php .github/scripts/junit-summary.php 'Playwright results' test-results/playwright.xml
       - name: Upload Playwright results
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

@@ -88,19 +88,23 @@ build.
 The image build, context rules, tag verification, and runtime entrypoint live in
 [`docker/`](docker/). GitHub requires the workflow entrypoint to remain in
 `.github/workflows/`, so the Composer release workflow remains independent.
-The image uses the
-[Helsingborg OpenLiteSpeed base](https://github.com/helsingborg-stad/ols-docker-hbg)
-version 0.1.2 with PHP 8.3, pinned by digest, and serves HTTP on port 80.
-The base image's entrypoint requires root to initialize OpenLiteSpeed, then
-starts its web workers as `nobody`; don't override the container user without
-replacing that startup contract. For Kubernetes, set the container image to
-the release tag or digest, expose container port 80, and configure an HTTP
-readiness probe on `/`. Terminate TLS and handle ingress at the cluster ingress
-controller, not in this container. Application files, including Composer
-dependencies, are owned by `ubuntu` (UID 1000). The image writes compiled Blade
-templates to `/var/www/vhosts/localhost/html/cache`; keep that directory
-writable by `ubuntu`. Only `/var/www/vhosts/localhost/html/public` is served as
-the web root.
+The image runs on [FrankenPHP](https://frankenphp.dev/) (`dunglas/frankenphp`
+1.13.4 with PHP 8.3), pinned by digest, and serves plain HTTP on port 8080.
+Server configuration lives in [`docker/Caddyfile`](docker/Caddyfile): only
+`/app/public` is served, existing files are returned directly, and every other
+path falls through to the `public/index.php` front controller. PHP errors go to
+the container log, never to responses. The PHP worker pool is fixed at 4
+threads; set `FRANKENPHP_NUM_THREADS` and `FRANKENPHP_MAX_THREADS` to change it.
+
+The container runs as `www-data` (UID 33) with no added capabilities.
+Application files under `/app` are owned by root and read-only to that user.
+Compiled Blade templates are written to the system temp dir
+(`/tmp/blade-cache`), so `/tmp` must stay writable; if you enable
+`readOnlyRootFilesystem`, mount an `emptyDir` at `/tmp`. The entrypoint checks
+this on startup and exits with an error if `/tmp` isn't writable. For Kubernetes, set the
+container image to the release tag or digest, expose container port 8080, and
+configure an HTTP readiness probe on `/`. Terminate TLS and handle ingress at
+the cluster ingress controller, not in this container.
 If the GHCR package is private, configure an `imagePullSecret` with read access
 to it.
 
@@ -110,7 +114,7 @@ before running:
 
 ```sh
 docker build -f docker/Dockerfile --secret id=github_token,env=GH_TOKEN -t styleguide:local .
-docker run --rm -p 8080:80 styleguide:local
+docker run --rm -p 8080:8080 styleguide:local
 ```
 
 GitHub Actions uses `GITHUB_TOKEN` as a build secret rather than storing package
