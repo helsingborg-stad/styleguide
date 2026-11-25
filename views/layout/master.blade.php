@@ -177,18 +177,13 @@
                 'style' => 'basic',
                 'color' => 'default',
                 'size' => 'md',
-                'attributeList' => ['popovertarget' => 'docs-mobile-drawer']
+                'attributeList' => ['popovertarget' => 'drawer-docs-mobile']
             ])
             @endbutton
-            @popover([
-                'id' => 'docs-mobile-drawer',
-                'horizontalPlacement' => 'right',
-                'verticalPlacement' => 'top',
-                'backdrop' => true,
-                'animation' => 'slide-right'
-            ])
             @drawer([
+                'id' => 'docs-mobile',
                 'label' => 'Close',
+                'attributeList' => ['data-component' => 'drawer'],
             ])
                 @slot('search')
                     @form(['action' => '/', 'method' => 'get', 'classList' => ['u-width--100']])
@@ -230,7 +225,6 @@
                     @endnav
                 @endslot
             @enddrawer
-            @endpopover
         @endheader
 
 
