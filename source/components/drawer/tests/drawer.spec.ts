@@ -293,7 +293,7 @@ test.describe('Drawer popover', () => {
 			return { name: element.dataset.popoverAnimation, start: keyframes[0]?.transform, end: keyframes[keyframes.length - 1]?.transform };
 		});
 
-		expect(animation.name).toBe('slide-right');
+		expect(animation.name).toBe('slide-in-right');
 		expect(animation.start).toContain('100%');
 		expect(animation.end).toContain('0px');
 	});
@@ -343,7 +343,7 @@ test.describe('Drawer popover', () => {
 	test('fits a narrow viewport and the mobile documentation menu opens and closes', async ({ page }) => {
 		await page.setViewportSize({ width: 375, height: 667 });
 		await page.goto(DRAWER_PAGE);
-		const mobilePopover = page.locator('#docs-mobile-drawer[popover]');
+		const mobilePopover = page.locator('#drawer-docs-mobile[popover]');
 		await page.getByRole('button', { name: 'Menu', exact: true }).click();
 		await expect(mobilePopover.locator('.c-drawer')).toBeVisible();
 		const bounds = await mobilePopover.locator('.c-drawer').boundingBox();

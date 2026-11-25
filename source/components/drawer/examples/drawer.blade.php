@@ -1,21 +1,14 @@
 @button([
-    'text' => "Toggle drawer",
+    'text' => 'Toggle drawer',
     'icon' => 'menu_open',
     'color' => 'primary',
-    'attributeList' => [
-        'popovertarget' => 'drawer-123'
-    ]
+    'attributeList' => ['popovertarget' => 'drawer-123'],
 ])
 @endbutton
-@popover([
-    'id' => 'drawer-123',
-    'horizontalPlacement' => 'right',
-    'verticalPlacement' => 'top',
-    'backdrop' => true,
-    'animation' => 'slide-right',
-])
     @drawer([
+        'id' => '123',
         'label' => 'Close',
+        'attributeList' => ['data-component' => 'drawer'],
         'classList' => ['c-drawer--duotone', 'c-drawer--primary', 'c-drawer--duotone-secondary'],
     ])
         @slot('search')
@@ -87,4 +80,3 @@
         @endslot
 
     @enddrawer
-@endpopover
