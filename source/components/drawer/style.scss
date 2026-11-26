@@ -2,10 +2,9 @@
 
 $_: "c-drawer";
 
-@include tokens.create($_, getComponentTokens($_));
+@include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
 
 /* Colors */
-
 .c-drawer {
     --#{$_}--shadow: #{tokens.getCalculatedValue($_, "shadow", 5)};
     --#{$_}--padding-multiplier: 2;
