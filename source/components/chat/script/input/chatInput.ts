@@ -3,6 +3,7 @@ import { sanitizeMarkup } from "../helper/sanitize";
 class ChatInput implements ChatInputInterface {
     private ACTION_BAR_ATTRIBUTE = 'data-js-chat-actions';
     private EMPTY_CLASS = 'is-empty';
+    private DISABLED_CLASS = 'is-disabled';
     private TYPING_DEBOUNCE_INTERVAL_MS = 1000;
 
     constructor(
@@ -56,6 +57,8 @@ class ChatInput implements ChatInputInterface {
 
     public disable(): void {
         this.input.setAttribute('contenteditable', 'false');
+        this.input.setAttribute('aria-disabled', 'true');
+        this.container.classList.add(this.DISABLED_CLASS);
         this.sendButton.setAttribute('disabled', 'true');
     }
 
@@ -69,6 +72,8 @@ class ChatInput implements ChatInputInterface {
 
     public enable(): void {
         this.input.setAttribute('contenteditable', 'true');
+        this.input.removeAttribute('aria-disabled');
+        this.container.classList.remove(this.DISABLED_CLASS);
         this.sendButton.removeAttribute('disabled');
     }
 
