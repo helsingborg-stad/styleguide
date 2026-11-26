@@ -13,6 +13,7 @@ interface ChatInterface {
 	showBanner(): void;
 	hideBanner(): void;
 	setBannerContent(content: string): void;
+	isBannerVisible(): boolean;
 	getBannerContent(): string;
 	disable(): void;
 	enable(): void;

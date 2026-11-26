@@ -20,6 +20,10 @@ class Banner implements BannerInterface {
         this.getBanner().classList.add(this.isVisibleClass);
 	}
 
+	public isVisible(): boolean {
+		return this.getBanner().classList.contains(this.isVisibleClass);
+	}
+
 	public getContent(): string {
 		return this.content ?? '';
 	}
