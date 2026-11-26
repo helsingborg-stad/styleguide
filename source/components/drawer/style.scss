@@ -2,8 +2,6 @@
 
 $_: "c-drawer";
 
-// @include tokens.create($prefix: $_, $tokens: getComponentTokens($_), $emitDefaultTokenVariables: true);
-
 @include tokens.create($_, getComponentTokens($_));
 
 /* Colors */
