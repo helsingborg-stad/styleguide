@@ -14,6 +14,8 @@ export default defineConfig({
 	fullyParallel: true,
 	forbidOnly: !!process.env.CI,
 	retries: process.env.CI ? 2 : 0,
+	// Hosted runners have 4 vCPUs; Playwright's default (half the cores) only uses 2.
+	workers: process.env.CI ? '100%' : undefined,
 	reporter: 'list',
 	use: {
 		baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:8000',
@@ -27,6 +29,9 @@ export default defineConfig({
 	],
 	webServer: {
 		command: 'php -S 127.0.0.1:8000 -t . router.php',
+		// The built-in server is single-process by default, so parallel workers would queue
+		// behind each other on every page load and its ~50 CSS/JS requests.
+		env: { PHP_CLI_SERVER_WORKERS: '8' },
 		url: 'http://127.0.0.1:8000',
 		reuseExistingServer: !process.env.CI,
 		stdout: 'ignore',
