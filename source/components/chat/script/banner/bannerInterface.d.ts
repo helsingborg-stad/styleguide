@@ -4,5 +4,5 @@ interface BannerInterface {
     show(): void;
     isVisible(): boolean;
     getContent(): string;
-    setContent(content: string): void;
+    setContent(content: Node): void;
 }

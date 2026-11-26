@@ -5,7 +5,7 @@ class Banner implements BannerInterface {
 	public constructor(
 		private bannerElement: HTMLElement,
 	) {
-		this.content = this.bannerElement.textContent ?? null;
+		this.content = this.bannerElement.innerHTML ?? null;
 	}
 
 	public getBanner(): HTMLElement {
@@ -28,10 +28,11 @@ class Banner implements BannerInterface {
 		return this.content ?? '';
 	}
 
-    public setContent(content: string): void
+    public setContent(content: Node): void
     {
-        this.content = content;
-        this.getBanner().textContent = content;
+        this.getBanner().replaceChildren(content);
+
+        this.content = this.getBanner().innerHTML;
     }
 }
 
