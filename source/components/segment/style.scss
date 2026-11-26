@@ -143,6 +143,8 @@ $_observe-breakpoint-md: 768px;
         content: "";
         position: absolute;
         inset: 0;
+        z-index: 1;
+        pointer-events: none;
         background-color: tokens.getRawValue($c, "color--alpha");
     }
 }
