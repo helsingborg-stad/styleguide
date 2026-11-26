@@ -310,9 +310,9 @@ CSS),
         Stopping inherited context
     @endtypography
     @typography(['element' => 'p'])
-        Use <code>@{{inheritboundry}}</code> to stop styleguide <code>--inherit-*</code> hooks from reaching the enclosed content. Like <code>@{{scope}}</code>, it adds an attribute to each top-level element without introducing a wrapper. Hooks set again inside the boundary can still pass to their descendants.
+        Use <code>@{{inheritboundary}}</code> to stop styleguide <code>--inherit-*</code> hooks from reaching the enclosed content. Like <code>@{{scope}}</code>, it adds an attribute to each top-level element without introducing a wrapper. Hooks set again inside the boundary can still pass to their descendants.
     @endtypography
-    <pre><code>@{{inheritboundry}}
+    <pre><code>@{{inheritboundary}}
     &lt;div&gt;Content with its own context&lt;/div&gt;
-@{{endinheritboundry}}</code></pre>
+@{{endinheritboundary}}</code></pre>
 @stop

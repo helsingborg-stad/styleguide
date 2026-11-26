@@ -1,8 +1,8 @@
 {
   "$schema": "../../component-schema.json",
   "apiVersion": 1,
-  "name": "Inherit Boundry",
-  "slug": "inheritboundry",
+  "name": "Inherit Boundary",
+  "slug": "inheritboundary",
   "tokens": [],
   "description": "Stops inherited styleguide context at the top-level elements of its content.",
   "tags": ["inheritance", "boundary", "context"],
