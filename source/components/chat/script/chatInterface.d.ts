@@ -12,7 +12,7 @@ interface ChatInterface {
 	getPendingMessage(): MessageInterface | null;
 	showBanner(): void;
 	hideBanner(): void;
-	setBannerContent(content: string): void;
+	setBannerContent(content: Node): void;
 	getBannerContent(): string;
 	disable(): void;
 	enable(): void;

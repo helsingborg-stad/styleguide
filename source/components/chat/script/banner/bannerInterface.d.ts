@@ -3,5 +3,5 @@ interface BannerInterface {
     hide(): void;
     show(): void;
     getContent(): string;
-    setContent(content: string): void;
+    setContent(content: Node): void;
 }
