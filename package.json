@@ -5,8 +5,7 @@
     "description": "",
     "scripts": {
         "test": "jest --watchman=false --coverage --maxWorkers=$(node -e \"console.log(Math.max(1, Math.floor(require('os').cpus().length / 2)))\")",
-        "test:css-validator": "RUN_W3C_CSS_VALIDATION=true jest --watchman=false --runInBand source/validators/CssBuiltOutputValidation.test.ts",
-        "test:css-validator:warnings": "RUN_W3C_CSS_VALIDATION=true RUN_W3C_CSS_VALIDATION_WARNINGS=true jest --watchman=false --runInBand source/validators/CssBuiltOutputValidation.test.ts",
+        "test:css-validator": "RUN_CSS_VALIDATION=true jest --watchman=false --runInBand source/validators/CssBuiltOutputValidation.test.ts",
         "test:js-console-validator": "RUN_JS_BUILT_OUTPUT_CONSOLE_VALIDATION=true jest --watchman=false --runInBand source/validators/JsBuiltOutputConsoleValidation.test.ts",
         "test:watch": "jest --watchAll",
         "test:e2e": "playwright test",
@@ -64,6 +63,7 @@
         "concurrently": "^9.2.1",
         "consola": "^2.15.3",
         "cssnano": "^5.0.17",
+        "csstree-validator": "^4.0.1",
         "esbuild": "0.25.12",
         "jest": "^30.0.5",
         "jest-environment-jsdom": "^30.0.5",

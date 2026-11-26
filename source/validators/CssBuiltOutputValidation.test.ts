@@ -1,246 +1,42 @@
 /** @jest-environment node */
 
-import { execFile } from 'node:child_process';
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
-import os from 'node:os';
+import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { promisify } from 'node:util';
-import { type CssValidatorIgnoreRule, cssValidatorIgnoreList } from './cssValidatorIgnoreList';
-
-interface ValidatorManifest {
-	[entryName: string]: string;
-}
 
 interface ValidatorIssue {
-	context?: string;
+	column?: number;
 	line?: number;
 	message?: string;
-	type?: string;
+	details?: string;
+	property?: string;
 }
 
-interface ValidatorResponse {
-	cssvalidation?: {
-		errors?: ValidatorIssue[];
-		result?: {
-			errorcount?: number;
-			warningcount?: number;
-		};
-		warnings?: ValidatorIssue[];
-	};
-}
+const { validate } = require('csstree-validator') as { validate: (css: string, filename: string) => ValidatorIssue[] };
 
-interface BundleValidationResult {
-	bundle: string;
-	sourceBundles: CssSourceBundle[];
-	issues: Array<ValidatorIssue & { severity: 'error' | 'warning' }>;
-	ignoredIssues: Array<ValidatorIssue & { severity: 'error' | 'warning' }>;
-	responseSummary: {
-		errorcount?: number;
-		warningcount?: number;
-	};
-}
-
-interface CssSourceBundle {
-	bundle: string;
-	startLine: number;
-	endLine: number;
-}
-
-interface ConcatenatedCssBundles {
-	cssSource: string;
-	sourceBundles: CssSourceBundle[];
-}
-
-const execFileAsync = promisify(execFile);
 const projectRoot = path.resolve(__dirname, '..', '..');
-const manifestPath = path.join(projectRoot, 'assets', 'dist', 'manifest.json');
-const validatorUrl = 'https://jigsaw.w3.org/css-validator/validator?output=json';
-const validatorTestEnabled = process.env.RUN_W3C_CSS_VALIDATION === 'true';
-const includeValidatorWarnings = process.env.RUN_W3C_CSS_VALIDATION_WARNINGS === 'true';
-const cssValidationIt = validatorTestEnabled ? it : it.skip;
-
-/**
- * Returns built CSS bundles listed in the Vite manifest.
- */
-async function getBuiltCssBundles(): Promise<string[]> {
-	const manifestRaw = await readFile(manifestPath, 'utf8');
-	const manifest = JSON.parse(manifestRaw) as ValidatorManifest;
-
-	return Object.entries(manifest)
-		.filter(([entryName, assetPath]) => entryName.startsWith('css/') && assetPath.endsWith('.css'))
-		.map(([, assetPath]) => path.join(projectRoot, 'assets', 'dist', assetPath));
-}
-
-/**
- * Posts CSS to the W3C validator using multipart form input.
- * The validator's x-www-form-urlencoded text endpoint is currently unstable.
- */
-async function validateCssSource(bundlePath: string, sourceBundles: CssSourceBundle[], cssSource: string): Promise<BundleValidationResult> {
-	const tempDirectory = await mkdtemp(path.join(os.tmpdir(), 'styleguide-css-validator-'));
-	const tempCssPath = path.join(tempDirectory, path.basename(bundlePath));
-	await writeFile(tempCssPath, cssSource, 'utf8');
-
-	let stdout = '';
-	let stderr = '';
-
-	try {
-		const result = await execFileAsync('curl', ['-sS', '--connect-timeout', '10', '--max-time', '45', '-X', 'POST', '-F', `text=<${tempCssPath}`, '-F', 'output=json', validatorUrl.replace('?output=json', '')], {
-			maxBuffer: 20 * 1024 * 1024,
-		});
-
-		stdout = result.stdout;
-		stderr = result.stderr;
-	} finally {
-		await rm(tempDirectory, { force: true, recursive: true });
-	}
-
-	if (stderr.trim().length > 0) {
-		throw new Error(`CSS validator request failed for ${path.basename(bundlePath)}: ${stderr.trim()}`);
-	}
-
-	let parsed: ValidatorResponse;
-
-	try {
-		parsed = JSON.parse(stdout) as ValidatorResponse;
-	} catch {
-		const responsePreview = stdout.slice(0, 500).trim();
-		throw new Error([`CSS validator returned a non-JSON response for ${path.basename(bundlePath)}.`, 'Response preview:', responsePreview.length > 0 ? responsePreview : '[empty response]'].join('\n'));
-	}
-
-	const errors = (parsed.cssvalidation?.errors ?? []).map((issue) => ({ ...issue, severity: 'error' as const }));
-	const warnings = (parsed.cssvalidation?.warnings ?? []).map((issue) => ({ ...issue, severity: 'warning' as const }));
-	const issues = includeValidatorWarnings ? [...errors, ...warnings] : errors;
-	const ignoredWarnings = includeValidatorWarnings ? [] : warnings;
-	const ignoredIssues = issues.filter((issue) => shouldIgnoreIssue(issue, getSourceBundle(issue, sourceBundles), cssValidatorIgnoreList));
-	const remainingIssues = issues.filter((issue) => !shouldIgnoreIssue(issue, getSourceBundle(issue, sourceBundles), cssValidatorIgnoreList));
-
-	return {
-		bundle: bundlePath,
-		sourceBundles,
-		ignoredIssues: [...ignoredWarnings, ...ignoredIssues],
-		issues: remainingIssues,
-		responseSummary: {
-			errorcount: parsed.cssvalidation?.result?.errorcount,
-			warningcount: parsed.cssvalidation?.result?.warningcount,
-		},
-	};
-}
-
-/** Concatenates CSS entries into one validator payload while retaining their source boundaries. */
-async function concatenateCssBundles(bundles: string[]): Promise<ConcatenatedCssBundles> {
-	const sourceBundles: CssSourceBundle[] = [];
-	const sources: string[] = [];
-	let currentLine = 1;
-
-	for (const bundle of bundles) {
-		const cssSource = await readFile(bundle, 'utf8');
-		const sourceLineCount = cssSource.split('\n').length;
-
-		sourceBundles.push({
-			bundle,
-			startLine: currentLine + 1,
-			endLine: currentLine + sourceLineCount,
-		});
-		sources.push(`/* Source: ${path.relative(projectRoot, bundle)} */\n${cssSource}`);
-		currentLine += sourceLineCount + 1;
-	}
-
-	return { cssSource: sources.join('\n'), sourceBundles };
-}
-
-/** Resolves a W3C line number back to the generated CSS bundle that supplied it. */
-function getSourceBundle(issue: ValidatorIssue, sourceBundles: CssSourceBundle[]): string | undefined {
-	if (!issue.line) {
-		return undefined;
-	}
-
-	return sourceBundles.find(({ startLine, endLine }) => issue.line! >= startLine && issue.line! <= endLine)?.bundle;
-}
-
-/**
- * Checks whether a validator issue matches one of the configured ignore rules.
- */
-function shouldIgnoreIssue(issue: ValidatorIssue & { severity: 'error' | 'warning' }, bundlePath: string | undefined, ignoreRules: CssValidatorIgnoreRule[]): boolean {
-	const normalizedMessage = issue.message ? normalizeValidatorText(issue.message) : undefined;
-	const normalizedContext = issue.context ? normalizeValidatorText(issue.context) : undefined;
-
-	return ignoreRules.some((rule) => {
-		const normalizedRuleMessage = normalizeValidatorText(rule.messageIncludes);
-		const normalizedRuleContext = rule.contextIncludes ? normalizeValidatorText(rule.contextIncludes) : undefined;
-
-		if (rule.type && rule.type !== issue.severity) {
-			return false;
-		}
-
-		const ruleBundle = rule.bundle;
-		if (ruleBundle && !bundlePath?.includes(ruleBundle)) {
-			return false;
-		}
-
-		if (!normalizedMessage?.includes(normalizedRuleMessage)) {
-			return false;
-		}
-
-		if (normalizedRuleContext && !normalizedContext?.includes(normalizedRuleContext)) {
-			return false;
-		}
-
-		return true;
-	});
-}
-
-/**
- * Normalizes typographic punctuation so ignore matching can stay ASCII.
- */
-function normalizeValidatorText(value: string): string {
-	return value
-		?.replace(/[\u2018\u2019]/g, "'")
-		?.replace(/[\u201C\u201D]/g, '"')
-		?.replace(/\s+/g, ' ')
-		.trim();
-}
-
-/**
- * Formats the validator result into a failure message with ignored issues included for visibility.
- */
-function formatFailureMessage(results: BundleValidationResult[]): string {
-	return results
-		.filter((result) => result.issues.length > 0)
-		.map((result) => {
-			const relativeBundlePath = path.relative(projectRoot, result.bundle);
-			const activeIssues = result.issues
-				.map((issue) => {
-					const lineSuffix = issue.line ? ` line ${issue.line}` : '';
-					const contextSuffix = issue.context ? `\n  Context: ${issue.context}` : '';
-					return `- [${issue.severity}]${lineSuffix} ${issue.message ?? 'Unknown issue'}${contextSuffix}`;
-				})
-				.join('\n');
-
-			return [
-				`${relativeBundlePath}`,
-				`Reported errors: ${result.responseSummary.errorcount ?? 0}, warnings: ${result.responseSummary.warningcount ?? 0} (${result.ignoredIssues.length} suppressed by ignore list)`,
-				`Remaining issues:\n${activeIssues}`,
-			].join('\n');
-		})
-		.join('\n\n');
-}
+const distDirectory = path.join(projectRoot, 'assets', 'dist');
+const cssValidationIt = process.env.RUN_CSS_VALIDATION === 'true' ? it : it.skip;
 
 describe('CssBuiltOutputValidation', () => {
-	cssValidationIt(
-		'validates built CSS bundles against the W3C validator',
-		async () => {
-			const bundles = await getBuiltCssBundles();
+	cssValidationIt('validates built CSS bundles with CSSTree', async () => {
+		const manifest = JSON.parse(await readFile(path.join(distDirectory, 'manifest.json'), 'utf8')) as Record<string, string>;
+		const bundles = Object.entries(manifest)
+			.filter(([entryName, assetPath]) => entryName.startsWith('css/') && assetPath.endsWith('.css'));
+		expect(bundles.length).toBeGreaterThan(0);
 
-			expect(bundles.length).toBeGreaterThan(0);
+		const results = await Promise.all(bundles.map(async ([name, assetPath]) => {
+			const bundlePath = path.join(distDirectory, assetPath);
+			return { name, errors: validate(await readFile(bundlePath, 'utf8'), bundlePath) };
+		}));
+		const errors = results.flatMap(({ name, errors }) => errors.map((issue) => ({ name, issue })));
 
-			const combinedCss = await concatenateCssBundles(bundles);
-			const result = await validateCssSource(path.join(projectRoot, 'assets', 'dist', 'css', 'combined.css'), combinedCss.sourceBundles, combinedCss.cssSource);
-			const resultsWithIssues = result.issues.length > 0 ? [result] : [];
-
-			if (resultsWithIssues.length > 0) {
-				throw new Error(formatFailureMessage(resultsWithIssues));
-			}
-		},
-		300000,
-	);
+		if (errors.length > 0) {
+			const details = errors.map(({ name, issue }) => [
+				`- ${name}${issue.line ? ` (line ${issue.line}${issue.column ? `, column ${issue.column}` : ''})` : ''}: ${issue.message ?? 'Unknown error'}`,
+				issue.property ? `  Property: ${issue.property}` : '',
+				issue.details ? `  Details: ${issue.details}` : '',
+			].filter(Boolean).join('\n')).join('\n');
+			throw new Error(`CSSTree reported ${errors.length} CSS error(s).\n${details}`);
+		}
+	}, 300000);
 });
