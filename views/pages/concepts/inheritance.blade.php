@@ -305,4 +305,14 @@ CSS),
         ])
         @endtabs
     @endpaper
+
+    @typography(['variant' => 'h2', 'element' => 'h2'])
+        Stopping inherited context
+    @endtypography
+    @typography(['element' => 'p'])
+        Use <code>@{{inheritboundry}}</code> to stop styleguide <code>--inherit-*</code> hooks from reaching the enclosed content. Like <code>@{{scope}}</code>, it adds an attribute to each top-level element without introducing a wrapper. Hooks set again inside the boundary can still pass to their descendants.
+    @endtypography
+    <pre><code>@{{inheritboundry}}
+    &lt;div&gt;Content with its own context&lt;/div&gt;
+@{{endinheritboundry}}</code></pre>
 @stop

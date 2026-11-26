@@ -1962,6 +1962,25 @@
     "requiredBy": [],
     "icon": "image"
   },
+  "inheritboundry": {
+    "$schema": "../../component-schema.json",
+    "apiVersion": 1,
+    "name": "Inherit Boundry",
+    "slug": "inheritboundry",
+    "tokens": [],
+    "description": "Stops inherited styleguide context at the top-level elements of its content.",
+    "tags": [
+      "inheritance",
+      "boundary",
+      "context"
+    ],
+    "similarComponents": [
+      "scope"
+    ],
+    "requires": [],
+    "requiredBy": [],
+    "icon": "layers_clear"
+  },
   "inlinecsswrapper": {
     "$schema": "../../component-schema.json",
     "apiVersion": 1,
