@@ -61,7 +61,11 @@ class Chat implements ChatInterface {
 		this.banner.hide();
 	}
 
-	public setBannerContent(content: string): void {
+	public isBannerVisible(): boolean {
+		return this.banner.isVisible();
+	}
+
+	public setBannerContent(content: Node): void {
 		this.banner.setContent(content);
 	}
 
