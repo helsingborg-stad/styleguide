@@ -1159,6 +1159,14 @@
 					"default": "color-mix(in srgb, var(--color--success-contrast) var(--color--border-mix-amount), var(--color--success))"
 				},
 				{
+					"variable": "--color--success-alt",
+					"label": "Success Alt",
+					"description": "Manual companion token for alternate success surfaces.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--success-contrast) var(--color--alt-mix-amount), var(--color--success))"
+				},
+				{
 					"variable": "--color--warning",
 					"label": "Warning",
 					"type": "color",
@@ -1178,6 +1186,14 @@
 					"type": "color",
 					"locked": true,
 					"default": "color-mix(in srgb, var(--color--warning-contrast) var(--color--border-mix-amount), var(--color--warning))"
+				},
+				{
+					"variable": "--color--warning-alt",
+					"label": "Warning Alt",
+					"description": "Manual companion token for alternate warning surfaces.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--warning-contrast) var(--color--alt-mix-amount), var(--color--warning))"
 				},
 				{
 					"variable": "--color--danger",
@@ -1201,6 +1217,14 @@
 					"default": "color-mix(in srgb, var(--color--danger-contrast) var(--color--border-mix-amount), var(--color--danger))"
 				},
 				{
+					"variable": "--color--danger-alt",
+					"label": "Danger Alt",
+					"description": "Manual companion token for alternate danger surfaces.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--danger-contrast) var(--color--alt-mix-amount), var(--color--danger))"
+				},
+				{
 					"variable": "--color--info",
 					"label": "Info",
 					"type": "color",
@@ -1220,6 +1244,14 @@
 					"type": "color",
 					"locked": true,
 					"default": "color-mix(in srgb, var(--color--info-contrast) var(--color--border-mix-amount), var(--color--info))"
+				},
+				{
+					"variable": "--color--info-alt",
+					"label": "Info Alt",
+					"description": "Manual companion token for alternate info surfaces.",
+					"type": "color",
+					"locked": true,
+					"default": "color-mix(in srgb, var(--color--info-contrast) var(--color--alt-mix-amount), var(--color--info))"
 				}
 			]
 		}

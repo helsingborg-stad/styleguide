@@ -1,7 +1,7 @@
 {
     "type": {
         "heading": "Type",
-        "text": "The type parameter is meant to be seen as sort of severity indicator. It's value either success, info, warning or danger."
+        "text": "The type parameter is meant to be seen as sort of severity indicator. It's value either success, info, warning or danger. Set altColor to true to use the alternate shade of the state color (c-notice--alt)."
     },
     "icon": {
         "heading": "Icon",

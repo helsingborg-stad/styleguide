@@ -318,6 +318,7 @@
                         'companions' => [
                             ['var' => '--color--success-contrast', 'label' => 'Contrast', 'default' => '#ffffff', 'editable' => true, 'usage' => 'Text and icons on success surfaces.'],
                             ['var' => '--color--success-border', 'label' => 'Border', 'editable' => false, 'formula' => 'color-mix(in srgb, var(--color--success-contrast) var(--color--border-mix-amount), var(--color--success))', 'usage' => 'Outlines and hover states for success notices and badges.'],
+                            ['var' => '--color--success-alt', 'label' => 'Alt', 'editable' => false, 'formula' => 'color-mix(in srgb, var(--color--success-contrast) var(--color--alt-mix-amount), var(--color--success))', 'usage' => 'Alternate success surfaces, e.g. notices with the alt modifier.'],
                         ],
                     ],
                     [
@@ -325,6 +326,7 @@
                         'companions' => [
                             ['var' => '--color--warning-contrast', 'label' => 'Contrast', 'default' => '#2d2d2d', 'editable' => true, 'usage' => 'Dark text and icons on light warning surfaces.'],
                             ['var' => '--color--warning-border', 'label' => 'Border', 'editable' => false, 'formula' => 'color-mix(in srgb, var(--color--warning-contrast) var(--color--border-mix-amount), var(--color--warning))', 'usage' => 'Outlines and hover states for warning surfaces.'],
+                            ['var' => '--color--warning-alt', 'label' => 'Alt', 'editable' => false, 'formula' => 'color-mix(in srgb, var(--color--warning-contrast) var(--color--alt-mix-amount), var(--color--warning))', 'usage' => 'Alternate warning surfaces, e.g. notices with the alt modifier.'],
                         ],
                     ],
                     [
@@ -332,6 +334,7 @@
                         'companions' => [
                             ['var' => '--color--danger-contrast', 'label' => 'Contrast', 'default' => '#ffffff', 'editable' => true, 'usage' => 'Text and icons on danger surfaces.'],
                             ['var' => '--color--danger-border', 'label' => 'Border', 'editable' => false, 'formula' => 'color-mix(in srgb, var(--color--danger-contrast) var(--color--border-mix-amount), var(--color--danger))', 'usage' => 'Outlines and hover states for destructive surfaces.'],
+                            ['var' => '--color--danger-alt', 'label' => 'Alt', 'editable' => false, 'formula' => 'color-mix(in srgb, var(--color--danger-contrast) var(--color--alt-mix-amount), var(--color--danger))', 'usage' => 'Alternate danger surfaces, e.g. notices with the alt modifier.'],
                         ],
                     ],
                     [
@@ -339,6 +342,7 @@
                         'companions' => [
                             ['var' => '--color--info-contrast', 'label' => 'Contrast', 'default' => '#ffffff', 'editable' => true, 'usage' => 'Text and icons on info surfaces.'],
                             ['var' => '--color--info-border', 'label' => 'Border', 'editable' => false, 'formula' => 'color-mix(in srgb, var(--color--info-contrast) var(--color--border-mix-amount), var(--color--info))', 'usage' => 'Outlines and hover states for informational surfaces.'],
+                            ['var' => '--color--info-alt', 'label' => 'Alt', 'editable' => false, 'formula' => 'color-mix(in srgb, var(--color--info-contrast) var(--color--alt-mix-amount), var(--color--info))', 'usage' => 'Alternate info surfaces, e.g. notices with the alt modifier.'],
                         ],
                     ],
                 ],

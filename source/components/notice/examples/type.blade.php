@@ -49,3 +49,17 @@
     ]
 ])
 @endnotice
+
+@notice([
+    'type' => 'danger',
+    'altColor' => true,
+    'message' => [
+        'text' => 'Maecenas faucibus mollis interdum. Nullam quis risus eget urna mollis ornare vel eu leo.',
+    ],
+    'icon' => [
+        'name' => 'error',
+        'size' => 'md',
+        'color' => 'white'
+    ]
+])
+@endnotice

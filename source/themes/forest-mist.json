@@ -60,13 +60,17 @@
 	"--color--success": "#2f8a56",
 	"--color--success-contrast": "#ecfff3",
 	"--color--success-border": "color-mix(in srgb, var(--color--success-contrast) var(--color--border-mix-amount), var(--color--success))",
+	"--color--success-alt": "color-mix(in srgb, var(--color--success-contrast) var(--color--alt-mix-amount), var(--color--success))",
 	"--color--warning": "#a77b2c",
 	"--color--warning-contrast": "#2b210d",
 	"--color--warning-border": "color-mix(in srgb, var(--color--warning-contrast) var(--color--border-mix-amount), var(--color--warning))",
+	"--color--warning-alt": "color-mix(in srgb, var(--color--warning-contrast) var(--color--alt-mix-amount), var(--color--warning))",
 	"--color--danger": "#a24f4f",
 	"--color--danger-contrast": "#fff5f5",
 	"--color--danger-border": "color-mix(in srgb, var(--color--danger-contrast) var(--color--border-mix-amount), var(--color--danger))",
+	"--color--danger-alt": "color-mix(in srgb, var(--color--danger-contrast) var(--color--alt-mix-amount), var(--color--danger))",
 	"--color--info": "#327a95",
 	"--color--info-contrast": "#f1fbff",
-	"--color--info-border": "color-mix(in srgb, var(--color--info-contrast) var(--color--border-mix-amount), var(--color--info))"
+	"--color--info-border": "color-mix(in srgb, var(--color--info-contrast) var(--color--border-mix-amount), var(--color--info))",
+	"--color--info-alt": "color-mix(in srgb, var(--color--info-contrast) var(--color--alt-mix-amount), var(--color--info))"
 }
