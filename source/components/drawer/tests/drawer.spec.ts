@@ -245,6 +245,18 @@ async function openDrawer(page: Page): Promise<void> {
 }
 
 test.describe('Drawer popover', () => {
+	test('isolates inherited context inside the drawer while leaving the trigger outside', async ({ page }) => {
+		await page.goto(DRAWER_PAGE);
+		const trigger = page.getByRole('button', { name: 'Toggle drawer' });
+		const drawer = page.locator(DRAWER_TARGET);
+		await expect(drawer).toHaveAttribute('data-inherit-boundary', '');
+		await expect(trigger.locator('xpath=ancestor-or-self::*[@data-inherit-boundary]')).toHaveCount(0);
+		await page.locator(DRAWER_POPOVER).evaluate((element) => {
+			element.style.setProperty('--inherit-shadow', 'test-parent-value');
+		});
+		expect(await drawer.evaluate((element) => getComputedStyle(element).getPropertyValue('--inherit-shadow').trim())).toBe('');
+	});
+
 	test('opens at the viewport edge and closes using the close button, Escape, and light dismiss', async ({ page }) => {
 		await page.goto(DRAWER_PAGE);
 		const popover = page.locator(DRAWER_POPOVER);
