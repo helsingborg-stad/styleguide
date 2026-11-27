@@ -1,6 +1,8 @@
 // CSS has no prefix wildcard for custom properties. Keep this list in sync with
 // the public --inherit-* hooks, including those published through Sass mixins.
 
+// The entry emits these root-only resets in the final inherit-boundaries layer.
+// Descendants remain free to publish their own context.
 :where([data-inherit-boundary]) {
     --inherit-active: initial;
     --inherit-border: initial;

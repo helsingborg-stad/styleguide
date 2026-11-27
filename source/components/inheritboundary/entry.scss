@@ -1,4 +1,6 @@
 @use "sass:meta";
-@layer components {
+@use "../../sass/layers";
+
+@layer inherit-boundaries {
     @include meta.load-css("style");
 }

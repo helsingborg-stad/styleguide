@@ -534,6 +534,7 @@ The rules below are aligned with the validator tests in `source/validators/Tests
 
 - **Do use design tokens as the source of truth** in component styles.
 - **Do declare component token usage** in `source/components/<component>/component.json`.
+- **Do respect inheritance boundaries**: reserve the final `inherit-boundaries` layer for root resets, and exclude boundary roots and descendants from container rules that publish hooks to nested components. See [the cascade contract](docs/component-assets.md#inheritance-boundaries).
 - **Do namespace component CSS custom properties** so they remain component-scoped.
 - **Do declare each `--inherit-*` variable with `@property` and `inherits: false`** when used.
 - **Do keep JavaScript tests adjacent to the file under test** (`*.test.ts` / `*.test.js`).
