@@ -19,11 +19,12 @@
  * * * * * * * * * */
 
 @use "sass:meta";
+@use "layers";
 
 // ***************************************************************
 // *** Layers
 // ***************************************************************
-@layer wordpress, generic, elements, objects, components, icons, plugin, utilities, theme;
+// The shared layers module establishes order before any rules are emitted.
 
 // ***************************************************************
 // *** Settings

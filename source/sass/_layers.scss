@@ -1,0 +1,3 @@
+// Cascade contract: boundary resets outrank all normal layered declarations.
+// Share this prelude with standalone boundary assets so load order is safe.
+@layer wordpress, generic, elements, objects, components, icons, plugin, utilities, theme, inherit-boundaries;
