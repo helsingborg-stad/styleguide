@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6ae0d6e1ba086a250f8b33ee91fff9fc",
+    "content-hash": "5ccd24d0f727444c0855fe242119632a",
     "packages": [
         {
             "name": "brick/math",
@@ -342,16 +342,16 @@
         },
         {
             "name": "helsingborg-stad/component-library",
-            "version": "5.48.4",
+            "version": "5.49.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/helsingborg-stad/component-library.git",
-                "reference": "c2a56b18fab49e0283d2a234ce70398df2732093"
+                "reference": "1695346257064965c28228991c1eabb9be68788d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/c2a56b18fab49e0283d2a234ce70398df2732093",
-                "reference": "c2a56b18fab49e0283d2a234ce70398df2732093",
+                "url": "https://api.github.com/repos/helsingborg-stad/component-library/zipball/1695346257064965c28228991c1eabb9be68788d",
+                "reference": "1695346257064965c28228991c1eabb9be68788d",
                 "shasum": ""
             },
             "require": {
@@ -384,9 +384,9 @@
             "description": "A library of components for use in WordPress",
             "support": {
                 "issues": "https://github.com/helsingborg-stad/component-library/issues",
-                "source": "https://github.com/helsingborg-stad/component-library/tree/5.48.4"
+                "source": "https://github.com/helsingborg-stad/component-library/tree/5.49.0"
             },
-            "time": "2026-11-26T14:18:07+00:00"
+            "time": "2026-11-27T07:31:53+00:00"
         },
         {
             "name": "helsingborg-stad/material-design-icons-json-svg-font-reduced",
@@ -3814,12 +3814,12 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.2"
     },
-    "platform-dev": {},
-    "plugin-api-version": "2.9.0"
+    "platform-dev": [],
+    "plugin-api-version": "2.6.0"
 }
